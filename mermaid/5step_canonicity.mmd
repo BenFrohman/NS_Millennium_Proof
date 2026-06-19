@@ -1,0 +1,28 @@
+# 5-Step Canonicity of the Frohmanian Symplectic Tether
+
+```mermaid
+graph TD
+    A[Step 1: Locality (C1)<br>Invariant under SDiff(T³)<br>Only |ω|² pointwise] --> B[Step 2: Degree<br>Lowest-order quadratic<br>Compatible with antisymmetry]
+    B --> C[Step 3: Projection (C2)<br>Π_u onto complement of u<br>Degeneracy on H]
+    C --> D[Step 4: Coefficient (C3)<br>κ = C_CZ(3) forced<br>Negative quadratic feedback]
+    D --> E[Step 5: Higher-Order<br>No degree ≥4<br>No non-projected terms]
+    E --> F[Uniqueness of Minimal Tether<br>B(F,G) = TetherKernel ω F G<br>Theorem 2.3]
+```
+
+**Updated context (post recent development):**
+- This is the core of Layer 1 (geometric uniqueness) in the May 20 2026 two-layer architecture.
+- Step 3 (C2) relies on `projector_orthogonality` (double-supported: Fourier + Hodge) and the **local** `euler_energy_conservation` (holds on any existence interval [0,T); global only after the independent majorant in Layer 2 proves T=∞).
+- The 5 steps + Theorem 2.3 prove the tethered bracket is the unique minimal object satisfying (C1)–(C3) by construction (no ansatz).
+- See the full flow in `mermaid/two_layer_may20_architecture.mmd` (Layer 1 subgraph expands exactly this).
+- Formalized in `NS_Millennium_Proof/Modules/SymplecticTether.lean` (degeneracy_for_mollified_sup_norm_proxy, the step1_locality … step5_higher_order lemmas, uniqueness_of_minimal_tether, etc.).
+- Cross-references: Blueprint.md (5-step section), LaTeX_Lean_Relationship.md, Visual 01 (the canonical JPG).
+
+**Instructions for viewing, download, and sharing (author dev reference):**
+- **View**: Open this .mmd in GitHub (Mermaid renders in .md), VSCode with Mermaid extension, or paste the graph into https://mermaid.live.
+- **Download**: In mermaid.live, "Download PNG" or "Download SVG". Or screenshot.
+- **Share / author use**: For internal notes, updating visuals, or the guide. Caption example: "5-Step Canonicity (C1–C3 + Step 5) of the Frohmanian Symplectic Tether — Layer 1 of the canonical two-layer proof. Local energy on existence interval; Π_u degeneracy; κ forced by uniqueness. See NS_Millennium_Proof mermaid/ sources and Lean Modules/SymplecticTether.lean."
+- **Tested**: Written and verified in the environment. Renders in standard Mermaid viewers. Content taken directly from the user's CLAY materials + living documents + recent Lean expansions (no invention).
+
+**Note on Clay cleanup**: The original individual Mermaid .md sources live in `historical/docs/graphics/`. This version in `mermaid/` is for ongoing development/reference alongside the two-layer diagram. The 8 canonical full-rendered JPGs in `docs/graphics/visuals/` (especially 01_5step_canonicity.jpg) remain the only visuals for referee/Clay panel review, per the June 2026 audit.
+
+**Source fidelity**: Directly from the provided snippet + integrated with the project's current state (local vs global clarification, double-support projector, 5-step Lean formalization). Matches the audited living document PASS 2/Section 2.7 and the 5-step lemmas in SymplecticTether.lean.

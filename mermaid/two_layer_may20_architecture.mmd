@@ -1,0 +1,80 @@
+# Two-Layer May 20 2026 Architecture
+# Frohmanian Symplectic Tether Theorem (Global Regularity for 3D NS on T³)
+# Layer 1 (Geometric, SymplecticTether): Uniqueness of minimal tether FIRST
+# Layer 2 (Analytic, TetheredLyapunov): Independent majorant as FORCED corollary (non-circular)
+
+```mermaid
+flowchart TD
+    subgraph Layer1["Layer 1: Geometric Uniqueness (SymplecticTether.lean)"]
+        direction TB
+        C1["(C1) Locality / Invariance<br>under SDiff(T³)<br>Only |ω|² pointwise invariant"]
+        C2["(C2) Degeneracy on Kinetic Energy H<br>Π_u orthogonal to u<br>⟨Π_u (δF/δω), u⟩ = 0<br>Local energy conservation on [0,T)"]
+        C3["(C3) Controllable Negative Feedback<br>κ = C_CZ(3) forced by canonicity<br>Quartic weight produces -κ' ∫ |ω_ε|⁶"]
+        FiveStep["5-Step Canonicity + Uniqueness Theorem 2.3<br>Step1: Locality<br>Step2: Degree (lowest quadratic)<br>Step3: Projection (Π_u)<br>Step4: Coefficient (κ forced)<br>Step5: Higher-order exclusion"]
+        Jacobi["Explicit 9-Term Jacobi + CE 2-Cocycle<br>on reduced coadjoint orbit<br>IBP + div=0 cancellations"]
+        Degeneracy["TetheredBracket(F, H) = 0<br>for KineticEnergyHamiltonian H<br>Reproduces classical Euler reversible part"]
+        Tether["Frohmanian Symplectic Tether B(F,G)<br>Unique minimal bilinear antisymmetric<br>quadratic correction satisfying (C1)-(C3)"]
+    end
+
+    subgraph Local["Local Stage (on existence interval [0,T))"]
+        Energy["euler_energy_conservation<br>(purely local: holds for any smooth solution<br>on its interval of existence; NO global assumption yet)"]
+        IBP["integration_by_parts_on_torus<br>div_biot_savart_velocity"]
+    end
+
+    subgraph Layer2["Layer 2: Analytic Closure via Independent Majorant (TetheredLyapunov.lean)"]
+        direction TB
+        Mollify["Mollification ω_ε = ω * η_ε<br>M_ε(t) = ‖ω_ε‖_∞<br>ϕ transport eq: ∂t ϕ + u·∇ϕ = |ω|² , ϕ(0)=0"]
+        Sε["S_ε(t) = ∫ (½|ω_ε|² + (κ/4)|ω_ε|⁴) dλ<br>(quartic weight forced by C3/canonicity)"]
+        DiffIneq["key_differential_inequality<br>Derivation steps (first-principles):<br>1. d/dt S_ε : transport cancels (IBP + div u=0)<br>2. Viscous: -ν∫|∇ω_ε|² ≤ 0<br>3. Stretching: ≤ 4 C_CZ M_ε ∫ |ω_ε|⁴ ϕ_ε<br>4. Hölder (3/2,3) + Sobolev H¹↪L⁶<br>5. Young absorption ε=κ/4 (canonicity-forced)<br>→ d/dt S_ε ≤ C_abs (1 + M³ ‖ϕ‖_∞^{3/2}) - κ' ∫|ω_ε|⁶<br>ϕ_ε ≤ ∫_0^t M(s)² ds"]
+        Riccati["Independent Majorant ODE (autonomous, from t=0)<br>y' = C y² - κ'' y³ , y(0)=M_ε(0)<br>Phase plane: equilibria 0 (unstable), y*=C/κ'' (stable)<br>Global bound: y(t) ≤ max(y0, C/κ'') for all t≥0<br>(pure ODE theory, a priori, independent of NS solution)"]
+        Comparison["majorant_comparison_principle<br>M_ε(t) ≤ y(t) on [0,T)"]
+        Uniform["uniform_majorant_bound<br>Uniform control on mollified quantities"]
+        Cont["lemma_3_1_uniform_bound_and_continuation<br>Sup over compact subintervals [0,T] &lt; T*<br>→ uniform bound on |ω| on [0,T*)<br>→ no blow-up (BKM-type or mollified variant)"]
+        Global["T = ∞<br>Global smooth solution"]
+        Parabolic["Parabolic regularity upgrade<br>to classical smooth global solution"]
+    end
+
+    C1 --> C2
+    C2 --> C3
+    C3 --> FiveStep
+    FiveStep --> Tether
+    Tether --> Degeneracy
+    Jacobi --> Degeneracy
+    Energy --> Degeneracy
+    IBP --> Energy
+    Degeneracy --> Mollify
+    Mollify --> Sε
+    Sε --> DiffIneq
+    DiffIneq --> Riccati
+    Riccati --> Comparison
+    Comparison --> Uniform
+    Uniform --> Cont
+    Cont --> Global
+    Global --> Parabolic
+
+    subgraph Notes["Key Non-Circularity Safeguards"]
+        LocalOnly["All energy/IBP/div identities are LOCAL<br>to the existence interval [0,T).<br>Global extension ONLY after majorant proves T=∞."]
+        APriori["Majorant bound is a priori from ODE phase plane.<br>Introduced from t=0, before any NS global assumption."]
+        Forced["Majorant is FORCED by the tether (C3 + quartic weight)<br>— not postulated independently (a priori version was weaker)."]
+        RouteA["Route A / Chat rulings: derived by construction,<br>no ansatz, local-only energy, independent majorant from t=0."]
+    end
+
+    Notes -.-> Layer1
+    Notes -.-> Layer2
+```
+
+**See also (standalone detail):**
+- `5step_canonicity.mmd` — the exact 5-step subgraph the user supplied, with full instructions and Lean cross-refs.
+
+**Usage (for development / author reference):**
+- Paste into https://mermaid.live or render in VSCode/GitHub.
+- This captures the May 20 canonical order (geometric uniqueness theorem FIRST; analytic as forced corollary) + the local/global clarification + the explicit 5 steps of the differential inequality + Riccati analysis.
+- The 8 canonical JPGs (especially 07_two_layer_may20_architecture.jpg and 01_5step_canonicity.jpg) are the referee deliverables; these .mmd files are editable source for the author.
+
+**Source fidelity**: Synthesized from the user's CLAY documents, living documents, 2026-05-31 expansions, the exact 5-step Mermaid the user provided, and the recent derivations embedded in the Lean comments (key_differential_inequality, phase_plane_analysis_of_majorant_ODE, euler_energy_conservation clarifications, projector double support).
+
+**Pointers in code:**
+- TetheredLyapunov.lean (top comment)
+- (Add similar in SymplecticTether.lean if desired for the 5-step)
+
+**Note on Clay cleanup**: These live in `mermaid/` (dev scaffolding). The original sources are archived in `historical/docs/graphics/`. Only the 8 JPGs + `Visual_Graphics_Guide.md` are in the active referee tree.
