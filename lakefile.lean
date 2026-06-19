@@ -1,0 +1,26 @@
+import Lake
+open Lake DSL
+
+package NS_Millennium_Proof where
+  leanOptions := #[
+    ⟨`pp.unicode.fun, true⟩,
+    ⟨`autoImplicit, false⟩,
+    ⟨`relaxedAutoImplicit, false⟩
+  ]
+
+-- Current stable pin for Clay submission (reproducible, kernel-clean):
+-- Lean 4.30.0-rc1 + Mathlib @ v4.30.0-rc1 (official tag).
+-- Novel core must remain free of `Lean.trustCompiler`.
+require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "v4.30.0-rc1"
+
+@[default_target]
+lean_lib NS_Millennium_Proof where
+  roots := #[`NS_Millennium_Proof]
+  globs := #[.submodules `NS_Millennium_Proof]
+  -- The library uses Lean's module system (§5 of the Language Reference).
+  -- Individual .lean files are prefixed with `module` and use `public import` / `public meta import`
+  -- to control public API vs private implementation and meta-phase code (widgets, tactics).
+  -- This enables faster incremental builds and clearer separation of the novel geometric core
+  -- (public theorems) from classical black boxes (implementation details).
+set_option linter.unusedVariables false
+set_option linter.unusedVariables false
