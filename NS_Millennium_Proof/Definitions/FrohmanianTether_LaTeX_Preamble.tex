@@ -1,0 +1,49 @@
+% ============================================================
+% Frohmanian Tether Symbol - Recommended LaTeX Implementation
+% Per user's detailed guidance (2026-06-03)
+% ============================================================
+%
+% RECOMMENDED METHOD (Best practical choice for papers):
+% Clean, maintainable, works with pdflatex and lualatex.
+% Uses \mathfrak for a distinctive mathematical look.
+%
+% This is the sweet spot: easy + professional.
+% Adjust \mkern for perfect visual spacing.
+
+\newcommand{\FT}{\mathfrak{T}\mkern-1.5mu\mathfrak{F}}   % or use your actual drawn symbol
+\newcommand{\FTh}{\FT}
+
+% Usage examples:
+% The core object is the \FT.
+% The \FTh{} Theorem states that every smooth divergence-free initial
+% velocity field on \mathbb{T}^3 generates a unique globally smooth solution.
+
+% ------------------------------------------------------------
+% ALTERNATIVE: Unicode approach (modern, if using unicode-math + lualatex)
+% \usepackage{unicode-math}
+% \newcommand{\FT}{𝔉𝕋}   % or find a better precomposed ligature
+
+% ------------------------------------------------------------
+% ALTERNATIVE: TikZ for exact hand-drawn match (use sparingly, for figures)
+% \usepackage{tikz}
+% \newcommand{\FT}{%
+%   \begin{tikzpicture}[baseline=(char.base), scale=0.9]
+%     \node[inner sep=0pt] (char) at (0,0) {$\mathfrak{T}$};
+%     \node[inner sep=0pt, xshift=0.8pt] at (char.center) {$\mathfrak{F}$};
+%   \end{tikzpicture}%
+% }
+
+% ------------------------------------------------------------
+% Why this recommendation:
+% - Clean and easy to maintain
+% - Works in standard LaTeX setups
+% - You control the spacing
+% - Easy to evolve if a true custom font glyph becomes available later
+% - Matches the "Best Practical Method" in the provided LaTeX ligature techniques.
+
+% For the absolute best visual (professional font ligature), use fontspec + lualatex
+% with a custom stylistic set or font feature. Only pursue if typography is critical
+% and you have font design resources.
+
+% This preamble snippet should be included in the main LaTeX manuscript.
+% See also: Frohmanian_Tether_Naming_Symbol_Standard.md (copied locally).
