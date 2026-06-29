@@ -1,4 +1,17 @@
-/-!
+# Copyright Notice
+
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+
+**Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)
+
+This project contains original mathematical contributions by Benjamin Frohman, including the **Frohmanian Symplectic Tether** framework for the 3D incompressible Navier–Stokes equations (Millennium Prize Problem).
+
+All original modules (especially those under `ForMathlib/NS/` and `Modules/`) are the intellectual work of Benjamin Frohman.
+
+The project is released under the Apache License, Version 2.0 (see LICENSE file), unless otherwise noted in individual files.
+
+For formal priority and attribution purposes, this notice establishes the original authorship and date of the Frohmanian constructions (2026).
+
 # Phase 0.1: Precise Navier-Stokes Setup (Foundations)
 
 This module establishes the exact classical equations and local existence
@@ -26,7 +39,7 @@ def NS_PDE (u : ℝ → VelocityField) (p : ℝ → PressureField) (ν : ℝ) : 
   (∀ t x, ∂u/∂t (t,x) + (u t x · ∇)(u t x) + ∇(p t) x = ν * Δ(u t x)) ∧
   (∀ t x, div (u t) x = 0)
 
-/-- Local existence (standard parabolic theory). 
+/-- Local existence (standard parabolic theory).
     On [0, T*) with T* > 0 depending only on the H^s norm of u0 (s > 5/2),
     there exists a unique smooth solution. -/
 theorem local_existence
