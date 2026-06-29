@@ -9,8 +9,8 @@ This is proved here, in the geometric phase, before any estimates — per the
 non-circularity requirements in the living document and all PASS audits.
 -/
 
-import NS_Millennium_Proof.Lean_Formalization_2026_05_28.Modules.ArnoldGeometric
-import NS_Millennium_Proof.Lean_Formalization_2026_05_28.Modules.NS_Equations
+import Modules.ArnoldGeometric
+import Modules.NS_Equations
 
 namespace SymplecticTether
 
