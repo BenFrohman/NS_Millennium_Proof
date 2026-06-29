@@ -1,4 +1,4 @@
-/-!
+/-
 # ForMathlib.NS.Tether
 
 **Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
@@ -6,7 +6,7 @@
 **Original Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)
 
 This file contains original contributions by Benjamin Frohman as part of the
-Frohmanian Symplectic Tether framework for the Navier–Stokes Millennium Problem. 
+Frohmanian Symplectic Tether framework for the Navier–Stokes Millennium Problem.
 
 Released under Apache 2.0 license (see LICENSE file in project root).
 -/
