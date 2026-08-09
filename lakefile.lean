@@ -13,6 +13,13 @@ package NS_Millennium_Proof where
 -- Novel core must remain free of `Lean.trustCompiler`.
 require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "v4.30.0-rc1"
 
+-- Reusable, Mathlib-oriented lemmas as a standalone target so downstream
+-- projects can depend on just the general results without the novel core:
+--   lake build ForMathlib
+lean_lib ForMathlib where
+  roots := #[`ForMathlib]
+  globs := #[.submodules `ForMathlib]
+
 @[default_target]
 lean_lib NS_Millennium_Proof where
   roots := #[`NS_Millennium_Proof]
