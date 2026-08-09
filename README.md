@@ -1,31 +1,68 @@
-# ForMathlib
+# Frohmanian Symplectic Tether — 3D Navier–Stokes Global Regularity (Lean 4)
 
-This directory follows Terence Tao's standard hygiene pattern (as used in the PFR formalization and other projects).
+[![Lean CI](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
 
-- Lemmas placed here are intended to be **reusable and eventually upstreamed to Mathlib**.
-- Files in `ForMathlib/` should **not** import from the main `NS_Millennium_Proof` modules (to avoid circularity and keep them clean for PRs to mathlib).
-- Only put genuinely general results here (e.g., general facts about projections on divergence-free fields, inner product identities, etc.).
-- Novel, proof-specific lemmas stay in the main `SymplecticTether.lean`, `TetheredLyapunov.lean`, etc.
+A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem** on the periodic
+torus, together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
+a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
+tied to a Lyapunov/enstrophy argument.
 
-Current candidates for this directory (to be moved when they become sufficiently general):
-- Projection lemmas (`Pi_u` properties)
-- Certain inner product / cross product identities used in the classical bracket
+> ### Honest scope
+> This repository is a **priority-preserving, structured formalization artifact**. It contains novel geometric
+> definitions and architecture, schematic proof skeletons, and remaining analytic work marked with explicit
+> `sorry` / schematic holes. **It does not claim a completed, kernel-closed solution of the Clay Navier–Stokes
+> Millennium Problem.** Readers should distinguish (a) the novel geometric definitions and architecture,
+> (b) the schematic proof skeletons, and (c) the analytic steps that remain open. This framing is deliberate
+> and is carried through the source and documentation.
 
-See Tao's PFR repo (`PFR/ForMathlib/`) and his blog posts on formalization workflow for the philosophy.
+## Approach at a glance
 
-**Surface-level implementation note (no mathematical weakening):** 
-The current `import NS_Millennium_Proof.Modules.NS_Equations` in Projection.lean is a temporary development bridge only. 
-It exists solely because the explicit formulas in Pi_u / projector_orthogonality match *exactly* the L²-orthogonal projection 
-onto the complement of span{u} inside the divergence-free L² space as stated in the authoritative source materials 
-(Frohmanian_Tether_NS_Proof_Conversation_Summary.md §2.3, the complete chat history, and the 9-term Jacobi + (C2) 
-degeneracy arguments). 
+The proof is organized as a **two-layer, non-circular** architecture:
 
-The mathematical work is correct and has not been weakened, simplified, or altered in any way. 
-The import will be lifted to a pure Mathlib-only form (abstract Hilbert-space orthogonalProjection on the closed 
-divergence-free subspace) as an additive layer on top of the existing correct implementation, once the kernel 
-can elaborate cleanly. This is purely surface / implementation hygiene for the current pin and does not affect 
-the rigorous content, the 5-step canonicity, the 9-term expansions, the C_abs absorption, the independent majorant, 
-or any trace in the novel geometry.
+1. **Geometric layer** — a symplectic tether on coadjoint orbits, with three necessary conditions (C1)–(C3)
+   and a degeneracy result with respect to the kinetic-energy Hamiltonian (`Modules/SymplecticTether.lean`,
+   `Modules/ArnoldGeometric.lean`).
+2. **Analytic layer** — a tethered Lyapunov / enstrophy differential inequality in which higher-order
+   dissipation absorbs the nonlinear vorticity-stretching term (`Modules/TetheredLyapunov.lean`,
+   `Modules/IndependentMajorant.lean`), closing to global regularity (`Modules/GlobalRegularity.lean`).
 
-All complex calcs in SymplecticTether.lean and TetheredLyapunov.lean that depend on these lemmas remain fully 
-faithful to the user's materials.
+Reusable, potentially upstreamable lemmas live under [`ForMathlib/`](ForMathlib/README.md) following the
+hygiene pattern used in Tao's PFR project.
+
+## Repository structure
+
+```
+Modules/                 Core Lean modules (geometric + analytic layers)
+ForMathlib/              Reusable lemmas intended for eventual Mathlib upstreaming
+NS_Millennium_Proof/     Library root (Definitions, Modules, Skeleton, Widgets)
+Blueprint.md             Human-readable dependency graph and atomic statements
+LaTeX_Lean_Relationship.md   Mapping between LaTeX intuition and the Lean code
+AUTHORS.md / COPYRIGHT.md / HISTORY.md   Attribution and provenance
+lakefile.lean / lean-toolchain / lake-manifest.json   Build configuration
+```
+
+## Building
+
+Requires [`elan`](https://github.com/leanprover/elan) (the toolchain pin in `lean-toolchain` is fetched
+automatically). Mathlib is a dependency; fetch its prebuilt cache before building to avoid a multi-hour
+compile:
+
+```bash
+lake exe cache get   # download prebuilt Mathlib artifacts
+lake build           # build the project
+```
+
+The pinned toolchain is **Lean 4.30.0-rc1** with **Mathlib @ v4.30.0-rc1**.
+
+## Authorship, priority, and citation
+
+Original author and originator: **Benjamin Stanley Frohman** (see [`AUTHORS.md`](AUTHORS.md)). The named
+constructions in this repository (Frohmanian tether, tethered bracket, tethered Lyapunov, tethered nullifier,
+independent majorant) are original to this work. If you reference it, please cite via
+[`CITATION.cff`](CITATION.cff).
+
+## License
+
+[Apache License 2.0](LICENSE) © 2026 Benjamin Stanley Frohman.
