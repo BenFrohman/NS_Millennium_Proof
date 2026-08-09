@@ -1,0 +1,31 @@
+name: Build / bug report
+description: A build failure, elaboration error, or other defect
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Describe the problem. For build/elaboration errors, paste the exact message.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: File and declaration (and Blueprint.md section, if relevant)
+      placeholder: "Modules/GlobalRegularity.lean — global_regularity_for_NS"
+  - type: input
+    id: toolchain
+    attributes:
+      label: Toolchain
+      description: Output of `cat lean-toolchain`
+      placeholder: "leanprover/lean4:v4.30.0-rc1"
+  - type: checkboxes
+    id: steps
+    attributes:
+      label: Confirmations
+      options:
+        - label: "I ran `lake exe cache get` before `lake build`"
+        - label: "This is not one of the documented, intentional `sorry` / schematic holes"
