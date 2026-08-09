@@ -1,0 +1,64 @@
+name: Lean CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Cancel superseded runs on the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (lake)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install elan (Lean toolchain manager)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Report toolchain
+        run: |
+          cat lean-toolchain
+          lake --version
+          lean --version
+
+      - name: Fetch Mathlib build cache
+        run: lake exe cache get || echo "::warning::Mathlib cache miss; the build step will compile dependencies from source (slow)."
+
+      - name: Build project
+        run: lake build
+
+  structure:
+    name: Repository structure check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify required project files are present
+        run: |
+          set -e
+          fail=0
+          for f in lakefile.lean lean-toolchain lake-manifest.json LICENSE README.md; do
+            if [ -e "$f" ]; then echo "ok   $f"; else echo "MISS $f"; fail=1; fi
+          done
+          echo "--- core modules ---"
+          for m in Modules/NS_Equations.lean Modules/SymplecticTether.lean \
+                   Modules/TetheredLyapunov.lean Modules/GlobalRegularity.lean \
+                   Modules/IndependentMajorant.lean ForMathlib/NS/Tether.lean; do
+            if [ -e "$m" ]; then echo "ok   $m"; else echo "MISS $m"; fail=1; fi
+          done
+          exit $fail
+
+      - name: Confirm toolchain pin matches lakefile note
+        run: |
+          grep -q "leanprover/lean4:" lean-toolchain && echo "toolchain pin present: $(cat lean-toolchain)"
