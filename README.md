@@ -3,6 +3,7 @@
 [![Lean CI](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
+[![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
 
 A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem** on the periodic
 torus, together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
@@ -62,6 +63,10 @@ Original author and originator: **Benjamin Stanley Frohman** (see [`AUTHORS.md`]
 constructions in this repository (Frohmanian tether, tethered bracket, tethered Lyapunov, tethered nullifier,
 independent majorant) are original to this work. If you reference it, please cite via
 [`CITATION.cff`](CITATION.cff).
+
+## Support
+
+Independent research. If this corpus is useful: **[Sponsor on GitHub](https://github.com/sponsors/BenFrohman)**.
 
 ## License
 
