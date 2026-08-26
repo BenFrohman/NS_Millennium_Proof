@@ -504,7 +504,7 @@ public noncomputable def jacobiator (F G H : Functional) (ω : CoadjointOrbit) :
   let FG : Functional := fun ω' => TetheredBracket F G ω'
   TetheredBracket F GH ω + TetheredBracket G HF ω + TetheredBracket H FG ω
 
-theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbit) :
+public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbit) :
     jacobiator F G H ω = 0 := by
   -- REAL STATEMENT (to be restored when the correction sum is proved 0 by the explicit
   -- 9-term + IBP + cyclic + CE closure from the sources):
