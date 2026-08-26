@@ -514,120 +514,49 @@ The uniform bound is obtained a posteriori by supremum over all such intervals.
 - Comparison only uses local smoothness (Non-Circularity Checklist).
 -/
 
--- Supporting atomic lemma: the differential inequality after tether + absorption
+-- Supporting atomic lemma: the differential inequality after tether + absorption.
+-- Algebraic Young cancellation is a closed term. Remaining `sorry`s are the
+-- PDE identification (transport + viscous + CZ) and Hölder/Sobolev/Young
+-- hypotheses on real integrals — never `True`.
 lemma differential_inequality_after_tether_and_absorption
-    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (phi : T3 → ℝ) (C_abs : ℝ) :
+    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (phi : T3 → ℝ) (C_abs : ℝ)
+    (hCabs : 0 ≤ C_abs) :
     deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
       C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
         (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
       kappa' * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume := by
-  -- Full first-principles derivation (polished version from living document PASS 3/5 Section 3):
-
-  -- IMPORTANT EVOLUTION NOTE (May 20, 2026 canonical structure, per user-supplied comparison
-  -- from CSV diff table (4) and complete chat history):
-  -- This inequality is NOT an a-priori chosen majorant (as in the May 10–14 iterations).
-  -- It is the direct analytic corollary forced by the Frohmanian Symplectic Tether uniqueness
-  -- theorem (§2). The quartic weight in S_ε (or the transported-ϕ version) is the “direct
-  -- analytic counterpart” of the tether. The differential inequality and the Riccati ODE
-  -- y' = C y² − κ'' y³ emerge naturally from tether uniqueness (non-ad-hoc, canonical,
-  -- first-principles). Any other weight would violate degeneracy or fail to absorb.
-  -- This is the stronger May 20 form being formalized: tether uniqueness is the engine;
-  -- §3 is the corollary. The analytic skeleton (exact vorticity equation + quartic Lyapunov
-  -- + CZ + absorption + Riccati + BKM + parabolic regularity) is identical to the earlier
-  -- a-priori versions, but the justification is now canonical. Bootstrap is avoided by the
-  -- same mechanism (local Kato on finite [0,T]<T* + independent majorant introduced a priori
-  -- on that interval + non-circular sup-over-T lift). All traces to SymplecticTether.lean
-  -- (5-step canonicity, 9-term Jacobi, (C2) degeneracy via Π_u) are explicit.
-
-  -- 1. Transport cancellations (most detailed sub-calc so far)
-  have h_transport_cancellations : True := by
-    -- Sub-step 1.1–1.4: transport + IBP + div u =0 + periodicity on T³ ⇒ all convective terms cancel.
-    sorry   -- classical vector calculus on the torus (explicit from side tabs Full_Living_Document and Clarified_Blocks)
-
-  -- 2. Viscous dissipation (explicit energy identity)
-  have h_viscous_dissipation : True := by
-    -- −ν ∫ |∇ω_ε|² dλ ≤ 0 after two IBP.
-    sorry   -- standard parabolic energy dissipation (IBP written out; explicit from side tabs)
-
-  -- 3. Stretching bound (explicit CZ application at maximum point)
-  have h_stretching_bound : True := by
-    -- 4 C_CZ(3) M_ε(t) ∫ |ω_ε|⁴ ϕ_ε dλ (factor 4 from product rule on quartic weight).
-    sorry   -- classical CZ stretching estimate (coefficients now explicit; from side tabs)
-
-  -- 4. Hölder + Sobolev embedding (explicit constants)
-  have h_holder_sobolev : True := by
-    -- ∫ |ω_ε|⁴ ϕ_ε dλ ≤ C_Sob ‖ϕ_ε‖_∞ (∫ |ω_ε|⁶ dλ)^{2/3}.
-    sorry   -- classical functional analysis (Hölder + Sobolev; explicit from side tabs)
-
-  -- 5. Young absorption with the forced parameter ε = κ/4
-  have h_young_absorption : True := by
-    /-
-    Full Display of the Young Absorption Remainder Term and Constant Dependence Chain
-    (verbatim material supplied 2026-05-31)
-
-    After differentiating S_ε(t) and integrating by parts, the stretching contribution
-    produces a term bounded by 4 C_CZ(3) M_ε(t) ∫ |ω_ε|⁴ ϕ_ε dλ.
-
-    Apply Hölder (3/2, 3) + Sobolev H¹ ↪ L^6 (C_Sob):
-      ∫ |ω_ε|⁴ ϕ_ε dλ ≤ C_Sob ‖ϕ_ε‖_L^∞ (∫ |ω_ε|⁶)^{2/3}.
-
-    Young with absorption ε = κ/4 (κ = C_CZ(3)) on the product M_ε · (∫ |ω_ε|⁴ ϕ_ε)
-    yields exactly
-      4 C_CZ(3) M_ε ∫ |ω_ε|⁴ ϕ_ε ≤ (κ/2) ∫ |ω_ε|⁶ + C_abs (1 + M_ε³ ‖ϕ_ε‖^{3/2}),
-    with C_abs = C_abs(C_CZ(3), C_Sob, C_GN, Y) fully traced as in the supplied text.
-    -/
-    -- Sub-step 5.1 (Hölder + Sobolev on the stretching term — full named from user materials)
-    have h_Holder_Sobolev_stretching : True := by
-      -- 4 * C_CZ(3) * M_ε * (∫ |ω_ε|⁴ ϕ_ε dλ) ≤ 4 * C_CZ(3) * M_ε * (C_Sob * ‖ϕ_ε‖_∞ * (∫ |ω_ε|⁶ dλ)^{2/3})
-      -- Hölder (3/2,3) on ∫ |ω|⁴ ϕ + Sobolev H¹(𝕋³) ↪ L^6(𝕋³) with constant C_Sob.
-      -- Exact exponents from the 3D Gagliardo–Nirenberg interpolation on the torus.
-      -- This is classical functional analysis (no novelty).
-      sorry   -- explicit from side tabs (the full display in the comment above is from 2026-05-31 user materials; classical; the inequality is the standard one used in BKM-type estimates)
-
-    -- Sub-step 5.2 (Young absorption with the canonically forced parameter ε = κ/4)
-    have h_Young_absorption_forced : True := by
-      -- 4 * C_CZ(3) * M_ε * (...) ≤ (κ/2) * ∫|ω|⁶ + C_abs * (1 + M³ ‖ϕ‖^{3/2})
-      -- (ε = κ/4 forced by canonicity; C_abs traced)
-      sorry   -- classical Young with forced parameter; tracing of C_abs from 2026-05-31 materials
-
-    -- Sub-step 5.3 (collection into closed inequality)
-    have h_collection_closed : True := by
-      -- dS_ε/dt ≤ C_abs (1 + M³ ‖ϕ‖^{3/2}) − κ' ∫ |ω|⁶
-      sorry   -- Chain + collection (feeds the independent majorant ODE)
-
-    exact h_collection_closed   -- the full named collection (no simplification)
-
-  -- 6. Final collection + lower-order absorption via classical kinetic energy
-  have h_collected_inequality : True := by
-    -- Sub-step 6.1: Adding the contributions from 1–5 produces
-    --     dS_ε/dt  ≤  C_abs (1 + M_ε³ ‖ϕ_ε‖_∞^{3/2})  − κ' ∫ |ω_ε|⁶ dλ   (κ' > 0).
-    -- Sub-step 6.2: Insert the a-priori bound on the auxiliary field
-    --     ‖ϕ_ε(t)‖_∞ ≤ ∫_0^t M_ε(s)² ds   (direct integration of the transport equation).
-    -- Sub-step 6.3: Use the Gagliardo–Nirenberg interpolation on T³
-    --     M_ε ≤ C_GN ‖ω_ε‖_6^{3/2} ‖ω_ε‖_2^{1/2} + C_GN ‖ω_ε‖_2
-    --     together with the classical kinetic-energy equality (which is uniformly bounded on
-    --     any finite existence interval by the local energy conservation identity).
-    -- Sub-step 6.4: All lower-order L² terms are absorbed into the leading quartic negative term
-    --     or into the universal C_abs, yielding the final closed differential inequality
-    --     that will be compared with the independent cubic majorant ODE.
-    -- Sub-step 6.1–6.4 made explicit (from user's 2026-05-31 materials):
-    have h_phi_bound : True := by
-      -- ‖ϕ_ε‖_∞ ≤ ∫_0^t M_ε(s)^2 ds (transported-ϕ version).
-      sorry   -- classical transport estimate (maximum principle)
-
-    have h_GN_interpolation : True := by
-      -- M_ε ≤ C_GN ‖ω‖_6^{3/2} ‖ω‖_2^{1/2} + ...
-      sorry   -- standard GN + kinetic energy bound
-
-    have h_lower_order_absorption : True := by
-      -- lower L² absorbed using tether-forced κ.
-      sorry   -- absorption of lower-order terms using the tether-forced coefficient
-
-    -- Final closed form:
-    -- dS_ε/dt ≤ C_abs (1 + M_ε³ ‖ϕ_ε‖_∞^{3/2}) − κ' ∫ |ω_ε|⁶ dλ
-    sorry   -- collection complete; feeds directly into the independent majorant ODE
-
-  sorry   -- The chain 1–6 (with all sub-steps now named) is the complete first-principles derivation.
+  set ωε := fun s => MollifiedVorticity ω ε s
+  set I6 := ∫ x, ‖ωε t x‖ ^ 6 ∂volume
+  set I4 := ∫ x, ‖ωε t x‖ ^ 4 * |phi x| ∂volume
+  set M := MollifiedSupNorm ω ε t
+  set phiLinf := ⨆ x, |phi x|
+  have hI6 : 0 ≤ I6 :=
+    integral_nonneg fun _ => pow_nonneg (norm_nonneg _) _
+  -- Transport cancellations + viscous dissipation ≤ 0 + CZ stretching
+  -- (product-rule factor 4 on the quartic weight). Paper §3.
+  have hIdent :
+      deriv (fun s => LyapunovS (ωε s) phi) t ≤
+        4 * CalderonZygmundConstant3D * M * I4 - kappa * I6 := by
+    sorry
+  -- Hölder (3/2, 3) + Sobolev + Young with the forced parameter ε_abs = κ/4.
+  have hYoung :
+      4 * CalderonZygmundConstant3D * M * I4 ≤
+        (kappa / 4) * I6 + C_abs * (M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) := by
+    sorry
+  have hAlg :=
+    AnalyticPipeline.youngs_absorption_elimination M I4 I6 phiLinf C_abs hI6 hYoung
+  have hgap :
+      C_abs * (M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) ≤
+        C_abs * (1 + M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) :=
+    mul_le_mul_of_nonneg_left (le_add_of_nonneg_left zero_le_one) hCabs
+  calc
+    deriv (fun s => LyapunovS (ωε s) phi) t
+        ≤ 4 * CalderonZygmundConstant3D * M * I4 - kappa * I6 := hIdent
+    _ ≤ C_abs * (M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) - (3 / 4 : ℝ) * kappa * I6 := hAlg
+    _ ≤ C_abs * (1 + M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) - kappa' * I6 := by
+        have hκ' : kappa' = (3 / 4 : ℝ) * kappa := rfl
+        rw [hκ']
+        linarith [hgap]
 
 -- Mollified vorticity (standard mollifier)
 /-- Alias of `MollifiedVorticity` (single mollifier definition). -/
@@ -636,18 +565,12 @@ def mollified_vorticity (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) : Vor
 
 -- Key differential inequality after tether + mollification + absorption
 lemma key_differential_inequality (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ)
-    (phi : T3 → ℝ) (C_abs : ℝ) :
+    (phi : T3 → ℝ) (C_abs : ℝ) (hCabs : 0 ≤ C_abs) :
     deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
       C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
         (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
       kappa' * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume :=
-  differential_inequality_after_tether_and_absorption ε ω t phi C_abs
-
-/-- Duplicate statement retained only as a comment target; the live lemma is above. -/
-lemma key_differential_inequality_docstring_anchor (_ε : ℝ) (_ω : ℝ → VorticityField) (_t : ℝ) :
-    True := by
-  -- The real inequality is `key_differential_inequality`.
-  trivial
+  differential_inequality_after_tether_and_absorption ε ω t phi C_abs hCabs
 
 private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : ℝ → VorticityField) (_t : ℝ) :
   -- See docs/Clarified_Degeneracy_and_Majorant_Blocks.lean (BLOCK 3) for the
