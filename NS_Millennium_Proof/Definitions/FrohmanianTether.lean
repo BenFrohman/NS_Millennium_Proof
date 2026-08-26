@@ -5,18 +5,20 @@ public import NS_Millennium_Proof.Modules.SymplecticTether
 /-!
 # Central Definitions / Naming for the Frohmanian Tether (Canonical)
 
-**Original Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)  
+**Original Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)
 **Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
 
-Core object: `FrohmanianTether` / 𝔉𝕋  
-Main theorem: `frohmanian_tether_theorem`
+WIP (2026-08-26): kernel-path naming restore. In-progress formalization.
+
+Core object: `TetheredBracket` / `TetherKernel` / notation 𝔉𝕋.
+Main theorem: `frohmanian_tether_theorem`.
+
+ASCII identifiers only for defs (`TetheredBracket`, `TetherKernel`, `kappa`).
+`FT` / `TF` / `BF` are not used.
 -/
 
 namespace FrohmanianTether
 
-public noncomputable abbrev FT := TetheredBracket
-
-notation "𝔉𝕋" => FT
-notation "FT" => FT
+-- Notation `𝔉𝕋` is declared on `TetheredBracket` in SymplecticTether.
 
 end FrohmanianTether

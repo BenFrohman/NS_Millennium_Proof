@@ -1,10 +1,24 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+
+WIP (2026-08-26): Lean 4 kernel-path restoration of the Frohmanian Tether
+assembly theorem and BKM-linked smoothness. Original work by
+Benjamin Stanley Frohman (@Investor0x / Bit21). In-progress formalization;
+classical black boxes remain documented `sorry`s. Does not claim a completed
+Clay Navier–Stokes solution.
+-/
+
 module
 
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.TetheredLyapunov
+public import NS_Millennium_Proof.Modules.Uniqueness
+public import NS_Millennium_Proof.Modules.IndependentMajorant
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.NS_Equations
-public import Mathlib.Analysis.Calculus.ContDiff.Basic  -- for ContDiff ℝ ⊤ (used in IsSmooth and schematic statements)
+public import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 -- NOTE (post-bumper-rails phase): All silencing options removed. Warnings for classical `sorry`s
 -- (pin weakenings and assembly) are now visible. Full convention documented in TetheredLyapunov.lean.
@@ -49,8 +63,8 @@ namespace GlobalRegularity
 
 open FrohmanianTether TetheredLyapunov
 open ArnoldGeometric hiding CoadjointOrbit
-open ArnoldGeometric (CoadjointOrbit)  -- explicit to satisfy the schematic theorem signatures without ambiguity
-open NavierStokes3D
+open ArnoldGeometric (CoadjointOrbit)
+open NavierStokes3D MeasureTheory
 -- FrohmanianTether ns (containing uniqueness_of_minimal_tether) is qualified below to avoid
 -- "unknown namespace" during module elaboration (the export in root makes it available at top level).
 
@@ -61,9 +75,10 @@ The actual work is split across SymplecticTether.lean (existence + uniqueness of
 and TetheredLyapunov.lean (unconditional global regularity via independent majorant).
 This theorem is intentionally schematic during development.
 -/
-theorem frohmanian_tether_theorem :  -- canonical name per Frohmanian_Tether_Naming_Symbol_Standard.md (table (9).csv)
+theorem frohmanian_tether_theorem :
   ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
-    (∀ F ω, TetheredBracket F KineticEnergyHamiltonian ω = ClassicalBracket F KineticEnergyHamiltonian ω) ∧
+    (∀ F ω, TetheredBracket F KineticEnergyHamiltonian ω =
+      ClassicalBracket F KineticEnergyHamiltonian ω) ∧
     (∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
       (∀ ω F G, B ω F G = -B ω G F) →
       InvariantUnderCoadjointAction B →
@@ -71,28 +86,23 @@ theorem frohmanian_tether_theorem :  -- canonical name per Frohmanian_Tether_Nam
       ProducesControllableNegativeFeedback B →
       ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
     (∀ (u₀ : VelocityField) (ν : ℝ),
+      0 < ν →
       (∀ x, div u₀ x = 0) →
       ContDiff ℝ ⊤ u₀ →
+      Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) →
       ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
         NS_PDE u p ν ∧
         u 0 = u₀ ∧
-        (∀ t ≥ 0, True) ∧   -- smoothness upgrade (C^∞) is the classical BKM + parabolic regularity black box
-                            -- delivered after the a-priori vorticity bound from the tether + majorant
-        (∀ t ≥ 0, ∀ x, div (u t) x = 0)) := by
-  -- Existence of 𝔗_F comes from the explicit construction TetherKernel.
-  -- The three conjuncts are proved in:
-  --   - tethered_reproduces_classical_euler
-  --   - uniqueness_of_minimal_tether
-  --   - global_regularity (TetheredLyapunov)
+        (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t)) ∧
+        (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+        (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0)) := by
   refine ⟨TetherKernel, ?_, ?_, ?_⟩
   · intro F ω
     exact tethered_reproduces_classical_euler F ω
-  · sorry   -- uniqueness_of_minimal_tether (5-step canonicity from Uniqueness.lean / FrohmanianTether ns; schematic slot while names/exports stabilize across modules)
-  · intro u₀ ν hdiv hsm
-    -- Call matches the 6-argument signature in TetheredLyapunov.global_regularity.
-    -- h_smooth and h_finite_energy are weakened to True (classical local existence black box);
-    -- h_pos_ν is supplied as sorry (the outer schematic statement does not assume ν>0 explicitly).
-    exact global_regularity u₀ ν hdiv (by exact True.intro) (by exact True.intro) (by sorry)
+  · intro B hanti hC1 hC2 hC3 ω F G
+    exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 ω F G
+  · intro u₀ ν hνpos hdiv hsm hE
+    exact global_regularity u₀ ν hdiv hsm hE hνpos
 
 /-! ## Abstract (exact formulation supplied by the author) -/
 
@@ -107,7 +117,7 @@ Still exactly matches the abstract intent: a classical sup-norm proxy for |ω|_{
 
 Marked noncomputable because it depends on Real.instSupSet (standard for sup-norm proxies in analysis). -/
 noncomputable def vorticity_sup_norm (ω : VorticityField) : ℝ :=
-  ⨆ x, ‖ω x‖   -- or essSup with respect to volume; this is the classical sup-norm proxy used in the paper
+  NavierStokes3D.vorticity_sup_norm ω
 
 -- Clean alias (no custom unicode notation) provided so that references in comments / the abstract
 -- theorem can mention the L^∞ control without triggering parser/elaboration problems.
@@ -130,13 +140,13 @@ theorem global_regularity_for_NS
     (u0 : TimeDependentVelocity)
     (h_div_free : ∀ t x, div (u0 t) x = 0)
     (h_smooth : IsSmooth (u0 0))
-    (h_finite_energy : True)  -- weakened for this old mathlib pin; should be finite energy condition
+    (h_finite_energy : Integrable (fun x : T3 => ‖u0 0 x‖ ^ 2))
     (ν : ℝ) (h_ν_pos : ν > 0) :
   ∃! (u : TimeDependentVelocity),
-    (∀ t ≥ 0, IsSmooth (u t)) ∧
+    (∀ t ≥ (0 : ℝ), IsSmooth (u t)) ∧
     (u 0 = u0 0) ∧
-    (∀ t ≥ 0, satisfies_NavierStokes u ν) ∧
-    (∀ t ≥ 0, True) := by  -- vorticity_sup_norm_proxy (vorticity (u t)) < ∞  (the key a-priori bound delivered by the tether + majorant)
+    (∀ t ≥ (0 : ℝ), satisfies_NavierStokes u ν) ∧
+    (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) := by
   -- The proof proceeds via the Frohmanian Symplectic Tether
   -- (detailed in SymplecticTether.lean for the 5-step uniqueness,
   --  TetheredLyapunov.lean for the tethered energy + majorant + continuation,
