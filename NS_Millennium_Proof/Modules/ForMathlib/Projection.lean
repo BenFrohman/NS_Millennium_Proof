@@ -1,8 +1,18 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+
+WIP (2026-08-26): Lean 4 kernel-path restoration of `Pi_u`. Original work by
+Benjamin Stanley Frohman (@Investor0x / Bit21). In-progress formalization.
+Does not claim a completed Clay Navier–Stokes solution.
+-/
+
 module
 
-import Mathlib.Analysis.InnerProductSpace.PiL2
-import NS_Millennium_Proof.Modules.NS_Equations
-import NS_Millennium_Proof.Modules.ArnoldGeometric
+public import Mathlib.Analysis.InnerProductSpace.PiL2
+public import NS_Millennium_Proof.Modules.NS_Equations
+public import NS_Millennium_Proof.Modules.ArnoldGeometric
 
 open InnerProductSpace  -- for inner and related instances on EuclideanSpace in this pin
 open ArnoldGeometric (pairing)  -- only bring the classical vector pairing we need; avoids pulling in non-public names like FunctionalDerivative
@@ -28,7 +38,7 @@ open NavierStokes3D
 Black-boxed for this old mathlib pin (the explicit formula has instance issues with inner in this commit).
 The two theorems below capture the key properties we need.
 -/
-noncomputable def Pi_u (u v : VelocityField) : VelocityField :=
+@[expose] public noncomputable def Pi_u (u v : VelocityField) : VelocityField :=
   fun x => v x - (
     (∫ y, pairing (v y) (u y) ∂(volume)) /
     (∫ y, ‖u y‖^2 ∂(volume))
