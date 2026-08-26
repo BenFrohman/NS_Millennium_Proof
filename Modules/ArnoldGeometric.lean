@@ -2,10 +2,6 @@
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
-
-Frohmanian Symplectic Tether proof of 3D Navier–Stokes global regularity.
-Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
-Lean 4 encoding for the world library.
 -/
 
 module
