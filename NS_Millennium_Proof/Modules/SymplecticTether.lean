@@ -533,18 +533,18 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
   -- Classical sub-parts (actual IBP arithmetic) remain sorry (documented black boxes).
   -- This makes the "explicit 9step and calc'd sums" resident in the active code.
 
-  have h_classical_jacobi : True := by
+  have h_classical_jacobi : jacobiator F G H ω = 0 := by
     -- Classical part satisfies Jacobi by MWR reduction on the reduced orbit.
-    exact True.intro   -- classical (black-box; MWR from sources)
+    sorry   -- classical (black-box; MWR from sources)
 
-  have h_correction_jacobi : True := by
+  have h_correction_jacobi : jacobiator F G H ω = 0 := by
     -- The correction sum (tether kernel parts on the composites) = 0 by the form.
     -- See the detailed 9-term + summed formulation below.
-    have h_corr_expansion : True := by
+    have h_corr_expansion : jacobiator F G H ω = 0 := by
       -- Product/chain rule on δ(GH) etc. Classical.
-      exact True.intro   -- classical (black-box)
+      sorry   -- classical (black-box)
 
-    have h_cyclic_integrand_zero : True := by
+    have h_cyclic_integrand_zero : jacobiator F G H ω = 0 := by
       /-
       FULL EXPLICIT CYCLIC SUM + 9-TERM SUB-CALCS (from prior bak.current-134k,
       user's CLAY material in Conversation Summary §2.6 / Version 41 main.tex,
@@ -593,7 +593,7 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
 
       -- Explicit named expansions for the t* (9-term after IBP) with full detail from the
       -- user's CLAY text (ported from bak 134k and overleaf/LaTeX extracts).
-      have h_t1_after_IBP : True := by
+      have h_t1_after_IBP : jacobiator F G H ω = 0 := by
         -- Term 1: X · ((Y·∇)Z)
         -- Per the supplied CLAY text (Conversation Summary §2.6 / Version 41 main.tex):
         -- "After multiplying by |ω|² and integrating by parts on T³ (using div X = div Y = div Z = 0
@@ -605,9 +605,9 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- Concrete T³ shear example from the source (X = (sin y, 0, 0) etc.) confirms the div terms
         -- integrate exactly to zero over the full period.
         -- Counterexample if div-free dropped: extra source terms survive and cancellation fails.
-        exact True.intro   -- IBP + div-free cancellation (user's explicit 9-term argument from CLAY Version 41 / Geometric_Reconstruction / overleaf extracts)
+        sorry   -- IBP + div-free cancellation (user's explicit 9-term argument from CLAY Version 41 / Geometric_Reconstruction / overleaf extracts)
 
-      have h_t2_after_IBP : True := by
+      have h_t2_after_IBP : jacobiator F G H ω = 0 := by
         -- Term 2: −X · ((Z·∇)Y)  (one of the nine contributions before IBP).
         -- Per the supplied CLAY text: "After multiplying by |ω|² and integrating by parts on T³
         -- (using div X = div Y = div Z = 0 and periodicity), every term cancels in antisymmetric pairs."
@@ -616,18 +616,18 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- The surviving algebraic piece is part of the totally antisymmetric contraction that
         -- sums to zero over the cyclic permutations.
         -- (Matches the "full matching IBP detail" requested for t2–t6 in the autonomous sequence.)
-        exact True.intro   -- IBP + div-free cancellation (user's explicit 9-term argument)
+        sorry   -- IBP + div-free cancellation (user's explicit 9-term argument)
 
-      have h_t3_after_IBP : True := by
+      have h_t3_after_IBP : jacobiator F G H ω = 0 := by
         -- Term 3: Y · ((Z·∇)X)
         -- Identical IBP reasoning under the three div-free conditions on T³ (plus periodicity).
         -- Produces pure divergence contribution that integrates to zero.
         -- Pairs antisymmetrically with its cyclic siblings in the full sum.
         -- All justification taken verbatim from the user's CLAY material in the enclosing comment
         -- (the 9 contributions list + the IBP vanishing statement + the concrete div-free example).
-        exact True.intro   -- IBP + div-free cancellation (user's explicit 9-term argument from CLAY Version 41)
+        sorry   -- IBP + div-free cancellation (user's explicit 9-term argument from CLAY Version 41)
 
-      have h_t4_after_IBP : True := by
+      have h_t4_after_IBP : jacobiator F G H ω = 0 := by
         -- Term 4: −Y · ((X·∇)Z)
         -- Same as above: after IBP the divergence terms vanish by div Y = 0 + periodicity on T³.
         -- The algebraic remainder is part of the totally antisymmetric expression that the cyclic
@@ -635,16 +635,16 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- is totally antisymmetric in (X,Y,Z) and therefore vanishes identically").
         -- Counterexample when the reduced-orbit (div-free) condition is dropped is given in the
         -- user's text and matches the Lean comment above.
-        exact True.intro   -- IBP + div-free cancellation (user's explicit 9-term argument from CLAY Version 41)
+        sorry   -- IBP + div-free cancellation (user's explicit 9-term argument from CLAY Version 41)
 
-      have h_t5_after_IBP : True := by
+      have h_t5_after_IBP : jacobiator F G H ω = 0 := by
         -- Term 5: Z · ((X·∇)Y)
         -- Identical reasoning: IBP under the three div-free conditions on T³ produces a pure
         -- divergence that integrates to zero. No boundary terms on the torus.
         -- This term participates in the antisymmetric pairing with its cyclic siblings.
-        exact True.intro   -- IBP + div-free cancellation (user's explicit 9-term argument)
+        sorry   -- IBP + div-free cancellation (user's explicit 9-term argument)
 
-      have h_t6_and_symmetric_siblings : True := by
+      have h_t6_and_symmetric_siblings : jacobiator F G H ω = 0 := by
         -- Term 6 (−Z · ((Y·∇)X)) + the three fully symmetric counterparts from the Lie bracket
         -- expansion.
         -- After IBP, they cancel in antisymmetric pairs exactly as stated in the source:
@@ -652,10 +652,10 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- and therefore vanishes identically."
         -- The symmetric siblings follow by cyclic relabeling (F,G,H) → (G,H,F) etc.
         -- This completes the explicit expansion of the nine contributions + symmetric.
-        exact True.intro   -- antisymmetric cancellation after IBP (user's CLAY Version 41 text)
+        sorry   -- antisymmetric cancellation after IBP (user's CLAY Version 41 text)
 
       -- The groups A/B/C from FINAL SUMMED (as in bak and LaTeX extracts).
-      have h_groups_abc : True := by
+      have h_groups_abc : jacobiator F G H ω = 0 := by
         -- After distributing the summed integrand:
         -- Group A (classical-tether cross, 6 terms) + Group B (pure tether triple variation) +
         -- Group C (weight-variation terms from |ω|²).
@@ -663,14 +663,14 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- Remaining integrand antisymmetric under cyclic (F,G,H) perm after IBP (div terms vanish).
         -- Hence integral zero.
         -- For F_p (δF_p/δω ∝ ω): antisymmetry manifest.
-        exact True.intro   -- groups + cyclic vanishing (verbatim from user's CLAY material in bak/overleaf/LaTeX)
+        sorry   -- groups + cyclic vanishing (verbatim from user's CLAY material in bak/overleaf/LaTeX)
 
       -- CE 2-cocycle (d₂B=0) strengthening.
-      have h_ce_cocycle : True := by
+      have h_ce_cocycle : jacobiator F G H ω = 0 := by
         -- The cancellation shows B is a Chevalley–Eilenberg 2-cocycle on sdiff(T³) with values in densities.
         -- |ω|² Ad-invariant, restrict to div-free: Lie-deriv terms + div contributions vanish.
         -- Hence (d₂B)(X,Y,Z)=0. Natural 2-cocycle, strengthens canonicity.
-        exact True.intro   -- CE cocycle (from source in bak comments)
+        sorry   -- CE cocycle (from source in bak comments)
 
       -- ============================================================
       -- HARVEST 2026-08-25: reintroduced named `have`s from
@@ -679,7 +679,7 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
       -- Non-bloat schematic True := by form; classical arithmetic still black-box.
       -- Canonical nested module retained; BAK not wholesale-replaced.
       -- ============================================================
-      have h_B_definition : True := by
+      have h_B_definition : jacobiator F G H ω = 0 := by
         -- B(F,G) := −κ ∫ |ω|² ( (δF/δω) · (δG/δω) ) dλ   (after Π_u projection)
         -- This is exactly TetherKernel as defined in this module.
         --
@@ -693,16 +693,16 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- and controllable negative quadratic feedback on stretching (C3).
 
         -- Sub-step retained from Geometric_Reconstruction.md Lemma 2.3.1 (Form forced by invariance):
-        have h_invariance_forces_form : True := by
+        have h_invariance_forces_form : jacobiator F G H ω = 0 := by
           -- "Any continuous bilinear antisymmetric form B on the tangent spaces to O that is invariant
           -- under the coadjoint action of SDiff(T³) and local (i.e., depends only on pointwise values...)
           -- must be of the form B(F,G) = ∫ μ(|ω|²) (δF/δω · δG/δω) dλ ... lowest-degree non-trivial
           -- possibility is quadratic."
           -- (Direct from Geometric_Reconstruction.md §2.3.2)
-          exact True.intro
-        exact True.intro   -- h_B_definition: form fixed by (C1)–(C3) + lowest degree (harvested)
+          sorry
+        sorry   -- h_B_definition: form fixed by (C1)–(C3) + lowest degree (harvested)
 
-      have h_JB_definition : True := by
+      have h_JB_definition : jacobiator F G H ω = 0 := by
         -- J_B := B(X,[Y,Z]) + B(Y,[Z,X]) + B(Z,[X,Y])
         -- where X,Y,Z are the functional derivatives of the three test functionals.
         --
@@ -715,9 +715,9 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- (X·[Y,Z] + Y·[Z,X] + Z·[X,Y]) being zero after IBP + div-free + antisymmetry
         -- (as shown in the expanded h_9terms_after_IBP and cyclic sum proof in A).
         -- This definition sets up the entire explicit Jacobi verification on the reduced orbit.
-        exact True.intro   -- definition (now with the full justification from the user's exact source text and Version 41)
+        sorry   -- definition (now with the full justification from the user's exact source text and Version 41)
 
-      have h_cyclic_expansion : True := by
+      have h_cyclic_expansion : jacobiator F G H ω = 0 := by
         -- J_B = −κ ∫ |ω|² ( X·[Y,Z] + Y·[Z,X] + Z·[X,Y] ) dλ
         -- (using bilinearity and symmetry of B)
         --
@@ -733,9 +733,9 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         --
         -- This step is purely algebraic from the definition of B and does not yet invoke the
         -- classical MWR or the vector calculus on T³ (those come next).
-        exact True.intro   -- algebraic expansion (bilinearity) — now with the exact pull-out from the user's source text
+        sorry   -- algebraic expansion (bilinearity) — now with the exact pull-out from the user's source text
 
-      have h_lie_bracket_and_ibp : True := by
+      have h_lie_bracket_and_ibp : jacobiator F G H ω = 0 := by
         -- Using the Lie bracket of divergence-free vector fields + integration by parts
         -- on T³ (periodicity kills all boundary terms), the integrand splits into
         --   div(·) + pointwise algebraic terms involving X_i (∂_j Y_k − ∂_k Y_j) Z^k + cyclic.
@@ -756,13 +756,13 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- Counterexample if div-free dropped: the extra div terms survive IBP and the cancellation fails.
 
         -- Sub-step (verbatim from Conversation Summary §2.6 "Full term-by-term expansion before integration by parts"):
-        have h_bracket_expansion : True := by
+        have h_bracket_expansion : jacobiator F G H ω = 0 := by
           -- Exact verbatim from user's chat sessions (Frohmanian_Tether_NS_Proof_Conversation_Summary.md §2.6):
           -- [Y,Z] = (Y·∇)Z − (Z·∇)Y expands into the distributed contributions used by the 9-term sum.
-          exact True.intro
-        exact True.intro   -- h_lie_bracket_and_ibp: Lie bracket + IBP split (harvested)
+          sorry
+        sorry   -- h_lie_bracket_and_ibp: Lie bracket + IBP split (harvested)
 
-      have h_divergence_terms_vanish : True := by
+      have h_divergence_terms_vanish : jacobiator F G H ω = 0 := by
         -- The div(·) terms integrate to zero over T³ (by the divergence theorem +
         -- periodicity, or equivalently because the domain is closed and without boundary).
         --
@@ -784,9 +784,9 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- Counterexample if div-free dropped or non-periodic domain:
         -- Extra div terms or boundary contributions survive, and the cancellation fails.
         -- This is why the reduced orbit (div-free fields on compact T³) is essential.
-        exact True.intro
+        sorry
 
-      have h_algebraic_vanishing : True := by
+      have h_algebraic_vanishing : jacobiator F G H ω = 0 := by
         -- The heart of the Jacobi crack (PRECISE REMAINING GAPS #6 / Conversation Summary §2.6):
         -- after IBP, the surviving pointwise expression
         --   X_i (∂_j Y_k − ∂_k Y_j) Z^k + cyclic
@@ -794,9 +794,9 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         -- This is the algebraic content asserted by the three source documents;
         -- the named t1–t6 IBP haves + groups A/B/C already outline the pairing.
         -- Classical arithmetic details remain a documented black box at this pin.
-        exact True.intro
+        sorry
 
-      have h_9terms_after_IBP : True := by
+      have h_9terms_after_IBP : jacobiator F G H ω = 0 := by
         -- Full explicit 9-term (plus symmetric) expansion + IBP cancellation
         -- taken verbatim from the authoritative 2026-05-31 Conversation Summary
         -- (Section 2.6, "Full explicit nine-term expansion" + index notation derivation).
@@ -818,16 +818,16 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         --   The six distributed contributions (plus three symmetric) are exactly the
         --   six lets above + their index-permuted siblings.
         --
-        exact True.intro
+        sorry
 
-      have h_cocycle_closure : True := by
+      have h_cocycle_closure : jacobiator F G H ω = 0 := by
         -- Chevalley–Eilenberg: d₂B reduces to the bracket sum (the 9 terms above).
         -- Lie derivative terms ℒ_X B etc. vanish because |ω|² is Ad-invariant
         -- under volume-preserving diffeos on div-free fields.
         -- Hence B is a 2-cocycle. This is the strengthening from the summary.
-        exact True.intro
+        sorry
 
-      have h_integral_of_zero : True := by
+      have h_integral_of_zero : jacobiator F G H ω = 0 := by
         -- The integrand of (corr1 + corr2 + corr3) reduces exactly to the expression
         -- whose pointwise vanishing was shown in h_algebraic_vanishing (after IBP).
         -- Therefore its integral is zero, i.e. corr1 + corr2 + corr3 = 0.
@@ -836,9 +836,9 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         --   (pointwise algebraic vanishing) ↔ (the integral expression = 0)
         -- we can invoke `propext` to obtain propositional equality if needed for
         -- rewriting or substitution in larger contexts.
-        exact True.intro   -- integral of identically-zero integrand (schematic; classical measure detail black-box)
+        sorry   -- integral of identically-zero integrand (schematic; classical measure detail black-box)
 
-      have h_total_sum_zero : True := by
+      have h_total_sum_zero : jacobiator F G H ω = 0 := by
         -- h_divergence_terms_vanish + h_algebraic_vanishing / antisymmetric contraction
         -- together imply that every one of the nine (plus three symmetric)
         -- contributions is zero after integration against |ω|².
@@ -846,16 +846,15 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
         --     ∫ |ω|² (X·[Y,Z] + Y·[Z,X] + Z·[X,Y]) dV = 0
         -- which is exactly the statement that the three correction terms
         -- (corr1 + corr2 + corr3) sum to zero.
-        exact True.intro   -- harvested schematic closer for the cyclic correction sum
+        sorry   -- harvested schematic closer for the cyclic correction sum
 
-      exact True.intro   -- the sub-haves (t* IBP + groups + CE + harvested GAP haves) establish the correction sum vanishes
+      exact h_total_sum_zero
 
-    exact True.intro   -- h_corr_expansion + h_cyclic... give the correction jacobi
+    exact h_cyclic_integrand_zero
 
-  -- Classical MWR Jacobi + cyclic integrand vanishing of the tether correction.
-  -- Named `have`s above record the 9-term IBP / CE-cocycle skeleton; the arithmetic
-  -- is a documented classical black box at this pin.
-  sorry
+  -- Classical MWR Jacobi is the Arnold part; the tethered jacobiator is the
+  -- correction cyclic sum (9-term IBP / CE-cocycle). Lean 4: `exact`, not True.intro.
+  exact h_correction_jacobi
 
         -- (Duplicate 9-term expansion block removed; the authoritative version with full
         -- source quotes, named h_t* IBP haves, and h_9terms_after_IBP is now inside
@@ -928,7 +927,7 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
                 -- If, say, div X ≠ 0, then leftover terms proportional to
                 -- (div X) (Y·Z) survive the IBP and the total sum is generally nonzero.
                 -- This is why the reduced orbit (div-free fields) is essential.
-                -- (final "exact True.intro" for the antisym from the long block cleaned; see Clarified reference. The vanishing is in the h_corr comment.)
+                -- (final "sorry" for the antisym from the long block cleaned; see Clarified reference. The vanishing is in the h_corr comment.)
 
 
               -- Step C: Because the contraction is totally antisymmetric and the
@@ -943,7 +942,7 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
           -- UPDATE 2026-08-25 harvest: the six named GAP `have`s (+ h_9terms_after_IBP,
           -- h_cocycle_closure, h_integral_of_zero, h_total_sum_zero) were reintroduced as
           -- live schematic binders inside `h_cyclic_integrand_zero` from the pre-snap BAK
-          -- (non-bloat). They still use `True := by` / `exact True.intro` pending algebra fill.
+          -- (non-bloat). They still use `True := by` / `sorry` pending algebra fill.
           -- Original note: six named `have` blocks inside `h_cyclic_integrand_zero`
           -- plus supporting steps that carried `True := by sorry`.
           -- When the next chunk of explicit first-principles algebra is supplied from the
@@ -972,7 +971,7 @@ public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbi
           -- confirmation" property for the novel geometry will be visible in the editor.
           -- =====================================================================
 
-        -- (the "· exact True.intro" bullet from the long block / gaps section cleaned; see the Clarified reference and the h_corr comment for the formulation.)
+        -- (the "· sorry" bullet from the long block / gaps section cleaned; see the Clarified reference and the h_corr comment for the formulation.)
 
 
         -- 2026-05-31 UPDATE: 9-TERM + COCCYCLE from docs/SideBySide_Diff_Section3_and_ChatHistory.md §2.6
