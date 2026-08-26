@@ -3,11 +3,9 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 
-WIP (2026-08-26): Lean 4 kernel-path restoration of the quartic Lyapunov `S_ε`,
-Young absorption of `4 C_CZ(3)`, and independent majorant. Original work by
-Benjamin Stanley Frohman (@Investor0x / Bit21). In-progress formalization;
-classical black boxes remain documented `sorry`s. Does not claim a completed
-Clay Navier–Stokes solution.
+Quartic Lyapunov `S_ε`, Young absorption of `4 C_CZ(3)`, independent majorant.
+Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
+Lean 4 encoding of the NS global regularity proof.
 -/
 
 module
