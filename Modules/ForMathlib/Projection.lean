@@ -13,7 +13,8 @@ public import NS_Millennium_Proof.Modules.ArnoldGeometric
 
 open InnerProductSpace
 open ArnoldGeometric (pairing)
-open NavierStokes3D MeasureTheory
+open NavierStokes3D
+open MeasureTheory hiding volume
 
 /-!
 # Projection lemmas (intended for Mathlib upstreaming)
@@ -52,14 +53,38 @@ public theorem projection_orthogonal_to_u
     exact pairing_self (u y)
   rw [hpair, div_self hE, one_smul, sub_self] 
 
-/-- L² orthogonality: `⟨Π_u v, u⟩_{L²} = 0` whenever `⟨u,u⟩_{L²} ≠ 0`.
-Expand `Π_u v = v − c • u`; the integral identity needs a single volume
-instance (MeasureTheory vs NavierStokes3D) and is filled next. -/
+/-- L² orthogonality: `⟨Π_u v, u⟩_{L²} = 0` whenever `⟨u,u⟩_{L²} ≠ 0`. -/
 public theorem projector_orthogonality
     (v u : VelocityField) (_h_div_u : ∀ x, div u x = 0)
     (hE : (∫ y, ‖u y‖ ^ 2 ∂volume) ≠ 0) :
     (∫ x, pairing (Pi_u u v x) (u x) ∂volume) = 0 := by
-  sorry
+  set Eu := ∫ y, ‖u y‖ ^ 2 ∂volume
+  set Evu := ∫ y, pairing (v y) (u y) ∂volume
+  have hInt_u : Integrable (fun y => ‖u y‖ ^ 2) := by
+    contrapose! hE
+    exact integral_undef (μ := volume) hE
+  by_cases hvu : Integrable (fun y => pairing (v y) (u y))
+  · have hInt_c : Integrable (fun x => (Evu / Eu) * ‖u x‖ ^ 2) :=
+      hInt_u.const_mul (Evu / Eu)
+    have hfun :
+        (fun x => pairing (Pi_u u v x) (u x)) =
+          fun x => pairing (v x) (u x) - (Evu / Eu) * ‖u x‖ ^ 2 := by
+      funext x
+      simp only [Pi_u, pairing, Evu, Eu]
+      rw [inner_sub_left, real_inner_smul_left, real_inner_self_eq_norm_sq]
+    rw [hfun]
+    have hs :=
+      integral_sub (f := fun x => pairing (v x) (u x))
+        (g := fun x => (Evu / Eu) * ‖u x‖ ^ 2) (μ := volume) hvu hInt_c
+    rw [hs, integral_const_mul]
+    field_simp [hE]
+    ring
+  · have hPi : Pi_u u v = v := by
+      funext x
+      have hz : Evu = 0 := integral_undef (μ := volume) hvu
+      simp [Pi_u, Evu, hz]
+    rw [hPi]
+    exact integral_undef (μ := volume) hvu
 
 --------------------------------------------------------------------------------
 -- SURFACE-LEVEL WORKAROUND (no mathematical weakening of the correct work above)
