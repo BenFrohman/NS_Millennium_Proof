@@ -18,6 +18,7 @@ public import NS_Millennium_Proof.Modules.Uniqueness
 public import NS_Millennium_Proof.Modules.IndependentMajorant
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.NS_Equations
+public import NS_Millennium_Proof.Modules.AnalyticPipeline
 public import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 -- NOTE (post-bumper-rails phase): All silencing options removed. Warnings for classical `sorry`s
