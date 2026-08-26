@@ -4,6 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+module
+
+public import NS_Millennium_Proof.Modules.SymplecticTether
+public import NS_Millennium_Proof.Modules.Assumptions
+
 /-!
 Uniqueness of the Frohmanian Tether (`uniqueness_of_minimal_tether`).
 Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
@@ -45,11 +50,6 @@ During the current phase the detailed 5-step lemmas still live inside
 being completed). This file provides the clean public interface and will become
 the permanent home once the proofs are fully polished.
 -/
-
-module
-
-public import NS_Millennium_Proof.Modules.SymplecticTether
-public import NS_Millennium_Proof.Modules.Assumptions
 
 namespace FrohmanianTether
 

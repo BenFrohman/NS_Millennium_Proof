@@ -13,6 +13,7 @@ public import Mathlib.Analysis.Calculus.Gradient.Basic
 public import Mathlib.Analysis.InnerProductSpace.PiL2
 public import Mathlib.Data.ENNReal.Basic
 public import Mathlib.Data.Real.Basic
+public import Mathlib.Data.Real.Archimedean
 public import Mathlib.Data.Set.Basic
 public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
@@ -153,6 +154,10 @@ public theorem local_existence
 /-- Pointwise sup-norm proxy used by BKM. -/
 @[expose] public noncomputable def vorticity_sup_norm (ω : VorticityField) : ℝ :=
   ⨆ x, ‖ω x‖
+
+public theorem vorticity_sup_norm_nonneg (ω : VorticityField) :
+    0 ≤ vorticity_sup_norm ω :=
+  Real.iSup_nonneg fun _ => norm_nonneg _
 
 /-- Beale–Kato–Majda criterion (Beale–Kato–Majda 1984).
 
