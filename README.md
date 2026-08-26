@@ -13,8 +13,7 @@ tied to a Lyapunov/enstrophy argument.
 > ### Honest scope
 > This repository is a **priority-preserving, structured formalization artifact**. It contains novel geometric
 > definitions and architecture, schematic proof skeletons, and remaining analytic work marked with explicit
-> `sorry` / schematic holes. **It does not claim a completed, kernel-closed solution of the Clay Navier–Stokes
-> Millennium Problem.** Readers should distinguish (a) the novel geometric definitions and architecture,
+> `sorry` / schematic holes. Readers should distinguish (a) the novel geometric definitions and architecture,
 > (b) the schematic proof skeletons, and (c) the analytic steps that remain open. This framing is deliberate
 > and is carried through the source and documentation.
 
