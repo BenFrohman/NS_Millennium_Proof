@@ -635,8 +635,9 @@ lemma differential_inequality_after_tether_and_absorption
   sorry   -- The chain 1–6 (with all sub-steps now named) is the complete first-principles derivation.
 
 -- Mollified vorticity (standard mollifier)
+/-- Alias of `MollifiedVorticity` (single mollifier definition). -/
 def mollified_vorticity (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) : VorticityField :=
-  fun x => x   -- standard mollification (classical black-box; the estimates using it are in the rtfd Section 3 / user's Block 3); from side tabs (living document: "standard mollifier η_ε", approximated as id for the structure)
+  MollifiedVorticity ω ε t
 
 -- Key differential inequality after tether + mollification + absorption
 lemma key_differential_inequality (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ)
@@ -653,7 +654,7 @@ lemma key_differential_inequality_docstring_anchor (_ε : ℝ) (_ω : ℝ → Vo
   -- The real inequality is `key_differential_inequality`.
   trivial
 
-private theorem key_differential_inequality_legacy_comments (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) :
+private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : ℝ → VorticityField) (_t : ℝ) :
   -- See docs/Clarified_Degeneracy_and_Majorant_Blocks.lean (BLOCK 3) for the
   -- user's clarified/expanded version of the key_differential_inequality,
   -- majorant_comparison_principle, uniform_majorant_bound, riccati_majorant_global_bound,
@@ -800,7 +801,7 @@ lemma phase_plane_analysis_of_majorant_ODE (C κ'' y0 : ℝ) (hC : C > 0) (hκ :
     trivial
   sorry
 
-private lemma phase_plane_analysis_of_majorant_ODE_comments (C κ'' : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
+private lemma phase_plane_analysis_of_majorant_ODE_comments (C κ'' : ℝ) (_hC : C > 0) (_hκ : κ'' > 0) :
     -- The ODE y' = C y² - κ'' y³ has exactly two equilibria:
     -- y = 0 (unstable) and y* = C / κ'' (asymptotically stable).
     -- All solutions with y(0) ≥ 0 remain bounded above by max(y(0), y*).
@@ -950,7 +951,7 @@ public lemma uniform_majorant_bound (C κ'' y0 : ℝ) (hC : C > 0) (hκ : κ'' >
       0 ≤ ComparisonODE C κ'' y0 t ∧ ComparisonODE C κ'' y0 t ≤ max y0 (C / κ'') :=
   phase_plane_analysis_of_majorant_ODE C κ'' y0 hC hκ hy0
 
-private lemma uniform_majorant_bound_comments (C κ'' _y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
+private lemma uniform_majorant_bound_comments (C κ'' _y0 : ℝ) (_hC : C > 0) (_hκ : κ'' > 0) :
     True := by
   -- Full phase-plane argument (from living document, made explicit):
   -- Rewrite y' = y² (C − κ'' y). Equilibria y=0 (unstable), y*=C/κ'' (stable).
