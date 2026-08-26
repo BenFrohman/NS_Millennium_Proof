@@ -12,6 +12,7 @@ public import Mathlib.Tactic.Linarith
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.NS_Equations
+public import NS_Millennium_Proof.Modules.AnalyticPipeline
 
 /-
 CONNECTIVE TISSUE (Layer 2 analytic, forced by Layer 1 geometric).
@@ -1137,47 +1138,28 @@ public theorem global_regularity
   -- uniform bound from the majorant to the vorticity, after which classical BKM +
   -- parabolic regularity close the proof.
 
-  -- Step 2.1: Local existence + parabolic regularity give a unique smooth solution
-  -- on the maximal interval [0, T*) (classical black box).
-  have h_local_existence : True := by
-    sorry   -- See NS_Equations.local_existence (standard Kato/Leray theory)
+  -- Step 2.1: Kato/Leray local existence on a short interval (classical).
+  -- Output type: `u`, `p`, `NS_PDE u p ν`, `u 0 = u₀`.
+  obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
+    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν
 
-  -- Step 2.2: Define the mollified tethered Lyapunov functional S_ε(t) with the
-  -- quartic weight whose specific form is the one forced by the canonicity result
-  -- (not an arbitrary ansatz).
+  -- Steps 2.2–2.5 (paper §3): tethered Lyapunov DI + Young (`ε_abs = κ/4`) +
+  -- independent Riccati majorant of `M(t) = ‖ω(u t)‖_∞`. Remaining transcription
+  -- is `sorry` on this real type, not `True`.
+  have hRiccati :
+      ∃ Y : ℝ,
+        (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
+    sorry
 
-  -- Step 2.3: Derive the differential inequality satisfied by S_ε(t) on every
-  -- finite subinterval (using tether degeneracy + classical Hölder/Sobolev/Young
-  -- estimates with the forced absorption parameter). This is done in
-  -- key_differential_inequality and differential_inequality_after_tether_and_absorption.
-
-  -- Step 2.4: Introduce the independent comparison majorant ODE
-  -- y' = C y² − κ'' y³ (coefficients depend only on universal constants).
-  -- Its global boundedness 0 ≤ y(t) ≤ Y is proved by elementary phase-plane analysis
-  -- (pure ODE theory, before any appeal to the NS solution). This is done in
-  -- phase_plane_analysis_of_majorant_ODE and uniform_majorant_bound.
-
-  -- Step 2.5: On every finite compact subinterval [0, T] < T*, local smoothness
-  -- implies that the absorption constants in the inequality for S_ε are finite.
-  -- By the comparison principle, M_ε(t) ≤ y(t) ≤ Y on [0, T].
-  -- This is the content of Lemma 3.1 (the non-circular continuation argument).
-
-  -- Step 2.6: Since the majorant bound Y is independent of the particular T,
-  -- the inequality M(t) ≤ Y holds on the whole maximal existence interval [0, T*).
-  -- Bounded vorticity + Beale–Kato–Majda criterion ⇒ T* = ∞.
-  -- Parabolic regularity upgrades the solution to global C^∞.
-
-  -- The two layers are strictly separated:
-  -- Layer 1 justifies the tool (the weight in S_ε).
-  -- Layer 2 applies the tool to the unmodified classical equations together with
-  -- an independent majorant that has no dependence on the Navier–Stokes solution.
-  -- This architecture matches the polished living document exactly and satisfies
-  -- all non-circularity requirements from the chat history.
-
-  sorry   -- The detailed sub-proofs for steps 2.3–2.5 are in the lemmas that are
-          -- currently being filled. Once those lemmas have their full bodies,
-          -- this theorem will become a clean, named sequence of 6 steps with no
-          -- remaining schematic sorry in the assembly.
+  obtain ⟨Y, hbound, hcont⟩ := hRiccati
+  refine ⟨u, p, hNS, hu0, ?smooth, ?nn, ?div0⟩
+  · -- Step 2.6: uniform bound ⇒ IntegrableOn on every Icc 0 T ⇒ BKM smoothness.
+    exact AnalyticPipeline.bkm_regularity_pipeline u p ν h_pos_ν hNS Y hbound hcont
+  · intro t _ht
+    exact vorticity_sup_norm_nonneg _
+  · intro t ht x
+    exact (hNS t ht x).2
 
 end   -- close noncomputable section
 end TetheredLyapunov

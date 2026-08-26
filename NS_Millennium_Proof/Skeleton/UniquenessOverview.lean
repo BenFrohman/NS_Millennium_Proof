@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+module
+
 /-!
 This file is part of the Lean 4 formalization of the Frohmanian Symplectic Tether Theorem.
 
@@ -18,8 +20,6 @@ uniqueness that `Skeleton/PaperOverview.lean` plays for the overall proof.
 
 Referees and collaborators should read this file first for orientation.
 -/
-
-module
 
 namespace FrohmanianTether.Skeleton
 
