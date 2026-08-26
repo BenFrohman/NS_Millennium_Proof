@@ -4,6 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+module
+
+public import Mathlib.Logic.Basic   -- for minimal Prop infrastructure if needed
+
 /-!
 Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
 Lean 4 encoding of the NS global regularity proof.
@@ -45,10 +49,6 @@ exactly the complete, minimal list of everything that was assumed rather than pr
 See also `Blueprint.md` (Validation and Trust Strategy + Classical vs Novel Separation)
 and the four living audit checklists.
 -/
-
-module
-
-public import Mathlib.Logic.Basic   -- for minimal Prop infrastructure if needed
 
 namespace FrohmanianTether
 

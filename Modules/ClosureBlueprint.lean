@@ -164,6 +164,27 @@ public theorem bkm_regularity_pipeline
     ∀ τ ≥ (0 : ℝ), ContDiff ℝ ⊤ (u τ) :=
   AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont
 
+/-- If a differentiable scalar majorant of `‖ω(t)‖_∞` obeys the Riccati
+inequality `y' ≤ C y² − κ'' y³`, the closed comparison theorem supplies the
+uniform ceiling `max(y 0, C/κ'')`, which is the exact input of
+`bkm_regularity_pipeline`. No `True`, no `constant`, no `∫ < ∞` on `ℝ`. -/
+public theorem regularity_from_riccati_majorant
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (hν : 0 < ν) (hNS : NS_PDE u p ν)
+    (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
+    (y : ℝ → ℝ)
+    (hdiff : ∀ s, DifferentiableAt ℝ y s)
+    (hy_dot : ∀ s, deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
+    (hmaj : ∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t)
+    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
+  have hceil : ∀ τ ≥ (0 : ℝ), y τ ≤ max (y 0) (C / κ'') :=
+    fun τ hτ => comparison_ode_stability C κ'' hC hκ y hdiff hy_dot τ hτ
+  have hbound :
+      ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ max (y 0) (C / κ'') :=
+    fun τ hτ => (hmaj τ hτ).trans (hceil τ hτ)
+  exact bkm_regularity_pipeline u p ν hν hNS (max (y 0) (C / κ'')) hbound hcont
+
 /-- Assembly: local existence, tether uniqueness, Young residual, Riccati ceiling,
 and BKM continuation. Smoothness is `ContDiff ℝ ⊤`, not a `constant`. -/
 public theorem global_regularity_for_NS
@@ -202,21 +223,25 @@ public theorem lyapunov_quartic_cancellation_skeleton
 
 /-! ## Type composition (Kato → Young/Riccati → IntegrableOn → BKM)
 
-Gemini-style `True.intro` gates and `constant` placeholders are not used here.
 Each step’s output type is the next step’s input type. Closed lemmas are
-invoked as real terms; missing PDE/geometry steps remain `sorry` on those
-real types (`sorryAx`), never `True`.
+invoked as real terms; the remaining geometric gate (existence of a Riccati
+majorant of `‖ω‖_∞` from the tethered Lyapunov inequality) stays `sorry` on
+those real types (`sorryAx`), never `True`.
+
+`constant` placeholders, `axiom kappa`, `∀ x, True` stretching bounds, and
+`∫ < ∞` comparisons on `ℝ` are not used.
 -/
 
 /-- Sequential composition of the Millennium path.
 
 1. `local_existence_kato` produces `u` and `NS_PDE u p ν`.
-2. `youngs_absorption_elimination` / `comparison_ode_stability` are the
-   closed analytic ceiling (available independently; applied to a majorant
-   of `M(t) = ‖ω(t)‖_∞` once the Lyapunov inequality is supplied).
-3. Continuity of `M` gives `IntegrableOn M (Icc 0 T)` (`bkm_integrableOn_of_uniform_bound`).
-4. `bkm_regularity_pipeline` consumes that integrability and returns
-   `ContDiff ℝ ⊤ (u t)`.
+2. `youngs_absorption_elimination` is the closed coefficient match
+   (`4 C_CZ(3)` absorbed, residual `-(3/4)κ I₆`) that forces the Riccati
+   field `y' ≤ C y² − κ'' y³`.
+3. A differentiable majorant of `M(t) = ‖ω(u t)‖_∞` obeying that field is
+   the remaining paper transcription (`sorryAx` on the real type).
+4. `regularity_from_riccati_majorant` consumes it: comparison ceiling →
+   `IntegrableOn M (Icc 0 T)` → BKM `ContDiff ℝ ⊤ (u t)`.
 -/
 public theorem type_composition_sequence
     (u₀ : VelocityField) (ν : ℝ)
@@ -228,14 +253,29 @@ public theorem type_composition_sequence
       NS_PDE u p ν ∧ u 0 = u₀ ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
     local_existence_kato u₀ ν hsm hdiv hE hν
-  -- Closed analytic core (no sorryAx), applied once a majorant of
-  -- M(t) = ‖ω(u t)‖_∞ is known: `youngs_absorption_elimination` and
-  -- `comparison_ode_stability`.
-  let M : ℝ → ℝ := fun t => vorticity_sup_norm (vorticity (u t))
-  have hMajorant : ∃ Y : ℝ, (∀ t ≥ (0 : ℝ), M t ≤ Y) ∧ Continuous M := by
+  -- Closed algebraic core: available independently of the PDE path.
+  have _young :
+      ∀ M I₄ I₆ phi_norm C_abs : ℝ, 0 ≤ I₆ →
+        4 * CalderonZygmundConstant3D * M * I₄ ≤
+            (kappa / 4) * I₆ + C_abs * (M ^ 3 * phi_norm ^ ((3 : ℝ) / 2)) →
+          4 * CalderonZygmundConstant3D * M * I₄ - kappa * I₆ ≤
+            C_abs * (M ^ 3 * phi_norm ^ ((3 : ℝ) / 2)) -
+              (3 / 4 : ℝ) * kappa * I₆ :=
+    fun M I₄ I₆ phi_norm C_abs hI6 hY =>
+      youngs_absorption_elimination M I₄ I₆ phi_norm C_abs hI6 hY
+  -- Remaining geometric gate (paper §3): produce a Riccati majorant of
+  -- M(t) = ‖ω(u t)‖_∞ from the tethered Lyapunov inequality. Typed, not True.
+  have hRiccati :
+      ∃ (C κ'' : ℝ), 0 < C ∧ 0 < κ'' ∧
+        ∃ y : ℝ → ℝ,
+          (∀ s, DifferentiableAt ℝ y s) ∧
+          (∀ s, deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3) ∧
+          (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
     sorry
-  obtain ⟨Y, hbound, hcont⟩ := hMajorant
+  obtain ⟨C, κ'', hC, hκ, y, hdiff, hy_dot, hmaj, hcont⟩ := hRiccati
   refine ⟨u, p, hNS, hu0, ?_⟩
-  exact bkm_regularity_pipeline u p ν hν hNS Y hbound hcont
+  exact regularity_from_riccati_majorant u p ν hν hNS C κ'' hC hκ y hdiff hy_dot
+    hmaj hcont
 
 end ClosureBlueprint
