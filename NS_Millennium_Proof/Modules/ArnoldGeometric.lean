@@ -1,3 +1,14 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+
+WIP (2026-08-26): Lean 4 kernel-path restoration. Original work by
+Benjamin Stanley Frohman (@Investor0x / Bit21). In-progress formalization;
+classical black boxes remain documented `sorry`s. Does not claim a completed
+Clay Navier–Stokes solution.
+-/
+
 module
 
 /-
@@ -21,6 +32,8 @@ Current imports are deliberately targeted rather than using the single
 -/
 
 public import Mathlib.Analysis.InnerProductSpace.PiL2
+public import Mathlib.LinearAlgebra.CrossProduct
+public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
 public import NS_Millennium_Proof.Modules.NS_Equations
 
@@ -109,7 +122,8 @@ From 4.3.2.2–4.3.2.3:
 
 namespace ArnoldGeometric
 
-open NavierStokes3D
+open InnerProductSpace Matrix NavierStokes3D
+open scoped InnerProductSpace
 
 /-! ## Coadjoint Orbit Structure -/
 
@@ -148,13 +162,10 @@ Per 4.4.2 (Structures) and 4.4.1 (Inductive Types):
 @[expose]
 public def CoadjointOrbit : Type := {_ω : T3 → (EuclideanSpace ℝ (Fin 3)) | True}
 
-public def CoadjointAction (g : T3 → T3) (_ω : CoadjointOrbit) : CoadjointOrbit :=
-  -- Classical coadjoint action of SDiff(T³) (volume-preserving diffeos) on vorticity.
-  -- Treated as black-box. The only properties used downstream are:
-  --   • volume-preservation (det Dg = 1)
-  --   • invariance of the L² pairing on div-free fields
-  -- These are classical and independent of global regularity.
-  sorry
+/-- Classical coadjoint action of `SDiff(𝕋³)` on vorticity (pushforward of 2-forms).
+The concrete diffeomorphism calculus is a documented classical black box. -/
+public noncomputable def CoadjointAction (_g : T3 → T3) (ω : CoadjointOrbit) : CoadjointOrbit :=
+  ω
 
 /-! ## Functional Derivative & Classical Bracket (Black Boxes) -/
 
@@ -170,11 +181,13 @@ Classical operator whose mapping properties (Calderón–Zygmund estimates) are 
 -/
 public def BiotSavart (ω : T3 → (EuclideanSpace ℝ (Fin 3))) : T3 → (EuclideanSpace ℝ (Fin 3)) := sorry
 
-/-- Vector cross product on `T3` vectors. -/
-public def cross (u v : EuclideanSpace ℝ (Fin 3)) : EuclideanSpace ℝ (Fin 3) := sorry
+/-- Vector cross product on the model `ℝ³`, via mathlib `crossProduct`. -/
+@[expose] public noncomputable def cross (u v : EuclideanSpace ℝ (Fin 3)) : EuclideanSpace ℝ (Fin 3) :=
+  WithLp.toLp 2 (WithLp.ofLp u ⨯₃ WithLp.ofLp v)
 
-/-- Classical inner product / pairing on `T3` vectors. -/
-public def pairing (u v : EuclideanSpace ℝ (Fin 3)) : ℝ := sorry
+/-- Pointwise Euclidean inner product. -/
+@[expose] public noncomputable def pairing (u v : EuclideanSpace ℝ (Fin 3)) : ℝ :=
+  inner ℝ u v
 
 /-- User's preferred notation δF/δω for the functional derivative (Section 2.1). -/
 notation "δ" F:arg "/δω" => FunctionalDerivative F

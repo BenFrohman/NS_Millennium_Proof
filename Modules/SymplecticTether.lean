@@ -1,3 +1,14 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+
+WIP (2026-08-26): Lean 4 kernel-path restoration of `kappa`, `TetherKernel`, and
+the Frohmanian Tether (𝔉𝕋). Original work by Benjamin Stanley Frohman
+(@Investor0x / Bit21). In-progress formalization; classical black boxes remain
+documented `sorry`s. Does not claim a completed Clay Navier–Stokes solution.
+-/
+
 module
 
 public import Mathlib.Analysis.InnerProductSpace.PiL2
@@ -177,7 +188,7 @@ All imports use the correct `NS_Millennium_Proof.Modules.*` paths.
 namespace FrohmanianTether
 
 open ArnoldGeometric
-open NavierStokes3D ArnoldGeometric MeasureTheory ForMathlib
+open InnerProductSpace NavierStokes3D ArnoldGeometric MeasureTheory ForMathlib
 
 noncomputable section
 
@@ -258,20 +269,51 @@ These choices ensure that the novel geometric content (the explicit construction
 -- full resolution of ForMathlib. ns prefix for the open list was triggering unknown during reorg).
 -- The key lemmas (projector_orthogonality etc.) are documented via the centralized ForMathlib module.
 
-/-! ## Calderón–Zygmund Constant (universal, solution-independent) -/
+/-! ## Calderón–Zygmund Constant (universal, solution-independent)
 
-def CalderonZygmundConstant3D : ℝ := 1   -- C_CZ(3) from Biot-Savart / Riesz transforms; explicit universal constant from side tabs (living document and previous impl: the CZ constant for 3D, value can be any positive as it is scaled into κ)
-axiom czc_3d_pos : 0 < CalderonZygmundConstant3D
-def κ : ℝ := CalderonZygmundConstant3D
+`C_CZ(3)` is the 3D Biot–Savart / Riesz-transform constant. After nondimensionalization
+any positive representative is valid; we take the conventional value `1` so positivity
+is a kernel theorem rather than an axiom. The operational multiplier `4` in
+`4 C_CZ(3)` is the quartic product-rule factor, **not** a 4D spatial constant.
+-/
+
+@[expose] public def CalderonZygmundConstant3D : ℝ := 1
+
+public theorem CalderonZygmundConstant3D_pos : 0 < CalderonZygmundConstant3D :=
+  show (0 : ℝ) < 1 from one_pos
+
+/-- Tether strength. ASCII name `kappa`; `κ` is notation only. -/
+@[expose] public def kappa : ℝ := CalderonZygmundConstant3D
+
+notation "κ" => kappa
+
+public theorem kappa_pos : 0 < kappa := CalderonZygmundConstant3D_pos
+
+/-- Quartic product-rule multiplier times the 3D CZ constant: `4 * C_CZ(3)`. -/
+@[expose] public def quartic_stretching_bound_coeff : ℝ := 4 * CalderonZygmundConstant3D
+
+/-- Residual tether strength after Young absorption: `κ' = (3/4) κ > 0`. -/
+@[expose] public def kappa' : ℝ := (3 / 4) * kappa
+
+public theorem kappa'_pos : 0 < kappa' := by
+  have h34 : (0 : ℝ) < 3 / 4 := by
+    exact div_pos three_pos four_pos
+  exact mul_pos h34 kappa_pos
+
+/-- Canonical absorption parameter `ε_abs = κ/4` used in Young (p = 3/2, q = 3). -/
+@[expose] public def epsilon_abs : ℝ := kappa / 4
 
 /-! ## The Quadratic Metric Correction (the Tether) -/
 
-public noncomputable def TetherKernel (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
-  -- Explicit 1st-principles integral-kernel realization (formula derived from (C1)–(C3)):
-  -- B(F,G)(ω) = -κ ∫ |ω|² (Π_u (δF/δω) · Π_u (δG/δω)) dλ
-  -- (Π_u from explicit Gram-Schmidt in ForMathlib/Projection; see comment for full 1st-principles justification).
-  -- Body schematic (the arithmetic of the integral is classical black-box for now; the derivation of the form is explicit above).
-  sorry
+/-- Canonical Frohmanian tether kernel
+`B(F,G)(ω) = -κ ∫ |ω|² (Π_u (δF/δω) · Π_u (δG/δω)) dλ`. -/
+@[expose] public noncomputable def TetherKernel (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
+  -kappa * ∫ x,
+    ‖ω.val x‖ ^ 2 *
+      inner ℝ
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+    ∂volume
 
 public noncomputable def TetheredBracket (F G : Functional) (ω : CoadjointOrbit) : ℝ :=
   -- The Frohmanian Symplectic Tether bracket: the classical Arnold Lie–Poisson bracket
@@ -287,37 +329,29 @@ Property (C1): The correction is invariant under the coadjoint action of SDiff(T
 Defined as a `def` returning `Prop` per Lean reference §7 (Definitions).
 This is a predicate on the higher-order object `B`, not a theorem asserting a specific fact.
 -/
-public def InvariantUnderCoadjointAction (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
+@[expose] public def InvariantUnderCoadjointAction (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
   -- (C1): The correction B is invariant under the coadjoint action of SDiff(T³).
   -- For all volume-preserving g, the value of the correction is unchanged when the vorticity
   -- and the test functionals are transformed by the coadjoint action.
   ∀ (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit),
     B (CoadjointAction g ω) F G = B ω F G
 
-public def DegenerateWRTKineticEnergy (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
+@[expose] public def DegenerateWRTKineticEnergy (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
   -- (C2): The correction is degenerate with respect to the kinetic-energy Hamiltonian H.
   -- The Hamiltonian vector field generated by H is exactly the classical one (no modification
   -- to the reversible Euler dynamics). This is the Clay-critical degeneracy on energy.
   ∀ (F : Functional) (ω : CoadjointOrbit),
     B ω F KineticEnergyHamiltonian = 0
 
-public def ProducesControllableNegativeFeedback (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
-  -- (C3): When the correction is inserted into the energy estimate for a suitable test functional
-  -- (e.g. mollified sup-norm proxy or the quartic weighted S_ε), it produces a controllable
-  -- negative term that can be used (after CZ + Hölder + Young absorption with parameter
-  -- forced by the canonicity) to dominate the stretching and close the a-priori bound.
-  -- The precise strength is fixed to κ = C_CZ(3) so that the leading positive term is absorbed
-  -- by the negative quartic contribution.
-  -- In the abstract interface used by the 5-step, this is the property that forces the coefficient
-  -- and rules out other forms.
+/-- (C3): after `Π_u`, the correction is negative-semidefinite with leading coefficient `-κ`. -/
+@[expose] public def ProducesControllableNegativeFeedback
+    (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
   ∀ (F : Functional) (ω : CoadjointOrbit),
-    -- The quadratic form induced by B on the functional derivative of F at ω,
-    -- after projection, yields (after the estimates) a term ≤ -κ ∫ |ω|⁴ |δF/δω projected|² or
-    -- the corresponding negative contribution in d/dt of the associated Lyapunov.
-    -- Here we record the interface property used by step4; the concrete realization for
-    -- the tethered B is verified in the differential inequality lemmas in TetheredLyapunov.
-    B ω F F ≤ 0   -- placeholder for the sign of the feedback; refined in the analytic layer
-    -- (the actual controllable negative is the -κ' ∫ |ω|⁶ after absorption in the quartic case)
+    B ω F F ≤
+      -kappa * ∫ x,
+        ‖ω.val x‖ ^ 2 *
+          ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
+        ∂volume
 
 /-! ## Explicit Degeneracy for the Mollified Sup-Norm Proxy (LaTeX Section 2.4.1 — Critical for Clay)
 
@@ -331,9 +365,19 @@ def mollify (_ε : ℝ) (f : T3 → (EuclideanSpace ℝ (Fin 3))) : T3 → (Eucl
 def MollifiedSupNormFunctional (ε : ℝ) (ω : CoadjointOrbit) : ℝ :=
   ⨆ x, ‖mollify ε ω.val x‖
 
-theorem degeneracy_for_mollified_sup_norm_proxy : True := by
-  -- (Full explicit 4-point Clay-critical degeneracy verification for the mollified sup-norm proxy is in the long comment preceding this declaration in the source. The 4-point (δF_ε normalized, δH/δω = u, Π_u(u) = 0, integrand factor 0) is 1st principles from Clarified BLOCK 2, living document 2.4.1, Geometric_Reconstruction, and main.tex. Classical sub-parts (Arnold degeneracy, projector arithmetic) are documented black boxes with citations. This raises the independent verification proof of degeneracy to 95/100 (structure and reasoning explicit; full typing of integral in future pass).
-  exact True.intro   -- degeneracy for mollified proxy (explicit 4-point documented immediately above; non-circular, 1st principles)
+/-- Kinetic energy has functional derivative equal to the Biot–Savart velocity. Classical. -/
+lemma functional_derivative_of_kinetic_energy (ω : CoadjointOrbit) :
+    FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω := by
+  sorry
+
+/-- 4-point degeneracy: `δF_ε`, `δH/δω = u`, `Π_u(u) = 0`, integrand vanishes. -/
+theorem degeneracy_for_mollified_sup_norm_proxy (ε : ℝ) (ω : CoadjointOrbit) :
+    TetherKernel ω (fun ω' => MollifiedSupNormFunctional ε ω') KineticEnergyHamiltonian = 0 := by
+  -- 1. Functional derivative of F_ε (mollified sup-norm proxy).
+  -- 2. δH/δω = u = velocity_from_vorticity ω.
+  -- 3. Π_u(u) = 0 by L² Gram–Schmidt (ForMathlib.projection_orthogonal_to_u).
+  -- 4. Pointwise integrand |ω|² (Π_u δF · Π_u u) = 0, hence the integral is 0.
+  sorry
 
 /-! ## Theorem 2.3 — Uniqueness of the Minimal Correction (PASS 2 / GotItNavier_Final Section 2.7) -/
 
@@ -351,14 +395,10 @@ CoadjointOrbit / VelocityField types and centralized ForMathlib/Projection.
 -/
 
 
-lemma integration_by_parts_on_torus (_u : VelocityField) (_φ : T3 → ℝ) :
-    True := by   -- (Correct typed statement uses the project's ∫ ... ∂(volume) + pairing or inner;
-                 -- the mathematical claim is the standard integration-by-parts identity on T³ with no boundary terms.)
-  -- Periodic boundary conditions on T³ ⇒ no boundary terms.
-  -- Standard integration by parts for divergence-free or general fields.
-  -- Exact reference: user's supplied Block 2 + classical vector calculus on the torus.
-  -- Used in the proof of euler_energy_conservation (local energy identity).
-  sorry   -- Foundational fact from vector calculus on the torus (to be typed precisely when ForMathlib adds it); explicit from side tabs (Clarified_Degeneracy_and_Majorant_Blocks.lean and living docs IBP on T3)
+lemma integration_by_parts_on_torus (u : VelocityField) (φ : T3 → ℝ) :
+    ∫ x, inner ℝ (u x) (gradient φ x) ∂volume =
+      -∫ x, div u x * φ x ∂volume := by
+  sorry
 
 lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
     div (velocity_from_vorticity ω) = 0 := by
@@ -366,15 +406,12 @@ lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
   -- (for k ≠ 0). Taking divergence kills the term.
   sorry   -- Classical fact for Biot-Savart on T³; explicit from side tabs (previous impl and living document: Fourier cross-product identity kills div)
 
-lemma euler_energy_conservation (_u : VelocityField) (_T : ℝ) :
-    -- Let u be a smooth solution of the incompressible Euler equations
-    -- on [0, T), T ≤ ∞. Then d/dt (½ ∫ |u(t)|² dλ) = 0 for all t ∈ [0, T).
-    -- IMPORTANT: This identity holds for ANY smooth solution on its interval of existence
-    -- [0, T), where T ≤ ∞. It does NOT assume that the solution is global.
-    -- Global conservation is only obtained AFTER we prove (via the independent majorant
-    -- in Block 3 / TetheredLyapunov) that the maximal existence time is infinite. This is a purely local identity.
-    True := by
-  sorry   -- Standard energy identity for Euler (integration by parts + div u = 0); explicit from side tabs (Clarified scratch and Full_Living_Document: the local energy conservation on existence interval)
+lemma euler_energy_conservation (u : ℝ → VelocityField) (T : ℝ)
+    (_hT : 0 < T)
+    (_hdiv : ∀ t ∈ Set.Ico 0 T, ∀ x, div (u t) x = 0) :
+    ∀ t ∈ Set.Ico 0 T,
+      deriv (fun s => (1 / 2 : ℝ) * ∫ x, ‖u s x‖ ^ 2 ∂volume) t = 0 := by
+  sorry
 
 -- ============================================
 -- 5-STEP UNIQUENESS — TAO / PFR STYLE (ATOMIC NAMED LEMMAS)
@@ -400,7 +437,9 @@ See the comment in Uniqueness.lean for the move rationale and non-circularity.
 
 /-! ## Invariance (C1) — skeleton -/
 
-theorem tether_coadjoint_invariance : True := by
+theorem tether_coadjoint_invariance
+    (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit) :
+    TetherKernel (CoadjointAction g ω) F G = TetherKernel ω F G := by
   -- REAL STATEMENT (restored when CoadjointAction and the integral are fully typed):
   --   ∀ (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit),
   --     TetherKernel (CoadjointAction g ω) F G = TetherKernel ω F G
@@ -423,7 +462,7 @@ theorem tether_coadjoint_invariance : True := by
   --
   -- This is exactly the invariance required for MWR reduction to descend the tethered bracket to the
   -- reduced (div-free) coadjoint orbit while preserving the Poisson property.
-  exact True.intro   -- the steps above are the direct transcription of the source proof (volume preservation + pointwise inner product + Ad-invariance of |ω|² + naturality of Π_u); classical facts on SDiff action (black-box, cited)
+  sorry
 
 /-! ## The tethered bracket reproduces classical reversible dynamics -/
 
@@ -457,7 +496,15 @@ These are therefore expected classical integral identities on the reduced orbit,
 in the novel 5-step canonicity argument. The structure around them is now fully explicit.
 -/
 
-theorem tethered_jacobi_identity : True := by
+/-- Jacobiator of the tethered bracket. Vanishing is the Jacobi identity. -/
+public noncomputable def jacobiator (F G H : Functional) (ω : CoadjointOrbit) : ℝ :=
+  let GH : Functional := fun ω' => TetheredBracket G H ω'
+  let HF : Functional := fun ω' => TetheredBracket H F ω'
+  let FG : Functional := fun ω' => TetheredBracket F G ω'
+  TetheredBracket F GH ω + TetheredBracket G HF ω + TetheredBracket H FG ω
+
+theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbit) :
+    jacobiator F G H ω = 0 := by
   -- REAL STATEMENT (to be restored when the correction sum is proved 0 by the explicit
   -- 9-term + IBP + cyclic + CE closure from the sources):
   --   ∀ (F G H : Functional) (ω : CoadjointOrbit),
@@ -800,7 +847,10 @@ theorem tethered_jacobi_identity : True := by
 
     exact True.intro   -- h_corr_expansion + h_cyclic... give the correction jacobi
 
-  exact True.intro   -- h_classical + h_correction give the full jacobi = 0 (no axioms for this theorem)
+  -- Classical MWR Jacobi + cyclic integrand vanishing of the tether correction.
+  -- Named `have`s above record the 9-term IBP / CE-cocycle skeleton; the arithmetic
+  -- is a documented classical black box at this pin.
+  sorry
 
         -- (Duplicate 9-term expansion block removed; the authoritative version with full
         -- source quotes, named h_t* IBP haves, and h_9terms_after_IBP is now inside

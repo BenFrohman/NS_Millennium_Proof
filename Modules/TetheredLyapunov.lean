@@ -1,7 +1,20 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+
+WIP (2026-08-26): Lean 4 kernel-path restoration of the quartic Lyapunov `S_ε`,
+Young absorption of `4 C_CZ(3)`, and independent majorant. Original work by
+Benjamin Stanley Frohman (@Investor0x / Bit21). In-progress formalization;
+classical black boxes remain documented `sorry`s. Does not claim a completed
+Clay Navier–Stokes solution.
+-/
+
 module
 
 public import Mathlib.Analysis.SpecialFunctions.Exp
 public import Mathlib.Analysis.Calculus.ContDiff.Defs
+public import Mathlib.Tactic.Linarith
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.NS_Equations
@@ -450,7 +463,8 @@ See also: "How to Audit Non-Circularity".
 
 namespace TetheredLyapunov
 
-open FrohmanianTether ArnoldGeometric NavierStokes3D  -- updated to canonical FrohmanianTether namespace per naming standard (Frohmanian_Tether_Naming_Symbol_Standard.md)
+open FrohmanianTether ArnoldGeometric NavierStokes3D MeasureTheory
+open scoped InnerProductSpace
 
 noncomputable section
 -- Required because the majorant ODE comparison and integral estimates in Lemma 3.1
@@ -472,6 +486,27 @@ def MollifiedSupNorm (ω : ℝ → VorticityField) (ε : ℝ) (t : ℝ) : ℝ :=
 
 def EnstrophyAccumulation (u : ℝ → VelocityField) (ω : ℝ → VorticityField) : ℝ → T3 → ℝ := sorry
 
+/-- Mollified quartic Lyapunov functional
+`S_ε(t) = ∫ (½ |ω_ε|² + (κ/4) |ω_ε|⁴ φ_ε) dλ`. The factor `1/4` is cancelled by the
+product-rule `4` when differentiating the quartic. -/
+public noncomputable def LyapunovS (ωε : VorticityField) (phi : T3 → ℝ) : ℝ :=
+  ∫ x, (1 / 2) * ‖ωε x‖ ^ 2 + (kappa / 4) * ‖ωε x‖ ^ 4 * phi x ∂volume
+
+/-- Algebraic elimination of the quartic factor `4` after Young absorption.
+Given the pointwise/integrated Young bound with `ε_abs = κ/4`, the stretching term
+`4 C_CZ(3) M ∫|ω|⁴|φ|` is absorbed, leaving residual `-κ' ∫|ω|⁶` with `κ' = (3/4)κ`. -/
+public theorem youngs_absorption_elimination
+    (M phiLinf I6 I4phi C_abs : ℝ)
+    (_hM : 0 ≤ M) (_hphi : 0 ≤ phiLinf) (_hI6 : 0 ≤ I6) (_hI4 : 0 ≤ I4phi)
+    (h_kappa : kappa = CalderonZygmundConstant3D)
+    (hYoung :
+      4 * CalderonZygmundConstant3D * M * I4phi ≤
+        (kappa / 4) * I6 + C_abs * (M ^ 3 * phiLinf ^ ((3 : ℝ) / 2))) :
+    4 * CalderonZygmundConstant3D * M * I4phi - kappa * I6 ≤
+      C_abs * (M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) - (3 / 4 : ℝ) * kappa * I6 := by
+  have hκ : kappa = CalderonZygmundConstant3D := h_kappa
+  linarith
+
 /-! ## The Independent Comparison Majorant (pure ODE, completely decoupled from NS)
 
 This block follows the user's provided groundwork + Terence Tao’s atomic + blueprint style.
@@ -486,13 +521,11 @@ The uniform bound is obtained a posteriori by supremum over all such intervals.
 
 -- Supporting atomic lemma: the differential inequality after tether + absorption
 lemma differential_inequality_after_tether_and_absorption
-    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) :
-    -- After using the tethered bracket, mollification, integration by parts on T³,
-    -- Hölder, Sobolev embedding, and Young absorption with optimal parameter ε = κ/4,
-    -- one obtains:
-    --   d/dt S_ε(t) ≤ C_abs (1 + M_ε(t)³ ‖ϕ_ε‖_∞^{3/2}) − κ' ∫ |ω_ε|⁶ dλ
-    -- with C_abs and κ' universal (depend only on dimension + C_CZ(3) + C_Sob + C_GN).
-    True := by
+    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (phi : T3 → ℝ) (C_abs : ℝ) :
+    deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
+      C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
+        (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
+      kappa' * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume := by
   -- Full first-principles derivation (polished version from living document PASS 3/5 Section 3):
 
   -- IMPORTANT EVOLUTION NOTE (May 20, 2026 canonical structure, per user-supplied comparison
@@ -606,7 +639,21 @@ def mollified_vorticity (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) : Vor
   fun x => x   -- standard mollification (classical black-box; the estimates using it are in the rtfd Section 3 / user's Block 3); from side tabs (living document: "standard mollifier η_ε", approximated as id for the structure)
 
 -- Key differential inequality after tether + mollification + absorption
-lemma key_differential_inequality (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) :
+lemma key_differential_inequality (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ)
+    (phi : T3 → ℝ) (C_abs : ℝ) :
+    deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
+      C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
+        (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
+      kappa' * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume :=
+  differential_inequality_after_tether_and_absorption ε ω t phi C_abs
+
+/-- Duplicate statement retained only as a comment target; the live lemma is above. -/
+lemma key_differential_inequality_docstring_anchor (_ε : ℝ) (_ω : ℝ → VorticityField) (_t : ℝ) :
+    True := by
+  -- The real inequality is `key_differential_inequality`.
+  trivial
+
+private theorem key_differential_inequality_legacy_comments (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) :
   -- See docs/Clarified_Degeneracy_and_Majorant_Blocks.lean (BLOCK 3) for the
   -- user's clarified/expanded version of the key_differential_inequality,
   -- majorant_comparison_principle, uniform_majorant_bound, riccati_majorant_global_bound,
@@ -716,7 +763,7 @@ well-founded recursion or `WellFounded.fix` (following the guidance in §7.6)
 together with the phase-plane analysis already present in
 `phase_plane_analysis_of_majorant_ODE`.
 -/
-noncomputable def ComparisonODE (C κ'' y0 : ℝ) : ℝ → ℝ :=
+public noncomputable def ComparisonODE (C κ'' y0 : ℝ) : ℝ → ℝ :=
   fun t =>
     -- Per Lean ref §7.6 (Recursive Definitions) and §7.1 (Modifiers):
     -- This will be implemented as a well-founded recursive definition (or via
@@ -742,7 +789,18 @@ This lemma will eventually be used inside a well-founded recursive construction
 of `ComparisonODE` (or via `WellFounded.fix`). For now it provides the
 mathematical justification that the ODE remains bounded independently of time.
 -/
-lemma phase_plane_analysis_of_majorant_ODE (C κ'' : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
+lemma phase_plane_analysis_of_majorant_ODE (C κ'' y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0)
+    (_hy0 : 0 ≤ y0) :
+    ∀ t ≥ (0 : ℝ),
+      0 ≤ ComparisonODE C κ'' y0 t ∧ ComparisonODE C κ'' y0 t ≤ max y0 (C / κ'') := by
+  intro t _ht
+  -- The ODE y' = C y² - κ'' y³ has exactly two equilibria:
+  -- y = 0 (unstable) and y* = C / κ'' (asymptotically stable).
+  have _h_eq : True := by
+    trivial
+  sorry
+
+private lemma phase_plane_analysis_of_majorant_ODE_comments (C κ'' : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
     -- The ODE y' = C y² - κ'' y³ has exactly two equilibria:
     -- y = 0 (unstable) and y* = C / κ'' (asymptotically stable).
     -- All solutions with y(0) ≥ 0 remain bounded above by max(y(0), y*).
@@ -886,8 +944,13 @@ lemma phase_plane_analysis_of_majorant_ODE (C κ'' : ℝ) (hC : C > 0) (hκ : κ
   exact True.intro
 
 -- Uniform global bound on the majorant (pure ODE theory, no NS involved)
-lemma uniform_majorant_bound (C κ'' _y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
-    -- 0 ≤ y(t) ≤ max(y0, C/κ'') for all t ≥ 0 (Y independent of any NS solution).
+public lemma uniform_majorant_bound (C κ'' y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0)
+    (hy0 : 0 ≤ y0) :
+    ∀ t ≥ (0 : ℝ),
+      0 ≤ ComparisonODE C κ'' y0 t ∧ ComparisonODE C κ'' y0 t ≤ max y0 (C / κ'') :=
+  phase_plane_analysis_of_majorant_ODE C κ'' y0 hC hκ hy0
+
+private lemma uniform_majorant_bound_comments (C κ'' _y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
     True := by
   -- Full phase-plane argument (from living document, made explicit):
   -- Rewrite y' = y² (C − κ'' y). Equilibria y=0 (unstable), y*=C/κ'' (stable).
@@ -903,7 +966,7 @@ lemma uniform_majorant_bound (C κ'' _y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
   -- take an initial y0 parameter). When this lemma is expanded from the current
   -- schematic apply into a full explicit proof (using the phase-plane cases we
   -- already wrote), _y0 will be used to state the concrete bound.
-  apply phase_plane_analysis_of_majorant_ODE C κ'' hC hκ
+  trivial
   -- The two cases (already expanded in phase_plane_analysis_of_majorant_ODE) are the
   -- complete rigorous justification from the living document. The apply succeeds
   -- because that lemma returns exactly `True` in its current stub form.
@@ -911,14 +974,9 @@ lemma uniform_majorant_bound (C κ'' _y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0) :
 
 -- Rigorous comparison principle (transfers ODE bound to the NS quantities)
 lemma majorant_comparison_principle
-    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (y0 : ℝ) (_h_ineq : True) :
-    -- If M_ε(t) satisfies the differential inequality majorized by the Riccati ODE,
-    -- then M_ε(t) ≤ y(t) on the existence interval, where y is the solution of the majorant ODE
-    -- with y(0) = y0.
-    -- This relies on the standard comparison theorem for scalar ODEs / differential inequalities,
-    -- once the differential inequality for M_ε has been established (from the tethered estimates
-    -- on finite intervals using only local smoothness).
-    True := by
+    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (y0 C κ'' : ℝ)
+    (_hC : 0 < C) (_hκ : 0 < κ'') (_hy0 : 0 ≤ y0) :
+    MollifiedSupNorm ω ε t ≤ ComparisonODE C κ'' y0 t := by
   -- The proof is the classical scalar comparison theorem:
   -- If a function z(t) satisfies z' ≤ f(t, z) with f Lipschitz in the second variable,
   -- and y solves y' = f(t, y) with y(0) ≥ z(0), then y(t) ≥ z(t) on the common interval of existence.
@@ -932,7 +990,7 @@ lemma majorant_comparison_principle
   -- This is the precise statement used in the polished living document (PASS 5 Section 3).
   -- The only non-classical part is that we have already derived the differential inequality
   -- for M_ε using only local smoothness on the compact interval and the tether degeneracy.
-  exact True.intro   -- The actual invocation of the standard comparison theorem is classical; from side tabs (Full_Living_Document.md): "By the standard comparison theorem for scalar ODEs, M_ε(t) ≤ y(t) on the existence interval of the classical solution."
+  sorry
 
 /--
 Global uniform bound on the independent majorant ODE (Lean ref §7.6).
@@ -984,16 +1042,24 @@ obtained by taking the supremum over all such finite intervals.
 - Non-Ad-Hoc / Canonicality (the bound Y must be independent of the particular subinterval)
 -/
 
-theorem lemma_3_1_uniform_bound_and_continuation
+public theorem lemma_3_1_uniform_bound_and_continuation
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : True)  -- classical C^∞ local existence + parabolic regularity on compact subintervals (black-box; see NS_Equations)
+    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hM : 0 ≤ Mε0) :
+    ∀ T : ℝ, 0 ≤ T → T < Tstar u₀ ν →
+      ComparisonODE C κ'' Mε0 T ≤ max Mε0 (C / κ'') := by
+  intro T hT0 _hTlt
+  have _hsetup : (∀ x, div u₀ x = 0) ∧ ContDiff ℝ ⊤ u₀ := ⟨h_divfree, h_smooth⟩
+  have hphase := phase_plane_analysis_of_majorant_ODE C κ'' Mε0 hC hκ hM T hT0
+  exact hphase.2
+
+private theorem lemma_3_1_comments
+    (u₀ : VelocityField) (ν : ℝ)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_smooth : True)
     (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') :
-  -- On the maximal existence interval [0, T*) of any classical solution:
-  -- The auxiliary field ϕ_ε remains controlled and the absorption constants in the
-  -- inequality for S_ε stay finite on every compact subinterval, using only the
-  -- independent majorant y(t) (which is bounded by Y globally from pure ODE theory).
-  True := by
+    True := by
   -- Rigorous non-circular argument (polished PASS 5 version from the living document,
   -- cross-checked with rtfd audit and chat history non-circularity rules).
   --
@@ -1044,14 +1110,15 @@ where
 public theorem global_regularity
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : True)  -- classical C^∞ local existence + parabolic regularity on compact subintervals (black-box; see NS_Equations)
-    (h_finite_energy : True)  -- weakened for this old mathlib pin; should be finite energy condition
+    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0) :
   ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
     NS_PDE u p ν ∧
     u 0 = u₀ ∧
-    (∀ t ≥ 0, True) ∧  -- global C^∞ (the goal; upgraded by parabolic regularity after BKM)
-    (∀ t ≥ 0, ∀ x, div (u t) x = 0) := by
+    (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t)) ∧
+    (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+    (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) := by
   -- Complete, explicit logical structure — Two-Layer Architecture (updated per
   -- Conversation Summary, 31 May 2026).
 
