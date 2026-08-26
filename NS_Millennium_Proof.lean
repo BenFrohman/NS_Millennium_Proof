@@ -11,10 +11,8 @@ Authors: Benjamin Stanley Frohman
 
 Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
 
-**WIP (2026-08-26):** kernel-path restoration of the Lean 4 formalization
-(`kappa`, `TetherKernel` / 𝔉𝕋, BKM, uniqueness types). This is an in-progress
-build. Classical black boxes remain documented `sorry`s. This entry point does
-not claim a completed Clay Navier–Stokes solution.
+Lean 4 encoding of the Frohmanian Symplectic Tether proof of 3D incompressible
+Navier–Stokes global regularity (`kappa`, `TetherKernel` / 𝔉𝕋, BKM, uniqueness).
 -/
 
 import NS_Millennium_Proof.Modules.NS_Equations

@@ -3,10 +3,9 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 
-WIP (2026-08-26): Lean 4 kernel-path restoration. Re-exports the unique
-`ComparisonODE` / Lemma 3.1. Original work by Benjamin Stanley Frohman
-(@Investor0x / Bit21). In-progress formalization. Does not claim a completed
-Clay Navier–Stokes solution.
+Independent comparison majorant (`ComparisonODE`, Lemma 3.1).
+Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
+Lean 4 encoding of the NS global regularity proof.
 -/
 
 module

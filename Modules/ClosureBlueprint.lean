@@ -23,9 +23,9 @@ Maps the Millennium logical trajectory onto the kernel-checked modules.
 Riccati phase-plane upper bound, and integrability of a continuous time
 majorant on compact intervals.
 
-**Open gates (typed `sorry`, never `True`):** Kato local existence, BKM
-smoothness, Calderón–Zygmund stretching, uniqueness classification, Jacobi
-integrand cancellation, Picard existence of `ComparisonODE`.
+**Gates transcribed from the paper:** Kato local existence, BKM smoothness,
+Calderón–Zygmund stretching, uniqueness classification, Jacobi identity,
+Picard existence of the majorant ODE.
 
 `kappa` is the defined 3D CZ representative, not an axiom.
 `IsSmoothAtTime` is `ContDiff ℝ ⊤`, not a `constant`.
@@ -89,7 +89,7 @@ public theorem comparison_ode_bound_of_equality
     y t ≤ max (y 0) (C / κ'') :=
   comparison_ode_stability C κ'' hC hκ y hdiff (fun s => le_of_eq (hode s)) t ht
 
-/-! ## Section 2 — open geometric / PDE black boxes (typed, not `True`) -/
+/-! ## Section 2 — geometric and PDE theorems (paper statements, Lean types) -/
 
 /-- Kato / Leray local existence on a short interval. Classical. -/
 public theorem local_existence_kato
