@@ -736,8 +736,14 @@ lemma phase_plane_analysis_of_majorant_ODE (C κ'' y0 : ℝ) (hC : C > 0) (hκ :
   intro t _ht
   -- The ODE y' = C y² - κ'' y³ has exactly two equilibria:
   -- y = 0 (unstable) and y* = C / κ'' (asymptotically stable).
-  have _h_eq : True := by
-    trivial
+  -- Equilibria of `y' = C y² − κ'' y³` are `y = 0` and `y* = C/κ''`.
+  have h_eq : C * 0 ^ 2 - κ'' * 0 ^ 3 = 0 ∧
+      C * (C / κ'') ^ 2 - κ'' * (C / κ'') ^ 3 = 0 := by
+    constructor
+    · ring
+    · have hκ0 : κ'' ≠ 0 := ne_of_gt hκ
+      field_simp [hκ0]
+      ring
   sorry
 
 private lemma phase_plane_analysis_of_majorant_ODE_comments (C κ'' : ℝ) (_hC : C > 0) (_hκ : κ'' > 0) :
