@@ -1,10 +1,9 @@
-/-!
-**Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
-
-**Original Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)
-
-This file is part of the original Frohmanian Symplectic Tether framework for the Navier–Stokes Millennium Problem.
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 /-!
 # Phase 2 (continued): Mollified Lyapunov, Differential Inequality, and Full Regularity
 

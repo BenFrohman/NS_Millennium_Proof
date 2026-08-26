@@ -12,6 +12,7 @@
 - **2026-05-28 to 2026-05-31**: Complete implementation versions stabilized in backup folders.
 - **2026-06 to 2026-07**: Recovery from build corruption event. Authorship headers and project-level files (COPYRIGHT.md, AUTHORS.md, HISTORY.md) applied to all original modules.
 - **2026-08-26 (WIP)**: Kernel-path restoration of the full restored modules: Lean 4 `kappa` / `C_CZ(3)`, canonical `TetherKernel`, BKM criterion, uniqueness types, quartic Young absorption, and top-level `Modules/` copies. Labeled WIP under Benjamin Stanley Frohman. `lake build NS_Millennium_Proof ForMathlib` succeeds with documented classical `sorry`s.
+- **2026-08-26 (attribution)**: Mathlib five-line `Authors: Benjamin Stanley Frohman` headers on original Lean modules; `.mailmap` maps commit aliases `Frohmanian` / `BenFrohman` without rewriting history; PR `Author:` comments for Lean/Zulip contact.
 
 This formalization establishes priority for the **Frohmanian Symplectic Tether Regularity Theorem** as the original solution approach to the 3D Navier–Stokes Millennium Problem.
 

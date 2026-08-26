@@ -2,10 +2,6 @@
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
-
-Quartic Lyapunov `S_ε`, Young absorption of `4 C_CZ(3)`, independent majorant.
-Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
-Lean 4 encoding of the NS global regularity proof.
 -/
 
 module

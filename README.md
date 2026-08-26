@@ -61,6 +61,16 @@ constructions in this repository (Frohmanian tether, tethered bracket, tethered 
 independent majorant) are original to this work. If you reference it, please cite via
 [`CITATION.cff`](CITATION.cff).
 
+### Lean 4 / mathlib4 / Zulip
+
+Original Lean modules use Mathlib's five-line copyright header with
+`Authors: Benjamin Stanley Frohman` (no trailing period). That is the name to ping on
+the Lean Zulip. GitHub: [@BenFrohman](https://github.com/BenFrohman) /
+[@Investor0x](https://github.com/Investor0x). Historical commit names `Frohmanian` and
+`BenFrohman` are mapped in [`.mailmap`](.mailmap); git history is not rewritten.
+On PRs, comment `Author: Benjamin Stanley Frohman` when the git author is a handle.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## Support
 
 Independent research. If this corpus is useful: **[Sponsor on GitHub](https://github.com/sponsors/BenFrohman)**.
