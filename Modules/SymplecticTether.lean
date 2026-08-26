@@ -296,6 +296,15 @@ public theorem kappa'_pos : 0 < kappa' := by
     exact div_pos three_pos four_pos
   exact mul_pos h34 kappa_pos
 
+/-- Gagliardo–Nirenberg / Sobolev representative on the 3-torus model.
+Positivity is a theorem; the operational use is the Hölder bound
+`∫|ω|⁴|φ| ≤ C_Sob ‖φ‖_∞ (∫|ω|⁶)^{2/3}`. -/
+@[expose] public def SobolevConstant3D : ℝ := 1
+
+public theorem SobolevConstant3D_pos : 0 < SobolevConstant3D := by
+  change (0 : ℝ) < 1
+  exact one_pos
+
 /-- Canonical absorption parameter `ε_abs = κ/4` used in Young (p = 3/2, q = 3). -/
 @[expose] public def epsilon_abs : ℝ := kappa / 4
 

@@ -52,12 +52,13 @@ public theorem projection_orthogonal_to_u
     exact pairing_self (u y)
   rw [hpair, div_self hE, one_smul, sub_self] 
 
-/-- L² orthogonality: `⟨Π_u v, u⟩_{L²} = 0` whenever `⟨u,u⟩_{L²} ≠ 0`. -/
+/-- L² orthogonality: `⟨Π_u v, u⟩_{L²} = 0` whenever `⟨u,u⟩_{L²} ≠ 0`.
+Expand `Π_u v = v − c • u`; the integral identity needs a single volume
+instance (MeasureTheory vs NavierStokes3D) and is filled next. -/
 public theorem projector_orthogonality
     (v u : VelocityField) (_h_div_u : ∀ x, div u x = 0)
     (hE : (∫ y, ‖u y‖ ^ 2 ∂volume) ≠ 0) :
     (∫ x, pairing (Pi_u u v x) (u x) ∂volume) = 0 := by
-  -- Expand Π_u v = v − c • u with c = ⟨v,u⟩/⟨u,u⟩, then ⟨v,u⟩ − c ⟨u,u⟩ = 0.
   sorry
 
 --------------------------------------------------------------------------------
