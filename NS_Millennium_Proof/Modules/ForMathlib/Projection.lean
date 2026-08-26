@@ -2,9 +2,6 @@
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
-
-The L² projector `Pi_u` of the Frohmanian tether (C2 degeneracy).
-Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
 -/
 
 module
