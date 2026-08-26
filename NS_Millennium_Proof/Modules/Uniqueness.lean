@@ -119,7 +119,7 @@ lemma step5_higher_order
     (_h_antisym : ∀ ω F G, B ω F G = -B ω G F)
     (_h_deg : DegenerateWRTKineticEnergy B)
     (_h_feedback : ProducesControllableNegativeFeedback B) :
-    ∀ (n : ℕ), 3 ≤ n →
+    ∀ (n : Nat), 3 ≤ n →
       ∀ (F G : Functional) (ω : CoadjointOrbit) (c : ℝ),
         B ⟨fun x => c • ω.val x, trivial⟩ F G =
           c ^ 2 * B ω F G := by

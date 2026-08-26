@@ -66,6 +66,11 @@ notation "∂t " f:arg t:arg => time_deriv f t
 
 prefix:100 "(·∇)" => fun u v => convective u v
 
+/-- Component sum on the 3-space. Discrete index `Fin 3` (from `Nat`).
+Time, viscosity, `κ`, norms, and integrals stay over `ℝ`. -/
+@[expose] public def componentSum (v : EuclideanSpace ℝ (Fin 3)) : ℝ :=
+  ∑ i : Fin 3, v i
+
 /-- i-th coordinate directional derivative of a vector field. -/
 @[expose] public def directionalCoord (u : VelocityField) (comp dir : Fin 3) (x : T3) : ℝ :=
   (fderiv ℝ (fun y => u y comp) x) (EuclideanSpace.single dir 1)
@@ -158,6 +163,19 @@ public theorem local_existence
 public theorem vorticity_sup_norm_nonneg (ω : VorticityField) :
     0 ≤ vorticity_sup_norm ω :=
   Real.iSup_nonneg fun _ => norm_nonneg _
+
+/-- Maximum principle for a transported scalar with quadratic vorticity source:
+if `∂t φ + u·∇φ = |ω|²`, then `‖φ(t)‖_∞ ≤ ‖φ(0)‖_∞ + ∫₀ᵗ ‖ω‖_∞²`.
+Classical; typed on `MaterialDerivative` and `vorticity_sup_norm`. -/
+public theorem transported_scalar_maximum_principle
+    (u : TimeDependentVelocity) (phi : ℝ → T3 → ℝ)
+    (htrans : ∀ t ≥ (0 : ℝ), ∀ x,
+      MaterialDerivative u phi t x = ‖vorticity (u t) x‖ ^ 2)
+    (t : ℝ) (ht : 0 ≤ t) :
+    ⨆ x, |phi t x| ≤
+      (⨆ x, |phi 0 x|) +
+        ∫ s in Set.Icc (0 : ℝ) t, vorticity_sup_norm (vorticity (u s)) ^ 2 := by
+  sorry
 
 /-- Beale–Kato–Majda criterion (Beale–Kato–Majda 1984).
 

@@ -12,6 +12,9 @@ public import Mathlib.MeasureTheory.Function.LocallyIntegrable
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.Tactic.Linarith
 public import Mathlib.Tactic.Ring
+public import Mathlib.Analysis.MeanInequalities
+public import Mathlib.Analysis.SpecialFunctions.Pow.Real
+public import Mathlib.Data.Real.ConjExponents
 public import NS_Millennium_Proof.Modules.NS_Equations
 public import NS_Millennium_Proof.Modules.SymplecticTether
 
@@ -151,5 +154,130 @@ public theorem bkm_regularity_pipeline
   beale_kato_majda u p ν hν hNS fun T _hTlt =>
     bkm_integrableOn_of_uniform_bound Y
       (fun τ => vorticity_sup_norm (vorticity (u τ))) hbound hcont T
+
+/-! ## ε-Young and Hölder absorption (real scalars, Mathlib) -/
+
+/-- Conjugate pair used on `I₆^{2/3}` and the stretching product. -/
+public theorem holderConjugate_three_halves_three :
+    ((3 : ℝ) / 2).HolderConjugate 3 :=
+  (Real.holderConjugate_iff).2 ⟨by norm_num, by norm_num⟩
+
+/-- ε-Young: `ab ≤ ε a^p/p + ε^{-q/p} b^q/q`. -/
+public theorem young_inequality_eps
+    {a b ε p q : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (hε : 0 < ε)
+    (hpq : p.HolderConjugate q) :
+    a * b ≤ ε * a ^ p / p + ε ^ (-(q / p)) * b ^ q / q := by
+  have hp : 0 < p := hpq.pos
+  have hp0 : p ≠ 0 := ne_of_gt hp
+  have hεp : 0 ≤ ε ^ (p⁻¹) := Real.rpow_nonneg hε.le _
+  have hεq : 0 ≤ ε ^ (-(p⁻¹)) := Real.rpow_nonneg hε.le _
+  have hy := Real.young_inequality_of_nonneg
+    (mul_nonneg hεp ha) (mul_nonneg hεq hb) hpq
+  have hscale : ε ^ (p⁻¹) * ε ^ (-(p⁻¹)) = (1 : ℝ) := by
+    rw [← Real.rpow_add hε, add_neg_cancel, Real.rpow_zero]
+  have hab :
+      a * b = (ε ^ (p⁻¹) * a) * (ε ^ (-(p⁻¹)) * b) := by
+    calc
+      a * b = (1 * a) * b := by ring
+      _ = ((ε ^ (p⁻¹) * ε ^ (-(p⁻¹))) * a) * b := by rw [hscale]
+      _ = (ε ^ (p⁻¹) * a) * (ε ^ (-(p⁻¹)) * b) := by ring
+  have h1 : (ε ^ (p⁻¹) * a) ^ p = ε * a ^ p := by
+    rw [Real.mul_rpow hεp ha, ← Real.rpow_mul hε.le, inv_mul_cancel₀ hp0, Real.rpow_one]
+  have h2 : (ε ^ (-(p⁻¹)) * b) ^ q = ε ^ (-(q / p)) * b ^ q := by
+    rw [Real.mul_rpow hεq hb, ← Real.rpow_mul hε.le]
+    congr 1
+    field_simp
+  calc
+    a * b = (ε ^ (p⁻¹) * a) * (ε ^ (-(p⁻¹)) * b) := hab
+    _ ≤ (ε ^ (p⁻¹) * a) ^ p / p + (ε ^ (-(p⁻¹)) * b) ^ q / q := hy
+    _ = ε * a ^ p / p + ε ^ (-(q / p)) * b ^ q / q := by rw [h1, h2]
+
+/-- Explicit absorption coefficient after ε-Young with `ε = 3κ/8`
+(so the `I₆` coefficient is exactly `κ/4`). -/
+public noncomputable def absorptionCoeff (C_Sob phi : ℝ) : ℝ :=
+  let ε : ℝ := 3 * kappa / 8
+  ε ^ (-(2 : ℝ)) / 3 * (4 * kappa * C_Sob) ^ 3 * (phi ^ ((3 : ℝ) / 2) + 1)
+
+/-- From Hölder `I₄ ≤ C_Sob φ I₆^{2/3}`, ε-Young with `ε = 3κ/8` yields
+the exact stretching absorption used by `youngs_absorption_elimination`. -/
+public theorem stretching_bound_of_holder
+    (M I4 I6 phi C_Sob : ℝ)
+    (hM : 0 ≤ M) (_hI4 : 0 ≤ I4) (hI6 : 0 ≤ I6) (hphi : 0 ≤ phi)
+    (hS : 0 ≤ C_Sob)
+    (hH : I4 ≤ C_Sob * phi * I6 ^ ((2 : ℝ) / 3)) :
+    4 * kappa * M * I4 ≤
+      (kappa / 4) * I6 +
+        absorptionCoeff C_Sob phi * (M ^ 3 * phi ^ ((3 : ℝ) / 2)) := by
+  have hκ := kappa_pos
+  set a := I6 ^ ((2 : ℝ) / 3)
+  set b := 4 * kappa * C_Sob * M * phi
+  set ε : ℝ := 3 * kappa / 8
+  have ha : 0 ≤ a := Real.rpow_nonneg hI6 _
+  have hb : 0 ≤ b :=
+    mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 4)
+      hκ.le) hS) hM) hphi
+  have hε : 0 < ε :=
+    div_pos (mul_pos three_pos hκ) (by norm_num : (0 : ℝ) < 8)
+  have hpq := holderConjugate_three_halves_three
+  have hprod : 4 * kappa * M * I4 ≤ a * b := by
+    have := mul_le_mul_of_nonneg_left hH
+      (mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 4) hκ.le) hM)
+    simpa [a, b, mul_assoc, mul_left_comm, mul_comm] using this
+  have hyoung := young_inequality_eps (p := (3 : ℝ) / 2) (q := 3) ha hb hε hpq
+  have ha_pow : a ^ ((3 : ℝ) / 2) = I6 := by
+    dsimp [a]
+    rw [← Real.rpow_mul hI6]
+    norm_num
+  have hcoeff : ε * a ^ ((3 : ℝ) / 2) / ((3 : ℝ) / 2) = (kappa / 4) * I6 := by
+    rw [ha_pow]
+    change (3 * kappa / 8) * I6 / ((3 : ℝ) / 2) = kappa / 4 * I6
+    field_simp
+    ring
+  have hqp : (3 : ℝ) / ((3 : ℝ) / 2) = (2 : ℝ) := by field_simp
+  have hφ : 0 ≤ phi ^ ((3 : ℝ) / 2) := Real.rpow_nonneg hphi _
+  have hφ3 :
+      phi ^ (3 : ℝ) ≤ (phi ^ ((3 : ℝ) / 2) + 1) * phi ^ ((3 : ℝ) / 2) := by
+    have : phi ^ (3 : ℝ) = phi ^ ((3 : ℝ) / 2) * phi ^ ((3 : ℝ) / 2) := by
+      rw [← Real.rpow_add_of_nonneg hphi (by norm_num) (by norm_num)]; norm_num
+    nlinarith [hφ]
+  have hrem :
+      ε ^ (-((3 : ℝ) / ((3 : ℝ) / 2))) * b ^ (3 : ℝ) / 3 ≤
+        absorptionCoeff C_Sob phi * (M ^ 3 * phi ^ ((3 : ℝ) / 2)) := by
+    have hb_nonneg : 0 ≤ 4 * kappa * C_Sob :=
+      mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 4) hκ.le) hS
+    have hb_rpow :
+        b ^ (3 : ℝ) = (4 * kappa * C_Sob) ^ (3 : ℝ) *
+          M ^ (3 : ℝ) * phi ^ (3 : ℝ) := by
+      dsimp [b]
+      rw [mul_assoc (4 * kappa * C_Sob) M phi,
+        Real.mul_rpow hb_nonneg (mul_nonneg hM hphi),
+        Real.mul_rpow hM hphi]
+      ring
+    have hε2 : ε ^ (-((3 : ℝ) / ((3 : ℝ) / 2))) = ε ^ (-(2 : ℝ)) := by
+      rw [hqp]
+    have hAbs :
+        absorptionCoeff C_Sob phi =
+          ε ^ (-(2 : ℝ)) / 3 * (4 * kappa * C_Sob) ^ 3 *
+            (phi ^ ((3 : ℝ) / 2) + 1) := rfl
+    have hpow3 : (4 * kappa * C_Sob) ^ (3 : ℝ) = (4 * kappa * C_Sob) ^ 3 :=
+      Real.rpow_natCast _ 3
+    have hM3 : M ^ (3 : ℝ) = M ^ 3 := Real.rpow_natCast _ 3
+    have hnn : 0 ≤ ε ^ (-(2 : ℝ)) / 3 :=
+      div_nonneg (Real.rpow_nonneg hε.le _) (by norm_num)
+    have hnnK : 0 ≤ (4 * kappa * C_Sob) ^ 3 := pow_nonneg hb_nonneg _
+    have hnnM : 0 ≤ M ^ 3 := pow_nonneg hM _
+    rw [hε2, hb_rpow, hAbs, hpow3, hM3]
+    have := mul_le_mul_of_nonneg_left hφ3
+      (mul_nonneg (mul_nonneg hnn hnnK) hnnM)
+    convert this using 1 <;> ring
+  calc
+    4 * kappa * M * I4 ≤ a * b := hprod
+    _ ≤ ε * a ^ ((3 : ℝ) / 2) / ((3 : ℝ) / 2) +
+          ε ^ (-((3 : ℝ) / ((3 : ℝ) / 2))) * b ^ (3 : ℝ) / 3 := hyoung
+    _ = (kappa / 4) * I6 +
+          ε ^ (-((3 : ℝ) / ((3 : ℝ) / 2))) * b ^ (3 : ℝ) / 3 := by rw [hcoeff]
+    _ ≤ (kappa / 4) * I6 +
+          absorptionCoeff C_Sob phi * (M ^ 3 * phi ^ ((3 : ℝ) / 2)) := by
+        linarith [hrem]
 
 end AnalyticPipeline

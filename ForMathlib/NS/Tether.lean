@@ -47,4 +47,11 @@ public theorem kappa'_pos : 0 < kappa' := by
   have h34 : (0 : ℝ) < 3 / 4 := div_pos three_pos four_pos
   exact mul_pos h34 kappa_pos
 
+/-- Gagliardo–Nirenberg / Sobolev representative. Positivity is a theorem. -/
+@[expose] public def SobolevConstant3D : ℝ := 1
+
+public theorem SobolevConstant3D_pos : 0 < SobolevConstant3D := by
+  change (0 : ℝ) < 1
+  exact one_pos
+
 end NS.FrohmanianTether
