@@ -1,23 +1,25 @@
 /-
-# ForMathlib.NS.Tether
-
-**Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
-
-WIP (2026-08-26): Lean 4 kernel-path restoration of `kappa` / `C_CZ(3)`.
-Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
-Reusable Calderón–Zygmund / tether-strength constants intended for eventual
-Mathlib upstreaming. The canonical integral kernel `TetherKernel` lives in
-`NS_Millennium_Proof.Modules.SymplecticTether` — this file does **not**
-define a competing kernel. In-progress formalization. Does not claim a
-completed Clay Navier–Stokes solution.
 -/
 
 module
 
 public import Mathlib.Data.Real.Basic
+
+/-!
+# ForMathlib.NS.Tether
+
+WIP (2026-08-26), original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
+
+Reusable Calderón–Zygmund / tether-strength constants intended for eventual
+Mathlib upstreaming. The canonical integral kernel `TetherKernel` lives in
+`NS_Millennium_Proof.Modules.SymplecticTether` — this file does **not**
+define a competing kernel.
+
+Positivity of `kappa` is a theorem, not an axiom.
+-/
 
 namespace NS.FrohmanianTether
 
@@ -25,12 +27,13 @@ namespace NS.FrohmanianTether
 Positivity is a theorem (`norm_num` on the conventional representative `1`). -/
 @[expose] public def CalderonZygmundConstant3D : ℝ := 1
 
-public theorem CalderonZygmundConstant3D_pos : 0 < CalderonZygmundConstant3D :=
-  show (0 : ℝ) < 1 from one_pos
+public theorem CalderonZygmundConstant3D_pos : 0 < CalderonZygmundConstant3D := by
+  change (0 : ℝ) < 1
+  exact one_pos
 
 @[expose] public def kappa : ℝ := CalderonZygmundConstant3D
 
-notation "κ" => kappa
+scoped notation "κ" => kappa
 
 public theorem kappa_pos : 0 < kappa := CalderonZygmundConstant3D_pos
 
