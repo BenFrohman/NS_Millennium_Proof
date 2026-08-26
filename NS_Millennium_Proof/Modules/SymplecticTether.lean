@@ -358,6 +358,42 @@ This is a predicate on the higher-order object `B`, not a theorem asserting a sp
           ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
         ∂volume
 
+/-- C3 as equality for the canonical kernel: `𝔗(F,F) = -κ ∫ |ω|² ‖Π_u δF‖²`. -/
+public theorem tetherKernel_quadratic_form (F : Functional) (ω : CoadjointOrbit) :
+    TetherKernel ω F F =
+      -kappa * ∫ x,
+        ‖ω.val x‖ ^ 2 *
+          ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
+        ∂volume := by
+  unfold TetherKernel
+  congr 1
+  congr 1
+  funext x
+  rw [real_inner_self_eq_norm_sq]
+
+public theorem tetherKernel_C3 (F : Functional) (ω : CoadjointOrbit) :
+    TetherKernel ω F F ≤
+      -kappa * ∫ x,
+        ‖ω.val x‖ ^ 2 *
+          ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
+        ∂volume :=
+  le_of_eq (tetherKernel_quadratic_form F ω)
+
+/-- If the right `Π_u` factor vanishes, the kernel is zero (C2 mechanism). -/
+public theorem tetherKernel_of_right_factor_zero
+    (ω : CoadjointOrbit) (F G : Functional)
+    (h : Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) = 0) :
+    TetherKernel ω F G = 0 := by
+  unfold TetherKernel
+  have hpt : ∀ x,
+      inner ℝ
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x) = 0 := by
+    intro x
+    rw [h]
+    simp
+  simp [hpt]
+
 /-! ## Explicit Degeneracy for the Mollified Sup-Norm Proxy (LaTeX Section 2.4.1 — Critical for Clay)
 
 This lemma is one of the most important Clay-level verifications. It must satisfy:
@@ -473,10 +509,25 @@ theorem tether_coadjoint_invariance
 
 public theorem tethered_reproduces_classical_euler (F : Functional) (ω : CoadjointOrbit) :
     TetheredBracket F KineticEnergyHamiltonian ω = ClassicalBracket F KineticEnergyHamiltonian ω := by
-  -- Explicit from side tabs (degeneracy_for_mollified... + arnold_degeneracy in this file + living document Section 2.8):
-  -- By degeneracy (C2) proved above (Π_u(u)=0 + local energy), the tether correction term vanishes on (F, H).
-  -- Hence TetheredBracket(F,H) = ClassicalBracket(F,H) exactly (the reversible part is unmodified classical Euler).
-  sorry   -- summed degeneracy data from side tabs discharges the reproduction of classical dynamics
+  simp only [TetheredBracket]
+  have hker : TetherKernel ω F KineticEnergyHamiltonian = 0 := by
+    have hδH := functional_derivative_of_kinetic_energy ω
+    have hdiv : ∀ x, div (velocity_from_vorticity ω) x = 0 := by
+      intro x
+      rw [div_biot_savart_velocity ω]
+      rfl
+    by_cases hE : (∫ y, ‖velocity_from_vorticity ω y‖ ^ 2 ∂volume) ≠ 0
+    · have hPi :=
+        projection_orthogonal_to_u (velocity_from_vorticity ω) hdiv hE
+      have hG : FunctionalDerivative KineticEnergyHamiltonian ω =
+          velocity_from_vorticity ω := hδH
+      apply tetherKernel_of_right_factor_zero
+      rw [hG]
+      exact hPi
+    · simp only [ne_eq, not_not] at hE
+      -- Energy zero: still need `Π_u u = 0` or `u = 0` a.e. Classical remainder.
+      sorry
+  rw [hker, add_zero]
 
 /-! ## Jacobi identity on the reduced orbit (Marsden–Weinstein–Ratiu + explicit test functionals) -/
 
