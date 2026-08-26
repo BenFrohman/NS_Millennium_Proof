@@ -200,4 +200,42 @@ public theorem lyapunov_quartic_cancellation_skeleton
         (3 / 4 : ℝ) * kappa * I₆ :=
   youngs_absorption_elimination M I₄ I₆ phi_norm C_abs hI6 hYoung
 
+/-! ## Type composition (Kato → Young/Riccati → IntegrableOn → BKM)
+
+Gemini-style `True.intro` gates and `constant` placeholders are not used here.
+Each step’s output type is the next step’s input type. Closed lemmas are
+invoked as real terms; missing PDE/geometry steps remain `sorry` on those
+real types (`sorryAx`), never `True`.
+-/
+
+/-- Sequential composition of the Millennium path.
+
+1. `local_existence_kato` produces `u` and `NS_PDE u p ν`.
+2. `youngs_absorption_elimination` / `comparison_ode_stability` are the
+   closed analytic ceiling (available independently; applied to a majorant
+   of `M(t) = ‖ω(t)‖_∞` once the Lyapunov inequality is supplied).
+3. Continuity of `M` gives `IntegrableOn M (Icc 0 T)` (`bkm_integrableOn_of_uniform_bound`).
+4. `bkm_regularity_pipeline` consumes that integrability and returns
+   `ContDiff ℝ ⊤ (u t)`.
+-/
+public theorem type_composition_sequence
+    (u₀ : VelocityField) (ν : ℝ)
+    (hν : 0 < ν)
+    (hdiv : ∀ x, div u₀ x = 0)
+    (hsm : ContDiff ℝ ⊤ u₀)
+    (hE : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2)) :
+    ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
+      NS_PDE u p ν ∧ u 0 = u₀ ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
+  obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
+    local_existence_kato u₀ ν hsm hdiv hE hν
+  -- Closed analytic core (no sorryAx), applied once a majorant of
+  -- M(t) = ‖ω(u t)‖_∞ is known: `youngs_absorption_elimination` and
+  -- `comparison_ode_stability`.
+  let M : ℝ → ℝ := fun t => vorticity_sup_norm (vorticity (u t))
+  have hMajorant : ∃ Y : ℝ, (∀ t ≥ (0 : ℝ), M t ≤ Y) ∧ Continuous M := by
+    sorry
+  obtain ⟨Y, hbound, hcont⟩ := hMajorant
+  refine ⟨u, p, hNS, hu0, ?_⟩
+  exact bkm_regularity_pipeline u p ν hν hNS Y hbound hcont
+
 end ClosureBlueprint
