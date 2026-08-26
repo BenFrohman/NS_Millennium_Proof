@@ -279,13 +279,14 @@ is a kernel theorem rather than an axiom. The operational multiplier `4` in
 
 @[expose] public def CalderonZygmundConstant3D : ℝ := 1
 
-public theorem CalderonZygmundConstant3D_pos : 0 < CalderonZygmundConstant3D :=
-  show (0 : ℝ) < 1 from one_pos
+public theorem CalderonZygmundConstant3D_pos : 0 < CalderonZygmundConstant3D := by
+  change (0 : ℝ) < 1
+  exact one_pos
 
 /-- Tether strength. ASCII name `kappa`; `κ` is notation only. -/
 @[expose] public def kappa : ℝ := CalderonZygmundConstant3D
 
-notation "κ" => kappa
+scoped notation "κ" => kappa
 
 public theorem kappa_pos : 0 < kappa := CalderonZygmundConstant3D_pos
 
@@ -1039,6 +1040,6 @@ While the Jacobi crack is still in progress they will show `sorryAx` — this is
 -- Frohmanian_Tether_Naming_Symbol_Standard.md and user guidance):
 -- - Use the identifier `FrohmanianTether` for the core new mathematical object.
 -- - Optional notation for the custom symbol 𝔉𝕋
-notation "𝔉𝕋" => TetheredBracket
+scoped notation "𝔉𝕋" => TetheredBracket
 
 end FrohmanianTether
