@@ -23,6 +23,7 @@ import NS_Millennium_Proof.Modules.SymplecticTether
 import NS_Millennium_Proof.Modules.Uniqueness
 import NS_Millennium_Proof.Modules.TetheredLyapunov
 import NS_Millennium_Proof.Modules.AnalyticPipeline
+import NS_Millennium_Proof.Modules.ClosureBlueprint
 import NS_Millennium_Proof.Modules.IndependentMajorant
 import NS_Millennium_Proof.Modules.GlobalRegularity
 import NS_Millennium_Proof.Definitions.FrohmanianTether
