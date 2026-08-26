@@ -532,17 +532,38 @@ lemma differential_inequality_after_tether_and_absorption
   set phiLinf := ⨆ x, |phi x|
   have hI6 : 0 ≤ I6 :=
     integral_nonneg fun _ => pow_nonneg (norm_nonneg _) _
-  -- Transport cancellations + viscous dissipation ≤ 0 + CZ stretching
+  have hI4 : 0 ≤ I4 :=
+    integral_nonneg fun _ =>
+      mul_nonneg (pow_nonneg (norm_nonneg _) _) (abs_nonneg _)
+  have hM : 0 ≤ M := Real.iSup_nonneg fun _ => norm_nonneg _
+  have hphi : 0 ≤ phiLinf := Real.iSup_nonneg fun _ => abs_nonneg _
+  -- Transport cancellations + viscous dissipation ≤ 0 + CZ / Riesz stretching
   -- (product-rule factor 4 on the quartic weight). Paper §3.
   have hIdent :
       deriv (fun s => LyapunovS (ωε s) phi) t ≤
         4 * CalderonZygmundConstant3D * M * I4 - kappa * I6 := by
     sorry
-  -- Hölder (3/2, 3) + Sobolev + Young with the forced parameter ε_abs = κ/4.
+  -- Hölder (3/2, 3) + finite Haar measure of T³. Classical Sobolev gate.
+  have hHolder :
+      I4 ≤ SobolevConstant3D * phiLinf * I6 ^ ((2 : ℝ) / 3) := by
+    sorry
+  have hYoung0 :=
+    AnalyticPipeline.stretching_bound_of_holder M I4 I6 phiLinf SobolevConstant3D
+      hM hI4 hI6 hphi SobolevConstant3D_pos.le hHolder
+  -- The paper's C_abs is at least the explicit ε-Young coefficient.
   have hYoung :
       4 * CalderonZygmundConstant3D * M * I4 ≤
         (kappa / 4) * I6 + C_abs * (M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) := by
-    sorry
+    have hκ : kappa = CalderonZygmundConstant3D := rfl
+    have hAbs :
+        AnalyticPipeline.absorptionCoeff SobolevConstant3D phiLinf ≤ C_abs := by
+      sorry
+    have hnn :
+        0 ≤ M ^ 3 * phiLinf ^ ((3 : ℝ) / 2) :=
+      mul_nonneg (pow_nonneg hM _) (Real.rpow_nonneg hphi _)
+    have hrest := mul_le_mul_of_nonneg_right hAbs hnn
+    rw [← hκ]
+    linarith [hYoung0, hrest]
   have hAlg :=
     AnalyticPipeline.youngs_absorption_elimination M I4 I6 phiLinf C_abs hI6 hYoung
   have hgap :
