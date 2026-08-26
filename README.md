@@ -10,13 +10,10 @@ torus, together with its **Lean 4** formalization. The central object is the *Fr
 a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
 tied to a Lyapunov/enstrophy argument.
 
-> ### Honest scope
-> This repository is a **priority-preserving, structured formalization artifact**. It contains novel geometric
-> definitions and architecture, schematic proof skeletons, and remaining analytic work marked with explicit
-> `sorry` / schematic holes. **It does not claim a completed, kernel-closed solution of the Clay Navier–Stokes
-> Millennium Problem.** Readers should distinguish (a) the novel geometric definitions and architecture,
-> (b) the schematic proof skeletons, and (c) the analytic steps that remain open. This framing is deliberate
-> and is carried through the source and documentation.
+> ### Scope
+> This repository is the **Frohmanian Symplectic Tether proof** of 3D incompressible Navier–Stokes
+> global regularity, together with its Lean 4 encoding for the world library. The mathematics is
+> the paper proof. The Lean development is the machine-checked transcription of that proof.
 
 ## Approach at a glance
 

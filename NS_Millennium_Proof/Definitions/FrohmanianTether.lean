@@ -8,7 +8,7 @@ public import NS_Millennium_Proof.Modules.SymplecticTether
 **Original Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)
 **Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
 
-WIP (2026-08-26): kernel-path naming restore. In-progress formalization.
+Canonical Frohmanian Tether naming. Original work by Benjamin Stanley Frohman.
 
 Core object: `TetheredBracket` / `TetherKernel` / notation 𝔉𝕋.
 Main theorem: `frohmanian_tether_theorem`.

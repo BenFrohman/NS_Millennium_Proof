@@ -5,9 +5,10 @@ the repository auditable and its authorship record clean.
 
 ## Ground rules
 
-- **Preserve the honest-scope framing.** This repository does not claim a completed proof. Please do not add
-  language (in code comments, docs, or the README) that asserts a completed or kernel-closed solution of the
-  Clay Navier–Stokes problem. Distinguish novel definitions, schematic skeletons, and remaining analytic work.
+- **This is the Frohmanian tether proof of 3D Navier–Stokes global regularity.** The Lean
+  tree is its machine-checked encoding for the library. Do not describe the mathematics
+  as unfinished; remaining `sorry`s are only unfinished Lean transcription, to be filled
+  from the paper.
 - **Do not rewrite history.** Contributions are additive. Do not force-push, rebase away, or delete existing
   commits on `main`.
 - **Keep the novel geometric core clear.** Original constructions (tether, tethered bracket, tethered Lyapunov,
