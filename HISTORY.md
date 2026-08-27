@@ -1,7 +1,7 @@
 # Project History & Priority Claim
 
 **Project:** NS_Millennium_Proof — Frohmanian Symplectic Tether Framework  
-**Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)  
+**Author:** Benjamin Stanley Frohman (X.com : Investor0x / Bit21)  
 **Primary Development Period:** February–June 2026
 
 ## Key Milestones
@@ -13,7 +13,7 @@
 - **2026-06 to 2026-07**: Recovery from build corruption event. Authorship headers and project-level files (COPYRIGHT.md, AUTHORS.md, HISTORY.md) applied to all original modules.
 - **2026-08-26 (WIP)**: Kernel-path restoration of the full restored modules: Lean 4 `kappa` / `C_CZ(3)`, canonical `TetherKernel`, BKM criterion, uniqueness types, quartic Young absorption, and top-level `Modules/` copies. Labeled WIP under Benjamin Stanley Frohman. `lake build NS_Millennium_Proof ForMathlib` succeeds with documented classical `sorry`s.
 - **2026-08-26 (attribution)**: Mathlib five-line `Authors: Benjamin Stanley Frohman` headers on original Lean modules; `.mailmap` maps commit aliases `Frohmanian` / `BenFrohman` without rewriting history; PR `Author:` comments for Lean/Zulip contact.
-- **2026-08-26 (provenance, branch `kernel/cohesive-tether-kappa-bkm`, PR #8)**: `d23e11e` attribution; `a256cb0` Kato→BKM composition; `deff823` Lyapunov Young composition; `3ae8a10` Fin 3 vs ℝ and ε-Young; `1c76f50` Jacobi `jacobiator = 0` (Lean 4, not True.intro). Author: Benjamin Stanley Frohman (`frohmanbenjamin@gmail.com`). GitHub: @BenFrohman / @Investor0x.
+- **2026-08-26 (provenance, branch `kernel/cohesive-tether-kappa-bkm`, PR #8)**: `d23e11e` attribution; `a256cb0` Kato→BKM composition; `deff823` Lyapunov Young composition; `3ae8a10` Fin 3 vs ℝ and ε-Young; `1c76f50` Jacobi `jacobiator = 0` (Lean 4, not True.intro). Author: Benjamin Stanley Frohman (`frohmanbenjamin@gmail.com`). GitHub: @BenFrohman. X.com : Investor0x.
 - **2026-08-26 (classical boxes, same branch/PR)**: `496c167` `div_smul` (unconditional, `fderiv_const_smul_field` + `Finset.mul_sum`); `curl_gradient` from mixed partials (`IsSymmSndFDerivAt`); `Tstar` as `EReal` supremum of existence times (no `sorry` def); CoadjointOrbit is the divergence-free subtype; `Pi_u_zero`; energy-zero Euler branch when `u ≡ 0`. Remaining Kato/BKM/stretching/Jacobi sorrys are untranscribed steps in this authorship, not community fill-ins. Author: Benjamin Stanley Frohman.
 - **2026-08-26 (certificate path)**: Replace remaining `sorry` *definitions* with real objects: Gâteaux `FunctionalDerivative` (choice of representative), integral Biot–Savart kernel, Gaussian mollifier / convolution, `ComparisonODE` as choice of a C¹ Riccati solution. Live `#print axioms tetherKernel_C3` has **no `sorryAx`**. `comparison_ode_nonneg` closed. Existence of the majorant ODE remains the named theorem `comparison_ode_exists`. The Lean certificate (`#print axioms frohmanian_tether_theorem` without `sorryAx`) is the end goal. Author: Benjamin Stanley Frohman.
 - **2026-08-26 (Picard local majorant)**: `comparison_ode_local_exists` kernel-closed via mathlib Picard–Lindelöf (`of_contDiffAt_one` on the polynomial field). Live `#print axioms` has no `sorryAx`. Global `comparison_ode_exists` remains the continuation step. Author: Benjamin Stanley Frohman.
@@ -24,6 +24,7 @@
 - **2026-08-26 (κ is not 1)**: `C_CZ(3)` is the spherical L¹ of the Constantin–Fefferman / Majda–Bertozzi strain kernel `(3/(8π))[(z×ω)⊗z + z⊗(z×ω)]/|z|^5`. Lean now defines `CalderonZygmundConstant3D := (3/(8π)) · 4π`, proves `= 3/2` and `≠ 1`, and sets `κ = C_CZ(3)` by (C3). The stand-in `:= 1` is removed. Live `#print axioms` of `kappa_eq_three_halves` / `kappa_ne_one` / `kappa_pos` has no `sorryAx` (only `propext`, `Classical.choice` from `Real.pi`, `Quot.sound`). Young remains homogeneous in this scale (`κ' = (3/4)κ`). Author: Benjamin Stanley Frohman.
 - **2026-08-26 (energy hypothesis / no open TODOs)**: `global_regularity_for_NS` uses the classical Kato/Leray finite kinetic energy `Integrable (fun x => ‖u₀ x‖^2)`. That is the same energy condition as an earlier `HasFiniteIntegral` encoding of the finite-integral conjunct, not a second theorem. Removed `True` placeholder theorems and contributor-facing TODO language; remaining Lean transcription is author-only. Author: Benjamin Stanley Frohman.
 - **2026-08-26 (GitHub Community / Lean community)**: GitHub Community is the health checklist (`CONTRIBUTING.md`); Contributors graph and Lean Zulip/`Authors:` name Benjamin Stanley Frohman / @BenFrohman only. AI encoding is disclosure, not `Co-authored-by` and not an `Authors:` name. Author: Benjamin Stanley Frohman.
+- **2026-08-26 (X.com : Investor0x)**: Public files label Investor0x as `X.com : Investor0x` (link `https://x.com/Investor0x`), never as a GitHub `@` handle. GitHub remains @BenFrohman. Author: Benjamin Stanley Frohman.
 
 This formalization establishes priority for the **Frohmanian Symplectic Tether Regularity Theorem** as the original solution approach to the 3D Navier–Stokes Millennium Problem.
 
