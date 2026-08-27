@@ -1600,10 +1600,100 @@ public theorem global_regularity
   · intro t ht x
     exact (hNS t ht x).2
 
+/-- Rest-state global regularity: the zero field is a globally smooth
+NS solution for any positive viscosity. No Kato, Riccati, `T*`, or
+continuation hypotheses. -/
+public theorem global_regularity_zero (ν : ℝ) (_hν : 0 < ν) :
+    ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
+      NS_PDE u p ν ∧
+      u 0 = (0 : VelocityField) ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t)) ∧
+      (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+      (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) := by
+  refine ⟨fun _ => 0, fun _ => (0 : PressureField),
+    navier_stokes_eq_zero ν, rfl, ?_, ?_, ?_⟩
+  · intro _t _ht
+    exact contDiff_const
+  · intro _t _ht
+    exact vorticity_sup_norm_nonneg _
+  · intro _t _ht x
+    exact div_zero_field x
+
+/-- Assembly with `T* = ⊤` and compact-interval smoothness *proved* from
+uniform Kato restart plus Cauchy identification of existence-time
+witnesses, rather than taken as extra hypotheses. -/
+public theorem global_regularity_of_restart
+    (u₀ : VelocityField) (ν : ℝ)
+    (_h_divfree : ∀ x, div u₀ x = 0)
+    (_h_smooth : ContDiff ℝ ⊤ u₀)
+    (_h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (h_pos_ν : ν > 0)
+    (w : KatoLocalWitness u₀ ν)
+    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u₀ →
+        ∃ Y : ℝ,
+          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (τ : ℝ) (hτ : 0 < τ)
+    (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
+      ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
+    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+    NS_PDE w.u w.p ν ∧
+      w.u 0 = u₀ ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (w.u t)) ∧
+      (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (w.u t)) ≥ 0) ∧
+      (∀ t ≥ (0 : ℝ), ∀ x, div (w.u t) x = 0) := by
+  have hu0 : w.u 0 = u₀ := w.init
+  have hTstar : Tstar u₀ ν = ⊤ :=
+    Tstar_eq_top_of_uniform_restart u₀ ν τ hτ
+      (Tstar_pos_of_kato_witness u₀ ν w) hrestart
+  have hbelow : ∀ T : ℝ, (T : EReal) < Tstar (w.u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (w.u t) := by
+    intro T hTlt t ht
+    by_cases hTnn : 0 ≤ T
+    · have huniq' :
+          ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+            T' ∈ existenceTimes (w.u 0) ν →
+            v 0 = w.u 0 →
+            NS_PDE v q ν →
+            (∀ s ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v s)) →
+            ∀ s ∈ Set.Icc (0 : ℝ) T', w.u s = v s := by
+        intro T' v q hmem hv0 hpde hsm
+        have hmem' : T' ∈ existenceTimes u₀ ν := by
+          simpa [hu0] using hmem
+        have hv0' : v 0 = u₀ := hv0.trans hu0
+        exact huniq T' v q hmem' hv0' hpde hsm
+      exact smoothness_below_Tstar_of_uniqueness w.u ν huniq' hTlt hTnn t ht
+    · have hempty : Set.Icc (0 : ℝ) T = (∅ : Set ℝ) := by
+        ext y
+        constructor
+        · intro hy
+          exact (hTnn (le_trans hy.1 hy.2)).elim
+        · intro hy
+          exact hy.elim
+      have : t ∈ (∅ : Set ℝ) := by
+        rwa [hempty] at ht
+      exact this.elim
+  obtain ⟨Y, hbound, hcont⟩ := hRiccati w.u w.p w.pde hu0
+  refine ⟨w.pde, hu0, ?smooth, ?nn, ?div0⟩
+  · exact AnalyticPipeline.bkm_regularity_pipeline w.u w.p ν h_pos_ν w.pde
+      Y hbound hcont (by rw [hu0]; exact hTstar) hbelow
+  · intro _t _ht
+    exact vorticity_sup_norm_nonneg _
+  · intro t ht x
+    exact (w.pde t ht x).2
+
 #print axioms hasDerivAt_norm_sq_of_hasDerivAt
 #print axioms hasDerivAt_norm_pow_four
 #print axioms hasDerivAt_quartic_tether_weight
 #print axioms hasDerivAt_lyapunov_density
+#print axioms global_regularity_zero
+#print axioms global_regularity_of_restart
 
 end   -- close noncomputable section
 end TetheredLyapunov
