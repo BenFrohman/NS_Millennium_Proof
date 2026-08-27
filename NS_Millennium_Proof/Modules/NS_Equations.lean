@@ -17,6 +17,7 @@ public import Mathlib.Analysis.Calculus.FDeriv.Mul
 public import Mathlib.Analysis.Calculus.FDeriv.Prod
 public import Mathlib.Analysis.Calculus.FDeriv.Symmetric
 public import Mathlib.Analysis.Calculus.Deriv.Add
+public import Mathlib.Analysis.Calculus.Deriv.Inv
 public import Mathlib.Analysis.Calculus.Gradient.Basic
 public import Mathlib.Analysis.InnerProductSpace.Calculus
 public import Mathlib.Analysis.InnerProductSpace.PiL2
@@ -29,9 +30,12 @@ public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 public import Mathlib.Tactic.Ring
 public import Mathlib.MeasureTheory.Function.LocallyIntegrable
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
+public import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
 public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 public import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
+public import Mathlib.Analysis.Calculus.MeanValue
 
 open scoped BigOperators Gradient Topology
 open ENNReal InnerProductSpace MeasureTheory Finset Filter
@@ -508,6 +512,42 @@ public theorem inner_convective_product_rule
     simp [fderivInnerCLM]
   simp [ContinuousLinearMap.comp_apply, ContinuousLinearMap.prod_apply, convective,
     add_comm] at hval ⊢
+
+/-- Six-term cyclic Lie pairing `X·[Y,Z] + Y·[Z,X] + Z·[X,Y]`. -/
+@[expose] public def cyclicLiePairing (X Y Z : VelocityField) (x : T3) : ℝ :=
+  inner ℝ (X x) (convective Y Z x - convective Z Y x) +
+    inner ℝ (Y x) (convective Z X x - convective X Z x) +
+      inner ℝ (Z x) (convective X Y x - convective Y X x)
+
+/-- Paper Jacobi IBP expansion: each convective pairing is a directional
+inner-product derivative minus the swapped slot (C¹ product rule). -/
+public theorem cyclicLiePairing_expand
+    (X Y Z : VelocityField) (x : T3)
+    (hX : DifferentiableAt ℝ X x) (hY : DifferentiableAt ℝ Y x)
+    (hZ : DifferentiableAt ℝ Z x) :
+    cyclicLiePairing X Y Z x =
+      (fderiv ℝ (fun y => inner ℝ (X y) (Z y)) x) (Y x) -
+        inner ℝ (convective Y X x) (Z x) -
+        ((fderiv ℝ (fun y => inner ℝ (X y) (Y y)) x) (Z x) -
+          inner ℝ (convective Z X x) (Y x)) +
+      (fderiv ℝ (fun y => inner ℝ (Y y) (X y)) x) (Z x) -
+        inner ℝ (convective Z Y x) (X x) -
+        ((fderiv ℝ (fun y => inner ℝ (Y y) (Z y)) x) (X x) -
+          inner ℝ (convective X Y x) (Z x)) +
+      (fderiv ℝ (fun y => inner ℝ (Z y) (Y y)) x) (X x) -
+        inner ℝ (convective X Z x) (Y x) -
+        ((fderiv ℝ (fun y => inner ℝ (Z y) (X y)) x) (Y x) -
+          inner ℝ (convective Y Z x) (X x)) := by
+  have hXZ_Y := inner_convective_product_rule X Z Y x hX hZ
+  have hXY_Z := inner_convective_product_rule X Y Z x hX hY
+  have hYX_Z := inner_convective_product_rule Y X Z x hY hX
+  have hYZ_X := inner_convective_product_rule Y Z X x hY hZ
+  have hZY_X := inner_convective_product_rule Z Y X x hZ hY
+  have hZX_Y := inner_convective_product_rule Z X Y x hZ hX
+  unfold cyclicLiePairing
+  simp only [inner_sub_right]
+  rw [hXZ_Y, hXY_Z, hYX_Z, hYZ_X, hZY_X, hZX_Y]
+  ring
 
 public theorem convective_coord (u v : VelocityField) (x : T3) (i : Fin 3)
     (hv : DifferentiableAt ℝ v x) :
@@ -2185,18 +2225,188 @@ public theorem vorticity_sup_norm_nonneg (ω : VorticityField) :
     0 ≤ vorticity_sup_norm ω :=
   Real.iSup_nonneg fun _ => norm_nonneg _
 
+/-- Pointwise comparison: `|ω(x)| ≤ ‖ω‖_∞` on a bounded field. -/
+public theorem le_vorticity_sup_norm (ω : VorticityField) (x : T3)
+    (h : BddAbove (Set.range fun y => ‖ω y‖)) :
+    ‖ω x‖ ≤ vorticity_sup_norm ω :=
+  le_ciSup h x
+
+/-- Operator-norm stretching: `|(ω·∇)u| ≤ C_CZ ‖ω‖_∞ |ω|` once
+`‖Du‖ ≤ C_CZ ‖ω‖_∞`. Linear algebra, not the Riesz bound itself. -/
+public theorem convective_norm_le_of_CZ
+    (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
+    (hu : DifferentiableAt ℝ u x)
+    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω) :
+    ‖convective ω u x‖ ≤ C_CZ * vorticity_sup_norm ω * ‖ω x‖ := by
+  have hnorm := convective_norm_le ω u x hu
+  have hω : 0 ≤ ‖ω x‖ := norm_nonneg _
+  have hmul : ‖fderiv ℝ u x‖ * ‖ω x‖ ≤
+      C_CZ * vorticity_sup_norm ω * ‖ω x‖ :=
+    mul_le_mul_of_nonneg_right hCZ hω
+  exact hnorm.trans hmul
+
+/-- CZ stretching at a point: `⟨ω, (ω·∇)u⟩ ≤ C_CZ ‖ω‖_∞ |ω|²` once
+`‖Du‖ ≤ C_CZ ‖ω‖_∞` (Biot–Savart / Riesz bound on the strain). -/
+public theorem stretching_inner_le
+    (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
+    (hu : DifferentiableAt ℝ u x)
+    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω) :
+    inner ℝ (ω x) (convective ω u x) ≤
+      C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 := by
+  have hnorm := convective_norm_le ω u x hu
+  have hω : 0 ≤ ‖ω x‖ := norm_nonneg _
+  calc
+    inner ℝ (ω x) (convective ω u x)
+        ≤ ‖ω x‖ * ‖convective ω u x‖ := real_inner_le_norm _ _
+    _ ≤ ‖ω x‖ * (‖fderiv ℝ u x‖ * ‖ω x‖) :=
+        mul_le_mul_of_nonneg_left hnorm hω
+    _ = ‖fderiv ℝ u x‖ * ‖ω x‖ ^ 2 := by ring
+    _ ≤ C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 :=
+        mul_le_mul_of_nonneg_right hCZ (sq_nonneg _)
+
+/-- Paper §3 characteristics: along a C¹ flow of `u` the transported scalar
+with source `|ω|²` satisfies `φ(t, γ(t)) − φ(0, γ(0)) = ∫₀ᵗ |ω|²`. -/
+public theorem transported_scalar_along_characteristic
+    (u : TimeDependentVelocity) (phi : ℝ → T3 → ℝ) (γ : ℝ → T3)
+    (t : ℝ) (ht : 0 ≤ t)
+    (hder : ∀ s ∈ Set.Icc (0 : ℝ) t,
+      HasDerivAt (fun τ => phi τ (γ τ)) (MaterialDerivative u phi s (γ s)) s)
+    (htrans : ∀ s ∈ Set.Icc (0 : ℝ) t,
+      MaterialDerivative u phi s (γ s) = ‖vorticity (u s) (γ s)‖ ^ 2)
+    (hint : IntervalIntegrable
+      (fun s => MaterialDerivative u phi s (γ s)) MeasureTheory.volume 0 t) :
+    phi t (γ t) - phi 0 (γ 0) =
+      ∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2 := by
+  have hder' : ∀ s ∈ Set.uIcc (0 : ℝ) t,
+      HasDerivAt (fun τ => phi τ (γ τ)) (MaterialDerivative u phi s (γ s)) s := by
+    intro s hs
+    rw [Set.uIcc_of_le ht] at hs
+    exact hder s hs
+  have hFTC :=
+    intervalIntegral.integral_eq_sub_of_hasDerivAt (f := fun τ => phi τ (γ τ))
+      (f' := fun s => MaterialDerivative u phi s (γ s)) hder' hint
+  have hinter :
+      ∫ s in (0 : ℝ)..t, MaterialDerivative u phi s (γ s) =
+        ∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2 :=
+    intervalIntegral.integral_congr fun s hs => by
+      have hs' : s ∈ Set.Icc (0 : ℝ) t := by
+        rwa [Set.uIcc_of_le ht] at hs
+      exact htrans s hs'
+  linarith [hFTC, hinter]
+
 /-- Maximum principle for a transported scalar with quadratic vorticity source:
-if `∂t φ + u·∇φ = |ω|²`, then `‖φ(t)‖_∞ ≤ ‖φ(0)‖_∞ + ∫₀ᵗ ‖ω‖_∞²`.
-Classical; typed on `MaterialDerivative` and `vorticity_sup_norm`. -/
+if `∂t φ + u·∇φ = |ω|²` along a covering family of characteristics, then
+`‖φ(t)‖_∞ ≤ ‖φ(0)‖_∞ + ∫₀ᵗ ‖ω‖_∞²`. Paper §3; the flow covering is the
+volume-preserving ODE of a C¹ divergence-free field. -/
 public theorem transported_scalar_maximum_principle
     (u : TimeDependentVelocity) (phi : ℝ → T3 → ℝ)
-    (htrans : ∀ t ≥ (0 : ℝ), ∀ x,
-      MaterialDerivative u phi t x = ‖vorticity (u t) x‖ ^ 2)
-    (t : ℝ) (ht : 0 ≤ t) :
+    (t : ℝ) (ht : 0 ≤ t)
+    (hflow : ∀ x, ∃ γ : ℝ → T3,
+      γ t = x ∧
+      (∀ s ∈ Set.Icc (0 : ℝ) t,
+        HasDerivAt (fun τ => phi τ (γ τ))
+          (MaterialDerivative u phi s (γ s)) s) ∧
+      (∀ s ∈ Set.Icc (0 : ℝ) t,
+        MaterialDerivative u phi s (γ s) = ‖vorticity (u s) (γ s)‖ ^ 2) ∧
+      IntervalIntegrable
+        (fun s => MaterialDerivative u phi s (γ s)) MeasureTheory.volume 0 t)
+    (hωbdd : ∀ s ∈ Set.Icc (0 : ℝ) t,
+      BddAbove (Set.range fun y => ‖vorticity (u s) y‖))
+    (hphi0 : BddAbove (Set.range fun y => |phi 0 y|))
+    (_hphit : BddAbove (Set.range fun y => |phi t y|))
+    (hMint : IntervalIntegrable
+      (fun s => vorticity_sup_norm (vorticity (u s)) ^ 2)
+      MeasureTheory.volume 0 t) :
     ⨆ x, |phi t x| ≤
       (⨆ x, |phi 0 x|) +
-        ∫ s in Set.Icc (0 : ℝ) t, vorticity_sup_norm (vorticity (u s)) ^ 2 := by
-  sorry
+        ∫ s in (0 : ℝ)..t, vorticity_sup_norm (vorticity (u s)) ^ 2 := by
+  refine ciSup_le fun x => ?_
+  obtain ⟨γ, hγt, hder, htrans, hint⟩ := hflow x
+  have hchar :=
+    transported_scalar_along_characteristic u phi γ t ht hder htrans hint
+  have hinterg_nn :
+      0 ≤ ∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2 :=
+    intervalIntegral.integral_nonneg ht fun _ _ =>
+      pow_nonneg (norm_nonneg _) _
+  have hsrc :
+      ∫ s in (0 : ℝ)..t, MaterialDerivative u phi s (γ s) ≤
+        ∫ s in (0 : ℝ)..t, vorticity_sup_norm (vorticity (u s)) ^ 2 :=
+    intervalIntegral.integral_mono_on ht hint hMint fun s hs => by
+      rw [htrans s hs]
+      exact pow_le_pow_left₀ (norm_nonneg _)
+        (le_vorticity_sup_norm (vorticity (u s)) (γ s) (hωbdd s hs)) 2
+  have hinter :
+      ∫ s in (0 : ℝ)..t, MaterialDerivative u phi s (γ s) =
+        ∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2 :=
+    intervalIntegral.integral_congr fun s hs => by
+      have hs' : s ∈ Set.Icc (0 : ℝ) t := by
+        rwa [Set.uIcc_of_le ht] at hs
+      exact htrans s hs'
+  have hφ0 : |phi 0 (γ 0)| ≤ ⨆ y, |phi 0 y| := le_ciSup hphi0 (γ 0)
+  have hsum :
+      phi t x = phi 0 (γ 0) +
+        ∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2 := by
+    rw [← hγt]
+    linarith [hchar]
+  calc
+    |phi t x|
+        = |phi 0 (γ 0) +
+            ∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2| := by
+          rw [hsum]
+    _ ≤ |phi 0 (γ 0)| +
+          |∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2| :=
+        abs_add_le _ _
+    _ = |phi 0 (γ 0)| +
+          ∫ s in (0 : ℝ)..t, ‖vorticity (u s) (γ s)‖ ^ 2 := by
+        rw [abs_of_nonneg hinterg_nn]
+    _ ≤ (⨆ y, |phi 0 y|) +
+          ∫ s in (0 : ℝ)..t, vorticity_sup_norm (vorticity (u s)) ^ 2 := by
+        linarith [hφ0, hsrc, hinter]
+
+/-- If `M' ≤ C M²` and `M > 0`, the reciprocal is nonincreasing against the
+linear barrier: `1/M(t) ≥ 1/M(0) − C t`. Inner BKM ODE estimate. -/
+public theorem reciprocal_of_quadratic_growth
+    (M : ℝ → ℝ) (C : ℝ) (_hC : 0 ≤ C)
+    (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ M s)
+    (hquad : ∀ s ≥ (0 : ℝ), deriv M s ≤ C * (M s) ^ 2)
+    (hpos : ∀ s ≥ (0 : ℝ), 0 < M s)
+    (t : ℝ) (ht : 0 ≤ t)
+    (hint : IntervalIntegrable
+      (fun s => -deriv M s / (M s) ^ 2) MeasureTheory.volume 0 t) :
+    (M 0)⁻¹ - C * t ≤ (M t)⁻¹ := by
+  have hinv : ∀ s ∈ Set.uIcc (0 : ℝ) t,
+      HasDerivAt (fun τ => (M τ)⁻¹) (-deriv M s / (M s) ^ 2) s := by
+    intro s hs
+    have hs0 : 0 ≤ s := by
+      rw [Set.uIcc_of_le ht] at hs
+      exact hs.1
+    have hM := (hdiff s hs0).hasDerivAt
+    have hne : M s ≠ 0 := ne_of_gt (hpos s hs0)
+    exact hM.inv hne
+  have hFTC :=
+    intervalIntegral.integral_eq_sub_of_hasDerivAt (f := fun τ => (M τ)⁻¹)
+      (f' := fun s => -deriv M s / (M s) ^ 2) hinv hint
+  have hCint : IntervalIntegrable (fun _ : ℝ => (-C : ℝ)) MeasureTheory.volume 0 t :=
+    intervalIntegrable_const
+  have hbar :
+      ∫ s in (0 : ℝ)..t, (-C : ℝ) ≤
+        ∫ s in (0 : ℝ)..t, -deriv M s / (M s) ^ 2 :=
+    intervalIntegral.integral_mono_on ht hCint hint fun s hs => by
+      have hs0 : 0 ≤ s := hs.1
+      have hMpos : 0 < M s := hpos s hs0
+      have hden : 0 < (M s) ^ 2 := sq_pos_of_pos hMpos
+      have hle : deriv M s ≤ C * (M s) ^ 2 := hquad s hs0
+      have h1 : -deriv M s ≥ -(C * (M s) ^ 2) := neg_le_neg hle
+      have h2 : -(C * (M s) ^ 2) / (M s) ^ 2 ≤ -deriv M s / (M s) ^ 2 :=
+        div_le_div_of_nonneg_right h1 hden.le
+      have h3 : -(C * (M s) ^ 2) / (M s) ^ 2 = -C := by
+        field_simp [ne_of_gt hden]
+      linarith [h2, h3]
+  have hinterC : ∫ s in (0 : ℝ)..t, (-C : ℝ) = -C * t := by
+    simp [mul_comm]
+  have : (M t)⁻¹ - (M 0)⁻¹ ≥ -C * t := by
+    linarith [hFTC, hbar, hinterC]
+  linarith
 
 /-- Beale–Kato–Majda criterion (Beale–Kato–Majda 1984).
 
@@ -2240,6 +2450,13 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms curl_add
 #print axioms convective_norm_le
 #print axioms inner_convective_product_rule
+#print axioms cyclicLiePairing_expand
+#print axioms convective_norm_le_of_CZ
+#print axioms stretching_inner_le
+#print axioms transported_scalar_along_characteristic
+#print axioms transported_scalar_maximum_principle
+#print axioms reciprocal_of_quadratic_growth
+#print axioms le_vorticity_sup_norm
 #print axioms convective_coord
 #print axioms convective_eq_sum_directional
 #print axioms directionalCoord_convective
