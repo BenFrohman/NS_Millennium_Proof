@@ -743,12 +743,38 @@ Existence is `comparison_ode_exists`; the def itself is choice, not `sorry`. -/
 public noncomputable def ComparisonODE (C κ'' y0 : ℝ) : ℝ → ℝ :=
   if h : ∃ y, IsComparisonODESolution C κ'' y0 y then Classical.choose h else fun _ => y0
 
+public theorem majorantField_zero (C κ'' : ℝ) :
+    majorantField C κ'' 0 = 0 := by
+  simp [majorantField]
+
+public theorem majorantField_eq (C κ'' : ℝ) (hκ : κ'' ≠ 0) :
+    majorantField C κ'' (C / κ'') = 0 := by
+  unfold majorantField
+  field_simp [hκ]
+  ring
+
 /-- Picard / continuation: a nonnegative initial value admits a global C¹ solution.
-Polynomial vector field; trapping in `[0, max(y0, C/κ'')]`. -/
+Polynomial vector field; trapping in `[0, max(y0, C/κ'')]`.
+Equilibria `0` and `C/κ''` are closed as constant solutions. The interior
+continuation (restart Picard on the trapping interval) remains the named remainder. -/
 public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (hy0 : 0 ≤ y0) :
     ∃ y, IsComparisonODESolution C κ'' y0 y := by
-  sorry
+  by_cases h0 : y0 = 0
+  · refine ⟨fun _ => 0, ?_, ?_⟩
+    · simpa [h0]
+    · intro t
+      simpa [majorantField_zero] using hasDerivAt_const t (0 : ℝ)
+  · by_cases hstar : y0 = C / κ''
+    · refine ⟨fun _ => C / κ'', ?_, ?_⟩
+      · simpa [hstar]
+      · intro t
+        have hfield : majorantField C κ'' (C / κ'') = 0 :=
+          majorantField_eq C κ'' (ne_of_gt hκ)
+        simpa [hfield] using hasDerivAt_const t (C / κ'')
+    · -- Interior data: local Picard is `comparison_ode_local_exists`;
+      -- global continuation on the trapping interval `[0, max y0 (C/κ'')]`.
+      sorry
 
 public theorem ComparisonODE_spec (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (hy0 : 0 ≤ y0) :
@@ -984,37 +1010,11 @@ Global uniform bound on the independent majorant ODE (Lean ref §7.6).
 Stated as `theorem` because this is a mathematical assertion about the
 behavior of `ComparisonODE`, not a data definition.
 -/
-theorem comparison_majorant_global_bound (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'') :
+theorem comparison_majorant_global_bound (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
+    (hy0 : 0 ≤ y0) :
     ∃ Y : ℝ, ∀ t ≥ 0,
-      0 ≤ ComparisonODE C κ'' y0 t ∧ ComparisonODE C κ'' y0 t ≤ Y := by
-  -- Full elementary phase-plane analysis (polished version from living document):
-  --
-  -- The ODE is autonomous: y' = y² (C − κ'' y), y > 0.
-  -- Equilibria: y = 0 (unstable) and y* = C/κ'' (asymptotically stable).
-  --
-  -- Case 1: 0 < y0 < y*
-  --   f(y) = y² (C − κ'' y) > 0 on (0, y*).
-  --   y is strictly increasing on its maximal existence interval.
-  --   It cannot reach y* in finite time (at y* we have f(y*) = 0, which would contradict strict increase).
-  --   Therefore y(t) < y* for all t in the existence interval.
-  --   By the standard continuation theorem for ODEs (local Lipschitz on [0, ∞)), the solution exists globally.
-  --   Moreover, lim t→∞ y(t) = y*.
-  --
-  -- Case 2: y0 > y*
-  --   f(y) < 0 on (y*, ∞).
-  --   y is strictly decreasing.
-  --   It cannot reach y* in finite time (same contradiction).
-  --   Therefore y(t) > y* and the solution exists globally with lim t→∞ y(t) = y*.
-  --
-  -- In both cases: 0 ≤ y(t) ≤ Y := max(y0, C/κ'') for all t ≥ 0.
-  -- Y depends only on the initial value and the universal constants C, κ''.
-  --
-  -- This is the complete rigorous justification used in the polished living document (PASS 5).
-  -- Sub-calc (Case 1 explicit): f(y0) > 0 ⇒ strictly increasing. Suppose it hits y* at finite t0.
-  -- Then f(y(t0)) = 0, contradicting strict increase on [0,t0). Hence never reaches y*.
-  -- Local Lipschitz + continuation theorem ⇒ global existence, lim = y*.
-  -- Sub-calc (Case 2 explicit): symmetric sign argument, cannot cross y* downward.
-  sorry   -- phase-plane cases now have the contradiction arguments written out (still classical); explicit from side tabs Full_Living_Document.md Case 1/2 with the f(y*)=0 contradiction.
+      0 ≤ ComparisonODE C κ'' y0 t ∧ ComparisonODE C κ'' y0 t ≤ Y :=
+  ⟨max y0 (C / κ''), uniform_majorant_bound C κ'' y0 hC hκ hy0⟩
 
 /-! ## Lemma 3.1 — the corrected version from PASS 5 (closes the circularity gap)
 
