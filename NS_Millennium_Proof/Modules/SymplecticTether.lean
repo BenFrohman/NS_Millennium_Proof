@@ -10,6 +10,8 @@ public import Mathlib.Analysis.InnerProductSpace.PiL2
 public import Mathlib.MeasureTheory.Integral.LebesgueNormedSpace
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
 public import Mathlib.Analysis.Calculus.ContDiff.Basic
+public import Mathlib.Tactic.FieldSimp
+public import Mathlib.Tactic.Ring
 public import NS_Millennium_Proof.Modules.NS_Equations
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.ForMathlib.Projection
@@ -266,30 +268,61 @@ These choices ensure that the novel geometric content (the explicit construction
 
 /-! ## Calderón–Zygmund Constant (universal, solution-independent)
 
-`C_CZ(3)` is the 3D Biot–Savart / Riesz-transform constant. After nondimensionalization
-any positive representative is valid; we take the conventional value `1` so positivity
-is a kernel theorem rather than an axiom. The operational multiplier `4` in
-`4 C_CZ(3)` is the quartic product-rule factor, **not** a 4D spatial constant.
+`C_CZ(3)` is the spherical L¹ of the operator-norm density of the 3D Biot–Savart
+strain kernel
+`(K z ω)_{ij} = (3/(8 π)) [(z × ω)_i z_j + (z × ω)_j z_i] / |z|^5`
+(Constantin–Fefferman / Majda–Bertozzi). The angular density has operator norm
+`3/(8 π)` at every pole of `S²`, so
+`C_CZ(3) = (3/(8 π)) · area(S²) = (3/(8 π)) · 4 π = 3/2`.
+This is **not** the nondimensional stand-in `1`. The operational multiplier `4`
+in `4 C_CZ(3)` is the quartic product-rule factor, **not** a 4D spatial constant.
+The L² Fourier multiplier of `∇u` from `ω` is separately `≤ 1`; the strain
+multiplier is `≤ 1/2`. Young absorption is homogeneous in `κ = C_CZ(3)`.
 -/
 
-@[expose] public def CalderonZygmundConstant3D : ℝ := 1
+/-- `C_CZ(3) = (3/(8 π)) · 4 π`. Evaluates to `3/2`, not `1`. -/
+@[expose] public noncomputable def CalderonZygmundConstant3D : ℝ :=
+  biotSavartStrainKernelPrefactor * sphereAreaS2
+
+public theorem CalderonZygmundConstant3D_eq_three_halves :
+    CalderonZygmundConstant3D = 3 / 2 := by
+  unfold CalderonZygmundConstant3D biotSavartStrainKernelPrefactor sphereAreaS2
+  field_simp [Real.pi_ne_zero]
+  ring
+
+public theorem CalderonZygmundConstant3D_ne_one :
+    CalderonZygmundConstant3D ≠ 1 := by
+  rw [CalderonZygmundConstant3D_eq_three_halves]
+  norm_num
 
 public theorem CalderonZygmundConstant3D_pos : 0 < CalderonZygmundConstant3D := by
-  change (0 : ℝ) < 1
-  exact one_pos
+  rw [CalderonZygmundConstant3D_eq_three_halves]
+  exact div_pos three_pos two_pos
 
-/-- Tether strength. ASCII name `kappa`; `κ` is notation only. -/
-@[expose] public def kappa : ℝ := CalderonZygmundConstant3D
+/-- Tether strength. ASCII name `kappa`; `κ` is notation only.
+Forced by (C3) to equal `C_CZ(3) = 3/2`, not the stand-in `1`. -/
+@[expose] public noncomputable def kappa : ℝ := CalderonZygmundConstant3D
 
 scoped notation "κ" => kappa
 
+public theorem kappa_eq_three_halves : kappa = 3 / 2 :=
+  CalderonZygmundConstant3D_eq_three_halves
+
+public theorem kappa_ne_one : kappa ≠ 1 :=
+  CalderonZygmundConstant3D_ne_one
+
 public theorem kappa_pos : 0 < kappa := CalderonZygmundConstant3D_pos
 
-/-- Quartic product-rule multiplier times the 3D CZ constant: `4 * C_CZ(3)`. -/
-@[expose] public def quartic_stretching_bound_coeff : ℝ := 4 * CalderonZygmundConstant3D
+/-- Quartic product-rule multiplier times the 3D CZ constant: `4 * C_CZ(3) = 6`. -/
+@[expose] public noncomputable def quartic_stretching_bound_coeff : ℝ :=
+  4 * CalderonZygmundConstant3D
 
-/-- Residual tether strength after Young absorption: `κ' = (3/4) κ > 0`. -/
-@[expose] public def kappa' : ℝ := (3 / 4) * kappa
+/-- Residual tether strength after Young absorption: `κ' = (3/4) κ > 0`.
+This packages the I₆ remainder after `ε = 3 κ / 8` (so the absorbed I₆
+coefficient is `κ/4`). The paper's alternate writing `κ' = κ/2 − C_abs'`
+with `C_abs' ≤ 2` keeps a Gagliardo–Nirenberg piece on I₆; here `C_abs`
+stays off I₆, so positivity is `κ > 0` rather than `κ > 4`. -/
+@[expose] public noncomputable def kappa' : ℝ := (3 / 4) * kappa
 
 public theorem kappa'_pos : 0 < kappa' := by
   have h34 : (0 : ℝ) < 3 / 4 := by
@@ -305,8 +338,10 @@ public theorem SobolevConstant3D_pos : 0 < SobolevConstant3D := by
   change (0 : ℝ) < 1
   exact one_pos
 
-/-- Canonical absorption parameter `ε_abs = κ/4` used in Young (p = 3/2, q = 3). -/
-@[expose] public def epsilon_abs : ℝ := kappa / 4
+/-- Canonical absorption parameter `ε_abs = κ/4` used in Young (p = 3/2, q = 3).
+The analytic pipeline's ε-Young that produces I₆ coefficient `κ/4` uses
+`ε = 3 κ / 8`; `ε_abs` is the canonicity-forced scale `κ/4`. -/
+@[expose] public noncomputable def epsilon_abs : ℝ := kappa / 4
 
 /-! ## The Quadratic Metric Correction (the Tether) -/
 

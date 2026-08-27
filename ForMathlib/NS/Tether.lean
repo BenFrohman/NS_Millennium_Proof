@@ -6,7 +6,9 @@ Authors: Benjamin Stanley Frohman
 
 module
 
-public import Mathlib.Data.Real.Basic
+public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+public import Mathlib.Tactic.FieldSimp
+public import Mathlib.Tactic.Ring
 
 /-!
 # ForMathlib.NS.Tether
@@ -18,26 +20,55 @@ Mathlib upstreaming. The canonical integral kernel `TetherKernel` lives in
 `NS_Millennium_Proof.Modules.SymplecticTether` — this file does **not**
 define a competing kernel.
 
-Positivity of `kappa` is a theorem, not an axiom.
+`C_CZ(3)` is the spherical L¹ of the 3D Biot–Savart strain kernel, equal to
+`3/2`, not the nondimensional stand-in `1`. Positivity of `kappa` is a
+theorem, not an axiom.
 -/
 
 namespace NS.FrohmanianTether
 
-/-- Universal 3D Calderón–Zygmund constant of the Biot–Savart / Riesz kernel.
-Positivity is a theorem (`norm_num` on the conventional representative `1`). -/
-@[expose] public def CalderonZygmundConstant3D : ℝ := 1
+/-- Prefactor of the Constantin–Fefferman / Majda–Bertozzi 3D strain kernel
+`(K z ω)_{ij} = (3/(8 π)) [(z × ω)_i z_j + (z × ω)_j z_i] / |z|^5`. -/
+@[expose] public noncomputable def biotSavartStrainKernelPrefactor : ℝ :=
+  3 / (8 * Real.pi)
+
+/-- Euclidean surface area of the unit sphere `S² ⊂ ℝ³`. -/
+@[expose] public noncomputable def sphereAreaS2 : ℝ :=
+  4 * Real.pi
+
+/-- Universal 3D Calderón–Zygmund constant of the Biot–Savart strain kernel:
+`(3/(8 π)) · area(S²) = 3/2`. This is not the stand-in `1`. -/
+@[expose] public noncomputable def CalderonZygmundConstant3D : ℝ :=
+  biotSavartStrainKernelPrefactor * sphereAreaS2
+
+public theorem CalderonZygmundConstant3D_eq_three_halves :
+    CalderonZygmundConstant3D = 3 / 2 := by
+  unfold CalderonZygmundConstant3D biotSavartStrainKernelPrefactor sphereAreaS2
+  field_simp [Real.pi_ne_zero]
+  ring
+
+public theorem CalderonZygmundConstant3D_ne_one :
+    CalderonZygmundConstant3D ≠ 1 := by
+  rw [CalderonZygmundConstant3D_eq_three_halves]
+  norm_num
 
 public theorem CalderonZygmundConstant3D_pos : 0 < CalderonZygmundConstant3D := by
-  change (0 : ℝ) < 1
-  exact one_pos
+  rw [CalderonZygmundConstant3D_eq_three_halves]
+  exact div_pos three_pos two_pos
 
-@[expose] public def kappa : ℝ := CalderonZygmundConstant3D
+@[expose] public noncomputable def kappa : ℝ := CalderonZygmundConstant3D
 
 scoped notation "κ" => kappa
 
+public theorem kappa_eq_three_halves : kappa = 3 / 2 :=
+  CalderonZygmundConstant3D_eq_three_halves
+
+public theorem kappa_ne_one : kappa ≠ 1 :=
+  CalderonZygmundConstant3D_ne_one
+
 public theorem kappa_pos : 0 < kappa := CalderonZygmundConstant3D_pos
 
-/-- Quartic product-rule multiplier: `4 * C_CZ(3)`, not a 4-dimensional constant. -/
+/-- Quartic product-rule multiplier: `4 * C_CZ(3) = 6`, not a 4-dimensional constant. -/
 @[expose] public noncomputable def quartic_stretching_bound_coeff : ℝ :=
   4 * CalderonZygmundConstant3D
 
