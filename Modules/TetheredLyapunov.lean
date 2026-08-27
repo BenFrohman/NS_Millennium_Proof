@@ -11,6 +11,9 @@ public import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.Analysis.Calculus.ContDiff.Defs
 public import Mathlib.Analysis.Calculus.Deriv.Basic
+public import Mathlib.Analysis.Calculus.Deriv.Add
+public import Mathlib.Analysis.Calculus.Deriv.Mul
+public import Mathlib.Analysis.Calculus.Deriv.Pow
 public import Mathlib.Analysis.Calculus.Deriv.Inv
 public import Mathlib.Analysis.Calculus.Deriv.Inverse
 public import Mathlib.Analysis.ODE.PicardLindelof
@@ -781,9 +784,184 @@ public theorem majorantFieldClip_eq_of_mem
   have hyY1 : y ≤ Y + 1 := hy.2.trans (le_add_of_nonneg_right zero_le_one)
   simp [majorantFieldClip, min_eq_left hyY1, max_eq_right hy01]
 
+/-- Elementary factorization: `f(x) − f(y) = (x − y)(C(x+y) − κ''(x²+xy+y²))`. -/
+public theorem majorantField_sub (C κ'' x y : ℝ) :
+    majorantField C κ'' x - majorantField C κ'' y =
+      (x - y) * (C * (x + y) - κ'' * (x ^ 2 + x * y + y ^ 2)) := by
+  simp [majorantField]
+  ring
+
+/-- Derivative of the cubic majorant field. -/
+public theorem hasDerivAt_majorantField (C κ'' y : ℝ) :
+    HasDerivAt (majorantField C κ'') (2 * C * y - 3 * κ'' * y ^ 2) y := by
+  unfold majorantField
+  convert ((hasDerivAt_pow 2 y).const_mul C).sub ((hasDerivAt_pow 3 y).const_mul κ'') using 1
+  simp [pow_one]
+  ring
+
+/-- Cubic Lipschitz on a bounded interval, from the mean-value bound on `f'`. -/
+public theorem majorantField_lipschitzOn_Icc (C κ'' a b : ℝ) :
+    LipschitzOnWith
+      ⟨|C| * (2 * (max |a| |b| + 1)) + |κ''| * (3 * (max |a| |b| + 1) ^ 2), by positivity⟩
+      (majorantField C κ'') (Icc a b) := by
+  set M := max |a| |b| + 1
+  set K : ℝ≥0 := ⟨|C| * (2 * M) + |κ''| * (3 * M ^ 2), by positivity⟩
+  have hK : (K : ℝ) = |C| * (2 * M) + |κ''| * (3 * M ^ 2) := rfl
+  have hf : ∀ x ∈ Icc a b, DifferentiableAt ℝ (majorantField C κ'') x :=
+    fun x _ => (hasDerivAt_majorantField C κ'' x).differentiableAt
+  have hbound : ∀ x ∈ Icc a b, ‖deriv (majorantField C κ'') x‖₊ ≤ K := by
+    intro x hx
+    have hderiv : deriv (majorantField C κ'') x = 2 * C * x - 3 * κ'' * x ^ 2 :=
+      (hasDerivAt_majorantField C κ'' x).deriv
+    have hxM : |x| ≤ M := by
+      rcases le_or_gt a b with hab | hab
+      · have hneg : -max |a| |b| ≤ x :=
+          (neg_le_neg (le_max_left |a| |b|)).trans ((neg_abs_le a).trans hx.1)
+        have hpos : x ≤ max |a| |b| :=
+          hx.2.trans ((le_abs_self b).trans (le_max_right |a| |b|))
+        have : |x| ≤ max |a| |b| := abs_le.2 ⟨hneg, hpos⟩
+        linarith
+      · have hempty : Icc a b = (∅ : Set ℝ) := Icc_eq_empty_iff.mpr (not_le.mpr hab)
+        exact (hempty ▸ hx).elim
+    have habs : |2 * C * x - 3 * κ'' * x ^ 2| ≤ (K : ℝ) := by
+      have hx2 : x ^ 2 ≤ M ^ 2 := by
+        rw [← sq_abs]
+        exact pow_le_pow_left₀ (abs_nonneg x) hxM 2
+      calc
+        |2 * C * x - 3 * κ'' * x ^ 2|
+            ≤ |2 * C * x| + |3 * κ'' * x ^ 2| :=
+              (abs_add_le (2 * C * x) (-(3 * κ'' * x ^ 2))).trans (by rw [abs_neg])
+        _ = 2 * |C| * |x| + 3 * |κ''| * x ^ 2 := by
+            simp [abs_mul, abs_pow, sq_abs]
+            try ring
+        _ ≤ 2 * |C| * M + 3 * |κ''| * M ^ 2 := by gcongr
+        _ = (K : ℝ) := by
+            rw [hK]
+            ring
+    have : (‖deriv (majorantField C κ'') x‖₊ : ℝ) ≤ (K : ℝ) := by
+      rw [coe_nnnorm, Real.norm_eq_abs, hderiv]
+      exact habs
+    exact NNReal.coe_le_coe.mp this
+  convert (convex_Icc a b).lipschitzOnWith_of_nnnorm_deriv_le hf hbound
+  try rfl
+
+/-- Global Lipschitz constant of the compact cutoff: clamp is `1`-Lipschitz
+and the cubic is Lipschitz on the clamp range. -/
+public theorem majorantFieldClip_lipschitz (C κ'' Y : ℝ) (hY : -1 ≤ Y + 1) :
+    LipschitzWith
+      ⟨|C| * (2 * (max |(-1 : ℝ)| |Y + 1| + 1)) +
+        |κ''| * (3 * (max |(-1 : ℝ)| |Y + 1| + 1) ^ 2), by positivity⟩
+      (majorantFieldClip C κ'' Y) := by
+  set K : ℝ≥0 :=
+    ⟨|C| * (2 * (max |(-1 : ℝ)| |Y + 1| + 1)) +
+      |κ''| * (3 * (max |(-1 : ℝ)| |Y + 1| + 1) ^ 2), by positivity⟩
+  have hcub := majorantField_lipschitzOn_Icc C κ'' (-1) (Y + 1)
+  have hclamp : LipschitzWith 1 (fun y : ℝ => max (-1 : ℝ) (min y (Y + 1))) :=
+    (LipschitzWith.id.min_const (Y + 1)).const_max (-1 : ℝ)
+  refine LipschitzWith.of_dist_le_mul fun x y => ?_
+  have hx : max (-1 : ℝ) (min x (Y + 1)) ∈ Icc (-1 : ℝ) (Y + 1) :=
+    ⟨le_max_left _ _, max_le hY (min_le_right _ _)⟩
+  have hy : max (-1 : ℝ) (min y (Y + 1)) ∈ Icc (-1 : ℝ) (Y + 1) :=
+    ⟨le_max_left _ _, max_le hY (min_le_right _ _)⟩
+  calc
+    dist (majorantFieldClip C κ'' Y x) (majorantFieldClip C κ'' Y y)
+        = dist (majorantField C κ'' (max (-1 : ℝ) (min x (Y + 1))))
+            (majorantField C κ'' (max (-1 : ℝ) (min y (Y + 1)))) := by
+          simp [majorantFieldClip]
+    _ ≤ (K : ℝ) * dist (max (-1 : ℝ) (min x (Y + 1)))
+          (max (-1 : ℝ) (min y (Y + 1))) :=
+          hcub.dist_le_mul _ hx _ hy
+    _ ≤ (K : ℝ) * ((1 : ℝ) * dist x y) := by
+          gcongr
+          simpa using hclamp.dist_le_mul x y
+    _ = (K : ℝ) * dist x y := by ring
+
+/-- The cutoff cubic is bounded by its values on `[-1, Y+1]`. -/
+public theorem majorantFieldClip_norm_le (C κ'' Y x : ℝ) (hY : 0 ≤ Y) :
+    ‖majorantFieldClip C κ'' Y x‖ ≤ |C| * (Y + 1) ^ 2 + |κ''| * (Y + 1) ^ 3 := by
+  set z := max (-1 : ℝ) (min x (Y + 1))
+  have hz1 : -1 ≤ z := le_max_left _ _
+  have hz2 : z ≤ Y + 1 := max_le (by linarith) (min_le_right _ _)
+  have hzabs : |z| ≤ Y + 1 :=
+    abs_le.2 ⟨by linarith [hz1, hY], hz2⟩
+  have hcalc : |C * z ^ 2 - κ'' * z ^ 3| ≤ |C| * (Y + 1) ^ 2 + |κ''| * (Y + 1) ^ 3 := by
+    calc
+      |C * z ^ 2 - κ'' * z ^ 3|
+          ≤ |C * z ^ 2| + |κ'' * z ^ 3| :=
+            (abs_add_le (C * z ^ 2) (-(κ'' * z ^ 3))).trans (by rw [abs_neg])
+      _ = |C| * |z| ^ 2 + |κ''| * |z| ^ 3 := by
+          simp [abs_mul, abs_pow, sq_abs]
+      _ ≤ |C| * (Y + 1) ^ 2 + |κ''| * (Y + 1) ^ 3 := by
+          gcongr
+  simpa [majorantFieldClip, Real.norm_eq_abs, majorantField, z] using hcalc
+
+/-- Picard on a finite slab `Icc (-1) (T+1)` for the clipped cubic. -/
+public theorem comparison_ode_clipped_on_Icc
+    (C κ'' y0 T : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hy0 : 0 ≤ y0) (hT : 0 ≤ T) :
+    ∃ α : ℝ → ℝ, α 0 = y0 ∧
+      ∀ t ∈ Icc (-1 : ℝ) (T + 1),
+        HasDerivWithinAt α (majorantFieldClip C κ'' (max y0 (C / κ'')) (α t))
+          (Icc (-1 : ℝ) (T + 1)) t := by
+  set Y := max y0 (C / κ'')
+  have hY : 0 ≤ Y := le_max_of_le_left hy0
+  have hYclip : -1 ≤ Y + 1 := by linarith
+  let Mbound : ℝ := |C| * (Y + 1) ^ 2 + |κ''| * (Y + 1) ^ 3
+  have hMb : 0 ≤ Mbound := by positivity
+  let L : ℝ≥0 := ⟨Mbound, hMb⟩
+  have hIcc0 : (0 : ℝ) ∈ Icc (-1 : ℝ) (T + 1) := ⟨by norm_num, by linarith⟩
+  let t₀ : Icc (-1 : ℝ) (T + 1) := ⟨0, hIcc0⟩
+  let a : ℝ≥0 := ⟨(L : ℝ) * max (T + 1) 1 + 1, by positivity⟩
+  have hb : ∀ x ∈ closedBall (y0 : ℝ) a, ‖majorantFieldClip C κ'' Y x‖ ≤ L := by
+    intro x _hx
+    simpa [L, Mbound] using majorantFieldClip_norm_le C κ'' Y x hY
+  have hl : LipschitzOnWith
+      ⟨|C| * (2 * (max |(-1 : ℝ)| |Y + 1| + 1)) +
+        |κ''| * (3 * (max |(-1 : ℝ)| |Y + 1| + 1) ^ 2), by positivity⟩
+      (majorantFieldClip C κ'' Y) (closedBall (y0 : ℝ) a) :=
+    (majorantFieldClip_lipschitz C κ'' Y hYclip).lipschitzOnWith.mono fun _ _ => trivial
+  have hm : (L : ℝ) * max ((T + 1) - (t₀ : ℝ)) ((t₀ : ℝ) - (-1 : ℝ)) ≤ (a : ℝ) - (0 : ℝ) := by
+    have hcoe : (t₀ : ℝ) = 0 := rfl
+    have ha : (a : ℝ) = (L : ℝ) * max (T + 1) 1 + 1 := rfl
+    have hmax : max ((T + 1) - (0 : ℝ)) ((0 : ℝ) - (-1 : ℝ)) = max (T + 1) 1 := by
+      simp
+    rw [hcoe, hmax, ha, sub_zero]
+    linarith
+  have hpl :
+      IsPicardLindelof (fun _ : ℝ => majorantFieldClip C κ'' Y)
+        t₀ y0 a 0 L
+        ⟨|C| * (2 * (max |(-1 : ℝ)| |Y + 1| + 1)) +
+          |κ''| * (3 * (max |(-1 : ℝ)| |Y + 1| + 1) ^ 2), by positivity⟩ :=
+    IsPicardLindelof.of_time_independent hb hl hm
+  obtain ⟨α, hα0, hα'⟩ := hpl.exists_eq_forall_mem_Icc_hasDerivWithinAt₀
+  exact ⟨α, hα0, hα'⟩
+
+/-- Grönwall uniqueness for the globally Lipschitz clipped field on a slab. -/
+public theorem majorantFieldClip_unique_on_Icc
+    (C κ'' Y a b t₀ : ℝ) (hY : -1 ≤ Y + 1) (α β : ℝ → ℝ)
+    (ht₀ : t₀ ∈ Ioo a b)
+    (hα : ∀ t ∈ Icc a b,
+      HasDerivWithinAt α (majorantFieldClip C κ'' Y (α t)) (Icc a b) t)
+    (hβ : ∀ t ∈ Icc a b,
+      HasDerivWithinAt β (majorantFieldClip C κ'' Y (β t)) (Icc a b) t)
+    (hinit : α t₀ = β t₀) :
+    EqOn α β (Icc a b) := by
+  have hK := majorantFieldClip_lipschitz C κ'' Y hY
+  refine ODE_solution_unique_of_mem_Icc
+    (K := ⟨|C| * (2 * (max |(-1 : ℝ)| |Y + 1| + 1)) +
+      |κ''| * (3 * (max |(-1 : ℝ)| |Y + 1| + 1) ^ 2), by positivity⟩)
+    (v := fun _ : ℝ => majorantFieldClip C κ'' Y)
+    (s := fun _ : ℝ => (univ : Set ℝ))
+    (fun _ _ => hK.lipschitzOnWith) ht₀
+    (fun t ht => (hα t ht).continuousWithinAt)
+    (fun t ht => (hα t (Ioo_subset_Icc_self ht)).hasDerivAt (Icc_mem_nhds ht.1 ht.2))
+    (fun _ _ => trivial)
+    (fun t ht => (hβ t ht).continuousWithinAt)
+    (fun t ht => (hβ t (Ioo_subset_Icc_self ht)).hasDerivAt (Icc_mem_nhds ht.1 ht.2))
+    (fun _ _ => trivial) hinit
+
 /-- Picard / continuation: a nonnegative initial value admits a C¹ solution
 for all `t ≥ 0`. Equilibria `0` and `C/κ''` are constant solutions. Interior
-data: invert `majorantSeparable` / continue clipped Picard (named remainder). -/
+data: clipped Picard on every slab, unique by Grönwall, trapped in `[0, Y]`. -/
 public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (hy0 : 0 ≤ y0) :
     ∃ y, IsComparisonODESolution C κ'' y0 y := by
@@ -801,9 +979,175 @@ public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < �
         have hfield : majorantField C κ'' (C / κ'') = 0 :=
           majorantField_eq C κ'' (ne_of_gt hκ)
         simpa [hfield] using hasDerivAt_const t (C / κ'')
-    · -- Interior: clipped Picard on every slab `Icc (-1) (T+1)`, unique by
-      -- Grönwall, then restrict to `t ≥ 0`. Remaining glue/trapping.
-      sorry
+    · set Y := max y0 (C / κ'')
+      have hY0 : 0 ≤ Y := le_max_of_le_left hy0
+      have hYclip : -1 ≤ Y + 1 := by linarith
+      have hslab : ∀ T : ℝ, 0 ≤ T →
+          ∃ α : ℝ → ℝ, α 0 = y0 ∧
+            ∀ t ∈ Icc (-1 : ℝ) (T + 1),
+              HasDerivWithinAt α (majorantFieldClip C κ'' Y (α t))
+                (Icc (-1 : ℝ) (T + 1)) t :=
+        fun T hT => comparison_ode_clipped_on_Icc C κ'' y0 T hC hκ hy0 hT
+      have hagree :
+          ∀ T₁ T₂ (hT₁ : 0 ≤ T₁) (hT₂ : 0 ≤ T₂),
+            EqOn (Classical.choose (hslab T₁ hT₁)) (Classical.choose (hslab T₂ hT₂))
+              (Icc (-1 : ℝ) (min T₁ T₂ + 1)) := by
+        intro T₁ T₂ hT₁ hT₂
+        have hα := Classical.choose_spec (hslab T₁ hT₁)
+        have hβ := Classical.choose_spec (hslab T₂ hT₂)
+        have ht₀ : (0 : ℝ) ∈ Ioo (-1 : ℝ) (min T₁ T₂ + 1) := by
+          refine ⟨by norm_num, ?_⟩
+          have : (0 : ℝ) ≤ min T₁ T₂ := le_min hT₁ hT₂
+          linarith
+        have hαI : ∀ t ∈ Icc (-1 : ℝ) (min T₁ T₂ + 1),
+            HasDerivWithinAt (Classical.choose (hslab T₁ hT₁))
+              (majorantFieldClip C κ'' Y (Classical.choose (hslab T₁ hT₁) t))
+              (Icc (-1 : ℝ) (min T₁ T₂ + 1)) t := by
+          intro t ht
+          have hle : min T₁ T₂ + 1 ≤ T₁ + 1 := by linarith [min_le_left T₁ T₂]
+          have ht' : t ∈ Icc (-1 : ℝ) (T₁ + 1) := ⟨ht.1, ht.2.trans hle⟩
+          exact (hα.2 t ht').mono (Icc_subset_Icc_right hle)
+        have hβI : ∀ t ∈ Icc (-1 : ℝ) (min T₁ T₂ + 1),
+            HasDerivWithinAt (Classical.choose (hslab T₂ hT₂))
+              (majorantFieldClip C κ'' Y (Classical.choose (hslab T₂ hT₂) t))
+              (Icc (-1 : ℝ) (min T₁ T₂ + 1)) t := by
+          intro t ht
+          have hle : min T₁ T₂ + 1 ≤ T₂ + 1 := by linarith [min_le_right T₁ T₂]
+          have ht' : t ∈ Icc (-1 : ℝ) (T₂ + 1) := ⟨ht.1, ht.2.trans hle⟩
+          exact (hβ.2 t ht').mono (Icc_subset_Icc_right hle)
+        exact majorantFieldClip_unique_on_Icc C κ'' Y (-1) (min T₁ T₂ + 1) 0 hYclip
+          (Classical.choose (hslab T₁ hT₁)) (Classical.choose (hslab T₂ hT₂))
+          ht₀ hαI hβI (hα.1.trans hβ.1.symm)
+      let y : ℝ → ℝ := fun t =>
+        Classical.choose (hslab (max t 0) (le_max_right t 0)) t
+      have hy_init : y 0 = y0 :=
+        (Classical.choose_spec (hslab (max (0 : ℝ) 0) (le_max_right (0 : ℝ) 0))).1
+      have hy_eq_slab : ∀ t0 (ht0 : 0 ≤ t0),
+          EqOn y (Classical.choose (hslab (t0 + 1) (add_nonneg ht0 zero_le_one)))
+            (Icc (-1 : ℝ) (t0 + 1)) := by
+        intro t0 ht0 s hs
+        have hTβ : 0 ≤ max s 0 := le_max_right _ _
+        have hTα : 0 ≤ t0 + 1 := add_nonneg ht0 zero_le_one
+        have hsT : max s 0 ≤ t0 + 1 :=
+          max_le hs.2 (ht0.trans (le_add_of_nonneg_right zero_le_one))
+        have hmin : min (max s 0) (t0 + 1) = max s 0 := min_eq_left hsT
+        have hov := hagree (max s 0) (t0 + 1) hTβ hTα
+        have hs' : s ∈ Icc (-1 : ℝ) (min (max s 0) (t0 + 1) + 1) := by
+          refine ⟨hs.1, ?_⟩
+          rw [hmin]
+          exact (le_max_left s 0).trans (le_add_of_nonneg_right zero_le_one)
+        exact hov hs'
+      have hy_deriv : ∀ t0 ≥ (0 : ℝ),
+          HasDerivAt y (majorantFieldClip C κ'' Y (y t0)) t0 := by
+        intro t0 ht0
+        have hT : 0 ≤ t0 + 1 := by linarith
+        have hα := Classical.choose_spec (hslab (t0 + 1) hT)
+        have htI : t0 ∈ Icc (-1 : ℝ) (t0 + 1 + 1) := by
+          refine ⟨by linarith, ?_⟩
+          linarith
+        have hαderiv : HasDerivAt (Classical.choose (hslab (t0 + 1) hT))
+            (majorantFieldClip C κ'' Y
+              (Classical.choose (hslab (t0 + 1) hT) t0)) t0 :=
+          (hα.2 t0 ⟨by linarith, by linarith⟩).hasDerivAt
+            (Icc_mem_nhds (by linarith : (-1 : ℝ) < t0)
+              (by linarith : t0 < t0 + 1 + 1))
+        have heq : y =ᶠ[𝓝 t0]
+            Classical.choose (hslab (t0 + 1) hT) :=
+          (hy_eq_slab t0 ht0).eventuallyEq_of_mem
+            (Icc_mem_nhds (by linarith : (-1 : ℝ) < t0)
+              (by linarith : t0 < t0 + 1))
+        have hy0t : y t0 = Classical.choose (hslab (t0 + 1) hT) t0 :=
+          hy_eq_slab t0 ht0 ⟨by linarith, by linarith⟩
+        convert hαderiv.congr_of_eventuallyEq heq
+        try rw [hy0t]
+      have hupper : ∀ t ≥ (0 : ℝ), y t ≤ Y := by
+        intro t ht
+        refine le_of_forall_pos_le_add fun ε hε => ?_
+        set ε' := min ε (1 / 2 : ℝ)
+        have hε' : 0 < ε' := lt_min hε (by norm_num)
+        have hε'1 : ε' < 1 := (min_le_right ε (1 / 2 : ℝ)).trans_lt (by norm_num)
+        have hyC : ContinuousOn y (Icc (0 : ℝ) t) := fun x hx =>
+          (hy_deriv x hx.1).continuousAt.continuousWithinAt
+        have hyW : ∀ x ∈ Ico (0 : ℝ) t,
+            HasDerivWithinAt y (majorantFieldClip C κ'' Y (y x)) (Ici x) x :=
+          fun x hx => (hy_deriv x hx.1).hasDerivWithinAt
+        have hB : ∀ x, HasDerivAt (fun _ : ℝ => Y + ε') (0 : ℝ) x := fun x =>
+          hasDerivAt_const x (Y + ε')
+        have hy0b : y 0 ≤ Y + ε' :=
+          hy_init.le.trans <| (le_max_left y0 (C / κ'')).trans (le_add_of_nonneg_right hε'.le)
+        have hcontact' : ∀ x ∈ Ico (0 : ℝ) t, y x = Y + ε' →
+            majorantFieldClip C κ'' Y (y x) < 0 := by
+          intro x _hx hxeq
+          have hz : max (-1 : ℝ) (min (Y + ε') (Y + 1)) = Y + ε' := by
+            have hmin : min (Y + ε') (Y + 1) = Y + ε' := min_eq_left (by linarith [hε'1.le])
+            rw [hmin, max_eq_right]
+            linarith [hY0, hε'.le]
+          have hbarrier : C / κ'' < Y + ε' :=
+            lt_of_le_of_lt (le_max_right y0 (C / κ'')) (lt_add_of_pos_right _ hε')
+          simpa [majorantFieldClip, hxeq, hz, majorantField] using
+            AnalyticPipeline.majorant_vector_field_neg_of_gt hC hκ hbarrier
+        have hle :=
+          image_le_of_deriv_right_lt_deriv_boundary (f := y)
+            (f' := fun x => majorantFieldClip C κ'' Y (y x))
+            (a := 0) (b := t) (B := fun _ => Y + ε') (B' := fun _ => (0 : ℝ))
+            hyC hyW hy0b hB hcontact'
+        have := hle ⟨ht, le_rfl⟩
+        have hεε' : Y + ε' ≤ Y + ε := by
+          linarith [min_le_left ε (1 / 2 : ℝ)]
+        exact this.trans hεε'
+      have hlower : ∀ t ≥ (0 : ℝ), 0 ≤ y t := by
+        intro t ht
+        refine le_of_forall_pos_le_add fun ε hε => ?_
+        set ε' := min ε (1 / 2 : ℝ)
+        have hε' : 0 < ε' := lt_min hε (by norm_num)
+        have hε'1 : ε' < 1 := (min_le_right ε (1 / 2 : ℝ)).trans_lt (by norm_num)
+        have hnegdiff : ∀ s ≥ (0 : ℝ), HasDerivAt (fun s => -y s)
+            (-majorantFieldClip C κ'' Y (y s)) s :=
+          fun s hs => (hy_deriv s hs).neg
+        have hyC : ContinuousOn (fun s => -y s) (Icc (0 : ℝ) t) := fun x hx =>
+          (hnegdiff x hx.1).continuousAt.continuousWithinAt
+        have hyW : ∀ x ∈ Ico (0 : ℝ) t,
+            HasDerivWithinAt (fun s => -y s)
+              (-majorantFieldClip C κ'' Y (y x)) (Ici x) x :=
+          fun x hx => (hnegdiff x hx.1).hasDerivWithinAt
+        have hB : ∀ x, HasDerivAt (fun _ : ℝ => ε') (0 : ℝ) x := fun x =>
+          hasDerivAt_const x ε'
+        have hy0b : -y 0 ≤ ε' := by
+          have : 0 ≤ y 0 := hy_init.symm ▸ hy0
+          linarith [hε'.le]
+        have hcontact : ∀ x ∈ Ico (0 : ℝ) t, -y x = ε' →
+            -majorantFieldClip C κ'' Y (y x) < 0 := by
+          intro x _hx hxeq
+          have hyx : y x = -ε' := by linarith
+          have hz : max (-1 : ℝ) (min (-ε') (Y + 1)) = -ε' := by
+            have hmin : min (-ε') (Y + 1) = -ε' :=
+              min_eq_left (by linarith [hY0, hε'.le, hε'1.le])
+            rw [hmin, max_eq_right]
+            linarith [hε'1.le]
+          have hpos : 0 < C * (-ε') ^ 2 - κ'' * (-ε') ^ 3 := by
+            have hy2 : 0 < (-ε') ^ 2 := by
+              rw [neg_sq]
+              exact sq_pos_of_pos hε'
+            have hlin : 0 < C - κ'' * (-ε') := by linarith [mul_pos hκ hε']
+            rw [AnalyticPipeline.majorant_vector_field_eq]
+            exact mul_pos hy2 hlin
+          simpa [majorantFieldClip, hyx, hz, majorantField] using neg_neg_iff_pos.mpr hpos
+        have hle :=
+          image_le_of_deriv_right_lt_deriv_boundary (f := fun s => -y s)
+            (f' := fun x => -majorantFieldClip C κ'' Y (y x))
+            (a := 0) (b := t) (B := fun _ => ε') (B' := fun _ => (0 : ℝ))
+            hyC hyW hy0b hB hcontact
+        have := hle ⟨ht, le_rfl⟩
+        have : -y t ≤ ε := this.trans (min_le_left ε (1 / 2 : ℝ))
+        linarith
+      refine ⟨y, ?_⟩
+      constructor
+      · exact hy_init
+      · intro t ht
+        have hmem : y t ∈ Icc (0 : ℝ) Y := ⟨hlower t ht, hupper t ht⟩
+        have hclip : majorantFieldClip C κ'' Y (y t) = majorantField C κ'' (y t) :=
+          majorantFieldClip_eq_of_mem C κ'' Y (y t) hmem
+        simpa [hclip] using hy_deriv t ht
 
 public theorem ComparisonODE_spec (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (hy0 : 0 ≤ y0) :
