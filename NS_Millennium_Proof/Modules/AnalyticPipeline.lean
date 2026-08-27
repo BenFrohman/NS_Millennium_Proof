@@ -13,6 +13,7 @@ public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.Tactic.Linarith
 public import Mathlib.Tactic.Ring
 public import Mathlib.Analysis.MeanInequalities
+public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
 public import Mathlib.Analysis.SpecialFunctions.Pow.Real
 public import Mathlib.Data.Real.ConjExponents
 public import NS_Millennium_Proof.Modules.NS_Equations
@@ -34,7 +35,9 @@ Three Lean 4 gates connecting the quartic Lyapunov variation to BKM:
 `kappa` is the defined constant from `SymplecticTether` (not an axiom).
 -/
 
-open FrohmanianTether NavierStokes3D MeasureTheory Set
+open FrohmanianTether NavierStokes3D
+open MeasureTheory hiding volume
+open Set Filter
 
 namespace AnalyticPipeline
 
@@ -209,6 +212,85 @@ public theorem holderConjugate_three_halves_three :
     ((3 : ℝ) / 2).HolderConjugate 3 :=
   (Real.holderConjugate_iff).2 ⟨by norm_num, by norm_num⟩
 
+/-- Paper §3 Hölder on the quartic: `∫ |ω|⁴ |φ| ≤ ‖φ‖_∞ (∫|ω|⁶)^{2/3} (∫1)^{1/3}`.
+The factor `(∫1)^{1/3}` is finite Haar volume of `𝕋³`; it is a hypothesis
+because Lebesgue on the model `ℝ³` is infinite. -/
+public theorem holder_I4
+    (ω : VorticityField) (phi : T3 → ℝ) (phiLinf : ℝ)
+    (hphi : ∀ x, |phi x| ≤ phiLinf)
+    (hφnn : 0 ≤ phiLinf)
+    (hω : MemLp (fun x : T3 => ‖ω x‖ ^ 4) (ENNReal.ofReal ((3 : ℝ) / 2)) volume)
+    (h1 : MemLp (fun _ : T3 => (1 : ℝ)) (ENNReal.ofReal 3) volume) :
+    ∫ x, ‖ω x‖ ^ 4 * |phi x| ∂volume ≤
+      phiLinf * (∫ x, ‖ω x‖ ^ 6 ∂volume) ^ ((2 : ℝ) / 3) *
+        (∫ x, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := by
+  have hpq := holderConjugate_three_halves_three
+  have hf_nn : 0 ≤ᵐ[volume] fun x : T3 => ‖ω x‖ ^ 4 :=
+    Filter.Eventually.of_forall fun _ => pow_nonneg (norm_nonneg _) _
+  have hg_nn : 0 ≤ᵐ[volume] fun _ : T3 => (1 : ℝ) :=
+    Filter.Eventually.of_forall fun _ => zero_le_one
+  have hH :=
+    integral_mul_le_Lp_mul_Lq_of_nonneg (μ := volume) hpq hf_nn hg_nn hω h1
+  have hpow : ∀ x, (‖ω x‖ ^ 4) ^ ((3 : ℝ) / 2) = ‖ω x‖ ^ 6 := by
+    intro x
+    have ha : 0 ≤ ‖ω x‖ := norm_nonneg _
+    rw [← Real.rpow_natCast, ← Real.rpow_mul ha]
+    norm_num
+  have hinter :
+      ∫ x, ‖ω x‖ ^ 4 * (1 : ℝ) ∂volume ≤
+        (∫ x, ‖ω x‖ ^ 6 ∂volume) ^ ((2 : ℝ) / 3) *
+          (∫ x, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := by
+    have hfun :
+        (fun a : T3 => (‖ω a‖ ^ 4) ^ ((3 : ℝ) / 2)) = fun a => ‖ω a‖ ^ 6 :=
+      funext hpow
+    have h1p : (fun _ : T3 => (1 : ℝ) ^ (3 : ℝ)) = fun _ => (1 : ℝ) := by
+      funext _
+      simp
+    have hp : (1 : ℝ) / ((3 : ℝ) / 2) = (2 : ℝ) / 3 := by field_simp
+    calc
+      ∫ x, ‖ω x‖ ^ 4 * (1 : ℝ) ∂volume
+          ≤ (∫ a, (‖ω a‖ ^ 4) ^ ((3 : ℝ) / 2) ∂volume) ^ (1 / ((3 : ℝ) / 2)) *
+              (∫ a, (1 : ℝ) ^ (3 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := hH
+      _ = (∫ a, ‖ω a‖ ^ 6 ∂volume) ^ ((2 : ℝ) / 3) *
+            (∫ a, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := by
+          rw [hfun, h1p, hp]
+  have hμ : volume (univ : Set T3) < ⊤ := by
+    have hlt : eLpNorm (fun _ : T3 => (1 : ℝ)) (ENNReal.ofReal 3) volume < ⊤ :=
+      h1.eLpNorm_lt_top
+    rw [eLpNorm_const_lt_top_iff (μ := volume) (p := ENNReal.ofReal 3) (c := (1 : ℝ))
+      (by simp) (by simp)] at hlt
+    exact hlt.resolve_left (by simp)
+  haveI : IsFiniteMeasure (volume : Measure T3) := ⟨hμ⟩
+  have hL1 : MemLp (fun x : T3 => ‖ω x‖ ^ 4) 1 volume :=
+    hω.mono_exponent (by
+      have : ENNReal.ofReal (1 : ℝ) ≤ ENNReal.ofReal ((3 : ℝ) / 2) :=
+        ENNReal.ofReal_le_ofReal (by norm_num)
+      simpa using this)
+  have hint : Integrable (fun x : T3 => ‖ω x‖ ^ 4) volume :=
+    (memLp_one_iff_integrable (μ := volume)).1 hL1
+  have hintc : Integrable (fun x : T3 => phiLinf * ‖ω x‖ ^ 4) volume :=
+    hint.const_mul phiLinf
+  have hpt : ∀ x, ‖ω x‖ ^ 4 * |phi x| ≤ phiLinf * ‖ω x‖ ^ 4 := by
+    intro x
+    have : 0 ≤ ‖ω x‖ ^ 4 := pow_nonneg (norm_nonneg _) _
+    nlinarith [hphi x]
+  have hI4 :
+      ∫ x, ‖ω x‖ ^ 4 * |phi x| ∂volume ≤
+        ∫ x, phiLinf * ‖ω x‖ ^ 4 ∂volume :=
+    integral_mono_of_nonneg
+      (Filter.Eventually.of_forall fun x =>
+        mul_nonneg (pow_nonneg (norm_nonneg _) _) (abs_nonneg _))
+      hintc
+      (Filter.Eventually.of_forall hpt)
+  have hsc :
+      ∫ x, phiLinf * ‖ω x‖ ^ 4 ∂volume = phiLinf * ∫ x, ‖ω x‖ ^ 4 ∂volume :=
+    integral_const_mul _ _
+  have hmul1 : (fun x : T3 => ‖ω x‖ ^ 4 * (1 : ℝ)) = fun x => ‖ω x‖ ^ 4 := by
+    funext x; ring
+  rw [hsc] at hI4
+  rw [hmul1] at hinter
+  nlinarith [hφnn, hinter, hI4]
+
 /-- ε-Young: `ab ≤ ε a^p/p + ε^{-q/p} b^q/q`. -/
 public theorem young_inequality_eps
     {a b ε p q : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b) (hε : 0 < ε)
@@ -326,5 +408,9 @@ public theorem stretching_bound_of_holder
     _ ≤ (kappa / 4) * I6 +
           absorptionCoeff C_Sob phi * (M ^ 3 * phi ^ ((3 : ℝ) / 2)) := by
         linarith [hrem]
+
+#print axioms holderConjugate_three_halves_three
+#print axioms holder_I4
+#print axioms stretching_bound_of_holder
 
 end AnalyticPipeline
