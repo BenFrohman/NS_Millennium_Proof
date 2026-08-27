@@ -441,6 +441,18 @@ def mollify (_ε : ℝ) (f : T3 → (EuclideanSpace ℝ (Fin 3))) : T3 → (Eucl
 def MollifiedSupNormFunctional (ε : ℝ) (ω : CoadjointOrbit) : ℝ :=
   ⨆ x, ‖mollify ε ω.val x‖
 
+/-- If `u` is the unique Gâteaux representative of kinetic energy, `δH = u`.
+Existence/uniqueness of that representative remain the Biot–Savart identification. -/
+public theorem functional_derivative_of_kinetic_energy_of_unique_repr
+    (ω : CoadjointOrbit)
+    (h : IsGateauxRepresentative KineticEnergyHamiltonian ω
+      (velocity_from_vorticity ω))
+    (huniq : ∀ dH, IsGateauxRepresentative KineticEnergyHamiltonian ω dH →
+      dH = velocity_from_vorticity ω) :
+    FunctionalDerivative KineticEnergyHamiltonian ω =
+      velocity_from_vorticity ω :=
+  functional_derivative_eq_velocity_of_unique_repr ω h huniq
+
 /-- Kinetic energy has functional derivative equal to the Biot–Savart velocity. Classical. -/
 lemma functional_derivative_of_kinetic_energy (ω : CoadjointOrbit) :
     FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω := by
@@ -474,12 +486,32 @@ lemma integration_by_parts_on_torus (u : VelocityField) (φ : T3 → ℝ)
 
 /-- Mixed partials slot for Biot–Savart: if the recovered velocity is a
 `C²` curl, then `div u = 0` by `div_of_eq_curl`. This is *not* C¹ flux IBP. -/
-lemma div_biot_savart_of_eq_curl (ω : CoadjointOrbit) (A : VelocityField)
+public theorem div_biot_savart_of_eq_curl (ω : CoadjointOrbit) (A : VelocityField)
     (hA : ∀ x k, ContDiffAt ℝ 2 (fun y => A y k) x)
     (hcurl : velocity_from_vorticity ω = curl A) :
     div (velocity_from_vorticity ω) = 0 := by
   funext x
   exact div_of_eq_curl (velocity_from_vorticity ω) A hA hcurl x
+
+/-- C¹ slot: if `div` and the Biot–Savart integral interchange at `x`, then
+`div u = 0` by the a.e. integrand identity. Not flux IBP. -/
+public theorem div_biot_savart_velocity_of_interchange
+    (ω : CoadjointOrbit) (x : T3)
+    (hinter : NavierStokes3D.div (velocity_from_vorticity ω) x =
+      ∫ y, NavierStokes3D.div
+        (fun z => biotSavartKernel z y • cross (ω.val y) (z - y)) x
+        ∂NavierStokes3D.volume) :
+    NavierStokes3D.div (velocity_from_vorticity ω) x = 0 := by
+  have hinter' :
+      NavierStokes3D.div (BiotSavart ω.val) x =
+        ∫ y, NavierStokes3D.div
+          (fun z => biotSavartKernel z y • cross (ω.val y) (z - y)) x
+          ∂NavierStokes3D.volume := by
+    rw [velocity_from_vorticity_eq_BiotSavart] at hinter
+    exact hinter
+  have h0 := div_BiotSavart_of_interchange ω.val x hinter'
+  rw [velocity_from_vorticity_eq_BiotSavart]
+  exact h0
 
 lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
     div (velocity_from_vorticity ω) = 0 := by
@@ -487,7 +519,7 @@ lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
   -- (1) C²: `velocity_from_vorticity ω = curl A` then
   --     `div_biot_savart_of_eq_curl`.
   -- (2) C¹: interchange `div` and the Biot–Savart integral, then
-  --     `div_BiotSavart_of_interchange` with `div_biotSavart_integrand_ae`.
+  --     `div_biot_savart_velocity_of_interchange`.
   sorry
 
 /-- Euler kinetic-energy conservation on `[0, T)`.
@@ -1283,6 +1315,9 @@ While the Jacobi crack is still in progress they will show `sorryAx` — this is
 #print axioms tetherKernel_C2_of_no_gateaux
 #print axioms tetherKernel_degenerates_on_kinetic_energy
 #print axioms tetherKernel_C2_of_identifications
+#print axioms functional_derivative_of_kinetic_energy_of_unique_repr
+#print axioms div_biot_savart_of_eq_curl
+#print axioms div_biot_savart_velocity_of_interchange
 #print axioms degeneracy_for_mollified_sup_norm_proxy
 -- (step* and uniqueness_of_minimal_tether moved to Uniqueness.lean / FrohmanianTether namespace per modular cleanup.
 -- Validation prints live there now; see Uniqueness.lean end for #print axioms on the 5-step.)
