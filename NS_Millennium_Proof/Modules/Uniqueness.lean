@@ -214,6 +214,86 @@ public theorem tetherKernel_has_canonical_density :
     ring
   rw [hf, integral_const_mul (μ := volume)]
 
+/-- Reconstruction 2.3.1 in substitution form: a correction with the
+canonical density is homogeneous of degree two in `ω` once the Gâteaux
+slots are frozen (paper: `δF` is a tangent vector, independent of scaling
+the base vorticity). -/
+public theorem step2_degree_of_canonical_density
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ)
+    (h_repr : HasTetherKernelDensity B α)
+    (hα : ∀ ω x, α ω x = canonicalTetherDensity ω x)
+    (F G : Functional) (ω : CoadjointOrbit) (c : ℝ)
+    (hFD_F : FunctionalDerivative F
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative F ω)
+    (hFD_G : FunctionalDerivative G
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative G ω)
+    (hPi : Pi_u (velocity_from_vorticity
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩) =
+      Pi_u (velocity_from_vorticity ω)) :
+    B ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G =
+      c ^ 2 * B ω F G := by
+  have hB := uniqueness_of_kernel_density B α h_repr hα
+  set ωc : CoadjointOrbit :=
+    ⟨fun x => c • ω.val x, fun x => by
+      rw [div_smul, ω.property x, mul_zero]⟩
+  have hTc : B ωc F G = TetherKernel ωc F G := hB ωc F G
+  have hT : B ω F G = TetherKernel ω F G := hB ω F G
+  have hfun :
+      (fun x =>
+        ‖ωc.val x‖ ^ 2 *
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative F ωc) x)
+            (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative G ωc) x)) =
+      fun x =>
+        c ^ 2 *
+          (‖ω.val x‖ ^ 2 *
+            inner ℝ
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) := by
+    funext x
+    simp [ωc, hFD_F, hFD_G, hPi, norm_smul, Real.norm_eq_abs, sq_abs, mul_pow,
+      mul_assoc]
+  calc
+    B ωc F G = TetherKernel ωc F G := hTc
+    _ = -kappa *
+          ∫ x,
+            ‖ωc.val x‖ ^ 2 *
+              inner ℝ
+                (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative F ωc) x)
+                (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative G ωc) x)
+            ∂volume := by
+          simp [TetherKernel]
+    _ = -kappa *
+          ∫ x,
+            c ^ 2 *
+              (‖ω.val x‖ ^ 2 *
+                inner ℝ
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x))
+            ∂volume := by
+          rw [hfun]
+    _ = c ^ 2 *
+          (-kappa *
+            ∫ x,
+              ‖ω.val x‖ ^ 2 *
+                inner ℝ
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+              ∂volume) := by
+          rw [integral_const_mul (μ := volume)]
+          ring
+    _ = c ^ 2 * TetherKernel ω F G := by
+          simp [TetherKernel]
+    _ = c ^ 2 * B ω F G := by
+          rw [hT]
+
 /-- Minimality: the correction saturates the C3 quadratic form of `TetherKernel`. -/
 public def SaturatesTetherQuadratic
     (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
@@ -316,5 +396,6 @@ When the proofs become real, also run:
 #print axioms uniqueness_of_kernel_density_fun
 #print axioms tetherKernel_has_canonical_density
 #print axioms uniqueness_of_minimal_tether
+#print axioms step2_degree_of_canonical_density
 
 end FrohmanianTether
