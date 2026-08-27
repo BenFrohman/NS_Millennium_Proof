@@ -3,7 +3,8 @@
 **Canonical author (Mathlib `Authors:` line / Lean Zulip contact):**
 - Benjamin Stanley Frohman
 
-**GitHub:** [@BenFrohman](https://github.com/BenFrohman) · [@Investor0x](https://github.com/Investor0x)
+**GitHub:** [@BenFrohman](https://github.com/BenFrohman)
+**X.com : Investor0x** ([x.com/Investor0x](https://x.com/Investor0x))
 
 **Primary Author and Originator:**
 - Benjamin Stanley Frohman — creator of the Frohmanian Symplectic Tether framework, geometric constructions, tether kernel, and global regularity proof (2026).

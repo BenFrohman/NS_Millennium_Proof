@@ -204,7 +204,7 @@ def build_pdf():
     story.append(Paragraph("A Comprehensive Compilation and Analysis", styles['Subtitle']))
     story.append(Paragraph("of the Two-Layer Non-Circular Proof Strategy<br/>for Global Regularity of 3D Incompressible Navier–Stokes", styles['Subtitle']))
     story.append(Spacer(1, 0.5*inch))
-    story.append(Paragraph("<b>Benjamin Stanley Frohman</b><br/>@Investor0x | Prosper, Texas", styles['BodyJustify']))
+    story.append(Paragraph("<b>Benjamin Stanley Frohman</b><br/>X.com : Investor0x | Prosper, Texas", styles['BodyJustify']))
     story.append(Paragraph(f"June 22, 2026 | Version 1.0", styles['Caption']))
     story.append(Spacer(1, 0.4*inch))
     

@@ -9,7 +9,7 @@ Authors: Benjamin Stanley Frohman
 
 **Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
 
-Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
+Original work by Benjamin Stanley Frohman (X.com : Investor0x / Bit21).
 
 Lean 4 encoding of the Frohmanian Symplectic Tether proof of 3D incompressible
 Navier–Stokes global regularity (`kappa`, `TetherKernel` / 𝔉𝕋, BKM, uniqueness).

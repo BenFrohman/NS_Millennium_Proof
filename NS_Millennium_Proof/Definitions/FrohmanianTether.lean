@@ -11,7 +11,7 @@ public import NS_Millennium_Proof.Modules.SymplecticTether
 /-!
 # Central Definitions / Naming for the Frohmanian Tether (Canonical)
 
-**Original Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)
+**Original Author:** Benjamin Stanley Frohman (X.com : Investor0x / Bit21)
 **Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
 
 Canonical Frohmanian Tether naming. Original work by Benjamin Stanley Frohman.
