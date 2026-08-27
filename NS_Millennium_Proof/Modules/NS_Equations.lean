@@ -28,6 +28,7 @@ public import Mathlib.Data.Real.Archimedean
 public import Mathlib.Data.Set.Basic
 public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 public import Mathlib.Tactic.Ring
+public import Mathlib.Tactic.Abel
 public import Mathlib.MeasureTheory.Function.LocallyIntegrable
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
@@ -2427,6 +2428,65 @@ public theorem time_deriv_sub
   rw [hfun, hpi]
   exact deriv_sub hu hv
 
+/-- Pressure gradient is linear. C¹ of both pressures. -/
+public theorem pressureGradient_sub (p q : PressureField) (x : T3)
+    (hp : DifferentiableAt ℝ p x) (hq : DifferentiableAt ℝ q x) :
+    pressureGradient (p - q) x =
+      pressureGradient p x - pressureGradient q x := by
+  unfold pressureGradient
+  ext i
+  have hpq : DifferentiableAt ℝ (p - q) x := hp.sub hq
+  have hf : fderiv ℝ (p - q) x = fderiv ℝ p x - fderiv ℝ q x :=
+    (hp.hasFDerivAt.sub hq.hasFDerivAt).fderiv
+  have hL : gradient (p - q) x i =
+      (fderiv ℝ (p - q) x) (EuclideanSpace.single i 1) :=
+    gradient_coord (p - q) x i hpq
+  have hRp : gradient p x i =
+      (fderiv ℝ p x) (EuclideanSpace.single i 1) :=
+    gradient_coord p x i hp
+  have hRq : gradient q x i =
+      (fderiv ℝ q x) (EuclideanSpace.single i 1) :=
+    gradient_coord q x i hq
+  rw [hL, hf, ContinuousLinearMap.sub_apply, ← hRp, ← hRq]
+  rfl
+
+/-- Difference of two NS momentum equations: paper Cauchy identity.
+`(∂t + u·∇)(u−v) + ((u−v)·∇)v + ∇(p−q) = ν (Δu − Δv)`. -/
+public theorem ns_momentum_difference
+    (u v : TimeDependentVelocity) (p q : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hNS : NS_PDE u p ν) (hNS' : NS_PDE v q ν)
+    (hu : DifferentiableAt ℝ (u t) x) (hv : DifferentiableAt ℝ (v t) x)
+    (hdtu : DifferentiableAt ℝ (fun s => u s x) t)
+    (hdtv : DifferentiableAt ℝ (fun s => v s x) t)
+    (hp : DifferentiableAt ℝ (p t) x) (hq : DifferentiableAt ℝ (q t) x) :
+    time_deriv (fun s => u s - v s) t x +
+      convective (u t) (u t - v t) x +
+        convective (u t - v t) (v t) x +
+          pressureGradient (p t - q t) x =
+      ν • laplacian (u t) x - ν • laplacian (v t) x := by
+  have ⟨hmomu, _hdivu⟩ := hNS t ht x
+  have ⟨hmomv, _hdivv⟩ := hNS' t ht x
+  have hdt := time_deriv_sub u v t x hdtu hdtv
+  have hcv := convective_difference (u t) (v t) x hu hv
+  have hpg := pressureGradient_sub (p t) (q t) x hp hq
+  rw [hdt, hpg]
+  have hL :
+      time_deriv u t x - time_deriv v t x +
+        convective (u t) (u t - v t) x +
+          convective (u t - v t) (v t) x +
+            (pressureGradient (p t) x - pressureGradient (q t) x) =
+      time_deriv u t x - time_deriv v t x +
+        (convective (u t) (u t) x - convective (v t) (v t) x) +
+          (pressureGradient (p t) x - pressureGradient (q t) x) := by
+    rw [hcv]
+    abel
+  rw [hL]
+  have hsub :=
+    congrArg₂ (fun a b : EuclideanSpace ℝ (Fin 3) => a - b) hmomu hmomv
+  convert hsub using 1
+  abel
+
 /-- Time derivative of a frozen field vanishes. -/
 public theorem time_deriv_const (v : VelocityField) (t : ℝ) (x : T3) :
     time_deriv (fun _ => v) t x = 0 :=
@@ -2752,6 +2812,85 @@ public theorem stretching_inner_le
     _ = ‖fderiv ℝ u x‖ * ‖ω x‖ ^ 2 := by ring
     _ ≤ C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 :=
         mul_le_mul_of_nonneg_right hCZ (sq_nonneg _)
+
+/-- At a spatial critical point of `½|ω|²`, the transport pairing
+`⟨ω, (u·∇)ω⟩` vanishes. Paper §3 interior-maximum cancellation. -/
+public theorem transport_inner_vanishes_of_grad_zero
+    (u ω : VelocityField) (x : T3)
+    (hω : DifferentiableAt ℝ ω x)
+    (hgrad : gradient (fun y => (1 / 2 : ℝ) * ‖ω y‖ ^ 2) x = 0) :
+    inner ℝ (ω x) (convective u ω x) = 0 := by
+  rw [inner_convective_eq_inner_grad_half_norm_sq u ω x hω, hgrad,
+    inner_zero_right]
+
+/-- Inner product of vorticity transport: paper §2.1 / §3.
+`⟨ω, ∂t ω⟩ + ⟨ω, (u·∇)ω⟩ = ⟨ω, (ω·∇)u⟩ + ν ⟨ω, Δω⟩`. -/
+public theorem vorticity_transport_inner
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hNS : NS_PDE u p ν)
+    (hreg : VorticityTransportRegularity u p t x) :
+    inner ℝ (vorticity (u t) x)
+        (time_deriv (fun s => vorticity (u s)) t x) +
+      inner ℝ (vorticity (u t) x) (convective (u t) (vorticity (u t)) x) =
+      inner ℝ (vorticity (u t) x) (convective (vorticity (u t)) (u t) x) +
+        inner ℝ (vorticity (u t) x) (ν • laplacian (vorticity (u t)) x) := by
+  have hvt := vorticity_transport_at u p ν hNS t ht x hreg
+  have hcong :=
+    congrArg (inner ℝ (vorticity (u t) x)) hvt
+  simpa [inner_add_right] using hcong
+
+/-- Paper §3 at an interior spatial maximum of `|ω|²`: transport
+vanishes, viscosity is non-positive, stretching is CZ, hence
+`d/dt |ω|² ≤ 2 C_CZ M |ω|²`. -/
+public theorem stretching_enstrophy_di_at_spatial_max
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hNS : NS_PDE u p ν)
+    (hreg : VorticityTransportRegularity u p t x)
+    (hu : DifferentiableAt ℝ (u t) x) (C_CZ : ℝ)
+    (hCZ : ‖fderiv ℝ (u t) x‖ ≤ C_CZ *
+      vorticity_sup_norm (vorticity (u t)))
+    (htransp : inner ℝ (vorticity (u t) x)
+      (convective (u t) (vorticity (u t)) x) = 0)
+    (hvisc : inner ℝ (vorticity (u t) x)
+      (laplacian (vorticity (u t)) x) ≤ 0)
+    (hν : 0 ≤ ν)
+    (hdt : HasDerivAt (fun s => vorticity (u s) x)
+      (time_deriv (fun s => vorticity (u s)) t x) t) :
+    deriv (fun s => ‖vorticity (u s) x‖ ^ 2) t ≤
+      2 * C_CZ *
+        vorticity_sup_norm (vorticity (u t)) *
+        ‖vorticity (u t) x‖ ^ 2 := by
+  have hder := hdt.norm_sq.deriv
+  rw [hder]
+  have hinter := vorticity_transport_inner u p ν t ht x hNS hreg
+  have hleft :
+      inner ℝ (vorticity (u t) x)
+          (time_deriv (fun s => vorticity (u s)) t x) =
+        inner ℝ (vorticity (u t) x)
+            (convective (vorticity (u t)) (u t) x) +
+          inner ℝ (vorticity (u t) x)
+            (ν • laplacian (vorticity (u t)) x) := by
+    linarith [hinter, htransp]
+  rw [hleft]
+  have hstr :=
+    stretching_inner_le (vorticity (u t)) (u t) x C_CZ hu hCZ
+  have hviscν :
+      inner ℝ (vorticity (u t) x)
+          (ν • laplacian (vorticity (u t)) x) ≤ 0 := by
+    rw [inner_smul_right]
+    exact mul_nonpos_of_nonneg_of_nonpos hν hvisc
+  have hsum :
+      inner ℝ (vorticity (u t) x)
+            (convective (vorticity (u t)) (u t) x) +
+          inner ℝ (vorticity (u t) x)
+            (ν • laplacian (vorticity (u t)) x) ≤
+        C_CZ *
+          vorticity_sup_norm (vorticity (u t)) *
+          ‖vorticity (u t) x‖ ^ 2 :=
+    (add_le_add hstr hviscν).trans_eq (add_zero _)
+  exact (mul_le_mul_of_nonneg_left hsum two_pos.le).trans_eq (by ring)
 
 /-- Strain pairing: `⟨w, (w·∇)v⟩ ≤ ‖Dv‖_∞ |w|²` once the strain
 operator-norm is bounded. Linear algebra, not Riesz. -/
@@ -3354,6 +3493,11 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms cyclicLiePairing_expand
 #print axioms convective_norm_le_of_CZ
 #print axioms stretching_inner_le
+#print axioms transport_inner_vanishes_of_grad_zero
+#print axioms vorticity_transport_inner
+#print axioms stretching_enstrophy_di_at_spatial_max
+#print axioms pressureGradient_sub
+#print axioms ns_momentum_difference
 #print axioms inner_convective_eq_inner_grad_half_norm_sq
 #print axioms transported_energy_pairing_vanishes
 #print axioms convective_difference
