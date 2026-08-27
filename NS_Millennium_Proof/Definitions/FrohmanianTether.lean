@@ -7,6 +7,8 @@ Authors: Benjamin Stanley Frohman
 module
 
 public import NS_Millennium_Proof.Modules.SymplecticTether
+public import NS_Millennium_Proof.Modules.NS_Equations
+public import NS_Millennium_Proof.Modules.ArnoldGeometric
 
 /-!
 # Central Definitions / Naming for the Frohmanian Tether (Canonical)
@@ -14,17 +16,25 @@ public import NS_Millennium_Proof.Modules.SymplecticTether
 **Original Author:** Benjamin Stanley Frohman (X.com : Investor0x / Bit21)
 **Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
 
-Canonical Frohmanian Tether naming. Original work by Benjamin Stanley Frohman.
+This module is the public initialization root for Frohman's novel objects.
+The live definitions are:
 
-Core object: `TetheredBracket` / `TetherKernel` / notation 𝔉𝕋.
-Main theorem: `frohmanian_tether_theorem`.
+* `kappa` / `CalderonZygmundConstant3D` / `kappa'`
+* `TetherKernel` / `TetheredBracket` / notation 𝔉𝕋
+* `frohmanian_tether_theorem`
+* paper §2.1 operators in `NavierStokes3D`: `curl`, `convective`, `laplacian`,
+  `curl_gradient`, `curl_convective`, `curl_time_deriv`
 
 ASCII identifiers only for defs (`TetheredBracket`, `TetherKernel`, `kappa`).
 `FT` / `TF` / `BF` are not used.
 -/
 
+open ArnoldGeometric
+
 namespace FrohmanianTether
 
--- Notation `𝔉𝕋` is declared on `TetheredBracket` in SymplecticTether.
+/-- Initialization: `κ` is the live Calderón–Zygmund constant. -/
+public theorem kappa_is_initialized : kappa = CalderonZygmundConstant3D :=
+  kappa_eq_three_halves.trans CalderonZygmundConstant3D_eq_three_halves.symm
 
 end FrohmanianTether

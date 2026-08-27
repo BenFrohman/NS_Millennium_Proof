@@ -1155,6 +1155,38 @@ public theorem curl_add3 (u v w : VelocityField) (x : T3)
     rw [hu2, hv2, hw2, hdir 1 0, hdir 0 1]
     ring
 
+/-- Spatial slice of a joint scalar: `y ↦ F(t,y)` has derivative `DF(t,x) ∘ inr`. -/
+public theorem fderiv_prod_snd_slice
+    (F : ℝ × T3 → ℝ) (t : ℝ) (x : T3)
+    (hF : DifferentiableAt ℝ F (t, x)) :
+    fderiv ℝ (fun y : T3 => F (t, y)) x =
+      (fderiv ℝ F (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ T3) := by
+  have hinr : HasFDerivAt (fun y : T3 => (t, y))
+      (ContinuousLinearMap.inr ℝ ℝ T3) x :=
+    hasFDerivAt_prodMk_right t x
+  have hcomp : HasFDerivAt (F ∘ fun y : T3 => (t, y))
+      ((fderiv ℝ F (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ T3)) x :=
+    hF.hasFDerivAt.comp (x := x) hinr
+  have hfun : (fun y : T3 => F (t, y)) = F ∘ fun y : T3 => (t, y) := rfl
+  rw [hfun]
+  exact hcomp.fderiv
+
+/-- Time slice of a joint scalar: `s ↦ F(s,x)` has derivative `DF(t,x) (1,0)`. -/
+public theorem deriv_prod_fst_slice
+    (F : ℝ × T3 → ℝ) (t : ℝ) (x : T3)
+    (hF : DifferentiableAt ℝ F (t, x)) :
+    deriv (fun s : ℝ => F (s, x)) t = (fderiv ℝ F (t, x)) (1, 0) := by
+  have hinl : HasFDerivAt (fun s : ℝ => (s, x))
+      (ContinuousLinearMap.inl ℝ ℝ T3) t :=
+    hasFDerivAt_prodMk_left t x
+  have hcomp : HasFDerivAt (F ∘ fun s : ℝ => (s, x))
+      ((fderiv ℝ F (t, x)).comp (ContinuousLinearMap.inl ℝ ℝ T3)) t :=
+    hF.hasFDerivAt.comp (x := t) hinl
+  have hder := hasFDerivAt_iff_hasDerivAt.mp hcomp
+  have hfun : (fun s : ℝ => F (s, x)) = F ∘ fun s : ℝ => (s, x) := rfl
+  rw [hfun, hder.deriv]
+  rfl
+
 /-- Schwarz: `∂_x ∂_t f = ∂_t ∂_x f` at a `C²` spacetime point.
 Uses `IsSymmSndFDerivAt` on `(t,x) ↦ f t x`, not an energy IBP. -/
 public theorem time_space_mixed_partials
@@ -1162,7 +1194,77 @@ public theorem time_space_mixed_partials
     (hf : ContDiffAt ℝ 2 (fun p : ℝ × T3 => f p.1 p.2) (t, x)) :
     (fderiv ℝ (fun y => deriv (fun s => f s y) t) x) v =
       deriv (fun s => (fderiv ℝ (fun y => f s y) x) v) t := by
-  sorry
+  let F : ℝ × T3 → ℝ := fun p => f p.1 p.2
+  have hF1 : ContDiffAt ℝ 1 F (t, x) :=
+    hf.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+  have hnearF : ∀ᶠ p in nhds (t, x), DifferentiableAt ℝ F p := by
+    filter_upwards [hF1.eventually (by simp)] with p hp
+    exact hp.differentiableAt_one
+  have hnearY : ∀ᶠ y in nhds x, DifferentiableAt ℝ F (t, y) :=
+    (tendsto_const_nhds.prodMk_nhds tendsto_id).eventually hnearF
+  have hnearS : ∀ᶠ s in nhds t, DifferentiableAt ℝ F (s, x) :=
+    (tendsto_id.prodMk_nhds tendsto_const_nhds).eventually hnearF
+  have _hFdiff : DifferentiableAt ℝ F (t, x) := hF1.differentiableAt_one
+  have hfd : DifferentiableAt ℝ (fderiv ℝ F) (t, x) :=
+    (hf.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  have hsymm : IsSymmSndFDerivAt ℝ F (t, x) :=
+    hf.isSymmSndFDerivAt (by simp [minSmoothness_of_isRCLikeNormedField])
+  have heqY :
+      (fun y => deriv (fun s => f s y) t) =ᶠ[nhds x]
+        fun y => (fderiv ℝ F (t, y)) (1, 0) := by
+    filter_upwards [hnearY] with y hy
+    exact deriv_prod_fst_slice F t y hy
+  have happlyY :
+      fderiv ℝ (fun y => (fderiv ℝ F (t, y)) (1, 0)) x =
+        (ContinuousLinearMap.apply ℝ ℝ ((1, 0) : ℝ × T3)).comp
+          ((fderiv ℝ (fderiv ℝ F) (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ T3)) := by
+    have hinr : HasFDerivAt (fun y : T3 => (t, y))
+        (ContinuousLinearMap.inr ℝ ℝ T3) x :=
+      hasFDerivAt_prodMk_right t x
+    have hcompF : HasFDerivAt (fun y : T3 => fderiv ℝ F (t, y))
+        ((fderiv ℝ (fderiv ℝ F) (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ T3)) x :=
+      hfd.hasFDerivAt.comp (x := x) hinr
+    have happ : HasFDerivAt (fun y => (fderiv ℝ F (t, y)) (1, 0))
+        ((ContinuousLinearMap.apply ℝ ℝ ((1, 0) : ℝ × T3)).comp
+          ((fderiv ℝ (fderiv ℝ F) (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ T3))) x :=
+      (ContinuousLinearMap.apply ℝ ℝ ((1, 0) : ℝ × T3)).hasFDerivAt.comp (x := x) hcompF
+    exact happ.fderiv
+  have hLHS :
+      (fderiv ℝ (fun y => deriv (fun s => f s y) t) x) v =
+        (fderiv ℝ (fderiv ℝ F) (t, x)) (0, v) (1, 0) := by
+    rw [heqY.fderiv_eq, happlyY]
+    rfl
+  have heqS :
+      (fun s => (fderiv ℝ (fun y => f s y) x) v) =ᶠ[nhds t]
+        fun s => (fderiv ℝ F (s, x)) (0, v) := by
+    filter_upwards [hnearS] with s hs
+    have hfY := fderiv_prod_snd_slice F s x hs
+    change (fderiv ℝ (fun y => F (s, y)) x) v = (fderiv ℝ F (s, x)) (0, v)
+    rw [hfY]
+    rfl
+  have happS :
+      HasFDerivAt (fun s : ℝ => (fderiv ℝ F (s, x)) (0, v))
+        ((ContinuousLinearMap.apply ℝ ℝ ((0, v) : ℝ × T3)).comp
+          ((fderiv ℝ (fderiv ℝ F) (t, x)).comp (ContinuousLinearMap.inl ℝ ℝ T3))) t := by
+    have hinl : HasFDerivAt (fun s : ℝ => (s, x))
+        (ContinuousLinearMap.inl ℝ ℝ T3) t :=
+      hasFDerivAt_prodMk_left t x
+    have hcompF : HasFDerivAt (fun s : ℝ => fderiv ℝ F (s, x))
+        ((fderiv ℝ (fderiv ℝ F) (t, x)).comp (ContinuousLinearMap.inl ℝ ℝ T3)) t :=
+      hfd.hasFDerivAt.comp (x := t) hinl
+    exact (ContinuousLinearMap.apply ℝ ℝ ((0, v) : ℝ × T3)).hasFDerivAt.comp
+      (x := t) hcompF
+  have hderS := hasFDerivAt_iff_hasDerivAt.mp happS
+  have hRHS :
+      deriv (fun s => (fderiv ℝ (fun y => f s y) x) v) t =
+        (fderiv ℝ (fderiv ℝ F) (t, x)) (1, 0) (0, v) := by
+    have hcong : deriv (fun s => (fderiv ℝ (fun y => f s y) x) v) t =
+        deriv (fun s => (fderiv ℝ F (s, x)) (0, v)) t :=
+      heqS.deriv_eq
+    rw [hcong, hderS.deriv]
+    rfl
+  rw [hLHS, hRHS]
+  exact hsymm.eq (0, v) (1, 0)
 
 /-- Coordinate of a time-differentiable Euclidean path is the time derivative of that coordinate. -/
 public theorem deriv_euclidean_coord
@@ -1186,7 +1288,156 @@ public theorem curl_time_deriv
     (hC2 : ∀ k, ContDiffAt ℝ 2 (fun q : ℝ × T3 => u q.1 q.2 k) (t, x)) :
     curl (fun y => time_deriv u t y) x =
       time_deriv (fun s => curl (u s)) t x := by
-  sorry
+  have hk (k : Fin 3) :
+      ∀ᶠ y in nhds x, DifferentiableAt ℝ (fun s => u s y k) t := by
+    have hF1 : ContDiffAt ℝ 1 (fun q : ℝ × T3 => u q.1 q.2 k) (t, x) :=
+      (hC2 k).of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+    have hnearY : ∀ᶠ y in nhds x,
+        DifferentiableAt ℝ (fun q : ℝ × T3 => u q.1 q.2 k) (t, y) :=
+      (tendsto_const_nhds.prodMk_nhds tendsto_id).eventually
+        (by
+          filter_upwards [hF1.eventually (by simp)] with p hp
+          exact hp.differentiableAt_one)
+    filter_upwards [hnearY] with y hy
+    have hinl : HasFDerivAt (fun s : ℝ => (s, y))
+        (ContinuousLinearMap.inl ℝ ℝ T3) t :=
+      hasFDerivAt_prodMk_left t y
+    exact (hy.hasFDerivAt.comp (x := t) hinl).differentiableAt
+  have hnearVec : ∀ᶠ y in nhds x, DifferentiableAt ℝ (fun s => u s y) t := by
+    filter_upwards [hk 0, hk 1, hk 2] with y h0 h1 h2
+    exact (differentiableAt_piLp (p := 2) (𝕜 := ℝ)
+        (E := fun _ : Fin 3 => ℝ)).mpr (fun i => by
+      fin_cases i
+      · exact h0
+      · exact h1
+      · exact h2)
+  have heqCoord (comp : Fin 3) :
+      (fun y => time_deriv u t y comp) =ᶠ[nhds x]
+        fun y => deriv (fun s => u s y comp) t := by
+    filter_upwards [hnearVec] with y hy
+    change deriv (fun s => u s y) t comp = deriv (fun s => u s y comp) t
+    exact deriv_euclidean_coord (fun s => u s y) t comp hy
+  have hswap (comp dir : Fin 3) :
+      directionalCoord (fun y => time_deriv u t y) comp dir x =
+        deriv (fun s => directionalCoord (u s) comp dir x) t := by
+    unfold directionalCoord
+    rw [(heqCoord comp).fderiv_eq]
+    exact time_space_mixed_partials (fun s y => u s y comp) t x
+      (EuclideanSpace.single dir (1 : ℝ)) (hC2 comp)
+  have hcoord_diff (comp dir : Fin 3) :
+      DifferentiableAt ℝ (fun s => directionalCoord (u s) comp dir x) t := by
+    have hF : ContDiffAt ℝ 2 (fun p : ℝ × T3 => u p.1 p.2 comp) (t, x) := hC2 comp
+    have hfd : DifferentiableAt ℝ
+        (fderiv ℝ (fun p : ℝ × T3 => u p.1 p.2 comp)) (t, x) :=
+      (hF.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+    have hinl : HasFDerivAt (fun s : ℝ => (s, x))
+        (ContinuousLinearMap.inl ℝ ℝ T3) t :=
+      hasFDerivAt_prodMk_left t x
+    have hcompF : HasFDerivAt
+        (fun s : ℝ => fderiv ℝ (fun p : ℝ × T3 => u p.1 p.2 comp) (s, x))
+        ((fderiv ℝ (fderiv ℝ (fun p : ℝ × T3 => u p.1 p.2 comp)) (t, x)).comp
+          (ContinuousLinearMap.inl ℝ ℝ T3)) t :=
+      hfd.hasFDerivAt.comp (x := t) hinl
+    have happ : HasFDerivAt
+        (fun s => (fderiv ℝ (fun p : ℝ × T3 => u p.1 p.2 comp) (s, x))
+          (0, EuclideanSpace.single dir (1 : ℝ)))
+        ((ContinuousLinearMap.apply ℝ ℝ
+            ((0, EuclideanSpace.single dir (1 : ℝ)) : ℝ × T3)).comp
+          ((fderiv ℝ (fderiv ℝ (fun p : ℝ × T3 => u p.1 p.2 comp)) (t, x)).comp
+            (ContinuousLinearMap.inl ℝ ℝ T3))) t :=
+      (ContinuousLinearMap.apply ℝ ℝ
+          ((0, EuclideanSpace.single dir (1 : ℝ)) : ℝ × T3)).hasFDerivAt.comp
+        (x := t) hcompF
+    have hF1 : ContDiffAt ℝ 1 (fun p : ℝ × T3 => u p.1 p.2 comp) (t, x) :=
+      hF.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+    have hnearS : ∀ᶠ s in nhds t,
+        DifferentiableAt ℝ (fun p : ℝ × T3 => u p.1 p.2 comp) (s, x) :=
+      (tendsto_id.prodMk_nhds tendsto_const_nhds).eventually
+        (by
+          filter_upwards [hF1.eventually (by simp)] with p hp
+          exact hp.differentiableAt_one)
+    have heq : (fun s => directionalCoord (u s) comp dir x) =ᶠ[nhds t]
+        fun s => (fderiv ℝ (fun p : ℝ × T3 => u p.1 p.2 comp) (s, x))
+          (0, EuclideanSpace.single dir (1 : ℝ)) := by
+      filter_upwards [hnearS] with s hs
+      have hfY := fderiv_prod_snd_slice (fun p => u p.1 p.2 comp) s x hs
+      unfold directionalCoord
+      change (fderiv ℝ (fun y => u s y comp) x)
+          (EuclideanSpace.single dir (1 : ℝ)) = _
+      rw [hfY]
+      rfl
+    exact happ.differentiableAt.congr_of_eventuallyEq heq
+  have hcurl_t : DifferentiableAt ℝ (fun s => curl (u s) x) t := by
+    refine (differentiableAt_piLp (p := 2) (𝕜 := ℝ)
+        (E := fun _ : Fin 3 => ℝ)).mpr ?_
+    intro i
+    fin_cases i
+    · change DifferentiableAt ℝ (fun s => curl (u s) x 0) t
+      have h0 : (fun s => curl (u s) x 0) =
+          fun s => directionalCoord (u s) 2 1 x - directionalCoord (u s) 1 2 x := by
+        funext s
+        exact (curl_apply (u s) x).1
+      rw [h0]
+      exact (hcoord_diff 2 1).sub (hcoord_diff 1 2)
+    · change DifferentiableAt ℝ (fun s => curl (u s) x 1) t
+      have h1 : (fun s => curl (u s) x 1) =
+          fun s => directionalCoord (u s) 0 2 x - directionalCoord (u s) 2 0 x := by
+        funext s
+        exact (curl_apply (u s) x).2.1
+      rw [h1]
+      exact (hcoord_diff 0 2).sub (hcoord_diff 2 0)
+    · change DifferentiableAt ℝ (fun s => curl (u s) x 2) t
+      have h2 : (fun s => curl (u s) x 2) =
+          fun s => directionalCoord (u s) 1 0 x - directionalCoord (u s) 0 1 x := by
+        funext s
+        exact (curl_apply (u s) x).2.2
+      rw [h2]
+      exact (hcoord_diff 1 0).sub (hcoord_diff 0 1)
+  have hcurl_apply := curl_apply (fun y => time_deriv u t y) x
+  have ht0 :
+      time_deriv (fun s => curl (u s)) t x 0 =
+        deriv (fun s => directionalCoord (u s) 2 1 x) t -
+          deriv (fun s => directionalCoord (u s) 1 2 x) t := by
+    unfold time_deriv
+    have hfun : (fun s => curl (u s) x 0) =
+        fun s => directionalCoord (u s) 2 1 x - directionalCoord (u s) 1 2 x := by
+      funext s
+      exact (curl_apply (u s) x).1
+    rw [deriv_euclidean_coord (fun s => curl (u s) x) t 0 hcurl_t, hfun,
+      deriv_fun_sub (hcoord_diff 2 1) (hcoord_diff 1 2)]
+  have ht1 :
+      time_deriv (fun s => curl (u s)) t x 1 =
+        deriv (fun s => directionalCoord (u s) 0 2 x) t -
+          deriv (fun s => directionalCoord (u s) 2 0 x) t := by
+    unfold time_deriv
+    have hfun : (fun s => curl (u s) x 1) =
+        fun s => directionalCoord (u s) 0 2 x - directionalCoord (u s) 2 0 x := by
+      funext s
+      exact (curl_apply (u s) x).2.1
+    rw [deriv_euclidean_coord (fun s => curl (u s) x) t 1 hcurl_t, hfun,
+      deriv_fun_sub (hcoord_diff 0 2) (hcoord_diff 2 0)]
+  have ht2 :
+      time_deriv (fun s => curl (u s)) t x 2 =
+        deriv (fun s => directionalCoord (u s) 1 0 x) t -
+          deriv (fun s => directionalCoord (u s) 0 1 x) t := by
+    unfold time_deriv
+    have hfun : (fun s => curl (u s) x 2) =
+        fun s => directionalCoord (u s) 1 0 x - directionalCoord (u s) 0 1 x := by
+      funext s
+      exact (curl_apply (u s) x).2.2
+    rw [deriv_euclidean_coord (fun s => curl (u s) x) t 2 hcurl_t, hfun,
+      deriv_fun_sub (hcoord_diff 1 0) (hcoord_diff 0 1)]
+  ext i
+  fin_cases i
+  · change curl (fun y => time_deriv u t y) x 0 =
+        time_deriv (fun s => curl (u s)) t x 0
+    rw [hcurl_apply.1, ht0, hswap 2 1, hswap 1 2]
+  · change curl (fun y => time_deriv u t y) x 1 =
+        time_deriv (fun s => curl (u s)) t x 1
+    rw [hcurl_apply.2.1, ht1, hswap 0 2, hswap 2 0]
+  · change curl (fun y => time_deriv u t y) x 2 =
+        time_deriv (fun s => curl (u s)) t x 2
+    rw [hcurl_apply.2.2, ht2, hswap 1 0, hswap 0 1]
 
 /-- Coordinate of a Fréchet derivative is the derivative of that coordinate. -/
 public theorem fderiv_field_coord
@@ -1209,7 +1460,42 @@ public theorem laplacian_coord
       ∑ i : Fin 3,
         (fderiv ℝ (fun y => directionalCoord u j i y) x)
           (EuclideanSpace.single i 1) := by
-  sorry
+  have _hC1 : DifferentiableAt ℝ u x :=
+    (hu.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)).differentiableAt_one
+  have hnear : ∀ᶠ y in nhds x, DifferentiableAt ℝ u y := by
+    have hu1 : ContDiffAt ℝ 1 u x :=
+      hu.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+    filter_upwards [hu1.eventually (by simp)] with y hy
+    exact hy.differentiableAt_one
+  have hfd : DifferentiableAt ℝ (fderiv ℝ u) x :=
+    (hu.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  have hdir (i : Fin 3) :
+      DifferentiableAt ℝ
+        (fun y => (fderiv ℝ u y) (EuclideanSpace.single i (1 : ℝ))) x :=
+    (ContinuousLinearMap.apply ℝ (EuclideanSpace ℝ (Fin 3))
+        (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x hfd
+  have heq (i : Fin 3) :
+      (fun y => ((fderiv ℝ u y) (EuclideanSpace.single i (1 : ℝ))) j) =ᶠ[nhds x]
+        fun y => directionalCoord u j i y := by
+    filter_upwards [hnear] with y hy
+    exact fderiv_field_coord u y j (EuclideanSpace.single i (1 : ℝ)) hy
+  unfold laplacian
+  let w : Fin 3 → EuclideanSpace ℝ (Fin 3) := fun i =>
+    (fderiv ℝ (fun y => (fderiv ℝ u y) (EuclideanSpace.single i (1 : ℝ))) x)
+      (EuclideanSpace.single i (1 : ℝ))
+  let P : EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ :=
+    PiLp.proj (p := 2) (fun _ : Fin 3 => ℝ) j
+  have hsum : P (∑ i : Fin 3, w i) = ∑ i : Fin 3, P (w i) :=
+    map_sum P.toLinearMap (fun i => w i) Finset.univ
+  have hj : (∑ i : Fin 3, w i) j = P (∑ i : Fin 3, w i) := rfl
+  rw [hj, hsum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  have hcoord :=
+    fderiv_field_coord (fun y => (fderiv ℝ u y) (EuclideanSpace.single i (1 : ℝ)))
+      x j (EuclideanSpace.single i (1 : ℝ)) (hdir i)
+  change P (w i) = _
+  have hPw : P (w i) = w i j := rfl
+  rw [hPw, hcoord, (heq i).fderiv_eq]
 
 /-- `curl Δu = Δ curl u` at `C³` points (third mixed partials commute). -/
 public theorem curl_laplacian
@@ -1377,6 +1663,13 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms curl_convective
 #print axioms curl_convective_div_free
 #print axioms curl_add3
+#print axioms fderiv_prod_snd_slice
+#print axioms deriv_prod_fst_slice
+#print axioms time_space_mixed_partials
+#print axioms deriv_euclidean_coord
+#print axioms curl_time_deriv
+#print axioms fderiv_field_coord
+#print axioms laplacian_coord
 #print axioms time_space_mixed_partials
 #print axioms differentiableAt_coord
 #print axioms fderiv_coord
