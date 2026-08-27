@@ -525,8 +525,12 @@ public theorem tethered_reproduces_classical_euler (F : Functional) (ω : Coadjo
       rw [hG]
       exact hPi
     · simp only [ne_eq, not_not] at hE
-      -- Energy zero: still need `Π_u u = 0` or `u = 0` a.e. Classical remainder.
-      sorry
+      by_cases hz : velocity_from_vorticity ω = 0
+      · apply tetherKernel_of_right_factor_zero
+        rw [hδH, hz]
+        exact Pi_u_zero (0 : VelocityField)
+      · -- Energy zero without `u ≡ 0`: remaining a.e. vanishing from `∫|u|² = 0`.
+        sorry
   rw [hker, add_zero]
 
 /-! ## Jacobi identity on the reduced orbit (Marsden–Weinstein–Ratiu + explicit test functionals) -/
