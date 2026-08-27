@@ -15,6 +15,7 @@ public import Mathlib.Analysis.Calculus.FDeriv.Linear
 public import Mathlib.Analysis.Calculus.FDeriv.Mul
 public import Mathlib.Analysis.Calculus.FDeriv.Symmetric
 public import Mathlib.Analysis.Calculus.Gradient.Basic
+public import Mathlib.Analysis.InnerProductSpace.Calculus
 public import Mathlib.Analysis.InnerProductSpace.PiL2
 public import Mathlib.Data.EReal.Basic
 public import Mathlib.Data.ENNReal.Basic
@@ -269,6 +270,125 @@ public theorem div_smul_field (φ : PressureField) (V : VelocityField) (x : T3)
     rw [← map_sum, hsumV]
     exact (inner_gradient_left (y := V x) hφ).symm
   rw [hgrad, add_comm]
+
+/-- Integration by parts given vanishing flux:
+`∫ ⟨u, ∇φ⟩ = −∫ (div u) φ` once `∫ div(φ u) = 0`. On `𝕋³` the flux vanishes
+by the divergence theorem; on this Haar model the flux identity is the
+decay / compact-support hypothesis. The paper's convective cancellation
+is this identity with `φ = ½|u|²`. -/
+public theorem integration_by_parts_of_vanishing_flux
+    (u : VelocityField) (φ : T3 → ℝ)
+    (hφ : ∀ x, DifferentiableAt ℝ φ x)
+    (hu : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x)
+    (hInt_pair : Integrable (fun x => inner ℝ (u x) (gradient φ x)))
+    (hInt_div : Integrable (fun x => div u x * φ x))
+    (hflux : ∫ x, div (fun y => φ y • u y) x ∂volume = 0) :
+    ∫ x, inner ℝ (u x) (gradient φ x) ∂volume =
+      -∫ x, div u x * φ x ∂volume := by
+  have hfun :
+      (fun x => div (fun y => φ y • u y) x) =
+        fun x => inner ℝ (u x) (gradient φ x) + div u x * φ x := by
+    funext x
+    have hprod := div_smul_field φ u x (hφ x) (fun i => hu i x)
+    rw [hprod, real_inner_comm, mul_comm (φ x)]
+  have hsplit :=
+    integral_add (μ := volume) hInt_pair hInt_div
+  have hflux' :
+      ∫ x, inner ℝ (u x) (gradient φ x) + div u x * φ x ∂volume = 0 := by
+    rwa [← hfun]
+  linarith [hsplit, hflux']
+
+/-- Pointwise: `⟨u, (u·∇)u⟩ = ⟨u, ∇(½|u|²)⟩`. This is the integrand of
+the paper's convective IBP. -/
+public theorem inner_self_convective_eq_inner_grad_half_norm_sq
+    (u : VelocityField) (x : T3)
+    (hu : DifferentiableAt ℝ u x) :
+    inner ℝ (u x) (convective u u x) =
+      inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x) := by
+  have hF : HasFDerivAt (fun y => ‖u y‖ ^ 2)
+      ((2 • innerSL ℝ (u x)).comp (fderiv ℝ u x)) x :=
+    hu.hasFDerivAt.norm_sq
+  have hsq : DifferentiableAt ℝ (fun y => ‖u y‖ ^ 2) x :=
+    hF.differentiableAt
+  have hhalf : DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x :=
+    hsq.const_mul (1 / 2 : ℝ)
+  have hval :
+      fderiv ℝ (fun y => ‖u y‖ ^ 2) x (u x) =
+        2 * inner ℝ (u x) (convective u u x) := by
+    rw [hF.fderiv]
+    simp [ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply,
+      innerSL_apply_apply, convective]
+  have hgrad :
+      inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x) =
+        (1 / 2) * fderiv ℝ (fun y => ‖u y‖ ^ 2) x (u x) := by
+    rw [real_inner_comm, inner_gradient_left hhalf,
+      fderiv_const_mul hsq (1 / 2 : ℝ), ContinuousLinearMap.smul_apply,
+      smul_eq_mul]
+  linarith [hval, hgrad]
+
+/-- Convective IBP: if `div u = 0` and the flux of `½|u|² u` vanishes, then
+`∫ ⟨u, (u·∇)u⟩ = 0`. Paper energy identity, not a dropped term. -/
+public theorem convective_energy_pairing_vanishes
+    (u : VelocityField)
+    (hdiv : ∀ x, div u x = 0)
+    (hu : ∀ x, DifferentiableAt ℝ u x)
+    (hφ : ∀ x, DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x)
+    (hu_coord : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x)
+    (hInt_pair : Integrable
+      (fun x => inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x)))
+    (hInt_div : Integrable
+      (fun x => div u x * ((1 / 2 : ℝ) * ‖u x‖ ^ 2)))
+    (hflux : ∫ x,
+        div (fun y => ((1 / 2 : ℝ) * ‖u y‖ ^ 2) • u y) x ∂volume = 0)
+    (_hInt_conv : Integrable (fun x => inner ℝ (u x) (convective u u x))) :
+    ∫ x, inner ℝ (u x) (convective u u x) ∂volume = 0 := by
+  have hpt :
+      (fun x => inner ℝ (u x) (convective u u x)) =
+        fun x =>
+          inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x) := by
+    funext x
+    exact inner_self_convective_eq_inner_grad_half_norm_sq u x (hu x)
+  have hibp :=
+    integration_by_parts_of_vanishing_flux u
+      (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2)
+      hφ hu_coord hInt_pair hInt_div hflux
+  have hzero :
+      ∫ x, div u x * ((1 / 2 : ℝ) * ‖u x‖ ^ 2) ∂volume = 0 := by
+    have hfun :
+        (fun x => div u x * ((1 / 2 : ℝ) * ‖u x‖ ^ 2)) = fun _ => 0 := by
+      funext x
+      simp [hdiv x]
+    rw [hfun]
+    exact integral_zero (α := T3) (G := ℝ) (μ := volume)
+  rw [hpt, hibp, hzero, neg_zero]
+
+/-- Pressure IBP: if `div u = 0` and the flux of `p u` vanishes, then
+`∫ ⟨u, ∇p⟩ = 0`. -/
+public theorem pressure_energy_pairing_vanishes
+    (u : VelocityField) (p : PressureField)
+    (hdiv : ∀ x, div u x = 0)
+    (hp : ∀ x, DifferentiableAt ℝ p x)
+    (hu_coord : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x)
+    (hInt_pair : Integrable (fun x => inner ℝ (u x) (gradient p x)))
+    (hInt_div : Integrable (fun x => div u x * p x))
+    (hflux : ∫ x, div (fun y => p y • u y) x ∂volume = 0) :
+    ∫ x, inner ℝ (u x) (pressureGradient p x) ∂volume = 0 := by
+  have hfun :
+      (fun x => inner ℝ (u x) (pressureGradient p x)) =
+        fun x => inner ℝ (u x) (gradient p x) := by
+    funext x
+    rfl
+  have hibp :=
+    integration_by_parts_of_vanishing_flux u p hp hu_coord hInt_pair hInt_div
+      hflux
+  have hzero : ∫ x, div u x * p x ∂volume = 0 := by
+    have hz :
+        (fun x => div u x * p x) = fun _ => 0 := by
+      funext x
+      simp [hdiv x]
+    rw [hz]
+    exact integral_zero (α := T3) (G := ℝ) (μ := volume)
+  rw [hfun, hibp, hzero, neg_zero]
 
 /-- Mixed partials of a `C²` scalar: `∂ⱼ (∇p)ᵢ = D²p (eⱼ, eᵢ)`. -/
 public theorem directionalCoord_pressureGradient
@@ -593,6 +713,10 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms div_smul_field
 #print axioms differentiableAt_coord
 #print axioms fderiv_coord
+#print axioms integration_by_parts_of_vanishing_flux
+#print axioms inner_self_convective_eq_inner_grad_half_norm_sq
+#print axioms convective_energy_pairing_vanishes
+#print axioms pressure_energy_pairing_vanishes
 
 end
 
