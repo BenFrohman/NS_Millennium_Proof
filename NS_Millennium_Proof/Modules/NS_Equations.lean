@@ -326,22 +326,42 @@ public theorem inner_self_convective_eq_inner_grad_half_norm_sq
       smul_eq_mul]
   linarith [hval, hgrad]
 
+/-- Coordinate projections of a Fréchet-differentiable field are differentiable.
+C¹ of `u : T3 → ℝ³` is the right regularity for IBP; mixed partials are not. -/
+public theorem differentiableAt_coord_of_differentiableAt_field
+    (u : VelocityField) (x : T3) (i : Fin 3)
+    (hu : DifferentiableAt ℝ u x) :
+    DifferentiableAt ℝ (fun y => u y i) x := by
+  let L : EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ :=
+    PiLp.proj (p := 2) (fun _ : Fin 3 => ℝ) i
+  have hfun : (fun y => u y i) = fun y => L (u y) := rfl
+  rw [hfun]
+  exact L.differentiableAt.comp x hu
+
+/-- `½|u|²` is C¹ wherever `u` is C¹. Used as the convective IBP test function. -/
+public theorem differentiableAt_half_norm_sq
+    (u : VelocityField) (x : T3) (hu : DifferentiableAt ℝ u x) :
+    DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x :=
+  (hu.hasFDerivAt.norm_sq).differentiableAt.const_mul (1 / 2 : ℝ)
+
 /-- Convective IBP: if `div u = 0` and the flux of `½|u|² u` vanishes, then
-`∫ ⟨u, (u·∇)u⟩ = 0`. Paper energy identity, not a dropped term. -/
+`∫ ⟨u, (u·∇)u⟩ = 0`. Paper energy identity, not a dropped term.
+Regularity is C¹ of the field (no mixed partials). -/
 public theorem convective_energy_pairing_vanishes
     (u : VelocityField)
     (hdiv : ∀ x, div u x = 0)
     (hu : ∀ x, DifferentiableAt ℝ u x)
-    (hφ : ∀ x, DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x)
-    (hu_coord : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x)
     (hInt_pair : Integrable
       (fun x => inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x)))
     (hInt_div : Integrable
       (fun x => div u x * ((1 / 2 : ℝ) * ‖u x‖ ^ 2)))
     (hflux : ∫ x,
-        div (fun y => ((1 / 2 : ℝ) * ‖u y‖ ^ 2) • u y) x ∂volume = 0)
-    (_hInt_conv : Integrable (fun x => inner ℝ (u x) (convective u u x))) :
+        div (fun y => ((1 / 2 : ℝ) * ‖u y‖ ^ 2) • u y) x ∂volume = 0) :
     ∫ x, inner ℝ (u x) (convective u u x) ∂volume = 0 := by
+  have hφ : ∀ x, DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x :=
+    fun x => differentiableAt_half_norm_sq u x (hu x)
+  have hu_coord : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x :=
+    fun i x => differentiableAt_coord_of_differentiableAt_field u x i (hu x)
   have hpt :
       (fun x => inner ℝ (u x) (convective u u x)) =
         fun x =>
@@ -363,16 +383,19 @@ public theorem convective_energy_pairing_vanishes
   rw [hpt, hibp, hzero, neg_zero]
 
 /-- Pressure IBP: if `div u = 0` and the flux of `p u` vanishes, then
-`∫ ⟨u, ∇p⟩ = 0`. -/
+`∫ ⟨u, ∇p⟩ = 0`. C¹ of `u` and of `p`; mixed partials are not used here
+(`curl ∇p = 0` is the C² identity `curl_gradient`). -/
 public theorem pressure_energy_pairing_vanishes
     (u : VelocityField) (p : PressureField)
     (hdiv : ∀ x, div u x = 0)
+    (hu : ∀ x, DifferentiableAt ℝ u x)
     (hp : ∀ x, DifferentiableAt ℝ p x)
-    (hu_coord : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x)
     (hInt_pair : Integrable (fun x => inner ℝ (u x) (gradient p x)))
     (hInt_div : Integrable (fun x => div u x * p x))
     (hflux : ∫ x, div (fun y => p y • u y) x ∂volume = 0) :
     ∫ x, inner ℝ (u x) (pressureGradient p x) ∂volume = 0 := by
+  have hu_coord : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x :=
+    fun i x => differentiableAt_coord_of_differentiableAt_field u x i (hu x)
   have hfun :
       (fun x => inner ℝ (u x) (pressureGradient p x)) =
         fun x => inner ℝ (u x) (gradient p x) := by
@@ -575,7 +598,11 @@ postfix:90 "_div" => fun u x => div u x
 
 @[expose] public def vorticity (u : Velocity) : Vorticity := fun x => curl u x
 
-/-- Vorticity transport: `∂t ω + (u · ∇) ω = (ω · ∇) u + ν Δ ω`. -/
+/-- Vorticity transport: `∂t ω + (u · ∇) ω = (ω · ∇) u + ν Δ ω`.
+The pressure term is `curl ∇p = 0` at `C²` points (`curl_gradient`, mixed
+partials). The energy IBP lemmas are the wrong tool here: they cancel
+`∫⟨u,∇p⟩`, not `curl ∇p`. Time/space derivative interchange on `curl ∂t u`
+and the stretching identity for `curl((u·∇)u)` remain. -/
 public theorem vorticity_transport
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
     (h_NS : navier_stokes_eq u p ν) :
@@ -715,6 +742,8 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms fderiv_coord
 #print axioms integration_by_parts_of_vanishing_flux
 #print axioms inner_self_convective_eq_inner_grad_half_norm_sq
+#print axioms differentiableAt_coord_of_differentiableAt_field
+#print axioms differentiableAt_half_norm_sq
 #print axioms convective_energy_pairing_vanishes
 #print axioms pressure_energy_pairing_vanishes
 

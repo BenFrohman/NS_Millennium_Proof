@@ -19,7 +19,8 @@ Work in `/Users/inv0x/lean-projects/NS_Millennium_Proof/.worktrees/kernel-cohesi
 
 - Antisymmetry of an arbitrary `B` does not imply degree two. Use `step2_degree` on `TetherKernel` / canonical density.
 - `δH = u` is the velocity pairing `∫⟨u, Kε⟩`. Do not identify that with vorticity pairing `∫⟨δ, ε.val⟩` unless proved.
-- Euler energy needs **both** convective IBP and pressure IBP **and** the Euler momentum equation. Div-free alone is not conservation.
+- Euler energy needs **both** convective IBP and pressure IBP **and** the Euler momentum equation. Div-free alone is not conservation. Apply `convective_energy_pairing_vanishes` / `pressure_energy_pairing_vanishes` (C¹ flux IBP). Do not assume their conclusions as opaque hyps.
+- C¹ (`DifferentiableAt`) is for product rule, IBP, energy pairings. C² (`ContDiffAt ℝ 2` + `IsSymmSndFDerivAt`) is for mixed partials: `div_curl`, `curl_gradient`, `div_of_eq_curl`. Biot–Savart `div u = 0` goes through `div_of_eq_curl`, not IBP. Vorticity pressure term is `curl_gradient`, not `∫⟨u,∇p⟩`.
 - Haar on `ℝ³` is not finite-measure `𝕋³`. Finite-measure Hölder needs an extra hyp; do not pretend Lebesgue volume is finite.
 - Kato / BKM stay named remainders until transcribed. Do not `sorry` them into `True`.
 

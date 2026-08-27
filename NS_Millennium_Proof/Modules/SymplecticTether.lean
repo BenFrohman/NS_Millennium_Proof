@@ -472,33 +472,52 @@ lemma integration_by_parts_on_torus (u : VelocityField) (φ : T3 → ℝ)
       -∫ x, div u x * φ x ∂volume :=
   integration_by_parts_of_vanishing_flux u φ hφ hu hInt_pair hInt_div hflux
 
+/-- Mixed partials slot for Biot–Savart: if the recovered velocity is a
+`C²` curl, then `div u = 0` by `div_of_eq_curl`. This is *not* C¹ flux IBP. -/
+lemma div_biot_savart_of_eq_curl (ω : CoadjointOrbit) (A : VelocityField)
+    (hA : ∀ x k, ContDiffAt ℝ 2 (fun y => A y k) x)
+    (hcurl : velocity_from_vorticity ω = curl A) :
+    div (velocity_from_vorticity ω) = 0 := by
+  funext x
+  exact div_of_eq_curl (velocity_from_vorticity ω) A hA hcurl x
+
 lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
     div (velocity_from_vorticity ω) = 0 := by
-  -- Biot–Savart is the curl of the Newtonian vector potential. Once that
-  -- identification is transcribed, `div_of_eq_curl` (mixed partials, no
-  -- `sorryAx`) closes `div u = 0`. Fourier: û(k) = (ik × ω̂(k))/|k|².
+  -- Remainder is the vector-potential identification
+  -- `velocity_from_vorticity ω = curl A` with `A` of class `C²`.
+  -- Then `div_biot_savart_of_eq_curl` (mixed partials) closes `div u = 0`.
+  -- Do not route this through C¹ flux IBP.
   sorry
 
-/-- Euler kinetic-energy conservation on `[0, T)`. The convective pairing
-vanishes by IBP (`convective_energy_pairing_vanishes`); the pressure pairing
-vanishes by IBP (`pressure_energy_pairing_vanishes`); the momentum equation
-identifies `∂t u = −(u·∇)u − ∇p`. Div-free alone is not the whole identity:
-you need both IBP cancellations *and* the Euler momentum equation. -/
+/-- Euler kinetic-energy conservation on `[0, T)`.
+C¹ IBP (`convective_energy_pairing_vanishes`, `pressure_energy_pairing_vanishes`)
+cancels the spatial pairings; the Euler momentum equation identifies
+`∂t u = −(u·∇)u − ∇p`. Mixed partials are not used here
+(`curl ∇p = 0` lives in vorticity transport). -/
 lemma euler_energy_conservation (u : ℝ → VelocityField) (p : ℝ → PressureField)
     (T : ℝ) (_hT : 0 < T)
-    (_hdiv : ∀ t ∈ Set.Ico 0 T, ∀ x, div (u t) x = 0)
+    (hdiv : ∀ t ∈ Set.Ico 0 T, ∀ x, div (u t) x = 0)
     (hmom : ∀ t ∈ Set.Ico 0 T, ∀ x,
       time_deriv u t x + convective (u t) (u t) x +
         pressureGradient (p t) x = 0)
     (henergy : ∀ t ∈ Set.Ico 0 T,
       HasDerivAt (fun s => (1 / 2 : ℝ) * ∫ x, ‖u s x‖ ^ 2 ∂volume)
         (∫ x, inner ℝ (u t x) (time_deriv u t x) ∂volume) t)
-    (hconv : ∀ t ∈ Set.Ico 0 T,
-      ∫ x, inner ℝ (u t x) (convective (u t) (u t) x) ∂volume = 0)
-    (hpress : ∀ t ∈ Set.Ico 0 T,
-      ∫ x, inner ℝ (u t x) (pressureGradient (p t) x) ∂volume = 0)
-    (_hInt_dt : ∀ t ∈ Set.Ico 0 T,
-      Integrable (fun x => inner ℝ (u t x) (time_deriv u t x)))
+    (hu : ∀ t ∈ Set.Ico 0 T, ∀ x, DifferentiableAt ℝ (u t) x)
+    (hp : ∀ t ∈ Set.Ico 0 T, ∀ x, DifferentiableAt ℝ (p t) x)
+    (hInt_pair_c : ∀ t ∈ Set.Ico 0 T,
+      Integrable (fun x =>
+        inner ℝ (u t x) (gradient (fun y => (1 / 2 : ℝ) * ‖u t y‖ ^ 2) x)))
+    (hInt_div_c : ∀ t ∈ Set.Ico 0 T,
+      Integrable (fun x => div (u t) x * ((1 / 2 : ℝ) * ‖u t x‖ ^ 2)))
+    (hflux_c : ∀ t ∈ Set.Ico 0 T,
+      ∫ x, div (fun y => ((1 / 2 : ℝ) * ‖u t y‖ ^ 2) • u t y) x ∂volume = 0)
+    (hInt_pair_p : ∀ t ∈ Set.Ico 0 T,
+      Integrable (fun x => inner ℝ (u t x) (gradient (p t) x)))
+    (hInt_div_p : ∀ t ∈ Set.Ico 0 T,
+      Integrable (fun x => div (u t) x * p t x))
+    (hflux_p : ∀ t ∈ Set.Ico 0 T,
+      ∫ x, div (fun y => p t y • u t y) x ∂volume = 0)
     (hInt_c : ∀ t ∈ Set.Ico 0 T,
       Integrable (fun x => inner ℝ (u t x) (convective (u t) (u t) x)))
     (hInt_p : ∀ t ∈ Set.Ico 0 T,
@@ -508,6 +527,12 @@ lemma euler_energy_conservation (u : ℝ → VelocityField) (p : ℝ → Pressur
   intro t ht
   have hder := (henergy t ht).deriv
   rw [hder]
+  have hconv :=
+    convective_energy_pairing_vanishes (u t) (hdiv t ht) (hu t ht)
+      (hInt_pair_c t ht) (hInt_div_c t ht) (hflux_c t ht)
+  have hpress :=
+    pressure_energy_pairing_vanishes (u t) (p t) (hdiv t ht) (hu t ht)
+      (hp t ht) (hInt_pair_p t ht) (hInt_div_p t ht) (hflux_p t ht)
   have hfun :
       (fun x => inner ℝ (u t x) (time_deriv u t x)) =
         fun x =>
@@ -534,14 +559,12 @@ lemma euler_energy_conservation (u : ℝ → VelocityField) (p : ℝ → Pressur
     (hInt_p t ht).neg
   have hsplit :=
     integral_add (μ := NavierStokes3D.volume) hInt_negc hInt_negp
-  -- `hfun` writes `⟨u,∂t u⟩ = −⟨u,conv⟩ − ⟨u,∇p⟩`; the two IBP identities
-  -- (convective + pressure) send both integrals to `0`.
   have hnegc :
       ∫ x, -inner ℝ (u t x) (convective (u t) (u t) x) ∂NavierStokes3D.volume = 0 := by
-    rw [integral_neg, hconv t ht, neg_zero]
+    rw [integral_neg, hconv, neg_zero]
   have hnegp :
       ∫ x, -inner ℝ (u t x) (pressureGradient (p t) x) ∂NavierStokes3D.volume = 0 := by
-    rw [integral_neg, hpress t ht, neg_zero]
+    rw [integral_neg, hpress, neg_zero]
   have hsum :
       (fun x =>
         -inner ℝ (u t x) (convective (u t) (u t) x) -
