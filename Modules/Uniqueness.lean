@@ -11,7 +11,7 @@ public import NS_Millennium_Proof.Modules.Assumptions
 
 /-!
 Uniqueness of the Frohmanian Tether (`uniqueness_of_minimal_tether`).
-Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
+Original work by Benjamin Stanley Frohman (X.com : Investor0x / Bit21).
 Lean 4 encoding of the NS global regularity proof.
 
 This file is part of the Lean 4 formalization of the Frohmanian Symplectic Tether Theorem.
