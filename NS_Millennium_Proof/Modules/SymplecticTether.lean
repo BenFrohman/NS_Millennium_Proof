@@ -462,10 +462,15 @@ CoadjointOrbit / VelocityField types and centralized ForMathlib/Projection.
 -/
 
 
-lemma integration_by_parts_on_torus (u : VelocityField) (φ : T3 → ℝ) :
+lemma integration_by_parts_on_torus (u : VelocityField) (φ : T3 → ℝ)
+    (hφ : ∀ x, DifferentiableAt ℝ φ x)
+    (hu : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x)
+    (hInt_pair : Integrable (fun x => inner ℝ (u x) (gradient φ x)))
+    (hInt_div : Integrable (fun x => div u x * φ x))
+    (hflux : ∫ x, div (fun y => φ y • u y) x ∂volume = 0) :
     ∫ x, inner ℝ (u x) (gradient φ x) ∂volume =
-      -∫ x, div u x * φ x ∂volume := by
-  sorry
+      -∫ x, div u x * φ x ∂volume :=
+  integration_by_parts_of_vanishing_flux u φ hφ hu hInt_pair hInt_div hflux
 
 lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
     div (velocity_from_vorticity ω) = 0 := by
@@ -474,12 +479,79 @@ lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
   -- `sorryAx`) closes `div u = 0`. Fourier: û(k) = (ik × ω̂(k))/|k|².
   sorry
 
-lemma euler_energy_conservation (u : ℝ → VelocityField) (T : ℝ)
-    (_hT : 0 < T)
-    (_hdiv : ∀ t ∈ Set.Ico 0 T, ∀ x, div (u t) x = 0) :
+/-- Euler kinetic-energy conservation on `[0, T)`. The convective pairing
+vanishes by IBP (`convective_energy_pairing_vanishes`); the pressure pairing
+vanishes by IBP (`pressure_energy_pairing_vanishes`); the momentum equation
+identifies `∂t u = −(u·∇)u − ∇p`. Div-free alone is not the whole identity:
+you need both IBP cancellations *and* the Euler momentum equation. -/
+lemma euler_energy_conservation (u : ℝ → VelocityField) (p : ℝ → PressureField)
+    (T : ℝ) (_hT : 0 < T)
+    (_hdiv : ∀ t ∈ Set.Ico 0 T, ∀ x, div (u t) x = 0)
+    (hmom : ∀ t ∈ Set.Ico 0 T, ∀ x,
+      time_deriv u t x + convective (u t) (u t) x +
+        pressureGradient (p t) x = 0)
+    (henergy : ∀ t ∈ Set.Ico 0 T,
+      HasDerivAt (fun s => (1 / 2 : ℝ) * ∫ x, ‖u s x‖ ^ 2 ∂volume)
+        (∫ x, inner ℝ (u t x) (time_deriv u t x) ∂volume) t)
+    (hconv : ∀ t ∈ Set.Ico 0 T,
+      ∫ x, inner ℝ (u t x) (convective (u t) (u t) x) ∂volume = 0)
+    (hpress : ∀ t ∈ Set.Ico 0 T,
+      ∫ x, inner ℝ (u t x) (pressureGradient (p t) x) ∂volume = 0)
+    (_hInt_dt : ∀ t ∈ Set.Ico 0 T,
+      Integrable (fun x => inner ℝ (u t x) (time_deriv u t x)))
+    (hInt_c : ∀ t ∈ Set.Ico 0 T,
+      Integrable (fun x => inner ℝ (u t x) (convective (u t) (u t) x)))
+    (hInt_p : ∀ t ∈ Set.Ico 0 T,
+      Integrable (fun x => inner ℝ (u t x) (pressureGradient (p t) x))) :
     ∀ t ∈ Set.Ico 0 T,
       deriv (fun s => (1 / 2 : ℝ) * ∫ x, ‖u s x‖ ^ 2 ∂volume) t = 0 := by
-  sorry
+  intro t ht
+  have hder := (henergy t ht).deriv
+  rw [hder]
+  have hfun :
+      (fun x => inner ℝ (u t x) (time_deriv u t x)) =
+        fun x =>
+          -inner ℝ (u t x) (convective (u t) (u t) x) -
+            inner ℝ (u t x) (pressureGradient (p t) x) := by
+    funext x
+    have hmomx := hmom t ht x
+    have hdt :
+        time_deriv u t x =
+          -convective (u t) (u t) x - pressureGradient (p t) x := by
+      have hadd :
+          time_deriv u t x +
+              (convective (u t) (u t) x + pressureGradient (p t) x) = 0 := by
+        rw [← add_assoc, hmomx]
+      have hneg := (add_eq_zero_iff_eq_neg).mp hadd
+      rw [hneg, neg_add, sub_eq_add_neg]
+    rw [hdt, sub_eq_add_neg, inner_add_right, inner_neg_right, inner_neg_right]
+    ring
+  have hInt_negc :
+      Integrable (fun x => -inner ℝ (u t x) (convective (u t) (u t) x)) :=
+    (hInt_c t ht).neg
+  have hInt_negp :
+      Integrable (fun x => -inner ℝ (u t x) (pressureGradient (p t) x)) :=
+    (hInt_p t ht).neg
+  have hsplit :=
+    integral_add (μ := NavierStokes3D.volume) hInt_negc hInt_negp
+  -- `hfun` writes `⟨u,∂t u⟩ = −⟨u,conv⟩ − ⟨u,∇p⟩`; the two IBP identities
+  -- (convective + pressure) send both integrals to `0`.
+  have hnegc :
+      ∫ x, -inner ℝ (u t x) (convective (u t) (u t) x) ∂NavierStokes3D.volume = 0 := by
+    rw [integral_neg, hconv t ht, neg_zero]
+  have hnegp :
+      ∫ x, -inner ℝ (u t x) (pressureGradient (p t) x) ∂NavierStokes3D.volume = 0 := by
+    rw [integral_neg, hpress t ht, neg_zero]
+  have hsum :
+      (fun x =>
+        -inner ℝ (u t x) (convective (u t) (u t) x) -
+          inner ℝ (u t x) (pressureGradient (p t) x)) =
+        fun x =>
+          -inner ℝ (u t x) (convective (u t) (u t) x) +
+            -inner ℝ (u t x) (pressureGradient (p t) x) := by
+    funext x
+    ring
+  rw [hfun, hsum, hsplit, hnegc, hnegp, add_zero]
 
 -- ============================================
 -- 5-STEP UNIQUENESS — TAO / PFR STYLE (ATOMIC NAMED LEMMAS)
