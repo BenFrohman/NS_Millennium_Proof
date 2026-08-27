@@ -469,9 +469,10 @@ lemma integration_by_parts_on_torus (u : VelocityField) (φ : T3 → ℝ) :
 
 lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
     div (velocity_from_vorticity ω) = 0 := by
-  -- Follows from the Fourier representation: velocity = (ik × ω̂(k)) / |k|²
-  -- (for k ≠ 0). Taking divergence kills the term.
-  sorry   -- Classical fact for Biot-Savart on T³; explicit from side tabs (previous impl and living document: Fourier cross-product identity kills div)
+  -- Biot–Savart is the curl of the Newtonian vector potential. Once that
+  -- identification is transcribed, `div_of_eq_curl` (mixed partials, no
+  -- `sorryAx`) closes `div u = 0`. Fourier: û(k) = (ik × ω̂(k))/|k|².
+  sorry
 
 lemma euler_energy_conservation (u : ℝ → VelocityField) (T : ℝ)
     (_hT : 0 < T)

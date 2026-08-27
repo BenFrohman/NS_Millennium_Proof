@@ -22,6 +22,7 @@ public import Mathlib.Data.Real.Basic
 public import Mathlib.Data.Real.Archimedean
 public import Mathlib.Data.Set.Basic
 public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Tactic.Ring
 public import Mathlib.MeasureTheory.Function.LocallyIntegrable
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
@@ -245,6 +246,119 @@ public theorem directionalCoord_pressureGradient
   rw [hf, hcomp]
   rfl
 
+/-- Coordinates of `curl` (standard orientation). -/
+public theorem curl_apply (u : VelocityField) (x : T3) :
+    curl u x 0 = directionalCoord u 2 1 x - directionalCoord u 1 2 x ∧
+    curl u x 1 = directionalCoord u 0 2 x - directionalCoord u 2 0 x ∧
+    curl u x 2 = directionalCoord u 1 0 x - directionalCoord u 0 1 x := by
+  refine ⟨?_, ?_, ?_⟩
+  · simp [curl]
+  · simp [curl]
+  · simp [curl]
+
+/-- Mixed partials of a coordinate: `∂ⱼ (∂ᵢ u_k) = D² u_k (eⱼ, eᵢ)`. -/
+public theorem fderiv_directionalCoord
+    (u : VelocityField) (x : T3) (comp i j : Fin 3)
+    (hu : ContDiffAt ℝ 2 (fun y => u y comp) x) :
+    (fderiv ℝ (fun y => directionalCoord u comp i y) x) (EuclideanSpace.single j 1) =
+      (fderiv ℝ (fderiv ℝ (fun y => u y comp)) x)
+        (EuclideanSpace.single j 1) (EuclideanSpace.single i 1) := by
+  unfold directionalCoord
+  have hfd : DifferentiableAt ℝ (fderiv ℝ (fun y => u y comp)) x :=
+    (hu.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  have hcomp :
+      fderiv ℝ (fun y =>
+          (fderiv ℝ (fun z => u z comp) y) (EuclideanSpace.single i 1)) x =
+        (ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i 1)).comp
+          (fderiv ℝ (fderiv ℝ (fun z => u z comp)) x) := by
+    change fderiv ℝ (fun y =>
+        (ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i 1))
+          (fderiv ℝ (fun z => u z comp) y)) x = _
+    rw [fderiv_comp' x (ContinuousLinearMap.differentiableAt _) hfd]
+    simp [ContinuousLinearMap.fderiv]
+  rw [hcomp]
+  rfl
+
+/-- Equality of mixed partials on a `C²` coordinate. -/
+public theorem directionalCoord_symm
+    (u : VelocityField) (x : T3) (comp i j : Fin 3)
+    (hu : ContDiffAt ℝ 2 (fun y => u y comp) x) :
+    (fderiv ℝ (fun y => directionalCoord u comp i y) x) (EuclideanSpace.single j 1) =
+      (fderiv ℝ (fun y => directionalCoord u comp j y) x) (EuclideanSpace.single i 1) := by
+  have hsymm : IsSymmSndFDerivAt ℝ (fun y => u y comp) x :=
+    hu.isSymmSndFDerivAt (by simp [minSmoothness_of_isRCLikeNormedField])
+  rw [fderiv_directionalCoord u x comp i j hu,
+      fderiv_directionalCoord u x comp j i hu]
+  exact hsymm.eq (EuclideanSpace.single j 1) (EuclideanSpace.single i 1)
+
+/-- `directionalCoord` of a `C²` coordinate is differentiable (it is `C¹`). -/
+public theorem differentiableAt_directionalCoord
+    (u : VelocityField) (x : T3) (comp i : Fin 3)
+    (hu : ContDiffAt ℝ 2 (fun y => u y comp) x) :
+    DifferentiableAt ℝ (fun y => directionalCoord u comp i y) x := by
+  unfold directionalCoord
+  have hfd : DifferentiableAt ℝ (fderiv ℝ (fun y => u y comp)) x :=
+    (hu.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  exact (ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i 1)).differentiableAt.comp x hfd
+
+/-- `div ∘ curl = 0` at `C²` points (equality of mixed partials). -/
+public theorem div_curl (u : VelocityField) (x : T3)
+    (hu : ∀ k : Fin 3, ContDiffAt ℝ 2 (fun y => u y k) x) :
+    div (curl u) x = 0 := by
+  have h0 : (fun y => curl u y 0) =
+      fun y => directionalCoord u 2 1 y - directionalCoord u 1 2 y := by
+    funext y
+    exact (curl_apply u y).1
+  have h1 : (fun y => curl u y 1) =
+      fun y => directionalCoord u 0 2 y - directionalCoord u 2 0 y := by
+    funext y
+    exact (curl_apply u y).2.1
+  have h2 : (fun y => curl u y 2) =
+      fun y => directionalCoord u 1 0 y - directionalCoord u 0 1 y := by
+    funext y
+    exact (curl_apply u y).2.2
+  have hC1 (comp i : Fin 3) :
+      DifferentiableAt ℝ (fun y => directionalCoord u comp i y) x :=
+    differentiableAt_directionalCoord u x comp i (hu comp)
+  have hsub0 :
+      fderiv ℝ (fun y => curl u y 0) x =
+        fderiv ℝ (fun y => directionalCoord u 2 1 y) x -
+          fderiv ℝ (fun y => directionalCoord u 1 2 y) x := by
+    rw [h0, fderiv_fun_sub (hC1 2 1) (hC1 1 2)]
+  have hsub1 :
+      fderiv ℝ (fun y => curl u y 1) x =
+        fderiv ℝ (fun y => directionalCoord u 0 2 y) x -
+          fderiv ℝ (fun y => directionalCoord u 2 0 y) x := by
+    rw [h1, fderiv_fun_sub (hC1 0 2) (hC1 2 0)]
+  have hsub2 :
+      fderiv ℝ (fun y => curl u y 2) x =
+        fderiv ℝ (fun y => directionalCoord u 1 0 y) x -
+          fderiv ℝ (fun y => directionalCoord u 0 1 y) x := by
+    rw [h2, fderiv_fun_sub (hC1 1 0) (hC1 0 1)]
+  have hAD := directionalCoord_symm u x 2 1 0 (hu 2)
+  have hBE := directionalCoord_symm u x 1 2 0 (hu 1)
+  have hCF := directionalCoord_symm u x 0 2 1 (hu 0)
+  have hsum :
+      (fderiv ℝ (fun y => curl u y 0) x) (EuclideanSpace.single 0 1) +
+        (fderiv ℝ (fun y => curl u y 1) x) (EuclideanSpace.single 1 1) +
+          (fderiv ℝ (fun y => curl u y 2) x) (EuclideanSpace.single 2 1) = 0 := by
+    rw [hsub0, hsub1, hsub2]
+    simp only [ContinuousLinearMap.sub_apply]
+    rw [hAD, hBE, hCF]
+    ring
+  unfold div
+  rw [Fin.sum_univ_succ, Fin.sum_univ_succ, Fin.sum_univ_one, ← add_assoc]
+  exact hsum
+
+/-- A field that is a `C²` curl is pointwise divergence-free. -/
+public theorem div_of_eq_curl (u A : VelocityField)
+    (hA : ∀ x k, ContDiffAt ℝ 2 (fun y => A y k) x)
+    (hcurl : u = curl A) :
+    ∀ x, div u x = 0 := by
+  intro x
+  rw [hcurl]
+  exact div_curl A x (fun k => hA x k)
+
 /-- Curl of a gradient vanishes at `C²` points (equality of mixed partials). -/
 public theorem curl_gradient (p : PressureField) (x : T3)
     (hp : ContDiffAt ℝ 2 p x) :
@@ -412,6 +526,10 @@ public theorem parabolic_regularity_from_vorticity_bound
           exact hx.elim
       rw [hempty]
       exact integrableOn_empty
+
+#print axioms curl_gradient
+#print axioms div_curl
+#print axioms div_of_eq_curl
 
 end
 
