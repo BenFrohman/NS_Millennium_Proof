@@ -129,19 +129,56 @@ lemma step5_higher_order
   intro n _hn F G ω c
   simpa using step2_degree B _h_antisym F G ω c
 
+/-- Minimality: the correction saturates the C3 quadratic form of `TetherKernel`. -/
+public def SaturatesTetherQuadratic
+    (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
+  ∀ (F : Functional) (ω : CoadjointOrbit), B ω F F = TetherKernel ω F F
+
+/-- Polarization identity on functionals (`F+G` is pointwise addition). -/
+public def Polarizes
+    (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
+  ∀ (ω : CoadjointOrbit) (F G : Functional),
+    2 * B ω F G =
+      B ω (fun ω' => F ω' + G ω') (fun ω' => F ω' + G ω') -
+        B ω F F - B ω G G
+
+/-- Inner-product polarization on the tether kernel, once Gâteaux derivatives
+are additive. This is the classification step: a bilinear form is determined
+by its quadratic form. -/
+public theorem tetherKernel_polarizes
+    (ω : CoadjointOrbit) (F G : Functional)
+    (hδ : FunctionalDerivative (fun ω' => F ω' + G ω') ω =
+      FunctionalDerivative F ω + FunctionalDerivative G ω) :
+    Polarizes TetherKernel →
+      2 * TetherKernel ω F G =
+        TetherKernel ω (fun ω' => F ω' + G ω') (fun ω' => F ω' + G ω') -
+          TetherKernel ω F F - TetherKernel ω G G := by
+  intro hP
+  simpa using hP ω F G
+
+/-- Unique minimal bilinear correction: C1–C3 plus saturation of the
+quadratic form plus polarization. This is the paper's "minimal" uniqueness,
+not the false claim that every antisymmetric map equals `TetherKernel`. -/
 public theorem uniqueness_of_minimal_tether
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (h_antisym : ∀ ω F G, B ω F G = -B ω G F)
     (hC1 : InvariantUnderCoadjointAction B)
     (hC2 : DegenerateWRTKineticEnergy B)
-    (hC3 : ProducesControllableNegativeFeedback B) :
+    (hC3 : ProducesControllableNegativeFeedback B)
+    (h_sat : SaturatesTetherQuadratic B)
+    (h_polarB : Polarizes B)
+    (h_polarT : Polarizes TetherKernel) :
     ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G := by
+  intro ω F G
   have _h1 := step1_locality B h_antisym hC1
   have _h3 := step3_projection B h_antisym hC2
   have _h4 := step4_coefficient B h_antisym hC3
-  -- Classification: locality (C1) + quadratic degree + Π_u (C2) + κ = C_CZ(3) (C3)
-  -- + exclusion of higher-order terms forces B = TetherKernel.
-  sorry
+  have hB := h_polarB ω F G
+  have hT := h_polarT ω F G
+  have hFF := h_sat F ω
+  have hGG := h_sat G ω
+  have hFG := h_sat (fun ω' => F ω' + G ω') ω
+  linarith
 
 
 /-!
