@@ -7,10 +7,14 @@ Authors: Benjamin Stanley Frohman
 module
 
 public import Mathlib.Analysis.SpecialFunctions.Exp
+public import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.Analysis.Calculus.ContDiff.Defs
 public import Mathlib.Analysis.Calculus.Deriv.Basic
+public import Mathlib.Analysis.Calculus.Deriv.Inv
+public import Mathlib.Analysis.Calculus.Deriv.Inverse
 public import Mathlib.Analysis.ODE.PicardLindelof
+public import Mathlib.Topology.Order.IntermediateValue
 public import Mathlib.Tactic.Linarith
 public import Mathlib.Tactic.FunProp
 public import NS_Millennium_Proof.Modules.SymplecticTether
@@ -463,6 +467,7 @@ See also: "How to Audit Non-Circularity".
 namespace TetheredLyapunov
 
 open FrohmanianTether ArnoldGeometric NavierStokes3D MeasureTheory Classical
+open Filter Topology
 open scoped InnerProductSpace
 
 noncomputable section
@@ -735,11 +740,12 @@ public theorem comparison_ode_local_exists (C κ'' y0 : ℝ) :
       simpa using ht
     simpa using hy' t ht'
 
-/-- Global C¹ solution of `y' = C y² − κ'' y³`, `y(0) = y0`.
-Lean 4 `structure … where` (not a raw `∧` def). -/
+/-- Forward solution of `y' = C y² − κ'' y³`, `y(0) = y0`, on `t ≥ 0`.
+The paper only needs the positive-time ray: for `y0 > C/κ''` the field
+can blow up in finite *negative* time. Lean 4 `structure … where`. -/
 public structure IsComparisonODESolution (C κ'' y0 : ℝ) (y : ℝ → ℝ) : Prop where
   init : y 0 = y0
-  deriv : ∀ t : ℝ, HasDerivAt y (majorantField C κ'' (y t)) t
+  deriv : ∀ t ≥ (0 : ℝ), HasDerivAt y (majorantField C κ'' (y t)) t
 
 /-- Unique (when it exists) global solution of the majorant ODE, else the constant `y0`.
 Existence is `comparison_ode_exists`; the def itself is choice, not `sorry`. -/
@@ -756,10 +762,16 @@ public theorem majorantField_eq (C κ'' : ℝ) (hκ : κ'' ≠ 0) :
   field_simp [hκ]
   ring
 
-/-- Picard / continuation: a nonnegative initial value admits a global C¹ solution.
-Polynomial vector field; trapping in `[0, max(y0, C/κ'')]`.
-Equilibria `0` and `C/κ''` are closed as constant solutions. The interior
-continuation (restart Picard on the trapping interval) remains the named remainder. -/
+/-- Time-of-flight antiderivative of `1/f` for `f(y) = y²(C − κ'' y)`.
+`F'(y) = 1/f(y)` off `{0, C/κ''}`. Interior existence inverts `F` on the
+component of `y0` (next named remainder). -/
+public noncomputable def majorantSeparable (C κ'' y : ℝ) : ℝ :=
+  (κ'' / C ^ 2) * Real.log (y / (C - κ'' * y)) - (C * y)⁻¹
+
+/-- Picard / continuation: a nonnegative initial value admits a C¹ solution
+for all `t ≥ 0`. Polynomial vector field; trapping in `[0, max(y0, C/κ'')]`.
+Equilibria `0` and `C/κ''` are constant solutions. Interior data inverts the
+time-of-flight `majorantSeparable` on the component of `y0`. -/
 public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (hy0 : 0 ≤ y0) :
     ∃ y, IsComparisonODESolution C κ'' y0 y := by
@@ -767,18 +779,18 @@ public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < �
   · refine ⟨fun _ => 0, ?_⟩
     constructor
     · simpa [h0]
-    · intro t
+    · intro t _ht
       simpa [majorantField_zero] using hasDerivAt_const t (0 : ℝ)
   · by_cases hstar : y0 = C / κ''
     · refine ⟨fun _ => C / κ'', ?_⟩
       constructor
       · simpa [hstar]
-      · intro t
+      · intro t _ht
         have hfield : majorantField C κ'' (C / κ'') = 0 :=
           majorantField_eq C κ'' (ne_of_gt hκ)
         simpa [hfield] using hasDerivAt_const t (C / κ'')
-    · -- Interior data: local Picard is `comparison_ode_local_exists`;
-      -- global continuation on the trapping interval `[0, max y0 (C/κ'')]`.
+    · -- Interior: invert `majorantSeparable` on the component of `y0`
+      -- (strictly monotone C¹ bijection; `F' = 1/f`). Named remainder.
       sorry
 
 public theorem ComparisonODE_spec (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
@@ -803,12 +815,13 @@ lemma phase_plane_analysis_of_majorant_ODE (C κ'' y0 : ℝ) (hC : C > 0) (hκ :
   intro t ht
   have hsol := ComparisonODE_spec C κ'' y0 hC hκ hy0
   set y := ComparisonODE C κ'' y0
-  have hdiff : ∀ s, DifferentiableAt ℝ y s := fun s => (hsol.deriv s).differentiableAt
-  have hy_eq : ∀ s, deriv y s = C * y s ^ 2 - κ'' * y s ^ 3 := by
-    intro s
-    simpa [majorantField] using (hsol.deriv s).deriv
-  have hy_le : ∀ s, deriv y s ≤ C * y s ^ 2 - κ'' * y s ^ 3 :=
-    fun s => le_of_eq (hy_eq s)
+  have hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s :=
+    fun s hs => (hsol.deriv s hs).differentiableAt
+  have hy_eq : ∀ s ≥ (0 : ℝ), deriv y s = C * y s ^ 2 - κ'' * y s ^ 3 := by
+    intro s hs
+    simpa [majorantField] using (hsol.deriv s hs).deriv
+  have hy_le : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * y s ^ 2 - κ'' * y s ^ 3 :=
+    fun s hs => le_of_eq (hy_eq s hs)
   have h0 : y 0 = y0 := hsol.init
   have hupper :=
     AnalyticPipeline.comparison_ode_stability C κ'' hC hκ y hdiff hy_le t ht
