@@ -263,6 +263,60 @@ public theorem FunctionalDerivative_eq_choose
     FunctionalDerivative F ω = Classical.choose h :=
   dif_pos h
 
+/-- Two continuous finite-energy divergence-free Gâteaux representatives
+coincide: the orbit variation in the difference direction forces vanishing
+L² energy, hence the fields are identical. Uniqueness of the derivative
+of a path, not a `True` gate. -/
+public theorem gateaux_representative_unique
+    {F : CoadjointOrbit → ℝ} {ω : CoadjointOrbit}
+    (δ δ' : T3 → EuclideanSpace ℝ (Fin 3))
+    (hδ : IsGateauxRepresentative F ω δ)
+    (hδ' : IsGateauxRepresentative F ω δ')
+    (hω : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
+    (hdiff : ∀ i x, DifferentiableAt ℝ (fun y => (δ y - δ' y) i) x)
+    (hdiv : ∀ x, NavierStokes3D.div (fun y => δ y - δ' y) x = 0)
+    (hInt : Integrable (fun x : T3 => ‖δ x - δ' x‖ ^ 2))
+    (hcont : Continuous fun x => δ x - δ' x)
+    (hIntδ : Integrable (fun x => pairing (δ x) (δ x - δ' x)))
+    (hIntδ' : Integrable (fun x => pairing (δ' x) (δ x - δ' x))) :
+    δ = δ' := by
+  let w : T3 → EuclideanSpace ℝ (Fin 3) := fun x => δ x - δ' x
+  let ε : CoadjointOrbit := ⟨w, hdiv⟩
+  have h1 := hδ ε hω hdiff
+  have h2 := hδ' ε hω hdiff
+  have heq :
+      (∫ x, pairing (δ x) (ε.val x) ∂volume) =
+        ∫ x, pairing (δ' x) (ε.val x) ∂volume :=
+    HasDerivAt.unique h1 h2
+  have hpt :
+      (fun x => pairing (δ x) (ε.val x) - pairing (δ' x) (ε.val x)) =
+        fun x => ‖w x‖ ^ 2 := by
+    funext x
+    have hw : ε.val x = w x := rfl
+    have hsub :
+        pairing (δ x) (w x) - pairing (δ' x) (w x) =
+          pairing (δ x - δ' x) (w x) := by
+      simp [pairing, inner_sub_left]
+    have hw' : δ x - δ' x = w x := rfl
+    rw [hw, hsub, hw', pairing, real_inner_self_eq_norm_sq]
+  have hsub := integral_sub (μ := volume) hIntδ hIntδ'
+  have hE : (∫ x, ‖w x‖ ^ 2 ∂volume) = 0 := by
+    rw [← hpt]
+    have hinter :
+        (∫ x, pairing (δ x) (ε.val x) - pairing (δ' x) (ε.val x) ∂volume) =
+          ∫ x, pairing (δ x) (δ x - δ' x) -
+            pairing (δ' x) (δ x - δ' x) ∂volume := rfl
+    rw [hinter, hsub]
+    have hL : (∫ x, pairing (δ x) (δ x - δ' x) ∂volume) =
+        ∫ x, pairing (δ x) (ε.val x) ∂volume := rfl
+    have hR : (∫ x, pairing (δ' x) (δ x - δ' x) ∂volume) =
+        ∫ x, pairing (δ' x) (ε.val x) ∂volume := rfl
+    rw [hL, hR, heq, sub_self]
+  have hw0 := eq_of_l2_energy_zero w hInt hE hcont
+  funext x
+  have hx := congrFun hw0 x
+  simpa [w, sub_eq_zero] using hx
+
 /-- Euclidean Biot–Savart kernel (principal-value: zero on the diagonal).
 The torus Green's function is the intended operator; this is the model-space density. -/
 public noncomputable def biotSavartKernel (x y : T3) : ℝ :=
@@ -752,6 +806,20 @@ public theorem kineticEnergy_hasDerivAt_velocity_pairing
   rw [← hinter]
   exact hkey.2
 
+/-- Paper velocity-pairing Gâteaux slot: `d/dt |_{0} F(ω + t ε) = ∫ ⟨δ, Kε⟩`.
+Distinct from `IsGateauxRepresentative`, which pairs against vorticity.
+Do not identify the two pairings unless proved. -/
+public def IsVelocityGateauxRepresentative
+    (F : CoadjointOrbit → ℝ) (ω : CoadjointOrbit)
+    (δ : T3 → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  ∀ (ε : CoadjointOrbit)
+    (hω : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
+    (hε : ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x),
+    HasDerivAt (fun t : ℝ =>
+      F ⟨fun x => ω.val x + t • ε.val x,
+        fun x => orbit_add_smul_div_free ω ε t hω hε x⟩)
+      (∫ x, pairing (δ x) (BiotSavart ε.val x) ∂volume) 0
+
 /-- User's preferred notation δF/δω for the functional derivative (Section 2.1). -/
 notation "δ" F:arg "/δω" => FunctionalDerivative F
 -- Short name is correct inside the namespace. The `public def` on FunctionalDerivative
@@ -811,6 +879,116 @@ public theorem functional_derivative_eq_velocity_of_unique_repr
     ⟨velocity_from_vorticity ω, h⟩
   rw [FunctionalDerivative_eq_choose hex]
   exact huniq _ (Classical.choose_spec hex)
+
+/-- Paper `δH = u` in the Lie-algebra pairing: the Gâteaux derivative of
+kinetic energy along `ω + t ε` is `∫ ⟨Kω, Kε⟩`, not the vorticity pairing
+`∫ ⟨Kω, ε⟩`. Dominated integrability of the affine Biot–Savart line is
+the Mathlib interchange hypothesis; kernel densities give
+`K(ω + t ε) = Kω + t Kε`. -/
+public theorem kineticEnergyHamiltonian_hasDerivAt_velocity_pairing
+    (ω ε : CoadjointOrbit)
+    (hω : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
+    (hε : ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x)
+    (hkerω : ∀ x, Integrable
+      (fun y => biotSavartKernel x y • cross (ω.val y) (x - y)))
+    (hkerε : ∀ x, Integrable
+      (fun y => biotSavartKernel x y • cross (ε.val y) (x - y)))
+    (hF_meas : ∀ᶠ t in nhds (0 : ℝ),
+      AEStronglyMeasurable
+        (fun x => (1 / 2 : ℝ) *
+          ‖BiotSavart ω.val x + t • BiotSavart ε.val x‖ ^ 2)
+        NavierStokes3D.volume)
+    (hF_int : Integrable
+      (fun x => (1 / 2 : ℝ) * ‖BiotSavart ω.val x‖ ^ 2)
+      NavierStokes3D.volume)
+    (hbound : Integrable
+      (fun x => ‖BiotSavart ω.val x‖ * ‖BiotSavart ε.val x‖ +
+        ‖BiotSavart ε.val x‖ ^ 2)
+      NavierStokes3D.volume)
+    (hinner : AEStronglyMeasurable
+      (fun x => inner ℝ (BiotSavart ω.val x) (BiotSavart ε.val x))
+      NavierStokes3D.volume) :
+    HasDerivAt
+      (fun t : ℝ =>
+        KineticEnergyHamiltonian
+          ⟨fun x => ω.val x + t • ε.val x,
+            fun x => orbit_add_smul_div_free ω ε t hω hε x⟩)
+      (∫ x, inner ℝ (BiotSavart ω.val x) (BiotSavart ε.val x)
+        ∂NavierStokes3D.volume) 0 := by
+  have hfun :
+      (fun t : ℝ =>
+        KineticEnergyHamiltonian
+          ⟨fun x => ω.val x + t • ε.val x,
+            fun x => orbit_add_smul_div_free ω ε t hω hε x⟩) =
+        fun t =>
+          ∫ x, (1 / 2 : ℝ) *
+            ‖BiotSavart ω.val x + t • BiotSavart ε.val x‖ ^ 2
+            ∂NavierStokes3D.volume := by
+    funext t
+    unfold KineticEnergyHamiltonian
+    have hBS :
+        (fun x => BiotSavart (fun y => ω.val y + t • ε.val y) x) =
+          fun x => BiotSavart ω.val x + t • BiotSavart ε.val x := by
+      funext x
+      exact BiotSavart_affine ω.val ε.val t (hkerω x) (hkerε x)
+    have hsc :
+        (1 / 2 : ℝ) *
+            ∫ x, ‖BiotSavart (fun y => ω.val y + t • ε.val y) x‖ ^ 2
+              ∂volume =
+          ∫ x, (1 / 2 : ℝ) *
+              ‖BiotSavart (fun y => ω.val y + t • ε.val y) x‖ ^ 2
+              ∂volume := by
+      rw [← smul_eq_mul (a := (1 / 2 : ℝ)), ← integral_smul]
+      rfl
+    rw [hsc]
+    congr 1
+    funext x
+    rw [congrFun hBS x]
+  rw [hfun]
+  exact kineticEnergy_hasDerivAt_velocity_pairing
+    (BiotSavart ω.val) (BiotSavart ε.val) hF_meas hF_int hbound hinner
+
+/-- Kinetic energy has velocity-pairing Gâteaux representative `Kω`
+along a single variation `ε`, given the domination package. -/
+public theorem isVelocityGateauxRepresentative_kineticEnergy_at
+    (ω ε : CoadjointOrbit)
+    (hω : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
+    (hε : ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x)
+    (hkerω : ∀ x, Integrable
+      (fun y => biotSavartKernel x y • cross (ω.val y) (x - y)))
+    (hkerε : ∀ x, Integrable
+      (fun y => biotSavartKernel x y • cross (ε.val y) (x - y)))
+    (hF_meas : ∀ᶠ t in nhds (0 : ℝ),
+      AEStronglyMeasurable
+        (fun x => (1 / 2 : ℝ) *
+          ‖BiotSavart ω.val x + t • BiotSavart ε.val x‖ ^ 2)
+        NavierStokes3D.volume)
+    (hF_int : Integrable
+      (fun x => (1 / 2 : ℝ) * ‖BiotSavart ω.val x‖ ^ 2)
+      NavierStokes3D.volume)
+    (hbound : Integrable
+      (fun x => ‖BiotSavart ω.val x‖ * ‖BiotSavart ε.val x‖ +
+        ‖BiotSavart ε.val x‖ ^ 2)
+      NavierStokes3D.volume)
+    (hinner : AEStronglyMeasurable
+      (fun x => inner ℝ (BiotSavart ω.val x) (BiotSavart ε.val x))
+      NavierStokes3D.volume) :
+    HasDerivAt
+      (fun t : ℝ =>
+        KineticEnergyHamiltonian
+          ⟨fun x => ω.val x + t • ε.val x,
+            fun x => orbit_add_smul_div_free ω ε t hω hε x⟩)
+      (∫ x, pairing (velocity_from_vorticity ω x) (BiotSavart ε.val x)
+        ∂volume) 0 := by
+  have h :=
+    kineticEnergyHamiltonian_hasDerivAt_velocity_pairing ω ε hω hε
+      hkerω hkerε hF_meas hF_int hbound hinner
+  have hinter :
+      (∫ x, inner ℝ (BiotSavart ω.val x) (BiotSavart ε.val x)
+          ∂NavierStokes3D.volume) =
+        ∫ x, pairing (velocity_from_vorticity ω x) (BiotSavart ε.val x)
+          ∂volume := rfl
+  rwa [hinter] at h
 
 /-! ## Section 2.1: Classical Arnold Lie–Poisson bracket (exact form supplied by user) -/
 
@@ -875,5 +1053,8 @@ public theorem classical_bracket_reproduces_Euler
 #print axioms div_biotSavart_integrand_ae
 #print axioms div_BiotSavart_of_interchange
 #print axioms functional_derivative_eq_velocity_of_unique_repr
+#print axioms gateaux_representative_unique
+#print axioms kineticEnergyHamiltonian_hasDerivAt_velocity_pairing
+#print axioms isVelocityGateauxRepresentative_kineticEnergy_at
 
 end ArnoldGeometric
