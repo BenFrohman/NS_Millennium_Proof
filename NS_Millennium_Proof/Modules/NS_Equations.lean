@@ -218,10 +218,14 @@ public theorem directionalCoord_pressureGradient
   unfold directionalCoord pressureGradient
   have hfd : DifferentiableAt ℝ (fderiv ℝ p) x :=
     (hp.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  -- `ContDiffAt.eventually` needs a finite order and returns `ContDiffAt`,
+  -- not `DifferentiableAt`. Bare `∞` is `ℝ≥0∞`; write `⊤` or let `simp`
+  -- infer `WithTop ℕ∞`. There is no `DifferentiableAt.eventually`.
   have hnear : ∀ᶠ y in nhds x, DifferentiableAt ℝ p y := by
-    filter_upwards
-      [(hp.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)).eventually (by simp)] with y hy
-    exact hy.differentiableAt (by norm_num)
+    have hp1 : ContDiffAt ℝ 1 p x :=
+      hp.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+    filter_upwards [hp1.eventually (by simp)] with y hy
+    exact hy.differentiableAt_one
   have hgrad :
       (fun y => gradient p y i) =ᶠ[nhds x]
         fun y => (fderiv ℝ p y) (EuclideanSpace.single i 1) := by
