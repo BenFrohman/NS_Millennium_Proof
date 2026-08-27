@@ -14,6 +14,9 @@ Zulip: Benjamin Stanley Frohman
 - [ ] Git author is the canonical name, **or** this PR has an `Author:` comment mapping any handle
 - [ ] I did not add `Authors:` names to modules I did not write or substantially edit
 
+The mathematical proofs are Benjamin Stanley Frohman's. The Lean encoding is compiled
+in collaboration with an AI assistant (Grok, xAI) from those paper proofs.
+
 ## Type of change
 
 - [ ] Bug fix / build fix
