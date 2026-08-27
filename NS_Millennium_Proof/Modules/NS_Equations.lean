@@ -210,6 +210,52 @@ public theorem gradient_coord (p : PressureField) (x : T3) (i : Fin 3)
       (EuclideanSpace.inner_single_right (i := i) (a := (1 : ℝ)) (v := gradient p x))
   exact hcoord.symm.trans hinner
 
+/-- Product rule for divergence: `div(φ V) = ∇φ · V + φ div V`. -/
+public theorem div_smul_field (φ : PressureField) (V : VelocityField) (x : T3)
+    (hφ : DifferentiableAt ℝ φ x)
+    (hV : ∀ i, DifferentiableAt ℝ (fun y => V y i) x) :
+    div (fun y => φ y • V y) x =
+      inner ℝ (gradient φ x) (V x) + φ x * div V x := by
+  have hcoord : ∀ i : Fin 3,
+      (fun y => (φ y • V y) i) = fun y => φ y * V y i := by
+    intro i
+    funext y
+    exact smul_coord (φ y) (V y) i
+  have hprod : ∀ i : Fin 3,
+      fderiv ℝ (fun y => φ y * V y i) x =
+        φ x • fderiv ℝ (fun y => V y i) x +
+          V x i • fderiv ℝ φ x :=
+    fun i => fderiv_fun_mul hφ (hV i)
+  unfold div
+  simp_rw [hcoord, hprod, ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+    smul_eq_mul]
+  have hsplit :
+      (∑ i : Fin 3,
+          (φ x * (fderiv ℝ (fun y => V y i) x) (EuclideanSpace.single i 1) +
+            V x i * (fderiv ℝ φ x) (EuclideanSpace.single i 1))) =
+        φ x * (∑ i : Fin 3,
+            (fderiv ℝ (fun y => V y i) x) (EuclideanSpace.single i 1)) +
+          ∑ i : Fin 3, V x i * (fderiv ℝ φ x) (EuclideanSpace.single i 1) := by
+    rw [Finset.sum_add_distrib, Finset.mul_sum]
+  rw [hsplit]
+  have hgrad :
+      ∑ i : Fin 3, V x i * (fderiv ℝ φ x) (EuclideanSpace.single i 1) =
+        inner ℝ (gradient φ x) (V x) := by
+    have hmap : ∀ i,
+        V x i * (fderiv ℝ φ x) (EuclideanSpace.single i 1) =
+          (fderiv ℝ φ x) (V x i • EuclideanSpace.single i 1) := by
+      intro i
+      rw [ContinuousLinearMap.map_smul, smul_eq_mul]
+    simp_rw [hmap]
+    have hsumV :
+        (∑ i : Fin 3, V x i • EuclideanSpace.single i 1) = V x := by
+      ext j
+      simp [Finset.sum_apply, smul_eq_mul, EuclideanSpace.single, Pi.single_apply,
+        Finset.sum_ite_eq, Finset.mem_univ]
+    rw [← map_sum, hsumV]
+    exact (inner_gradient_left (y := V x) hφ).symm
+  rw [hgrad, add_comm]
+
 /-- Mixed partials of a `C²` scalar: `∂ⱼ (∇p)ᵢ = D²p (eⱼ, eᵢ)`. -/
 public theorem directionalCoord_pressureGradient
     (p : PressureField) (x : T3) (i j : Fin 3)
@@ -530,6 +576,7 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms curl_gradient
 #print axioms div_curl
 #print axioms div_of_eq_curl
+#print axioms div_smul_field
 
 end
 
