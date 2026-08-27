@@ -50,7 +50,8 @@ downstream.
 
    ```
    Author: Benjamin Stanley Frohman
-   GitHub: @BenFrohman / @Investor0x
+   GitHub: @BenFrohman
+   X.com : Investor0x
    Zulip: Benjamin Stanley Frohman
    ```
 
