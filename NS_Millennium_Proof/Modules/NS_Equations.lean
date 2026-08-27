@@ -482,8 +482,33 @@ public theorem curl_add (u v : VelocityField) (x : T3)
   ext i
   fin_cases i <;> simp [curl, hdir, PiLp.add_apply] <;> ring
 
-/-- Coordinate of `(u · ∇)v` is the directional derivative of that coordinate
-along `u`. C¹ of `v`. -/
+/-- Operator-norm bound: `|(ω · ∇)u| ≤ ‖Du‖ |ω|`. The Calderón–Zygmund
+estimate is `‖Du‖ ≤ C_CZ(3) ‖ω‖_∞` when `u` is Biot–Savart of `ω`. -/
+public theorem convective_norm_le
+    (ω u : VelocityField) (x : T3)
+    (hu : DifferentiableAt ℝ u x) :
+    ‖convective ω u x‖ ≤ ‖fderiv ℝ u x‖ * ‖ω x‖ := by
+  unfold convective
+  rw [hu.hasFDerivAt.fderiv]
+  exact ContinuousLinearMap.le_opNorm _ _
+
+/-- Product rule: `Y · ∇⟨X,Z⟩ = ⟨(Y·∇)X, Z⟩ + ⟨X, (Y·∇)Z⟩`. C¹. -/
+public theorem inner_convective_product_rule
+    (X Z Y : VelocityField) (x : T3)
+    (hX : DifferentiableAt ℝ X x) (hZ : DifferentiableAt ℝ Z x) :
+    (fderiv ℝ (fun y => inner ℝ (X y) (Z y)) x) (Y x) =
+      inner ℝ (convective Y X x) (Z x) + inner ℝ (X x) (convective Y Z x) := by
+  have h := hX.hasFDerivAt.inner (𝕜 := ℝ) hZ.hasFDerivAt
+  rw [h.fderiv]
+  have hval :
+      (fderivInnerCLM ℝ (X x, Z x))
+          ((fderiv ℝ X x) (Y x), (fderiv ℝ Z x) (Y x)) =
+        inner ℝ (X x) (fderiv ℝ Z x (Y x)) +
+          inner ℝ (fderiv ℝ X x (Y x)) (Z x) := by
+    simp [fderivInnerCLM]
+  simp [ContinuousLinearMap.comp_apply, ContinuousLinearMap.prod_apply, convective,
+    add_comm] at hval ⊢
+
 public theorem convective_coord (u v : VelocityField) (x : T3) (i : Fin 3)
     (hv : DifferentiableAt ℝ v x) :
     convective u v x i = (fderiv ℝ (fun y => v y i) x) (u x) := by
@@ -2213,6 +2238,8 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms div_of_eq_curl
 #print axioms div_smul_field
 #print axioms curl_add
+#print axioms convective_norm_le
+#print axioms inner_convective_product_rule
 #print axioms convective_coord
 #print axioms convective_eq_sum_directional
 #print axioms directionalCoord_convective
