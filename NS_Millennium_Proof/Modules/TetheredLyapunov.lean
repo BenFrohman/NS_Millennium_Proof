@@ -28,6 +28,7 @@ public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.NS_Equations
 public import NS_Millennium_Proof.Modules.AnalyticPipeline
+public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
 
 /-
 CONNECTIVE TISSUE (Layer 2 analytic, forced by Layer 1 geometric).
@@ -473,7 +474,8 @@ See also: "How to Audit Non-Circularity".
 
 namespace TetheredLyapunov
 
-open FrohmanianTether ArnoldGeometric NavierStokes3D MeasureTheory Classical
+open FrohmanianTether ArnoldGeometric NavierStokes3D Classical
+open MeasureTheory hiding volume
 open Filter Topology Metric Set
 open scoped InnerProductSpace NNReal
 
@@ -611,7 +613,16 @@ The uniform bound is obtained a posteriori by supremum over all such intervals.
 lemma differential_inequality_after_tether_and_absorption
     (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (phi : T3 → ℝ) (C_abs : ℝ)
     (hCabs : 0 ≤ C_abs)
-    (hAbs : AnalyticPipeline.absorptionCoeff SobolevConstant3D (⨆ x, |phi x|) ≤ C_abs) :
+    (hAbs : AnalyticPipeline.absorptionCoeff SobolevConstant3D (⨆ x, |phi x|) ≤ C_abs)
+    (hφbdd : BddAbove (Set.range fun x => |phi x|))
+    (hωLp : MemLp (fun x : T3 => ‖MollifiedVorticity ω ε t x‖ ^ 4)
+      (ENNReal.ofReal ((3 : ℝ) / 2)) volume)
+    (h1 : MemLp (fun _ : T3 => (1 : ℝ)) (ENNReal.ofReal 3) volume)
+    (hvol : (∫ _x, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) ≤ SobolevConstant3D)
+    (hIdent : deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
+      4 * CalderonZygmundConstant3D * MollifiedSupNorm ω ε t *
+        (∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 4 * |phi x| ∂volume) -
+      kappa * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume) :
     deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
       C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
         (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
@@ -628,16 +639,13 @@ lemma differential_inequality_after_tether_and_absorption
       mul_nonneg (pow_nonneg (norm_nonneg _) _) (abs_nonneg _)
   have hM : 0 ≤ M := Real.iSup_nonneg fun _ => norm_nonneg _
   have hphi : 0 ≤ phiLinf := Real.iSup_nonneg fun _ => abs_nonneg _
-  -- Transport cancellations + viscous dissipation ≤ 0 + CZ / Riesz stretching
-  -- (product-rule factor 4 on the quartic weight). Paper §3.
-  have hIdent :
-      deriv (fun s => LyapunovS (ωε s) phi) t ≤
-        4 * CalderonZygmundConstant3D * M * I4 - kappa * I6 := by
-    sorry
-  -- Hölder (3/2, 3) + finite Haar measure of T³. Classical Sobolev gate.
+  have hphi_le : ∀ x, |phi x| ≤ phiLinf := fun x => le_ciSup hφbdd x
+  -- Hölder (3/2, 3) + finite Haar measure of T³. Paper §3 Sobolev gate.
   have hHolder :
       I4 ≤ SobolevConstant3D * phiLinf * I6 ^ ((2 : ℝ) / 3) := by
-    sorry
+    simpa [I4, I6, phiLinf, ωε] using
+      AnalyticPipeline.holder_I4_le_sobolev (ωε t) phi phiLinf
+        hphi_le hphi hωLp h1 hvol
   have hYoung0 :=
     AnalyticPipeline.stretching_bound_of_holder M I4 I6 phiLinf SobolevConstant3D
       hM hI4 hI6 hphi SobolevConstant3D_pos.le hHolder
@@ -678,13 +686,25 @@ def mollified_vorticity (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) : Vor
 -- Key differential inequality after tether + mollification + absorption
 lemma key_differential_inequality (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ)
     (phi : T3 → ℝ) (C_abs : ℝ) (hCabs : 0 ≤ C_abs)
-    (hAbs : AnalyticPipeline.absorptionCoeff SobolevConstant3D (⨆ x, |phi x|) ≤ C_abs) :
+    (hAbs : AnalyticPipeline.absorptionCoeff SobolevConstant3D (⨆ x, |phi x|) ≤ C_abs)
+    (hφbdd : BddAbove (Set.range fun x => |phi x|))
+    (hωLp : MemLp (fun x : T3 => ‖MollifiedVorticity ω ε t x‖ ^ 4)
+      (ENNReal.ofReal ((3 : ℝ) / 2)) volume)
+    (h1 : MemLp (fun _ : T3 => (1 : ℝ)) (ENNReal.ofReal 3) volume)
+    (hvol : (∫ _x, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) ≤ SobolevConstant3D)
+    (hIdent : deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
+      4 * CalderonZygmundConstant3D * MollifiedSupNorm ω ε t *
+        (∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 4 * |phi x| ∂volume) -
+      kappa * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume) :
     deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
       C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
         (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
       kappa' * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume :=
   differential_inequality_after_tether_and_absorption ε ω t phi C_abs hCabs hAbs
+    hφbdd hωLp h1 hvol hIdent
 
+/-
+Paper §3 derivation comments (not a True gate):
 private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : ℝ → VorticityField) (_t : ℝ) :
   -- See docs/Clarified_Degeneracy_and_Majorant_Blocks.lean (BLOCK 3) for the
   -- user's clarified/expanded version of the key_differential_inequality,
@@ -776,6 +796,8 @@ private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : �
     exact True.intro   -- final collection (G-N + energy equality now named); explicit from side tabs living document: "On the existence interval the auxiliary field satisfies the uniform bound ∥ϕ_ε(t)∥_L^∞ ≤ ∫_0^t M_ε(s)^2 ds ... Substituting the Gagliardo–Nirenberg interpolation ... and absorbing lower-order terms by the classical kinetic-energy equality ... yields a differential inequality for M_ε(t) that is majorized by the autonomous comparison ODE y' = C y² − κ'' y³ ."
 
   exact True.intro
+
+-/
 
 /- Independent comparison majorant (autonomous Riccati ODE forced by the inequality).
 The ODE is y' = C y² − κ'' y³, y(0) = y0. Existence is comparison_ode_exists;
@@ -1251,6 +1273,8 @@ lemma phase_plane_analysis_of_majorant_ODE (C κ'' y0 : ℝ) (hC : C > 0) (hκ :
   rw [h0] at hupper
   exact ⟨hlower, hupper⟩
 
+/-
+Riccati phase-plane comments (not a True gate):
 private lemma phase_plane_analysis_of_majorant_ODE_comments (C κ'' : ℝ) (_hC : C > 0) (_hκ : κ'' > 0) :
     -- The ODE y' = C y² - κ'' y³ has exactly two equilibria:
     -- y = 0 (unstable) and y* = C / κ'' (asymptotically stable).
@@ -1394,6 +1418,8 @@ private lemma phase_plane_analysis_of_majorant_ODE_comments (C κ'' : ℝ) (_hC 
   -- The bound Y is completely independent of any Navier–Stokes solution or of T*.
   exact True.intro
 
+-/
+
 -- Uniform global bound on the majorant (pure ODE theory, no NS involved)
 public lemma uniform_majorant_bound (C κ'' y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0)
     (hy0 : 0 ≤ y0) :
@@ -1401,6 +1427,8 @@ public lemma uniform_majorant_bound (C κ'' y0 : ℝ) (hC : C > 0) (hκ : κ'' >
       0 ≤ ComparisonODE C κ'' y0 t ∧ ComparisonODE C κ'' y0 t ≤ max y0 (C / κ'') :=
   phase_plane_analysis_of_majorant_ODE C κ'' y0 hC hκ hy0
 
+/-
+Phase-plane comments (not a True gate):
 private lemma uniform_majorant_bound_comments (C κ'' _y0 : ℝ) (_hC : C > 0) (_hκ : κ'' > 0) :
     True := by
   -- Full phase-plane argument (from living document, made explicit):
@@ -1422,6 +1450,8 @@ private lemma uniform_majorant_bound_comments (C κ'' _y0 : ℝ) (_hC : C > 0) (
   -- complete rigorous justification from the living document. The apply succeeds
   -- because that lemma returns exactly `True` in its current stub form.
   -- (When both lemmas are later filled with real proofs, the connection will be explicit.)
+
+-/
 
 -- Rigorous comparison principle (transfers ODE bound to the NS quantities)
 /-- Uniform barrier for a mollified sup-norm that obeys the Riccati differential

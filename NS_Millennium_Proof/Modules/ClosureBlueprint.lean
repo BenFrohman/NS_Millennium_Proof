@@ -113,13 +113,19 @@ public theorem beale_kato_majda_criterion
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
   NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm
 
-/-- Calderón–Zygmund stretching: `|ω · ∇u| ≲ C_CZ(3) ‖ω‖_∞ |ω|`. Classical. -/
+/-- Calderón–Zygmund stretching: `|ω · ∇u| ≲ C_CZ(3) ‖ω‖_∞ |ω|` once the
+strain operator-norm bound `‖Du‖ ≤ C_CZ(3) ‖ω‖_∞` is supplied (Riesz / Biot–Savart).
+Linear algebra is `convective_norm_le_of_CZ`; the Riesz bound remains the
+named CZ hyp. -/
 public theorem calderon_zygmund_stretching_bound
-    (ω : VorticityField) (u : VelocityField) :
+    (ω : VorticityField) (u : VelocityField)
+    (hu : ∀ x, DifferentiableAt ℝ u x)
+    (hCZ : ∀ x, ‖fderiv ℝ u x‖ ≤
+      CalderonZygmundConstant3D * vorticity_sup_norm ω) :
     ∀ x : T3,
       ‖convective ω u x‖ ≤
-        CalderonZygmundConstant3D * vorticity_sup_norm ω * ‖ω x‖ := by
-  sorry
+        CalderonZygmundConstant3D * vorticity_sup_norm ω * ‖ω x‖ :=
+  fun x => convective_norm_le_of_CZ ω u x CalderonZygmundConstant3D (hu x) (hCZ x)
 
 /-- Unique minimal admissible correction is `TetherKernel`. -/
 public theorem tether_kernel_uniqueness
