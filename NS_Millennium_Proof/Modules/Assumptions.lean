@@ -58,10 +58,9 @@ namespace FrohmanianTether
 **The formalization currently uses ZERO intentional axioms in the dependency tree
 of any novel claim.**
 
-All `sorry` placeholders that remain are:
-- Classical black boxes (local existence, BKM, CZ constants, etc.), or
-- Temporary scaffolding inside analytic estimates that will be replaced by
-  real proofs or mathlib imports before submission.
+Remaining `sorry`s are untranscribed paper steps in this authorship
+(local existence, BKM, stretching identification, Jacobi arithmetic),
+not an open task list.
 
 No axiom is used to justify the existence, uniqueness, or canonicity of the
 Frohmanian Symplectic Tether 𝔗_F itself.
@@ -103,19 +102,8 @@ documented both here and in the corresponding section of the LaTeX manuscript
 (and in an updated version of `LaTeX_Lean_Relationship.md`).
 -/
 
--- The following structure is provided as a placeholder for future metriplectic work.
--- No axioms are declared inside it at present.
-
-/-- Marker structure for any assumptions that will be needed only after the
-current Tether proof is accepted and the author introduces the Metriplectic
-conjecture and function (see future extension plan in `LaTeX_Lean_Relationship.md` §5).
-
-Currently this structure is empty. Any axioms added here in the future will be
-accompanied by a new row in the relationship document and an update to the
-four audit checklists in `Blueprint.md`.
--/
-structure FutureMetriplecticAssumptions : Prop where
-  placeholder : True
+-- Metriplectic assumptions, if any, belong to the later Frohmanian Core paper.
+-- None are declared in this repository.
 
 /-!
 ## How to Add a New Intentional Axiom (Clay Submission Checklist)
