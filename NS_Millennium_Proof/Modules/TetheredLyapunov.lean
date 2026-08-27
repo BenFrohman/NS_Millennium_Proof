@@ -1688,12 +1688,49 @@ public theorem global_regularity_of_restart
   · intro t ht x
     exact (w.pde t ht x).2
 
+/-- Same assembly, with the free restart length replaced by the paper Kato
+time `katoRestartTime C Y (max R 1)` from the log-Gronwall / quadratic
+comparison (Drive Steps 3.2–3.4). `Y` is the Riccati ceiling; `R` is the
+Sobolev proxy at time 0. -/
+public theorem global_regularity_of_kato_estimates
+    (u₀ : VelocityField) (ν : ℝ)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (h_pos_ν : ν > 0)
+    (w : KatoLocalWitness u₀ ν)
+    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u₀ →
+        ∃ Y : ℝ,
+          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (C R : ℝ)
+    (hrestart : ∀ Y : ℝ,
+      ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
+        ∃ T' ∈ existenceTimes u₀ ν, t + katoRestartTime C Y (max R 1) ≤ T')
+    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+    NS_PDE w.u w.p ν ∧
+      w.u 0 = u₀ ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (w.u t)) ∧
+      (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (w.u t)) ≥ 0) ∧
+      (∀ t ≥ (0 : ℝ), ∀ x, div (w.u t) x = 0) := by
+  obtain ⟨Y, _hbound, _hcont⟩ := hRiccati w.u w.p w.pde w.init
+  exact global_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
+    h_pos_ν w hRiccati (katoRestartTime C Y (max R 1))
+    (katoRestartTime_pos C Y (max R 1)) (hrestart Y) huniq
+
 #print axioms hasDerivAt_norm_sq_of_hasDerivAt
 #print axioms hasDerivAt_norm_pow_four
 #print axioms hasDerivAt_quartic_tether_weight
 #print axioms hasDerivAt_lyapunov_density
 #print axioms global_regularity_zero
 #print axioms global_regularity_of_restart
+#print axioms global_regularity_of_kato_estimates
 
 end   -- close noncomputable section
 end TetheredLyapunov
