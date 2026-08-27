@@ -132,6 +132,16 @@ public theorem tether_kernel_uniqueness
   uniqueness_of_minimal_tether B hB.antisym hB.invariance hB.degeneracy hB.feedback
     h_sat h_polarB h_polarT
 
+/-- Density-form uniqueness: substitution of `α = -κ |ω|²` into the
+projected pairing recovers `TetherKernel`. -/
+public theorem uniqueness_of_kernel_density
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ)
+    (h_repr : HasTetherKernelDensity B α)
+    (hα : ∀ ω x, α ω x = canonicalTetherDensity ω x) :
+    ∀ ω F G, B ω F G = TetherKernel ω F G :=
+  FrohmanianTether.uniqueness_of_kernel_density B α h_repr hα
+
 /-- Jacobi identity of the tethered bracket on the reduced orbit. -/
 public theorem tether_kernel_jacobi
     (F G H : Functional) (ω : CoadjointOrbit) :
