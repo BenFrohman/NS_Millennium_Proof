@@ -13,7 +13,7 @@ public import Mathlib.Tactic.Ring
 /-!
 # ForMathlib.NS.Tether
 
-WIP (2026-08-26), original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
+Original work by Benjamin Stanley Frohman (@Investor0x / Bit21).
 
 Reusable Calderón–Zygmund / tether-strength constants intended for eventual
 Mathlib upstreaming. The canonical integral kernel `TetherKernel` lives in

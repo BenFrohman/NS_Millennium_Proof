@@ -145,39 +145,12 @@ public theorem uniqueness_of_minimal_tether
 
 
 /-!
-## Future: Uniqueness of Global Regular Solutions
+## Later paper: uniqueness of global regular solutions
 
-Once the author introduces the Metriplectic conjecture (after the current
-Tether proof has been kernel-verified and accepted), a new uniqueness result
-will appear here:
-
-  theorem uniqueness_of_global_regular_solutions
-      (u₁ u₂ : GlobalRegularSolution)
-      (h_init : InitialData u₁ = InitialData u₂)
-      (h_tether : SatisfiesTether u₁ ∧ SatisfiesTether u₂) :
-      u₁ = u₂ := by
-    ...
-
-This result will depend on the (then-proved) Tether uniqueness + the new
-Metriplectic structure, and will be completely separate from the current
-Layer 1 / Layer 2 argument that uses the independent majorant.
-
-The separation of concerns is deliberate and is documented in both
-`LaTeX_Lean_Relationship.md` §5 (Future Extension) and `Blueprint.md`.
+Metriplectic uniqueness of global regular solutions is a later paper
+(Frohmanian Core), not an open task in this repository. No `True`
+placeholder theorem is declared here.
 -/
-
--- Placeholder theorem name (not yet proved; declared here for roadmap purposes).
--- The actual proof will be supplied after the Metriplectic work begins.
-theorem uniqueness_of_global_regular_solutions_placeholder :
-    True := by
-  -- This is intentionally a placeholder.
-  -- When the Metriplectic extension is added, replace `True` with the real statement
-  -- and supply a proof that cites:
-  --   • the 5-step uniqueness of 𝔗_F (already established)
-  --   • the independent majorant comparison (already established)
-  --   • the new metriplectic degeneracy / dissipation properties
-  -- and nothing else.
-  trivial
 
 /-!
 ## Non-Circularity Reminder (Critical for Clay Audit)
@@ -209,7 +182,6 @@ Recommended daily validation commands (copy-paste into the Lean InfoView or
 a terminal with `lake env`):
 
   #print axioms uniqueness_of_minimal_tether
-  #print axioms uniqueness_of_global_regular_solutions_placeholder
 
   lake build NS_Millennium_Proof.Modules.Uniqueness
 
