@@ -38,6 +38,12 @@ public theorem pairing_self (w : EuclideanSpace ℝ (Fin 3)) :
     (∫ y, ‖u y‖ ^ 2 ∂volume)
   ) • u x
 
+/-- The projector kills the zero field, independently of the energy of `u`. -/
+@[simp]
+public theorem Pi_u_zero (u : VelocityField) : Pi_u u 0 = 0 := by
+  funext x
+  simp [Pi_u, pairing, inner_zero_left]
+
 /-- If the kinetic energy of `u` is nonzero, `Π_u u = 0`. -/
 @[simp]
 public theorem projection_orthogonal_to_u

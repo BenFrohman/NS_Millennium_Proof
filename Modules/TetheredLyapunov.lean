@@ -993,7 +993,7 @@ public theorem lemma_3_1_uniform_bound_and_continuation
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ ⊤ u₀)
     (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hM : 0 ≤ Mε0) :
-    ∀ T : ℝ, 0 ≤ T → T < Tstar u₀ ν →
+    ∀ T : ℝ, 0 ≤ T → (T : EReal) < Tstar u₀ ν →
       ComparisonODE C κ'' Mε0 T ≤ max Mε0 (C / κ'') := by
   intro T hT0 _hTlt
   have _hsetup : (∀ x, div u₀ x = 0) ∧ ContDiff ℝ ⊤ u₀ := ⟨h_divfree, h_smooth⟩
@@ -1047,9 +1047,7 @@ private theorem lemma_3_1_comments
   -- controls everything on every finite subinterval using only local smoothness.
   -- No circular bootstrap on constants occurs. This matches the polished PASS 5
   -- version and the chat history requirements exactly.
-
-where
-  Tstar (u₀ : VelocityField) (ν : ℝ) : ℝ := sorry   -- maximal existence time from local parabolic theory
+  -- `Tstar` is `NavierStokes3D.Tstar` (extended-real supremum of existence times).
 
 /-! ## Global Regularity as Unconditional Corollary -/
 

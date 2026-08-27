@@ -53,8 +53,9 @@ the permanent home once the proofs are fully polished.
 
 namespace FrohmanianTether
 
-open FrohmanianTether   -- brings CoadjointOrbit (via Arnold), Functional, TetherKernel, InvariantUnder..., DegenerateWRT..., Produces..., etc. into scope for the 5-step lemmas (now under the canonical FrohmanianTether namespace per naming standard)
-open ArnoldGeometric  -- CoadjointOrbit etc; no hiding (the steps explicitly mention CoadjointOrbit in binders)
+open FrohmanianTether
+open ArnoldGeometric
+open NavierStokes3D
 
 /-!
 ## Tether Uniqueness (5-Step Canonicity)
@@ -92,7 +93,8 @@ lemma step2_degree
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (_h_antisym : ∀ ω F G, B ω F G = -B ω G F) :
     ∀ (F G : Functional) (ω : CoadjointOrbit) (c : ℝ),
-      B ⟨fun x => c • ω.val x, trivial⟩ F G = c ^ 2 * B ω F G := by
+      B ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G = c ^ 2 * B ω F G := by
   sorry
 
 /-- Step 3: C2 forces vanishing on the kinetic-energy Hamiltonian, hence `Π_u`. -/
@@ -121,7 +123,8 @@ lemma step5_higher_order
     (_h_feedback : ProducesControllableNegativeFeedback B) :
     ∀ (n : Nat), 3 ≤ n →
       ∀ (F G : Functional) (ω : CoadjointOrbit) (c : ℝ),
-        B ⟨fun x => c • ω.val x, trivial⟩ F G =
+        B ⟨fun x => c • ω.val x, fun x => by
+            rw [div_smul, ω.property x, mul_zero]⟩ F G =
           c ^ 2 * B ω F G := by
   intro n _hn F G ω c
   simpa using step2_degree B _h_antisym F G ω c

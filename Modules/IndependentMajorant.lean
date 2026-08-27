@@ -36,7 +36,7 @@ public theorem lemma_3_1_uniform_bound_and_continuation
     (h_divfree : ∀ x, div u0 x = 0)
     (h_smooth : ContDiff ℝ ⊤ u0)
     (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hM : 0 ≤ Mε0) :
-    ∀ T : ℝ, 0 ≤ T → T < Tstar u0 ν →
+    ∀ T : ℝ, 0 ≤ T → (T : EReal) < Tstar u0 ν →
       ComparisonODE C κ'' Mε0 T ≤ max Mε0 (C / κ'') :=
   TetheredLyapunov.lemma_3_1_uniform_bound_and_continuation
     u0 ν h_divfree h_smooth Mε0 C κ'' hC hκ hM

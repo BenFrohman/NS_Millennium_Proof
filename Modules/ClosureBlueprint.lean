@@ -108,7 +108,7 @@ public theorem local_existence_kato
 public theorem beale_kato_majda_criterion
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
-    (h_bkm : ∀ T : ℝ, T < Tstar (u 0) ν →
+    (h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
       IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T)) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
   NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm
