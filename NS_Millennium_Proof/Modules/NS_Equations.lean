@@ -123,6 +123,47 @@ public theorem div_smul (c : ℝ) (u : VelocityField) (x : T3) :
     _ = c * ∑ i : Fin 3, (fderiv ℝ (fun y => u y i) x) (EuclideanSpace.single i 1) := by
           rw [← Finset.mul_sum]
 
+/-- Divergence is linear in the field, at points where every coordinate is differentiable. -/
+public theorem div_add (u v : VelocityField) (x : T3)
+    (hu : ∀ i, DifferentiableAt ℝ (fun y => u y i) x)
+    (hv : ∀ i, DifferentiableAt ℝ (fun y => v y i) x) :
+    div (fun y => u y + v y) x = div u x + div v x := by
+  unfold div
+  have hfun : ∀ i : Fin 3,
+      (fun y => (u y + v y) i) = fun y => u y i + v y i := by
+    intro i
+    funext y
+    rw [PiLp.add_apply]
+  calc
+    ∑ i : Fin 3, (fderiv ℝ (fun y => (u y + v y) i) x) (EuclideanSpace.single i 1)
+        = ∑ i : Fin 3, (fderiv ℝ (fun y => u y i + v y i) x) (EuclideanSpace.single i 1) := by
+          refine Finset.sum_congr rfl fun i _ => ?_
+          rw [hfun i]
+    _ = ∑ i : Fin 3,
+          ((fderiv ℝ (fun y => u y i) x) + (fderiv ℝ (fun y => v y i) x))
+            (EuclideanSpace.single i 1) := by
+          refine Finset.sum_congr rfl fun i _ => ?_
+          rw [fderiv_fun_add (hu i) (hv i)]
+    _ = ∑ i : Fin 3, (fderiv ℝ (fun y => u y i) x) (EuclideanSpace.single i 1) +
+        ∑ i : Fin 3, (fderiv ℝ (fun y => v y i) x) (EuclideanSpace.single i 1) := by
+          simp only [ContinuousLinearMap.add_apply, Finset.sum_add_distrib]
+
+/-- Affine combination of fields: `div(u + c • v) = div u + c div v`. -/
+public theorem div_add_smul (u v : VelocityField) (c : ℝ) (x : T3)
+    (hu : ∀ i, DifferentiableAt ℝ (fun y => u y i) x)
+    (hv : ∀ i, DifferentiableAt ℝ (fun y => v y i) x) :
+    div (fun y => u y + c • v y) x = div u x + c * div v x := by
+  have hcv : ∀ i, DifferentiableAt ℝ (fun y => (c • v y) i) x := by
+    intro i
+    have hfun : (fun y => (c • v y) i) = c • fun y => v y i := by
+      funext y
+      exact smul_coord c (v y) i
+    rw [hfun]
+    exact (hv i).const_smul c
+  have hadd :=
+    div_add u (fun y => c • v y) x hu hcv
+  rw [hadd, div_smul]
+
 /-- Divergence of a spatially constant field vanishes (each coordinate is constant). -/
 public theorem div_const (v : EuclideanSpace ℝ (Fin 3)) (x : T3) :
     div (fun _ => v) x = 0 := by

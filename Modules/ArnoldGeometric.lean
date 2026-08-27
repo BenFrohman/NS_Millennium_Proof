@@ -26,8 +26,11 @@ Current imports are deliberately targeted rather than using the single
 `import Mathlib` style Tao sometimes employs in quick proof tours.
 -/
 
+public import Mathlib.Analysis.Calculus.Deriv.Basic
 public import Mathlib.Analysis.InnerProductSpace.PiL2
+public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.LinearAlgebra.CrossProduct
+public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
 public import NS_Millennium_Proof.Modules.NS_Equations
@@ -117,7 +120,7 @@ From 4.3.2.2–4.3.2.3:
 
 namespace ArnoldGeometric
 
-open InnerProductSpace Matrix NavierStokes3D
+open InnerProductSpace Matrix NavierStokes3D Classical
 open scoped InnerProductSpace
 
 /-! ## Coadjoint Orbit Structure -/
@@ -164,20 +167,6 @@ The concrete diffeomorphism calculus is a documented classical black box. -/
 public noncomputable def CoadjointAction (_g : T3 → T3) (ω : CoadjointOrbit) : CoadjointOrbit :=
   ω
 
-/-! ## Functional Derivative & Classical Bracket (Black Boxes) -/
-
-/-- Functional derivative (Gâteaux derivative in the appropriate function space).
-
-Classical object from the calculus of variations on the coadjoint orbit.
--/
-public def FunctionalDerivative (F : CoadjointOrbit → ℝ) : CoadjointOrbit → (T3 → (EuclideanSpace ℝ (Fin 3))) := sorry
-
-/-- Biot-Savart operator (inverse of curl on divergence-free fields).
-
-Classical operator whose mapping properties (Calderón–Zygmund estimates) are taken from the literature.
--/
-public def BiotSavart (ω : T3 → (EuclideanSpace ℝ (Fin 3))) : T3 → (EuclideanSpace ℝ (Fin 3)) := sorry
-
 /-- Vector cross product on the model `ℝ³`, via mathlib `crossProduct`. -/
 @[expose] public noncomputable def cross (u v : EuclideanSpace ℝ (Fin 3)) : EuclideanSpace ℝ (Fin 3) :=
   WithLp.toLp 2 (WithLp.ofLp u ⨯₃ WithLp.ofLp v)
@@ -185,6 +174,46 @@ public def BiotSavart (ω : T3 → (EuclideanSpace ℝ (Fin 3))) : T3 → (Eucli
 /-- Pointwise Euclidean inner product. -/
 @[expose] public noncomputable def pairing (u v : EuclideanSpace ℝ (Fin 3)) : ℝ :=
   inner ℝ u v
+
+/-! ## Functional Derivative & Classical Bracket -/
+
+/-- Affine line in the orbit: `ω + t ε` remains divergence-free when coordinates
+of `ω` and `ε` are differentiable (so `div_add_smul` applies). -/
+public theorem orbit_add_smul_div_free (ω ε : CoadjointOrbit) (t : ℝ)
+    (hω : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
+    (hε : ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x) (x : T3) :
+    NavierStokes3D.div (fun y => ω.val y + t • ε.val y) x = 0 := by
+  rw [div_add_smul ω.val ε.val t x (fun i => hω i x) (fun i => hε i x),
+      ω.property x, ε.property x, mul_zero, add_zero]
+
+/-- Gâteaux representing field: along C¹ orbit variations, `d/dt |_{0} F(ω + t ε)`
+equals the L² pairing against `δ`. -/
+public def IsGateauxRepresentative (F : CoadjointOrbit → ℝ) (ω : CoadjointOrbit)
+    (δ : T3 → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  ∀ (ε : CoadjointOrbit)
+    (hω : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
+    (hε : ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x),
+    HasDerivAt (fun t : ℝ =>
+      F ⟨fun x => ω.val x + t • ε.val x,
+        fun x => orbit_add_smul_div_free ω ε t hω hε x⟩)
+      (∫ x, pairing (δ x) (ε.val x) ∂volume) 0
+
+/-- Functional derivative as the Gâteaux representative when one exists, else `0`.
+Choice, not `sorry`. The kinetic-energy case is `functional_derivative_of_kinetic_energy`. -/
+public noncomputable def FunctionalDerivative (F : CoadjointOrbit → ℝ)
+    (ω : CoadjointOrbit) : T3 → EuclideanSpace ℝ (Fin 3) :=
+  if h : ∃ δ, IsGateauxRepresentative F ω δ then Classical.choose h else 0
+
+/-- Euclidean Biot–Savart kernel (principal-value: zero on the diagonal).
+The torus Green's function is the intended operator; this is the model-space density. -/
+public noncomputable def biotSavartKernel (x y : T3) : ℝ :=
+  if x = y then 0 else (4 * Real.pi)⁻¹ * ‖x - y‖ ^ (-(3 : ℝ))
+
+/-- Biot–Savart operator as the integral kernel applied to vorticity.
+Mapping properties (`div = 0`, `curl ∘ BiotSavart = id` on the orbit) are theorems. -/
+public noncomputable def BiotSavart (ω : T3 → EuclideanSpace ℝ (Fin 3)) :
+    T3 → EuclideanSpace ℝ (Fin 3) :=
+  fun x => ∫ y, biotSavartKernel x y • cross (ω y) (x - y) ∂volume
 
 /-- User's preferred notation δF/δω for the functional derivative (Section 2.1). -/
 notation "δ" F:arg "/δω" => FunctionalDerivative F
@@ -215,7 +244,9 @@ public noncomputable def ClassicalBracket (F G : CoadjointOrbit → ℝ) (ω : C
 public noncomputable def KineticEnergyHamiltonian (ω : CoadjointOrbit) : ℝ :=
   (1/2) * ∫ x, ‖BiotSavart ω.val x‖^2 ∂(volume)
 
-public def velocity_from_vorticity (ω : CoadjointOrbit) : T3 → (EuclideanSpace ℝ (Fin 3)) := BiotSavart ω.val
+public noncomputable def velocity_from_vorticity (ω : CoadjointOrbit) :
+    T3 → EuclideanSpace ℝ (Fin 3) :=
+  BiotSavart ω.val
 
 /-! ## Section 2.1: Classical Arnold Lie–Poisson bracket (exact form supplied by user) -/
 
