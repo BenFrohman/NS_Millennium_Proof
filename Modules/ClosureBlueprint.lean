@@ -124,9 +124,13 @@ public theorem calderon_zygmund_stretching_bound
 /-- Unique minimal admissible correction is `TetherKernel`. -/
 public theorem tether_kernel_uniqueness
     (B : CoadjointOrbit → Functional → Functional → ℝ)
-    (hB : IsAdmissibleCorrection B) :
+    (hB : IsAdmissibleCorrection B)
+    (h_sat : SaturatesTetherQuadratic B)
+    (h_polarB : Polarizes B)
+    (h_polarT : Polarizes TetherKernel) :
     ∀ ω F G, B ω F G = TetherKernel ω F G :=
   uniqueness_of_minimal_tether B hB.antisym hB.invariance hB.degeneracy hB.feedback
+    h_sat h_polarB h_polarT
 
 /-- Jacobi identity of the tethered bracket on the reduced orbit. -/
 public theorem tether_kernel_jacobi
