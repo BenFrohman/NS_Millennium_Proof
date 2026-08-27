@@ -82,8 +82,8 @@ gives the uniform bound. This is the scalar comparison used for `M_ε(t)`. -/
 public theorem comparison_ode_stability
     (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (y : ℝ → ℝ)
-    (hdiff : ∀ s, DifferentiableAt ℝ y s)
-    (hy_dot : ∀ s, deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
+    (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s)
+    (hy_dot : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (t : ℝ) (ht : 0 ≤ t) :
     y t ≤ max (y 0) (C / κ'') := by
   set Y := max (y 0) (C / κ'')
@@ -92,18 +92,18 @@ public theorem comparison_ode_stability
     lt_of_le_of_lt (le_max_right (y 0) (C / κ'')) (lt_add_of_pos_right _ hε)
   have hy0 : y 0 ≤ Y + ε :=
     (le_max_left (y 0) (C / κ'')).trans (le_add_of_nonneg_right hε.le)
-  have hyC : ContinuousOn y (Icc (0 : ℝ) t) := fun x _ =>
-    (hdiff x).continuousAt.continuousWithinAt
+  have hyC : ContinuousOn y (Icc (0 : ℝ) t) := fun x hx =>
+    (hdiff x hx.1).continuousAt.continuousWithinAt
   have hyW : ∀ x ∈ Ico (0 : ℝ) t,
-      HasDerivWithinAt y (deriv y x) (Ici x) x := fun x _ =>
-    (hdiff x).hasDerivAt.hasDerivWithinAt
+      HasDerivWithinAt y (deriv y x) (Ici x) x := fun x hx =>
+    (hdiff x hx.1).hasDerivAt.hasDerivWithinAt
   have hB : ∀ x, HasDerivAt (fun _ : ℝ => Y + ε) (0 : ℝ) x := fun x =>
     hasDerivAt_const x (Y + ε)
   have hcontact : ∀ x ∈ Ico (0 : ℝ) t, y x = Y + ε → deriv y x < 0 := by
-    intro x _ hxeq
+    intro x hx hxeq
     have hneg : C * (Y + ε) ^ 2 - κ'' * (Y + ε) ^ 3 < 0 :=
       majorant_vector_field_neg_of_gt hC hκ hbarrier
-    have := hy_dot x
+    have := hy_dot x hx.1
     rw [hxeq] at this
     linarith
   have hle :=
@@ -117,24 +117,25 @@ below `0` the vector field `y² (C − κ'' y)` is strictly positive. -/
 public theorem comparison_ode_nonneg
     (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (y : ℝ → ℝ)
-    (hdiff : ∀ s, DifferentiableAt ℝ y s)
-    (hy_dot : ∀ s, deriv y s = C * (y s) ^ 2 - κ'' * (y s) ^ 3)
+    (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s)
+    (hy_dot : ∀ s ≥ (0 : ℝ), deriv y s = C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (hy0 : 0 ≤ y 0)
     (t : ℝ) (ht : 0 ≤ t) :
     0 ≤ y t := by
   refine le_of_forall_pos_le_add fun ε hε => ?_
   -- Equivalent: `-y t ≤ ε`. Barrier for `-y` at height `ε`.
   have hy0' : -y 0 ≤ ε := (neg_nonpos.mpr hy0).trans hε.le
-  have hnegdiff : ∀ s, DifferentiableAt ℝ (fun s => -y s) s := fun s => (hdiff s).neg
-  have hyC : ContinuousOn (fun s => -y s) (Icc (0 : ℝ) t) := fun x _ =>
-    (hnegdiff x).continuousAt.continuousWithinAt
+  have hnegdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ (fun s => -y s) s :=
+    fun s hs => (hdiff s hs).neg
+  have hyC : ContinuousOn (fun s => -y s) (Icc (0 : ℝ) t) := fun x hx =>
+    (hnegdiff x hx.1).continuousAt.continuousWithinAt
   have hyW : ∀ x ∈ Ico (0 : ℝ) t,
       HasDerivWithinAt (fun s => -y s) (deriv (fun s => -y s) x) (Ici x) x :=
-    fun x _ => (hnegdiff x).hasDerivAt.hasDerivWithinAt
+    fun x hx => (hnegdiff x hx.1).hasDerivAt.hasDerivWithinAt
   have hB : ∀ x, HasDerivAt (fun _ : ℝ => ε) (0 : ℝ) x := fun x =>
     hasDerivAt_const x ε
   have hcontact : ∀ x ∈ Ico (0 : ℝ) t, -y x = ε → deriv (fun s => -y s) x < 0 := by
-    intro x _ hxeq
+    intro x hx hxeq
     have hyx : y x = -ε := by
       linarith
     have hpos : 0 < C * (y x) ^ 2 - κ'' * (y x) ^ 3 := by
@@ -146,9 +147,9 @@ public theorem comparison_ode_nonneg
         linarith [mul_pos hκ hε]
       rw [majorant_vector_field_eq]
       exact mul_pos hy2 hlin
-    have hder : deriv y x = C * (y x) ^ 2 - κ'' * (y x) ^ 3 := hy_dot x
+    have hder : deriv y x = C * (y x) ^ 2 - κ'' * (y x) ^ 3 := hy_dot x hx.1
     have hneg : deriv (fun s => -y s) x = -deriv y x :=
-      (hdiff x).hasDerivAt.neg.deriv
+      (hdiff x hx.1).hasDerivAt.neg.deriv
     linarith
   have hle :=
     image_le_of_deriv_right_lt_deriv_boundary (f := fun s => -y s)
