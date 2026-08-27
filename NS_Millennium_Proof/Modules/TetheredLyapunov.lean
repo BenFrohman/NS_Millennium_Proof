@@ -1724,6 +1724,92 @@ public theorem global_regularity_of_kato_estimates
     h_pos_ν w hRiccati (katoRestartTime C Y (max R 1))
     (katoRestartTime_pos C Y (max R 1)) (hrestart Y) huniq
 
+/-- Riccati construction: the vorticity-sup-norm differential inequality
+produces the uniform ceiling used by BKM. This discharges `hRiccati`. -/
+public theorem riccati_ceiling_of_vorticity_di
+    (u : TimeDependentVelocity) (C κ'' : ℝ)
+    (hC : 0 < C) (hκ : 0 < κ'')
+    (hdiff : ∀ s ≥ (0 : ℝ),
+      DifferentiableAt ℝ (fun τ => vorticity_sup_norm (vorticity (u τ))) s)
+    (hDI : ∀ s ≥ (0 : ℝ),
+      deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+        C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+          κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3)
+    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
+    ∃ Y : ℝ,
+      (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+      Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :=
+  AnalyticPipeline.vorticity_sup_norm_riccati_bound u C κ'' hC hκ hdiff hDI hcont
+
+/-- Assembly from the four paper constructions: Kato local existence,
+Riccati ceiling from the vorticity DI, quantitative restart, and Cauchy
+identification of restart paths. -/
+public theorem global_regularity_of_constructions
+    (u₀ : VelocityField) (ν : ℝ)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (h_pos_ν : ν > 0)
+    (hKato : ∀ u₁, ContDiff ℝ ⊤ u₁ → (∀ x, div u₁ x = 0) →
+      Integrable (fun x : T3 => ‖u₁ x‖ ^ 2) →
+      KatoLocalWitness u₁ ν)
+    (hDI : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u₀ →
+        ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
+          (∀ s ≥ (0 : ℝ),
+            DifferentiableAt ℝ
+              (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
+          (∀ s ≥ (0 : ℝ),
+            deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+              C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+                κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
+          Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+    (τ : ℝ) (hτ : 0 < τ)
+    (hTlb : ∀ u₁ (hsm : ContDiff ℝ ⊤ u₁)
+      (hdiv : ∀ x, div u₁ x = 0)
+      (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2)),
+      τ ≤ (hKato u₁ hsm hdiv hE).T)
+    (hInt : ∀ (T : ℝ) (v : TimeDependentVelocity)
+      (_q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν → ∀ t ∈ Set.Icc (0 : ℝ) T,
+        Integrable (fun x : T3 => ‖v t x‖ ^ 2))
+    (huniq_shift : ∀ (T : ℝ) (v : TimeDependentVelocity)
+      (_q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T,
+        ∀ (w' : KatoLocalWitness (v t) ν),
+          ∀ s ∈ Set.Icc (0 : ℝ) w'.T, v (t + s) = w'.u s)
+    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      ∀ t ∈ Set.Icc (0 : ℝ) T', (hKato u₀ h_smooth h_divfree
+        h_finite_energy).u t = v t) :
+    NS_PDE (hKato u₀ h_smooth h_divfree h_finite_energy).u
+      (hKato u₀ h_smooth h_divfree h_finite_energy).p ν ∧
+      (hKato u₀ h_smooth h_divfree h_finite_energy).u 0 = u₀ ∧
+      (∀ t ≥ (0 : ℝ),
+        ContDiff ℝ ⊤ ((hKato u₀ h_smooth h_divfree h_finite_energy).u t)) ∧
+      (∀ t ≥ (0 : ℝ), vorticity_sup_norm
+        (vorticity ((hKato u₀ h_smooth h_divfree h_finite_energy).u t)) ≥ 0) ∧
+      (∀ t ≥ (0 : ℝ), ∀ x,
+        div ((hKato u₀ h_smooth h_divfree h_finite_energy).u t) x = 0) := by
+  let w := hKato u₀ h_smooth h_divfree h_finite_energy
+  have hRiccati :
+      ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+        NS_PDE u p ν → u 0 = u₀ →
+          ∃ Y : ℝ,
+            (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+            Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
+    intro u p hNS hu0
+    obtain ⟨C, κ'', hC, hκ, hdiff, hDIu, hcont⟩ := hDI u p hNS hu0
+    exact riccati_ceiling_of_vorticity_di u C κ'' hC hκ hdiff hDIu hcont
+  have hrestart :=
+    restart_of_kato_quantitative u₀ ν τ h_pos_ν hτ hKato hTlb hInt huniq_shift
+  exact global_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
+    h_pos_ν w hRiccati τ hτ hrestart huniq
+
 #print axioms hasDerivAt_norm_sq_of_hasDerivAt
 #print axioms hasDerivAt_norm_pow_four
 #print axioms hasDerivAt_quartic_tether_weight
@@ -1731,6 +1817,8 @@ public theorem global_regularity_of_kato_estimates
 #print axioms global_regularity_zero
 #print axioms global_regularity_of_restart
 #print axioms global_regularity_of_kato_estimates
+#print axioms riccati_ceiling_of_vorticity_di
+#print axioms global_regularity_of_constructions
 
 end   -- close noncomputable section
 end TetheredLyapunov
