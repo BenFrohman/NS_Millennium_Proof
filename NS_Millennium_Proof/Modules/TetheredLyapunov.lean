@@ -519,6 +519,16 @@ product-rule `4` when differentiating the quartic. -/
 public noncomputable def LyapunovS (ωε : VorticityField) (phi : T3 → ℝ) : ℝ :=
   ∫ x, (1 / 2) * ‖ωε x‖ ^ 2 + (kappa / 4) * ‖ωε x‖ ^ 4 * phi x ∂volume
 
+/-- Paper 21 May 2026 §10 (10): unweighted mollified Lyapunov
+`S_ε = ∫ (½|ω_ε|² + (κ/4)|ω_ε|⁴) dλ`. This is `LyapunovS` at the constant weight `φ ≡ 1`. -/
+public noncomputable def LyapunovSε (ωε : VorticityField) : ℝ :=
+  LyapunovS ωε (fun _ => 1)
+
+public theorem lyapunovSε_eq (ωε : VorticityField) :
+    LyapunovSε ωε =
+      ∫ x, (1 / 2) * ‖ωε x‖ ^ 2 + (kappa / 4) * ‖ωε x‖ ^ 4 ∂volume := by
+  simp [LyapunovSε, LyapunovS]
+
 /-- `d/dt |v|² = 2 ⟨v, v'⟩`. -/
 public theorem hasDerivAt_norm_sq_of_hasDerivAt
     {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)} {t : ℝ}
@@ -577,6 +587,26 @@ public theorem hasDerivAt_lyapunov_density
     hasDerivAt_quartic_tether_weight (k := kappa) hv hφ
   have hadd := hhalf.add hq
   convert hadd using 1
+  ring
+
+/-- Paper 21 May 2026 §10 unweighted density:
+`d/dt (½|v|² + (κ/4)|v|⁴) = ⟨v,v'⟩(1 + κ|v|²)`. -/
+public theorem hasDerivAt_lyapunov_density_unweighted
+    {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)} {t : ℝ}
+    (hv : HasDerivAt v v' t) :
+    HasDerivAt
+      (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2 + (kappa / 4) * ‖v s‖ ^ 4)
+      (inner ℝ (v t) v' * (1 + kappa * ‖v t‖ ^ 2)) t := by
+  have hφ : HasDerivAt (fun _ : ℝ => (1 : ℝ)) (0 : ℝ) t := hasDerivAt_const t (1 : ℝ)
+  have h := hasDerivAt_lyapunov_density hv hφ
+  have hfun :
+      (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2 + (kappa / 4) * ‖v s‖ ^ 4) =
+        fun s =>
+          (1 / 2 : ℝ) * ‖v s‖ ^ 2 + (kappa / 4) * ‖v s‖ ^ 4 * (1 : ℝ) := by
+    funext s
+    ring
+  rw [hfun]
+  convert h using 1
   ring
 
 /-- Algebraic elimination of the quartic factor `4` after Young absorption.
@@ -851,6 +881,12 @@ public theorem majorantField_eq (C κ'' : ℝ) (hκ : κ'' ≠ 0) :
     majorantField C κ'' (C / κ'') = 0 := by
   unfold majorantField
   field_simp [hκ]
+  ring
+
+/-- Paper 21 May 2026 §10: `y' = y² (C − κ'' y)`. Equilibria `y = 0` and `y = C/κ''`. -/
+public theorem majorantField_factor (C κ'' y : ℝ) :
+    majorantField C κ'' y = y ^ 2 * (C - κ'' * y) := by
+  simp [majorantField]
   ring
 
 /-- Time-of-flight antiderivative of `1/f` for `f(y) = y²(C − κ'' y)`.
@@ -1840,6 +1876,9 @@ public theorem global_regularity_of_constructions
 #print axioms hasDerivAt_norm_pow_four
 #print axioms hasDerivAt_quartic_tether_weight
 #print axioms hasDerivAt_lyapunov_density
+#print axioms lyapunovSε_eq
+#print axioms hasDerivAt_lyapunov_density_unweighted
+#print axioms majorantField_factor
 #print axioms global_regularity_zero
 #print axioms global_regularity_of_restart
 #print axioms global_regularity_of_kato_estimates
