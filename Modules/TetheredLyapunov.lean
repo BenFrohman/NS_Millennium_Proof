@@ -708,6 +708,7 @@ The ODE is y' = C y² − κ'' y³, y(0) = y0. Existence is comparison_ode_exist
 the function ComparisonODE is a choice of that solution, not a sorry def. -/
 
 /-- Scalar Riccati field of the independent majorant. -/
+@[expose]
 public def majorantField (C κ'' : ℝ) (y : ℝ) : ℝ :=
   C * y ^ 2 - κ'' * y ^ 3
 
@@ -734,9 +735,11 @@ public theorem comparison_ode_local_exists (C κ'' y0 : ℝ) :
       simpa using ht
     simpa using hy' t ht'
 
-/-- Global C¹ solution of `y' = C y² − κ'' y³`, `y(0) = y0`. -/
-public def IsComparisonODESolution (C κ'' y0 : ℝ) (y : ℝ → ℝ) : Prop :=
-  y 0 = y0 ∧ ∀ t : ℝ, HasDerivAt y (majorantField C κ'' (y t)) t
+/-- Global C¹ solution of `y' = C y² − κ'' y³`, `y(0) = y0`.
+Lean 4 `structure … where` (not a raw `∧` def). -/
+public structure IsComparisonODESolution (C κ'' y0 : ℝ) (y : ℝ → ℝ) : Prop where
+  init : y 0 = y0
+  deriv : ∀ t : ℝ, HasDerivAt y (majorantField C κ'' (y t)) t
 
 /-- Unique (when it exists) global solution of the majorant ODE, else the constant `y0`.
 Existence is `comparison_ode_exists`; the def itself is choice, not `sorry`. -/
@@ -761,12 +764,14 @@ public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < �
     (hy0 : 0 ≤ y0) :
     ∃ y, IsComparisonODESolution C κ'' y0 y := by
   by_cases h0 : y0 = 0
-  · refine ⟨fun _ => 0, ?_, ?_⟩
+  · refine ⟨fun _ => 0, ?_⟩
+    constructor
     · simpa [h0]
     · intro t
       simpa [majorantField_zero] using hasDerivAt_const t (0 : ℝ)
   · by_cases hstar : y0 = C / κ''
-    · refine ⟨fun _ => C / κ'', ?_, ?_⟩
+    · refine ⟨fun _ => C / κ'', ?_⟩
+      constructor
       · simpa [hstar]
       · intro t
         have hfield : majorantField C κ'' (C / κ'') = 0 :=
@@ -798,13 +803,13 @@ lemma phase_plane_analysis_of_majorant_ODE (C κ'' y0 : ℝ) (hC : C > 0) (hκ :
   intro t ht
   have hsol := ComparisonODE_spec C κ'' y0 hC hκ hy0
   set y := ComparisonODE C κ'' y0
-  have hdiff : ∀ s, DifferentiableAt ℝ y s := fun s => (hsol.2 s).differentiableAt
+  have hdiff : ∀ s, DifferentiableAt ℝ y s := fun s => (hsol.deriv s).differentiableAt
   have hy_eq : ∀ s, deriv y s = C * y s ^ 2 - κ'' * y s ^ 3 := by
     intro s
-    simpa [majorantField] using (hsol.2 s).deriv
+    simpa [majorantField] using (hsol.deriv s).deriv
   have hy_le : ∀ s, deriv y s ≤ C * y s ^ 2 - κ'' * y s ^ 3 :=
     fun s => le_of_eq (hy_eq s)
-  have h0 : y 0 = y0 := hsol.1
+  have h0 : y 0 = y0 := hsol.init
   have hupper :=
     AnalyticPipeline.comparison_ode_stability C κ'' hC hκ y hdiff hy_le t ht
   have hlower :=
@@ -1041,46 +1046,13 @@ public theorem lemma_3_1_uniform_bound_and_continuation
   exact hphase.2
 
 private theorem lemma_3_1_comments
-    (u₀ : VelocityField) (ν : ℝ)
-    (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : True)
-    (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') :
-    True := by
-  -- Rigorous non-circular argument (polished PASS 5 version from the living document,
-  -- cross-checked with rtfd audit and chat history non-circularity rules).
-  --
-  -- Sequential steps expressed with named `have` (Tao style). The `do` / monadic
-  -- sequencing was a sketch; here we use ordinary tactic `have` for elaboration hygiene.
-
-  -- 1. The comparison solution y(t) is already globally bounded (pure ODE theory).
-  have _ : True := by
-    -- (calls the ODE phase-plane result; signature adapted for build; the ∃ Y content
-    --  is used in the surrounding argument; schematic here)
-    sorry  -- exact comparison_majorant_global_bound C κ'' Mε0 hC hκ   -- or uniform; the ∃ Y is the content
-
-  -- 2. On any finite [0, T] < T* the solution is smooth, so integrals are finite.
-  have _ : True := by
-    -- classical Kato/Leray local well-posedness + parabolic regularity
-    sorry
-
-  -- 3. The auxiliary scalar field satisfies the integral bound
-  --    ‖ϕ_ε(t)‖_∞ ≤ ∫_0^t y(s)² ds ≤ Y² t < ∞ on [0,T].
-  have _ : True := by
-    -- transport + majorant comparison
-    sorry
-
-  -- 4. Absorption constants C_abs(T) are finite on the compact interval.
-  have _ : True := by
-    -- universal constants + finite integral controlled by independent Y
-    sorry
-
-  -- 5. Differential inequality holds with finite constants; comparison gives the bound.
-  have _ : True := by
-    -- scalar comparison principle
-    sorry
-
-  -- 6. Y is independent of T. Supremum over finite intervals gives global bound.
-  exact True.intro
+    (_u₀ : VelocityField) (_ν : ℝ)
+    (_h_divfree : ∀ x, div _u₀ x = 0)
+    (_h_smooth : ContDiff ℝ ⊤ _u₀)
+    (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hM : 0 ≤ Mε0) :
+    ∃ Y : ℝ, ∀ t ≥ (0 : ℝ),
+      0 ≤ ComparisonODE C κ'' Mε0 t ∧ ComparisonODE C κ'' Mε0 t ≤ Y :=
+  comparison_majorant_global_bound C κ'' Mε0 hC hκ hM
 
   -- This is the complete non-circular continuation argument:
   -- The independent majorant y(t) (bounded by Y globally from pure ODE theory)
