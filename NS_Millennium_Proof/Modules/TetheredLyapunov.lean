@@ -970,13 +970,13 @@ public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < �
   by_cases h0 : y0 = 0
   · refine ⟨fun _ => 0, ?_⟩
     constructor
-    · simpa [h0]
+    · simp [h0]
     · intro t _ht
       simpa [majorantField_zero] using hasDerivAt_const t (0 : ℝ)
   · by_cases hstar : y0 = C / κ''
     · refine ⟨fun _ => C / κ'', ?_⟩
       constructor
-      · simpa [hstar]
+      · simp [hstar]
       · intro t _ht
         have hfield : majorantField C κ'' (C / κ'') = 0 :=
           majorantField_eq C κ'' (ne_of_gt hκ)
