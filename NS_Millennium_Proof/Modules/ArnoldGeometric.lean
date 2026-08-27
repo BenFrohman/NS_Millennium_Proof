@@ -157,10 +157,13 @@ Per 4.4.2 (Structures) and 4.4.1 (Inductive Types):
 - Strict positivity (4.4.3.2.2) will apply to any future recursive definitions over it.
 - Prop-vs-Type elimination (4.4.3.2.3): we never eliminate the orbit "as a Prop" into data.
 -/
-/-- Divergence-free vorticity on the model 3-space (coadjoint orbit of `SDiff`). -/
-@[expose]
-public def CoadjointOrbit : Type :=
-  {ω : T3 → EuclideanSpace ℝ (Fin 3) // ∀ x, NavierStokes3D.div ω x = 0}
+/-- Divergence-free vorticity on the model 3-space (coadjoint orbit of `SDiff`).
+Lean 4 structure (`where`, not the deprecated `structure … :=` form from v4.14).
+Fields keep the Subtype names `val` / `property` so existing projections stay valid.
+`@[expose]` is a `def`-only attribute (Language Reference, modules); `public structure` is the visibility. -/
+public structure CoadjointOrbit where
+  val : T3 → EuclideanSpace ℝ (Fin 3)
+  property : ∀ x, NavierStokes3D.div val x = 0
 
 /-- Classical coadjoint action of `SDiff(𝕋³)` on vorticity (pushforward of 2-forms).
 The concrete diffeomorphism calculus is a documented classical black box. -/
