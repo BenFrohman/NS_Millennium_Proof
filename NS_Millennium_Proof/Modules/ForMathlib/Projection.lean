@@ -44,6 +44,15 @@ public theorem Pi_u_zero (u : VelocityField) : Pi_u u 0 = 0 := by
   funext x
   simp [Pi_u, pairing, inner_zero_left]
 
+/-- If the L² energy vanishes, the Gram–Schmidt coefficient is `a/0 = 0`, so
+`Π_u v = v`. Finite-energy C2 never uses this identity; it records the
+degenerate formula on Haar `ℝ³`. -/
+public theorem Pi_u_of_energy_zero (u v : VelocityField)
+    (hE : (∫ y, ‖u y‖ ^ 2 ∂volume) = 0) :
+    Pi_u u v = v := by
+  funext x
+  simp only [Pi_u, hE, div_zero, zero_smul, sub_zero]
+
 /-- If the kinetic energy of `u` is nonzero, `Π_u u = 0`. -/
 @[simp]
 public theorem projection_orthogonal_to_u

@@ -6,6 +6,7 @@ Authors: Benjamin Stanley Frohman
 
 module
 
+public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.Assumptions
 
@@ -56,6 +57,8 @@ namespace FrohmanianTether
 open FrohmanianTether
 open ArnoldGeometric
 open NavierStokes3D
+open MeasureTheory ForMathlib
+open scoped InnerProductSpace
 
 /-!
 ## Tether Uniqueness (5-Step Canonicity)
@@ -129,6 +132,88 @@ lemma step5_higher_order
   intro n _hn F G ω c
   simpa using step2_degree B _h_antisym F G ω c
 
+/-- The correction is given by a scalar kernel density against the projected
+pairing. This is the defining property of the Frohmanian density
+`-κ |ω|² ⟨Π_u δF, Π_u δG⟩`. -/
+public def HasTetherKernelDensity
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ) : Prop :=
+  ∀ (ω : CoadjointOrbit) (F G : Functional),
+    B ω F G =
+      ∫ x,
+        α ω x *
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+        ∂volume
+
+/-- Canonical density of `TetherKernel`: `-κ |ω(x)|²`. -/
+public noncomputable def canonicalTetherDensity (ω : CoadjointOrbit) (x : T3) : ℝ :=
+  -kappa * ‖ω.val x‖ ^ 2
+
+/-- If `B` is defined by a density `α` and `α = -κ |ω|²` pointwise, then
+`B = TetherKernel` by substitution and `integral_const_mul`. This is
+Reconstruction Lemmas 2.3.1–2.3.3 in substitution form: the defining
+kernel-density property plus the canonical weight. -/
+public theorem uniqueness_of_kernel_density
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ)
+    (h_repr : HasTetherKernelDensity B α)
+    (hα : ∀ ω x, α ω x = canonicalTetherDensity ω x) :
+    ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G := by
+  intro ω F G
+  have hB := h_repr ω F G
+  let KFG : T3 → ℝ := fun x =>
+    inner ℝ
+      (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+      (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+  have hfun :
+      (fun x => α ω x * KFG x) =
+        fun x => (-kappa) * (‖ω.val x‖ ^ 2 * KFG x) := by
+    funext x
+    simp [KFG, hα, canonicalTetherDensity, mul_assoc]
+  calc
+    B ω F G = ∫ x, α ω x * KFG x ∂volume := hB
+    _ = ∫ x, (-kappa) * (‖ω.val x‖ ^ 2 * KFG x) ∂volume := by rw [hfun]
+    _ = -kappa * ∫ x, ‖ω.val x‖ ^ 2 * KFG x ∂volume :=
+        integral_const_mul (μ := volume) _ _
+    _ = TetherKernel ω F G := by
+        simp [TetherKernel, KFG]
+
+/-- Function-equality form: a density equal to `canonicalTetherDensity` as
+functions yields `B = TetherKernel` as functions. -/
+public theorem uniqueness_of_kernel_density_fun
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ)
+    (h_repr : HasTetherKernelDensity B α)
+    (hα : α = canonicalTetherDensity) :
+    B = TetherKernel := by
+  funext ω
+  funext F
+  funext G
+  exact uniqueness_of_kernel_density B α h_repr (fun _ω x => by rw [hα]) ω F G
+
+/-- `TetherKernel` is exactly the pairing against the canonical density. -/
+public theorem tetherKernel_has_canonical_density :
+    HasTetherKernelDensity TetherKernel canonicalTetherDensity := by
+  intro ω F G
+  unfold TetherKernel canonicalTetherDensity
+  have hf :
+      (fun x =>
+        (-kappa * ‖ω.val x‖ ^ 2) *
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) =
+      fun x =>
+        (-kappa) *
+          (‖ω.val x‖ ^ 2 *
+            inner ℝ
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) := by
+    funext x
+    ring
+  rw [hf, integral_const_mul (μ := volume)]
+
 /-- Minimality: the correction saturates the C3 quadratic form of `TetherKernel`. -/
 public def SaturatesTetherQuadratic
     (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
@@ -147,7 +232,7 @@ are additive. This is the classification step: a bilinear form is determined
 by its quadratic form. -/
 public theorem tetherKernel_polarizes
     (ω : CoadjointOrbit) (F G : Functional)
-    (hδ : FunctionalDerivative (fun ω' => F ω' + G ω') ω =
+    (_hδ : FunctionalDerivative (fun ω' => F ω' + G ω') ω =
       FunctionalDerivative F ω + FunctionalDerivative G ω) :
     Polarizes TetherKernel →
       2 * TetherKernel ω F G =
@@ -226,5 +311,10 @@ When the proofs become real, also run:
 
   lean4checker --fresh .lake/build/lib/lean/NS_Millennium_Proof/Modules/Uniqueness.olean
 -/
+
+#print axioms uniqueness_of_kernel_density
+#print axioms uniqueness_of_kernel_density_fun
+#print axioms tetherKernel_has_canonical_density
+#print axioms uniqueness_of_minimal_tether
 
 end FrohmanianTether
