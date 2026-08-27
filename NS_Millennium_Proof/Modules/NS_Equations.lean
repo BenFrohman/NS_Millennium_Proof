@@ -1497,12 +1497,500 @@ public theorem laplacian_coord
   have hPw : P (w i) = w i j := rfl
   rw [hPw, hcoord, (heq i).fderiv_eq]
 
+/-- Hessian of a `C²` scalar applied to two increments. -/
+public theorem fderiv_apply_fderiv
+    (φ : T3 → ℝ) (x : T3) (v w : T3)
+    (hφ : ContDiffAt ℝ 2 φ x) :
+    (fderiv ℝ (fun y => (fderiv ℝ φ y) v) x) w =
+      (fderiv ℝ (fderiv ℝ φ) x) w v := by
+  have hfd : DifferentiableAt ℝ (fderiv ℝ φ) x :=
+    (hφ.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  have happ : HasFDerivAt (fun y => (fderiv ℝ φ y) v)
+      ((ContinuousLinearMap.apply ℝ ℝ v).comp (fderiv ℝ (fderiv ℝ φ) x)) x :=
+    (ContinuousLinearMap.apply ℝ ℝ v).hasFDerivAt.comp (x := x) hfd.hasFDerivAt
+  rw [happ.fderiv]
+  rfl
+
+/-- A `C³` coordinate has `C²` directional coordinates. -/
+public theorem contDiffAt_directionalCoord
+    (u : VelocityField) (x : T3) (comp i : Fin 3)
+    (hu : ContDiffAt ℝ 3 (fun y => u y comp) x) :
+    ContDiffAt ℝ 2 (fun y => directionalCoord u comp i y) x := by
+  unfold directionalCoord
+  have hfd : ContDiffAt ℝ 2 (fderiv ℝ (fun y => u y comp)) x :=
+    hu.fderiv_right (m := 2) (by norm_num)
+  exact (ContinuousLinearMap.contDiff
+      (ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ)))).contDiffAt.comp
+    x hfd
+
+/-- Mixed partial of the Laplacian: `∂_dir (Δ u)_comp` is the scalar Laplacian
+of `∂_dir u_comp`, by Schwarz on each `C²` directional coordinate. -/
+public theorem directionalCoord_laplacian
+    (u : VelocityField) (x : T3) (comp dir : Fin 3)
+    (hu : ∀ k, ContDiffAt ℝ 3 (fun y => u y k) x) :
+    directionalCoord (laplacian u) comp dir x =
+      ∑ i : Fin 3,
+        (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u comp dir z)) x)
+          (EuclideanSpace.single i (1 : ℝ))
+          (EuclideanSpace.single i (1 : ℝ)) := by
+  have hU : ContDiffAt ℝ 3 u x :=
+    (contDiffAt_piLp (p := 2) (𝕜 := ℝ) (E := fun _ : Fin 3 => ℝ)).mpr hu
+  have hU2 : ContDiffAt ℝ 2 u x :=
+    hU.of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)
+  have hnear : ∀ᶠ y in nhds x, ContDiffAt ℝ 2 u y :=
+    (hU.of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp)
+  have heq :
+      (fun y => laplacian u y comp) =ᶠ[nhds x]
+        fun y => ∑ i : Fin 3,
+          (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+            (EuclideanSpace.single i (1 : ℝ)) := by
+    filter_upwards [hnear] with y hy
+    exact laplacian_coord u y comp hy
+  have hC2dir (i : Fin 3) :
+      ContDiffAt ℝ 2 (fun z => directionalCoord u comp i z) x :=
+    contDiffAt_directionalCoord u x comp i (hu comp)
+  have hdiff (i : Fin 3) :
+      DifferentiableAt ℝ
+        (fun y => (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+          (EuclideanSpace.single i (1 : ℝ))) x :=
+    ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x
+      (((hC2dir i).fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)))
+  have hsum' :
+      fderiv ℝ (fun y => ∑ i : Fin 3,
+          (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+            (EuclideanSpace.single i (1 : ℝ))) x =
+        ∑ i : Fin 3,
+          fderiv ℝ (fun y =>
+              (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+                (EuclideanSpace.single i (1 : ℝ))) x :=
+    fderiv_fun_sum (fun i (_ : i ∈ (Finset.univ : Finset (Fin 3))) => hdiff i)
+  change (fderiv ℝ (fun y => laplacian u y comp) x)
+      (EuclideanSpace.single dir (1 : ℝ)) = _
+  rw [heq.fderiv_eq, hsum']
+  simp only [ContinuousLinearMap.sum_apply]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  have hD2 :=
+    fderiv_apply_fderiv (fun z => directionalCoord u comp i z) x
+      (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single dir (1 : ℝ)) (hC2dir i)
+  have hsym : IsSymmSndFDerivAt ℝ (fun z => directionalCoord u comp i z) x :=
+    (hC2dir i).isSymmSndFDerivAt (by simp [minSmoothness_of_isRCLikeNormedField])
+  have hswap :=
+    hsym.eq (EuclideanSpace.single dir (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ))
+  have hmix :
+      (fun y => (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+          (EuclideanSpace.single dir (1 : ℝ))) =ᶠ[nhds x]
+        fun y => (fderiv ℝ (fun z => directionalCoord u comp dir z) y)
+          (EuclideanSpace.single i (1 : ℝ)) := by
+    have hnearC : ∀ᶠ y in nhds x, ContDiffAt ℝ 2 (fun z => u z comp) y :=
+      ((hu comp).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp)
+    filter_upwards [hnearC] with y hy
+    exact directionalCoord_symm u y comp i dir hy
+  have hL :
+      (fderiv ℝ (fun y => (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+          (EuclideanSpace.single i (1 : ℝ))) x)
+        (EuclideanSpace.single dir (1 : ℝ)) =
+      (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u comp i z)) x)
+        (EuclideanSpace.single dir (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) :=
+    hD2
+  have hR :
+      (fderiv ℝ (fun y => (fderiv ℝ (fun z => directionalCoord u comp dir z) y)
+          (EuclideanSpace.single i (1 : ℝ))) x)
+        (EuclideanSpace.single i (1 : ℝ)) =
+      (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u comp dir z)) x)
+        (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) :=
+    fderiv_apply_fderiv (fun z => directionalCoord u comp dir z) x
+      (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ))
+      (hC2dir dir)
+  have hmid :
+      (fderiv ℝ (fun y => (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+          (EuclideanSpace.single dir (1 : ℝ))) x)
+        (EuclideanSpace.single i (1 : ℝ)) =
+      (fderiv ℝ (fun y => (fderiv ℝ (fun z => directionalCoord u comp dir z) y)
+          (EuclideanSpace.single i (1 : ℝ))) x)
+        (EuclideanSpace.single i (1 : ℝ)) := by
+    rw [hmix.fderiv_eq]
+  calc
+    (fderiv ℝ (fun y => (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+        (EuclideanSpace.single i (1 : ℝ))) x)
+      (EuclideanSpace.single dir (1 : ℝ))
+        = (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u comp i z)) x)
+            (EuclideanSpace.single dir (1 : ℝ))
+            (EuclideanSpace.single i (1 : ℝ)) := hL
+    _ = (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u comp i z)) x)
+          (EuclideanSpace.single i (1 : ℝ))
+          (EuclideanSpace.single dir (1 : ℝ)) := hswap
+    _ = (fderiv ℝ (fun y => (fderiv ℝ (fun z => directionalCoord u comp i z) y)
+            (EuclideanSpace.single dir (1 : ℝ))) x)
+          (EuclideanSpace.single i (1 : ℝ)) := by
+            rw [fderiv_apply_fderiv (fun z => directionalCoord u comp i z) x
+              (EuclideanSpace.single dir (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ))
+              (hC2dir i)]
+    _ = (fderiv ℝ (fun y => (fderiv ℝ (fun z => directionalCoord u comp dir z) y)
+            (EuclideanSpace.single i (1 : ℝ))) x)
+          (EuclideanSpace.single i (1 : ℝ)) := hmid
+    _ = (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u comp dir z)) x)
+          (EuclideanSpace.single i (1 : ℝ))
+          (EuclideanSpace.single i (1 : ℝ)) := hR
+
 /-- `curl Δu = Δ curl u` at `C³` points (third mixed partials commute). -/
 public theorem curl_laplacian
     (u : VelocityField) (x : T3)
     (hu : ∀ k, ContDiffAt ℝ 3 (fun y => u y k) x) :
     curl (laplacian u) x = laplacian (curl u) x := by
-  sorry
+  have hu2 : ∀ k, ContDiffAt ℝ 2 (fun y => u y k) x :=
+    fun k => (hu k).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)
+  have hC2dir (comp i : Fin 3) :
+      ContDiffAt ℝ 2 (fun y => directionalCoord u comp i y) x :=
+    contDiffAt_directionalCoord u x comp i (hu comp)
+  have hC2curl : ∀ k, ContDiffAt ℝ 2 (fun y => curl u y k) x := by
+    intro k
+    fin_cases k
+    · change ContDiffAt ℝ 2 (fun y => curl u y 0) x
+      have h0 : (fun y => curl u y 0) =
+          fun y => directionalCoord u 2 1 y - directionalCoord u 1 2 y := by
+        funext y
+        exact (curl_apply u y).1
+      rw [h0]
+      exact (hC2dir 2 1).sub (hC2dir 1 2)
+    · change ContDiffAt ℝ 2 (fun y => curl u y 1) x
+      have h1 : (fun y => curl u y 1) =
+          fun y => directionalCoord u 0 2 y - directionalCoord u 2 0 y := by
+        funext y
+        exact (curl_apply u y).2.1
+      rw [h1]
+      exact (hC2dir 0 2).sub (hC2dir 2 0)
+    · change ContDiffAt ℝ 2 (fun y => curl u y 2) x
+      have h2 : (fun y => curl u y 2) =
+          fun y => directionalCoord u 1 0 y - directionalCoord u 0 1 y := by
+        funext y
+        exact (curl_apply u y).2.2
+      rw [h2]
+      exact (hC2dir 1 0).sub (hC2dir 0 1)
+  have hCurl2 : ContDiffAt ℝ 2 (curl u) x :=
+    (contDiffAt_piLp (p := 2) (𝕜 := ℝ) (E := fun _ : Fin 3 => ℝ)).mpr hC2curl
+  have hlapC (j : Fin 3) := laplacian_coord (curl u) x j hCurl2
+  ext j
+  fin_cases j
+  · change curl (laplacian u) x 0 = laplacian (curl u) x 0
+    have hcurl0 := (curl_apply (laplacian u) x).1
+    rw [hcurl0, hlapC 0, directionalCoord_laplacian u x 2 1 hu,
+      directionalCoord_laplacian u x 1 2 hu]
+    have hsum :
+        (∑ i : Fin 3,
+            (fderiv ℝ (fun y => directionalCoord (curl u) 0 i y) x)
+              (EuclideanSpace.single i (1 : ℝ))) =
+          ∑ i : Fin 3,
+            ((fderiv ℝ (fderiv ℝ (fun z => directionalCoord u 2 1 z)) x)
+                (EuclideanSpace.single i (1 : ℝ))
+                (EuclideanSpace.single i (1 : ℝ)) -
+              (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u 1 2 z)) x)
+                (EuclideanSpace.single i (1 : ℝ))
+                (EuclideanSpace.single i (1 : ℝ))) := by
+      refine Finset.sum_congr rfl fun i _ => ?_
+      have hfun :
+          (fun y => directionalCoord (curl u) 0 i y) =ᶠ[nhds x]
+            fun y =>
+              (fderiv ℝ (fun z => directionalCoord u 2 1 z) y)
+                (EuclideanSpace.single i (1 : ℝ)) -
+              (fderiv ℝ (fun z => directionalCoord u 1 2 z) y)
+                (EuclideanSpace.single i (1 : ℝ)) := by
+        have hnear : ∀ᶠ y in nhds x, ∀ k, ContDiffAt ℝ 2 (fun z => u z k) y := by
+          filter_upwards
+            [((hu 0).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp),
+              ((hu 1).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp),
+              ((hu 2).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp)]
+            with y h0 h1 h2 k
+          fin_cases k
+          · exact h0
+          · exact h1
+          · exact h2
+        filter_upwards [hnear] with y hy
+        exact (directionalCoord_curl u y i hy).1
+      have hsub :
+          DifferentiableAt ℝ
+            (fun y => (fderiv ℝ (fun z => directionalCoord u 2 1 z) y)
+              (EuclideanSpace.single i (1 : ℝ))) x :=
+        ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x
+          (((hC2dir 2 1).fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)))
+      have hsub' :
+          DifferentiableAt ℝ
+            (fun y => (fderiv ℝ (fun z => directionalCoord u 1 2 z) y)
+              (EuclideanSpace.single i (1 : ℝ))) x :=
+        ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x
+          (((hC2dir 1 2).fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)))
+      rw [hfun.fderiv_eq, fderiv_fun_sub hsub hsub']
+      simp only [ContinuousLinearMap.sub_apply]
+      rw [fderiv_apply_fderiv (fun z => directionalCoord u 2 1 z) x
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) (hC2dir 2 1),
+          fderiv_apply_fderiv (fun z => directionalCoord u 1 2 z) x
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) (hC2dir 1 2)]
+    rw [hsum, Finset.sum_sub_distrib]
+  · change curl (laplacian u) x 1 = laplacian (curl u) x 1
+    have hcurl1 := (curl_apply (laplacian u) x).2.1
+    rw [hcurl1, hlapC 1, directionalCoord_laplacian u x 0 2 hu,
+      directionalCoord_laplacian u x 2 0 hu]
+    have hsum :
+        (∑ i : Fin 3,
+            (fderiv ℝ (fun y => directionalCoord (curl u) 1 i y) x)
+              (EuclideanSpace.single i (1 : ℝ))) =
+          ∑ i : Fin 3,
+            ((fderiv ℝ (fderiv ℝ (fun z => directionalCoord u 0 2 z)) x)
+                (EuclideanSpace.single i (1 : ℝ))
+                (EuclideanSpace.single i (1 : ℝ)) -
+              (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u 2 0 z)) x)
+                (EuclideanSpace.single i (1 : ℝ))
+                (EuclideanSpace.single i (1 : ℝ))) := by
+      refine Finset.sum_congr rfl fun i _ => ?_
+      have hfun :
+          (fun y => directionalCoord (curl u) 1 i y) =ᶠ[nhds x]
+            fun y =>
+              (fderiv ℝ (fun z => directionalCoord u 0 2 z) y)
+                (EuclideanSpace.single i (1 : ℝ)) -
+              (fderiv ℝ (fun z => directionalCoord u 2 0 z) y)
+                (EuclideanSpace.single i (1 : ℝ)) := by
+        have hnear : ∀ᶠ y in nhds x, ∀ k, ContDiffAt ℝ 2 (fun z => u z k) y := by
+          filter_upwards
+            [((hu 0).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp),
+              ((hu 1).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp),
+              ((hu 2).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp)]
+            with y h0 h1 h2 k
+          fin_cases k
+          · exact h0
+          · exact h1
+          · exact h2
+        filter_upwards [hnear] with y hy
+        exact (directionalCoord_curl u y i hy).2.1
+      have hsub :
+          DifferentiableAt ℝ
+            (fun y => (fderiv ℝ (fun z => directionalCoord u 0 2 z) y)
+              (EuclideanSpace.single i (1 : ℝ))) x :=
+        ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x
+          (((hC2dir 0 2).fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)))
+      have hsub' :
+          DifferentiableAt ℝ
+            (fun y => (fderiv ℝ (fun z => directionalCoord u 2 0 z) y)
+              (EuclideanSpace.single i (1 : ℝ))) x :=
+        ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x
+          (((hC2dir 2 0).fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)))
+      rw [hfun.fderiv_eq, fderiv_fun_sub hsub hsub']
+      simp only [ContinuousLinearMap.sub_apply]
+      rw [fderiv_apply_fderiv (fun z => directionalCoord u 0 2 z) x
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) (hC2dir 0 2),
+          fderiv_apply_fderiv (fun z => directionalCoord u 2 0 z) x
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) (hC2dir 2 0)]
+    rw [hsum, Finset.sum_sub_distrib]
+  · change curl (laplacian u) x 2 = laplacian (curl u) x 2
+    have hcurl2 := (curl_apply (laplacian u) x).2.2
+    rw [hcurl2, hlapC 2, directionalCoord_laplacian u x 1 0 hu,
+      directionalCoord_laplacian u x 0 1 hu]
+    have hsum :
+        (∑ i : Fin 3,
+            (fderiv ℝ (fun y => directionalCoord (curl u) 2 i y) x)
+              (EuclideanSpace.single i (1 : ℝ))) =
+          ∑ i : Fin 3,
+            ((fderiv ℝ (fderiv ℝ (fun z => directionalCoord u 1 0 z)) x)
+                (EuclideanSpace.single i (1 : ℝ))
+                (EuclideanSpace.single i (1 : ℝ)) -
+              (fderiv ℝ (fderiv ℝ (fun z => directionalCoord u 0 1 z)) x)
+                (EuclideanSpace.single i (1 : ℝ))
+                (EuclideanSpace.single i (1 : ℝ))) := by
+      refine Finset.sum_congr rfl fun i _ => ?_
+      have hfun :
+          (fun y => directionalCoord (curl u) 2 i y) =ᶠ[nhds x]
+            fun y =>
+              (fderiv ℝ (fun z => directionalCoord u 1 0 z) y)
+                (EuclideanSpace.single i (1 : ℝ)) -
+              (fderiv ℝ (fun z => directionalCoord u 0 1 z) y)
+                (EuclideanSpace.single i (1 : ℝ)) := by
+        have hnear : ∀ᶠ y in nhds x, ∀ k, ContDiffAt ℝ 2 (fun z => u z k) y := by
+          filter_upwards
+            [((hu 0).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp),
+              ((hu 1).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp),
+              ((hu 2).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)).eventually (by simp)]
+            with y h0 h1 h2 k
+          fin_cases k
+          · exact h0
+          · exact h1
+          · exact h2
+        filter_upwards [hnear] with y hy
+        exact (directionalCoord_curl u y i hy).2.2
+      have hsub :
+          DifferentiableAt ℝ
+            (fun y => (fderiv ℝ (fun z => directionalCoord u 1 0 z) y)
+              (EuclideanSpace.single i (1 : ℝ))) x :=
+        ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x
+          (((hC2dir 1 0).fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)))
+      have hsub' :
+          DifferentiableAt ℝ
+            (fun y => (fderiv ℝ (fun z => directionalCoord u 0 1 z) y)
+              (EuclideanSpace.single i (1 : ℝ))) x :=
+        ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x
+          (((hC2dir 0 1).fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)))
+      rw [hfun.fderiv_eq, fderiv_fun_sub hsub hsub']
+      simp only [ContinuousLinearMap.sub_apply]
+      rw [fderiv_apply_fderiv (fun z => directionalCoord u 1 0 z) x
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) (hC2dir 1 0),
+          fderiv_apply_fderiv (fun z => directionalCoord u 0 1 z) x
+            (EuclideanSpace.single i (1 : ℝ)) (EuclideanSpace.single i (1 : ℝ)) (hC2dir 0 1)]
+    rw [hsum, Finset.sum_sub_distrib]
+
+/-- Spatial coordinate of `∂t u` is differentiable at a `C²` spacetime point.
+All three coordinates of the time path are used so `deriv_euclidean_coord` applies. -/
+public theorem differentiableAt_time_deriv_coord
+    (u : TimeDependentVelocity) (t : ℝ) (x : T3) (k : Fin 3)
+    (hC2 : ∀ i, ContDiffAt ℝ 2 (fun q : ℝ × T3 => u q.1 q.2 i) (t, x)) :
+    DifferentiableAt ℝ (fun y => time_deriv u t y k) x := by
+  let F : ℝ × T3 → ℝ := fun q => u q.1 q.2 k
+  have hF : ContDiffAt ℝ 2 F (t, x) := hC2 k
+  have hF1 : ContDiffAt ℝ 1 F (t, x) :=
+    hF.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+  have hfd : DifferentiableAt ℝ (fderiv ℝ F) (t, x) :=
+    (hF.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  have hinr : HasFDerivAt (fun y : T3 => (t, y))
+      (ContinuousLinearMap.inr ℝ ℝ T3) x :=
+    hasFDerivAt_prodMk_right t x
+  have hcompF : HasFDerivAt (fun y : T3 => fderiv ℝ F (t, y))
+      ((fderiv ℝ (fderiv ℝ F) (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ T3)) x :=
+    hfd.hasFDerivAt.comp (x := x) hinr
+  have happ : HasFDerivAt (fun y => (fderiv ℝ F (t, y)) (1, 0))
+      ((ContinuousLinearMap.apply ℝ ℝ ((1, 0) : ℝ × T3)).comp
+        ((fderiv ℝ (fderiv ℝ F) (t, x)).comp (ContinuousLinearMap.inr ℝ ℝ T3))) x :=
+    (ContinuousLinearMap.apply ℝ ℝ ((1, 0) : ℝ × T3)).hasFDerivAt.comp (x := x) hcompF
+  have hk (i : Fin 3) :
+      ∀ᶠ y in nhds x, DifferentiableAt ℝ (fun s => u s y i) t := by
+    have hFi : ContDiffAt ℝ 1 (fun q : ℝ × T3 => u q.1 q.2 i) (t, x) :=
+      (hC2 i).of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+    have hnearY : ∀ᶠ y in nhds x,
+        DifferentiableAt ℝ (fun q : ℝ × T3 => u q.1 q.2 i) (t, y) :=
+      (tendsto_const_nhds.prodMk_nhds tendsto_id).eventually
+        (by
+          filter_upwards [hFi.eventually (by simp)] with p hp
+          exact hp.differentiableAt_one)
+    filter_upwards [hnearY] with y hy
+    have hinl : HasFDerivAt (fun s : ℝ => (s, y))
+        (ContinuousLinearMap.inl ℝ ℝ T3) t :=
+      hasFDerivAt_prodMk_left t y
+    exact (hy.hasFDerivAt.comp (x := t) hinl).differentiableAt
+  have hnearVec : ∀ᶠ y in nhds x, DifferentiableAt ℝ (fun s => u s y) t := by
+    filter_upwards [hk 0, hk 1, hk 2] with y h0 h1 h2
+    exact (differentiableAt_piLp (p := 2) (𝕜 := ℝ)
+        (E := fun _ : Fin 3 => ℝ)).mpr (fun i => by
+      fin_cases i
+      · exact h0
+      · exact h1
+      · exact h2)
+  have hnearY : ∀ᶠ y in nhds x, DifferentiableAt ℝ F (t, y) :=
+    (tendsto_const_nhds.prodMk_nhds tendsto_id).eventually
+      (by
+        filter_upwards [hF1.eventually (by simp)] with p hp
+        exact hp.differentiableAt_one)
+  have heq : (fun y => time_deriv u t y k) =ᶠ[nhds x]
+      fun y => (fderiv ℝ F (t, y)) (1, 0) := by
+    filter_upwards [hnearVec, hnearY] with y hyVec hyF
+    change deriv (fun s => u s y) t k = (fderiv ℝ F (t, y)) (1, 0)
+    rw [deriv_euclidean_coord (fun s => u s y) t k hyVec]
+    exact deriv_prod_fst_slice F t y hyF
+  exact happ.differentiableAt.congr_of_eventuallyEq heq
+
+/-- Coordinate of `(u · ∇)v` is differentiable at `x` when `v` is `C²` and `u` is `C¹`. -/
+public theorem differentiableAt_convective_coord
+    (u v : VelocityField) (x : T3) (comp : Fin 3)
+    (hu : ∀ k, DifferentiableAt ℝ (fun y => u y k) x)
+    (hv : ∀ k, ContDiffAt ℝ 2 (fun y => v y k) x) :
+    DifferentiableAt ℝ (fun y => convective u v y comp) x := by
+  have hv1 : ∀ k, DifferentiableAt ℝ (fun y => v y k) x :=
+    fun k =>
+      ((hv k).of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)).differentiableAt_one
+  have hnear : ∀ k, ∀ᶠ y in nhds x, DifferentiableAt ℝ (fun z => v z k) y := by
+    intro k
+    have hk1 : ContDiffAt ℝ 1 (fun y => v y k) x :=
+      (hv k).of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+    filter_upwards [hk1.eventually (by simp)] with y hy
+    exact hy.differentiableAt_one
+  have hvnear : ∀ᶠ y in nhds x, DifferentiableAt ℝ v y := by
+    filter_upwards [hnear 0, hnear 1, hnear 2] with y h0 h1 h2
+    exact (differentiableAt_piLp (p := 2) (𝕜 := ℝ)
+        (E := fun _ : Fin 3 => ℝ)).mpr (fun i => by
+      fin_cases i
+      · exact h0
+      · exact h1
+      · exact h2)
+  have heq :
+      (fun y => convective u v y comp) =ᶠ[nhds x]
+        fun y => ∑ k : Fin 3, directionalCoord v comp k y * u y k := by
+    filter_upwards [hvnear, hnear comp] with y hyv hyc
+    exact convective_eq_sum_directional u v y comp hyv hyc
+  have h0 : DifferentiableAt ℝ
+      (fun y => directionalCoord v comp 0 y * u y 0) x :=
+    (differentiableAt_directionalCoord v x comp 0 (hv comp)).mul (hu 0)
+  have h1 : DifferentiableAt ℝ
+      (fun y => directionalCoord v comp 1 y * u y 1) x :=
+    (differentiableAt_directionalCoord v x comp 1 (hv comp)).mul (hu 1)
+  have h2 : DifferentiableAt ℝ
+      (fun y => directionalCoord v comp 2 y * u y 2) x :=
+    (differentiableAt_directionalCoord v x comp 2 (hv comp)).mul (hu 2)
+  have hsumFun :
+      (fun y => ∑ k : Fin 3, directionalCoord v comp k y * u y k) =
+        fun y =>
+          directionalCoord v comp 0 y * u y 0 +
+            directionalCoord v comp 1 y * u y 1 +
+              directionalCoord v comp 2 y * u y 2 := by
+    funext y
+    exact sum_univ_fin3 (fun k => directionalCoord v comp k y * u y k)
+  have hsum : DifferentiableAt ℝ
+      (fun y => ∑ k : Fin 3, directionalCoord v comp k y * u y k) x := by
+    rw [hsumFun]
+    exact (h0.add h1).add h2
+  exact hsum.congr_of_eventuallyEq heq
+
+/-- Coordinate of `∇p` is differentiable at a `C²` pressure point. -/
+public theorem differentiableAt_pressureGradient_coord
+    (p : PressureField) (x : T3) (i : Fin 3)
+    (hp : ContDiffAt ℝ 2 p x) :
+    DifferentiableAt ℝ (fun y => pressureGradient p y i) x := by
+  unfold pressureGradient
+  have hfd : DifferentiableAt ℝ (fderiv ℝ p) x :=
+    (hp.fderiv_right (m := 1) (by norm_num)).differentiableAt (by norm_num)
+  have hnear : ∀ᶠ y in nhds x, DifferentiableAt ℝ p y := by
+    have hp1 : ContDiffAt ℝ 1 p x :=
+      hp.of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 2)
+    filter_upwards [hp1.eventually (by simp)] with y hy
+    exact hy.differentiableAt_one
+  have heq : (fun y => gradient p y i) =ᶠ[nhds x]
+      fun y => (fderiv ℝ p y) (EuclideanSpace.single i (1 : ℝ)) := by
+    filter_upwards [hnear] with y hy
+    exact gradient_coord p y i hy
+  have happ : DifferentiableAt ℝ
+      (fun y => (fderiv ℝ p y) (EuclideanSpace.single i (1 : ℝ))) x :=
+    (ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single i (1 : ℝ))).differentiableAt.comp x hfd
+  exact happ.congr_of_eventuallyEq heq
+
+/-- Paper §2.1 regularity to curl NS at a spacetime point:
+C³ in space (`curl Δ = Δ curl`), C² in spacetime (`curl ∂t = ∂t curl`),
+C² of the pressure (`curl ∇p = 0`). Lean 4 `structure … where`. -/
+public structure VorticityTransportRegularity
+    (u : TimeDependentVelocity) (p : TimeDependentPressure)
+    (t : ℝ) (x : T3) : Prop where
+  spaceC3 : ∀ k, ContDiffAt ℝ 3 (fun y => u t y k) x
+  spacetimeC2 : ∀ k, ContDiffAt ℝ 2 (fun q : ℝ × T3 => u q.1 q.2 k) (t, x)
+  pressureC2 : ContDiffAt ℝ 2 (p t) x
+
+/-- Spatial `C²` of velocity coordinates, from `spaceC3`. -/
+public theorem VorticityTransportRegularity.spaceC2
+    {u : TimeDependentVelocity} {p : TimeDependentPressure}
+    {t : ℝ} {x : T3}
+    (hreg : VorticityTransportRegularity u p t x) :
+    ∀ k, ContDiffAt ℝ 2 (fun y => u t y k) x :=
+  fun k => (hreg.spaceC3 k).of_le (by norm_num : (2 : WithTop ℕ∞) ≤ 3)
+
+/-- Spatial `C¹` of velocity coordinates, from `spaceC3`. -/
+public theorem VorticityTransportRegularity.spaceC1
+    {u : TimeDependentVelocity} {p : TimeDependentPressure}
+    {t : ℝ} {x : T3}
+    (hreg : VorticityTransportRegularity u p t x) :
+    ∀ k, DifferentiableAt ℝ (fun y => u t y k) x :=
+  fun k =>
+    ((hreg.spaceC3 k).of_le (by norm_num : (1 : WithTop ℕ∞) ≤ 3)).differentiableAt_one
 
 public abbrev Velocity := VelocityField
 public abbrev Vorticity := VorticityField
@@ -1520,14 +2008,70 @@ postfix:90 "_div" => fun u x => div u x
 
 @[expose] public def vorticity (u : Velocity) : Vorticity := fun x => curl u x
 
-/-- Vorticity transport: take the curl of NS (paper §2.1). -/
+/-- Vorticity transport: take the curl of NS (paper §2.1).
+`∇×(∂t u + (u·∇)u + ∇p) = ∇×(ν Δu)` becomes
+`∂t ω + (u·∇)ω = (ω·∇)u + ν Δω`
+by `curl_time_deriv`, `curl_convective_div_free`, `curl_gradient`, and `curl_laplacian`. -/
 public theorem vorticity_transport
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
-    (h_NS : navier_stokes_eq u p ν) :
-    ∀ t ≥ (0 : ℝ), ∀ x : T3,
-      time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
-        convective (vorticity (u t)) (u t) x + ν • laplacian (vorticity (u t)) x := by
-  sorry
+    (h_NS : navier_stokes_eq u p ν)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hreg : VorticityTransportRegularity u p t x) :
+    time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
+      convective (vorticity (u t)) (u t) x + ν • laplacian (vorticity (u t)) x := by
+  have hfield :
+      (fun y => time_deriv u t y + convective (u t) (u t) y + pressureGradient (p t) y) =
+        fun y => ν • laplacian (u t) y := by
+    funext y
+    exact (h_NS t ht y).1
+  have hdiv : div (u t) x = 0 := (h_NS t ht x).2
+  have hu1 := hreg.spaceC1
+  have hu2 := hreg.spaceC2
+  have hdt : ∀ i, DifferentiableAt ℝ (fun y => time_deriv u t y i) x :=
+    fun i => differentiableAt_time_deriv_coord u t x i hreg.spacetimeC2
+  have hconv : ∀ i, DifferentiableAt ℝ (fun y => convective (u t) (u t) y i) x :=
+    fun i => differentiableAt_convective_coord (u t) (u t) x i hu1 hu2
+  have hgrad : ∀ i, DifferentiableAt ℝ (fun y => pressureGradient (p t) y i) x :=
+    fun i => differentiableAt_pressureGradient_coord (p t) x i hreg.pressureC2
+  have hcurlL :=
+    curl_add3 (fun y => time_deriv u t y) (convective (u t) (u t))
+      (pressureGradient (p t)) x hdt hconv hgrad
+  have hcurlR :
+      curl (fun y => ν • laplacian (u t) y) x =
+        ν • laplacian (curl (u t)) x := by
+    rw [curl_smul, curl_laplacian (u t) x hreg.spaceC3]
+  have hident :
+      time_deriv (fun s => curl (u s)) t x +
+          (convective (u t) (curl (u t)) x - convective (curl (u t)) (u t) x) =
+        ν • laplacian (curl (u t)) x := by
+    have hcurl_eq :
+        curl (fun y =>
+            time_deriv u t y + convective (u t) (u t) y + pressureGradient (p t) y) x =
+          curl (fun y => ν • laplacian (u t) y) x := by
+      rw [hfield]
+    rw [hcurlL, curl_time_deriv u t x hreg.spacetimeC2,
+      curl_convective_div_free (u t) x hu2 hdiv,
+      curl_gradient (p t) x hreg.pressureC2, add_zero] at hcurl_eq
+    rw [hcurlR] at hcurl_eq
+    exact hcurl_eq
+  -- Rearrange: `a + b = (a + (b − c)) + c`.
+  calc
+    time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x
+        = time_deriv (fun s => curl (u s)) t x + convective (u t) (curl (u t)) x := rfl
+    _ = time_deriv (fun s => curl (u s)) t x +
+          ((convective (u t) (curl (u t)) x - convective (curl (u t)) (u t) x) +
+            convective (curl (u t)) (u t) x) := by
+          rw [sub_add_cancel]
+    _ = (time_deriv (fun s => curl (u s)) t x +
+          (convective (u t) (curl (u t)) x - convective (curl (u t)) (u t) x)) +
+            convective (curl (u t)) (u t) x := by
+          rw [add_assoc]
+    _ = ν • laplacian (curl (u t)) x + convective (curl (u t)) (u t) x := by
+          rw [hident]
+    _ = convective (vorticity (u t)) (u t) x +
+          ν • laplacian (vorticity (u t)) x := by
+          rw [add_comm]
+          rfl
 
 /-- Same momentum + divergence-free system, named for the assembly layer. -/
 @[expose] public def NS_PDE (u : ℝ → VelocityField) (p : ℝ → PressureField) (ν : ℝ) : Prop :=
@@ -1535,11 +2079,12 @@ public theorem vorticity_transport
 
 public theorem vorticity_transport_equation
     (u : ℝ → VelocityField) (p : ℝ → PressureField) (ν : ℝ)
-    (h_ns : NS_PDE u p ν) :
-    ∀ t ≥ (0 : ℝ), ∀ x : T3,
-      time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
-        convective (vorticity (u t)) (u t) x + ν • laplacian (vorticity (u t)) x :=
-  vorticity_transport u p ν h_ns
+    (h_ns : NS_PDE u p ν)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hreg : VorticityTransportRegularity u p t x) :
+    time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
+      convective (vorticity (u t)) (u t) x + ν • laplacian (vorticity (u t)) x :=
+  vorticity_transport u p ν h_ns t ht x hreg
 
 /-- Material derivative `∂t + u · ∇` on scalars. -/
 @[expose] public def MaterialDerivative (u : ℝ → VelocityField) (f : ℝ → (T3 → ℝ))
@@ -1670,6 +2215,15 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms curl_time_deriv
 #print axioms fderiv_field_coord
 #print axioms laplacian_coord
+#print axioms fderiv_apply_fderiv
+#print axioms contDiffAt_directionalCoord
+#print axioms directionalCoord_laplacian
+#print axioms curl_laplacian
+#print axioms differentiableAt_time_deriv_coord
+#print axioms differentiableAt_convective_coord
+#print axioms differentiableAt_pressureGradient_coord
+#print axioms vorticity_transport
+#print axioms vorticity_transport_equation
 #print axioms time_space_mixed_partials
 #print axioms differentiableAt_coord
 #print axioms fderiv_coord
