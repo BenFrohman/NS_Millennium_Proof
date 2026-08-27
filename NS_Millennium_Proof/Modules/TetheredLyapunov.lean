@@ -1541,6 +1541,32 @@ public theorem lyapunov_ident_of_transport_cz
       kappa * ∫ x, ‖ωε t x‖ ^ 6 ∂volume :=
   hIdent
 
+/-- Enstrophy half of paper §3: after transport IBP at a spatial max,
+CZ stretching, and non-positive viscosity,
+`d/dt |ω(x)|² ≤ 2 κ M |ω(x)|²` with `κ = C_CZ(3)`. -/
+public theorem enstrophy_di_of_spatial_max
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hNS : NS_PDE u p ν)
+    (hreg : VorticityTransportRegularity u p t x)
+    (hu : DifferentiableAt ℝ (u t) x)
+    (hCZ : ‖fderiv ℝ (u t) x‖ ≤ kappa *
+      vorticity_sup_norm (vorticity (u t)))
+    (htransp : inner ℝ (vorticity (u t) x)
+      (convective (u t) (vorticity (u t)) x) = 0)
+    (hvisc : inner ℝ (vorticity (u t) x)
+      (laplacian (vorticity (u t)) x) ≤ 0)
+    (hν : 0 ≤ ν)
+    (hdt : HasDerivAt (fun s => vorticity (u s) x)
+      (time_deriv (fun s => vorticity (u s)) t x) t) :
+    deriv (fun s => ‖vorticity (u s) x‖ ^ 2) t ≤
+      2 * kappa * vorticity_sup_norm (vorticity (u t)) *
+        ‖vorticity (u t) x‖ ^ 2 := by
+  have hκ : kappa = CalderonZygmundConstant3D := rfl
+  simpa [hκ] using
+    stretching_enstrophy_di_at_spatial_max u p ν t ht x hNS hreg hu
+      kappa hCZ htransp hvisc hν hdt
+
 public theorem global_regularity
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
@@ -1819,6 +1845,7 @@ public theorem global_regularity_of_constructions
 #print axioms global_regularity_of_kato_estimates
 #print axioms riccati_ceiling_of_vorticity_di
 #print axioms global_regularity_of_constructions
+#print axioms enstrophy_di_of_spatial_max
 
 end   -- close noncomputable section
 end TetheredLyapunov
