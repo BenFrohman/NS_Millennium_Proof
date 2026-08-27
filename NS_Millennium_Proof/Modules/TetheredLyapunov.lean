@@ -10,7 +10,9 @@ public import Mathlib.Analysis.SpecialFunctions.Exp
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.Analysis.Calculus.ContDiff.Defs
 public import Mathlib.Analysis.Calculus.Deriv.Basic
+public import Mathlib.Analysis.ODE.PicardLindelof
 public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.FunProp
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.NS_Equations
@@ -708,6 +710,29 @@ the function ComparisonODE is a choice of that solution, not a sorry def. -/
 /-- Scalar Riccati field of the independent majorant. -/
 public def majorantField (C κ'' : ℝ) (y : ℝ) : ℝ :=
   C * y ^ 2 - κ'' * y ^ 3
+
+public theorem majorantField_contDiff (C κ'' : ℝ) :
+    ContDiff ℝ ⊤ (majorantField C κ'') := by
+  unfold majorantField
+  fun_prop
+
+/-- Local Picard–Lindelöf: a C¹ solution of the majorant ODE exists on a time
+interval about `0`. Polynomial vector field, no `sorry`. -/
+public theorem comparison_ode_local_exists (C κ'' y0 : ℝ) :
+    ∃ ε > (0 : ℝ), ∃ y : ℝ → ℝ, y 0 = y0 ∧
+      ∀ t ∈ Set.Icc (-ε) ε,
+        HasDerivWithinAt y (majorantField C κ'' (y t)) (Set.Icc (-ε) ε) t := by
+  have hf : ContDiffAt ℝ 1 (majorantField C κ'') y0 :=
+    (majorantField_contDiff C κ'').contDiffAt.of_le (by simp)
+  obtain ⟨ε, hε, a, r, L, K, hr, hpl⟩ := IsPicardLindelof.of_contDiffAt_one hf
+  obtain ⟨y, hy0, hy'⟩ :=
+    (hpl 0).exists_eq_forall_mem_Icc_hasDerivWithinAt (Metric.mem_closedBall_self hr.le)
+  refine ⟨ε, hε, y, ?_, ?_⟩
+  · simpa using hy0
+  · intro t ht
+    have ht' : t ∈ Set.Icc (0 - ε) (0 + ε) := by
+      simpa using ht
+    simpa using hy' t ht'
 
 /-- Global C¹ solution of `y' = C y² − κ'' y³`, `y(0) = y0`. -/
 public def IsComparisonODESolution (C κ'' y0 : ℝ) (y : ℝ → ℝ) : Prop :=
