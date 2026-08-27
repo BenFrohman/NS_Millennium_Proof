@@ -2492,6 +2492,155 @@ public theorem mem_existenceTimes_of_kato_witness
     w.T ∈ existenceTimes u₀ ν :=
   ⟨w.Tpos, w.u, w.p, w.init, w.pde, w.smooth⟩
 
+/-- Restrict a Kato witness to a shorter positive time. Paper continuation
+uses the same path; only the smoothness window shrinks. -/
+public noncomputable def kato_witness_restrict
+    (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν)
+    {t : ℝ} (ht : t ∈ Set.Icc (0 : ℝ) w.T) (htpos : 0 < t) :
+    KatoLocalWitness u₀ ν where
+  T := t
+  Tpos := htpos
+  u := w.u
+  p := w.p
+  smooth := fun s hs => w.smooth s ⟨hs.1, hs.2.trans ht.2⟩
+  init := w.init
+  pde := w.pde
+
+/-- Time shift: `∂t u(· + t₀) = (∂t u)(· + t₀)`. Chain rule, not a
+`True` gate. -/
+public theorem time_deriv_shift
+    (u : TimeDependentVelocity) (t0 s : ℝ) (x : T3)
+    (h : DifferentiableAt ℝ (fun σ => u σ x) (s + t0)) :
+    time_deriv (fun σ => u (σ + t0)) s x = time_deriv u (s + t0) x := by
+  unfold time_deriv
+  have hcomm : (fun σ => u (σ + t0) x) = fun σ => u (t0 + σ) x := by
+    funext σ
+    rw [add_comm]
+  have hf : HasDerivAt (fun σ => u σ x)
+      (deriv (fun σ => u σ x) (t0 + s)) (t0 + s) := by
+    have hadd : t0 + s = s + t0 := add_comm t0 s
+    rw [hadd]
+    exact h.hasDerivAt
+  rw [hcomm]
+  have hR : deriv (fun σ => u σ x) (t0 + s) =
+      deriv (fun σ => u σ x) (s + t0) := by
+    rw [add_comm]
+  exact hR ▸ (hf.comp_const_add t0).deriv
+
+/-- Shifted NS solution: if `u` solves NS for `t ≥ 0`, then
+`s ↦ u(s + t₀)` solves NS for `s ≥ 0`. Kato restart from a time slice. -/
+public theorem ns_pde_shift
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν t0 : ℝ)
+    (ht0 : 0 ≤ t0)
+    (hNS : NS_PDE u p ν)
+    (hdt : ∀ s ≥ (0 : ℝ), ∀ x,
+      DifferentiableAt ℝ (fun σ => u σ x) (s + t0)) :
+    NS_PDE (fun s => u (s + t0)) (fun s => p (s + t0)) ν := by
+  intro s hs x
+  have hs0 : 0 ≤ s + t0 := add_nonneg hs ht0
+  have ⟨hmom, hdiv⟩ := hNS (s + t0) hs0 x
+  constructor
+  · rw [time_deriv_shift u t0 s x (hdt s hs x)]
+    exact hmom
+  · exact hdiv
+
+/-- Spatial smoothness on `[0, T + T']` after identifying the restart
+path with the original solution past `T`. Paper continuation; Cauchy
+supplies the identification. -/
+public theorem smoothness_on_restart_interval
+    (u₀ : VelocityField) (ν : ℝ)
+    (w : KatoLocalWitness u₀ ν)
+    (w' : KatoLocalWitness (w.u w.T) ν)
+    (huniq : ∀ s ∈ Set.Icc (0 : ℝ) w'.T, w.u (w.T + s) = w'.u s) :
+    ∀ t ∈ Set.Icc (0 : ℝ) (w.T + w'.T), ContDiff ℝ ⊤ (w.u t) := by
+  intro t ht
+  by_cases hle : t ≤ w.T
+  · exact w.smooth t ⟨ht.1, hle⟩
+  · have hs0 : 0 ≤ t - w.T := sub_nonneg.mpr (le_of_not_ge hle)
+    have hsT : t - w.T ≤ w'.T := by
+      linarith [ht.2]
+    have heq := huniq (t - w.T) ⟨hs0, hsT⟩
+    have ht' : w.T + (t - w.T) = t := by ring
+    rw [ht'] at heq
+    rw [heq]
+    exact w'.smooth (t - w.T) ⟨hs0, hsT⟩
+
+/-- Concatenated existence time: original Kato window plus restart
+window, after Cauchy identification of the restart path. -/
+public theorem mem_existenceTimes_add_of_kato_restart
+    (u₀ : VelocityField) (ν : ℝ)
+    (w : KatoLocalWitness u₀ ν)
+    (w' : KatoLocalWitness (w.u w.T) ν)
+    (huniq : ∀ s ∈ Set.Icc (0 : ℝ) w'.T, w.u (w.T + s) = w'.u s) :
+    w.T + w'.T ∈ existenceTimes u₀ ν :=
+  ⟨add_pos w.Tpos w'.Tpos, w.u, w.p, w.init, w.pde,
+    smoothness_on_restart_interval u₀ ν w w' huniq⟩
+
+/-- Quantitative Kato restart: a uniform lower bound `τ` on the Kato
+time of every smooth finite-energy slice, plus Cauchy identification
+of each restart path with the time-shifted solution, produces existence
+times `t + τ` below `T*`. Paper continuation construction. -/
+public theorem restart_of_kato_quantitative
+    (u₀ : VelocityField) (ν τ : ℝ)
+    (_hν : 0 < ν) (_hτ : 0 < τ)
+    (hKato : ∀ u₁, ContDiff ℝ ⊤ u₁ → (∀ x, div u₁ x = 0) →
+      Integrable (fun x : T3 => ‖u₁ x‖ ^ 2) →
+      KatoLocalWitness u₁ ν)
+    (hTlb : ∀ u₁ (hsm : ContDiff ℝ ⊤ u₁)
+      (hdiv : ∀ x, div u₁ x = 0)
+      (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2)),
+      τ ≤ (hKato u₁ hsm hdiv hE).T)
+    (hInt : ∀ (T : ℝ) (v : TimeDependentVelocity)
+      (_q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν → ∀ t ∈ Set.Icc (0 : ℝ) T,
+        Integrable (fun x : T3 => ‖v t x‖ ^ 2))
+    (huniq_shift : ∀ (T : ℝ) (v : TimeDependentVelocity)
+      (_q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T,
+        ∀ (w' : KatoLocalWitness (v t) ν),
+          ∀ s ∈ Set.Icc (0 : ℝ) w'.T, v (t + s) = w'.u s) :
+    ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
+      ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T' := by
+  intro t ht0 htlt
+  obtain ⟨T', hmem, hlt⟩ :=
+    exists_mem_existenceTimes_gt_of_lt_Tstar u₀ ν htlt ht0
+  obtain ⟨v, q, hv0, hpde, hsm⟩ := hmem.2
+  have htI : t ∈ Set.Icc (0 : ℝ) T' := ⟨ht0, hlt.le⟩
+  have hvsm : ContDiff ℝ ⊤ (v t) := hsm t htI
+  have hvdiv : ∀ x, div (v t) x = 0 := fun x => (hpde t ht0 x).2
+  have hvE : Integrable (fun x : T3 => ‖v t x‖ ^ 2) :=
+    hInt T' v q hmem t htI
+  let w' := hKato (v t) hvsm hvdiv hvE
+  have hτle : τ ≤ w'.T := hTlb (v t) hvsm hvdiv hvE
+  by_cases htpos : 0 < t
+  · have hsm' : ∀ s ∈ Set.Icc (0 : ℝ) (t + w'.T),
+        ContDiff ℝ ⊤ (v s) := by
+      intro s hs
+      by_cases hle : s ≤ t
+      · exact hsm s ⟨hs.1, hle.trans htI.2⟩
+      · have hs0 : 0 ≤ s - t := sub_nonneg.mpr (le_of_not_ge hle)
+        have hsT : s - t ≤ w'.T := by linarith [hs.2]
+        have heq := huniq_shift T' v q hmem t htI w' (s - t) ⟨hs0, hsT⟩
+        have hst : t + (s - t) = s := by ring
+        rw [hst] at heq
+        rw [heq]
+        exact w'.smooth (s - t) ⟨hs0, hsT⟩
+    have hmemAdd : t + w'.T ∈ existenceTimes u₀ ν :=
+      ⟨add_pos htpos w'.Tpos, v, q, hv0, hpde, hsm'⟩
+    refine ⟨t + w'.T, hmemAdd, ?_⟩
+    linarith [hτle]
+  · have ht00 : t = 0 := le_antisymm (not_lt.mp htpos) ht0
+    have hEq : v t = u₀ := by
+      rw [ht00, hv0]
+    have hmem' : w'.T ∈ existenceTimes u₀ ν := by
+      simpa [hEq] using mem_existenceTimes_of_kato_witness (v t) ν w'
+    refine ⟨w'.T, hmem', ?_⟩
+    calc
+      t + τ = 0 + τ := by rw [ht00]
+      _ = τ := zero_add τ
+      _ ≤ w'.T := hτle
+
 /-- Constructor for `existenceTimes`, exposed across modules (the set
 predicate is otherwise opaque). -/
 public theorem mem_existenceTimes
@@ -3012,6 +3161,108 @@ public theorem ns_cauchy_eq_of_energy_gronwall
   fun t ht =>
     ns_cauchy_of_energy_gronwall u v K hu0 hcontE hdiffE hle hInt hcont t ht
 
+/-- Energy Grönwall on a compact existence interval: if `E' ≤ K E` and
+`E 0 = 0` on `[0, T']`, then `E` vanishes on that interval. Cauchy
+construction, restricted to the paper window. -/
+public theorem energy_zero_of_gronwall_Icc
+    (E : ℝ → ℝ) (K T' t : ℝ)
+    (ht : t ∈ Set.Icc (0 : ℝ) T')
+    (hcont : ∀ s ∈ Set.Icc (0 : ℝ) T', ContinuousAt E s)
+    (hdiff : ∀ s ∈ Set.Icc (0 : ℝ) T', DifferentiableAt ℝ E s)
+    (hle : ∀ s ∈ Set.Icc (0 : ℝ) T', deriv E s ≤ K * E s)
+    (h0 : E 0 = 0)
+    (hnn : ∀ s ∈ Set.Icc (0 : ℝ) T', 0 ≤ E s) :
+    E t = 0 := by
+  have hf : ContinuousOn E (Set.Icc (0 : ℝ) t) := fun x hx =>
+    (hcont x ⟨hx.1, hx.2.trans ht.2⟩).continuousWithinAt
+  have hf' : ∀ x ∈ Set.Ico (0 : ℝ) t,
+      HasDerivWithinAt E (deriv E x) (Set.Ici x) x :=
+    fun x hx => (hdiff x ⟨hx.1, hx.2.le.trans ht.2⟩).hasDerivAt.hasDerivWithinAt
+  have hbound : ∀ x ∈ Set.Ico (0 : ℝ) t, deriv E x ≤ K * E x + 0 :=
+    fun x hx => by simpa using hle x ⟨hx.1, hx.2.le.trans ht.2⟩
+  have hgr :=
+    le_gronwallBound_of_liminf_deriv_right_le (f := E) (f' := deriv E)
+      (δ := (0 : ℝ)) (K := K) (ε := (0 : ℝ)) (a := (0 : ℝ)) (b := t)
+      hf (fun x hx r hr => (hf' x hx).liminf_right_slope_le hr)
+      (by simp [h0]) hbound t ⟨ht.1, le_rfl⟩
+  have hbar : gronwallBound (0 : ℝ) K 0 (t - 0) = 0 := by
+    rw [sub_zero]
+    exact gronwallBound_ε0_δ0 K t
+  have : E t ≤ 0 := by
+    rw [hbar] at hgr
+    exact hgr
+  exact le_antisymm this (hnn t ht)
+
+/-- Two NS paths with the same initial velocity coincide on a compact
+existence interval once their L² difference obeys Grönwall there.
+Paper Cauchy uniqueness, local in time. -/
+public theorem ns_cauchy_on_Icc_of_energy_gronwall
+    (u v : TimeDependentVelocity) (K T' : ℝ)
+    (hu0 : u 0 = v 0)
+    (hcontE : ∀ t ∈ Set.Icc (0 : ℝ) T', ContinuousAt
+      (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t)
+    (hdiffE : ∀ t ∈ Set.Icc (0 : ℝ) T', DifferentiableAt ℝ
+      (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t)
+    (hle : ∀ t ∈ Set.Icc (0 : ℝ) T',
+      deriv (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t ≤
+        K * ∫ x, ‖u t x - v t x‖ ^ 2 ∂volume)
+    (hInt : ∀ t ∈ Set.Icc (0 : ℝ) T',
+      Integrable (fun x : T3 => ‖u t x - v t x‖ ^ 2))
+    (hcont : ∀ t ∈ Set.Icc (0 : ℝ) T', Continuous (u t) ∧ Continuous (v t)) :
+    ∀ t ∈ Set.Icc (0 : ℝ) T', u t = v t := by
+  intro t ht
+  set E : ℝ → ℝ := fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume
+  have h0 : E 0 = 0 := by
+    have hfun : (fun x : T3 => ‖u 0 x - v 0 x‖ ^ 2) = fun _ => 0 := by
+      funext x
+      simp [hu0]
+    simp [E, hfun]
+  have hnn : ∀ s ∈ Set.Icc (0 : ℝ) T', 0 ≤ E s := fun s _ =>
+    integral_nonneg fun _ => pow_nonneg (norm_nonneg _) _
+  have hE0 : E t = 0 :=
+    energy_zero_of_gronwall_Icc E K T' t ht hcontE hdiffE hle h0 hnn
+  have hw : u t - v t = 0 :=
+    eq_of_l2_energy_zero (u t - v t) (by
+      simpa [Pi.sub_apply] using hInt t ht) (by
+      simpa [E, Pi.sub_apply] using hE0)
+      ((hcont t ht).1.sub (hcont t ht).2)
+  funext x
+  have := congrFun hw x
+  simpa [Pi.sub_apply, sub_eq_zero] using this
+
+/-- Existence-time witnesses with the same initial velocity coincide on
+the interval once the L² difference obeys Grönwall. This is the Cauchy
+construction used by `huniq`. -/
+public theorem uniqueness_of_existence_times_of_energy_gronwall
+    (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν) (K : ℝ)
+    (hgron : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContinuousAt
+        (fun s => ∫ x, ‖w.u s x - v s x‖ ^ 2 ∂volume) t) ∧
+      (∀ t ∈ Set.Icc (0 : ℝ) T', DifferentiableAt ℝ
+        (fun s => ∫ x, ‖w.u s x - v s x‖ ^ 2 ∂volume) t) ∧
+      (∀ t ∈ Set.Icc (0 : ℝ) T',
+        deriv (fun s => ∫ x, ‖w.u s x - v s x‖ ^ 2 ∂volume) t ≤
+          K * ∫ x, ‖w.u t x - v t x‖ ^ 2 ∂volume) ∧
+      (∀ t ∈ Set.Icc (0 : ℝ) T',
+        Integrable (fun x : T3 => ‖w.u t x - v t x‖ ^ 2)) ∧
+      (∀ t ∈ Set.Icc (0 : ℝ) T', Continuous (w.u t) ∧ Continuous (v t))) :
+    ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t := by
+  intro T' v q hmem hv0 hpde hsm
+  obtain ⟨hcontE, hdiffE, hle, hInt, hcont⟩ := hgron T' v q hmem hv0 hpde hsm
+  have hu0 : w.u 0 = v 0 := by
+    rw [w.init, hv0]
+  exact ns_cauchy_on_Icc_of_energy_gronwall w.u v K T' hu0
+    hcontE hdiffE hle hInt hcont
+
 /-- Compact-interval smoothness below `T*` for a named NS solution, once any
 existence-time witness with the same initial velocity equals that solution
 on the interval. Cauchy uniqueness on `t ≥ 0` supplies the identification. -/
@@ -3082,6 +3333,14 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms eq_of_l2_energy_zero
 #print axioms ns_cauchy_of_energy_gronwall
 #print axioms ns_cauchy_eq_of_energy_gronwall
+#print axioms energy_zero_of_gronwall_Icc
+#print axioms ns_cauchy_on_Icc_of_energy_gronwall
+#print axioms uniqueness_of_existence_times_of_energy_gronwall
+#print axioms time_deriv_shift
+#print axioms ns_pde_shift
+#print axioms smoothness_on_restart_interval
+#print axioms mem_existenceTimes_add_of_kato_restart
+#print axioms restart_of_kato_quantitative
 #print axioms smoothness_below_Tstar_of_uniqueness
 #print axioms curl_zero
 #print axioms mem_existenceTimes_zero
