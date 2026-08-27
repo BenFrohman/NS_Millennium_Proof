@@ -14,7 +14,10 @@ public import Mathlib.Analysis.Calculus.Deriv.Basic
 public import Mathlib.Analysis.Calculus.Deriv.Inv
 public import Mathlib.Analysis.Calculus.Deriv.Inverse
 public import Mathlib.Analysis.ODE.PicardLindelof
+public import Mathlib.Analysis.ODE.Gronwall
+public import Mathlib.Analysis.Calculus.MeanValue
 public import Mathlib.Topology.Order.IntermediateValue
+public import Mathlib.Topology.MetricSpace.Lipschitz
 public import Mathlib.Tactic.Linarith
 public import Mathlib.Tactic.FunProp
 public import NS_Millennium_Proof.Modules.SymplecticTether
@@ -467,8 +470,8 @@ See also: "How to Audit Non-Circularity".
 namespace TetheredLyapunov
 
 open FrohmanianTether ArnoldGeometric NavierStokes3D MeasureTheory Classical
-open Filter Topology
-open scoped InnerProductSpace
+open Filter Topology Metric Set
+open scoped InnerProductSpace NNReal
 
 noncomputable section
 -- Required because the majorant ODE comparison and integral estimates in Lemma 3.1
@@ -763,15 +766,24 @@ public theorem majorantField_eq (C κ'' : ℝ) (hκ : κ'' ≠ 0) :
   ring
 
 /-- Time-of-flight antiderivative of `1/f` for `f(y) = y²(C − κ'' y)`.
-`F'(y) = 1/f(y)` off `{0, C/κ''}`. Interior existence inverts `F` on the
-component of `y0` (next named remainder). -/
+Interior existence inverts this on the component of `y0`. -/
 public noncomputable def majorantSeparable (C κ'' y : ℝ) : ℝ :=
   (κ'' / C ^ 2) * Real.log (y / (C - κ'' * y)) - (C * y)⁻¹
 
+/-- Compact cutoff of the cubic field. On `[0, Y]` this agrees with `majorantField`. -/
+public def majorantFieldClip (C κ'' Y y : ℝ) : ℝ :=
+  majorantField C κ'' (max (-1 : ℝ) (min y (Y + 1)))
+
+public theorem majorantFieldClip_eq_of_mem
+    (C κ'' Y y : ℝ) (hy : y ∈ Icc (0 : ℝ) Y) :
+    majorantFieldClip C κ'' Y y = majorantField C κ'' y := by
+  have hy01 : -1 ≤ y := (neg_one_lt_zero.le).trans hy.1
+  have hyY1 : y ≤ Y + 1 := hy.2.trans (le_add_of_nonneg_right zero_le_one)
+  simp [majorantFieldClip, min_eq_left hyY1, max_eq_right hy01]
+
 /-- Picard / continuation: a nonnegative initial value admits a C¹ solution
-for all `t ≥ 0`. Polynomial vector field; trapping in `[0, max(y0, C/κ'')]`.
-Equilibria `0` and `C/κ''` are constant solutions. Interior data inverts the
-time-of-flight `majorantSeparable` on the component of `y0`. -/
+for all `t ≥ 0`. Equilibria `0` and `C/κ''` are constant solutions. Interior
+data: invert `majorantSeparable` / continue clipped Picard (named remainder). -/
 public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (hy0 : 0 ≤ y0) :
     ∃ y, IsComparisonODESolution C κ'' y0 y := by
@@ -789,8 +801,8 @@ public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < �
         have hfield : majorantField C κ'' (C / κ'') = 0 :=
           majorantField_eq C κ'' (ne_of_gt hκ)
         simpa [hfield] using hasDerivAt_const t (C / κ'')
-    · -- Interior: invert `majorantSeparable` on the component of `y0`
-      -- (strictly monotone C¹ bijection; `F' = 1/f`). Named remainder.
+    · -- Interior: clipped Picard on every slab `Icc (-1) (T+1)`, unique by
+      -- Grönwall, then restrict to `t ≥ 0`. Remaining glue/trapping.
       sorry
 
 public theorem ComparisonODE_spec (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
