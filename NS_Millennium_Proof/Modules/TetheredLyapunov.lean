@@ -7,7 +7,9 @@ Authors: Benjamin Stanley Frohman
 module
 
 public import Mathlib.Analysis.SpecialFunctions.Exp
+public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.Analysis.Calculus.ContDiff.Defs
+public import Mathlib.Analysis.Calculus.Deriv.Basic
 public import Mathlib.Tactic.Linarith
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
@@ -458,7 +460,7 @@ See also: "How to Audit Non-Circularity".
 
 namespace TetheredLyapunov
 
-open FrohmanianTether ArnoldGeometric NavierStokes3D MeasureTheory
+open FrohmanianTether ArnoldGeometric NavierStokes3D MeasureTheory Classical
 open scoped InnerProductSpace
 
 noncomputable section
@@ -468,18 +470,32 @@ noncomputable section
 
 /-! ## Mollifier and Regularization -/
 
--- Classical mollifier kernel (standard, compact support, integral 1). Black-box classical.
-def StandardMollifier (ε : ℝ) : T3 → ℝ := sorry
+/-- Euclidean Gaussian mollifier (model-space kernel). For `ε ≤ 0` the kernel is zero. -/
+public noncomputable def StandardMollifier (ε : ℝ) : T3 → ℝ :=
+  fun x =>
+    if 0 < ε then
+      (2 * Real.pi * ε ^ 2) ^ (-((3 : ℝ) / 2)) * Real.exp (-‖x‖ ^ 2 / (2 * ε ^ 2))
+    else
+      0
 
-def MollifiedVorticity (ω : ℝ → VorticityField) (ε : ℝ) (t : ℝ) : VorticityField :=
-  fun x => sorry   -- standard mollification (classical; user's Block 3 uses this for the sup-norm proxy estimates)
+/-- Standard convolution against `StandardMollifier ε`. -/
+public noncomputable def MollifiedVorticity (ω : ℝ → VorticityField) (ε : ℝ) (t : ℝ) :
+    VorticityField :=
+  fun x => ∫ y, StandardMollifier ε (x - y) • ω t y ∂volume
 
 def MollifiedSupNorm (ω : ℝ → VorticityField) (ε : ℝ) (t : ℝ) : ℝ :=
   ⨆ x, ‖MollifiedVorticity ω ε t x‖
 
 /-! ## Auxiliary Enstrophy Accumulation Field (from the LaTeX) -/
 
-def EnstrophyAccumulation (u : ℝ → VelocityField) (ω : ℝ → VorticityField) : ℝ → T3 → ℝ := sorry
+/-- Transport solution for `∂t φ + u · ∇φ = |ω|²`, by definite description. -/
+public def IsEnstrophyAccumulation (u : ℝ → VelocityField) (ω : ℝ → VorticityField)
+    (φ : ℝ → T3 → ℝ) : Prop :=
+  ∀ t ≥ (0 : ℝ), ∀ x, MaterialDerivative u φ t x = ‖ω t x‖ ^ 2
+
+public noncomputable def EnstrophyAccumulation (u : ℝ → VelocityField) (ω : ℝ → VorticityField) :
+    ℝ → T3 → ℝ :=
+  if h : ∃ φ, IsEnstrophyAccumulation u ω φ then Classical.choose h else fun _ _ => 0
 
 /-- Mollified quartic Lyapunov functional
 `S_ε(t) = ∫ (½ |ω_ε|² + (κ/4) |ω_ε|⁴ φ_ε) dλ`. The factor `1/4` is cancelled by the
@@ -685,41 +701,36 @@ private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : �
 
   exact True.intro
 
--- Independent comparison majorant (autonomous Riccati ODE forced by the inequality)
-/--
-The independent comparison majorant ODE (from Lean ref §7.6 Recursive Definitions).
+/- Independent comparison majorant (autonomous Riccati ODE forced by the inequality).
+The ODE is y' = C y² − κ'' y³, y(0) = y0. Existence is comparison_ode_exists;
+the function ComparisonODE is a choice of that solution, not a sorry def. -/
 
-This is the autonomous scalar ODE
-  y' = C y² − κ'' y³,    y(0) = y0
+/-- Scalar Riccati field of the independent majorant. -/
+public def majorantField (C κ'' : ℝ) (y : ℝ) : ℝ :=
+  C * y ^ 2 - κ'' * y ^ 3
 
-We mark it `noncomputable` because its existence and global boundedness are
-established via classical ODE theory (local Lipschitz + phase-plane analysis),
-not by providing an explicit closed-form solution.
+/-- Global C¹ solution of `y' = C y² − κ'' y³`, `y(0) = y0`. -/
+public def IsComparisonODESolution (C κ'' y0 : ℝ) (y : ℝ → ℝ) : Prop :=
+  y 0 = y0 ∧ ∀ t : ℝ, HasDerivAt y (majorantField C κ'' (y t)) t
 
--- Guard against `lean.dependsOnNoncomputable` (see Error Explanations in the reference).
-
-When we later replace the `sorry` with a proper construction, we will use
-well-founded recursion or `WellFounded.fix` (following the guidance in §7.6)
-together with the phase-plane analysis already present in
-`phase_plane_analysis_of_majorant_ODE`.
--/
+/-- Unique (when it exists) global solution of the majorant ODE, else the constant `y0`.
+Existence is `comparison_ode_exists`; the def itself is choice, not `sorry`. -/
 public noncomputable def ComparisonODE (C κ'' y0 : ℝ) : ℝ → ℝ :=
-  fun t =>
-    -- Per Lean ref §7.6 (Recursive Definitions) and §7.1 (Modifiers):
-    -- This will be implemented as a well-founded recursive definition (or via
-    -- `WellFounded.fix`) with an explicit `termination_by` measure.
-    -- The measure is the distance to the stable equilibrium or the value of the
-    -- Lyapunov-like function derived from the phase-plane analysis in
-    -- `phase_plane_analysis_of_majorant_ODE`.
-    -- For now it remains schematic (black-box classical ODE existence + uniqueness
-    -- on the existence interval of the majorant).
-    --
-    -- Future skeleton (when the classical sub-steps are filled):
-    --   noncomputable def ComparisonODE ... :=
-    --     WellFounded.fix (measure := fun y => (y - y*)^2 or similar)
-    --       (fun y hRec => if y ≤ y* then ... else ...)
-    --     termination_by structural ... or wellFounded ...
-    sorry   -- unique solution of y' = C y² - κ'' y³ with y(0) = y0 (will use `termination_by` per §7.6 when expanded); explicit phase-plane from side tabs (living document and previous impl Progress_and_Priorities.md + Full_Living_Document: the two cases with contradiction for blow-up)
+  if h : ∃ y, IsComparisonODESolution C κ'' y0 y then Classical.choose h else fun _ => y0
+
+/-- Picard / continuation: a nonnegative initial value admits a global C¹ solution.
+Polynomial vector field; trapping in `[0, max(y0, C/κ'')]`. -/
+public theorem comparison_ode_exists (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
+    (hy0 : 0 ≤ y0) :
+    ∃ y, IsComparisonODESolution C κ'' y0 y := by
+  sorry
+
+public theorem ComparisonODE_spec (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
+    (hy0 : 0 ≤ y0) :
+    IsComparisonODESolution C κ'' y0 (ComparisonODE C κ'' y0) := by
+  have hex := comparison_ode_exists C κ'' y0 hC hκ hy0
+  simp [ComparisonODE, hex]
+  exact Classical.choose_spec hex
 
 -- Phase-plane analysis of the autonomous majorant ODE (pure ODE theory)
 /--
@@ -730,21 +741,25 @@ of `ComparisonODE` (or via `WellFounded.fix`). For now it provides the
 mathematical justification that the ODE remains bounded independently of time.
 -/
 lemma phase_plane_analysis_of_majorant_ODE (C κ'' y0 : ℝ) (hC : C > 0) (hκ : κ'' > 0)
-    (_hy0 : 0 ≤ y0) :
+    (hy0 : 0 ≤ y0) :
     ∀ t ≥ (0 : ℝ),
       0 ≤ ComparisonODE C κ'' y0 t ∧ ComparisonODE C κ'' y0 t ≤ max y0 (C / κ'') := by
-  intro t _ht
-  -- The ODE y' = C y² - κ'' y³ has exactly two equilibria:
-  -- y = 0 (unstable) and y* = C / κ'' (asymptotically stable).
-  -- Equilibria of `y' = C y² − κ'' y³` are `y = 0` and `y* = C/κ''`.
-  have h_eq : C * 0 ^ 2 - κ'' * 0 ^ 3 = 0 ∧
-      C * (C / κ'') ^ 2 - κ'' * (C / κ'') ^ 3 = 0 := by
-    constructor
-    · ring
-    · have hκ0 : κ'' ≠ 0 := ne_of_gt hκ
-      field_simp [hκ0]
-      ring
-  sorry
+  intro t ht
+  have hsol := ComparisonODE_spec C κ'' y0 hC hκ hy0
+  set y := ComparisonODE C κ'' y0
+  have hdiff : ∀ s, DifferentiableAt ℝ y s := fun s => (hsol.2 s).differentiableAt
+  have hy_eq : ∀ s, deriv y s = C * y s ^ 2 - κ'' * y s ^ 3 := by
+    intro s
+    simpa [majorantField] using (hsol.2 s).deriv
+  have hy_le : ∀ s, deriv y s ≤ C * y s ^ 2 - κ'' * y s ^ 3 :=
+    fun s => le_of_eq (hy_eq s)
+  have h0 : y 0 = y0 := hsol.1
+  have hupper :=
+    AnalyticPipeline.comparison_ode_stability C κ'' hC hκ y hdiff hy_le t ht
+  have hlower :=
+    AnalyticPipeline.comparison_ode_nonneg C κ'' hC hκ y hdiff hy_eq (h0.symm ▸ hy0) t ht
+  rw [h0] at hupper
+  exact ⟨hlower, hupper⟩
 
 private lemma phase_plane_analysis_of_majorant_ODE_comments (C κ'' : ℝ) (_hC : C > 0) (_hκ : κ'' > 0) :
     -- The ODE y' = C y² - κ'' y³ has exactly two equilibria:

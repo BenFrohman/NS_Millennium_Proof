@@ -112,6 +112,52 @@ public theorem comparison_ode_stability
       hyC hyW hy0 hB hcontact
   exact hle ⟨ht, le_rfl⟩
 
+/-- Solutions of the Riccati *equation* starting at `y 0 ≥ 0` stay nonnegative:
+below `0` the vector field `y² (C − κ'' y)` is strictly positive. -/
+public theorem comparison_ode_nonneg
+    (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
+    (y : ℝ → ℝ)
+    (hdiff : ∀ s, DifferentiableAt ℝ y s)
+    (hy_dot : ∀ s, deriv y s = C * (y s) ^ 2 - κ'' * (y s) ^ 3)
+    (hy0 : 0 ≤ y 0)
+    (t : ℝ) (ht : 0 ≤ t) :
+    0 ≤ y t := by
+  refine le_of_forall_pos_le_add fun ε hε => ?_
+  -- Equivalent: `-y t ≤ ε`. Barrier for `-y` at height `ε`.
+  have hy0' : -y 0 ≤ ε := (neg_nonpos.mpr hy0).trans hε.le
+  have hnegdiff : ∀ s, DifferentiableAt ℝ (fun s => -y s) s := fun s => (hdiff s).neg
+  have hyC : ContinuousOn (fun s => -y s) (Icc (0 : ℝ) t) := fun x _ =>
+    (hnegdiff x).continuousAt.continuousWithinAt
+  have hyW : ∀ x ∈ Ico (0 : ℝ) t,
+      HasDerivWithinAt (fun s => -y s) (deriv (fun s => -y s) x) (Ici x) x :=
+    fun x _ => (hnegdiff x).hasDerivAt.hasDerivWithinAt
+  have hB : ∀ x, HasDerivAt (fun _ : ℝ => ε) (0 : ℝ) x := fun x =>
+    hasDerivAt_const x ε
+  have hcontact : ∀ x ∈ Ico (0 : ℝ) t, -y x = ε → deriv (fun s => -y s) x < 0 := by
+    intro x _ hxeq
+    have hyx : y x = -ε := by
+      linarith
+    have hpos : 0 < C * (y x) ^ 2 - κ'' * (y x) ^ 3 := by
+      have hy2 : 0 < (y x) ^ 2 := by
+        rw [hyx, neg_sq]
+        exact sq_pos_of_pos hε
+      have hlin : 0 < C - κ'' * y x := by
+        rw [hyx]
+        linarith [mul_pos hκ hε]
+      rw [majorant_vector_field_eq]
+      exact mul_pos hy2 hlin
+    have hder : deriv y x = C * (y x) ^ 2 - κ'' * (y x) ^ 3 := hy_dot x
+    have hneg : deriv (fun s => -y s) x = -deriv y x :=
+      (hdiff x).hasDerivAt.neg.deriv
+    linarith
+  have hle :=
+    image_le_of_deriv_right_lt_deriv_boundary (f := fun s => -y s)
+      (f' := fun x => deriv (fun s => -y s) x)
+      (a := 0) (b := t) (B := fun _ => ε) (B' := fun _ => (0 : ℝ))
+      hyC hyW hy0' hB hcontact
+  have : -y t ≤ ε := hle ⟨ht, le_rfl⟩
+  linarith
+
 /-- On a compact time interval, a continuous nonnegative majorant bounded by `Y`
 is integrable, and its integral is at most `T * Y`. This is the finite-time
 input to BKM. -/
