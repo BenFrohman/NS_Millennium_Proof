@@ -100,6 +100,20 @@ public theorem smul_coord (c : ℝ) (v : EuclideanSpace ℝ (Fin 3)) (i : Fin 3)
     (c • v) i = c * v i := by
   rw [PiLp.smul_apply, smul_eq_mul]
 
+/-- Coordinate projections on the model 3-space are differentiable. -/
+public theorem differentiableAt_coord (x : T3) (i : Fin 3) :
+    DifferentiableAt ℝ (fun z : T3 => z i) x :=
+  (PiLp.proj (p := 2) (fun _ : Fin 3 => ℝ) i).differentiableAt
+
+/-- Fréchet derivative of the `i`-th coordinate is that coordinate of the increment. -/
+public theorem fderiv_coord (x : T3) (i : Fin 3) (dz : T3) :
+    (fderiv ℝ (fun z : T3 => z i) x) dz = dz i := by
+  let L : EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ :=
+    PiLp.proj (p := 2) (fun _ : Fin 3 => ℝ) i
+  have hfun : (fun z : T3 => z i) = fun z => L z := rfl
+  rw [hfun, ContinuousLinearMap.fderiv]
+  rfl
+
 /-- Scaling a field scales its divergence. Discrete index `Fin 3`; coefficient `c : ℝ`.
 Unconditional: `fderiv_const_smul_field` handles the zero-scalar and non-differentiable cases. -/
 public theorem div_smul (c : ℝ) (u : VelocityField) (x : T3) :
@@ -577,6 +591,8 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms div_curl
 #print axioms div_of_eq_curl
 #print axioms div_smul_field
+#print axioms differentiableAt_coord
+#print axioms fderiv_coord
 
 end
 
