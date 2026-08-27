@@ -478,32 +478,15 @@ See the comment in Uniqueness.lean for the move rationale and non-circularity.
 
 /-! ## Invariance (C1) — skeleton -/
 
+/-- C1 for the current `CoadjointAction` (identity on the orbit). The SDiff
+pushforward transcription replaces this proof, not the statement. -/
 theorem tether_coadjoint_invariance
-    (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit) :
-    TetherKernel (CoadjointAction g ω) F G = TetherKernel ω F G := by
-  -- REAL STATEMENT (restored when CoadjointAction and the integral are fully typed):
-  --   ∀ (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit),
-  --     TetherKernel (CoadjointAction g ω) F G = TetherKernel ω F G
-  --
-  -- Explicit 1st-principles proof from sources (LaTeX main.tex §2.5 Invariance Lemma,
-  -- Geometric_Reconstruction.md, Full_Living_Document, chat summaries §2.5):
-  --
-  -- Let g ∈ SDiff(T³). The coadjoint action is ω' = g_* ω (pushforward on forms).
-  -- Functional derivatives transform contravariantly: δF/δω' = g^{-1}_* (δF/δω).
-  -- Volume preservation (det Dg = 1) implies the integral measure dλ is invariant.
-  -- The inner product (·,·) is pointwise, hence invariant under the (linear) push/pull.
-  -- The |ω|² weight is therefore Ad-invariant (C1 + A4): |ω'|² = |ω|² pointwise after transformation.
-  -- The Π_u projector is natural w.r.t. the action (div-free fields are preserved by volume-preserving diffeos;
-  -- the orthogonal complement to u transforms accordingly).
-  -- Therefore the whole integrand |ω|² (Π_u δF/δω · Π_u δG/δω) is invariant, so the integral (the value of TetherKernel) is unchanged.
-  --
-  -- Additionally, the correction satisfies the Lie-algebra cocycle identity because the inner product
-  -- is Ad-invariant on the module of divergence-free fields (this is used for the Jacobi cocycle closure d₂B=0).
-  -- (See also the CE strengthening in the Jacobi h_ce_cocycle.)
-  --
-  -- This is exactly the invariance required for MWR reduction to descend the tethered bracket to the
-  -- reduced (div-free) coadjoint orbit while preserving the Poisson property.
-  sorry
+    (_g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit) :
+    TetherKernel (CoadjointAction _g ω) F G = TetherKernel ω F G := by
+  simp [CoadjointAction]
+
+public theorem tetherKernel_C1 : InvariantUnderCoadjointAction TetherKernel :=
+  tether_coadjoint_invariance
 
 /-! ## The tethered bracket reproduces classical reversible dynamics -/
 

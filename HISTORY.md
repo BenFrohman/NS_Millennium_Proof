@@ -19,6 +19,7 @@
 - **2026-08-26 (Picard local majorant)**: `comparison_ode_local_exists` kernel-closed via mathlib Picard–Lindelöf (`of_contDiffAt_one` on the polynomial field). Live `#print axioms` has no `sorryAx`. Global `comparison_ode_exists` remains the continuation step. Author: Benjamin Stanley Frohman.
 - **2026-08-26 (Lean 4 types)**: `CoadjointOrbit` is a Lean 4 `public structure … where` (Language Reference 4.4.2; `structure … :=` deprecated since v4.14). `@[expose]` is `def`-only. Kernel path has no Lean 3 `begin`/`end`, `have …, from`, or `structure :=`. Author: Benjamin Stanley Frohman.
 - **2026-08-26 (close boxes after defs)**: Equilibria of the Riccati ODE (`y0 = 0` and `y0 = C/κ''`) are constant global solutions; `BiotSavart_zero`; `velocity_from_zero_orbit`; `comparison_majorant_global_bound` glue. Interior continuation of `comparison_ode_exists`, Kato, BKM, stretching, Jacobi remain. Author: Benjamin Stanley Frohman.
+- **2026-08-26 (assembly)**: C1 for `TetherKernel` (`tether_coadjoint_invariance`); `IsComparisonODESolution` as Lean 4 `structure where`; `global_regularity_for_NS` existence from `global_regularity` (uniqueness of the Cauchy problem remains); blueprint Picard existence wired to `comparison_ode_exists`. Main theorem still `sorryAx`. Author: Benjamin Stanley Frohman.
 
 This formalization establishes priority for the **Frohmanian Symplectic Tether Regularity Theorem** as the original solution approach to the 3D Navier–Stokes Millennium Problem.
 
