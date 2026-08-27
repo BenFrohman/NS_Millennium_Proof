@@ -483,10 +483,11 @@ lemma div_biot_savart_of_eq_curl (ω : CoadjointOrbit) (A : VelocityField)
 
 lemma div_biot_savart_velocity (ω : CoadjointOrbit) :
     div (velocity_from_vorticity ω) = 0 := by
-  -- Remainder is the vector-potential identification
-  -- `velocity_from_vorticity ω = curl A` with `A` of class `C²`.
-  -- Then `div_biot_savart_of_eq_curl` (mixed partials) closes `div u = 0`.
-  -- Do not route this through C¹ flux IBP.
+  -- Two honest slots, neither is IBP:
+  -- (1) C²: `velocity_from_vorticity ω = curl A` then
+  --     `div_biot_savart_of_eq_curl`.
+  -- (2) C¹: interchange `div` and the Biot–Savart integral, then
+  --     `div_BiotSavart_of_interchange` with `div_biotSavart_integrand_ae`.
   sorry
 
 /-- Euler kinetic-energy conservation on `[0, T)`.

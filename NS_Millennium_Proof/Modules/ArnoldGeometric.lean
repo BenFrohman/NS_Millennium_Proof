@@ -37,6 +37,7 @@ public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.LinearAlgebra.CrossProduct
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
+public import Mathlib.MeasureTheory.Measure.Haar.NormedSpace
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
 public import Mathlib.Tactic.Ring
 public import Mathlib.Analysis.Calculus.ParametricIntegral
@@ -657,6 +658,43 @@ public theorem div_biotSavart_integrand
     rw [htrip, mul_zero]
   rw [hprod, hgrad, hdivV, mul_zero, add_zero]
 
+/-- The pole `{x}` is Lebesgue-null, so the integrand is divergence-free
+for almost every source point `y`. C¹ identity a.e.; interchange with the
+Biot–Savart integral is a separate named hyp. -/
+public theorem div_biotSavart_integrand_ae
+    (ω : T3 → EuclideanSpace ℝ (Fin 3)) (x : T3) :
+    ∀ᵐ y ∂NavierStokes3D.volume,
+      NavierStokes3D.div
+        (fun z => biotSavartKernel z y • cross (ω y) (z - y)) x = 0 := by
+  refine (ae_iff).2 ?_
+  have hsub :
+      {y : T3 |
+          NavierStokes3D.div
+            (fun z => biotSavartKernel z y • cross (ω y) (z - y)) x ≠ 0} ⊆
+        {x} := by
+    intro y hy
+    by_contra hne
+    have hxny : x ≠ y := Ne.symm hne
+    have h0 := div_biotSavart_integrand ω y x hxny
+    exact hy h0
+  haveI : NoAtoms (MeasureTheory.volume : Measure T3) := inferInstance
+  have hsing : MeasureTheory.volume ({x} : Set T3) = 0 :=
+    measure_singleton (μ := MeasureTheory.volume) x
+  exact measure_mono_null hsub hsing
+
+/-- If `div` and the Biot–Savart integral interchange at `x`, then
+`div (BiotSavart ω) x = 0` by the a.e. integrand identity. -/
+public theorem div_BiotSavart_of_interchange
+    (ω : T3 → EuclideanSpace ℝ (Fin 3)) (x : T3)
+    (hinter : NavierStokes3D.div (BiotSavart ω) x =
+      ∫ y, NavierStokes3D.div
+        (fun z => biotSavartKernel z y • cross (ω y) (z - y)) x
+        ∂NavierStokes3D.volume) :
+    NavierStokes3D.div (BiotSavart ω) x = 0 := by
+  have hae := div_biotSavart_integrand_ae ω x
+  rw [hinter, integral_congr_ae hae]
+  exact integral_zero (α := T3) (G := ℝ) (μ := NavierStokes3D.volume)
+
 /-- Kinetic energy along an affine Biot–Savart line has derivative
 `∫ ⟨u, δu⟩` at `t = 0`. This is the paper's `δH = u` in the Lie-algebra
 pairing against the velocity variation, given dominated integrability. -/
@@ -825,6 +863,8 @@ public theorem classical_bracket_reproduces_Euler
 #print axioms hasFDerivAt_biotSavartKernel_of_ne
 #print axioms differentiableAt_biotSavartKernel_off_diag
 #print axioms div_biotSavart_integrand
+#print axioms div_biotSavart_integrand_ae
+#print axioms div_BiotSavart_of_interchange
 #print axioms functional_derivative_eq_velocity_of_unique_repr
 
 end ArnoldGeometric
