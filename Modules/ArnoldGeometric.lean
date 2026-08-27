@@ -120,7 +120,7 @@ From 4.3.2.2–4.3.2.3:
 
 namespace ArnoldGeometric
 
-open InnerProductSpace Matrix NavierStokes3D Classical
+open InnerProductSpace Matrix NavierStokes3D Classical MeasureTheory
 open scoped InnerProductSpace
 
 /-! ## Coadjoint Orbit Structure -/
@@ -218,6 +218,20 @@ public noncomputable def BiotSavart (ω : T3 → EuclideanSpace ℝ (Fin 3)) :
     T3 → EuclideanSpace ℝ (Fin 3) :=
   fun x => ∫ y, biotSavartKernel x y • cross (ω y) (x - y) ∂volume
 
+/-- The kernel applied to the zero field is the zero field. -/
+public theorem BiotSavart_zero :
+    BiotSavart (fun _ => 0) = 0 := by
+  funext x
+  have hfun :
+      (fun y => biotSavartKernel x y • cross (0 : EuclideanSpace ℝ (Fin 3)) (x - y)) =
+        fun _ => 0 := by
+    funext y
+    simp [cross]
+  simp only [BiotSavart, Pi.zero_apply]
+  rw [hfun]
+  exact integral_zero (α := T3) (G := EuclideanSpace ℝ (Fin 3))
+    (μ := NavierStokes3D.volume)
+
 /-- User's preferred notation δF/δω for the functional derivative (Section 2.1). -/
 notation "δ" F:arg "/δω" => FunctionalDerivative F
 -- Short name is correct inside the namespace. The `public def` on FunctionalDerivative
@@ -250,6 +264,12 @@ public noncomputable def KineticEnergyHamiltonian (ω : CoadjointOrbit) : ℝ :=
 public noncomputable def velocity_from_vorticity (ω : CoadjointOrbit) :
     T3 → EuclideanSpace ℝ (Fin 3) :=
   BiotSavart ω.val
+
+/-- Velocity recovered from the zero vorticity field is zero. -/
+public theorem velocity_from_zero_orbit (ω : CoadjointOrbit)
+    (hω : ω.val = fun _ => 0) :
+    velocity_from_vorticity ω = 0 := by
+  simp [velocity_from_vorticity, hω, BiotSavart_zero]
 
 /-! ## Section 2.1: Classical Arnold Lie–Poisson bracket (exact form supplied by user) -/
 
