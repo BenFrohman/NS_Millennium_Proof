@@ -265,6 +265,118 @@ The torus Green's function is the intended operator; this is the model-space den
 public noncomputable def biotSavartKernel (x y : T3) : ℝ :=
   if x = y then 0 else (4 * Real.pi)⁻¹ * ‖x - y‖ ^ (-(3 : ℝ))
 
+@[simp] public theorem biotSavartKernel_diag (x : T3) :
+    biotSavartKernel x x = 0 := by
+  simp [biotSavartKernel]
+
+public theorem biotSavartKernel_of_ne {x y : T3} (h : x ≠ y) :
+    biotSavartKernel x y = (4 * Real.pi)⁻¹ * ‖x - y‖ ^ (-(3 : ℝ)) := by
+  simp [biotSavartKernel, h]
+
+/-- Coordinates of `cross` match the mathlib `crossProduct` formula. -/
+public theorem cross_coord (u v : EuclideanSpace ℝ (Fin 3)) :
+    cross u v 0 = u 1 * v 2 - u 2 * v 1 ∧
+    cross u v 1 = u 2 * v 0 - u 0 * v 2 ∧
+    cross u v 2 = u 0 * v 1 - u 1 * v 0 := by
+  unfold cross
+  rw [cross_apply]
+  refine ⟨?_, ?_, ?_⟩
+  · simp
+  · simp
+  · simp
+
+/-- `div_z (ω × z) = 0`: each component of `ω × z` is independent of `z_i`. -/
+public theorem div_cross_right (ω : EuclideanSpace ℝ (Fin 3)) (x : T3) :
+    NavierStokes3D.div (fun z => cross ω z) x = 0 := by
+  have h0 : (fun z : T3 => cross ω z 0) =
+      fun z => ω 1 * z 2 - ω 2 * z 1 := by
+    funext z
+    exact (cross_coord ω z).1
+  have h1 : (fun z : T3 => cross ω z 1) =
+      fun z => ω 2 * z 0 - ω 0 * z 2 := by
+    funext z
+    exact (cross_coord ω z).2.1
+  have h2 : (fun z : T3 => cross ω z 2) =
+      fun z => ω 0 * z 1 - ω 1 * z 0 := by
+    funext z
+    exact (cross_coord ω z).2.2
+  have hd (i : Fin 3) : DifferentiableAt ℝ (fun z : T3 => z i) x :=
+    differentiableAt_coord x i
+  have hmul (c : ℝ) (i : Fin 3) :
+      DifferentiableAt ℝ (fun z : T3 => c * z i) x :=
+    (hd i).const_mul c
+  unfold NavierStokes3D.div
+  have e0 :
+      (fderiv ℝ (fun z => cross ω z 0) x) (EuclideanSpace.single 0 1) = 0 := by
+    rw [h0, fderiv_fun_sub (hmul (ω 1) 2) (hmul (ω 2) 1)]
+    simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 2),
+      fderiv_const_mul (hd 1), fderiv_coord, EuclideanSpace.single,
+      PiLp.single_apply]
+  have e1 :
+      (fderiv ℝ (fun z => cross ω z 1) x) (EuclideanSpace.single 1 1) = 0 := by
+    rw [h1, fderiv_fun_sub (hmul (ω 2) 0) (hmul (ω 0) 2)]
+    simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 0),
+      fderiv_const_mul (hd 2), fderiv_coord, EuclideanSpace.single,
+      PiLp.single_apply]
+  have e2 :
+      (fderiv ℝ (fun z => cross ω z 2) x) (EuclideanSpace.single 2 1) = 0 := by
+    rw [h2, fderiv_fun_sub (hmul (ω 0) 1) (hmul (ω 1) 0)]
+    simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 1),
+      fderiv_const_mul (hd 0), fderiv_coord, EuclideanSpace.single,
+      PiLp.single_apply]
+  refine Finset.sum_eq_zero fun i _ => ?_
+  fin_cases i
+  · exact e0
+  · exact e1
+  · exact e2
+
+/-- Each coordinate of `z ↦ ω × z` is affine, hence differentiable. -/
+public theorem differentiableAt_cross_coord
+    (ω : EuclideanSpace ℝ (Fin 3)) (x : T3) (i : Fin 3) :
+    DifferentiableAt ℝ (fun z => cross ω z i) x := by
+  have h0 : DifferentiableAt ℝ (fun z : T3 => cross ω z 0) x := by
+    have h : (fun z : T3 => cross ω z 0) =
+        fun z => ω 1 * z 2 - ω 2 * z 1 := by
+      funext z
+      exact (cross_coord ω z).1
+    rw [h]
+    exact ((differentiableAt_coord x 2).const_mul (ω 1)).sub
+      ((differentiableAt_coord x 1).const_mul (ω 2))
+  have h1 : DifferentiableAt ℝ (fun z : T3 => cross ω z 1) x := by
+    have h : (fun z : T3 => cross ω z 1) =
+        fun z => ω 2 * z 0 - ω 0 * z 2 := by
+      funext z
+      exact (cross_coord ω z).2.1
+    rw [h]
+    exact ((differentiableAt_coord x 0).const_mul (ω 2)).sub
+      ((differentiableAt_coord x 2).const_mul (ω 0))
+  have h2 : DifferentiableAt ℝ (fun z : T3 => cross ω z 2) x := by
+    have h : (fun z : T3 => cross ω z 2) =
+        fun z => ω 0 * z 1 - ω 1 * z 0 := by
+      funext z
+      exact (cross_coord ω z).2.2
+    rw [h]
+    exact ((differentiableAt_coord x 1).const_mul (ω 0)).sub
+      ((differentiableAt_coord x 0).const_mul (ω 1))
+  fin_cases i
+  · exact h0
+  · exact h1
+  · exact h2
+
+/-- Offset form: `div_z (ω × (z − y)) = 0`. -/
+public theorem div_cross_offset (ω : EuclideanSpace ℝ (Fin 3)) (y x : T3) :
+    NavierStokes3D.div (fun z => cross ω (z - y)) x = 0 := by
+  have hfun : (fun z => cross ω (z - y)) =
+      fun z => cross ω z + cross ω (-y) := by
+    funext z
+    rw [sub_eq_add_neg, cross_add_right]
+  rw [hfun]
+  have hadd :=
+    div_add (fun z => cross ω z) (fun _ => cross ω (-y)) x
+      (fun i => differentiableAt_cross_coord ω x i)
+      (fun _ => differentiableAt_const _)
+  rw [hadd, div_cross_right, div_const, add_zero]
+
 /-- Prefactor of the Constantin–Fefferman / Majda–Bertozzi 3D strain kernel
 `(K z ω)_{ij} = (3/(8 π)) [(z × ω)_i z_j + (z × ω)_j z_i] / |z|^5`. -/
 @[expose] public noncomputable def biotSavartStrainKernelPrefactor : ℝ :=
@@ -536,6 +648,22 @@ public theorem velocity_from_zero_orbit (ω : CoadjointOrbit)
     velocity_from_vorticity ω = 0 := by
   simp [velocity_from_vorticity, hω, BiotSavart_zero]
 
+/-- If `u` is the unique Gâteaux representative of kinetic energy, the
+encoding's `Classical.choose` returns `u`. Existence/uniqueness of that
+representative remain the Biot–Savart identification. -/
+public theorem functional_derivative_eq_velocity_of_unique_repr
+    (ω : CoadjointOrbit)
+    (h : IsGateauxRepresentative KineticEnergyHamiltonian ω
+      (velocity_from_vorticity ω))
+    (huniq : ∀ dH, IsGateauxRepresentative KineticEnergyHamiltonian ω dH →
+      dH = velocity_from_vorticity ω) :
+    FunctionalDerivative KineticEnergyHamiltonian ω =
+      velocity_from_vorticity ω := by
+  have hex : ∃ dH, IsGateauxRepresentative KineticEnergyHamiltonian ω dH :=
+    ⟨velocity_from_vorticity ω, h⟩
+  rw [FunctionalDerivative_eq_choose hex]
+  exact huniq _ (Classical.choose_spec hex)
+
 /-! ## Section 2.1: Classical Arnold Lie–Poisson bracket (exact form supplied by user) -/
 
 /-- Classical Arnold Lie–Poisson bracket (Section 2.1 form).
@@ -583,5 +711,10 @@ public theorem classical_bracket_reproduces_Euler
 #print axioms FunctionalDerivative_eq_zero_of_not
 #print axioms FunctionalDerivative_eq_choose
 #print axioms kineticEnergy_hasDerivAt_velocity_pairing
+#print axioms biotSavartKernel_of_ne
+#print axioms cross_coord
+#print axioms div_cross_right
+#print axioms div_cross_offset
+#print axioms functional_derivative_eq_velocity_of_unique_repr
 
 end ArnoldGeometric
