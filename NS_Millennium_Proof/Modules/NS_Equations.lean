@@ -40,6 +40,7 @@ public import Mathlib.MeasureTheory.Group.Measure
 public import Mathlib.Topology.Separation.Hausdorff
 public import Mathlib.Analysis.Calculus.MeanValue
 public import Mathlib.Analysis.ODE.Gronwall
+public import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 open scoped BigOperators Gradient Topology
 open ENNReal InnerProductSpace MeasureTheory Finset Filter
@@ -2273,6 +2274,42 @@ public theorem Tstar_eq_top_of_uniform_restart
         (le_Tstar_of_mem_existenceTimes u₀ ν hmem)
     exact (lt_irrefl (Tstar u₀ ν) (hSeq ▸ this)).elim
 
+/-- Kato 1972 Sobolev threshold: local well-posedness in `H^s` for `s > 5/2`.
+Paper Block 1 / Drive `beale_kato_majda_criterion.md`. -/
+@[expose] public def katoSobolevIndex : ℝ := 5 / 2
+
+public theorem katoSobolevIndex_lt {s : ℝ} (hs : katoSobolevIndex < s) :
+    (5 : ℝ) / 2 < s :=
+  hs
+
+/-- Explicit Kato restart length from the log-Gronwall / quadratic comparison.
+If the Sobolev proxy starts at size `R` and vorticity is bounded by `Y`, the
+Kato–Ponce inequality `N' ≤ C Y N (1+log N)` is majorized by `N' ≤ (C Y) N²`
+once `N ≥ 1`. The comparison reciprocal then stays positive on
+`[0, 1/(2 C Y R)]`, so the `H^s` ball of radius `2R` cannot be escaped in
+that time. Drive Step 3.2–3.4. -/
+@[expose] public noncomputable def katoRestartTime (C Y R : ℝ) : ℝ :=
+  if C * Y * max R 1 ≤ 0 then 1 else (2 * C * Y * max R 1)⁻¹
+
+public theorem katoRestartTime_pos (C Y R : ℝ) :
+    0 < katoRestartTime C Y R := by
+  unfold katoRestartTime
+  split_ifs with h
+  · exact one_pos
+  · have hmul : 0 < C * Y * max R 1 := lt_of_not_ge h
+    have : 0 < 2 * (C * Y * max R 1) := mul_pos two_pos hmul
+    simpa [mul_assoc] using inv_pos.mpr this
+
+/-- `T* = ⊤` from the paper Kato time `katoRestartTime C Y R`, not a free `τ`. -/
+public theorem Tstar_eq_top_of_katoRestartTime
+    (u₀ : VelocityField) (ν : ℝ) (C Y R : ℝ)
+    (hpos : (0 : EReal) < Tstar u₀ ν)
+    (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
+      ∃ T' ∈ existenceTimes u₀ ν, t + katoRestartTime C Y R ≤ T') :
+    Tstar u₀ ν = ⊤ :=
+  Tstar_eq_top_of_uniform_restart u₀ ν (katoRestartTime C Y R)
+    (katoRestartTime_pos C Y R) hpos hrestart
+
 /-- Kato 1972 / Leray 1934 witness: a short-time smooth NS solution.
 This is data (Type), not a `Prop` gate: the time, fields, smoothness, and PDE. -/
 public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
@@ -2428,6 +2465,20 @@ public theorem le_vorticity_sup_norm (ω : VorticityField) (x : T3)
     (h : BddAbove (Set.range fun y => ‖ω y‖)) :
     ‖ω x‖ ≤ vorticity_sup_norm ω :=
   le_ciSup h x
+
+/-- Paper Drive Step 3.3: strain operator-norm proxy `‖∇u‖_∞`. -/
+@[expose] public noncomputable def strain_sup_norm (u : VelocityField) : ℝ :=
+  ⨆ x, ‖fderiv ℝ u x‖
+
+/-- Pointwise CZ/Biot–Savart bound `‖Du(x)‖ ≤ C_CZ ‖ω‖_∞` upgrades to
+`‖Du‖_∞ ≤ C_CZ ‖ω‖_∞`. Linear algebra on the supremum, not the Riesz
+theorem itself. -/
+public theorem strain_sup_le_of_CZ
+    (u : VelocityField) (C_CZ : ℝ)
+    (hCZ : ∀ x, ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm (curl u))
+    (_hbdd : BddAbove (Set.range fun x => ‖fderiv ℝ u x‖)) :
+    strain_sup_norm u ≤ C_CZ * vorticity_sup_norm (curl u) :=
+  ciSup_le fun x => hCZ x
 
 /-- Operator-norm stretching: `|(ω·∇)u| ≤ C_CZ ‖ω‖_∞ |ω|` once
 `‖Du‖ ≤ C_CZ ‖ω‖_∞`. Linear algebra, not the Riesz bound itself. -/
@@ -2605,6 +2656,105 @@ public theorem reciprocal_of_quadratic_growth
   have : (M t)⁻¹ - (M 0)⁻¹ ≥ -C * t := by
     linarith [hFTC, hbar, hinterC]
   linarith
+
+/-- `1 + log x ≤ x` for `x ≥ 1`. Used to majorize the Kato–Ponce logarithm
+by a quadratic. -/
+public theorem one_add_log_le_self {x : ℝ} (hx : 1 ≤ x) :
+    1 + Real.log x ≤ x := by
+  have hx0 : 0 < x := lt_of_lt_of_le zero_lt_one hx
+  linarith [Real.log_le_sub_one_of_pos hx0]
+
+/-- Drive Step 3.2–3.4: Kato–Ponce `N' ≤ K N (1+log N)` is majorized by
+`N' ≤ K N²` on `{N ≥ 1}`. -/
+public theorem kato_ponce_implies_quadratic
+    (N : ℝ → ℝ) (K : ℝ) (hK : 0 ≤ K)
+    (hone : ∀ s ≥ (0 : ℝ), 1 ≤ N s)
+    (hDI : ∀ s ≥ (0 : ℝ),
+      deriv N s ≤ K * N s * (1 + Real.log (N s))) :
+    ∀ s ≥ (0 : ℝ), deriv N s ≤ K * (N s) ^ 2 := by
+  intro s hs
+  have hlog : 1 + Real.log (N s) ≤ N s := one_add_log_le_self (hone s hs)
+  have hN : 0 ≤ N s := zero_le_one.trans (hone s hs)
+  have hmul : K * N s * (1 + Real.log (N s)) ≤ K * N s * N s :=
+    mul_le_mul_of_nonneg_left hlog (mul_nonneg hK hN)
+  have hsq : K * N s * N s = K * (N s) ^ 2 := by ring
+  linarith [hDI s hs, hmul, hsq]
+
+/-- Uniform vorticity bound `M(t) ≤ Y` turns the paper strain-controlled
+Kato–Ponce inequality into a constant-coefficient log inequality. -/
+public theorem kato_ponce_of_uniform_vorticity
+    (N M : ℝ → ℝ) (C Y : ℝ)
+    (hC : 0 ≤ C) (_hY : 0 ≤ Y)
+    (hM : ∀ s ≥ (0 : ℝ), M s ≤ Y)
+    (hone : ∀ s ≥ (0 : ℝ), 1 ≤ N s)
+    (hDI : ∀ s ≥ (0 : ℝ),
+      deriv N s ≤ C * M s * N s * (1 + Real.log (N s))) :
+    ∀ s ≥ (0 : ℝ),
+      deriv N s ≤ (C * Y) * N s * (1 + Real.log (N s)) := by
+  intro s hs
+  have hN : 0 ≤ N s := zero_le_one.trans (hone s hs)
+  have hlog : 0 ≤ 1 + Real.log (N s) := by
+    have : 0 ≤ Real.log (N s) := Real.log_nonneg (hone s hs)
+    linarith
+  have hfac : 0 ≤ N s * (1 + Real.log (N s)) := mul_nonneg hN hlog
+  have hCMf : C * M s * (N s * (1 + Real.log (N s))) ≤
+      C * Y * (N s * (1 + Real.log (N s))) :=
+    mul_le_mul_of_nonneg_right
+      (mul_le_mul_of_nonneg_left (hM s hs) hC) hfac
+  have hleft : C * M s * N s * (1 + Real.log (N s)) =
+      C * M s * (N s * (1 + Real.log (N s))) := by ring
+  have hright : (C * Y) * N s * (1 + Real.log (N s)) =
+      C * Y * (N s * (1 + Real.log (N s))) := by ring
+  linarith [hDI s hs, hleft, hright, hCMf]
+
+/-- On the Kato doubling interval `t ≤ 1/(2 K N(0))` the Sobolev proxy cannot
+exceed `2 N(0)`. Paper quantitative restart length. -/
+public theorem kato_Hs_bound_on_restart_interval
+    (N : ℝ → ℝ) (K : ℝ) (hK : 0 ≤ K)
+    (hone : ∀ s ≥ (0 : ℝ), 1 ≤ N s)
+    (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ N s)
+    (hDI : ∀ s ≥ (0 : ℝ),
+      deriv N s ≤ K * N s * (1 + Real.log (N s)))
+    (t : ℝ) (ht : 0 ≤ t)
+    (htau : K * N 0 * t ≤ 1 / 2)
+    (hint : IntervalIntegrable
+      (fun s => -deriv N s / (N s) ^ 2) MeasureTheory.volume 0 t) :
+    N t ≤ 2 * N 0 := by
+  have hpos : ∀ s ≥ (0 : ℝ), 0 < N s :=
+    fun s hs => lt_of_lt_of_le zero_lt_one (hone s hs)
+  have hquad := kato_ponce_implies_quadratic N K hK hone hDI
+  have hrec :=
+    reciprocal_of_quadratic_growth N K hK hdiff hquad hpos t ht hint
+  have hN0 : 0 < N 0 := hpos 0 le_rfl
+  have hNt : 0 < N t := hpos t ht
+  have hge : (N 0)⁻¹ - K * t ≥ (2 * N 0)⁻¹ := by
+    have hKt : K * t ≤ (1 / 2) * (N 0)⁻¹ := by
+      have hdiv := div_le_div_of_nonneg_right htau hN0.le
+      have hL : K * N 0 * t / N 0 = K * t := by
+        field_simp [ne_of_gt hN0]
+      have hR : (1 / 2) / N 0 = (1 / 2) * (N 0)⁻¹ := by
+        field_simp [ne_of_gt hN0]
+      linarith [hdiv, hL, hR]
+    have : (N 0)⁻¹ - (1 / 2) * (N 0)⁻¹ = (2 * N 0)⁻¹ := by
+      field_simp [ne_of_gt hN0]
+      ring
+    linarith [hKt, this]
+  have hinv : (2 * N 0)⁻¹ ≤ (N t)⁻¹ := le_trans hge hrec
+  have h2N : 0 < 2 * N 0 := mul_pos two_pos hN0
+  exact (one_div_le_one_div h2N hNt).mp (by simpa [one_div] using hinv)
+
+/-- Drive mild form of NS, recorded against a heat semigroup `S` and Leray
+projector `P`. The semigroup itself is classical; this is the integral
+equation, not a `True` gate. -/
+public def IsMildNS
+    (S : ℝ → VelocityField → VelocityField)
+    (P : VelocityField → VelocityField)
+    (u : TimeDependentVelocity) (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ t ≥ (0 : ℝ),
+    u t =
+      S (ν * t) u₀ - fun x =>
+        ∫ τ in (0 : ℝ)..t,
+          S (ν * (t - τ)) (P (convective (u τ) (u τ))) x
 
 /-- Smoothness on every compact interval below `T* = ⊤` is global smoothness. -/
 public theorem smoothness_of_Tstar_top
@@ -2805,6 +2955,14 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms energy_zero_of_gronwall
 #print axioms Tstar_eq_top_of_unbounded_existenceTimes
 #print axioms Tstar_eq_top_of_uniform_restart
+#print axioms Tstar_eq_top_of_katoRestartTime
+#print axioms katoRestartTime_pos
+#print axioms katoSobolevIndex_lt
+#print axioms strain_sup_le_of_CZ
+#print axioms one_add_log_le_self
+#print axioms kato_ponce_implies_quadratic
+#print axioms kato_ponce_of_uniform_vorticity
+#print axioms kato_Hs_bound_on_restart_interval
 #print axioms exists_mem_existenceTimes_gt_of_lt_Tstar
 #print axioms navier_stokes_eq_zero
 #print axioms kato_witness_zero
