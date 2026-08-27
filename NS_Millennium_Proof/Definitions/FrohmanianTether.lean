@@ -23,7 +23,8 @@ The live definitions are:
 * `TetherKernel` / `TetheredBracket` / notation 𝔉𝕋
 * `frohmanian_tether_theorem`
 * paper §2.1 operators in `NavierStokes3D`: `curl`, `convective`, `laplacian`,
-  `curl_gradient`, `curl_convective`, `curl_time_deriv`
+  `curl_gradient`, `curl_convective`, `curl_time_deriv`, `curl_laplacian`,
+  `VorticityTransportRegularity`, `vorticity_transport`
 
 ASCII identifiers only for defs (`TetheredBracket`, `TetherKernel`, `kappa`).
 `FT` / `TF` / `BF` are not used.
