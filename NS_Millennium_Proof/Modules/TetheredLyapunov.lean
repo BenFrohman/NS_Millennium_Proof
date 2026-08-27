@@ -1363,24 +1363,23 @@ private lemma uniform_majorant_bound_comments (C κ'' _y0 : ℝ) (_hC : C > 0) (
   -- (When both lemmas are later filled with real proofs, the connection will be explicit.)
 
 -- Rigorous comparison principle (transfers ODE bound to the NS quantities)
+/-- Uniform barrier for a mollified sup-norm that obeys the Riccati differential
+*inequality* `M' ≤ C M² − κ'' M³`. This is the paper's comparison: the same
+phase-plane fence already kernel-closed for `ComparisonODE`. The NS-side
+inequality remains a named hypothesis (from `key_differential_inequality`). -/
 lemma majorant_comparison_principle
-    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (y0 C κ'' : ℝ)
-    (_hC : 0 < C) (_hκ : 0 < κ'') (_hy0 : 0 ≤ y0) :
-    MollifiedSupNorm ω ε t ≤ ComparisonODE C κ'' y0 t := by
-  -- The proof is the classical scalar comparison theorem:
-  -- If a function z(t) satisfies z' ≤ f(t, z) with f Lipschitz in the second variable,
-  -- and y solves y' = f(t, y) with y(0) ≥ z(0), then y(t) ≥ z(t) on the common interval of existence.
-  --
-  -- In our case:
-  -- - The function M_ε satisfies a differential inequality of the form M' ≤ C M² − κ'' M³
-  --   (after all the estimates in key_differential_inequality + absorption on finite intervals).
-  -- - y solves the equality y' = C y² − κ'' y³ with the same initial condition.
-  -- Therefore M_ε(t) ≤ y(t) on [0, T] (any finite T where the solution exists and is smooth).
-  --
-  -- This is the precise statement used in the polished living document (PASS 5 Section 3).
-  -- The only non-classical part is that we have already derived the differential inequality
-  -- for M_ε using only local smoothness on the compact interval and the tether degeneracy.
-  sorry
+    (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (C κ'' : ℝ)
+    (hC : 0 < C) (hκ : 0 < κ'')
+    (hdiff : ∀ s ≥ (0 : ℝ),
+      DifferentiableAt ℝ (fun s => MollifiedSupNorm ω ε s) s)
+    (hy_dot : ∀ s ≥ (0 : ℝ),
+      deriv (fun s => MollifiedSupNorm ω ε s) s ≤
+        C * MollifiedSupNorm ω ε s ^ 2 - κ'' * MollifiedSupNorm ω ε s ^ 3)
+    (ht : 0 ≤ t) :
+    MollifiedSupNorm ω ε t ≤
+      max (MollifiedSupNorm ω ε 0) (C / κ'') :=
+  AnalyticPipeline.comparison_ode_stability C κ'' hC hκ
+    (fun s => MollifiedSupNorm ω ε s) hdiff hy_dot t ht
 
 /--
 Global uniform bound on the independent majorant ODE (Lean ref §7.6).

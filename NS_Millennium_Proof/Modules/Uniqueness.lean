@@ -91,14 +91,10 @@ lemma step1_locality
     InvariantUnderCoadjointAction B :=
   h_inv
 
-/-- Step 2: admissible corrections are quadratic in `ω` (weight `|ω|²`). -/
-lemma step2_degree
-    (B : CoadjointOrbit → Functional → Functional → ℝ)
-    (_h_antisym : ∀ ω F G, B ω F G = -B ω G F) :
-    ∀ (F G : Functional) (ω : CoadjointOrbit) (c : ℝ),
-      B ⟨fun x => c • ω.val x, fun x => by
-          rw [div_smul, ω.property x, mul_zero]⟩ F G = c ^ 2 * B ω F G := by
-  sorry
+-- Step 2 is not a theorem from antisymmetry of an arbitrary `B`. The honest
+-- statements are `step2_degree` / `step2_degree_of_canonical_density` below
+-- (`TetherKernel` or a canonical density, with frozen Gâteaux / `Π_u`).
+-- `uniqueness_of_minimal_tether` does not use either; it polarizes.
 
 /-- Step 3: C2 forces vanishing on the kinetic-energy Hamiltonian, hence `Π_u`. -/
 lemma step3_projection
@@ -118,19 +114,8 @@ lemma step4_coefficient
     kappa = CalderonZygmundConstant3D :=
   rfl
 
-/-- Step 5: higher-order (degree `≥ 3`) corrections are ruled out by minimality / C2–C3. -/
-lemma step5_higher_order
-    (B : CoadjointOrbit → Functional → Functional → ℝ)
-    (_h_antisym : ∀ ω F G, B ω F G = -B ω G F)
-    (_h_deg : DegenerateWRTKineticEnergy B)
-    (_h_feedback : ProducesControllableNegativeFeedback B) :
-    ∀ (n : Nat), 3 ≤ n →
-      ∀ (F G : Functional) (ω : CoadjointOrbit) (c : ℝ),
-        B ⟨fun x => c • ω.val x, fun x => by
-            rw [div_smul, ω.property x, mul_zero]⟩ F G =
-          c ^ 2 * B ω F G := by
-  intro n _hn F G ω c
-  simpa using step2_degree B _h_antisym F G ω c
+-- Step 5 for an arbitrary antisymmetric `B` is not a theorem from C2–C3
+-- alone. See `step5_higher_order` (`TetherKernel` via `step2_degree`).
 
 /-- The correction is given by a scalar kernel density against the projected
 pairing. This is the defining property of the Frohmanian density
@@ -294,6 +279,52 @@ public theorem step2_degree_of_canonical_density
     _ = c ^ 2 * B ω F G := by
           rw [hT]
 
+/-- Step 2 for `TetherKernel`: quadratic in `ω` (weight `|ω|²`) once Gâteaux
+slots and `Π_u` are frozen. Not the false claim that every antisymmetric
+`B` is homogeneous of degree two. -/
+public theorem step2_degree
+    (F G : Functional) (ω : CoadjointOrbit) (c : ℝ)
+    (hFD_F : FunctionalDerivative F
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative F ω)
+    (hFD_G : FunctionalDerivative G
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative G ω)
+    (hPi : Pi_u (velocity_from_vorticity
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩) =
+      Pi_u (velocity_from_vorticity ω)) :
+    TetherKernel ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G =
+      c ^ 2 * TetherKernel ω F G :=
+  step2_degree_of_canonical_density TetherKernel canonicalTetherDensity
+    tetherKernel_has_canonical_density (fun _ _ => rfl) F G ω c hFD_F hFD_G hPi
+
+/-- Step 5 for `TetherKernel`: no degree `≥ 3` remainder, because the kernel
+is exactly quadratic (`step2_degree`). C2–C3 do not force this for an
+arbitrary antisymmetric `B`. -/
+public theorem step5_higher_order
+    (F G : Functional) (ω : CoadjointOrbit) (c : ℝ)
+    (hFD_F : FunctionalDerivative F
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative F ω)
+    (hFD_G : FunctionalDerivative G
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative G ω)
+    (hPi : Pi_u (velocity_from_vorticity
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩) =
+      Pi_u (velocity_from_vorticity ω))
+    {n : Nat} (_hn : 3 ≤ n) :
+    TetherKernel ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G =
+      c ^ 2 * TetherKernel ω F G :=
+  step2_degree F G ω c hFD_F hFD_G hPi
+
 /-- Minimality: the correction saturates the C3 quadratic form of `TetherKernel`. -/
 public def SaturatesTetherQuadratic
     (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
@@ -397,5 +428,7 @@ When the proofs become real, also run:
 #print axioms tetherKernel_has_canonical_density
 #print axioms uniqueness_of_minimal_tether
 #print axioms step2_degree_of_canonical_density
+#print axioms step2_degree
+#print axioms step5_higher_order
 
 end FrohmanianTether
