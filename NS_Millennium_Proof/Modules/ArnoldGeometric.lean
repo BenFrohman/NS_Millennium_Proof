@@ -26,13 +26,17 @@ Current imports are deliberately targeted rather than using the single
 `import Mathlib` style Tao sometimes employs in quick proof tours.
 -/
 
+public import Mathlib.Analysis.Calculus.Deriv.Add
 public import Mathlib.Analysis.Calculus.Deriv.Basic
+public import Mathlib.Analysis.Calculus.Deriv.Mul
+public import Mathlib.Analysis.Calculus.Deriv.Pow
 public import Mathlib.Analysis.InnerProductSpace.PiL2
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.LinearAlgebra.CrossProduct
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
+public import Mathlib.Tactic.Ring
 public import NS_Millennium_Proof.Modules.NS_Equations
 
 -- NOTE (post-bumper-rails phase): All silencing options removed. Every `declaration uses 'sorry'`
@@ -175,6 +179,38 @@ public noncomputable def CoadjointAction (_g : T3 → T3) (ω : CoadjointOrbit) 
 @[expose] public noncomputable def cross (u v : EuclideanSpace ℝ (Fin 3)) : EuclideanSpace ℝ (Fin 3) :=
   WithLp.toLp 2 (WithLp.ofLp u ⨯₃ WithLp.ofLp v)
 
+/-- Left-linearity of `cross` in the scalar. -/
+public theorem cross_smul_left (c : ℝ) (u v : EuclideanSpace ℝ (Fin 3)) :
+    cross (c • u) v = c • cross u v := by
+  unfold cross
+  have hof : WithLp.ofLp (c • u) = c • WithLp.ofLp u := rfl
+  rw [hof, LinearMap.map_smul]
+  rfl
+
+/-- Right-linearity of `cross` in the scalar. -/
+public theorem cross_smul_right (c : ℝ) (u v : EuclideanSpace ℝ (Fin 3)) :
+    cross u (c • v) = c • cross u v := by
+  unfold cross
+  have hof : WithLp.ofLp (c • v) = c • WithLp.ofLp v := rfl
+  rw [hof, LinearMap.map_smul]
+  rfl
+
+/-- Left-additivity of `cross`. -/
+public theorem cross_add_left (u w v : EuclideanSpace ℝ (Fin 3)) :
+    cross (u + w) v = cross u v + cross w v := by
+  unfold cross
+  have hof : WithLp.ofLp (u + w) = WithLp.ofLp u + WithLp.ofLp w := rfl
+  rw [hof, LinearMap.map_add]
+  rfl
+
+/-- Right-additivity of `cross`. -/
+public theorem cross_add_right (u v w : EuclideanSpace ℝ (Fin 3)) :
+    cross u (v + w) = cross u v + cross u w := by
+  unfold cross
+  have hof : WithLp.ofLp (v + w) = WithLp.ofLp v + WithLp.ofLp w := rfl
+  rw [hof, LinearMap.map_add]
+  rfl
+
 /-- Pointwise Euclidean inner product. -/
 @[expose] public noncomputable def pairing (u v : EuclideanSpace ℝ (Fin 3)) : ℝ :=
   inner ℝ u v
@@ -215,6 +251,13 @@ public theorem FunctionalDerivative_eq_zero_of_not
     (h : ¬ ∃ dH, IsGateauxRepresentative F ω dH) :
     FunctionalDerivative F ω = 0 :=
   dif_neg h
+
+/-- If a Gâteaux representative exists, `FunctionalDerivative` is that choice. -/
+public theorem FunctionalDerivative_eq_choose
+    {F : CoadjointOrbit → ℝ} {ω : CoadjointOrbit}
+    (h : ∃ dH, IsGateauxRepresentative F ω dH) :
+    FunctionalDerivative F ω = Classical.choose h :=
+  dif_pos h
 
 /-- Euclidean Biot–Savart kernel (principal-value: zero on the diagonal).
 The torus Green's function is the intended operator; this is the model-space density. -/
@@ -258,6 +301,70 @@ public theorem BiotSavart_zero :
   rw [hfun]
   exact integral_zero (α := T3) (G := EuclideanSpace ℝ (Fin 3))
     (μ := NavierStokes3D.volume)
+
+/-- Biot–Savart is homogeneous of degree one. Unconditional: both sides are
+Mathlib `0` if the integrand is not integrable. -/
+public theorem BiotSavart_smul (c : ℝ) (ω : T3 → EuclideanSpace ℝ (Fin 3)) :
+    BiotSavart (fun y => c • ω y) = fun x => c • BiotSavart ω x := by
+  funext x
+  have hfun :
+      (fun y => biotSavartKernel x y • cross (c • ω y) (x - y)) =
+        fun y => c • (biotSavartKernel x y • cross (ω y) (x - y)) := by
+    funext y
+    rw [cross_smul_left, smul_comm]
+  simp only [BiotSavart]
+  rw [hfun, integral_smul]
+
+/-- Biot–Savart is additive, given Bochner integrability of each kernel density. -/
+public theorem BiotSavart_add (ω ε : T3 → EuclideanSpace ℝ (Fin 3)) {x : T3}
+    (hω : Integrable (fun y => biotSavartKernel x y • cross (ω y) (x - y)))
+    (hε : Integrable (fun y => biotSavartKernel x y • cross (ε y) (x - y))) :
+    BiotSavart (fun y => ω y + ε y) x = BiotSavart ω x + BiotSavart ε x := by
+  have hfun :
+      (fun y => biotSavartKernel x y • cross (ω y + ε y) (x - y)) =
+        fun y =>
+          biotSavartKernel x y • cross (ω y) (x - y) +
+            biotSavartKernel x y • cross (ε y) (x - y) := by
+    funext y
+    rw [cross_add_left, smul_add]
+  simp only [BiotSavart]
+  rw [hfun, integral_add (μ := NavierStokes3D.volume) hω hε]
+
+/-- Pointwise expansion of `|a + t b|² / 2` at `t = 0` has derivative `⟨a, b⟩`. -/
+public theorem hasDerivAt_half_norm_sq
+    (a b : EuclideanSpace ℝ (Fin 3)) :
+    HasDerivAt (fun t : ℝ => (1 / 2 : ℝ) * ‖a + t • b‖ ^ 2) (inner ℝ a b) 0 := by
+  have hpoly :
+      (fun t : ℝ => (1 / 2 : ℝ) * ‖a + t • b‖ ^ 2) =
+        fun t =>
+          (1 / 2) * ‖a‖ ^ 2 + inner ℝ a b * t + (1 / 2) * ‖b‖ ^ 2 * t ^ 2 := by
+    funext t
+    have hsq := norm_add_sq_real a (t • b)
+    have hinter : inner ℝ a (t • b) = t * inner ℝ a b := by
+      simp [real_inner_smul_right]
+    have htb : ‖t • b‖ ^ 2 = t ^ 2 * ‖b‖ ^ 2 := by
+      rw [norm_smul, mul_pow, Real.norm_eq_abs, sq_abs]
+    calc
+      (1 / 2 : ℝ) * ‖a + t • b‖ ^ 2
+          = (1 / 2) * (‖a‖ ^ 2 + 2 * inner ℝ a (t • b) + ‖t • b‖ ^ 2) := by
+            rw [hsq]
+      _ = (1 / 2) * ‖a‖ ^ 2 + inner ℝ a (t • b) + (1 / 2) * ‖t • b‖ ^ 2 := by
+            ring
+      _ = (1 / 2) * ‖a‖ ^ 2 + t * inner ℝ a b + (1 / 2) * (t ^ 2 * ‖b‖ ^ 2) := by
+            rw [hinter, htb]
+      _ = (1 / 2) * ‖a‖ ^ 2 + inner ℝ a b * t + (1 / 2) * ‖b‖ ^ 2 * t ^ 2 := by
+            ring
+  rw [hpoly]
+  have h0 : HasDerivAt (fun _ : ℝ => (1 / 2 : ℝ) * ‖a‖ ^ 2) 0 0 :=
+    hasDerivAt_const 0 _
+  have h1 : HasDerivAt (fun t : ℝ => inner ℝ a b * t) (inner ℝ a b) 0 := by
+    simpa using (hasDerivAt_id (0 : ℝ)).const_mul (inner ℝ a b)
+  have h2 : HasDerivAt (fun t : ℝ => (1 / 2 : ℝ) * ‖b‖ ^ 2 * t ^ 2) 0 0 := by
+    have hp : HasDerivAt (fun t : ℝ => t ^ 2) (2 * (0 : ℝ) ^ 1) 0 := by
+      simpa using hasDerivAt_pow 2 (0 : ℝ)
+    have hc := hp.const_mul ((1 / 2 : ℝ) * ‖b‖ ^ 2)
+    simpa using hc
+  simpa using (h0.add h1).add h2
 
 /-- User's preferred notation δF/δω for the functional derivative (Section 2.1). -/
 notation "δ" F:arg "/δω" => FunctionalDerivative F
@@ -333,5 +440,13 @@ public theorem classical_bracket_reproduces_Euler
     refine ⟨?_, hdiv⟩
     simpa [zero_smul] using hmom
   simpa [zero_smul] using vorticity_transport u p 0 hNS t ht x
+
+#print axioms BiotSavart_zero
+#print axioms BiotSavart_smul
+#print axioms BiotSavart_add
+#print axioms hasDerivAt_half_norm_sq
+#print axioms cross_smul_left
+#print axioms FunctionalDerivative_eq_zero_of_not
+#print axioms FunctionalDerivative_eq_choose
 
 end ArnoldGeometric
