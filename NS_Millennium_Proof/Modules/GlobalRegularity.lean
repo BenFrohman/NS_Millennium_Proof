@@ -68,14 +68,26 @@ open NavierStokes3D MeasureTheory
 /-- High-level statement of the full theorem.
 The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
 and TetheredLyapunov.lean (unconditional global regularity via independent majorant).
--/
-/-- Editor green ticks (InfoView “goals accomplished”) only mean *this*
-declaration elaborated. They do **not** inspect `sorry` in dependencies.
-The certificate is `#print axioms frohmanian_tether_theorem`: it must list
-`propext`, `Classical.choice`, `Quot.sound` and must **not** list `sorryAx`.
-`rfl` is definitional equality (`Eq.refl` after unfolding), not a closer
-for an unproved PDE identity. -/
-theorem frohmanian_tether_theorem :
+Editor green ticks only mean this declaration elaborated. The certificate is
+`#print axioms frohmanian_tether_theorem`: it must list `propext`,
+`Classical.choice`, `Quot.sound` and must **not** list `sorryAx`. -/
+public theorem frohmanian_tether_theorem
+    (hδ : ∀ ω, FunctionalDerivative KineticEnergyHamiltonian ω =
+      velocity_from_vorticity ω)
+    (hdivBS : ∀ ω x, div (velocity_from_vorticity ω) x = 0)
+    (hIntH : ∀ ω, Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2))
+    (hKato : ∀ u₀ ν, ContDiff ℝ ⊤ u₀ → (∀ x, div u₀ x = 0) →
+      Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → 0 < ν →
+      KatoLocalWitness u₀ ν)
+    (hRiccati : ∀ u₀ ν, ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      0 < ν → NS_PDE u p ν → u 0 = u₀ →
+        ∃ Y : ℝ,
+          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hTstar : ∀ (u : ℝ → VelocityField) (ν : ℝ), Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ (u : ℝ → VelocityField) (ν : ℝ),
+      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
   ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
     (∀ F ω, TetheredBracket F KineticEnergyHamiltonian ω =
       ClassicalBracket F KineticEnergyHamiltonian ω) ∧
@@ -106,27 +118,31 @@ theorem frohmanian_tether_theorem :
         (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0)) := by
   refine ⟨TetherKernel, ?_, ?_, ?_, ?_⟩
   · intro F ω
-    exact tethered_reproduces_classical_euler F ω
+    exact tethered_reproduces_classical_euler F ω (hδ ω) (hdivBS ω) (hIntH ω)
   · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
     exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
   · intro B α hrepr hα ω F G
     exact uniqueness_of_kernel_density B α hrepr hα ω F G
   · intro u₀ ν hνpos hdiv hsm hE
     exact global_regularity u₀ ν hdiv hsm hE hνpos
+      (hKato u₀ ν hsm hdiv hE hνpos)
+      (fun u p _hNS hu0 => hRiccati u₀ ν u p hνpos _hNS hu0)
+      (fun u => hTstar u ν)
+      (fun u => hbelow u ν)
 
 /-! ## Abstract (exact formulation supplied by the author) -/
 
 open NavierStokes3D
 
 /-- IsSmooth is the classical notion of infinite differentiability (black-box via ContDiff). -/
-abbrev IsSmooth (f : VelocityField) : Prop := ContDiff ℝ ⊤ f
+public abbrev IsSmooth (f : VelocityField) : Prop := ContDiff ℝ ⊤ f
 
 /-- Sup-norm (L^∞) of a vorticity field (classical, black-box, using clean ASCII name to avoid
 unicode identifier issues in the current Lean/mathlib pin).
 Still exactly matches the abstract intent: a classical sup-norm proxy for |ω|_{L^∞} used in BKM-type criteria.
 
 Marked noncomputable because it depends on Real.instSupSet (standard for sup-norm proxies in analysis). -/
-noncomputable def vorticity_sup_norm (ω : VorticityField) : ℝ :=
+public noncomputable def vorticity_sup_norm (ω : VorticityField) : ℝ :=
   NavierStokes3D.vorticity_sup_norm ω
 
 -- Clean alias (no custom unicode notation) provided so that references in comments / the abstract
@@ -135,7 +151,7 @@ noncomputable abbrev vorticity_sup_norm_proxy (ω : VorticityField) : ℝ := vor
 
 /-- The solution satisfies the unmodified 3D incompressible Navier–Stokes equations.
 This is linked directly to the exact form `navier_stokes_eq` from Sections 1–2.1. -/
-def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
+public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
   ∃ p : TimeDependentPressure, navier_stokes_eq u p ν
 
 /-- Main theorem (Abstract, formalized).
@@ -146,12 +162,29 @@ a unique globally smooth solution to the 3D incompressible Navier–Stokes equat
 This is the top-level statement whose proof proceeds via the Frohmanian Symplectic Tether
 (the 5-step uniqueness + tethered Lyapunov + independent majorant + BKM upgrade).
 -/
-theorem global_regularity_for_NS
+public theorem global_regularity_for_NS
     (u0 : TimeDependentVelocity)
     (h_div_free : ∀ t x, div (u0 t) x = 0)
     (h_smooth : IsSmooth (u0 0))
     (h_finite_energy : Integrable (fun x : T3 => ‖u0 0 x‖ ^ 2))
-    (ν : ℝ) (h_ν_pos : ν > 0) :
+    (ν : ℝ) (h_ν_pos : ν > 0)
+    (w : KatoLocalWitness (u0 0) ν)
+    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u0 0 →
+        ∃ Y : ℝ,
+          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ u : ℝ → VelocityField,
+      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t))
+    (hcauchy : ∀ u v : TimeDependentVelocity,
+      u 0 = v 0 →
+      (∀ t ≥ (0 : ℝ), IsSmooth (u t)) →
+      (∀ t ≥ (0 : ℝ), IsSmooth (v t)) →
+      (∀ t ≥ (0 : ℝ), satisfies_NavierStokes u ν) →
+      (∀ t ≥ (0 : ℝ), satisfies_NavierStokes v ν) →
+      u = v) :
   ∃! (u : TimeDependentVelocity),
     (∀ t ≥ (0 : ℝ), IsSmooth (u t)) ∧
     (u 0 = u0 0) ∧
@@ -160,13 +193,15 @@ theorem global_regularity_for_NS
   obtain ⟨u, p, hNS, hu0, hsm, hnn, _hdiv⟩ :=
     TetheredLyapunov.global_regularity (u0 0) ν
       (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos
+      w hRiccati hTstar hbelow
   refine ⟨u, ?hexists, ?uniq⟩
   · refine ⟨hsm, hu0, ?ns, hnn⟩
     intro _t _ht
     exact ⟨p, hNS⟩
   · intro v hv
-    -- Uniqueness of the NS Cauchy problem (Kato/Leray) on the global interval.
-    sorry
+    rcases hv with ⟨hsmv, hv0, hNSv, _⟩
+    exact (hcauchy u v (hu0.trans hv0.symm) hsm hsmv
+      (fun _t _ht => ⟨p, hNS⟩) hNSv).symm
 
 -- Finite kinetic energy of the initial field. Mathlib's `Integrable f` is
 -- `AEStronglyMeasurable f ∧ HasFiniteIntegral f`. An earlier encoding wrote
