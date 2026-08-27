@@ -82,6 +82,11 @@ theorem frohmanian_tether_theorem :
       Polarizes B →
       Polarizes TetherKernel →
       ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
+    (∀ (B : CoadjointOrbit → Functional → Functional → ℝ)
+      (α : CoadjointOrbit → T3 → ℝ),
+      HasTetherKernelDensity B α →
+      (∀ ω x, α ω x = canonicalTetherDensity ω x) →
+      ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
     (∀ (u₀ : VelocityField) (ν : ℝ),
       0 < ν →
       (∀ x, div u₀ x = 0) →
@@ -93,11 +98,13 @@ theorem frohmanian_tether_theorem :
         (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t)) ∧
         (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
         (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0)) := by
-  refine ⟨TetherKernel, ?_, ?_, ?_⟩
+  refine ⟨TetherKernel, ?_, ?_, ?_, ?_⟩
   · intro F ω
     exact tethered_reproduces_classical_euler F ω
   · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
     exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
+  · intro B α hrepr hα ω F G
+    exact uniqueness_of_kernel_density B α hrepr hα ω F G
   · intro u₀ ν hνpos hdiv hsm hE
     exact global_regularity u₀ ν hdiv hsm hE hνpos
 
