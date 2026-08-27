@@ -35,6 +35,9 @@ public import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
 public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 public import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
+public import Mathlib.MeasureTheory.Measure.OpenPos
+public import Mathlib.MeasureTheory.Group.Measure
+public import Mathlib.Topology.Separation.Hausdorff
 public import Mathlib.Analysis.Calculus.MeanValue
 public import Mathlib.Analysis.ODE.Gronwall
 
@@ -2191,6 +2194,85 @@ public theorem le_Tstar_of_mem_existenceTimes
     (T : EReal) ≤ Tstar u₀ ν :=
   le_sSup (Set.mem_insert_of_mem _ ⟨T, hT, rfl⟩)
 
+/-- `T* = ⊤` iff every real is strictly below `T*`. -/
+public theorem Tstar_eq_top_iff_forall_lt (u₀ : VelocityField) (ν : ℝ) :
+    Tstar u₀ ν = ⊤ ↔ ∀ T : ℝ, (T : EReal) < Tstar u₀ ν :=
+  EReal.eq_top_iff_forall_lt _
+
+/-- Unbounded existence times force `T* = ⊤`. This is the lattice form of
+continuation: every finite time is exceeded by some existence time. -/
+public theorem Tstar_eq_top_of_unbounded_existenceTimes
+    (u₀ : VelocityField) (ν : ℝ)
+    (h : ∀ T : ℝ, ∃ T' ∈ existenceTimes u₀ ν, T < T') :
+    Tstar u₀ ν = ⊤ := by
+  refine (Tstar_eq_top_iff_forall_lt u₀ ν).2 ?_
+  intro T
+  obtain ⟨T', hmem, hlt⟩ := h T
+  exact lt_of_lt_of_le (EReal.coe_lt_coe_iff.mpr hlt)
+    (le_Tstar_of_mem_existenceTimes u₀ ν hmem)
+
+/-- A time strictly below `T*` is exceeded by a concrete existence time.
+The comparison `0 ≤ T` rules out the dummy `0` inserted into the `sSup`. -/
+public theorem exists_mem_existenceTimes_gt_of_lt_Tstar
+    (u₀ : VelocityField) (ν : ℝ) {T : ℝ}
+    (hT : (T : EReal) < Tstar u₀ ν) (hTnn : 0 ≤ T) :
+    ∃ T' ∈ existenceTimes u₀ ν, T < T' := by
+  obtain ⟨a, ha, hlt⟩ := (lt_sSup_iff (α := EReal)).mp hT
+  rw [Set.mem_insert_iff] at ha
+  cases ha with
+  | inl h0 =>
+    have hlt0 : (T : EReal) < (0 : EReal) := by
+      rwa [h0] at hlt
+    have : T < 0 := EReal.coe_lt_coe_iff.mp (by
+      rwa [← EReal.coe_zero] at hlt0)
+    exact (not_lt_of_ge hTnn this).elim
+  | inr hcoe =>
+    obtain ⟨T', hmem, rfl⟩ := hcoe
+    exact ⟨T', hmem, EReal.coe_lt_coe_iff.mp hlt⟩
+
+/-- Uniform Kato restart of length `τ > 0` below `T*` forces `T* = ⊤`.
+This is the continuation half of Beale–Kato–Majda: a positive lower bound
+on the existence increment cannot accumulate at a finite maximal time. -/
+public theorem Tstar_eq_top_of_uniform_restart
+    (u₀ : VelocityField) (ν : ℝ)
+    (τ : ℝ) (hτ : 0 < τ)
+    (hpos : (0 : EReal) < Tstar u₀ ν)
+    (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
+      ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T') :
+    Tstar u₀ ν = ⊤ := by
+  by_contra hne
+  have htop : Tstar u₀ ν ≠ ⊤ := hne
+  have hbot : Tstar u₀ ν ≠ ⊥ :=
+    ne_of_gt (lt_of_lt_of_le EReal.bot_lt_zero (Tstar_nonneg u₀ ν))
+  set S := (Tstar u₀ ν).toReal
+  have hSeq : (S : EReal) = Tstar u₀ ν := EReal.coe_toReal htop hbot
+  have hSnn : 0 ≤ S := EReal.toReal_nonneg (Tstar_nonneg u₀ ν)
+  cases le_or_gt S (τ / 2) with
+  | inl hSτ =>
+    obtain ⟨T', hmem, hle⟩ := hrestart 0 le_rfl hpos
+    have hτle : (τ : EReal) ≤ Tstar u₀ ν :=
+      (EReal.coe_le_coe_iff.mpr (by simpa using hle)).trans
+        (le_Tstar_of_mem_existenceTimes u₀ ν hmem)
+    have hSlt : (S : EReal) < (τ : EReal) :=
+      EReal.coe_lt_coe_iff.mpr (lt_of_le_of_lt hSτ (half_lt_self hτ))
+    exact (not_le_of_gt (hSeq ▸ hSlt)).elim hτle
+  | inr hSτ =>
+    set t := S - τ / 2
+    have ht0 : 0 ≤ t := sub_nonneg.mpr hSτ.le
+    have htlt : (t : EReal) < Tstar u₀ ν := by
+      rw [← hSeq]
+      exact EReal.coe_lt_coe_iff.mpr (sub_lt_self S (half_pos hτ))
+    obtain ⟨T', hmem, hle⟩ := hrestart t ht0 htlt
+    have htτ : t + τ = S + τ / 2 := by
+      ring
+    have hSlt : S < T' := by
+      have : S + τ / 2 ≤ T' := htτ ▸ hle
+      linarith [half_pos hτ]
+    have : (S : EReal) < Tstar u₀ ν :=
+      lt_of_lt_of_le (EReal.coe_lt_coe_iff.mpr hSlt)
+        (le_Tstar_of_mem_existenceTimes u₀ ν hmem)
+    exact (lt_irrefl (Tstar u₀ ν) (hSeq ▸ this)).elim
+
 /-- Kato 1972 / Leray 1934 witness: a short-time smooth NS solution.
 This is data (Type), not a `Prop` gate: the time, fields, smoothness, and PDE. -/
 public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
@@ -2217,6 +2299,101 @@ public theorem local_existence
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
   ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.p, w.pde⟩
 
+/-- Time derivative of a frozen field vanishes. -/
+public theorem time_deriv_const (v : VelocityField) (t : ℝ) (x : T3) :
+    time_deriv (fun _ => v) t x = 0 :=
+  deriv_const t (v x)
+
+/-- Zero velocity is divergence-free. -/
+public theorem div_zero_field (x : T3) : div (0 : VelocityField) x = 0 := by
+  unfold div
+  simp [fderiv_fun_const]
+
+/-- Convective term of the zero field vanishes. -/
+public theorem convective_zero (x : T3) : convective (0 : VelocityField) 0 x = 0 := by
+  unfold convective
+  simp
+
+/-- Laplacian of the zero field vanishes. -/
+public theorem laplacian_zero (x : T3) : laplacian (0 : VelocityField) x = 0 := by
+  unfold laplacian
+  simp
+
+/-- Pressure gradient of a constant pressure vanishes. -/
+public theorem pressureGradient_const (c : ℝ) (x : T3) :
+    pressureGradient (fun _ => c) x = 0 := by
+  unfold pressureGradient
+  simp [gradient_fun_const]
+
+/-- The zero velocity with zero pressure solves incompressible NS for any viscosity. -/
+public theorem navier_stokes_eq_zero (ν : ℝ) :
+    navier_stokes_eq (fun _ => (0 : VelocityField))
+      (fun _ => (0 : PressureField)) ν := by
+  intro t _ht x
+  constructor
+  · have hdt : time_deriv (fun _ => (0 : VelocityField)) t x = 0 :=
+      time_deriv_const 0 t x
+    have hcv : convective ((fun _ => (0 : VelocityField)) t) 0 x = 0 :=
+      convective_zero x
+    have hp : pressureGradient ((fun _ => (0 : PressureField)) t) x = 0 :=
+      pressureGradient_const 0 x
+    have hl : laplacian ((fun _ => (0 : VelocityField)) t) x = 0 :=
+      laplacian_zero x
+    rw [hdt, hcv, hp, hl, zero_add, zero_add, smul_zero]
+  · exact div_zero_field x
+
+/-- Zero initial data: the rest state is a Kato/Leray witness of any positive length. -/
+public noncomputable def kato_witness_zero (ν : ℝ) :
+    KatoLocalWitness (0 : VelocityField) ν where
+  T := 1
+  Tpos := one_pos
+  u := fun _ => 0
+  p := fun _ => (0 : PressureField)
+  smooth := fun _t _ht => contDiff_const
+  init := rfl
+  pde := navier_stokes_eq_zero ν
+
+/-- Kato local existence for the rest state: 0-hyp construction, no `True`. -/
+public noncomputable def local_existence_zero (ν : ℝ) (_hν : 0 < ν) :
+    KatoLocalWitness (0 : VelocityField) ν :=
+  kato_witness_zero ν
+
+/-- The Kato time of a witness is an existence time. -/
+public theorem mem_existenceTimes_of_kato_witness
+    (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν) :
+    w.T ∈ existenceTimes u₀ ν :=
+  ⟨w.Tpos, w.u, w.p, w.init, w.pde, w.smooth⟩
+
+/-- Constructor for `existenceTimes`, exposed across modules (the set
+predicate is otherwise opaque). -/
+public theorem mem_existenceTimes
+    (u₀ : VelocityField) (ν : ℝ) {T : ℝ}
+    (hT : 0 < T)
+    (u : TimeDependentVelocity) (p : TimeDependentPressure)
+    (hu0 : u 0 = u₀)
+    (hpde : NS_PDE u p ν)
+    (hsm : ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+    T ∈ existenceTimes u₀ ν :=
+  ⟨hT, u, p, hu0, hpde, hsm⟩
+
+/-- Curl of the zero field vanishes. -/
+public theorem curl_zero (x : T3) : curl (0 : VelocityField) x = 0 := by
+  simpa using curl_smul (0 : ℝ) (0 : VelocityField) x
+
+/-- Every positive time is an existence time of the rest state. -/
+public theorem mem_existenceTimes_zero (ν : ℝ) {T : ℝ} (hT : 0 < T) :
+    T ∈ existenceTimes (0 : VelocityField) ν :=
+  ⟨hT, fun _ => 0, fun _ => (0 : PressureField), rfl, navier_stokes_eq_zero ν,
+    fun _ _ => contDiff_const⟩
+
+/-- The rest state has unbounded existence times, hence `T* = ⊤`. -/
+public theorem Tstar_zero_eq_top (ν : ℝ) :
+    Tstar (0 : VelocityField) ν = ⊤ :=
+  Tstar_eq_top_of_unbounded_existenceTimes _ _ fun T => by
+    refine ⟨max T 0 + 1, mem_existenceTimes_zero ν ?pos, ?lt⟩
+    · linarith [le_max_right T 0]
+    · linarith [le_max_left T 0]
+
 /-- Kato local existence forces `T* > 0`. The implication is kernel-closed; the
 existence hypothesis is the remaining Kato transcription. -/
 public theorem Tstar_pos_of_exists_smooth_solution
@@ -2230,6 +2407,13 @@ public theorem Tstar_pos_of_exists_smooth_solution
   have hmem : T ∈ existenceTimes u₀ ν := ⟨hTpos, u, p, hu0, hpde, hsmooth⟩
   have hpos : (0 : EReal) < (T : EReal) := EReal.coe_pos.mpr hTpos
   exact lt_of_lt_of_le hpos (le_Tstar_of_mem_existenceTimes u₀ ν hmem)
+
+/-- A Kato witness forces `T* > 0`. -/
+public theorem Tstar_pos_of_kato_witness
+    (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν) :
+    (0 : EReal) < Tstar u₀ ν :=
+  Tstar_pos_of_exists_smooth_solution u₀ ν
+    ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.p, w.pde⟩
 
 /-- Pointwise sup-norm proxy used by BKM. -/
 @[expose] public noncomputable def vorticity_sup_norm (ω : VorticityField) : ℝ :=
@@ -2483,6 +2667,112 @@ public theorem energy_zero_of_gronwall
     exact hgr
   exact le_antisymm this (hnn t ht)
 
+/-- Vanishing L² energy of a continuous field forces the field to vanish
+pointwise: Haar is positive on nonempty opens, so a continuous nonnegative
+density with integral zero is identically zero. -/
+public theorem eq_of_l2_energy_zero
+    (w : VelocityField)
+    (hInt : Integrable (fun x : T3 => ‖w x‖ ^ 2))
+    (hE : (∫ x, ‖w x‖ ^ 2 ∂volume) = 0)
+    (hcont : Continuous w) :
+    w = 0 := by
+  have hnn : 0 ≤ fun x : T3 => ‖w x‖ ^ 2 := fun x => pow_nonneg (norm_nonneg _) _
+  have hcontSq : Continuous fun x : T3 => ‖w x‖ ^ 2 :=
+    (continuous_norm.comp hcont).pow 2
+  by_contra hne
+  have hx : ∃ x, w x ≠ 0 := by
+    contrapose! hne
+    funext x
+    exact hne x
+  obtain ⟨x, hx⟩ := hx
+  have hx0 : (fun y => ‖w y‖ ^ 2) x ≠ 0 := by
+    intro hsq
+    exact hx (norm_eq_zero.mp (sq_eq_zero_iff.mp hsq))
+  have hInt' : Integrable (fun y => ‖w y‖ ^ 2) MeasureTheory.volume := by
+    simpa [volume] using hInt
+  have hpos :=
+    integral_pos_of_integrable_nonneg_nonzero (μ := MeasureTheory.volume)
+      hcontSq hInt' hnn hx0
+  have hE' : (∫ y, ‖w y‖ ^ 2 ∂MeasureTheory.volume) = 0 := by
+    simpa [volume] using hE
+  exact (not_lt_of_ge (le_of_eq hE')) hpos
+
+/-- Cauchy uniqueness from the energy Grönwall: if the L² difference of two
+continuous fields obeys `E' ≤ K E` and `E 0 = 0`, then the fields coincide. -/
+public theorem ns_cauchy_of_energy_gronwall
+    (u v : TimeDependentVelocity) (K : ℝ)
+    (hu0 : u 0 = v 0)
+    (hcontE : ∀ t ≥ (0 : ℝ), ContinuousAt
+      (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t)
+    (hdiffE : ∀ t ≥ (0 : ℝ), DifferentiableAt ℝ
+      (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t)
+    (hle : ∀ t ≥ (0 : ℝ),
+      deriv (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t ≤
+        K * ∫ x, ‖u t x - v t x‖ ^ 2 ∂volume)
+    (hInt : ∀ t ≥ (0 : ℝ), Integrable (fun x : T3 => ‖u t x - v t x‖ ^ 2))
+    (hcont : ∀ t ≥ (0 : ℝ), Continuous (u t) ∧ Continuous (v t))
+    (t : ℝ) (ht : 0 ≤ t) :
+    u t = v t := by
+  set E : ℝ → ℝ := fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume
+  have h0 : E 0 = 0 := by
+    have hfun : (fun x : T3 => ‖u 0 x - v 0 x‖ ^ 2) = fun _ => 0 := by
+      funext x
+      simp [hu0]
+    simp [E, hfun]
+  have hnn : ∀ s ≥ (0 : ℝ), 0 ≤ E s := fun s _ =>
+    integral_nonneg fun _ => pow_nonneg (norm_nonneg _) _
+  have hE0 : E t = 0 :=
+    energy_zero_of_gronwall E K hcontE hdiffE hle h0 hnn t ht
+  have hw : u t - v t = 0 :=
+    eq_of_l2_energy_zero (u t - v t) (by
+      simpa [Pi.sub_apply] using hInt t ht) (by
+      simpa [E, Pi.sub_apply] using hE0)
+      ((hcont t ht).1.sub (hcont t ht).2)
+  funext x
+  have := congrFun hw x
+  simpa [Pi.sub_apply, sub_eq_zero] using this
+
+/-- Two NS solutions with the same initial velocity coincide on `t ≥ 0`
+once their L² difference obeys Grönwall. The Cauchy problem does not
+constrain times `t < 0`. -/
+public theorem ns_cauchy_eq_of_energy_gronwall
+    (u v : TimeDependentVelocity) (K : ℝ)
+    (hu0 : u 0 = v 0)
+    (hcontE : ∀ t ≥ (0 : ℝ), ContinuousAt
+      (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t)
+    (hdiffE : ∀ t ≥ (0 : ℝ), DifferentiableAt ℝ
+      (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t)
+    (hle : ∀ t ≥ (0 : ℝ),
+      deriv (fun s => ∫ x, ‖u s x - v s x‖ ^ 2 ∂volume) t ≤
+        K * ∫ x, ‖u t x - v t x‖ ^ 2 ∂volume)
+    (hInt : ∀ t ≥ (0 : ℝ), Integrable (fun x : T3 => ‖u t x - v t x‖ ^ 2))
+    (hcont : ∀ t ≥ (0 : ℝ), Continuous (u t) ∧ Continuous (v t)) :
+    ∀ t ≥ (0 : ℝ), u t = v t :=
+  fun t ht =>
+    ns_cauchy_of_energy_gronwall u v K hu0 hcontE hdiffE hle hInt hcont t ht
+
+/-- Compact-interval smoothness below `T*` for a named NS solution, once any
+existence-time witness with the same initial velocity equals that solution
+on the interval. Cauchy uniqueness on `t ≥ 0` supplies the identification. -/
+public theorem smoothness_below_Tstar_of_uniqueness
+    (u : TimeDependentVelocity) (ν : ℝ)
+    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes (u 0) ν →
+      v 0 = u 0 →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      ∀ t ∈ Set.Icc (0 : ℝ) T', u t = v t)
+    {T : ℝ} (hT : (T : EReal) < Tstar (u 0) ν) (hTnn : 0 ≤ T) :
+    ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t) := by
+  obtain ⟨T', hmem, hlt⟩ :=
+    exists_mem_existenceTimes_gt_of_lt_Tstar (u 0) ν hT hTnn
+  obtain ⟨v, q, hv0, hpde, hsm⟩ := hmem.2
+  have heq := huniq T' v q hmem hv0 hpde hsm
+  intro t ht
+  have ht' : t ∈ Set.Icc (0 : ℝ) T' := ⟨ht.1, ht.2.trans hlt.le⟩
+  rw [heq t ht']
+  exact hsm t ht'
+
 /-- Parabolic regularity upgrade: a uniform vorticity bound plus continuity of
 `t ↦ ‖ω(t)‖_∞` feeds BKM, hence smoothness for all positive times. -/
 public theorem parabolic_regularity_from_vorticity_bound
@@ -2513,6 +2803,20 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms smoothness_of_Tstar_top
 #print axioms beale_kato_majda
 #print axioms energy_zero_of_gronwall
+#print axioms Tstar_eq_top_of_unbounded_existenceTimes
+#print axioms Tstar_eq_top_of_uniform_restart
+#print axioms exists_mem_existenceTimes_gt_of_lt_Tstar
+#print axioms navier_stokes_eq_zero
+#print axioms kato_witness_zero
+#print axioms local_existence_zero
+#print axioms Tstar_pos_of_kato_witness
+#print axioms eq_of_l2_energy_zero
+#print axioms ns_cauchy_of_energy_gronwall
+#print axioms ns_cauchy_eq_of_energy_gronwall
+#print axioms smoothness_below_Tstar_of_uniqueness
+#print axioms curl_zero
+#print axioms mem_existenceTimes_zero
+#print axioms Tstar_zero_eq_top
 #print axioms div_curl
 #print axioms div_of_eq_curl
 #print axioms div_smul_field

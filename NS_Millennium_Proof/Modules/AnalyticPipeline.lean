@@ -209,6 +209,29 @@ public theorem bkm_regularity_pipeline
       (fun τ => vorticity_sup_norm (vorticity (u τ))) hbound hcont T)
     hTstar hbelow
 
+/-- The Riccati differential inequality for `M(t) = ‖ω(t)‖_∞` produces the
+uniform ceiling `max(M 0, C/κ'')` together with the standing continuity of
+`M`. This is the assembly `hRiccati` conjunct, discharged from the comparison
+ODE already kernel-checked in this module. -/
+public theorem vorticity_sup_norm_riccati_bound
+    (u : TimeDependentVelocity)
+    (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
+    (hdiff : ∀ s ≥ (0 : ℝ),
+      DifferentiableAt ℝ (fun τ => vorticity_sup_norm (vorticity (u τ))) s)
+    (hDI : ∀ s ≥ (0 : ℝ),
+      deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+        C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+          κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3)
+    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
+    ∃ Y : ℝ,
+      (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+      Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :=
+  ⟨max (vorticity_sup_norm (vorticity (u 0))) (C / κ''),
+    ⟨fun τ hτ =>
+      comparison_ode_stability C κ'' hC hκ
+        (fun s => vorticity_sup_norm (vorticity (u s))) hdiff hDI τ hτ,
+      hcont⟩⟩
+
 /-! ## ε-Young and Hölder absorption (real scalars, Mathlib) -/
 
 /-- Conjugate pair used on `I₆^{2/3}` and the stretching product. -/
@@ -444,5 +467,6 @@ public theorem holder_I4_le_sobolev
 #print axioms holder_I4
 #print axioms holder_I4_le_sobolev
 #print axioms stretching_bound_of_holder
+#print axioms vorticity_sup_norm_riccati_bound
 
 end AnalyticPipeline
