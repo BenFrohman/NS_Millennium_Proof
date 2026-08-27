@@ -37,6 +37,7 @@ public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
 public import Mathlib.Tactic.Ring
+public import Mathlib.Analysis.Calculus.ParametricIntegral
 public import NS_Millennium_Proof.Modules.NS_Equations
 
 -- NOTE (post-bumper-rails phase): All silencing options removed. Every `declaration uses 'sorry'`
@@ -366,6 +367,136 @@ public theorem hasDerivAt_half_norm_sq
     simpa using hc
   simpa using (h0.add h1).add h2
 
+/-- Same expansion at an arbitrary time: derivative is `⟨a + t b, b⟩`. -/
+public theorem hasDerivAt_half_norm_sq_at
+    (a b : EuclideanSpace ℝ (Fin 3)) (t : ℝ) :
+    HasDerivAt (fun s : ℝ => (1 / 2 : ℝ) * ‖a + s • b‖ ^ 2)
+      (inner ℝ (a + t • b) b) t := by
+  have hpoly :
+      (fun s : ℝ => (1 / 2 : ℝ) * ‖a + s • b‖ ^ 2) =
+        fun s =>
+          (1 / 2) * ‖a‖ ^ 2 + inner ℝ a b * s + (1 / 2) * ‖b‖ ^ 2 * s ^ 2 := by
+    funext s
+    have hsq := norm_add_sq_real a (s • b)
+    have hinter : inner ℝ a (s • b) = s * inner ℝ a b := by
+      simp [real_inner_smul_right]
+    have hsb : ‖s • b‖ ^ 2 = s ^ 2 * ‖b‖ ^ 2 := by
+      rw [norm_smul, mul_pow, Real.norm_eq_abs, sq_abs]
+    calc
+      (1 / 2 : ℝ) * ‖a + s • b‖ ^ 2
+          = (1 / 2) * (‖a‖ ^ 2 + 2 * inner ℝ a (s • b) + ‖s • b‖ ^ 2) := by
+            rw [hsq]
+      _ = (1 / 2) * ‖a‖ ^ 2 + inner ℝ a (s • b) + (1 / 2) * ‖s • b‖ ^ 2 := by
+            ring
+      _ = (1 / 2) * ‖a‖ ^ 2 + s * inner ℝ a b + (1 / 2) * (s ^ 2 * ‖b‖ ^ 2) := by
+            rw [hinter, hsb]
+      _ = (1 / 2) * ‖a‖ ^ 2 + inner ℝ a b * s + (1 / 2) * ‖b‖ ^ 2 * s ^ 2 := by
+            ring
+  have hval : inner ℝ (a + t • b) b = inner ℝ a b + t * ‖b‖ ^ 2 := by
+    rw [inner_add_left, real_inner_smul_left, real_inner_self_eq_norm_sq]
+  rw [hpoly, hval]
+  have h0 : HasDerivAt (fun _ : ℝ => (1 / 2 : ℝ) * ‖a‖ ^ 2) 0 t :=
+    hasDerivAt_const t _
+  have h1 : HasDerivAt (fun s : ℝ => inner ℝ a b * s) (inner ℝ a b) t := by
+    simpa using (hasDerivAt_id t).const_mul (inner ℝ a b)
+  have h2 : HasDerivAt (fun s : ℝ => (1 / 2 : ℝ) * ‖b‖ ^ 2 * s ^ 2)
+      (((1 / 2 : ℝ) * ‖b‖ ^ 2) * (2 * t)) t := by
+    have hp : HasDerivAt (fun s : ℝ => s ^ 2) (2 * t ^ 1) t := by
+      simpa using hasDerivAt_pow 2 t
+    simpa using hp.const_mul ((1 / 2 : ℝ) * ‖b‖ ^ 2)
+  have hall := (h0.add h1).add h2
+  convert hall using 1
+  ring
+
+/-- Affine line in the vorticity: `K(ω + t ε) = Kω + t Kε` at a point, given
+integrable kernel densities for `ω` and `ε`. -/
+public theorem BiotSavart_affine (ω ε : T3 → EuclideanSpace ℝ (Fin 3)) (t : ℝ) {x : T3}
+    (hω : Integrable (fun y => biotSavartKernel x y • cross (ω y) (x - y)))
+    (hε : Integrable (fun y => biotSavartKernel x y • cross (ε y) (x - y))) :
+    BiotSavart (fun y => ω y + t • ε y) x =
+      BiotSavart ω x + t • BiotSavart ε x := by
+  have hfun :
+      (fun y => biotSavartKernel x y • cross (t • ε y) (x - y)) =
+        fun y => t • (biotSavartKernel x y • cross (ε y) (x - y)) := by
+    funext y
+    rw [cross_smul_left, smul_comm]
+  have ht : Integrable (fun y => biotSavartKernel x y • cross (t • ε y) (x - y)) := by
+    rw [hfun]
+    exact hε.smul t
+  have hadd := BiotSavart_add ω (fun y => t • ε y) (x := x) hω ht
+  rw [hadd]
+  have hsm : BiotSavart (fun y => t • ε y) x = t • BiotSavart ε x := by
+    simpa using congrFun (BiotSavart_smul t ε) x
+  rw [hsm]
+
+/-- Scalar triple product: `r · (ω × r) = 0`. -/
+public theorem pairing_cross_self_right (ω r : EuclideanSpace ℝ (Fin 3)) :
+    pairing r (cross ω r) = 0 := by
+  unfold pairing cross
+  have hdot :
+      inner ℝ r (WithLp.toLp 2 (WithLp.ofLp ω ⨯₃ WithLp.ofLp r)) =
+        WithLp.ofLp r ⬝ᵥ (WithLp.ofLp ω ⨯₃ WithLp.ofLp r) := by
+    simp [PiLp.inner_apply, dotProduct]
+    refine Finset.sum_congr rfl fun i _ => mul_comm _ _
+  rw [hdot, dot_cross_self]
+
+/-- Kinetic energy along an affine Biot–Savart line has derivative
+`∫ ⟨u, δu⟩` at `t = 0`. This is the paper's `δH = u` in the Lie-algebra
+pairing against the velocity variation, given dominated integrability. -/
+public theorem kineticEnergy_hasDerivAt_velocity_pairing
+    (a b : T3 → EuclideanSpace ℝ (Fin 3))
+    (hF_meas : ∀ᶠ t in nhds (0 : ℝ),
+      AEStronglyMeasurable (fun x => (1 / 2 : ℝ) * ‖a x + t • b x‖ ^ 2)
+        NavierStokes3D.volume)
+    (hF_int : Integrable (fun x => (1 / 2 : ℝ) * ‖a x‖ ^ 2)
+      NavierStokes3D.volume)
+    (hbound : Integrable (fun x => ‖a x‖ * ‖b x‖ + ‖b x‖ ^ 2)
+      NavierStokes3D.volume)
+    (hinner : AEStronglyMeasurable
+      (fun x => inner ℝ (a x) (b x)) NavierStokes3D.volume) :
+    HasDerivAt (fun t : ℝ =>
+        ∫ x, (1 / 2 : ℝ) * ‖a x + t • b x‖ ^ 2 ∂NavierStokes3D.volume)
+      (∫ x, inner ℝ (a x) (b x) ∂NavierStokes3D.volume) 0 := by
+  have hs : Metric.ball (0 : ℝ) 1 ∈ nhds (0 : ℝ) := Metric.ball_mem_nhds 0 one_pos
+  have hdiff : ∀ᵐ x ∂NavierStokes3D.volume,
+      ∀ t ∈ Metric.ball (0 : ℝ) 1,
+        HasDerivAt (fun s : ℝ => (1 / 2 : ℝ) * ‖a x + s • b x‖ ^ 2)
+          (inner ℝ (a x + t • b x) (b x)) t :=
+    Filter.Eventually.of_forall fun x t _ht =>
+      hasDerivAt_half_norm_sq_at (a x) (b x) t
+  have hbd : ∀ᵐ x ∂NavierStokes3D.volume,
+      ∀ t ∈ Metric.ball (0 : ℝ) 1,
+        ‖inner ℝ (a x + t • b x) (b x)‖ ≤ ‖a x‖ * ‖b x‖ + ‖b x‖ ^ 2 :=
+    Filter.Eventually.of_forall fun x t ht => by
+      have ht1 : |t| ≤ 1 := (le_of_lt (mem_ball_zero_iff.mp ht)).trans_eq (by simp)
+      have hineq := abs_real_inner_le_norm (a x + t • b x) (b x)
+      have htri : ‖a x + t • b x‖ ≤ ‖a x‖ + |t| * ‖b x‖ := by
+        simpa [norm_smul, Real.norm_eq_abs] using norm_add_le (a x) (t • b x)
+      have hmul : (‖a x‖ + |t| * ‖b x‖) * ‖b x‖ ≤
+          ‖a x‖ * ‖b x‖ + ‖b x‖ ^ 2 := by
+        nlinarith [norm_nonneg (a x), norm_nonneg (b x), abs_nonneg t, ht1]
+      exact hineq.trans ((mul_le_mul_of_nonneg_right htri (norm_nonneg (b x))).trans hmul)
+  have hF'meas : AEStronglyMeasurable
+      (fun x => inner ℝ (a x + (0 : ℝ) • b x) (b x)) NavierStokes3D.volume := by
+    simpa using hinner
+  have hF0 : Integrable (fun x => (1 / 2 : ℝ) * ‖a x + (0 : ℝ) • b x‖ ^ 2)
+      NavierStokes3D.volume := by
+    simpa [zero_smul, add_zero] using hF_int
+  have hkey :=
+    hasDerivAt_integral_of_dominated_loc_of_deriv_le (μ := NavierStokes3D.volume)
+      (F := fun t x => (1 / 2 : ℝ) * ‖a x + t • b x‖ ^ 2)
+      (F' := fun t x => inner ℝ (a x + t • b x) (b x))
+      (bound := fun x => ‖a x‖ * ‖b x‖ + ‖b x‖ ^ 2)
+      (x₀ := (0 : ℝ)) hs hF_meas hF0 hF'meas hbd hbound hdiff
+  have hinter :
+      (∫ x, inner ℝ (a x + (0 : ℝ) • b x) (b x) ∂NavierStokes3D.volume) =
+        ∫ x, inner ℝ (a x) (b x) ∂NavierStokes3D.volume := by
+    congr 1
+    funext x
+    simp [zero_smul, add_zero]
+  rw [← hinter]
+  exact hkey.2
+
 /-- User's preferred notation δF/δω for the functional derivative (Section 2.1). -/
 notation "δ" F:arg "/δω" => FunctionalDerivative F
 -- Short name is correct inside the namespace. The `public def` on FunctionalDerivative
@@ -444,9 +575,13 @@ public theorem classical_bracket_reproduces_Euler
 #print axioms BiotSavart_zero
 #print axioms BiotSavart_smul
 #print axioms BiotSavart_add
+#print axioms BiotSavart_affine
 #print axioms hasDerivAt_half_norm_sq
+#print axioms hasDerivAt_half_norm_sq_at
+#print axioms pairing_cross_self_right
 #print axioms cross_smul_left
 #print axioms FunctionalDerivative_eq_zero_of_not
 #print axioms FunctionalDerivative_eq_choose
+#print axioms kineticEnergy_hasDerivAt_velocity_pairing
 
 end ArnoldGeometric
