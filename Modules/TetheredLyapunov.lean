@@ -882,8 +882,10 @@ public theorem majorantFieldClip_norm_le (C κ'' Y x : ℝ) (hY : 0 ≤ Y) :
   set z := max (-1 : ℝ) (min x (Y + 1))
   have hz1 : -1 ≤ z := le_max_left _ _
   have hz2 : z ≤ Y + 1 := max_le (by linarith) (min_le_right _ _)
+  -- `|z| ≤ Y+1` iff `-(Y+1) ≤ z ≤ Y+1`. Right half is `hz2`.
+  -- Left half: `0 ≤ Y` gives `1 ≤ Y+1`, so `-(Y+1) ≤ -1 ≤ z`.
   have hzabs : |z| ≤ Y + 1 :=
-    abs_le.2 ⟨by linarith [hz1, hY], hz2⟩
+    abs_le.2 ⟨(neg_le_neg (le_add_of_nonneg_left (a := (1 : ℝ)) hY)).trans hz1, hz2⟩
   have hcalc : |C * z ^ 2 - κ'' * z ^ 3| ≤ |C| * (Y + 1) ^ 2 + |κ''| * (Y + 1) ^ 3 := by
     calc
       |C * z ^ 2 - κ'' * z ^ 3|
