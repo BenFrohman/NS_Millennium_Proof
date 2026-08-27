@@ -30,7 +30,9 @@ public import Mathlib.Analysis.Calculus.Deriv.Add
 public import Mathlib.Analysis.Calculus.Deriv.Basic
 public import Mathlib.Analysis.Calculus.Deriv.Mul
 public import Mathlib.Analysis.Calculus.Deriv.Pow
+public import Mathlib.Analysis.InnerProductSpace.Calculus
 public import Mathlib.Analysis.InnerProductSpace.PiL2
+public import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 public import Mathlib.LinearAlgebra.CrossProduct
 public import Mathlib.MeasureTheory.Integral.Bochner.Basic
@@ -377,6 +379,82 @@ public theorem div_cross_offset (ω : EuclideanSpace ℝ (Fin 3)) (y x : T3) :
       (fun _ => differentiableAt_const _)
   rw [hadd, div_cross_right, div_const, add_zero]
 
+/-- Each coordinate of `z ↦ ω × (z − y)` is affine, hence C¹. -/
+public theorem differentiableAt_cross_offset_coord
+    (ω : EuclideanSpace ℝ (Fin 3)) (y x : T3) (i : Fin 3) :
+    DifferentiableAt ℝ (fun z => cross ω (z - y) i) x := by
+  have hfun : (fun z => cross ω (z - y) i) =
+      fun z => cross ω z i + cross ω (-y) i := by
+    funext z
+    rw [sub_eq_add_neg, cross_add_right, PiLp.add_apply]
+  rw [hfun]
+  exact (differentiableAt_cross_coord ω x i).add (differentiableAt_const _)
+
+/-- `D_z |z − y|² = 2 ⟨z − y, ·⟩`. C¹ identity; no mixed partials. -/
+public theorem hasFDerivAt_norm_sq_offset (y x : T3) :
+    HasFDerivAt (fun z : T3 => ‖z - y‖ ^ 2) (2 • innerSL ℝ (x - y)) x := by
+  have hid : HasFDerivAt (fun z : T3 => z - y) (ContinuousLinearMap.id ℝ T3) x :=
+    (hasFDerivAt_id x).sub_const y
+  simpa [ContinuousLinearMap.comp_id] using hid.norm_sq
+
+/-- `|z − y|⁻³ = (|z − y|²)^(−3/2)`. -/
+public theorem norm_rpow_neg_three_eq_norm_sq_rpow (z y : T3) :
+    ‖z - y‖ ^ (-(3 : ℝ)) = (‖z - y‖ ^ 2) ^ (-(3 : ℝ) / 2) := by
+  have hnn : 0 ≤ ‖z - y‖ := norm_nonneg _
+  calc
+    ‖z - y‖ ^ (-(3 : ℝ))
+        = ‖z - y‖ ^ ((2 : ℝ) * (-(3 : ℝ) / 2)) := by
+          congr 1
+          ring
+    _ = (‖z - y‖ ^ (2 : ℝ)) ^ (-(3 : ℝ) / 2) :=
+          Real.rpow_mul hnn (2 : ℝ) (-(3 : ℝ) / 2)
+    _ = (‖z - y‖ ^ 2) ^ (-(3 : ℝ) / 2) := by
+          congr 1
+          exact Real.rpow_two _
+
+/-- Off the pole, `z ↦ K(z,y)` is C¹ with derivative parallel to `x − y`.
+The scalar prefactor is not needed for the triple-product cancellation. -/
+public theorem hasFDerivAt_biotSavartKernel_of_ne {y x : T3} (h : x ≠ y) :
+    ∃ c : ℝ, HasFDerivAt (fun z => biotSavartKernel z y)
+      (c • innerSL ℝ (x - y)) x := by
+  have hsq := hasFDerivAt_norm_sq_offset y x
+  have hne : ‖x - y‖ ^ 2 ≠ 0 :=
+    pow_ne_zero 2 (norm_ne_zero_iff.mpr (sub_ne_zero.mpr h))
+  have hrpow :
+      HasFDerivAt (fun z : T3 => (‖z - y‖ ^ 2) ^ (-(3 : ℝ) / 2))
+        (((-(3 : ℝ) / 2) * (‖x - y‖ ^ 2) ^ (-(3 : ℝ) / 2 - 1)) •
+          (2 • innerSL ℝ (x - y))) x :=
+    hsq.rpow_const (Or.inl hne)
+  have hfun : (fun z : T3 => ‖z - y‖ ^ (-(3 : ℝ))) =
+      fun z => (‖z - y‖ ^ 2) ^ (-(3 : ℝ) / 2) := by
+    funext z
+    exact norm_rpow_neg_three_eq_norm_sq_rpow z y
+  have hrad : HasFDerivAt (fun z : T3 => ‖z - y‖ ^ (-(3 : ℝ)))
+      (((-(3 : ℝ) / 2) * (‖x - y‖ ^ 2) ^ (-(3 : ℝ) / 2 - 1)) •
+        (2 • innerSL ℝ (x - y))) x := by
+    rw [hfun]
+    exact hrpow
+  have hc := hrad.const_mul ((4 * Real.pi)⁻¹)
+  have hnear : ∀ᶠ z in nhds x, z ≠ y := eventually_ne_nhds h
+  have heq :
+      (fun z => (4 * Real.pi)⁻¹ * ‖z - y‖ ^ (-(3 : ℝ))) =ᶠ[nhds x]
+        fun z => biotSavartKernel z y := by
+    filter_upwards [hnear] with z hz
+    exact (biotSavartKernel_of_ne hz).symm
+  refine ⟨(4 * Real.pi)⁻¹ *
+      ((-(3 : ℝ) / 2) * (‖x - y‖ ^ 2) ^ (-(3 : ℝ) / 2 - 1) * 2), ?_⟩
+  have hK := hc.congr_of_eventuallyEq heq.symm
+  convert hK using 1
+  ext dz
+  simp only [ContinuousLinearMap.smul_apply, innerSL_apply_apply, smul_eq_mul]
+  ring
+
+/-- Off the diagonal the Biot–Savart density is C¹. -/
+public theorem differentiableAt_biotSavartKernel_off_diag {y x : T3} (h : x ≠ y) :
+    DifferentiableAt ℝ (fun z => biotSavartKernel z y) x := by
+  obtain ⟨c, hc⟩ := hasFDerivAt_biotSavartKernel_of_ne h
+  exact hc.differentiableAt
+
 /-- Prefactor of the Constantin–Fefferman / Majda–Bertozzi 3D strain kernel
 `(K z ω)_{ij} = (3/(8 π)) [(z × ω)_i z_j + (z × ω)_j z_i] / |z|^5`. -/
 @[expose] public noncomputable def biotSavartStrainKernelPrefactor : ℝ :=
@@ -552,6 +630,33 @@ public theorem pairing_cross_self_right (ω r : EuclideanSpace ℝ (Fin 3)) :
     refine Finset.sum_congr rfl fun i _ => mul_comm _ _
   rw [hdot, dot_cross_self]
 
+/-- Off the pole, `div_z (K(z,y) (ω(y) × (z−y))) = 0`.
+C¹ product rule: `∇K ∥ (z−y)` so `∇K · (ω × (z−y)) = 0`, and
+`div(ω × (z−y)) = 0`. Mixed partials are not used. -/
+public theorem div_biotSavart_integrand
+    (ω : T3 → EuclideanSpace ℝ (Fin 3)) (y x : T3) (h : x ≠ y) :
+    NavierStokes3D.div
+      (fun z => biotSavartKernel z y • cross (ω y) (z - y)) x = 0 := by
+  obtain ⟨c, hc⟩ := hasFDerivAt_biotSavartKernel_of_ne (y := y) (x := x) h
+  set φ : T3 → ℝ := fun z => biotSavartKernel z y
+  set V : VelocityField := fun z => cross (ω y) (z - y)
+  have hφ : DifferentiableAt ℝ φ x := hc.differentiableAt
+  have hV : ∀ i, DifferentiableAt ℝ (fun z => V z i) x :=
+    fun i => differentiableAt_cross_offset_coord (ω y) y x i
+  have hprod := div_smul_field φ V x hφ hV
+  have hdivV : NavierStokes3D.div V x = 0 :=
+    div_cross_offset (ω y) y x
+  have hgrad : inner ℝ (gradient φ x) (V x) = 0 := by
+    have hinner :
+        inner ℝ (gradient φ x) (V x) = (fderiv ℝ φ x) (V x) :=
+      inner_gradient_left (y := V x) hφ
+    rw [hinner, hc.fderiv, ContinuousLinearMap.smul_apply, smul_eq_mul,
+      innerSL_apply_apply]
+    have htrip : inner ℝ (x - y) (V x) = 0 := by
+      simpa [V] using pairing_cross_self_right (ω y) (x - y)
+    rw [htrip, mul_zero]
+  rw [hprod, hgrad, hdivV, mul_zero, add_zero]
+
 /-- Kinetic energy along an affine Biot–Savart line has derivative
 `∫ ⟨u, δu⟩` at `t = 0`. This is the paper's `δH = u` in the Lie-algebra
 pairing against the velocity variation, given dominated integrability. -/
@@ -715,6 +820,11 @@ public theorem classical_bracket_reproduces_Euler
 #print axioms cross_coord
 #print axioms div_cross_right
 #print axioms div_cross_offset
+#print axioms differentiableAt_cross_offset_coord
+#print axioms hasFDerivAt_norm_sq_offset
+#print axioms hasFDerivAt_biotSavartKernel_of_ne
+#print axioms differentiableAt_biotSavartKernel_off_diag
+#print axioms div_biotSavart_integrand
 #print axioms functional_derivative_eq_velocity_of_unique_repr
 
 end ArnoldGeometric
