@@ -1,7 +1,10 @@
 # Contributing
 
-Thanks for your interest in this project. It is an active research formalization, so a few conventions keep
-the repository auditable and its authorship record clean.
+This repository is Benjamin Stanley Frohman's Frohmanian tether proof and its Lean 4
+encoding. Remaining Lean transcription is author-only (with the Grok encoding
+collaboration recorded in the disclaimer). Do not open issues or PRs to fill
+`sorry`s, invent TODOs, or take credit for classical boxes. Conventions below
+keep the authorship record clean.
 
 ## Ground rules
 
