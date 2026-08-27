@@ -25,6 +25,8 @@ The live definitions are:
 * paper §2.1 operators in `NavierStokes3D`: `curl`, `convective`, `laplacian`,
   `curl_gradient`, `curl_convective`, `curl_time_deriv`, `curl_laplacian`,
   `VorticityTransportRegularity`, `vorticity_transport_at`, `vorticity_transport`
+* paper §3 quartic product rule: `hasDerivAt_norm_pow_four`,
+  `hasDerivAt_quartic_tether_weight`, `hasDerivAt_lyapunov_density`
 
 ASCII identifiers only for defs (`TetheredBracket`, `TetherKernel`, `kappa`).
 `FT` / `TF` / `BF` are not used.

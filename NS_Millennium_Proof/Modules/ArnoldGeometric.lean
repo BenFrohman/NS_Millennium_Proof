@@ -781,9 +781,14 @@ public noncomputable def ClassicalBracket (F G : CoadjointOrbit → ℝ) (ω : C
 public noncomputable def KineticEnergyHamiltonian (ω : CoadjointOrbit) : ℝ :=
   (1/2) * ∫ x, ‖BiotSavart ω.val x‖^2 ∂(volume)
 
-public noncomputable def velocity_from_vorticity (ω : CoadjointOrbit) :
+@[expose] public noncomputable def velocity_from_vorticity (ω : CoadjointOrbit) :
     T3 → EuclideanSpace ℝ (Fin 3) :=
   BiotSavart ω.val
+
+/-- Body of `velocity_from_vorticity` (opaque across modules without `@[expose]`). -/
+public theorem velocity_from_vorticity_eq_BiotSavart (ω : CoadjointOrbit) :
+    velocity_from_vorticity ω = BiotSavart ω.val :=
+  rfl
 
 /-- Velocity recovered from the zero vorticity field is zero. -/
 public theorem velocity_from_zero_orbit (ω : CoadjointOrbit)
@@ -845,6 +850,7 @@ public theorem classical_bracket_reproduces_Euler
   have hvt := vorticity_transport u p 0 hNS hreg t ht x
   simpa [zero_smul] using hvt
 
+#print axioms velocity_from_vorticity_eq_BiotSavart
 #print axioms classical_bracket_reproduces_Euler
 #print axioms BiotSavart_zero
 #print axioms BiotSavart_smul
