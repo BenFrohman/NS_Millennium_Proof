@@ -310,33 +310,43 @@ public theorem integration_by_parts_of_vanishing_flux
     rwa [← hfun]
   linarith [hsplit, hflux']
 
+/-- Pointwise: `⟨w, (u·∇)w⟩ = ⟨u, ∇(½|w|²)⟩`. Cauchy difference energy
+uses the transported field `w` along an independent carrier `u`; the
+self-pairing `u = w` is the classical convective IBP integrand. -/
+public theorem inner_convective_eq_inner_grad_half_norm_sq
+    (u w : VelocityField) (x : T3)
+    (hw : DifferentiableAt ℝ w x) :
+    inner ℝ (w x) (convective u w x) =
+      inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖w y‖ ^ 2) x) := by
+  have hF : HasFDerivAt (fun y => ‖w y‖ ^ 2)
+      ((2 • innerSL ℝ (w x)).comp (fderiv ℝ w x)) x :=
+    hw.hasFDerivAt.norm_sq
+  have hsq : DifferentiableAt ℝ (fun y => ‖w y‖ ^ 2) x :=
+    hF.differentiableAt
+  have hhalf : DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖w y‖ ^ 2) x :=
+    hsq.const_mul (1 / 2 : ℝ)
+  have hval :
+      fderiv ℝ (fun y => ‖w y‖ ^ 2) x (u x) =
+        2 * inner ℝ (w x) (convective u w x) := by
+    rw [hF.fderiv]
+    simp [ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply,
+      innerSL_apply_apply, convective]
+  have hgrad :
+      inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖w y‖ ^ 2) x) =
+        (1 / 2) * fderiv ℝ (fun y => ‖w y‖ ^ 2) x (u x) := by
+    rw [real_inner_comm, inner_gradient_left hhalf,
+      fderiv_const_mul hsq (1 / 2 : ℝ), ContinuousLinearMap.smul_apply,
+      smul_eq_mul]
+  linarith [hval, hgrad]
+
 /-- Pointwise: `⟨u, (u·∇)u⟩ = ⟨u, ∇(½|u|²)⟩`. This is the integrand of
 the paper's convective IBP. -/
 public theorem inner_self_convective_eq_inner_grad_half_norm_sq
     (u : VelocityField) (x : T3)
     (hu : DifferentiableAt ℝ u x) :
     inner ℝ (u x) (convective u u x) =
-      inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x) := by
-  have hF : HasFDerivAt (fun y => ‖u y‖ ^ 2)
-      ((2 • innerSL ℝ (u x)).comp (fderiv ℝ u x)) x :=
-    hu.hasFDerivAt.norm_sq
-  have hsq : DifferentiableAt ℝ (fun y => ‖u y‖ ^ 2) x :=
-    hF.differentiableAt
-  have hhalf : DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x :=
-    hsq.const_mul (1 / 2 : ℝ)
-  have hval :
-      fderiv ℝ (fun y => ‖u y‖ ^ 2) x (u x) =
-        2 * inner ℝ (u x) (convective u u x) := by
-    rw [hF.fderiv]
-    simp [ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply,
-      innerSL_apply_apply, convective]
-  have hgrad :
-      inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x) =
-        (1 / 2) * fderiv ℝ (fun y => ‖u y‖ ^ 2) x (u x) := by
-    rw [real_inner_comm, inner_gradient_left hhalf,
-      fderiv_const_mul hsq (1 / 2 : ℝ), ContinuousLinearMap.smul_apply,
-      smul_eq_mul]
-  linarith [hval, hgrad]
+      inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x) :=
+  inner_convective_eq_inner_grad_half_norm_sq u u x hu
 
 /-- Coordinate projections of a Fréchet-differentiable field are differentiable.
 C¹ of `u : T3 → ℝ³` is the right regularity for IBP; mixed partials are not. -/
@@ -355,6 +365,46 @@ public theorem differentiableAt_half_norm_sq
     (u : VelocityField) (x : T3) (hu : DifferentiableAt ℝ u x) :
     DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖u y‖ ^ 2) x :=
   (hu.hasFDerivAt.norm_sq).differentiableAt.const_mul (1 / 2 : ℝ)
+
+/-- Transported energy pairing: if `div u = 0` and the flux of
+`½|w|² u` vanishes, then `∫ ⟨w, (u·∇)w⟩ = 0`. Cauchy uniqueness uses
+this on the difference field `w = u − v` with carrier `u`. C¹; not
+mixed partials. -/
+public theorem transported_energy_pairing_vanishes
+    (u w : VelocityField)
+    (hdiv : ∀ x, div u x = 0)
+    (hu : ∀ x, DifferentiableAt ℝ u x)
+    (hw : ∀ x, DifferentiableAt ℝ w x)
+    (hInt_pair : Integrable
+      (fun x => inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖w y‖ ^ 2) x)))
+    (hInt_div : Integrable
+      (fun x => div u x * ((1 / 2 : ℝ) * ‖w x‖ ^ 2)))
+    (hflux : ∫ x,
+        div (fun y => ((1 / 2 : ℝ) * ‖w y‖ ^ 2) • u y) x ∂volume = 0) :
+    ∫ x, inner ℝ (w x) (convective u w x) ∂volume = 0 := by
+  have hφ : ∀ x, DifferentiableAt ℝ (fun y => (1 / 2 : ℝ) * ‖w y‖ ^ 2) x :=
+    fun x => differentiableAt_half_norm_sq w x (hw x)
+  have hu_coord : ∀ i x, DifferentiableAt ℝ (fun y => u y i) x :=
+    fun i x => differentiableAt_coord_of_differentiableAt_field u x i (hu x)
+  have hpt :
+      (fun x => inner ℝ (w x) (convective u w x)) =
+        fun x =>
+          inner ℝ (u x) (gradient (fun y => (1 / 2 : ℝ) * ‖w y‖ ^ 2) x) := by
+    funext x
+    exact inner_convective_eq_inner_grad_half_norm_sq u w x (hw x)
+  have hibp :=
+    integration_by_parts_of_vanishing_flux u
+      (fun y => (1 / 2 : ℝ) * ‖w y‖ ^ 2)
+      hφ hu_coord hInt_pair hInt_div hflux
+  have hzero :
+      ∫ x, div u x * ((1 / 2 : ℝ) * ‖w x‖ ^ 2) ∂volume = 0 := by
+    have hfun :
+        (fun x => div u x * ((1 / 2 : ℝ) * ‖w x‖ ^ 2)) = fun _ => 0 := by
+      funext x
+      simp [hdiv x]
+    rw [hfun]
+    exact integral_zero (α := T3) (G := ℝ) (μ := volume)
+  rw [hpt, hibp, hzero, neg_zero]
 
 /-- Convective IBP: if `div u = 0` and the flux of `½|u|² u` vanishes, then
 `∫ ⟨u, (u·∇)u⟩ = 0`. Paper energy identity, not a dropped term.
@@ -500,6 +550,31 @@ public theorem convective_norm_le
   unfold convective
   rw [hu.hasFDerivAt.fderiv]
   exact ContinuousLinearMap.le_opNorm _ _
+
+/-- Polarization of the convective bilinear form:
+`(u·∇)u − (v·∇)v = (u·∇)(u−v) + ((u−v)·∇)v`. Cauchy difference
+momentum identity. C¹ of both fields. -/
+public theorem convective_difference
+    (u v : VelocityField) (x : T3)
+    (hu : DifferentiableAt ℝ u x) (hv : DifferentiableAt ℝ v x) :
+    convective u u x - convective v v x =
+      convective u (u - v) x + convective (u - v) v x := by
+  unfold convective
+  have hfuv : fderiv ℝ (u - v) x = fderiv ℝ u x - fderiv ℝ v x :=
+    (hu.hasFDerivAt.sub hv.hasFDerivAt).fderiv
+  have h1 : (fderiv ℝ (u - v) x) (u x) =
+      (fderiv ℝ u x) (u x) - (fderiv ℝ v x) (u x) := by
+    rw [hfuv]
+    exact ContinuousLinearMap.sub_apply (fderiv ℝ u x) (fderiv ℝ v x) (u x)
+  have h2 : (fderiv ℝ v x) ((u - v) x) =
+      (fderiv ℝ v x) (u x) - (fderiv ℝ v x) (v x) := by
+    have hx : (u - v) x = u x - v x := rfl
+    rw [hx, map_sub]
+  rw [h1, h2]
+  exact (sub_add_sub_cancel
+    ((fderiv ℝ u x) (u x))
+    ((fderiv ℝ v x) (u x))
+    ((fderiv ℝ v x) (v x))).symm
 
 /-- Product rule: `Y · ∇⟨X,Z⟩ = ⟨(Y·∇)X, Z⟩ + ⟨X, (Y·∇)Z⟩`. C¹. -/
 public theorem inner_convective_product_rule
@@ -2336,6 +2411,22 @@ public theorem local_existence
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
   ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.p, w.pde⟩
 
+/-- Time derivative is linear. Difference of two C¹-in-time fields. -/
+public theorem time_deriv_sub
+    (u v : TimeDependentVelocity) (t : ℝ) (x : T3)
+    (hu : DifferentiableAt ℝ (fun s => u s x) t)
+    (hv : DifferentiableAt ℝ (fun s => v s x) t) :
+    time_deriv (fun s => u s - v s) t x =
+      time_deriv u t x - time_deriv v t x := by
+  unfold time_deriv
+  have hfun : (fun s => (u s - v s) x) = fun s => u s x - v s x := by
+    funext s
+    rfl
+  have hpi : (fun s => u s x - v s x) =
+      (fun s => u s x) - fun s => v s x := rfl
+  rw [hfun, hpi]
+  exact deriv_sub hu hv
+
 /-- Time derivative of a frozen field vanishes. -/
 public theorem time_deriv_const (v : VelocityField) (t : ℝ) (x : T3) :
     time_deriv (fun _ => v) t x = 0 :=
@@ -2512,6 +2603,26 @@ public theorem stretching_inner_le
     _ = ‖fderiv ℝ u x‖ * ‖ω x‖ ^ 2 := by ring
     _ ≤ C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 :=
         mul_le_mul_of_nonneg_right hCZ (sq_nonneg _)
+
+/-- Strain pairing: `⟨w, (w·∇)v⟩ ≤ ‖Dv‖_∞ |w|²` once the strain
+operator-norm is bounded. Linear algebra, not Riesz. -/
+public theorem inner_convective_le_strain
+    (w v : VelocityField) (x : T3)
+    (hv : DifferentiableAt ℝ v x)
+    (hbdd : BddAbove (Set.range fun y => ‖fderiv ℝ v y‖)) :
+    inner ℝ (w x) (convective w v x) ≤
+      strain_sup_norm v * ‖w x‖ ^ 2 := by
+  have hnorm := convective_norm_le w v x hv
+  have hop : ‖fderiv ℝ v x‖ ≤ strain_sup_norm v := le_ciSup hbdd x
+  have hw : 0 ≤ ‖w x‖ := norm_nonneg _
+  calc
+    inner ℝ (w x) (convective w v x)
+        ≤ ‖w x‖ * ‖convective w v x‖ := real_inner_le_norm _ _
+    _ ≤ ‖w x‖ * (‖fderiv ℝ v x‖ * ‖w x‖) :=
+        mul_le_mul_of_nonneg_left hnorm hw
+    _ = ‖fderiv ℝ v x‖ * ‖w x‖ ^ 2 := by ring
+    _ ≤ strain_sup_norm v * ‖w x‖ ^ 2 :=
+        mul_le_mul_of_nonneg_right hop (sq_nonneg _)
 
 /-- Paper §3 characteristics: along a C¹ flow of `u` the transported scalar
 with source `|ω|²` satisfies `φ(t, γ(t)) − φ(0, γ(0)) = ∫₀ᵗ |ω|²`. -/
@@ -2984,6 +3095,11 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms cyclicLiePairing_expand
 #print axioms convective_norm_le_of_CZ
 #print axioms stretching_inner_le
+#print axioms inner_convective_eq_inner_grad_half_norm_sq
+#print axioms transported_energy_pairing_vanishes
+#print axioms convective_difference
+#print axioms inner_convective_le_strain
+#print axioms time_deriv_sub
 #print axioms transported_scalar_along_characteristic
 #print axioms transported_scalar_maximum_principle
 #print axioms reciprocal_of_quadratic_growth

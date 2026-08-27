@@ -72,10 +72,6 @@ Editor green ticks only mean this declaration elaborated. The certificate is
 `#print axioms frohmanian_tether_theorem`: it must list `propext`,
 `Classical.choice`, `Quot.sound` and must **not** list `sorryAx`. -/
 public theorem frohmanian_tether_theorem
-    (hδ : ∀ ω, FunctionalDerivative KineticEnergyHamiltonian ω =
-      velocity_from_vorticity ω)
-    (hdivBS : ∀ ω x, div (velocity_from_vorticity ω) x = 0)
-    (hIntH : ∀ ω, Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2))
     (hKato : ∀ u₀ ν, ContDiff ℝ ⊤ u₀ → (∀ x, div u₀ x = 0) →
       Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → 0 < ν →
       KatoLocalWitness u₀ ν)
@@ -96,8 +92,13 @@ public theorem frohmanian_tether_theorem
         (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
         ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
   ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
-    (∀ F ω, TetheredBracket F KineticEnergyHamiltonian ω =
-      ClassicalBracket F KineticEnergyHamiltonian ω) ∧
+    (∀ F ω,
+      FunctionalDerivative KineticEnergyHamiltonian ω =
+          velocity_from_vorticity ω →
+      (∀ x, div (velocity_from_vorticity ω) x = 0) →
+      Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2) →
+      TetheredBracket F KineticEnergyHamiltonian ω =
+        ClassicalBracket F KineticEnergyHamiltonian ω) ∧
     (∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
       (∀ ω F G, B ω F G = -B ω G F) →
       InvariantUnderCoadjointAction B →
@@ -124,8 +125,8 @@ public theorem frohmanian_tether_theorem
         (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
         (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0)) := by
   refine ⟨TetherKernel, ?_, ?_, ?_, ?_⟩
-  · intro F ω
-    exact tethered_reproduces_classical_euler F ω (hδ ω) (hdivBS ω) (hIntH ω)
+  · intro F ω hδ hdiv hInt
+    exact tethered_reproduces_classical_euler F ω hδ hdiv hInt
   · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
     exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
   · intro B α hrepr hα ω F G
