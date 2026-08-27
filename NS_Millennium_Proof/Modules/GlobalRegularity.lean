@@ -75,15 +75,33 @@ public theorem frohmanian_tether_theorem
     (hKato : ∀ u₀ ν, ContDiff ℝ ⊤ u₀ → (∀ x, div u₀ x = 0) →
       Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → 0 < ν →
       KatoLocalWitness u₀ ν)
-    (hRiccati : ∀ u₀ ν, ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    (hDI : ∀ u₀ ν, ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
       0 < ν → NS_PDE u p ν → u 0 = u₀ →
-        ∃ Y : ℝ,
-          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+        ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
+          (∀ s ≥ (0 : ℝ),
+            DifferentiableAt ℝ
+              (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
+          (∀ s ≥ (0 : ℝ),
+            deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+              C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+                κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
+          Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
     (τ : ℝ) (hτ : 0 < τ)
-    (hrestart : ∀ u₀ ν, 0 < ν →
-      ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
-        ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
+    (hTlb : ∀ u₁ ν (hsm : ContDiff ℝ ⊤ u₁)
+      (hdiv : ∀ x, div u₁ x = 0)
+      (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2))
+      (hν : 0 < ν),
+      τ ≤ (hKato u₁ ν hsm hdiv hE hν).T)
+    (hInt : ∀ u₀ ν (hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
+      (_q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν → ∀ t ∈ Set.Icc (0 : ℝ) T,
+        Integrable (fun x : T3 => ‖v t x‖ ^ 2))
+    (huniq_shift : ∀ u₀ ν (hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
+      (_q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T,
+        ∀ (w' : KatoLocalWitness (v t) ν),
+          ∀ s ∈ Set.Icc (0 : ℝ) w'.T, v (t + s) = w'.u s)
     (huniq : ∀ u₀ ν (w : KatoLocalWitness u₀ ν),
       ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
         T' ∈ existenceTimes u₀ ν →
@@ -134,10 +152,13 @@ public theorem frohmanian_tether_theorem
   · intro u₀ ν hνpos hdiv hsm hE
     let w := hKato u₀ ν hsm hdiv hE hνpos
     have hreg :=
-      global_regularity_of_restart u₀ ν hdiv hsm hE hνpos w
-        (fun u p _hNS hu0 => hRiccati u₀ ν u p hνpos _hNS hu0)
+      global_regularity_of_constructions u₀ ν hdiv hsm hE hνpos
+        (fun u₁ hsm₁ hdiv₁ hE₁ => hKato u₁ ν hsm₁ hdiv₁ hE₁ hνpos)
+        (fun u p hNS hu0 => hDI u₀ ν u p hνpos hNS hu0)
         τ hτ
-        (hrestart u₀ ν hνpos)
+        (fun u₁ hsm₁ hdiv₁ hE₁ => hTlb u₁ ν hsm₁ hdiv₁ hE₁ hνpos)
+        (hInt u₀ ν hνpos)
+        (huniq_shift u₀ ν hνpos)
         (huniq u₀ ν w)
     exact ⟨w.u, w.p, hreg⟩
 
