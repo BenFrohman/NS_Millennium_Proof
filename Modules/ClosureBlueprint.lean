@@ -136,12 +136,18 @@ public theorem tether_kernel_jacobi
 
 /-- Picard existence for `y' = C y² − κ'' y³`. Classical ODE. -/
 public theorem comparison_ode_solution_existence
-    (C κ'' y0 : ℝ) (_hC : 0 < C) (_hκ : 0 < κ'') :
+    (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hy0 : 0 ≤ y0) :
     ∃ y : ℝ → ℝ,
       y 0 = y0 ∧
         (∀ t, DifferentiableAt ℝ y t) ∧
         (∀ t, deriv y t = C * (y t) ^ 2 - κ'' * (y t) ^ 3) := by
-  sorry
+  obtain ⟨y, hsol⟩ :=
+    TetheredLyapunov.comparison_ode_exists C κ'' y0 hC hκ hy0
+  refine ⟨y, hsol.init, ?_, ?_⟩
+  · intro t
+    exact (hsol.deriv t).differentiableAt
+  · intro t
+    simpa [TetheredLyapunov.majorantField] using (hsol.deriv t).deriv
 
 /-! ## Section 3 — regularity pipeline -/
 

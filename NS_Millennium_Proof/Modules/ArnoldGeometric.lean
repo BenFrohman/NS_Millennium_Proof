@@ -167,6 +167,7 @@ public structure CoadjointOrbit where
 
 /-- Classical coadjoint action of `SDiff(𝕋³)` on vorticity (pushforward of 2-forms).
 The concrete diffeomorphism calculus is a documented classical black box. -/
+@[expose]
 public noncomputable def CoadjointAction (_g : T3 → T3) (ω : CoadjointOrbit) : CoadjointOrbit :=
   ω
 

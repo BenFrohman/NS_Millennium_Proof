@@ -142,14 +142,16 @@ theorem global_regularity_for_NS
     (u 0 = u0 0) ∧
     (∀ t ≥ (0 : ℝ), satisfies_NavierStokes u ν) ∧
     (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) := by
-  -- The proof proceeds via the Frohmanian Symplectic Tether
-  -- (detailed in SymplecticTether.lean for the 5-step uniqueness,
-  --  TetheredLyapunov.lean for the tethered energy + majorant + continuation,
-  --  and the assembly in this file).
-  --
-  -- The `∃!` (uniqueness) follows from the classical local well-posedness
-  -- combined with the a-priori bound coming from the tether.
-  sorry
+  obtain ⟨u, p, hNS, hu0, hsm, hnn, _hdiv⟩ :=
+    TetheredLyapunov.global_regularity (u0 0) ν
+      (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos
+  refine ⟨u, ?hexists, ?uniq⟩
+  · refine ⟨hsm, hu0, ?ns, hnn⟩
+    intro _t _ht
+    exact ⟨p, hNS⟩
+  · intro v hv
+    -- Uniqueness of the NS Cauchy problem (Kato/Leray) on the global interval.
+    sorry
 
 -- Note on the original supplied statement:
 -- The initial-data integrability condition used `HasFiniteIntegral (fun t => u0 t • x) vol`.
