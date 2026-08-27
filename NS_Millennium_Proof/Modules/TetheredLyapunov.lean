@@ -16,6 +16,7 @@ public import Mathlib.Analysis.Calculus.Deriv.Mul
 public import Mathlib.Analysis.Calculus.Deriv.Pow
 public import Mathlib.Analysis.Calculus.Deriv.Inv
 public import Mathlib.Analysis.Calculus.Deriv.Inverse
+public import Mathlib.Analysis.InnerProductSpace.Calculus
 public import Mathlib.Analysis.ODE.PicardLindelof
 public import Mathlib.Analysis.ODE.Gronwall
 public import Mathlib.Analysis.Calculus.MeanValue
@@ -515,6 +516,66 @@ public noncomputable def EnstrophyAccumulation (u : ℝ → VelocityField) (ω :
 product-rule `4` when differentiating the quartic. -/
 public noncomputable def LyapunovS (ωε : VorticityField) (phi : T3 → ℝ) : ℝ :=
   ∫ x, (1 / 2) * ‖ωε x‖ ^ 2 + (kappa / 4) * ‖ωε x‖ ^ 4 * phi x ∂volume
+
+/-- `d/dt |v|² = 2 ⟨v, v'⟩`. -/
+public theorem hasDerivAt_norm_sq_of_hasDerivAt
+    {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)} {t : ℝ}
+    (hv : HasDerivAt v v' t) :
+    HasDerivAt (fun s => ‖v s‖ ^ 2) (2 * inner ℝ (v t) v') t :=
+  hv.norm_sq
+
+/-- Paper §3 product-rule factor `4` on the quartic: `d/dt |v|⁴ = 4 |v|² ⟨v, v'⟩`. -/
+public theorem hasDerivAt_norm_pow_four
+    {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)} {t : ℝ}
+    (hv : HasDerivAt v v' t) :
+    HasDerivAt (fun s => ‖v s‖ ^ 4)
+      (4 * ‖v t‖ ^ 2 * inner ℝ (v t) v') t := by
+  have hsq := hv.norm_sq
+  have hpow : HasDerivAt (fun s => (‖v s‖ ^ 2) ^ 2)
+      (2 * ‖v t‖ ^ 2 * (2 * inner ℝ (v t) v')) t := by
+    simpa [pow_two] using hsq.pow 2
+  have hfun : (fun s => ‖v s‖ ^ 4) = fun s => (‖v s‖ ^ 2) ^ 2 := by
+    funext s
+    ring
+  rw [hfun]
+  convert hpow using 1
+  ring
+
+/-- The `1/4` in the tethered weight is cancelled by that product-rule `4`:
+`d/dt [(κ/4) |v|⁴ φ] = κ |v|² ⟨v, v'⟩ φ + (κ/4) |v|⁴ φ'`. -/
+public theorem hasDerivAt_quartic_tether_weight
+    {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)}
+    {phi : ℝ → ℝ} {phi' : ℝ} {t : ℝ} {k : ℝ}
+    (hv : HasDerivAt v v' t) (hφ : HasDerivAt phi phi' t) :
+    HasDerivAt (fun s => (k / 4) * ‖v s‖ ^ 4 * phi s)
+      (k * ‖v t‖ ^ 2 * inner ℝ (v t) v' * phi t
+        + (k / 4) * ‖v t‖ ^ 4 * phi') t := by
+  have h4 := hasDerivAt_norm_pow_four hv
+  have hsc := h4.const_mul (k / 4)
+  have hmul := hsc.mul hφ
+  convert hmul using 1
+  ring
+
+/-- Pointwise derivative of the Lyapunov density
+`½|v|² + (κ/4)|v|⁴ φ`. Transport / CZ / viscosity remain named remainders
+when this is integrated. -/
+public theorem hasDerivAt_lyapunov_density
+    {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)}
+    {phi : ℝ → ℝ} {phi' : ℝ} {t : ℝ}
+    (hv : HasDerivAt v v' t) (hφ : HasDerivAt phi phi' t) :
+    HasDerivAt
+      (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2 + (kappa / 4) * ‖v s‖ ^ 4 * phi s)
+      (inner ℝ (v t) v'
+        + kappa * ‖v t‖ ^ 2 * inner ℝ (v t) v' * phi t
+        + (kappa / 4) * ‖v t‖ ^ 4 * phi') t := by
+  have hhalf : HasDerivAt (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2)
+      ((1 / 2 : ℝ) * (2 * inner ℝ (v t) v')) t :=
+    hv.norm_sq.const_mul (1 / 2 : ℝ)
+  have hq :=
+    hasDerivAt_quartic_tether_weight (k := kappa) hv hφ
+  have hadd := hhalf.add hq
+  convert hadd using 1
+  ring
 
 /-- Algebraic elimination of the quartic factor `4` after Young absorption.
 Given the pointwise/integrated Young bound with `ε_abs = κ/4`, the stretching term
@@ -1492,6 +1553,11 @@ public theorem global_regularity
     exact vorticity_sup_norm_nonneg _
   · intro t ht x
     exact (hNS t ht x).2
+
+#print axioms hasDerivAt_norm_sq_of_hasDerivAt
+#print axioms hasDerivAt_norm_pow_four
+#print axioms hasDerivAt_quartic_tether_weight
+#print axioms hasDerivAt_lyapunov_density
 
 end   -- close noncomputable section
 end TetheredLyapunov
