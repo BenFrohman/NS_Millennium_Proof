@@ -25,6 +25,7 @@
 - **2026-08-26 (energy hypothesis / no open TODOs)**: `global_regularity_for_NS` uses the classical Kato/Leray finite kinetic energy `Integrable (fun x => ‖u₀ x‖^2)`. That is the same energy condition as an earlier `HasFiniteIntegral` encoding of the finite-integral conjunct, not a second theorem. Removed `True` placeholder theorems and contributor-facing TODO language; remaining Lean transcription is author-only. Author: Benjamin Stanley Frohman.
 - **2026-08-26 (GitHub Community / Lean community)**: GitHub Community is the health checklist (`CONTRIBUTING.md`); Contributors graph and Lean Zulip/`Authors:` name Benjamin Stanley Frohman / @BenFrohman only. AI encoding is disclosure, not `Co-authored-by` and not an `Authors:` name. Author: Benjamin Stanley Frohman.
 - **2026-08-26 (X.com : Investor0x)**: Public files label Investor0x as `X.com : Investor0x` (link `https://x.com/Investor0x`), never as a GitHub `@` handle. GitHub remains @BenFrohman. Author: Benjamin Stanley Frohman.
+- **2026-08-26 (majorant ODE on t ≥ 0)**: `IsComparisonODESolution` and the Riccati comparison lemmas are typed on the paper interval `t ≥ 0` (for `y0 > C/κ''` the field can blow up in finite negative time). Equilibria remain closed. Interior inversion of `majorantSeparable` is the named remainder. Author: Benjamin Stanley Frohman.
 
 This formalization establishes priority for the **Frohmanian Symplectic Tether Regularity Theorem** as the original solution approach to the 3D Navier–Stokes Millennium Problem.
 

@@ -73,8 +73,8 @@ at or below `max(y(0), C/κ'')`. -/
 public theorem comparison_ode_stability
     (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (y : ℝ → ℝ)
-    (hdiff : ∀ s, DifferentiableAt ℝ y s)
-    (hy_dot : ∀ s, deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
+    (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s)
+    (hy_dot : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (t : ℝ) (ht : 0 ≤ t) :
     y t ≤ max (y 0) (C / κ'') :=
   AnalyticPipeline.comparison_ode_stability C κ'' hC hκ y hdiff hy_dot t ht
@@ -83,11 +83,11 @@ public theorem comparison_ode_stability
 public theorem comparison_ode_bound_of_equality
     (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (y : ℝ → ℝ)
-    (hdiff : ∀ s, DifferentiableAt ℝ y s)
-    (hode : ∀ s, deriv y s = C * (y s) ^ 2 - κ'' * (y s) ^ 3)
+    (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s)
+    (hode : ∀ s ≥ (0 : ℝ), deriv y s = C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (t : ℝ) (ht : 0 ≤ t) :
     y t ≤ max (y 0) (C / κ'') :=
-  comparison_ode_stability C κ'' hC hκ y hdiff (fun s => le_of_eq (hode s)) t ht
+  comparison_ode_stability C κ'' hC hκ y hdiff (fun s hs => le_of_eq (hode s hs)) t ht
 
 /-! ## Section 2 — geometric and PDE theorems (paper statements, Lean types) -/
 
@@ -139,15 +139,15 @@ public theorem comparison_ode_solution_existence
     (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hy0 : 0 ≤ y0) :
     ∃ y : ℝ → ℝ,
       y 0 = y0 ∧
-        (∀ t, DifferentiableAt ℝ y t) ∧
-        (∀ t, deriv y t = C * (y t) ^ 2 - κ'' * (y t) ^ 3) := by
+        (∀ t ≥ (0 : ℝ), DifferentiableAt ℝ y t) ∧
+        (∀ t ≥ (0 : ℝ), deriv y t = C * (y t) ^ 2 - κ'' * (y t) ^ 3) := by
   obtain ⟨y, hsol⟩ :=
     TetheredLyapunov.comparison_ode_exists C κ'' y0 hC hκ hy0
   refine ⟨y, hsol.init, ?_, ?_⟩
-  · intro t
-    exact (hsol.deriv t).differentiableAt
-  · intro t
-    simpa [TetheredLyapunov.majorantField] using (hsol.deriv t).deriv
+  · intro t ht
+    exact (hsol.deriv t ht).differentiableAt
+  · intro t ht
+    simpa [TetheredLyapunov.majorantField] using (hsol.deriv t ht).deriv
 
 /-! ## Section 3 — regularity pipeline -/
 
@@ -179,8 +179,8 @@ public theorem regularity_from_riccati_majorant
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
     (C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (y : ℝ → ℝ)
-    (hdiff : ∀ s, DifferentiableAt ℝ y s)
-    (hy_dot : ∀ s, deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
+    (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s)
+    (hy_dot : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (hmaj : ∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t)
     (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
@@ -274,8 +274,8 @@ public theorem type_composition_sequence
   have hRiccati :
       ∃ (C κ'' : ℝ), 0 < C ∧ 0 < κ'' ∧
         ∃ y : ℝ → ℝ,
-          (∀ s, DifferentiableAt ℝ y s) ∧
-          (∀ s, deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3) ∧
+          (∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s) ∧
+          (∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3) ∧
           (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t) ∧
           Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
     sorry
