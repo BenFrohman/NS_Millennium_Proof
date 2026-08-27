@@ -826,22 +826,23 @@ noncomputable def classical_LiePoisson (F G : CoadjointOrbit → ℝ) (ω : Coad
   ∫ x, classical_bracket_integrand F G ω x ∂(volume)
 
 /-- Arnold 1966: inviscid incompressible flow implies Euler vorticity transport.
-Real type; not `True`. -/
+Paper §2.1 curl of Euler, at a `VorticityTransportRegularity` point. Real type; not `True`. -/
 public theorem classical_bracket_reproduces_Euler
     (u : TimeDependentVelocity) (p : TimeDependentPressure)
     (hEuler : ∀ t ≥ (0 : ℝ), ∀ x : T3,
       time_deriv u t x + convective (u t) (u t) x + pressureGradient (p t) x = 0 ∧
-        div (u t) x = 0) :
-    ∀ t ≥ (0 : ℝ), ∀ x : T3,
-      time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
-        convective (vorticity (u t)) (u t) x := by
-  intro t ht x
+        div (u t) x = 0)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hreg : VorticityTransportRegularity u p t x) :
+    time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
+      convective (vorticity (u t)) (u t) x := by
   have hNS : navier_stokes_eq u p (0 : ℝ) := by
     intro t' ht' x'
     have ⟨hmom, hdiv⟩ := hEuler t' ht' x'
     refine ⟨?_, hdiv⟩
     simpa [zero_smul] using hmom
-  simpa [zero_smul] using vorticity_transport u p 0 hNS t ht x
+  have hvt := vorticity_transport u p 0 hNS t ht x hreg
+  simpa [zero_smul] using hvt
 
 #print axioms BiotSavart_zero
 #print axioms BiotSavart_smul
