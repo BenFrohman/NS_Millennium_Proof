@@ -2008,11 +2008,11 @@ postfix:90 "_div" => fun u x => div u x
 
 @[expose] public def vorticity (u : Velocity) : Vorticity := fun x => curl u x
 
-/-- Vorticity transport: take the curl of NS (paper §2.1).
+/-- Vorticity transport at one spacetime point: take the curl of NS (paper §2.1).
 `∇×(∂t u + (u·∇)u + ∇p) = ∇×(ν Δu)` becomes
 `∂t ω + (u·∇)ω = (ω·∇)u + ν Δω`
 by `curl_time_deriv`, `curl_convective_div_free`, `curl_gradient`, and `curl_laplacian`. -/
-public theorem vorticity_transport
+public theorem vorticity_transport_at
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
     (h_NS : navier_stokes_eq u p ν)
     (t : ℝ) (ht : 0 ≤ t) (x : T3)
@@ -2073,6 +2073,17 @@ public theorem vorticity_transport
           rw [add_comm]
           rfl
 
+/-- Paper §2.1 on a globally regular solution: one `hreg` for every `t ≥ 0`
+and every `x`, then the vorticity identity holds for all such points. -/
+public theorem vorticity_transport
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (h_NS : navier_stokes_eq u p ν)
+    (hreg : ∀ t ≥ (0 : ℝ), ∀ x, VorticityTransportRegularity u p t x) :
+    ∀ t ≥ (0 : ℝ), ∀ x : T3,
+      time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
+        convective (vorticity (u t)) (u t) x + ν • laplacian (vorticity (u t)) x :=
+  fun t ht x => vorticity_transport_at u p ν h_NS t ht x (hreg t ht x)
+
 /-- Same momentum + divergence-free system, named for the assembly layer. -/
 @[expose] public def NS_PDE (u : ℝ → VelocityField) (p : ℝ → PressureField) (ν : ℝ) : Prop :=
   navier_stokes_eq u p ν
@@ -2080,11 +2091,11 @@ public theorem vorticity_transport
 public theorem vorticity_transport_equation
     (u : ℝ → VelocityField) (p : ℝ → PressureField) (ν : ℝ)
     (h_ns : NS_PDE u p ν)
-    (t : ℝ) (ht : 0 ≤ t) (x : T3)
-    (hreg : VorticityTransportRegularity u p t x) :
-    time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
-      convective (vorticity (u t)) (u t) x + ν • laplacian (vorticity (u t)) x :=
-  vorticity_transport u p ν h_ns t ht x hreg
+    (hreg : ∀ t ≥ (0 : ℝ), ∀ x, VorticityTransportRegularity u p t x) :
+    ∀ t ≥ (0 : ℝ), ∀ x : T3,
+      time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
+        convective (vorticity (u t)) (u t) x + ν • laplacian (vorticity (u t)) x :=
+  vorticity_transport u p ν h_ns hreg
 
 /-- Material derivative `∂t + u · ∇` on scalars. -/
 @[expose] public def MaterialDerivative (u : ℝ → VelocityField) (f : ℝ → (T3 → ℝ))
@@ -2222,6 +2233,7 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms differentiableAt_time_deriv_coord
 #print axioms differentiableAt_convective_coord
 #print axioms differentiableAt_pressureGradient_coord
+#print axioms vorticity_transport_at
 #print axioms vorticity_transport
 #print axioms vorticity_transport_equation
 #print axioms time_space_mixed_partials
