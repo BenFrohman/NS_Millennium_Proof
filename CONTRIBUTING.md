@@ -54,6 +54,21 @@ downstream.
    Zulip: Benjamin Stanley Frohman
    ```
 
+## GitHub Community page, Contributors graph, and Lean community
+
+These are three different surfaces. None of them list an AI as author or co-author.
+
+1. **GitHub Insights → Community** is a *health checklist* (README, `CONTRIBUTING.md`, license, issue/PR templates). It is not a people list. This file is what that page displays for contributing. The AI encoding disclaimer above is the disclosure that belongs here.
+
+2. **GitHub Insights → Contributors** (and the profile contribution graph) count **git commits** whose author email is linked to a GitHub account. Commits use `Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>`, which maps to [@BenFrohman](https://github.com/BenFrohman). That is the only human contributor this repository records. Do **not** add `Co-authored-by:` trailers for Grok, xAI, or any model: GitHub would then paint an AI as a co-author on the contributors graph. Bots that GitHub itself adds (Dependabot) are tooling, not authorship.
+
+3. **Lean community** (Zulip ping, mathlib4 `Authors:` line, a future `leanprover-community/mathlib4` PR):
+   - The person to ping is **Benjamin Stanley Frohman**.
+   - The GitHub PR author is **@BenFrohman**.
+   - [mathlib's AI policy](https://leanprover-community.github.io/contribute/) requires *disclosure* in the PR description (which tool, how it was used) and the `LLM-generated` label when a substantial amount of the Lean was produced with an assistant. That label is a review warning, **not** co-authorship. Do not put Grok or xAI on the `Authors:` line.
+
+The encoding assistant is an instrument. It is not a GitHub contributor, not a Lean community member, and not a co-author of the proof.
+
 ## Development
 
 ```bash
