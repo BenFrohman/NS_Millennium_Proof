@@ -549,7 +549,8 @@ The uniform bound is obtained a posteriori by supremum over all such intervals.
 -- hypotheses on real integrals — never `True`.
 lemma differential_inequality_after_tether_and_absorption
     (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) (phi : T3 → ℝ) (C_abs : ℝ)
-    (hCabs : 0 ≤ C_abs) :
+    (hCabs : 0 ≤ C_abs)
+    (hAbs : AnalyticPipeline.absorptionCoeff SobolevConstant3D (⨆ x, |phi x|) ≤ C_abs) :
     deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
       C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
         (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
@@ -584,13 +585,13 @@ lemma differential_inequality_after_tether_and_absorption
       4 * CalderonZygmundConstant3D * M * I4 ≤
         (kappa / 4) * I6 + C_abs * (M ^ 3 * phiLinf ^ ((3 : ℝ) / 2)) := by
     have hκ : kappa = CalderonZygmundConstant3D := rfl
-    have hAbs :
+    have hAbs' :
         AnalyticPipeline.absorptionCoeff SobolevConstant3D phiLinf ≤ C_abs := by
-      sorry
+      simpa [phiLinf] using hAbs
     have hnn :
         0 ≤ M ^ 3 * phiLinf ^ ((3 : ℝ) / 2) :=
       mul_nonneg (pow_nonneg hM _) (Real.rpow_nonneg hphi _)
-    have hrest := mul_le_mul_of_nonneg_right hAbs hnn
+    have hrest := mul_le_mul_of_nonneg_right hAbs' hnn
     rw [← hκ]
     linarith [hYoung0, hrest]
   have hAlg :=
@@ -615,12 +616,13 @@ def mollified_vorticity (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ) : Vor
 
 -- Key differential inequality after tether + mollification + absorption
 lemma key_differential_inequality (ε : ℝ) (ω : ℝ → VorticityField) (t : ℝ)
-    (phi : T3 → ℝ) (C_abs : ℝ) (hCabs : 0 ≤ C_abs) :
+    (phi : T3 → ℝ) (C_abs : ℝ) (hCabs : 0 ≤ C_abs)
+    (hAbs : AnalyticPipeline.absorptionCoeff SobolevConstant3D (⨆ x, |phi x|) ≤ C_abs) :
     deriv (fun s => LyapunovS (MollifiedVorticity ω ε s) phi) t ≤
       C_abs * (1 + MollifiedSupNorm ω ε t ^ 3 *
         (⨆ x, |phi x|) ^ ((3 : ℝ) / 2)) -
       kappa' * ∫ x, ‖MollifiedVorticity ω ε t x‖ ^ 6 ∂volume :=
-  differential_inequality_after_tether_and_absorption ε ω t phi C_abs hCabs
+  differential_inequality_after_tether_and_absorption ε ω t phi C_abs hCabs hAbs
 
 private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : ℝ → VorticityField) (_t : ℝ) :
   -- See docs/Clarified_Degeneracy_and_Majorant_Blocks.lean (BLOCK 3) for the
