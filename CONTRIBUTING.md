@@ -9,6 +9,8 @@ the repository auditable and its authorship record clean.
   tree is its machine-checked encoding for the library. Do not describe the mathematics
   as unfinished; remaining `sorry`s are only unfinished Lean transcription, to be filled
   from the paper.
+- **AI collaboration.** The Lean encoding was compiled with an AI assistant (Grok, xAI) from
+  Benjamin Stanley Frohman's paper proofs. That does not change authorship of the mathematics.
 - **Do not rewrite history.** Contributions are additive. Do not force-push, rebase away, or delete existing
   commits on `main`. Git author aliases are canonicalized in `.mailmap` instead of amending old commits.
 - **Keep the novel geometric core clear.** Original constructions (tether, tethered bracket, tethered Lyapunov,

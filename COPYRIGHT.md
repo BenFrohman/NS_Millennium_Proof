@@ -20,3 +20,7 @@ absorption, and the module tree under `Modules/` and
 `NS_Millennium_Proof/Modules/` — is the machine-checked form of the paper
 proof, by **Benjamin Stanley Frohman**.
 
+**Disclaimer.** The paper proofs are Benjamin Stanley Frohman's. The Lean 4 encoding was
+compiled in collaboration with an AI assistant (Grok, xAI) from those paper proofs.
+Authorship of the mathematics remains Benjamin Stanley Frohman.
+

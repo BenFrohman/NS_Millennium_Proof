@@ -61,6 +61,11 @@ constructions in this repository (Frohmanian tether, tethered bracket, tethered 
 independent majorant) are original to this work. If you reference it, please cite via
 [`CITATION.cff`](CITATION.cff).
 
+**Disclaimer.** The mathematical proofs are those of Benjamin Stanley Frohman (the paper). The Lean 4
+encoding in this repository was compiled in a collaborative effort with an AI assistant (Grok, xAI)
+from that author's paper proofs. Authorship of the mathematics and of the original constructions
+remains Benjamin Stanley Frohman.
+
 ### Lean 4 / mathlib4 / Zulip
 
 Original Lean modules use Mathlib's five-line copyright header with
