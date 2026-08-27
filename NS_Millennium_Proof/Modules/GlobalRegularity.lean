@@ -69,6 +69,12 @@ open NavierStokes3D MeasureTheory
 The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
 and TetheredLyapunov.lean (unconditional global regularity via independent majorant).
 -/
+/-- Editor green ticks (InfoView “goals accomplished”) only mean *this*
+declaration elaborated. They do **not** inspect `sorry` in dependencies.
+The certificate is `#print axioms frohmanian_tether_theorem`: it must list
+`propext`, `Classical.choice`, `Quot.sound` and must **not** list `sorryAx`.
+`rfl` is definitional equality (`Eq.refl` after unfolding), not a closer
+for an unproved PDE identity. -/
 theorem frohmanian_tether_theorem :
   ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
     (∀ F ω, TetheredBracket F KineticEnergyHamiltonian ω =
