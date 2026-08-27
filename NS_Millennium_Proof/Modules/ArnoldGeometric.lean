@@ -208,6 +208,14 @@ public noncomputable def FunctionalDerivative (F : CoadjointOrbit → ℝ)
     (ω : CoadjointOrbit) : T3 → EuclideanSpace ℝ (Fin 3) :=
   if h : ∃ δ, IsGateauxRepresentative F ω δ then Classical.choose h else 0
 
+/-- If no Gâteaux representative exists, the encoding returns the zero field.
+Binder is ASCII `dH` so the later notation `δ F /δω` cannot capture it. -/
+public theorem FunctionalDerivative_eq_zero_of_not
+    {F : CoadjointOrbit → ℝ} {ω : CoadjointOrbit}
+    (h : ¬ ∃ dH, IsGateauxRepresentative F ω dH) :
+    FunctionalDerivative F ω = 0 :=
+  dif_neg h
+
 /-- Euclidean Biot–Savart kernel (principal-value: zero on the diagonal).
 The torus Green's function is the intended operator; this is the model-space density. -/
 public noncomputable def biotSavartKernel (x y : T3) : ℝ :=
