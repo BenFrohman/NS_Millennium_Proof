@@ -213,6 +213,24 @@ The torus Green's function is the intended operator; this is the model-space den
 public noncomputable def biotSavartKernel (x y : T3) : ℝ :=
   if x = y then 0 else (4 * Real.pi)⁻¹ * ‖x - y‖ ^ (-(3 : ℝ))
 
+/-- Prefactor of the Constantin–Fefferman / Majda–Bertozzi 3D strain kernel
+`(K z ω)_{ij} = (3/(8 π)) [(z × ω)_i z_j + (z × ω)_j z_i] / |z|^5`. -/
+@[expose] public noncomputable def biotSavartStrainKernelPrefactor : ℝ :=
+  3 / (8 * Real.pi)
+
+/-- Euclidean surface area of the unit sphere `S² ⊂ ℝ³`. -/
+@[expose] public noncomputable def sphereAreaS2 : ℝ :=
+  4 * Real.pi
+
+/-- Action of the 3D Biot–Savart strain kernel on a test vector.
+`(K z ω) v = (3/(8 π) |z|⁻⁵) [(z × ω) ⊗ z + z ⊗ (z × ω)] v`, zero at `z = 0`. -/
+@[expose] public noncomputable def biotSavartStrainKernel
+    (z ω v : EuclideanSpace ℝ (Fin 3)) : EuclideanSpace ℝ (Fin 3) :=
+  if z = 0 then 0 else
+    let c := biotSavartStrainKernelPrefactor * ‖z‖ ^ (-(5 : ℝ))
+    let w := cross z ω
+    c • (inner ℝ w v • z + inner ℝ z v • w)
+
 /-- Biot–Savart operator as the integral kernel applied to vorticity.
 Mapping properties (`div = 0`, `curl ∘ BiotSavart = id` on the orbit) are theorems. -/
 public noncomputable def BiotSavart (ω : T3 → EuclideanSpace ℝ (Fin 3)) :
