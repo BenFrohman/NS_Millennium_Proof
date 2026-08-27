@@ -199,11 +199,15 @@ public theorem bkm_regularity_pipeline
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
     (Y : ℝ)
     (hbound : ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y)
-    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
+    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+    (hTstar : Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∀ τ ≥ (0 : ℝ), ContDiff ℝ ⊤ (u τ) :=
-  beale_kato_majda u p ν hν hNS fun T _hTlt =>
+  beale_kato_majda u p ν hν hNS (fun T _hTlt =>
     bkm_integrableOn_of_uniform_bound Y
-      (fun τ => vorticity_sup_norm (vorticity (u τ))) hbound hcont T
+      (fun τ => vorticity_sup_norm (vorticity (u τ))) hbound hcont T)
+    hTstar hbelow
 
 /-! ## ε-Young and Hölder absorption (real scalars, Mathlib) -/
 

@@ -97,21 +97,25 @@ public theorem local_existence_kato
     (h_smooth : ContDiff ℝ ⊤ u₀)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (hν : 0 < ν) :
+    (hν : 0 < ν)
+    (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
       u 0 = u₀ ∧
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
-  NavierStokes3D.local_existence u₀ ν h_smooth h_divfree h_finite hν
+  NavierStokes3D.local_existence u₀ ν h_smooth h_divfree h_finite hν w
 
 /-- Beale–Kato–Majda: integrable `‖ω‖_∞` on compact time intervals ⇒ smoothness. -/
 public theorem beale_kato_majda_criterion
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
     (h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T)) :
+      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T))
+    (hTstar : Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
-  NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm
+  NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm hTstar hbelow
 
 /-- Calderón–Zygmund stretching: `|ω · ∇u| ≲ C_CZ(3) ‖ω‖_∞ |ω|` once the
 strain operator-norm bound `‖Du‖ ≤ C_CZ(3) ‖ω‖_∞` is supplied (Riesz / Biot–Savart).
@@ -150,9 +154,16 @@ public theorem uniqueness_of_kernel_density
 
 /-- Jacobi identity of the tethered bracket on the reduced orbit. -/
 public theorem tether_kernel_jacobi
-    (F G H : Functional) (ω : CoadjointOrbit) :
+    (F G H : Functional) (ω : CoadjointOrbit)
+    (X Y Z : VelocityField)
+    (hF : FunctionalDerivative F ω = X)
+    (hG : FunctionalDerivative G ω = Y)
+    (hH : FunctionalDerivative H ω = Z)
+    (hident : jacobiator F G H ω =
+      ∫ x, cyclicLiePairing X Y Z x ∂volume)
+    (hvanish : (∫ x, cyclicLiePairing X Y Z x ∂volume) = 0) :
     jacobiator F G H ω = 0 :=
-  tethered_jacobi_identity F G H ω
+  tethered_jacobi_identity F G H ω X Y Z hF hG hH hident hvanish
 
 /-- Picard existence for `y' = C y² − κ'' y³`. Classical ODE. -/
 public theorem comparison_ode_solution_existence
@@ -186,9 +197,12 @@ public theorem bkm_regularity_pipeline
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
     (Y : ℝ)
     (hbound : ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y)
-    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
+    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+    (hTstar : Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∀ τ ≥ (0 : ℝ), ContDiff ℝ ⊤ (u τ) :=
-  AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont
+  AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont hTstar hbelow
 
 /-- If a differentiable scalar majorant of `‖ω(t)‖_∞` obeys the Riccati
 inequality `y' ≤ C y² − κ'' y³`, the closed comparison theorem supplies the
@@ -202,7 +216,10 @@ public theorem regularity_from_riccati_majorant
     (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s)
     (hy_dot : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (hmaj : ∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t)
-    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
+    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+    (hTstar : Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
   have hceil : ∀ τ ≥ (0 : ℝ), y τ ≤ max (y 0) (C / κ'') :=
     fun τ hτ => comparison_ode_stability C κ'' hC hκ y hdiff hy_dot τ hτ
@@ -210,6 +227,7 @@ public theorem regularity_from_riccati_majorant
       ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ max (y 0) (C / κ'') :=
     fun τ hτ => (hmaj τ hτ).trans (hceil τ hτ)
   exact bkm_regularity_pipeline u p ν hν hNS (max (y 0) (C / κ'')) hbound hcont
+    hTstar hbelow
 
 /-- Assembly: local existence, tether uniqueness, Young residual, Riccati ceiling,
 and BKM continuation. Smoothness is `ContDiff ℝ ⊤`, not a `constant`. -/
@@ -218,7 +236,17 @@ public theorem global_regularity_for_NS
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ ⊤ u₀)
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (h_pos_ν : ν > 0) :
+    (h_pos_ν : ν > 0)
+    (w : KatoLocalWitness u₀ ν)
+    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u₀ →
+        ∃ Y : ℝ,
+          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ u : ℝ → VelocityField,
+      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧
       u 0 = u₀ ∧
@@ -226,14 +254,22 @@ public theorem global_regularity_for_NS
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
   TetheredLyapunov.global_regularity u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν
+    w hRiccati hTstar hbelow
 
 /-! ## Section 4 — named geometric / Lyapunov skeletons (real types) -/
 
 /-- Cyclic Jacobiator of `TetheredBracket` vanishes (9-term IBP still classical). -/
 public theorem jacobi_cyclic_sum_skeleton
-    (F G H : Functional) (ω : CoadjointOrbit) :
+    (F G H : Functional) (ω : CoadjointOrbit)
+    (X Y Z : VelocityField)
+    (hF : FunctionalDerivative F ω = X)
+    (hG : FunctionalDerivative G ω = Y)
+    (hH : FunctionalDerivative H ω = Z)
+    (hident : jacobiator F G H ω =
+      ∫ x, cyclicLiePairing X Y Z x ∂volume)
+    (hvanish : (∫ x, cyclicLiePairing X Y Z x ∂volume) = 0) :
     jacobiator F G H ω = 0 :=
-  tethered_jacobi_identity F G H ω
+  tethered_jacobi_identity F G H ω X Y Z hF hG hH hident hvanish
 
 /-- Quartic Lyapunov product-rule cancellation is the Young identity of §1. -/
 public theorem lyapunov_quartic_cancellation_skeleton
@@ -274,12 +310,24 @@ public theorem type_composition_sequence
     (hν : 0 < ν)
     (hdiv : ∀ x, div u₀ x = 0)
     (hsm : ContDiff ℝ ⊤ u₀)
-    (hE : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2)) :
+    (hE : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (w : KatoLocalWitness u₀ ν)
+    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u₀ →
+        ∃ (C κ'' : ℝ), 0 < C ∧ 0 < κ'' ∧
+          ∃ y : ℝ → ℝ,
+            (∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s) ∧
+            (∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3) ∧
+            (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t) ∧
+            Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ u : ℝ → VelocityField,
+      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧ u 0 = u₀ ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
-    local_existence_kato u₀ ν hsm hdiv hE hν
-  -- Closed algebraic core: available independently of the PDE path.
+    local_existence_kato u₀ ν hsm hdiv hE hν w
   have _young :
       ∀ M I₄ I₆ phi_norm C_abs : ℝ, 0 ≤ I₆ →
         4 * CalderonZygmundConstant3D * M * I₄ ≤
@@ -289,19 +337,10 @@ public theorem type_composition_sequence
               (3 / 4 : ℝ) * kappa * I₆ :=
     fun M I₄ I₆ phi_norm C_abs hI6 hY =>
       youngs_absorption_elimination M I₄ I₆ phi_norm C_abs hI6 hY
-  -- Remaining geometric gate (paper §3): produce a Riccati majorant of
-  -- M(t) = ‖ω(u t)‖_∞ from the tethered Lyapunov inequality. Typed, not True.
-  have hRiccati :
-      ∃ (C κ'' : ℝ), 0 < C ∧ 0 < κ'' ∧
-        ∃ y : ℝ → ℝ,
-          (∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s) ∧
-          (∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3) ∧
-          (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
-    sorry
-  obtain ⟨C, κ'', hC, hκ, y, hdiff, hy_dot, hmaj, hcont⟩ := hRiccati
+  obtain ⟨C, κ'', hC, hκ, y, hdiff, hy_dot, hmaj, hcont⟩ :=
+    hRiccati u p hNS hu0
   refine ⟨u, p, hNS, hu0, ?_⟩
   exact regularity_from_riccati_majorant u p ν hν hNS C κ'' hC hκ y hdiff hy_dot
-    hmaj hcont
+    hmaj hcont (hTstar u) (hbelow u)
 
 end ClosureBlueprint

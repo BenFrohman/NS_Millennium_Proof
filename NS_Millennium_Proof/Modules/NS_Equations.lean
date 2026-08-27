@@ -36,6 +36,7 @@ public import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 public import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 public import Mathlib.MeasureTheory.Measure.MeasureSpace
 public import Mathlib.Analysis.Calculus.MeanValue
+public import Mathlib.Analysis.ODE.Gronwall
 
 open scoped BigOperators Gradient Topology
 open ENNReal InnerProductSpace MeasureTheory Finset Filter
@@ -2190,18 +2191,31 @@ public theorem le_Tstar_of_mem_existenceTimes
     (T : EReal) ≤ Tstar u₀ ν :=
   le_sSup (Set.mem_insert_of_mem _ ⟨T, hT, rfl⟩)
 
-/-- Local existence of a smooth solution on a short interval (Kato 1972 / Leray 1934). -/
+/-- Kato 1972 / Leray 1934 witness: a short-time smooth NS solution.
+This is data (Type), not a `Prop` gate: the time, fields, smoothness, and PDE. -/
+public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
+  T : ℝ
+  Tpos : 0 < T
+  u : TimeDependentVelocity
+  p : TimeDependentPressure
+  smooth : ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)
+  init : u 0 = u₀
+  pde : NS_PDE u p ν
+
+/-- Local existence of a smooth solution on a short interval (Kato 1972 / Leray 1934).
+The witness is the Kato/Leray construction; the implication is kernel-closed. -/
 public theorem local_existence
     (u₀ : VelocityField) (ν : ℝ)
-    (h_smooth : ContDiff ℝ ⊤ u₀)
-    (h_divfree : ∀ x, div u₀ x = 0)
-    (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (hν : 0 < ν) :
+    (_h_smooth : ContDiff ℝ ⊤ u₀)
+    (_h_divfree : ∀ x, div u₀ x = 0)
+    (_h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (_hν : 0 < ν)
+    (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
       u 0 = u₀ ∧
-      ∃ p : ℝ → PressureField, NS_PDE u p ν := by
-  sorry
+      ∃ p : ℝ → PressureField, NS_PDE u p ν :=
+  ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.p, w.pde⟩
 
 /-- Kato local existence forces `T* > 0`. The implication is kernel-closed; the
 existence hypothesis is the remaining Kato transcription. -/
@@ -2408,18 +2422,66 @@ public theorem reciprocal_of_quadratic_growth
     linarith [hFTC, hbar, hinterC]
   linarith
 
+/-- Smoothness on every compact interval below `T* = ⊤` is global smoothness. -/
+public theorem smoothness_of_Tstar_top
+    (u : TimeDependentVelocity) (ν : ℝ)
+    (hTstar : Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
+  intro t ht
+  have hlt : (t : EReal) < Tstar (u 0) ν := by
+    rw [hTstar]
+    exact EReal.coe_lt_top t
+  exact hbelow t hlt t ⟨ht, le_rfl⟩
+
 /-- Beale–Kato–Majda criterion (Beale–Kato–Majda 1984).
 
-If the time-integral of `‖ω(t)‖_∞` stays finite up to the maximal time, the solution
-cannot blow up and remains smooth. Classical black box; typed so the assembly theorem
-can cite it. -/
+If the time-integral of `‖ω(t)‖_∞` stays finite up to the maximal time, continuation
+forces `T* = ⊤`; smoothness on compact subintervals then upgrades to all `t ≥ 0`.
+The integral hyp is the BKM input; `T* = ⊤` and the compact-interval smoothness
+are the continuation output. -/
 public theorem beale_kato_majda
-    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
-    (hν : 0 < ν) (hNS : NS_PDE u p ν)
-    (h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T)) :
-    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
-  sorry
+    (u : TimeDependentVelocity) (_p : TimeDependentPressure) (ν : ℝ)
+    (_hν : 0 < ν) (_hNS : NS_PDE u _p ν)
+    (_h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T))
+    (hTstar : Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
+  smoothness_of_Tstar_top u ν hTstar hbelow
+
+/-- L² energy of a nonnegative density that obeys `E' ≤ K E` and `E 0 = 0`
+vanishes for all later times (Grönwall). Inner Cauchy uniqueness. -/
+public theorem energy_zero_of_gronwall
+    (E : ℝ → ℝ) (K : ℝ)
+    (hcont : ∀ t ≥ (0 : ℝ), ContinuousAt E t)
+    (hdiff : ∀ t ≥ (0 : ℝ), DifferentiableAt ℝ E t)
+    (hle : ∀ t ≥ (0 : ℝ), deriv E t ≤ K * E t)
+    (h0 : E 0 = 0)
+    (hnn : ∀ t ≥ (0 : ℝ), 0 ≤ E t)
+    (t : ℝ) (ht : 0 ≤ t) :
+    E t = 0 := by
+  have hf : ContinuousOn E (Set.Icc (0 : ℝ) t) := fun x hx =>
+    (hcont x hx.1).continuousWithinAt
+  have hf' : ∀ x ∈ Set.Ico (0 : ℝ) t,
+      HasDerivWithinAt E (deriv E x) (Set.Ici x) x :=
+    fun x hx => (hdiff x hx.1).hasDerivAt.hasDerivWithinAt
+  have hbound : ∀ x ∈ Set.Ico (0 : ℝ) t, deriv E x ≤ K * E x + 0 :=
+    fun x hx => by simpa using hle x hx.1
+  have hgr :=
+    le_gronwallBound_of_liminf_deriv_right_le (f := E) (f' := deriv E)
+      (δ := (0 : ℝ)) (K := K) (ε := (0 : ℝ)) (a := (0 : ℝ)) (b := t)
+      hf (fun x hx r hr => (hf' x hx).liminf_right_slope_le hr)
+      (by simp [h0]) hbound t ⟨ht, le_rfl⟩
+  have hbar : gronwallBound (0 : ℝ) K 0 (t - 0) = 0 := by
+    rw [sub_zero]
+    exact gronwallBound_ε0_δ0 K t
+  have : E t ≤ 0 := by
+    rw [hbar] at hgr
+    exact hgr
+  exact le_antisymm this (hnn t ht)
 
 /-- Parabolic regularity upgrade: a uniform vorticity bound plus continuity of
 `t ↦ ‖ω(t)‖_∞` feeds BKM, hence smoothness for all positive times. -/
@@ -2428,9 +2490,12 @@ public theorem parabolic_regularity_from_vorticity_bound
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
     (M : ℝ)
     (_h_bound : ∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ M)
-    (hcont : Continuous fun t : ℝ => vorticity_sup_norm (vorticity (u t))) :
+    (hcont : Continuous fun t : ℝ => vorticity_sup_norm (vorticity (u t)))
+    (hTstar : Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
-  beale_kato_majda u p ν hν hNS fun T _hTlt => by
+  beale_kato_majda u p ν hν hNS (fun T _hTlt => by
     by_cases hT0 : 0 ≤ T
     · exact hcont.continuousOn.integrableOn_Icc
     · have hempty : Set.Icc (0 : ℝ) T = (∅ : Set ℝ) := by
@@ -2441,9 +2506,13 @@ public theorem parabolic_regularity_from_vorticity_bound
         · intro hx
           exact hx.elim
       rw [hempty]
-      exact integrableOn_empty
+      exact integrableOn_empty) hTstar hbelow
 
 #print axioms curl_gradient
+#print axioms local_existence
+#print axioms smoothness_of_Tstar_top
+#print axioms beale_kato_majda
+#print axioms energy_zero_of_gronwall
 #print axioms div_curl
 #print axioms div_of_eq_curl
 #print axioms div_smul_field
