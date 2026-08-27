@@ -115,7 +115,7 @@ accompanied by a new row in the relationship document and an update to the
 four audit checklists in `Blueprint.md`.
 -/
 structure FutureMetriplecticAssumptions : Prop where
-  (placeholder : True)
+  placeholder : True
 
 /-!
 ## How to Add a New Intentional Axiom (Clay Submission Checklist)
