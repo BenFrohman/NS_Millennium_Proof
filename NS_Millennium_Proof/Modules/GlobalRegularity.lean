@@ -84,10 +84,17 @@ public theorem frohmanian_tether_theorem
         ∃ Y : ℝ,
           (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
           Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
-    (hTstar : ∀ (u : ℝ → VelocityField) (ν : ℝ), Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ (u : ℝ → VelocityField) (ν : ℝ),
-      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+    (τ : ℝ) (hτ : 0 < τ)
+    (hrestart : ∀ u₀ ν, 0 < ν →
+      ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
+        ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
+    (huniq : ∀ u₀ ν (w : KatoLocalWitness u₀ ν),
+      ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+        T' ∈ existenceTimes u₀ ν →
+        v 0 = u₀ →
+        NS_PDE v q ν →
+        (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+        ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
   ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
     (∀ F ω, TetheredBracket F KineticEnergyHamiltonian ω =
       ClassicalBracket F KineticEnergyHamiltonian ω) ∧
@@ -124,11 +131,14 @@ public theorem frohmanian_tether_theorem
   · intro B α hrepr hα ω F G
     exact uniqueness_of_kernel_density B α hrepr hα ω F G
   · intro u₀ ν hνpos hdiv hsm hE
-    exact global_regularity u₀ ν hdiv hsm hE hνpos
-      (hKato u₀ ν hsm hdiv hE hνpos)
-      (fun u p _hNS hu0 => hRiccati u₀ ν u p hνpos _hNS hu0)
-      (fun u => hTstar u ν)
-      (fun u => hbelow u ν)
+    let w := hKato u₀ ν hsm hdiv hE hνpos
+    have hreg :=
+      global_regularity_of_restart u₀ ν hdiv hsm hE hνpos w
+        (fun u p _hNS hu0 => hRiccati u₀ ν u p hνpos _hNS hu0)
+        τ hτ
+        (hrestart u₀ ν hνpos)
+        (huniq u₀ ν w)
+    exact ⟨w.u, w.p, hreg⟩
 
 /-! ## Abstract (exact formulation supplied by the author) -/
 
@@ -174,34 +184,39 @@ public theorem global_regularity_for_NS
         ∃ Y : ℝ,
           (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
           Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
-    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ u : ℝ → VelocityField,
-      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t))
-    (hcauchy : ∀ u v : TimeDependentVelocity,
-      u 0 = v 0 →
-      (∀ t ≥ (0 : ℝ), IsSmooth (u t)) →
-      (∀ t ≥ (0 : ℝ), IsSmooth (v t)) →
-      (∀ t ≥ (0 : ℝ), satisfies_NavierStokes u ν) →
-      (∀ t ≥ (0 : ℝ), satisfies_NavierStokes v ν) →
-      u = v) :
-  ∃! (u : TimeDependentVelocity),
+    (τ : ℝ) (hτ : 0 < τ)
+    (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar (u0 0) ν →
+      ∃ T' ∈ existenceTimes (u0 0) ν, t + τ ≤ T')
+    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes (u0 0) ν →
+      v 0 = u0 0 →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+  ∃ (u : TimeDependentVelocity),
     (∀ t ≥ (0 : ℝ), IsSmooth (u t)) ∧
     (u 0 = u0 0) ∧
     (∀ t ≥ (0 : ℝ), satisfies_NavierStokes u ν) ∧
-    (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) := by
-  obtain ⟨u, p, hNS, hu0, hsm, hnn, _hdiv⟩ :=
-    TetheredLyapunov.global_regularity (u0 0) ν
+    (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+    (∀ v : TimeDependentVelocity,
+      (∀ t ≥ (0 : ℝ), IsSmooth (v t)) →
+      v 0 = u0 0 →
+      (∀ t ≥ (0 : ℝ), satisfies_NavierStokes v ν) →
+      ∀ t ≥ (0 : ℝ), v t = u t) := by
+  obtain ⟨hNS, hu0, hsm, hnn, _hdiv⟩ :=
+    TetheredLyapunov.global_regularity_of_restart (u0 0) ν
       (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos
-      w hRiccati hTstar hbelow
-  refine ⟨u, ?hexists, ?uniq⟩
-  · refine ⟨hsm, hu0, ?ns, hnn⟩
-    intro _t _ht
-    exact ⟨p, hNS⟩
-  · intro v hv
-    rcases hv with ⟨hsmv, hv0, hNSv, _⟩
-    exact (hcauchy u v (hu0.trans hv0.symm) hsm hsmv
-      (fun _t _ht => ⟨p, hNS⟩) hNSv).symm
+      w hRiccati τ hτ hrestart huniq
+  refine ⟨w.u, hsm, hu0, ?ns, hnn, ?uniq⟩
+  · intro _t _ht
+    exact ⟨w.p, hNS⟩
+  · intro v hsmv hv0 hNSv t ht
+    obtain ⟨q, hq⟩ := hNSv 0 le_rfl
+    have ht1 : 0 < t + 1 := by linarith
+    have hmem : t + 1 ∈ existenceTimes (u0 0) ν :=
+      mem_existenceTimes (u0 0) ν ht1 v q hv0 hq fun s hs => hsmv s hs.1
+    exact (huniq (t + 1) v q hmem hv0 hq (fun s hs => hsmv s hs.1)
+      t ⟨ht, le_of_lt (lt_add_one t)⟩).symm
 
 -- Finite kinetic energy of the initial field. Mathlib's `Integrable f` is
 -- `AEStronglyMeasurable f ∧ HasFiniteIntegral f`. An earlier encoding wrote
