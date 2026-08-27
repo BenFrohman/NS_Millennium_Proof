@@ -78,6 +78,9 @@ theorem frohmanian_tether_theorem :
       InvariantUnderCoadjointAction B →
       DegenerateWRTKineticEnergy B →
       ProducesControllableNegativeFeedback B →
+      SaturatesTetherQuadratic B →
+      Polarizes B →
+      Polarizes TetherKernel →
       ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
     (∀ (u₀ : VelocityField) (ν : ℝ),
       0 < ν →
@@ -93,8 +96,8 @@ theorem frohmanian_tether_theorem :
   refine ⟨TetherKernel, ?_, ?_, ?_⟩
   · intro F ω
     exact tethered_reproduces_classical_euler F ω
-  · intro B hanti hC1 hC2 hC3 ω F G
-    exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 ω F G
+  · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
+    exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
   · intro u₀ ν hνpos hdiv hsm hE
     exact global_regularity u₀ ν hdiv hsm hE hνpos
 

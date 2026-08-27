@@ -547,8 +547,33 @@ public theorem tethered_reproduces_classical_euler (F : Functional) (ω : Coadjo
       · apply tetherKernel_of_right_factor_zero
         rw [hδH, hz]
         exact Pi_u_zero (0 : VelocityField)
-      · -- Energy zero without `u ≡ 0`: remaining a.e. vanishing from `∫|u|² = 0`.
-        sorry
+      · -- `∫‖u‖² = 0` with `u` not the zero function: if `‖u‖²` is integrable
+        -- then `u = 0` a.e. and the tether integrand vanishes a.e.
+        set u := velocity_from_vorticity ω
+        have hδ : FunctionalDerivative KineticEnergyHamiltonian ω = u := hδH
+        unfold TetherKernel
+        rw [hδ]
+        by_cases hInt : Integrable (fun y => ‖u y‖ ^ 2)
+        · have hnn : ∀ y, 0 ≤ ‖u y‖ ^ 2 := fun _ => pow_nonneg (norm_nonneg _) _
+          have hae : (fun y => ‖u y‖ ^ 2) =ᵐ[volume] 0 :=
+            (integral_eq_zero_iff_of_nonneg hnn hInt).mp (by simpa using hE)
+          have hu : u =ᵐ[volume] 0 :=
+            hae.mono fun x hx =>
+              norm_eq_zero.mp (sq_eq_zero_iff.mp (by simpa using hx))
+          refine mul_eq_zero.mpr (Or.inr ?_)
+          have hker :
+              (fun x =>
+                ‖ω.val x‖ ^ 2 *
+                  inner ℝ
+                    (Pi_u u (FunctionalDerivative F ω) x)
+                    (Pi_u u u x)) =ᵐ[volume] 0 :=
+            hu.mono fun x hx => by simp [Pi_u, hx, inner_zero_right]
+          rw [integral_congr_ae hker]
+          simp [integral_zero]
+        · -- Non-L² velocity (`¬Integrable ‖u‖²`). C2 is L² degeneracy of
+          -- the pairing against `u`. Named remainder.
+          refine mul_eq_zero.mpr (Or.inr ?_)
+          sorry
   rw [hker, add_zero]
 
 /-! ## Jacobi identity on the reduced orbit (Marsden–Weinstein–Ratiu + explicit test functionals) -/
