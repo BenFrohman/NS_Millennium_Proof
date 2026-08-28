@@ -2813,6 +2813,33 @@ public theorem stretching_inner_le
     _ ≤ C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 :=
         mul_le_mul_of_nonneg_right hCZ (sq_nonneg _)
 
+/-- `___method.pdf` / living document stretching in `dQ/dt`:
+`4 |ω|² φ ⟨ω,(ω·∇)u⟩ ≤ 4 C_CZ M |ω|⁴ φ` when `φ ≥ 0`.
+The factor `4` is the product rule on `|ω|⁴`; CZ is `stretching_inner_le`. -/
+public theorem stretching_quartic_le
+    (ω u : VelocityField) (phi : T3 → ℝ) (x : T3) (C_CZ : ℝ)
+    (hu : DifferentiableAt ℝ u x)
+    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω)
+    (hφ : 0 ≤ phi x) :
+    4 * ‖ω x‖ ^ 2 * inner ℝ (ω x) (convective ω u x) * phi x ≤
+      4 * C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 4 * phi x := by
+  have hstr := stretching_inner_le ω u x C_CZ hu hCZ
+  have hnn : 0 ≤ 4 * ‖ω x‖ ^ 2 * phi x :=
+    mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 4) (sq_nonneg _)) hφ
+  have hmul :=
+    mul_le_mul_of_nonneg_right hstr hnn
+  -- `inner * (4 |ω|² φ) ≤ (C_CZ M |ω|²) * (4 |ω|² φ)`.
+  have hcomm :
+      inner ℝ (ω x) (convective ω u x) * (4 * ‖ω x‖ ^ 2 * phi x) =
+        4 * ‖ω x‖ ^ 2 * inner ℝ (ω x) (convective ω u x) * phi x := by
+    ring
+  have hcomm' :
+      C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 * (4 * ‖ω x‖ ^ 2 * phi x) =
+        4 * C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 4 * phi x := by
+    ring
+  rw [← hcomm, ← hcomm']
+  exact hmul
+
 /-- At a spatial critical point of `½|ω|²`, the transport pairing
 `⟨ω, (u·∇)ω⟩` vanishes. Paper §3 interior-maximum cancellation. -/
 public theorem transport_inner_vanishes_of_grad_zero
@@ -3510,6 +3537,7 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms cyclicLiePairing_expand
 #print axioms convective_norm_le_of_CZ
 #print axioms stretching_inner_le
+#print axioms stretching_quartic_le
 #print axioms transport_inner_vanishes_of_grad_zero
 #print axioms vorticity_transport_inner
 #print axioms stretching_pairing_le_at_spatial_max
