@@ -13,6 +13,7 @@ Work in `/Users/inv0x/lean-projects/NS_Millennium_Proof/.worktrees/kernel-cohesi
 - Never `True.intro` / `True` gates. Never fake-close `frohmanian_tether_theorem`.
 - Never rewrite published git history. Never `Co-authored-by: Grok`.
 - Authorship: `Authors: Benjamin Stanley Frohman`. Git: `Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>`, SSH sign. GitHub @BenFrohman. X.com : Investor0x.
+- GitHub contribution graph: **author and committer** of every commit this agent creates must be `Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>` (verified on @BenFrohman). Never use an agent/bot GitHub identity as author. Never a `Co-authored-by` trailer for Grok, xAI, or any model. Local `user.name` / `user.email` stay as above even if a parent gitconfig differs.
 - Certificate = `#print axioms frohmanian_tether_theorem` lists `propext`, `Classical.choice`, `Quot.sound` and **not** `sorryAx`.
 
 ## Honest fills
