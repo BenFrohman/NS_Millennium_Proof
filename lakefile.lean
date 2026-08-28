@@ -1,3 +1,9 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
 import Lake
 open Lake DSL
 
@@ -23,7 +29,14 @@ lean_lib ForMathlib where
 @[default_target]
 lean_lib NS_Millennium_Proof where
   roots := #[`NS_Millennium_Proof]
-  globs := #[.submodules `NS_Millennium_Proof]
+  -- Restored proof modules (Benjamin Stanley Frohman, 2026-08-26).
+  -- Top-level `Modules/` copies match `NS_Millennium_Proof/Modules/` (CI structure check).
+  -- Skeleton (`import Mathlib`) and Widgets (ProofWidgets) stay in-tree but out of
+  -- the default target so `lake build` remains kernel-passable.
+  globs := #[
+    .submodules `NS_Millennium_Proof.Modules,
+    .submodules `NS_Millennium_Proof.Definitions
+  ]
   -- The library uses Lean's module system (§5 of the Language Reference).
   -- Individual .lean files are prefixed with `module` and use `public import` / `public meta import`
   -- to control public API vs private implementation and meta-phase code (widgets, tactics).
