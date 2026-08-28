@@ -529,6 +529,30 @@ public theorem lyapunovSε_eq (ωε : VorticityField) :
       ∫ x, (1 / 2) * ‖ωε x‖ ^ 2 + (kappa / 4) * ‖ωε x‖ ^ 4 ∂volume := by
   simp [LyapunovSε, LyapunovS]
 
+/-- `___method.pdf` and the Components spreadsheet: weighted Lyapunov
+`S = ∫ ½|ω|² − (κ/2)|ω|⁴ φ`. The minus is what turns the `|ω|⁶` source
+in `dQ/dt` (`Q = ∫|ω|⁴ φ`) into the leading negative quartic. This is
+not `LyapunovS` (May 21 (10) uses `+(κ/4)`). -/
+@[expose] public noncomputable def LyapunovSminus (ωε : VorticityField) (phi : T3 → ℝ) : ℝ :=
+  ∫ x, (1 / 2) * ‖ωε x‖ ^ 2 - (kappa / 2) * ‖ωε x‖ ^ 4 * phi x ∂volume
+
+public theorem lyapunovSminus_eq (ωε : VorticityField) (phi : T3 → ℝ) :
+    LyapunovSminus ωε phi =
+      ∫ x, (1 / 2) * ‖ωε x‖ ^ 2 - (kappa / 2) * ‖ωε x‖ ^ 4 * phi x ∂volume := by
+  simp [LyapunovSminus]
+
+/-- Algebraic `|ω|⁶` source in `dQ/dt` after transport cancel
+(`___method.pdf` (2)): `|ω|⁴ · |ω|² = |ω|⁶`. -/
+public theorem quartic_weight_source_eq (ω : EuclideanSpace ℝ (Fin 3)) :
+    ‖ω‖ ^ 4 * ‖ω‖ ^ 2 = ‖ω‖ ^ 6 := by
+  ring
+
+/-- Minus-weight source: `−(κ/2) |ω|⁶` is the leading negative quartic
+in `dS/dt` when `S = E − (κ/2) Q` and `dQ` contains `+|ω|⁶`. -/
+public theorem lyapunovSminus_source_density (ω : EuclideanSpace ℝ (Fin 3)) :
+    - (kappa / 2) * ‖ω‖ ^ 4 * ‖ω‖ ^ 2 = - (kappa / 2) * ‖ω‖ ^ 6 := by
+  ring
+
 /-- `d/dt |v|² = 2 ⟨v, v'⟩`. -/
 public theorem hasDerivAt_norm_sq_of_hasDerivAt
     {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)} {t : ℝ}
@@ -1924,6 +1948,9 @@ public theorem global_regularity_of_constructions
 #print axioms hasDerivAt_quartic_tether_weight
 #print axioms hasDerivAt_lyapunov_density
 #print axioms lyapunovSε_eq
+#print axioms lyapunovSminus_eq
+#print axioms quartic_weight_source_eq
+#print axioms lyapunovSminus_source_density
 #print axioms hasDerivAt_lyapunov_density_unweighted
 #print axioms majorantField_factor
 #print axioms global_regularity_zero
