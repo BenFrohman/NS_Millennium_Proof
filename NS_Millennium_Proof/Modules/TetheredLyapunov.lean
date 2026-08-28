@@ -1603,6 +1603,53 @@ public theorem enstrophy_di_of_spatial_max
     stretching_enstrophy_di_at_spatial_max u p ν t ht x hNS hreg hu
       kappa hCZ htransp hvisc hν hdt
 
+/-- May 21 §10 unweighted density at an interior spatial max of `|ω|²`:
+`d/dt (½|ω|² + (κ/4)|ω|⁴) = ⟨ω,∂tω⟩(1+κ|ω|²)
+≤ κ M |ω|² (1+κ|ω|²)` with `κ = C_CZ(3)`.
+Transport vanish, CZ stretching, and viscosity `≤ 0` are the same
+hyps as `enstrophy_di_of_spatial_max`; the quartic factor is the
+closed product rule, not `hIdent`. Integrated `dS/dt` remains named. -/
+public theorem lyapunov_density_unweighted_di_at_spatial_max
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hNS : NS_PDE u p ν)
+    (hreg : VorticityTransportRegularity u p t x)
+    (hu : DifferentiableAt ℝ (u t) x)
+    (hCZ : ‖fderiv ℝ (u t) x‖ ≤ kappa *
+      vorticity_sup_norm (vorticity (u t)))
+    (htransp : inner ℝ (vorticity (u t) x)
+      (convective (u t) (vorticity (u t)) x) = 0)
+    (hvisc : inner ℝ (vorticity (u t) x)
+      (laplacian (vorticity (u t)) x) ≤ 0)
+    (hν : 0 ≤ ν)
+    (hdt : HasDerivAt (fun s => vorticity (u s) x)
+      (time_deriv (fun s => vorticity (u s)) t x) t) :
+    deriv
+        (fun s =>
+          (1 / 2 : ℝ) * ‖vorticity (u s) x‖ ^ 2 +
+            (kappa / 4) * ‖vorticity (u s) x‖ ^ 4)
+        t ≤
+      kappa * vorticity_sup_norm (vorticity (u t)) *
+        ‖vorticity (u t) x‖ ^ 2 *
+        (1 + kappa * ‖vorticity (u t) x‖ ^ 2) := by
+  have hden :=
+    hasDerivAt_lyapunov_density_unweighted
+      (v := fun s => vorticity (u s) x) hdt
+  rw [hden.deriv]
+  have hpair :=
+    stretching_pairing_le_at_spatial_max u p ν t ht x hNS hreg hu kappa
+      hCZ htransp hvisc hν
+  set ω := vorticity (u t) x
+  set M := vorticity_sup_norm (vorticity (u t))
+  have hfac : 0 ≤ 1 + kappa * ‖ω‖ ^ 2 :=
+    add_nonneg zero_le_one (mul_nonneg kappa_pos.le (sq_nonneg _))
+  have hmul :
+      inner ℝ ω (time_deriv (fun s => vorticity (u s)) t x) *
+          (1 + kappa * ‖ω‖ ^ 2) ≤
+        (kappa * M * ‖ω‖ ^ 2) * (1 + kappa * ‖ω‖ ^ 2) :=
+    mul_le_mul_of_nonneg_right hpair hfac
+  simpa [ω, M, mul_assoc] using hmul
+
 public theorem global_regularity
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
@@ -1885,6 +1932,7 @@ public theorem global_regularity_of_constructions
 #print axioms riccati_ceiling_of_vorticity_di
 #print axioms global_regularity_of_constructions
 #print axioms enstrophy_di_of_spatial_max
+#print axioms lyapunov_density_unweighted_di_at_spatial_max
 
 end   -- close noncomputable section
 end TetheredLyapunov
