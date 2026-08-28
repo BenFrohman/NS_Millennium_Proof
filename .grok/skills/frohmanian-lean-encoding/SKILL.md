@@ -27,4 +27,4 @@ Work in `/Users/inv0x/lean-projects/NS_Millennium_Proof/.worktrees/kernel-cohesi
 
 ## After a closed lemma
 
-`lake build` the module. `#print axioms` the lemma. Commit signed as Frohman. Append `HISTORY.md`. Push to PR #8 only after the build is green.
+`lake build` the module. `#print axioms` the lemma. Commit signed as Frohman. Append `HISTORY.md`. Land on `main` with a **merge commit** (this repo allows merge commits only; never squash, never rebase). Jointly created work that is contributory to the communities this encoding is material for lands on `main`. Do not leave encoding-only commits on a feature branch as the last step.
