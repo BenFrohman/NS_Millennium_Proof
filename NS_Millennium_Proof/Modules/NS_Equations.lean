@@ -2840,6 +2840,46 @@ public theorem vorticity_transport_inner
     congrArg (inner ℝ (vorticity (u t) x)) hvt
   simpa [inner_add_right] using hcong
 
+/-- After transport vanish and non-positive viscosity, the vorticity
+pairing of paper §2.1 is CZ stretching:
+`⟨ω, ∂t ω⟩ ≤ C_CZ M |ω|²`. This is the inner identity used by the
+enstrophy DI; it does not need a time-derivative of `|ω|²`. -/
+public theorem stretching_pairing_le_at_spatial_max
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hNS : NS_PDE u p ν)
+    (hreg : VorticityTransportRegularity u p t x)
+    (hu : DifferentiableAt ℝ (u t) x) (C_CZ : ℝ)
+    (hCZ : ‖fderiv ℝ (u t) x‖ ≤ C_CZ *
+      vorticity_sup_norm (vorticity (u t)))
+    (htransp : inner ℝ (vorticity (u t) x)
+      (convective (u t) (vorticity (u t)) x) = 0)
+    (hvisc : inner ℝ (vorticity (u t) x)
+      (laplacian (vorticity (u t)) x) ≤ 0)
+    (hν : 0 ≤ ν) :
+    inner ℝ (vorticity (u t) x)
+        (time_deriv (fun s => vorticity (u s)) t x) ≤
+      C_CZ * vorticity_sup_norm (vorticity (u t)) *
+        ‖vorticity (u t) x‖ ^ 2 := by
+  have hinter := vorticity_transport_inner u p ν t ht x hNS hreg
+  have hleft :
+      inner ℝ (vorticity (u t) x)
+          (time_deriv (fun s => vorticity (u s)) t x) =
+        inner ℝ (vorticity (u t) x)
+            (convective (vorticity (u t)) (u t) x) +
+          inner ℝ (vorticity (u t) x)
+            (ν • laplacian (vorticity (u t)) x) := by
+    linarith [hinter, htransp]
+  rw [hleft]
+  have hstr :=
+    stretching_inner_le (vorticity (u t)) (u t) x C_CZ hu hCZ
+  have hviscν :
+      inner ℝ (vorticity (u t) x)
+          (ν • laplacian (vorticity (u t)) x) ≤ 0 := by
+    rw [inner_smul_right]
+    exact mul_nonpos_of_nonneg_of_nonpos hν hvisc
+  exact (add_le_add hstr hviscν).trans_eq (add_zero _)
+
 /-- Paper §3 at an interior spatial maximum of `|ω|²`: transport
 vanishes, viscosity is non-positive, stretching is CZ, hence
 `d/dt |ω|² ≤ 2 C_CZ M |ω|²`. -/
@@ -2864,32 +2904,9 @@ public theorem stretching_enstrophy_di_at_spatial_max
         ‖vorticity (u t) x‖ ^ 2 := by
   have hder := hdt.norm_sq.deriv
   rw [hder]
-  have hinter := vorticity_transport_inner u p ν t ht x hNS hreg
-  have hleft :
-      inner ℝ (vorticity (u t) x)
-          (time_deriv (fun s => vorticity (u s)) t x) =
-        inner ℝ (vorticity (u t) x)
-            (convective (vorticity (u t)) (u t) x) +
-          inner ℝ (vorticity (u t) x)
-            (ν • laplacian (vorticity (u t)) x) := by
-    linarith [hinter, htransp]
-  rw [hleft]
-  have hstr :=
-    stretching_inner_le (vorticity (u t)) (u t) x C_CZ hu hCZ
-  have hviscν :
-      inner ℝ (vorticity (u t) x)
-          (ν • laplacian (vorticity (u t)) x) ≤ 0 := by
-    rw [inner_smul_right]
-    exact mul_nonpos_of_nonneg_of_nonpos hν hvisc
-  have hsum :
-      inner ℝ (vorticity (u t) x)
-            (convective (vorticity (u t)) (u t) x) +
-          inner ℝ (vorticity (u t) x)
-            (ν • laplacian (vorticity (u t)) x) ≤
-        C_CZ *
-          vorticity_sup_norm (vorticity (u t)) *
-          ‖vorticity (u t) x‖ ^ 2 :=
-    (add_le_add hstr hviscν).trans_eq (add_zero _)
+  have hsum :=
+    stretching_pairing_le_at_spatial_max u p ν t ht x hNS hreg hu C_CZ
+      hCZ htransp hvisc hν
   exact (mul_le_mul_of_nonneg_left hsum two_pos.le).trans_eq (by ring)
 
 /-- Strain pairing: `⟨w, (w·∇)v⟩ ≤ ‖Dv‖_∞ |w|²` once the strain
@@ -3495,6 +3512,7 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms stretching_inner_le
 #print axioms transport_inner_vanishes_of_grad_zero
 #print axioms vorticity_transport_inner
+#print axioms stretching_pairing_le_at_spatial_max
 #print axioms stretching_enstrophy_di_at_spatial_max
 #print axioms pressureGradient_sub
 #print axioms ns_momentum_difference
