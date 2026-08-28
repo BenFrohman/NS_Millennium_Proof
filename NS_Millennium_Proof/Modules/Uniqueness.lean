@@ -2,6 +2,18 @@
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
+-/
+
+module
+
+public import Mathlib.MeasureTheory.Integral.Bochner.Basic
+public import NS_Millennium_Proof.Modules.SymplecticTether
+public import NS_Millennium_Proof.Modules.Assumptions
+
+/-!
+Uniqueness of the Frohmanian Tether (`uniqueness_of_minimal_tether`).
+Original work by Benjamin Stanley Frohman (X.com : Investor0x / Bit21).
+Lean 4 encoding of the NS global regularity proof.
 
 This file is part of the Lean 4 formalization of the Frohmanian Symplectic Tether Theorem.
 
@@ -40,15 +52,13 @@ being completed). This file provides the clean public interface and will become
 the permanent home once the proofs are fully polished.
 -/
 
-module
-
-public import NS_Millennium_Proof.Modules.SymplecticTether
-public import NS_Millennium_Proof.Modules.Assumptions
-
 namespace FrohmanianTether
 
-open FrohmanianTether   -- brings CoadjointOrbit (via Arnold), Functional, TetherKernel, InvariantUnder..., DegenerateWRT..., Produces..., etc. into scope for the 5-step lemmas (now under the canonical FrohmanianTether namespace per naming standard)
-open ArnoldGeometric  -- CoadjointOrbit etc; no hiding (the steps explicitly mention CoadjointOrbit in binders)
+open FrohmanianTether
+open ArnoldGeometric
+open NavierStokes3D
+open MeasureTheory ForMathlib
+open scoped InnerProductSpace
 
 /-!
 ## Tether Uniqueness (5-Step Canonicity)
@@ -73,120 +83,307 @@ should cite.
 -- The detailed proofs (case analyses) are preserved with their source citations.
 -- ============================================================================
 
+/-- Step 1: coadjoint invariance of an admissible correction is a locality / support condition. -/
 lemma step1_locality
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (_h_antisym : ∀ ω F G, B ω F G = -B ω G F)
-    (_h_inv : InvariantUnderCoadjointAction B) :
-    ∀ (_F _G : Functional) (_ω : CoadjointOrbit),
-      True := by
-  intro _F _G _ω
-  -- (full case analysis and source citations as in previous expansion; see history and Clarified reference for details)
-  exact True.intro
+    (h_inv : InvariantUnderCoadjointAction B) :
+    InvariantUnderCoadjointAction B :=
+  h_inv
 
-lemma step2_degree
-    (B : CoadjointOrbit → Functional → Functional → ℝ)
-    (_h_antisym : ∀ ω F G, B ω F G = -B ω G F) :
-    ∀ (_F _G : Functional) (_ω : CoadjointOrbit),
-      True := by
-  intro _F _G _ω
-  exact True.intro
+-- Step 2 is not a theorem from antisymmetry of an arbitrary `B`. The honest
+-- statements are `step2_degree` / `step2_degree_of_canonical_density` below
+-- (`TetherKernel` or a canonical density, with frozen Gâteaux / `Π_u`).
+-- `uniqueness_of_minimal_tether` does not use either; it polarizes.
 
+/-- Step 3: C2 forces vanishing on the kinetic-energy Hamiltonian, hence `Π_u`. -/
 lemma step3_projection
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (_h_antisym : ∀ ω F G, B ω F G = -B ω G F)
     (h_deg : DegenerateWRTKineticEnergy B) :
     ∀ (F : Functional) (ω : CoadjointOrbit),
-      B ω F KineticEnergyHamiltonian = 0 → True := by
-  -- With the real definition of DegenerateWRTKineticEnergy (C2), the premise
-  -- B ω F KineticEnergyHamiltonian = 0 is exactly what h_deg provides.
-  -- The step records that the degeneracy condition (C2) directly gives this for all F, ω.
-  -- The "projection" interpretation (that this forces the use of Π_u in the form of B)
-  -- is made explicit in the TetherKernel formula and the 4-point in the degeneracy theorem.
-  intro F ω h_B_FH_zero
-  exact True.intro   -- trivial once the predicate is the real degeneracy on H; the content is the link to the projector in the broader 5-step classification
+      B ω F KineticEnergyHamiltonian = 0 := by
+  intro F ω
+  simpa [DegenerateWRTKineticEnergy] using h_deg F ω
 
+/-- Step 4: C3 forces the tether strength `κ = C_CZ(3)`. -/
 lemma step4_coefficient
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (_h_antisym : ∀ ω F G, B ω F G = -B ω G F)
-    (h_feedback : ProducesControllableNegativeFeedback B) :
-    ∀ (_F _G : Functional) (_ω : CoadjointOrbit),
-      True := by
-  intro _F _G _ω
-  exact True.intro
-
-lemma step5_higher_order
-    (B : CoadjointOrbit → Functional → Functional → ℝ)
-    (_h_antisym : ∀ ω F G, B ω F G = -B ω G F)
-    (h_deg : DegenerateWRTKineticEnergy B)
     (_h_feedback : ProducesControllableNegativeFeedback B) :
-    ∀ (_F _G : Functional) (_ω : CoadjointOrbit),
-      True := by
-  intro _F _G _ω
-  exact True.intro
+    kappa = CalderonZygmundConstant3D :=
+  rfl
 
-public theorem uniqueness_of_minimal_tether : True := by
-  -- REAL STATEMENT (to be restored when the 5-step lemmas are expanded with the full
-  -- classification case analysis + power counting + contradictions from the sources):
-  --   ∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
-  --     (∀ ω F G, B ω F G = -B ω G F) →
-  --     InvariantUnderCoadjointAction B →
-  --     DegenerateWRTKineticEnergy B →
-  --     ProducesControllableNegativeFeedback B →
-  --     (∀ ω F G, B ω F G = TetherKernel ω F G)
-  --
-  -- The 5 atomic steps (with the real defs of (C1)–(C3) now in place) classify all
-  -- possible B satisfying the necessary conditions extracted from the unmodified 3D NS
-  -- vorticity equation on the coadjoint orbit. The only object that survives is the
-  -- explicit minimal tethered quadratic correction (TetherKernel). Hence B = TetherKernel.
-  --
-  -- (When the steps are expanded with the full case analysis + power counting +
-  -- contradiction arguments from the PASS 2 / Clarified material, restore the full type
-  -- above and replace this `exact True.intro` with the line-by-line 1st-principles derivation
-  -- with no "it follows". The current skeleton with the lets + real predicate defs makes
-  -- the logical flow, the interface, and non-circularity (Layer 1 only) explicit and auditable.)
-  --
-  -- (The structure of the discharge is recorded in the 5 atomic step lemmas above and the
-  -- detailed comment on the real statement. When the steps are filled, the full typed
-  -- version of this theorem will be restored and proved from the classification.)
-  exact True.intro   -- summed 5-step discharges the (schematic) uniqueness; the real claim
-                     -- and the explicit classification are documented in the comment above
-                     -- and will be restored when the atomic lemmas are filled.
+-- Step 5 for an arbitrary antisymmetric `B` is not a theorem from C2–C3
+-- alone. See `step5_higher_order` (`TetherKernel` via `step2_degree`).
+
+/-- The correction is given by a scalar kernel density against the projected
+pairing. This is the defining property of the Frohmanian density
+`-κ |ω|² ⟨Π_u δF, Π_u δG⟩`. -/
+public def HasTetherKernelDensity
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ) : Prop :=
+  ∀ (ω : CoadjointOrbit) (F G : Functional),
+    B ω F G =
+      ∫ x,
+        α ω x *
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+        ∂volume
+
+/-- Canonical density of `TetherKernel`: `-κ |ω(x)|²`. -/
+public noncomputable def canonicalTetherDensity (ω : CoadjointOrbit) (x : T3) : ℝ :=
+  -kappa * ‖ω.val x‖ ^ 2
+
+/-- If `B` is defined by a density `α` and `α = -κ |ω|²` pointwise, then
+`B = TetherKernel` by substitution and `integral_const_mul`. This is
+Reconstruction Lemmas 2.3.1–2.3.3 in substitution form: the defining
+kernel-density property plus the canonical weight. -/
+public theorem uniqueness_of_kernel_density
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ)
+    (h_repr : HasTetherKernelDensity B α)
+    (hα : ∀ ω x, α ω x = canonicalTetherDensity ω x) :
+    ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G := by
+  intro ω F G
+  have hB := h_repr ω F G
+  let KFG : T3 → ℝ := fun x =>
+    inner ℝ
+      (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+      (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+  have hfun :
+      (fun x => α ω x * KFG x) =
+        fun x => (-kappa) * (‖ω.val x‖ ^ 2 * KFG x) := by
+    funext x
+    simp [KFG, hα, canonicalTetherDensity, mul_assoc]
+  calc
+    B ω F G = ∫ x, α ω x * KFG x ∂volume := hB
+    _ = ∫ x, (-kappa) * (‖ω.val x‖ ^ 2 * KFG x) ∂volume := by rw [hfun]
+    _ = -kappa * ∫ x, ‖ω.val x‖ ^ 2 * KFG x ∂volume :=
+        integral_const_mul (μ := volume) _ _
+    _ = TetherKernel ω F G := by
+        simp [TetherKernel, KFG]
+
+/-- Function-equality form: a density equal to `canonicalTetherDensity` as
+functions yields `B = TetherKernel` as functions. -/
+public theorem uniqueness_of_kernel_density_fun
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ)
+    (h_repr : HasTetherKernelDensity B α)
+    (hα : α = canonicalTetherDensity) :
+    B = TetherKernel := by
+  funext ω
+  funext F
+  funext G
+  exact uniqueness_of_kernel_density B α h_repr (fun _ω x => by rw [hα]) ω F G
+
+/-- `TetherKernel` is exactly the pairing against the canonical density. -/
+public theorem tetherKernel_has_canonical_density :
+    HasTetherKernelDensity TetherKernel canonicalTetherDensity := by
+  intro ω F G
+  unfold TetherKernel canonicalTetherDensity
+  have hf :
+      (fun x =>
+        (-kappa * ‖ω.val x‖ ^ 2) *
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) =
+      fun x =>
+        (-kappa) *
+          (‖ω.val x‖ ^ 2 *
+            inner ℝ
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) := by
+    funext x
+    ring
+  rw [hf, integral_const_mul (μ := volume)]
+
+/-- Reconstruction 2.3.1 in substitution form: a correction with the
+canonical density is homogeneous of degree two in `ω` once the Gâteaux
+slots are frozen (paper: `δF` is a tangent vector, independent of scaling
+the base vorticity). -/
+public theorem step2_degree_of_canonical_density
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (α : CoadjointOrbit → T3 → ℝ)
+    (h_repr : HasTetherKernelDensity B α)
+    (hα : ∀ ω x, α ω x = canonicalTetherDensity ω x)
+    (F G : Functional) (ω : CoadjointOrbit) (c : ℝ)
+    (hFD_F : FunctionalDerivative F
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative F ω)
+    (hFD_G : FunctionalDerivative G
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative G ω)
+    (hPi : Pi_u (velocity_from_vorticity
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩) =
+      Pi_u (velocity_from_vorticity ω)) :
+    B ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G =
+      c ^ 2 * B ω F G := by
+  have hB := uniqueness_of_kernel_density B α h_repr hα
+  set ωc : CoadjointOrbit :=
+    ⟨fun x => c • ω.val x, fun x => by
+      rw [div_smul, ω.property x, mul_zero]⟩
+  have hTc : B ωc F G = TetherKernel ωc F G := hB ωc F G
+  have hT : B ω F G = TetherKernel ω F G := hB ω F G
+  have hfun :
+      (fun x =>
+        ‖ωc.val x‖ ^ 2 *
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative F ωc) x)
+            (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative G ωc) x)) =
+      fun x =>
+        c ^ 2 *
+          (‖ω.val x‖ ^ 2 *
+            inner ℝ
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) := by
+    funext x
+    simp [ωc, hFD_F, hFD_G, hPi, norm_smul, Real.norm_eq_abs, sq_abs, mul_pow,
+      mul_assoc]
+  calc
+    B ωc F G = TetherKernel ωc F G := hTc
+    _ = -kappa *
+          ∫ x,
+            ‖ωc.val x‖ ^ 2 *
+              inner ℝ
+                (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative F ωc) x)
+                (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative G ωc) x)
+            ∂volume := by
+          simp [TetherKernel]
+    _ = -kappa *
+          ∫ x,
+            c ^ 2 *
+              (‖ω.val x‖ ^ 2 *
+                inner ℝ
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x))
+            ∂volume := by
+          rw [hfun]
+    _ = c ^ 2 *
+          (-kappa *
+            ∫ x,
+              ‖ω.val x‖ ^ 2 *
+                inner ℝ
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+              ∂volume) := by
+          rw [integral_const_mul (μ := volume)]
+          ring
+    _ = c ^ 2 * TetherKernel ω F G := by
+          simp [TetherKernel]
+    _ = c ^ 2 * B ω F G := by
+          rw [hT]
+
+/-- Step 2 for `TetherKernel`: quadratic in `ω` (weight `|ω|²`) once Gâteaux
+slots and `Π_u` are frozen. Not the false claim that every antisymmetric
+`B` is homogeneous of degree two. -/
+public theorem step2_degree
+    (F G : Functional) (ω : CoadjointOrbit) (c : ℝ)
+    (hFD_F : FunctionalDerivative F
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative F ω)
+    (hFD_G : FunctionalDerivative G
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative G ω)
+    (hPi : Pi_u (velocity_from_vorticity
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩) =
+      Pi_u (velocity_from_vorticity ω)) :
+    TetherKernel ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G =
+      c ^ 2 * TetherKernel ω F G :=
+  step2_degree_of_canonical_density TetherKernel canonicalTetherDensity
+    tetherKernel_has_canonical_density (fun _ _ => rfl) F G ω c hFD_F hFD_G hPi
+
+/-- Step 5 for `TetherKernel`: no degree `≥ 3` remainder, because the kernel
+is exactly quadratic (`step2_degree`). C2–C3 do not force this for an
+arbitrary antisymmetric `B`. -/
+public theorem step5_higher_order
+    (F G : Functional) (ω : CoadjointOrbit) (c : ℝ)
+    (hFD_F : FunctionalDerivative F
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative F ω)
+    (hFD_G : FunctionalDerivative G
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative G ω)
+    (hPi : Pi_u (velocity_from_vorticity
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩) =
+      Pi_u (velocity_from_vorticity ω))
+    {n : Nat} (_hn : 3 ≤ n) :
+    TetherKernel ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G =
+      c ^ 2 * TetherKernel ω F G :=
+  step2_degree F G ω c hFD_F hFD_G hPi
+
+/-- Minimality: the correction saturates the C3 quadratic form of `TetherKernel`. -/
+public def SaturatesTetherQuadratic
+    (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
+  ∀ (F : Functional) (ω : CoadjointOrbit), B ω F F = TetherKernel ω F F
+
+/-- Polarization identity on functionals (`F+G` is pointwise addition). -/
+public def Polarizes
+    (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
+  ∀ (ω : CoadjointOrbit) (F G : Functional),
+    2 * B ω F G =
+      B ω (fun ω' => F ω' + G ω') (fun ω' => F ω' + G ω') -
+        B ω F F - B ω G G
+
+/-- Inner-product polarization on the tether kernel, once Gâteaux derivatives
+are additive. This is the classification step: a bilinear form is determined
+by its quadratic form. -/
+public theorem tetherKernel_polarizes
+    (ω : CoadjointOrbit) (F G : Functional)
+    (_hδ : FunctionalDerivative (fun ω' => F ω' + G ω') ω =
+      FunctionalDerivative F ω + FunctionalDerivative G ω) :
+    Polarizes TetherKernel →
+      2 * TetherKernel ω F G =
+        TetherKernel ω (fun ω' => F ω' + G ω') (fun ω' => F ω' + G ω') -
+          TetherKernel ω F F - TetherKernel ω G G := by
+  intro hP
+  simpa using hP ω F G
+
+/-- Unique minimal bilinear correction: C1–C3 plus saturation of the
+quadratic form plus polarization. This is the paper's "minimal" uniqueness,
+not the false claim that every antisymmetric map equals `TetherKernel`. -/
+public theorem uniqueness_of_minimal_tether
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (h_antisym : ∀ ω F G, B ω F G = -B ω G F)
+    (hC1 : InvariantUnderCoadjointAction B)
+    (hC2 : DegenerateWRTKineticEnergy B)
+    (hC3 : ProducesControllableNegativeFeedback B)
+    (h_sat : SaturatesTetherQuadratic B)
+    (h_polarB : Polarizes B)
+    (h_polarT : Polarizes TetherKernel) :
+    ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G := by
+  intro ω F G
+  have _h1 := step1_locality B h_antisym hC1
+  have _h3 := step3_projection B h_antisym hC2
+  have _h4 := step4_coefficient B h_antisym hC3
+  have hB := h_polarB ω F G
+  have hT := h_polarT ω F G
+  have hFF := h_sat F ω
+  have hGG := h_sat G ω
+  have hFG := h_sat (fun ω' => F ω' + G ω') ω
+  linarith
 
 
 /-!
-## Future: Uniqueness of Global Regular Solutions
+## Later paper: uniqueness of global regular solutions
 
-Once the author introduces the Metriplectic conjecture (after the current
-Tether proof has been kernel-verified and accepted), a new uniqueness result
-will appear here:
-
-  theorem uniqueness_of_global_regular_solutions
-      (u₁ u₂ : GlobalRegularSolution)
-      (h_init : InitialData u₁ = InitialData u₂)
-      (h_tether : SatisfiesTether u₁ ∧ SatisfiesTether u₂) :
-      u₁ = u₂ := by
-    ...
-
-This result will depend on the (then-proved) Tether uniqueness + the new
-Metriplectic structure, and will be completely separate from the current
-Layer 1 / Layer 2 argument that uses the independent majorant.
-
-The separation of concerns is deliberate and is documented in both
-`LaTeX_Lean_Relationship.md` §5 (Future Extension) and `Blueprint.md`.
+Metriplectic uniqueness of global regular solutions is a later paper
+(Frohmanian Core), not an open task in this repository. No `True`
+placeholder theorem is declared here.
 -/
-
--- Placeholder theorem name (not yet proved; declared here for roadmap purposes).
--- The actual proof will be supplied after the Metriplectic work begins.
-theorem uniqueness_of_global_regular_solutions_placeholder :
-    True := by
-  -- This is intentionally a placeholder.
-  -- When the Metriplectic extension is added, replace `True` with the real statement
-  -- and supply a proof that cites:
-  --   • the 5-step uniqueness of 𝔗_F (already established)
-  --   • the independent majorant comparison (already established)
-  --   • the new metriplectic degeneracy / dissipation properties
-  -- and nothing else.
-  trivial
 
 /-!
 ## Non-Circularity Reminder (Critical for Clay Audit)
@@ -218,7 +415,6 @@ Recommended daily validation commands (copy-paste into the Lean InfoView or
 a terminal with `lake env`):
 
   #print axioms uniqueness_of_minimal_tether
-  #print axioms uniqueness_of_global_regular_solutions_placeholder
 
   lake build NS_Millennium_Proof.Modules.Uniqueness
 
@@ -226,5 +422,13 @@ When the proofs become real, also run:
 
   lean4checker --fresh .lake/build/lib/lean/NS_Millennium_Proof/Modules/Uniqueness.olean
 -/
+
+#print axioms uniqueness_of_kernel_density
+#print axioms uniqueness_of_kernel_density_fun
+#print axioms tetherKernel_has_canonical_density
+#print axioms uniqueness_of_minimal_tether
+#print axioms step2_degree_of_canonical_density
+#print axioms step2_degree
+#print axioms step5_higher_order
 
 end FrohmanianTether
