@@ -1,18 +1,74 @@
 # Contributing
 
-Thanks for your interest in this project. It is an active research formalization, so a few conventions keep
-the repository auditable and its authorship record clean.
+This repository is Benjamin Stanley Frohman's Frohmanian tether proof and its Lean 4
+encoding. Remaining Lean transcription is author-only (with the Grok encoding
+collaboration recorded in the disclaimer). Do not open issues or PRs to fill
+`sorry`s, invent TODOs, or take credit for classical boxes. Conventions below
+keep the authorship record clean.
 
 ## Ground rules
 
-- **Preserve the honest-scope framing.** This repository does not claim a completed proof. Please do not add
-  language (in code comments, docs, or the README) that asserts a completed or kernel-closed solution of the
-  Clay Navier–Stokes problem. Distinguish novel definitions, schematic skeletons, and remaining analytic work.
+- **This is the Frohmanian tether proof of 3D Navier–Stokes global regularity.** The Lean
+  tree is its machine-checked encoding for the library. Do not describe the mathematics
+  as unfinished; remaining `sorry`s are only unfinished Lean transcription, to be filled
+  from the paper.
+- **AI collaboration.** The Lean encoding was compiled with an AI assistant (Grok, xAI) from
+  Benjamin Stanley Frohman's paper proofs. That does not change authorship of the mathematics.
 - **Do not rewrite history.** Contributions are additive. Do not force-push, rebase away, or delete existing
-  commits on `main`.
+  commits on `main`. Git author aliases are canonicalized in `.mailmap` instead of amending old commits.
 - **Keep the novel geometric core clear.** Original constructions (tether, tethered bracket, tethered Lyapunov,
   independent majorant, tethered nullifier) live in `Modules/`. Reusable, general lemmas intended for Mathlib
   go in `ForMathlib/` and must not import the project's novel modules.
+
+## Authorship (Lean 4 / mathlib4 / Zulip)
+
+This repository follows [mathlib4's copyright and `Authors:` conventions](https://leanprover-community.github.io/contribute/style.html)
+so modules stay attributable if they are discussed on the Lean Zulip, opened as Mathlib PRs, or reused
+downstream.
+
+1. **Five-line header** on original Lean files (precisely these five lines; no extra prose in the copyright block):
+
+   ```lean
+   /-
+   Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+   Released under Apache 2.0 license as described in the file LICENSE.
+   Authors: Benjamin Stanley Frohman
+   -/
+   ```
+
+   - Keep `Authors:` even for a single author.
+   - No trailing period on the `Authors:` line.
+   - No `and` before the last name.
+   - Names are the people you would ping on the Lean Zulip.
+   - Add a name to a file's `Authors:` line **only** if that person authored or substantially edited that module.
+
+2. **Git identity.** Use `Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>` for new commits.
+   Do not rewrite existing commits. `.mailmap` maps historical handles (`Frohmanian`, `BenFrohman`) to that name.
+
+3. **Pull requests.** GitHub [inbound=outbound](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#6-contributions-under-repository-license)
+   applies. If the git author on a PR is a handle rather than the `Authors:` name, comment on the PR:
+
+   ```
+   Author: Benjamin Stanley Frohman
+   GitHub: @BenFrohman
+   X.com : Investor0x
+   Zulip: Benjamin Stanley Frohman
+   ```
+
+## GitHub Community page, Contributors graph, and Lean community
+
+These are three different surfaces. None of them list an AI as author or co-author.
+
+1. **GitHub Insights → Community** is a *health checklist* (README, `CONTRIBUTING.md`, license, issue/PR templates). It is not a people list. This file is what that page displays for contributing. The AI encoding disclaimer above is the disclosure that belongs here.
+
+2. **GitHub Insights → Contributors** (and the profile contribution graph) count **git commits** whose author email is linked to a GitHub account. Commits use `Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>`, which maps to [@BenFrohman](https://github.com/BenFrohman). That is the only human contributor this repository records. Do **not** add `Co-authored-by:` trailers for Grok, xAI, or any model: GitHub would then paint an AI as a co-author on the contributors graph. Bots that GitHub itself adds (Dependabot) are tooling, not authorship.
+
+3. **Lean community** (Zulip ping, mathlib4 `Authors:` line, a future `leanprover-community/mathlib4` PR):
+   - The person to ping is **Benjamin Stanley Frohman**.
+   - The GitHub PR author is **@BenFrohman**.
+   - [mathlib's AI policy](https://leanprover-community.github.io/contribute/) requires *disclosure* in the PR description (which tool, how it was used) and the `LLM-generated` label when a substantial amount of the Lean was produced with an assistant. That label is a review warning, **not** co-authorship. Do not put Grok or xAI on the `Authors:` line.
+
+The encoding assistant is an instrument. It is not a GitHub contributor, not a Lean community member, and not a co-author of the proof.
 
 ## Development
 
@@ -29,7 +85,7 @@ by `elan`.
 1. Branch from `main` (e.g. `fix/…`, `feat/…`, `docs/…`).
 2. Ensure `lake build` succeeds locally, or clearly note any pre-existing `sorry`/schematic holes you did not
    change.
-3. Fill in the pull-request template.
+3. Fill in the pull-request template, including the authorship checklist.
 4. One logical change per PR where practical.
 
 ## Reporting issues
