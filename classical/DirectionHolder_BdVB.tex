@@ -916,38 +916,76 @@ harmonic-map heat flow from three-dimensional domains into \(S^2\) are
 known; quadratic growth in \(\nabla\xi\) is not a perturbation of a
 scalar De Giorgi--Nash--Moser equation.
 
-\paragraph{What De Giorgi--Nash--Moser would require, and does not have.}
-Scalar parabolic De Giorgi--Nash--Moser needs a divergence-form operator
-with bounded measurable ellipticity, a drift in a Kato class, and
-forcing in a space with \(3/p+2/q<2\). Here:
-\begin{itemize}
-\item \(\xi\) is a constrained system, not a scalar;
-\item the weight \(r^2\) in \(\mathrm{div}(r^2\nabla\xi)\) has ellipticity
-ratio \(\sup_E r^2/\Omega^2\), uncontrolled without
-\(\norm{\omega}_{L^\infty}\);
-\item the drift is not \(O(1/\Omega)\) and is not known to be in \(L^2\);
-\item the one term that \emph{is} in \(L^2_t L^2_x\), namely
-\(P_\xi(S\xi)\), satisfies \(3/2+2/2=5/2>2\), so it is below the
-inhomogeneous H\"older threshold;
-\item even a successful De Giorgi--Nash--Moser argument produces some
-H\"older exponent \(\alpha>0\) depending on ellipticity, not necessarily
-\(\alpha\ge 1/2\). Exponents \(\beta<1/2\) do not close the stretching
-estimate~\cite{BdV2016}.
-\end{itemize}
-Parabolic Campanato for spatial H\"older \(1/2\) on cylinders of radius
-\(\rho\) (time-scale \(\rho^2\)) scales as
-\(\rho^{-(3+2+1)}\int_{Q_\rho}\abs{\xi-\bar\xi}^2=\rho^{-6}\int_{Q_\rho}\),
-not as the elliptic \(\rho^{-4}\) integral. The restriction
-\(\rho\le\Omega/2\) is dimensionally meaningless: \(\rho\) is a length and
-\(\Omega\) is a vorticity threshold.
+\paragraph{Scalar versus system.}
+De Giorgi--Nash--Moser H\"older theory is for scalar parabolic equations.
+\(\xi\) is \(S^2\)-valued. In three dimensions, elliptic or parabolic
+systems with measurable coefficients need not be H\"older. The quadratic
+term \(\nu\abs{\nabla\xi}^2\xi\) is the harmonic-map tension field;
+three-dimensional harmonic-map heat flow can blow up.
+
+\paragraph{Integrability of the reaction.}
+For a bounded solution of \(\theta_t+u\cdot\nabla\theta-\nu\Delta\theta=f\)
+in three space dimensions, a H\"older modulus from \(f\) needs
+\(f\in L^p_{t,x}\) with \(p>(n+2)/2=5/2\). Energy gives
+\(P_\xi(S\xi)\in L^2_{t,x}\). That is below \(5/2\). So even the scalar
+heat equation with this forcing does not yield \(C^{0,1/2}\).
+
+\paragraph{Free boundary.}
+Interior estimates hold on cylinders at a definite distance from
+\(\{r=\Omega\}\). Definition~7.1 is for all pairs in \(E(t)\), including
+points near \(\partial E(t)\), where \(r\downarrow\Omega\) and
+\(\nabla\log r\) can be large. Campanato needs small \(\rho\), inside
+\(E(t)\). Mixing \(\rho\) with the vorticity threshold \(\Omega\) is
+the wrong scale. Integrating an \(L^2\) bound against the free-space
+heat kernel does not prove
+\(\mathrm{osc}_{B_\rho}\xi\le C(\Omega,\nu)\,\rho^{1/2}\)
+on the moving set \(E(t)\): that oscillation bound \emph{is}
+Definition~7.1.
+
+\paragraph{What would actually close Definition~7.1.}
+Prove one of the following from~\eqref{eq:xi-correct} on \(\{r\ge\Omega\}\),
+with constants depending only on \((u_0,\nu,\Omega)\), not on
+\(\norm{\omega}_{L^\infty}\) and not on \(\norm{\nabla\omega}_{L^2}\).
+
+\begin{lemma}[remaining; either form]
+\label{lem:AB}
+\textit{(A) Integrability upgrade.}
+On every cylinder at distance \(\ge d(\Omega)\) from \(\{r<\Omega\}\),
+\[
+P_\xi(S\xi)\in L^p_{t,x},\qquad p>5/2,
+\]
+and the drift \(r^{-1}P_\xi(\nabla r\cdot\nabla\xi)\) and the quadratic
+\(\abs{\nabla\xi}^2\xi\) belong to a Kato class (or are perturbatively
+small in Campanato). A scalar H\"older theory still does not apply to
+the system: one would still need \(\varepsilon\)-regularity for the
+\(S^2\)-flow (Chen--Struwe type) with small \(\int\abs{\nabla\xi}^2\),
+which again uses enstrophy unless a new smallness is found.
+
+\textit{(B) Direct Campanato on the angle.}
+For \(x\in E(t)\) and \(\rho\) small,
+\begin{equation}
+\label{eq:campanato-angle}
+\rho^{-4}\int_{B_\rho(x)\cap E(t)}
+4\sin^2\bigl(\phi(x,y)/2\bigr)\,\dd y
+\le C(u_0,\nu).
+\end{equation}
+The integrand is the Constantin--Fefferman kernel factor. This is
+Definition~7.1 with no detour through De Giorgi--Nash--Moser.
+\end{lemma}
+
+Energy does not prove (A) or (B). Lipschitz control of \(\xi\) is
+Beale--Kato--Majda. The integral \(\int\abs{\nabla\xi}^2\) from
+Pythagoras needs enstrophy. Lemma~\ref{lem:AB}(B) is the same as~\eqref{eq:campanato}
+via~\eqref{eq:xi-inner}.
 
 \paragraph{What remains true.}
 On \(\{r>0\}\) the equation is~\eqref{eq:xi-correct}, with the projection
 and the quadratic term. The stretching force \(P_\xi(S\xi)\) lies in
 \(L^2_t L^2_x\) globally by Calder\'on--Zygmund \(2\to 2\), without
-\(\norm{\omega}_{L^\infty}\). Definition~7.1 still requires a uniform
-Campanato bound~\eqref{eq:campanato} on \(E(t)\). The argument above
-does not produce it.
+\(\norm{\omega}_{L^\infty}\). That is below the H\"older threshold
+\(p>5/2\). Definition~7.1 is the only missing analytic ingredient;
+once~\eqref{eq:campanato-angle} holds, Section~\ref{sec:implication}
+is unconditional and \(T^*=\infty\).
 
 \begin{thebibliography}{9}
 \bibitem{BdVB2002}
@@ -984,6 +1022,11 @@ Math.\ Z.\ \textbf{187} (1984), 471--480.
 J.\ Serrin,
 \emph{On the interior regularity of weak solutions of the Navier--Stokes equations},
 Arch.\ Rational Mech.\ Anal.\ \textbf{9} (1962), 187--195.
+
+\bibitem{ChenStruwe1989}
+Y.\ Chen and M.\ Struwe,
+\emph{Existence and partial regularity results for the heat flow for harmonic maps},
+Math.\ Z.\ \textbf{201} (1989), 83--103.
 \end{thebibliography}
 
 \noindent\textit{License.} CC-BY-4.0.

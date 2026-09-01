@@ -35,7 +35,7 @@ One inequality, on the unmodified NSE:
 \[
 \sup_{t<T^*}\;[\xi(t)]_{C^{0,1/2}(\{|\omega|\ge 1\})}<\infty,
 \]
-with the finite number allowed to depend only on \((u_0,\nu)\). If that holds, Theorem A gives \(T^*=\infty\). That is the whole remainder on this route.
+with the finite number allowed to depend only on \((u_0,\nu)\). If that holds, Theorem A gives \(T^*=\infty\). That is the whole remainder on this route. De Giorgi--Nash--Moser does not prove it: \(\xi\) is an \(S^2\)-system, \(P_\xi(S\xi)\in L^2\) is below \(p>5/2\), and interior cylinders miss \(\partial E(t)\). Either an integrability upgrade plus Chen--Struwe \(\varepsilon\)-regularity, or a direct Campanato bound on \(4\sin^2(\phi/2)\), would close it. Energy proves neither.
 
 The implication itself is the Constantin–Fefferman / Beirão da Veiga–Berselli geometric criterion (Lipschitz in 1993; \(1/2\)-Hölder in 2002).
 
