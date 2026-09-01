@@ -553,6 +553,60 @@ public theorem lyapunovSminus_source_density (ω : EuclideanSpace ℝ (Fin 3)) :
     - (kappa / 2) * ‖ω‖ ^ 4 * ‖ω‖ ^ 2 = - (kappa / 2) * ‖ω‖ ^ 6 := by
   ring
 
+/-- Plus/minus dichotomy, upper bound: if `φ ≥ 0` then
+`½|ω|² − (κ/2)|ω|⁴ φ ≤ ½|ω|²`. The minus-weight functional does not
+control enstrophy from above any better than the quadratic part. -/
+public theorem lyapunovSminus_density_le_half_norm_sq
+    (ω : EuclideanSpace ℝ (Fin 3)) (phi : ℝ) (hφ : 0 ≤ phi) :
+    (1 / 2 : ℝ) * ‖ω‖ ^ 2 - (kappa / 2) * ‖ω‖ ^ 4 * phi ≤
+      (1 / 2 : ℝ) * ‖ω‖ ^ 2 := by
+  have hκ : 0 ≤ kappa / 2 := div_nonneg kappa_pos.le (by norm_num)
+  have hterm : 0 ≤ (kappa / 2) * ‖ω‖ ^ 4 * phi :=
+    mul_nonneg (mul_nonneg hκ (pow_nonneg (norm_nonneg _) _)) hφ
+  linarith
+
+/-- Lower bound for the minus density: `½|ω|² − (κ/2)|ω|⁴ φ` is at least
+`½|ω|² − (κ/2) B |ω|⁴` when `|φ| ≤ B`. This is **not** nonnegative:
+the next lemma records when it is strictly negative. -/
+public theorem lyapunovSminus_density_ge_of_abs_phi
+    (ω : EuclideanSpace ℝ (Fin 3)) (phi B : ℝ)
+    (_hB : 0 ≤ B) (hφ : |phi| ≤ B) :
+    (1 / 2 : ℝ) * ‖ω‖ ^ 2 - (kappa / 2) * B * ‖ω‖ ^ 4 ≤
+      (1 / 2 : ℝ) * ‖ω‖ ^ 2 - (kappa / 2) * ‖ω‖ ^ 4 * phi := by
+  have hκ : 0 ≤ kappa / 2 := div_nonneg kappa_pos.le (by norm_num)
+  have h4 : 0 ≤ ‖ω‖ ^ 4 := pow_nonneg (norm_nonneg _) _
+  have hphi_le : phi ≤ B := (abs_le.mp hφ).2
+  have hmul :
+      (kappa / 2) * ‖ω‖ ^ 4 * phi ≤ (kappa / 2) * ‖ω‖ ^ 4 * B :=
+    mul_le_mul_of_nonneg_left hphi_le (mul_nonneg hκ h4)
+  linarith
+
+/-- Coercivity failure for the minus weight: if `|ω|² φ > 1/κ` then the
+density is strictly negative. Accumulated `φ ∼ ∫|ω|²` along trajectories
+crosses this threshold whenever `M` stays large, so `S_minus` is not a
+global Lyapunov for `‖ω‖_∞`. -/
+public theorem lyapunovSminus_density_neg_of_large_weight
+    (ω : EuclideanSpace ℝ (Fin 3)) (phi : ℝ)
+    (hω : 0 < ‖ω‖) (hφ : (1 / kappa) < ‖ω‖ ^ 2 * phi) :
+    (1 / 2 : ℝ) * ‖ω‖ ^ 2 - (kappa / 2) * ‖ω‖ ^ 4 * phi < 0 := by
+  have hk : 0 < kappa := kappa_pos
+  have hω2 : 0 < ‖ω‖ ^ 2 := sq_pos_of_pos hω
+  have h1 : (1 : ℝ) < kappa * (‖ω‖ ^ 2 * phi) := by
+    have hmul := mul_lt_mul_of_pos_left hφ hk
+    rwa [mul_one_div, div_self (ne_of_gt hk)] at hmul
+  have hpow : ‖ω‖ ^ 4 = ‖ω‖ ^ 2 * ‖ω‖ ^ 2 := by ring
+  have hleft :
+      (1 / 2 : ℝ) * ‖ω‖ ^ 2 < (kappa / 2) * ‖ω‖ ^ 4 * phi := by
+    calc
+      (1 / 2 : ℝ) * ‖ω‖ ^ 2
+          = (1 / 2 : ℝ) * ‖ω‖ ^ 2 * 1 := by ring
+      _ < (1 / 2 : ℝ) * ‖ω‖ ^ 2 * (kappa * (‖ω‖ ^ 2 * phi)) :=
+          mul_lt_mul_of_pos_left h1
+            (mul_pos (by norm_num : (0 : ℝ) < 1 / 2) hω2)
+      _ = (kappa / 2) * ‖ω‖ ^ 4 * phi := by
+          rw [hpow]; ring
+  linarith
+
 /-- `d/dt |v|² = 2 ⟨v, v'⟩`. -/
 public theorem hasDerivAt_norm_sq_of_hasDerivAt
     {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)} {t : ℝ}
@@ -631,6 +685,55 @@ public theorem hasDerivAt_lyapunov_density_unweighted
     ring
   rw [hfun]
   convert h using 1
+  ring
+
+/-- May 21 (10) plus-weight along the enstrophy source `φ' = |v|²`:
+`d/dt (½|v|² + (κ/4)|v|⁴ φ)
+= ⟨v,v'⟩(1 + κ|v|² φ) + (κ/4)|v|⁶`.
+The sextic coming from the source is **positive**. It is not `-κ |v|⁶`.
+This is the classical identification that `hIdent` in §10 must match. -/
+public theorem hasDerivAt_lyapunov_plus_of_enstrophy_source
+    {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)}
+    {phi : ℝ → ℝ} {t : ℝ}
+    (hv : HasDerivAt v v' t)
+    (hφ : HasDerivAt phi (‖v t‖ ^ 2) t) :
+    HasDerivAt
+      (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2 + (kappa / 4) * ‖v s‖ ^ 4 * phi s)
+      (inner ℝ (v t) v' * (1 + kappa * ‖v t‖ ^ 2 * phi t)
+        + (kappa / 4) * ‖v t‖ ^ 6) t := by
+  have h := hasDerivAt_lyapunov_density hv hφ
+  convert h using 1
+  ring
+
+/-- Minus-weight along the same source `φ' = |v|²`:
+`d/dt (½|v|² − (κ/2)|v|⁴ φ)
+= ⟨v,v'⟩(1 − 2κ|v|² φ) − (κ/2)|v|⁶`.
+The sextic is negative, but the functional is not a coercive
+upper bound on enstrophy (`lyapunovSminus_density_neg_of_large_weight`). -/
+public theorem hasDerivAt_lyapunov_minus_of_enstrophy_source
+    {v : ℝ → EuclideanSpace ℝ (Fin 3)} {v' : EuclideanSpace ℝ (Fin 3)}
+    {phi : ℝ → ℝ} {t : ℝ}
+    (hv : HasDerivAt v v' t)
+    (hφ : HasDerivAt phi (‖v t‖ ^ 2) t) :
+    HasDerivAt
+      (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2 - (kappa / 2) * ‖v s‖ ^ 4 * phi s)
+      (inner ℝ (v t) v' * (1 - 2 * kappa * ‖v t‖ ^ 2 * phi t)
+        - (kappa / 2) * ‖v t‖ ^ 6) t := by
+  have hhalf : HasDerivAt (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2)
+      ((1 / 2 : ℝ) * (2 * inner ℝ (v t) v')) t :=
+    hv.norm_sq.const_mul (1 / 2 : ℝ)
+  have hq :=
+    hasDerivAt_quartic_tether_weight (k := -(2 * kappa)) hv hφ
+  have hadd := hhalf.add hq
+  have hfun :
+      (fun s => (1 / 2 : ℝ) * ‖v s‖ ^ 2 - (kappa / 2) * ‖v s‖ ^ 4 * phi s) =
+        fun s =>
+          (1 / 2 : ℝ) * ‖v s‖ ^ 2 +
+            (-(2 * kappa) / 4) * ‖v s‖ ^ 4 * phi s := by
+    funext s
+    ring
+  rw [hfun]
+  convert hadd using 1
   ring
 
 /-- Algebraic elimination of the quartic factor `4` after Young absorption.
@@ -1951,6 +2054,11 @@ public theorem global_regularity_of_constructions
 #print axioms lyapunovSminus_eq
 #print axioms quartic_weight_source_eq
 #print axioms lyapunovSminus_source_density
+#print axioms hasDerivAt_lyapunov_plus_of_enstrophy_source
+#print axioms hasDerivAt_lyapunov_minus_of_enstrophy_source
+#print axioms lyapunovSminus_density_le_half_norm_sq
+#print axioms lyapunovSminus_density_ge_of_abs_phi
+#print axioms lyapunovSminus_density_neg_of_large_weight
 #print axioms hasDerivAt_lyapunov_density_unweighted
 #print axioms majorantField_factor
 #print axioms global_regularity_zero
