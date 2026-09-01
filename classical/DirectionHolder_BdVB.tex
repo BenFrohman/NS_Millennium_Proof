@@ -33,11 +33,10 @@
 the \(\tfrac12\)-H\"older criterion on the maximal classical interval}
 \author{Benjamin Stanley Frohman%
 \thanks{No tether term is used. Degeneracy of
-\(\xi=\omega/\abs{\omega}\) is respected. Theorem~\ref{thm:A} is the
-Beir\~ao da Veiga--Berselli implication. Theorem~\ref{thm:B} records
-the result of constructing \(\Omega,C\) from the unmodified PDE: the
-a priori bound on \(C\) does not close, so neither global smoothness
-nor blow-up is obtained for arbitrary data.}}
+\(\xi=\omega/\abs{\omega}\) is respected. Definition~7.1
+\(\Rightarrow\) global smoothness is Theorem~\ref{thm:A} and
+Section~\ref{sec:implication}. Definition~7.1 for arbitrary data is
+Theorem~\ref{thm:C} and is not proved.}}
 \date{1 September 2026}
 
 \begin{document}
@@ -514,6 +513,186 @@ No term was added to~\eqref{eq:NS}. Degeneracy of \(\xi\) on \(\{r=0\}\)
 was respected throughout. The Clay problem, as stated by
 Fefferman~\cite{Fefferman2000}, remains open.
 
+\section{The geometric implication: Definition 7.1 \(\Rightarrow\) Clay}
+\label{sec:implication}
+
+This section is the Constantin--Fefferman / Beir\~ao da Veiga--Berselli
+implication, written so that it closes. If Definition~7.1 holds for every
+smooth divergence-free \(u_0\), the answer to the Clay problem is yes.
+Definition~7.1 is not proved here; it is Theorem~\ref{thm:C}.
+
+\paragraph{Definition 7.1 (geometric criterion).}
+There exist \(\Omega=\Omega(u_0,\nu)>0\) and \(C=C(u_0,\nu)<\infty\)
+such that for all \(t\in[0,T^*)\) and all \(x,y\) with
+\(r(x,t)\ge\Omega\) and \(r(y,t)\ge\Omega\),
+\[
+\abs{\xi(x,t)-\xi(y,t)}\le C\,\abs{x-y}^{1/2}.
+\]
+In particular \(\sin\phi\le C\abs{y}^{1/2}\) on that high-high set,
+where \(\phi=\angle(\omega(x),\omega(x+y))\). The constants \(C,\Omega\)
+do not depend on \(T^*\).
+
+\paragraph{Definition 7.2 (continuation).}
+If \(T^*<\infty\) then
+\(\limsup_{t\uparrow T^*}\norm{\nabla u(t)}_{L^2}=\infty\)
+(Kato \(H^1\)). Equivalently
+\(\limsup_{t\uparrow T^*}\norm{\omega(t)}_{L^2}=\infty\).
+Beale--Kato--Majda (\(\int_0^{T^*}\norm{\omega}_{L^\infty}=\infty\)) is
+a stronger necessary condition for blow-up; it is not the criterion
+fed by an \(L^2\) enstrophy bound. Once \(T^*=\infty\), Beale--Kato--Majda
+holds automatically on every finite interval.
+
+\paragraph{Theorem (geometric regularity).}
+Let \(u_0\in C^\infty(\T^3;\R^3)\), \(\nabla\cdot u_0=0\), \(\nu>0\),
+and let \(u\) be the unique classical solution of~\eqref{eq:NS}--\eqref{eq:div}
+on \([0,T^*)\). Assume Definition~7.1. Then \(T^*=\infty\) and
+\(u\in C^\infty([0,\infty)\times\T^3)\).
+
+\paragraph{Proof.}
+
+\textit{1. Energy.}
+\[
+\frac12\frac{\dd}{\dd t}\norm{u}_{L^2}^2+\nu\norm{\nabla u}_{L^2}^2=0,
+\]
+so \(\norm{u(t)}_{L^2}\le\norm{u_0}_{L^2}\) for \(t<T^*\). On \(\T^3\),
+\(\norm{\omega}_{L^2}\simeq\norm{\nabla u}_{L^2}\).
+
+\textit{2. Enstrophy identity.}
+Curl of~\eqref{eq:NS} and the \(L^2\) pairing give
+\begin{equation}
+\label{eq:enst-geom}
+\frac12\frac{\dd}{\dd t}\norm{\omega}_{L^2}^2
+=\int_{\T^3}(\xi\cdot S\xi)\,r^2\,\dd x
+-\nu\norm{\nabla\omega}_{L^2}^2.
+\end{equation}
+The stretching density is \(\mathcal K=r^2(\xi\cdot S\xi)\), not
+\(\xi\cdot S\xi\). On \(\{r=0\}\) one has \(\mathcal K=0\).
+Pythagoras: \(\abs{\nabla\omega}^2=\abs{\nabla r}^2+r^2\abs{\nabla\xi}^2\).
+
+\textit{3. Strain as a geometric kernel.}
+Biot--Savart gives the Constantin--Fefferman representation
+\[
+(\xi\cdot S\xi)(x)
+=\frac{3}{4\pi}\,\pv\int_{\T^3}
+D\bigl(\hat y,\xi(x),\xi(x+y)\bigr)
+\frac{r(x+y)}{\abs{y}^3}\,\dd y,
+\]
+with \(D(\hat y,\xi,\xi')=(\hat y\cdot\xi)\det(\hat y,\xi',\xi)\) and
+\(\abs{D}\le\abs{\sin\phi(x,x+y)}\le\abs{\xi(x)-\xi(x+y)}\).
+If \(\xi(x)=\xi(x+y)\) then \(D=0\): aligned vorticity does not stretch.
+That is the geometry.
+
+\textit{4. Stretching under Definition 7.1.}
+Split \(\int(\xi\cdot S\xi)r^2\) into three pieces.
+
+\textit{Low vorticity} (\(r(x)<\Omega\)). Then \(r^2<\Omega^2\), so
+\[
+\Bigl|\int_{\{r<\Omega\}}(\omega\cdot\nabla)u\cdot\omega\,\dd x\Bigr|
+\le\Omega^2\int\abs{\nabla u}
+\le C_\T\Omega^2\norm{\omega}_{L^2}.
+\]
+No \(\norm{\omega}_{L^\infty}\). Degeneracy: \(\xi\) is not used on this set.
+
+\textit{Far interactions} (\(\abs{y}\ge 1\)). The kernel is smooth.
+Integrating by parts against \(\omega=\nabla\times u\), the far strain
+is a bounded operator on \(u\). Energy from Step~1 gives
+\[
+\abs{I_{\mathrm{far}}}\le K_{\mathrm{far}}\norm{u_0}_{L^2}\norm{\omega}_{L^2}^2.
+\]
+
+\textit{Near high-high} (\(\abs{y}<1\) and \(r(x),r(x+y)\ge\Omega\)).
+Definition~7.1 gives \(\abs{D}\le C\abs{y}^{1/2}\), so the kernel is
+\(\abs{y}^{-5/2}\). In three dimensions
+\[
+\int_{\abs{y}<1}\abs{y}^{-5/2}\,\dd y
+=\int_0^1\rho^{-1/2}\,\dd\rho<\infty:
+\]
+the singularity is integrable. H\"older \(1/2\) is critical for this
+integrability (exponent \(<1/2\) makes the radial integral diverge).
+The contribution is \(\int r(x)^2 I(x)\,\dd x\) with
+\(I=r*\abs{\,\cdot\,}^{-5/2}\). Hardy--Littlewood--Sobolev at order
+\(1/2\) yields \(\norm{I}_{L^3}\le C_{\mathrm{HLS}}\norm{\omega}_{L^2}\).
+Interpolation \(\norm{\omega}_{L^3}^2\le\norm{\omega}_{L^2}\norm{\omega}_{L^6}\)
+then gives
+\begin{equation}
+\label{eq:hh-hls}
+\int r^2 I
+\le C_{\mathrm{HLS}}C\,\norm{\omega}_{L^2}^2\norm{\omega}_{L^6}.
+\end{equation}
+Sobolev \(\norm{\omega}_{L^6}\le C_{\mathrm{S}}\norm{\nabla\omega}_{L^2}\)
+and Young with \(\varepsilon=\nu/2\) produce
+\[
+c\,\norm{\omega}_{L^2}^2\norm{\omega}_{L^6}
+\le
+\frac\nu2\norm{\nabla\omega}_{L^2}^2
++C_\nu(C)\,\norm{\omega}_{L^2}^4.
+\]
+The exponent \(4\) is the one that closes. A bound
+\(\norm{\omega}_{L^2}^{5/2}\norm{\nabla\omega}_{L^2}^{1/2}\) would
+Young-close to \(\norm{\omega}_{L^2}^{10/3}\), and
+\(y'\le K y^{5/3}\) for \(y=\norm{\omega}_{L^2}^2\) can blow up in finite
+time; that interpolation does not close. The chain~\eqref{eq:hh-hls} gives
+\(y'\le K y^2\), which Gronwall controls from energy.
+
+\textit{5. Enstrophy inequality.}
+Summing the three pieces,
+\begin{equation}
+\label{eq:enst-closed}
+\frac{\dd}{\dd t}\norm{\omega}_{L^2}^2
++\nu\norm{\nabla\omega}_{L^2}^2
+\le K(C,\Omega,\nu)\,\norm{\omega}_{L^2}^4
++C'\Omega^2\norm{\omega}_{L^2},
+\end{equation}
+with \(K=C_\ast(C+\Omega)^2/\nu\) as in~\eqref{eq:Kconst}.
+The right-hand side is not a constant independent of \(\omega\).
+Energy supplies
+\(\int_0^t\norm{\omega}_{L^2}^2\,\dd s\le(2\nu)^{-1}\norm{u_0}_{L^2}^2\).
+Gronwall yields, for every \(t<T^*\),
+\[
+\norm{\omega(t)}_{L^2}^2
+\le
+\bigl(\norm{\omega_0}_{L^2}^2+C''\bigr)
+\exp\Bigl(\frac{K}{2\nu}\norm{u_0}_{L^2}^2\Bigr).
+\]
+The exponential does not depend on \(t\) or on \(T^*\), because \(C\)
+and \(\Omega\) in Definition~7.1 do not. Hence
+\(\omega\in L^\infty(0,T^*;L^2)\cap L^2(0,T^*;H^1)\), i.e.
+\(u\in L^\infty(0,T^*;H^1(\T^3))\).
+
+\textit{6. Serrin class and continuation.}
+On \(\T^3\), \(H^1\hookrightarrow L^6\), so
+\(u\in L^\infty(0,T^*;L^6)\). Prodi--Serrin--Ladyzhenskaya: a Leray--Hopf
+solution in \(L^s_t L^q_x\) with \(3/q+2/s\le 1\) and \(q>3\) is smooth.
+Here \(q=6\), \(s=\infty\), and \(3/6+2/\infty=1/2<1\), which is
+subcritical. Thus if \(T^*<\infty\), \(u\) is smooth on \([0,T^*]\).
+Kato local existence: a smooth \(H^s\) solution (\(s>5/2\)) with finite
+\(H^s\) norm at time \(T^*\) extends to \(T^*+\varepsilon\). That
+contradicts maximality. Therefore \(T^*=\infty\).
+
+This is Kato--Fujita continuation in \(H^1\), not an application of
+Beale--Kato--Majda to an \(L^2\) bound. An \(L^2\) bound on \(\omega\)
+does not control \(\int\norm{\omega}_{L^\infty}\). It does control
+\(\norm{u}_{H^1}\), which is the continuation class used here.
+Beale--Kato--Majda is then automatic on every finite interval.
+
+\textit{7. Global smoothness.}
+Parabolic regularity for~\eqref{eq:NS} on \(\T^3\): a solution that is
+smooth on every compact time interval, with \(T^*=\infty\), is
+\(C^\infty\) for all \(t\ge 0\).
+
+Thus Definition~7.1 \(\Rightarrow\) Definition~7.2 cannot fire
+\(\Rightarrow T^*=\infty\) \(\Rightarrow\) global smoothness.
+Alignment depletes stretching (\(D=0\) when \(\xi(x)=\xi(x+y)\)).
+H\"older \(1/2\) makes the leftover kernel integrable at the origin
+and matches HLS with \(\omega\in L^2\). The resulting bound on
+enstrophy is independent of \(T^*\) because \(C,\Omega\) are.
+Bounded enstrophy is \(L^\infty_t H^1\), a subcritical Serrin class.
+Smooth solutions in that class cannot stop at a finite \(T^*\).
+
+That implication is a complete geometric solution of Clay if and only
+if Definition~7.1 holds for every smooth divergence-free \(u_0\).
+That last statement is Theorem~\ref{thm:C} and is not proved here.
+
 \section{What is left}
 \label{sec:left}
 
@@ -629,6 +808,21 @@ Indiana Univ.\ Math.\ J.\ \textbf{42} (1993), 775--789.
 C.\ Fefferman,
 \emph{Existence and smoothness of the Navier--Stokes equation},
 Clay Mathematics Institute Millennium Problems, 2000.
+
+\bibitem{BKM1984}
+J.\ T.\ Beale, T.\ Kato, and A.\ Majda,
+\emph{Remarks on the breakdown of smooth solutions for the 3-D Euler equations},
+Comm.\ Math.\ Phys.\ \textbf{94} (1984), 61--66.
+
+\bibitem{Kato1984}
+T.\ Kato,
+\emph{Strong \(L^p\)-solutions of the Navier--Stokes equation in \(\R^m\), with applications to weak solutions},
+Math.\ Z.\ \textbf{187} (1984), 471--480.
+
+\bibitem{Serrin1962}
+J.\ Serrin,
+\emph{On the interior regularity of weak solutions of the Navier--Stokes equations},
+Arch.\ Rational Mech.\ Anal.\ \textbf{9} (1962), 187--195.
 \end{thebibliography}
 
 \noindent\textit{License.} CC-BY-4.0.

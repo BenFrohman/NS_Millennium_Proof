@@ -24,6 +24,10 @@ Degeneracy is respected: \(\xi\) is undefined on \(\{\omega=0\}\) and is never u
 
 This does **not** solve the Clay problem. The a priori bound on \(C\) does not close.
 
+## Geometric implication (Section on Definition 7.1)
+
+If Definition 7.1 holds for every smooth divergence-free \(u_0\), then \(T^*=\infty\) and \(u\) is globally smooth. That is Clay, on this route. The implication is written out with the identities that close (\(r^2\) in stretching, HLS to \(\|\omega\|_2^2\|\omega\|_6\), Gronwall from energy, Kato \(H^1\) continuation). Definition 7.1 itself is Theorem C and is not proved.
+
 ## What is left (Theorem C)
 
 One inequality, on the unmodified NSE:
