@@ -16,11 +16,13 @@ The two constants of the criterion, displayed in the note, are
 \]
 The derived majorant coefficient is \(K(C,\Omega,\nu)=C_\ast(C+\Omega)^2/\nu\).
 
+Section 10 constructs them from the unmodified PDE: \(\Omega=1\), and \(C\) is the actual running \(\tfrac12\)-Hölder modulus of \(\xi\) on \(\{r\ge 1\}\) along the classical solution. Theorem B records the test: energy does not force \(C<\infty\). Neither global smoothness nor blow-up is obtained for arbitrary data.
+
 Degeneracy is respected: \(\xi\) is undefined on \(\{\omega=0\}\) and is never used there.
 
 ## What is not proved
 
-This does **not** solve the Clay problem. The two constants \(\Omega\) and \(C\) are **hypotheses**. Constructing them from the PDE for arbitrary smooth divergence-free \(u_0\) would finish Clay via this implication. That construction is not done here.
+This does **not** solve the Clay problem. The a priori bound on \(C\) does not close.
 
 The implication itself is the Constantin–Fefferman / Beirão da Veiga–Berselli geometric criterion (Lipschitz in 1993; \(1/2\)-Hölder in 2002).
 
