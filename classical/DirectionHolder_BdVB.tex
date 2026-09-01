@@ -1,0 +1,363 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\renewcommand{\thetheorem}{\Alph{theorem}}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\nablau}{\nabla u}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\pv}{\mathrm{P.V.}}
+
+\hypersetup{
+  pdftitle={Direction of vorticity and continuation for 3D Navier-Stokes: the 1/2-Holder criterion on the maximal classical interval},
+  pdfauthor={Benjamin Stanley Frohman}
+}
+
+\title{Direction of vorticity and continuation for 3D Navier--Stokes:\\
+the \(\tfrac12\)-H\"older criterion on the maximal classical interval}
+\author{Benjamin Stanley Frohman%
+\thanks{No tether term is used. The implication proved here is the
+geometric regularity criterion of Constantin--Fefferman and
+Beir\~ao da Veiga--Berselli, recast on \([0,T^*)\) with degeneracy of
+\(\xi=\omega/\abs{\omega}\) respected. It does not construct the H\"older
+modulus from the PDE, and it does not solve the Clay problem.}}
+\date{31 August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let \(u\) be the unique classical solution of the 3D incompressible
+Navier--Stokes equations on the maximal interval \([0,T^*)\), viscosity
+\(\nu>0\). Write \(\omega=\nabla\times u\), \(r=\abs{\omega}\),
+\(\xi=\omega/r\) on \(\{r>0\}\), and
+\(S=\tfrac12\bigl(\nabla u+(\nabla u)^\top\bigr)\).
+If there exist \(\Omega=\Omega(u_0,\nu)>0\) and \(C=C(u_0,\nu)<\infty\)
+such that
+\[
+\abs{\xi(x,t)-\xi(y,t)}\le C\,\abs{x-y}^{1/2}
+\]
+whenever \(r(x,t),r(y,t)\ge\Omega\) and \(t<T^*\), then \(T^*=\infty\)
+and \(u\) is globally smooth. The direction \(\xi\) is never evaluated
+on \(\{r=0\}\). No additional geometric term is added to the PDE.
+The implication is the Beir\~ao da Veiga--Berselli \(\tfrac12\)-H\"older
+form of the Constantin--Fefferman criterion. The Clay problem remains
+open unless \(\Omega\) and \(C\) are produced from \((u_0,\nu)\) alone.
+\end{abstract}
+
+\noindent\textit{MSC-style keywords:} Navier--Stokes, vorticity direction,
+Beale--Kato--Majda, Constantin--Fefferman, Beir\~ao da Veiga--Berselli.
+
+\tableofcontents
+
+\section{Scope}
+
+This note treats the unmodified Cauchy problem for 3D incompressible
+Navier--Stokes, written as~\eqref{eq:NS}--\eqref{eq:div} below, on the
+maximal classical existence interval \([0,T^*)\). The only geometric
+input is a uniform spatial \(\tfrac12\)-H\"older bound on the vorticity
+\emph{direction} on the set where the vorticity \emph{magnitude} is at
+least a positive threshold. From that input one concludes \(T^*=\infty\).
+
+The following are \textbf{not} proved: that every smooth divergence-free
+\(u_0\) produces such an \(\Omega\) and \(C\); that \(T^*<\infty\) is
+impossible without extra hypotheses; that a named tether or metriplectic
+correction is present in the equations. The PDE used is~\eqref{eq:NS}.
+
+What \emph{would} finish the Clay problem, given Theorem~\ref{thm:A}, is
+a proof that \(\Omega(u_0,\nu)\) and \(C(u_0,\nu)\) exist for every smooth
+divergence-free \(u_0\). That is a different theorem.
+
+\section{The equations}
+
+Let \(\nu>0\). On \(\T^3=\R^3/(2\pi\Z)^3\) (the whole-space case is
+identical up to replacing the periodized Newtonian potential by
+\(1/(4\pi\abs{x})\)) one considers
+\begin{align}
+\partial_t u+(u\cdot\nabla)u&=\nu\Delta u-\nabla p,
+\label{eq:NS}\\
+\nabla\cdot u&=0,
+\label{eq:div}
+\end{align}
+with \(u(\,\cdot\,,0)=u_0\in C^\infty(\T^3;\R^3)\), \(\nabla\cdot u_0=0\).
+Local well-posedness in \(H^s\), \(s>5/2\), yields a unique classical
+solution on a maximal interval \([0,T^*)\), \(T^*\in(0,\infty]\), with
+the standard blow-up alternative: if \(T^*<\infty\) then
+\begin{equation}
+\label{eq:H1blowup}
+\limsup_{t\uparrow T^*}\norm{\nabla u(t)}_{L^2(\T^3)}=\infty.
+\end{equation}
+Equivalently, \(\limsup_{t\uparrow T^*}\norm{\omega(t)}_{L^2}=\infty\),
+since \(\norm{\omega}_{L^2}=\norm{\nabla u}_{L^2}\) under~\eqref{eq:div}.
+This is the energy-class continuation criterion (Kato); it is the only
+continuation tool used below. (Beale--Kato--Majda in \(L^1_tL^\infty_x\)
+is stronger than needed once enstrophy is bounded.)
+
+Curl of~\eqref{eq:NS}, using~\eqref{eq:div}, gives the vorticity equation
+\begin{equation}
+\label{eq:vort}
+\partial_t\omega+(u\cdot\nabla)\omega=(\omega\cdot\nabla)u+\nu\Delta\omega,
+\qquad\omega=\nabla\times u.
+\end{equation}
+Write \(r:=\abs{\omega}\) and, on the open set \(\{r>0\}\),
+\begin{equation}
+\label{eq:xi}
+\xi:=\frac{\omega}{r}.
+\end{equation}
+The strain is the symmetric gradient
+\begin{equation}
+\label{eq:S}
+S:=\frac12\bigl(\nabla u+(\nabla u)^\top\bigr).
+\end{equation}
+On \(\{r>0\}\) one has the stretching identity
+\begin{equation}
+\label{eq:stretch}
+(\omega\cdot\nabla)u\cdot\omega=r^2\,(S\xi\cdot\xi).
+\end{equation}
+The left-hand side of~\eqref{eq:stretch} extends continuously by \(0\)
+at \(r=0\). The unit field \(\xi\) is \emph{not} extended; every estimate
+below that mentions \(\xi(x)\) is restricted to \(r(x)>0\).
+
+\section{The criterion}
+
+\begin{theorem}[Beir\~ao da Veiga--Berselli, recast]
+\label{thm:A}
+Let \(u\) be the classical solution of~\eqref{eq:NS}--\eqref{eq:div} on
+\([0,T^*)\). Suppose there exist \(\Omega=\Omega(u_0,\nu)>0\) and
+\(C=C(u_0,\nu)<\infty\) such that, for all \(t\in[0,T^*)\) and all
+\(x,y\in\T^3\) with \(r(x,t)\ge\Omega\) and \(r(y,t)\ge\Omega\),
+\begin{equation}
+\label{eq:holder}
+\abs{\xi(x,t)-\xi(y,t)}\le C\,\abs{x-y}^{1/2}.
+\end{equation}
+Then \(T^*=\infty\), and \(u\in C^\infty(\T^3\times[0,\infty))\).
+\end{theorem}
+
+The H\"older condition may be localized to \(\abs{x-y}<\delta\) for an
+arbitrary \(\delta>0\); the far field is controlled by the integrable
+periodized kernel. Only pairs in which \emph{both} magnitudes meet the
+threshold \(\Omega\) are constrained. Pairs with \(r(x)<\Omega\) or
+\(r(y)<\Omega\) are estimated crudely, without using \(\xi\).
+
+\begin{remark}
+On \(\{r(x),r(y)>0\}\) one has
+\(\abs{\xi(x)-\xi(y)}=2\abs{\sin(\theta/2)}\) and
+\(\sin\theta\le\abs{\xi(x)-\xi(y)}\), where \(\theta=\angle(\omega(x),\omega(y))\).
+Thus~\eqref{eq:holder} implies
+\(\sin\theta(x,y,t)\le C\abs{x-y}^{1/2}\) on the high-high set, which is
+Assumption~A of Beir\~ao da Veiga--Berselli~\cite{BdVB2002} at exponent
+\(\alpha=1/2\) with \(g\) a constant. Lipschitz direction
+(Constantin--Fefferman~\cite{CF1993}) is the case \(\alpha=1\).
+\end{remark}
+
+\section{Enstrophy and stretching}
+
+Take the \(L^2\) inner product of~\eqref{eq:vort} with \(\omega\). After
+an integration by parts (justified on every compact subinterval of
+\([0,T^*)\) by classical smoothness),
+\begin{equation}
+\label{eq:enstrophy}
+\frac12\frac{\dd}{\dd t}\norm{\omega}_{L^2}^2+\nu\norm{\nabla\omega}_{L^2}^2
+=\int_{\T^3}\mathcal K(x,t)\,\dd x,
+\end{equation}
+where the stretching density is
+\begin{equation}
+\label{eq:K}
+\mathcal K(x,t):=\bigl((\omega\cdot\nabla)u\cdot\omega\bigr)(x,t).
+\end{equation}
+On \(\{r=0\}\) one has \(\mathcal K=0\). On \(\{r>0\}\) one has
+\(\mathcal K=r^2(S\xi\cdot\xi)\).
+
+Biot--Savart on \(\T^3\) reconstructs \(u\) from \(\omega\) by the
+periodized Newtonian potential \(G\). Differentiating under the principal
+value gives \(S\) as a Calder\'on--Zygmund operator of \(\omega\). The
+Constantin--Fefferman representation~\cite{CF1993} then yields the pointwise
+bound, for a dimensional constant \(c_0\) independent of \(u\),
+\begin{equation}
+\label{eq:Krep}
+\abs{\mathcal K(x)}\le c_0\int_{\T^3}\frac{r(x)^2\,r(y)\,\sin\theta(x,y)}{\abs{x-y}^3}\,\dd y,
+\end{equation}
+where the integrand is read as \(0\) if \(r(x)=0\) or \(r(y)=0\), so that
+\(\xi\) is never invoked on the degeneracy set. (On the torus, \(\abs{x-y}\)
+denotes chordal/periodized distance; the local singularity is the same as
+in \(\R^3\).)
+
+\section{High-high versus complementary pairs}
+
+Fix \(\Omega>0\) as in Theorem~\ref{thm:A}. Split the integral
+in~\eqref{eq:Krep} according to whether \(r(y)\ge\Omega\) or not.
+Write \(\mathcal K=\mathcal K_{\mathrm{hh}}+\mathcal K_{\mathrm{c}}\).
+
+\paragraph{High-high.}
+If \(r(x)\ge\Omega\) and \(r(y)\ge\Omega\),~\eqref{eq:holder} and
+\(\sin\theta\le\abs{\xi(x)-\xi(y)}\) give
+\(\sin\theta/\abs{x-y}^3\le C\abs{x-y}^{-5/2}\). Hence
+\begin{equation}
+\label{eq:Khh}
+\abs{\mathcal K_{\mathrm{hh}}(x)}\le c_0 C\,r(x)^2\,I(x),
+\qquad
+I(x):=\int_{\T^3}\frac{r(y)}{\abs{x-y}^{5/2}}\,\dd y.
+\end{equation}
+The field \(I\) is a Riesz potential of order \(\beta=1/2\) applied to \(r\).
+Hardy--Littlewood--Sobolev on \(\T^3\) (or \(\R^3\)) yields
+\begin{equation}
+\label{eq:HLS}
+\norm{I}_{L^3}\le C_{\mathrm{HLS}}\norm{\omega}_{L^2},
+\end{equation}
+because \(1/3=1/2-(1/2)/3\). If \(r(x)<\Omega\), the factor \(r(x)^2\)
+already places \(\mathcal K_{\mathrm{hh}}(x)\) in the complementary class
+treated next; alternatively one may restrict~\eqref{eq:Khh} to
+\(\{r(x)\ge\Omega\}\) and estimate the remainder with \(\sin\theta\le 1\)
+and \(r(x)<\Omega\).
+
+\paragraph{Complementary pairs.}
+If \(r(y)<\Omega\), use \(\sin\theta\le 1\) and do \emph{not} form \(\xi(y)\).
+After the usual cancellation in the CZ kernel of \(S\) (mean-zero
+homogeneous kernel of degree \(-3\)), the complementary stretching is
+controlled by the Hardy--Littlewood maximal function of the truncated
+vorticity:
+\begin{equation}
+\label{eq:Kc}
+\abs{\mathcal K_{\mathrm{c}}(x)}\le c_1 r(x)^2\,M\bigl(r\,1_{\{r<\Omega\}}\bigr)(x).
+\end{equation}
+In particular, using \(r1_{\{r<\Omega\}}\le\Omega\) and the boundedness of
+\(M:L^2\to L^2\),
+\begin{equation}
+\label{eq:Kcint}
+\int_{\T^3}\abs{\mathcal K_{\mathrm{c}}}\,\dd x
+\le c_2\Omega\,\norm{\omega}_{L^2}\norm{\omega}_{L^6}.
+\end{equation}
+(The same bound follows from \(\abs{S(1_{\{r<\Omega\}}\omega)}\lesssim
+M(r1_{\{r<\Omega\}})\). No division by \(r\) occurs.)
+
+\section{Closing the enstrophy inequality}
+
+Combining~\eqref{eq:enstrophy},~\eqref{eq:Khh},~\eqref{eq:HLS} and~\eqref{eq:Kcint},
+\[
+\int\abs{\mathcal K_{\mathrm{hh}}}\,\dd x
+\le c_0 C\int r^2 I\,\dd x
+\le c_0 C\norm{\omega}_{L^3}^2\norm{I}_{L^3}
+\le c_3 C\norm{\omega}_{L^2}\norm{\omega}_{L^6}\norm{\omega}_{L^2},
+\]
+where the interpolation \(\norm{\omega}_{L^3}^2\le\norm{\omega}_{L^2}\norm{\omega}_{L^6}\)
+was used. Thus
+\begin{equation}
+\label{eq:enst2}
+\frac12\frac{\dd}{\dd t}\norm{\omega}_{L^2}^2+\nu\norm{\nabla\omega}_{L^2}^2
+\le c_4(C+\Omega)\,\norm{\omega}_{L^2}^2\norm{\omega}_{L^6}.
+\end{equation}
+Sobolev on \(\T^3\) gives \(\norm{\omega}_{L^6}\le C_{\mathrm{S}}\norm{\nabla\omega}_{L^2}\).
+Young's inequality, for every \(\varepsilon>0\),
+\[
+\norm{\omega}_{L^2}^2\norm{\omega}_{L^6}
+\le \frac{\varepsilon}{c_4(C+\Omega)}\norm{\omega}_{L^6}^2
++\frac{c_4(C+\Omega)}{4\varepsilon}\norm{\omega}_{L^2}^4,
+\]
+so choosing \(\varepsilon\) small enough to absorb the first term into
+\(\nu\norm{\nabla\omega}_{L^2}^2\) produces
+\begin{equation}
+\label{eq:gronwall}
+\frac{\dd}{\dd t}\norm{\omega}_{L^2}^2
++\nu\norm{\nabla\omega}_{L^2}^2
+\le K(C,\Omega,\nu)\,\norm{\omega}_{L^2}^4,
+\end{equation}
+with \(K\) finite and depending only on \((C,\Omega,\nu)\) and on absolute
+Sobolev/HLS constants of \(\T^3\).
+
+\section{Continuation}
+
+Energy equality for~\eqref{eq:NS} on \([0,T^*)\) yields
+\begin{equation}
+\label{eq:energy}
+\frac12\norm{u(t)}_{L^2}^2+\nu\int_0^t\norm{\nabla u(s)}_{L^2}^2\,\dd s
+=\frac12\norm{u_0}_{L^2}^2,
+\end{equation}
+hence \(\int_0^{t}\norm{\omega(s)}_{L^2}^2\,\dd s\le (2\nu)^{-1}\norm{u_0}_{L^2}^2\)
+for every \(t<T^*\). Drop the dissipation in~\eqref{eq:gronwall} and apply
+Gronwall:
+\begin{equation}
+\label{eq:bound}
+\norm{\omega(t)}_{L^2}^2
+\le \norm{\omega(0)}_{L^2}^2
+\exp\Bigl(K\int_0^t\norm{\omega(s)}_{L^2}^2\,\dd s\Bigr)
+\le \norm{\omega(0)}_{L^2}^2
+\exp\bigl(K(2\nu)^{-1}\norm{u_0}_{L^2}^2\bigr).
+\end{equation}
+The right-hand side is independent of \(t<T^*\). Therefore
+\(\sup_{t<T^*}\norm{\nabla u(t)}_{L^2}<\infty\). The blow-up
+alternative~\eqref{eq:H1blowup} forces \(T^*=\infty\).
+
+Once the solution exists globally in \(H^1\) with uniformly bounded
+enstrophy, standard parabolic bootstrapping for~\eqref{eq:NS} (Kato,
+or \(L^p\)-\(L^q\) estimates for the Stokes semigroup) upgrades
+\(u\) to \(C^\infty(\T^3\times[0,\infty))\).
+
+This is Theorem~\ref{thm:A}.
+
+\section{What would finish Clay}
+
+Theorem~\ref{thm:A} is a \emph{conditional} regularity theorem. Its
+hypotheses \(\Omega\) and \(C\) are not constructed. For the Clay
+problem as stated by Fefferman~\cite{Fefferman2000} one needs, for
+\emph{every} smooth divergence-free \(u_0\), a globally smooth solution
+of~\eqref{eq:NS}--\eqref{eq:div}. By Theorem~\ref{thm:A} it would suffice
+to prove:
+
+\begin{quotation}
+\noindent\textit{For every smooth divergence-free \(u_0\) and every \(\nu>0\),
+there exist \(\Omega=\Omega(u_0,\nu)>0\) and \(C=C(u_0,\nu)<\infty\) such
+that~\eqref{eq:holder} holds on the maximal classical interval.}
+\end{quotation}
+
+That statement is not proved here. It is also not implied by local smoothness
+on \([0,T^*)\): a classical solution may a priori lose H\"older control of
+\(\xi\) on \(\{r\ge\Omega\}\) as \(t\uparrow T^*\) even while remaining smooth
+on each compact subinterval. Producing \(\Omega,C\) from \((u_0,\nu)\) is the
+outstanding geometric problem isolated by Constantin--Fefferman and by
+Beir\~ao da Veiga--Berselli. Values \(\beta<1/2\) are not known to suffice
+\cite{BdV2016}.
+
+No term was added to~\eqref{eq:NS}. Degeneracy of \(\xi\) on \(\{r=0\}\) was
+respected throughout.
+
+\begin{thebibliography}{9}
+\bibitem{BdVB2002}
+H.\ Beir\~ao da Veiga and L.\,C.\ Berselli,
+\emph{On the regularizing effect of the vorticity direction in incompressible viscous flows},
+Differential Integral Equations \textbf{15} (2002), 345--356.
+
+\bibitem{BdV2016}
+H.\ Beir\~ao da Veiga,
+\emph{Open problems concerning the H\"older continuity of the direction of vorticity for the Navier--Stokes equations},
+arXiv:1604.08083.
+
+\bibitem{CF1993}
+P.\ Constantin and C.\ Fefferman,
+\emph{Direction of vorticity and the problem of global regularity for the Navier--Stokes equations},
+Indiana Univ.\ Math.\ J.\ \textbf{42} (1993), 775--789.
+
+\bibitem{Fefferman2000}
+C.\ Fefferman,
+\emph{Existence and smoothness of the Navier--Stokes equation},
+Clay Mathematics Institute Millennium Problems, 2000.
+\end{thebibliography}
+
+\noindent\textit{License.} CC-BY-4.0.
+
+\end{document}
