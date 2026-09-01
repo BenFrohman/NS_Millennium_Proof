@@ -413,6 +413,7 @@ it is the actual modulus of the classical solution on its maximal interval.
 Theorem~\ref{thm:A} applies if and only if this supremum is finite.
 
 \subsection{Direction equation on \(\{r>0\}\)}
+\label{sec:xi-pde}
 
 On \(\{r>0\}\), \(\abs{\xi}=1\) and \((\omega\cdot\nabla)u=S\omega\).
 The chain rule in~\eqref{eq:vort} yields
@@ -423,21 +424,40 @@ D_t\xi
 +\nu\, r^{-1}P_\xi(\Delta\omega),
 \end{equation}
 where \(D_t=\partial_t+u\cdot\nabla\) and
-\(P_\xi v:=v-(\xi\cdot v)\xi\). Expanding \(\Delta\omega=\Delta(r\xi)\)
-gives the equivalent viscous form
+\(P_\xi v:=v-(\xi\cdot v)\xi\). Expand \(\Delta\omega=\Delta(r\xi)\):
+\[
+\Delta\omega=(\Delta r)\xi+2\nabla r\cdot\nabla\xi+r\Delta\xi.
+\]
+Then \(P_\xi(\Delta\omega)=2P_\xi(\nabla r\cdot\nabla\xi)+r P_\xi(\Delta\xi)\).
+The constraint \(\abs{\xi}=1\) gives \(\xi\cdot\nabla\xi=0\) and
+\(\xi\cdot\Delta\xi=-\abs{\nabla\xi}^2\), hence
+\(P_\xi(\Delta\xi)=\Delta\xi+\abs{\nabla\xi}^2\xi\). Substituting produces
+the correct viscous equation
 \begin{equation}
-\label{eq:xi-visc}
-r^{-1}P_\xi(\Delta\omega)
-=\Delta\xi+2(\nabla\log r)\cdot\nabla\xi,
+\label{eq:xi-correct}
+D_t\xi-\nu\Delta\xi
+=P_\xi(S\xi)
++2\nu r^{-1}P_\xi(\nabla r\cdot\nabla\xi)
++\nu\abs{\nabla\xi}^2\xi.
 \end{equation}
-in which \(\xi\cdot\Delta\xi=-\abs{\nabla\xi}^2\). The logarithmic
-gradient is used only on \(\{r\ge\Omega\}\), where
-\(\abs{\nabla\log r}\le\Omega^{-1}\abs{\nabla\omega}\). Thus on \(E(t)\)
-\begin{equation}
-\label{eq:gradxi}
-\abs{\nabla\xi}\le\Omega^{-1}\abs{\nabla\omega}.
-\end{equation}
-No division by \(r\) occurs on \(\{r=0\}\).
+The drift is projected: it is \(P_\xi(\nabla r\cdot\nabla\xi)\), not
+\(\nabla r\cdot\nabla\xi\). The quadratic term \(\nu\abs{\nabla\xi}^2\xi\)
+is the second fundamental form of \(S^2\) (harmonic-map tension) and
+must be kept. Componentwise
+\(\Delta\xi+2\nabla\log r\cdot\nabla\xi=r^{-2}\mathrm{div}(r^2\nabla\xi)\),
+but the equation uses the projection of that operator, not the unprojected
+drift.
+
+On \(E(t)=\{r\ge\Omega\}\) one has
+\(\abs{\nabla\xi}\le\Omega^{-1}\abs{\nabla\omega}\) and
+\(\abs{\nabla r}\le\abs{\nabla\omega}\) (Pythagoras
+\(\abs{\nabla\omega}^2=\abs{\nabla r}^2+r^2\abs{\nabla\xi}^2\)).
+In particular \(\abs{\nabla r}\le r\) is false, and
+\(\abs{\nabla\log r}\le\Omega^{-1}\abs{\nabla\omega}\) is not a bound
+independent of the solution: distance to \(\partial E(t)\) does not
+control \(\abs{\nabla r}\) inside \(E(t)\). The drift is therefore
+not \(O(1/\Omega)\) in any uniform sense. No division by \(r\) occurs
+on \(\{r=0\}\).
 
 \subsection{Morrey reduction}
 
@@ -835,6 +855,99 @@ from~\eqref{eq:xi-evol} and energy, with no bound on
 
 No other analytic ingredient is missing. Once~\eqref{eq:campanato} holds,
 Section~\ref{sec:implication} is unconditional and \(T^*=\infty\).
+
+\subsection{Corrected De Giorgi--Nash--Moser attempt}
+\label{sec:dnm}
+
+A proposed parabolic De Giorgi--Nash--Moser / Campanato argument for
+Definition~7.1 is rewritten here with the necessary corrections. It does
+not prove Definition~7.1. The surviving facts are recorded, then the
+gaps.
+
+\paragraph{Forcing from Calder\'on--Zygmund \(2\to 2\), without \(\norm{\omega}_{L^\infty}\).}
+The pointwise bound \(\abs{S}\le C\abs{\omega}\) requires
+\(\norm{\omega}_{L^\infty}\) and is not used. Energy for~\eqref{eq:NS}
+gives \(\omega\in L^2(0,T^*;L^2)\) (equivalently \(\nabla u\in L^2_t L^2_x\)).
+The strain is a Calder\'on--Zygmund operator of \(\omega\), hence
+\(S\in L^2(0,T^*;L^2)\) by the \(L^2\to L^2\) bound, globally, with no
+pointwise kernel estimate. Then \(\abs{P_\xi(S\xi)}\le\abs{S}\), so
+\begin{equation}
+\label{eq:forcing-L2}
+P_\xi(S\xi)\in L^2(0,T^*;L^2(\T^3)).
+\end{equation}
+That term of~\eqref{eq:xi-correct} is under control.
+
+\paragraph{Drift is not absorbed by Leray--Hopf.}
+On a space-time cylinder \(Q\subset\{r\ge\Omega\}\),
+\[
+\abs{2\nu r^{-1}P_\xi(\nabla r\cdot\nabla\xi)}
+\le 2\nu\Omega^{-1}\abs{\nabla r}\,\abs{\nabla\xi}
+\le 2\nu\Omega^{-2}\abs{\nabla\omega}^2,
+\]
+using \(\abs{\nabla r}\le\abs{\nabla\omega}\) and
+\(\abs{\nabla\xi}\le\Omega^{-1}\abs{\nabla\omega}\). (The bound
+\(\abs{\nabla r}\le\abs{\omega}\) is false: Pythagoras gives
+\(\abs{\nabla r}\le\abs{\nabla\omega}\), not \(\abs{\nabla r}\le r\).)
+Thus the drift lies in \(L^2_t L^2_x(Q)\) only if
+\(\nabla\omega\in L^4(Q)\). Leray--Hopf energy does not provide
+\(\nabla\omega\in L^2\), let alone \(L^4\). Ladyzhenskaya interpolation
+of \(\abs{\omega}^2\abs{\nabla\omega}^2\) against \(\abs{\nabla\omega}^4\)
+and \(\abs{\omega}^4\) likewise requires norms of \(\omega\) that energy
+does not give. There is no energy inequality for \(\omega\) in the
+Leray--Hopf class; that would be an enstrophy bound, which is the
+output of Definition~7.1 rather than an input. The drift term in~\eqref{eq:xi-correct}
+is therefore not known to lie in \(L^2_t L^2_x\) on cylinders in
+\(\{r\ge\Omega\}\).
+
+\paragraph{Quadratic tension.}
+The term \(\nu\abs{\nabla\xi}^2\xi\) satisfies
+\(\abs{\nabla\xi}^2\le\Omega^{-2}\abs{\nabla\omega}^2\) on \(E(t)\).
+Membership in \(L^2_t L^2_x\) would require \(\nabla\xi\in L^4\), i.e.
+again \(\nabla\omega\in L^4\). Intrinsically, this term is normal to
+\(T_\xi S^2\). The tangential equation is
+\begin{equation}
+\label{eq:xi-tangential}
+P_\xi(D_t\xi-\nu\Delta\xi)
+=P_\xi(S\xi)+2\nu r^{-1}P_\xi(\nabla r\cdot\nabla\xi),
+\end{equation}
+which is the harmonic-map heat flow into \(S^2\) with an \(L^2\) stretching
+force and an uncontrolled drift. Finite-time singularities of the
+harmonic-map heat flow from three-dimensional domains into \(S^2\) are
+known; quadratic growth in \(\nabla\xi\) is not a perturbation of a
+scalar De Giorgi--Nash--Moser equation.
+
+\paragraph{What De Giorgi--Nash--Moser would require, and does not have.}
+Scalar parabolic De Giorgi--Nash--Moser needs a divergence-form operator
+with bounded measurable ellipticity, a drift in a Kato class, and
+forcing in a space with \(3/p+2/q<2\). Here:
+\begin{itemize}
+\item \(\xi\) is a constrained system, not a scalar;
+\item the weight \(r^2\) in \(\mathrm{div}(r^2\nabla\xi)\) has ellipticity
+ratio \(\sup_E r^2/\Omega^2\), uncontrolled without
+\(\norm{\omega}_{L^\infty}\);
+\item the drift is not \(O(1/\Omega)\) and is not known to be in \(L^2\);
+\item the one term that \emph{is} in \(L^2_t L^2_x\), namely
+\(P_\xi(S\xi)\), satisfies \(3/2+2/2=5/2>2\), so it is below the
+inhomogeneous H\"older threshold;
+\item even a successful De Giorgi--Nash--Moser argument produces some
+H\"older exponent \(\alpha>0\) depending on ellipticity, not necessarily
+\(\alpha\ge 1/2\). Exponents \(\beta<1/2\) do not close the stretching
+estimate~\cite{BdV2016}.
+\end{itemize}
+Parabolic Campanato for spatial H\"older \(1/2\) on cylinders of radius
+\(\rho\) (time-scale \(\rho^2\)) scales as
+\(\rho^{-(3+2+1)}\int_{Q_\rho}\abs{\xi-\bar\xi}^2=\rho^{-6}\int_{Q_\rho}\),
+not as the elliptic \(\rho^{-4}\) integral. The restriction
+\(\rho\le\Omega/2\) is dimensionally meaningless: \(\rho\) is a length and
+\(\Omega\) is a vorticity threshold.
+
+\paragraph{What remains true.}
+On \(\{r>0\}\) the equation is~\eqref{eq:xi-correct}, with the projection
+and the quadratic term. The stretching force \(P_\xi(S\xi)\) lies in
+\(L^2_t L^2_x\) globally by Calder\'on--Zygmund \(2\to 2\), without
+\(\norm{\omega}_{L^\infty}\). Definition~7.1 still requires a uniform
+Campanato bound~\eqref{eq:campanato} on \(E(t)\). The argument above
+does not produce it.
 
 \begin{thebibliography}{9}
 \bibitem{BdVB2002}
