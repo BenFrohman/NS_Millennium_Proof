@@ -60,11 +60,10 @@ whenever \(r(x,t),r(y,t)\ge\Omega\) and \(t<T^*\), then \(T^*=\infty\)
 and \(u\) is globally smooth. The direction \(\xi\) is never evaluated
 on \(\{r=0\}\). No additional geometric term is added to the PDE.
 The implication is the Beir\~ao da Veiga--Berselli \(\tfrac12\)-H\"older
-form of the Constantin--Fefferman criterion. An attempt to construct
-\(\Omega\) and \(C\) from~\eqref{eq:NS}--\eqref{eq:div} for arbitrary
-smooth divergence-free \(u_0\) is carried out below. The resulting
-a priori bound on \(C\) does not close at the energy level. The test
-therefore does not decide global smoothness versus blow-up.
+form of the Constantin--Fefferman criterion.
+\textbf{Definition 7.1 is the only missing analytic ingredient; once it
+holds, the implication is unconditional.}
+It is not proved below. Energy does not force it. That is Theorem~\ref{thm:C}.
 \end{abstract}
 
 \noindent\textit{MSC-style keywords:} Navier--Stokes, vorticity direction,
@@ -787,6 +786,55 @@ this difference, divided by \(\abs{x-y}^{1/2}\), remains bounded on
 \((u_0,\nu)\). Degeneracy is already removed: \(r(x),r(y)\ge 1\).
 
 That difference estimate is the next (and last) step on this route.
+
+\subsection{Beginning of the estimate for Definition 7.1}
+
+Fix \(\Omega=1\). For \(x,y\in E(t)\) the elementary identity
+\begin{equation}
+\label{eq:xi-inner}
+\abs{\xi(x)-\xi(y)}^2
+=2\bigl(1-\xi(x)\cdot\xi(y)\bigr)
+=4\sin^2(\phi/2)
+\end{equation}
+identifies the H\"older modulus of \(\xi\) with the CF angle in the
+kernel \(D\). Thus Definition~7.1 is exactly the statement that the
+geometric factor \(\abs{D}\) is \(O(\abs{y}^{1/2})\) uniformly on
+high-high pairs, with a constant independent of \(t<T^*\).
+
+On \(E(t)\) one also has~\eqref{eq:xi-by-omega}. Along any segment
+that remains in \(\{r\ge 1/2\}\),
+\begin{equation}
+\label{eq:ftc}
+\xi(x)-\xi(y)
+=\int_0^1 (x-y)\cdot\nabla\xi\bigl(y+s(x-y)\bigr)\,\dd s,
+\end{equation}
+and \(\abs{\nabla\xi}\le 2\abs{\nabla\omega}\) there. Bounding the
+right-hand side by \(\abs{x-y}\,\norm{\nabla\omega}_{L^\infty}\)
+recovers a Lipschitz estimate, which is Beale--Kato--Majda, hence
+circular. Definition~7.1 asks for one derivative less: a factor
+\(\abs{x-y}^{1/2}\) rather than \(\abs{x-y}\). The unused dissipation
+in Pythagoras,
+\[
+\abs{\nabla\omega}^2=\abs{\nabla r}^2+r^2\abs{\nabla\xi}^2,
+\]
+puts \(\abs{\nabla\xi}\) in \(L^2\) only after enstrophy is bounded,
+which is again circular. The estimate that would close Definition~7.1
+without a derivative too many is a Campanato bound on \(E(t)\),
+\begin{equation}
+\label{eq:campanato}
+\sup_{x\in E(t)}\,\sup_{\rho\in(0,1)}
+\rho^{-4}\int_{B_\rho(x)\cap E(t)}
+\abs{\xi(z)-\xi_{x,\rho}}^2\,\dd z
+\le C(u_0,\nu)^2,
+\end{equation}
+equivalent to~\eqref{eq:remaining} on the high set. The integrand is
+controlled by \(\sin^2(\phi/2)\) via~\eqref{eq:xi-inner}, hence by the
+same \(D\) that depletes stretching. Whether~\eqref{eq:campanato} follows
+from~\eqref{eq:xi-evol} and energy, with no bound on
+\(\norm{\omega}_{L^\infty}\), is the whole of Definition~7.1.
+
+No other analytic ingredient is missing. Once~\eqref{eq:campanato} holds,
+Section~\ref{sec:implication} is unconditional and \(T^*=\infty\).
 
 \begin{thebibliography}{9}
 \bibitem{BdVB2002}
