@@ -25,51 +25,87 @@
 \newcommand{\pv}{\mathrm{P.V.}}
 
 \hypersetup{
-  pdftitle={Direction of vorticity and continuation for 3D Navier-Stokes: the 1/2-Holder criterion on the maximal classical interval},
+  pdftitle={Direction of vorticity on the high set: closed identities, false shortcuts, remaining Campanato bound},
   pdfauthor={Benjamin Stanley Frohman}
 }
 
-\title{Direction of vorticity and continuation for 3D Navier--Stokes:\\
-the \(\tfrac12\)-H\"older criterion on the maximal classical interval}
+\title{Direction of vorticity on the high set:\\
+what is closed, what is false, and the remaining Campanato bound}
 \author{Benjamin Stanley Frohman%
-\thanks{No tether term is used. Degeneracy of
-\(\xi=\omega/\abs{\omega}\) is respected. Definition~7.1
-\(\Rightarrow\) global smoothness is Theorem~\ref{thm:A} and
-Section~\ref{sec:implication}. Definition~7.1 for arbitrary data is
-Theorem~\ref{thm:C} and is not proved.}}
+\thanks{No tether. Degeneracy of \(\xi=\omega/\abs{\omega}\) is respected.
+This note is the canonical ledger of the geometric criterion: the
+implication \(7.1\Rightarrow T^*=\infty\) is closed; Definition~7.1
+itself is not. It does not claim a solution of the Clay problem.}}
 \date{1 September 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Let \(u\) be the unique classical solution of the 3D incompressible
-Navier--Stokes equations on the maximal interval \([0,T^*)\), viscosity
-\(\nu>0\). Write \(\omega=\nabla\times u\), \(r=\abs{\omega}\),
-\(\xi=\omega/r\) on \(\{r>0\}\), and
-\(S=\tfrac12\bigl(\nabla u+(\nabla u)^\top\bigr)\).
-The two constants of the criterion are
-\[
-\Omega=\Omega(u_0,\nu)>0,\qquad C=C(u_0,\nu)<\infty.
-\]
-If
-\[
-\abs{\xi(x,t)-\xi(y,t)}\le C\,\abs{x-y}^{1/2}
-\]
-whenever \(r(x,t),r(y,t)\ge\Omega\) and \(t<T^*\), then \(T^*=\infty\)
-and \(u\) is globally smooth. The direction \(\xi\) is never evaluated
-on \(\{r=0\}\). No additional geometric term is added to the PDE.
-The implication is the Beir\~ao da Veiga--Berselli \(\tfrac12\)-H\"older
-form of the Constantin--Fefferman criterion.
-\textbf{Definition 7.1 is the only missing analytic ingredient; once it
-holds, the implication is unconditional.}
-It is not proved below. Energy does not force it. That is Theorem~\ref{thm:C}.
+This note records, as a closed ledger, the geometric structure of vorticity
+direction for unmodified 3D Navier--Stokes on the maximal classical interval
+\([0,T^*)\). Write \(\omega=\nabla\times u\), \(r=\abs{\omega}\),
+\(\xi=\omega/r\) on \(\{r>0\}\),
+\(S=\tfrac12(\nabla u+(\nabla u)^\top)\).
+Three facts are established: (i)~the implication from uniform
+\(\tfrac12\)-H\"older continuity of \(\xi\) on \(\{r\ge\Omega\}\)
+(Definition~7.1) to \(T^*=\infty\), by the Constantin--Fefferman kernel
+and Beir\~ao da Veiga--Berselli stretching, HLS, absorption, Gronwall,
+and Kato \(H^1\); (ii)~the exact direction equation on \(\{r>0\}\), with
+projected drift and quadratic tension \(\nu\abs{\nabla\xi}^2\xi\);
+(iii)~\(S\in L^2_t L^2_x\) from energy and Calder\'on--Zygmund on \(L^2\),
+with no \(\norm{\omega}_{L^\infty}\).
+Two claims are discharged as false: the drift is not \(O(1/\Omega)\);
+De Giorgi--Nash--Moser does not yield uniform \(C^{0,1/2}\) on the moving
+high set \(E(t)\). Definition~7.1 itself is not proved. Energy does not
+prove it. The remaining statement is the Campanato bound on
+\(4\sin^2(\phi/2)\) on \(E(t)\). This note does not assert a solution of
+the Clay problem.
 \end{abstract}
 
 \noindent\textit{MSC-style keywords:} Navier--Stokes, vorticity direction,
 Beale--Kato--Majda, Constantin--Fefferman, Beir\~ao da Veiga--Berselli.
 
 \tableofcontents
+
+\section{Canonical ledger}
+\label{sec:ledger}
+
+What this note discovers is not a global regularity theorem. It is the
+precise partition of a geometric criterion into closed identities, false
+shortcuts, and one remaining estimate.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.58\linewidth}p{0.38\linewidth}@{}}
+\hline
+Piece & Status \\
+\hline
+\(7.1\Rightarrow\) high--high kernel \(\abs{y}^{-5/2}\), HLS, absorb,
+Gronwall, Kato \(H^1\), Serrin
+& Closed as an implication (CF / Beir\~ao da Veiga--Berselli) \\[4pt]
+\(\xi\)-equation on \(\{r>0\}\)
+& Closed, with \(P_\xi\) and \(\abs{\nabla\xi}^2\xi\) \\[4pt]
+\(S\in L^2_t L^2_x\) from energy + CZ on \(L^2\)
+& Closed, no \(\abs{\omega}_\infty\) \\[4pt]
+Drift \(=O(1/\Omega)\)
+& False \\[4pt]
+DGNM \(\Rightarrow\) uniform \(C^{0,1/2}\) on \(E(t)\)
+& False (system, \(p=2<5/2\), free boundary) \\[4pt]
+Definition~7.1 itself
+& Not proved \\
+\hline
+\end{tabular}
+\end{center}
+
+The only thing left is Definition~7.1, from the direction equation
+on \(\{r\ge\Omega\}\), without \(\norm{\omega}_{L^\infty}\).
+The mean oscillation
+\(\mathrm{osc}_{B_\rho}\xi\le C(\Omega,\nu)\,\rho^{1/2}\)
+\emph{is} Definition~7.1. Interior estimates miss \(\partial E(t)\).
+Energy, HLS on the high--high piece, absorption, Gronwall, Kato \(H^1\),
+and Serrin are the implication \(7.1\Rightarrow T^*=\infty\). They are
+not a proof of \(7.1\).
 
 \section{Scope}
 
@@ -529,16 +565,18 @@ whole problem. Values \(\beta<1/2\) are not known to suffice
 \cite{BdV2016}.
 
 No term was added to~\eqref{eq:NS}. Degeneracy of \(\xi\) on \(\{r=0\}\)
-was respected throughout. The Clay problem, as stated by
-Fefferman~\cite{Fefferman2000}, remains open.
+was respected throughout. Global regularity for arbitrary smooth data
+is not obtained from energy.
 
-\section{The geometric implication: Definition 7.1 \(\Rightarrow\) Clay}
+\section{The geometric implication: Definition 7.1 \(\Rightarrow T^*=\infty\)}
 \label{sec:implication}
 
 This section is the Constantin--Fefferman / Beir\~ao da Veiga--Berselli
-implication, written so that it closes. If Definition~7.1 holds for every
-smooth divergence-free \(u_0\), the answer to the Clay problem is yes.
-Definition~7.1 is not proved here; it is Theorem~\ref{thm:C}.
+implication, written so that it closes. If Definition~7.1 holds for a
+given smooth divergence-free \(u_0\), then \(T^*=\infty\) for that data.
+Definition~7.1 is not proved here; it is Theorem~\ref{thm:C} and
+Lemma~\ref{lem:AB}(B). This implication is not a regularity theorem for
+arbitrary data.
 
 \paragraph{Definition 7.1 (geometric criterion).}
 There exist \(\Omega=\Omega(u_0,\nu)>0\) and \(C=C(u_0,\nu)<\infty\)
@@ -708,18 +746,18 @@ enstrophy is independent of \(T^*\) because \(C,\Omega\) are.
 Bounded enstrophy is \(L^\infty_t H^1\), a subcritical Serrin class.
 Smooth solutions in that class cannot stop at a finite \(T^*\).
 
-That implication is a complete geometric solution of Clay if and only
-if Definition~7.1 holds for every smooth divergence-free \(u_0\).
-That last statement is Theorem~\ref{thm:C} and is not proved here.
+That implication is unconditional \emph{once} Definition~7.1 holds for
+the given \(u_0\). It is not a theorem that Definition~7.1 holds for
+every smooth divergence-free initial datum. That last statement is
+Theorem~\ref{thm:C} and Lemma~\ref{lem:AB}(B), and is not proved here.
 
 \section{What is left}
 \label{sec:left}
 
 Everything in Theorems~\ref{thm:A}--\ref{thm:B} is done. One statement
 remains. If it is proved, Theorem~\ref{thm:A} gives \(T^*=\infty\) for
-every smooth divergence-free \(u_0\), which is the Clay problem
-\cite{Fefferman2000}. If it fails for some \(u_0\), this route does not
-decide blow-up; a different criterion would be needed.
+that datum. If it fails for some \(u_0\), this route does not decide
+blow-up. This note does not claim that Definition~7.1 holds in general.
 
 \subsection{The remaining statement}
 
