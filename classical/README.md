@@ -1,8 +1,14 @@
-# Direction of vorticity, ½-Hölder, and continuation
+# Direction of vorticity on the high set (canonical ledger)
 
 **Author.** Benjamin Stanley Frohman.  
 **File.** `DirectionHolder_BdVB.tex` / `DirectionHolder_BdVB.pdf`  
-**License.** CC-BY-4.0 on the note. No tether is used.
+**License.** CC-BY-4.0. No tether. This note does **not** claim Clay.
+
+Closed: \(7.1\Rightarrow T^*=\infty\); the \(\xi\)-equation with \(P_\xi\) and \(|\nabla\xi|^2\xi\); \(S\in L^2_t L^2_x\) by CZ \(2\to 2\).
+
+False: drift \(=O(1/\Omega)\); DGNM \(\Rightarrow\) uniform \(C^{0,1/2}\) on \(E(t)\).
+
+Not proved: Definition 7.1. Remaining Lemma B is Campanato on \(4\sin^2(\phi/2)\).
 
 ## What is proved
 
