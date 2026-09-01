@@ -37,7 +37,7 @@ geometric regularity criterion of Constantin--Fefferman and
 Beir\~ao da Veiga--Berselli, recast on \([0,T^*)\) with degeneracy of
 \(\xi=\omega/\abs{\omega}\) respected. It does not construct the H\"older
 modulus from the PDE, and it does not solve the Clay problem.}}
-\date{31 August 2026}
+\date{1 September 2026}
 
 \begin{document}
 \maketitle
@@ -48,8 +48,11 @@ Navier--Stokes equations on the maximal interval \([0,T^*)\), viscosity
 \(\nu>0\). Write \(\omega=\nabla\times u\), \(r=\abs{\omega}\),
 \(\xi=\omega/r\) on \(\{r>0\}\), and
 \(S=\tfrac12\bigl(\nabla u+(\nabla u)^\top\bigr)\).
-If there exist \(\Omega=\Omega(u_0,\nu)>0\) and \(C=C(u_0,\nu)<\infty\)
-such that
+The two constants of the criterion are
+\[
+\Omega=\Omega(u_0,\nu)>0,\qquad C=C(u_0,\nu)<\infty.
+\]
+If
 \[
 \abs{\xi(x,t)-\xi(y,t)}\le C\,\abs{x-y}^{1/2}
 \]
@@ -58,7 +61,7 @@ and \(u\) is globally smooth. The direction \(\xi\) is never evaluated
 on \(\{r=0\}\). No additional geometric term is added to the PDE.
 The implication is the Beir\~ao da Veiga--Berselli \(\tfrac12\)-H\"older
 form of the Constantin--Fefferman criterion. The Clay problem remains
-open unless \(\Omega\) and \(C\) are produced from \((u_0,\nu)\) alone.
+open unless these two constants are produced from \((u_0,\nu)\) alone.
 \end{abstract}
 
 \noindent\textit{MSC-style keywords:} Navier--Stokes, vorticity direction,
@@ -134,19 +137,58 @@ The left-hand side of~\eqref{eq:stretch} extends continuously by \(0\)
 at \(r=0\). The unit field \(\xi\) is \emph{not} extended; every estimate
 below that mentions \(\xi(x)\) is restricted to \(r(x)>0\).
 
+\section{The two constants}
+\label{sec:constants}
+
+The geometric criterion uses exactly two solution-class constants,
+both allowed to depend on the data \((u_0,\nu)\) and on nothing else
+from the later evolution:
+\begin{align}
+\Omega&=\Omega(u_0,\nu)>0,
+\label{eq:Omega}\\
+C&=C(u_0,\nu)<\infty.
+\label{eq:C}
+\end{align}
+Here \(\Omega\) is the vorticity-intensity threshold: \(\xi\) is constrained
+only on \(\{r\ge\Omega\}\). The complementary set \(\{r<\Omega\}\) is
+estimated without forming \(\xi\). The constant \(C\) is the uniform
+spatial \(\tfrac12\)-H\"older modulus of \(\xi\) on that high set.
+From~\eqref{eq:Omega}--\eqref{eq:C} the enstrophy argument produces one
+derived majorant coefficient, depending on the two constants and on
+viscosity,
+\begin{equation}
+\label{eq:Kconst}
+K(C,\Omega,\nu)=\frac{C_\ast}{\nu}\,(C+\Omega)^2,
+\end{equation}
+where \(C_\ast<\infty\) depends only on the Sobolev, Hardy--Littlewood--Sobolev,
+and Calder\'on--Zygmund constants of \(\T^3\) (or \(\R^3\)). The pair
+\((\Omega,C)\) is the input; \(K\) is not an independent hypothesis.
+
+These two constants are not constructed from~\eqref{eq:NS} in this note.
+Theorem~\ref{thm:A} takes~\eqref{eq:Omega}--\eqref{eq:C} as given.
+
 \section{The criterion}
 
 \begin{theorem}[Beir\~ao da Veiga--Berselli, recast]
 \label{thm:A}
 Let \(u\) be the classical solution of~\eqref{eq:NS}--\eqref{eq:div} on
-\([0,T^*)\). Suppose there exist \(\Omega=\Omega(u_0,\nu)>0\) and
-\(C=C(u_0,\nu)<\infty\) such that, for all \(t\in[0,T^*)\) and all
-\(x,y\in\T^3\) with \(r(x,t)\ge\Omega\) and \(r(y,t)\ge\Omega\),
+\([0,T^*)\), and let \(\Omega=\Omega(u_0,\nu)\) and \(C=C(u_0,\nu)\) be
+the two constants~\eqref{eq:Omega}--\eqref{eq:C}. Suppose that for all
+\(t\in[0,T^*)\) and all \(x,y\in\T^3\) with \(r(x,t)\ge\Omega\) and
+\(r(y,t)\ge\Omega\),
 \begin{equation}
 \label{eq:holder}
 \abs{\xi(x,t)-\xi(y,t)}\le C\,\abs{x-y}^{1/2}.
 \end{equation}
 Then \(T^*=\infty\), and \(u\in C^\infty(\T^3\times[0,\infty))\).
+The continuation bound depends on the two constants only through \(K(C,\Omega,\nu)\)
+in~\eqref{eq:Kconst}:
+\begin{equation}
+\label{eq:bound-thm}
+\sup_{t<T^*}\norm{\omega(t)}_{L^2}^2
+\le \norm{\omega(0)}_{L^2}^2
+\exp\Bigl(\frac{K(C,\Omega,\nu)}{2\nu}\,\norm{u_0}_{L^2}^2\Bigr).
+\end{equation}
 \end{theorem}
 
 The H\"older condition may be localized to \(\abs{x-y}<\delta\) for an
@@ -277,8 +319,9 @@ so choosing \(\varepsilon\) small enough to absorb the first term into
 +\nu\norm{\nabla\omega}_{L^2}^2
 \le K(C,\Omega,\nu)\,\norm{\omega}_{L^2}^4,
 \end{equation}
-with \(K\) finite and depending only on \((C,\Omega,\nu)\) and on absolute
-Sobolev/HLS constants of \(\T^3\).
+with \(K(C,\Omega,\nu)\) the derived coefficient~\eqref{eq:Kconst}. The
+only data-dependent constants entering \(K\) are the two constants
+\(\Omega\) and \(C\).
 
 \section{Continuation}
 
