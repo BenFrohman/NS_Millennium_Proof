@@ -514,6 +514,101 @@ No term was added to~\eqref{eq:NS}. Degeneracy of \(\xi\) on \(\{r=0\}\)
 was respected throughout. The Clay problem, as stated by
 Fefferman~\cite{Fefferman2000}, remains open.
 
+\section{What is left}
+\label{sec:left}
+
+Everything in Theorems~\ref{thm:A}--\ref{thm:B} is done. One statement
+remains. If it is proved, Theorem~\ref{thm:A} gives \(T^*=\infty\) for
+every smooth divergence-free \(u_0\), which is the Clay problem
+\cite{Fefferman2000}. If it fails for some \(u_0\), this route does not
+decide blow-up; a different criterion would be needed.
+
+\subsection{The remaining statement}
+
+\begin{theorem}[remaining; not proved]
+\label{thm:C}
+Let \(u_0\in C^\infty(\T^3;\R^3)\) be divergence-free, \(\nu>0\), and
+\(u\) the classical solution of~\eqref{eq:NS}--\eqref{eq:div} on
+\([0,T^*)\). Set \(\Omega=1\) as in~\eqref{eq:Omega-construct}. Then
+\begin{equation}
+\label{eq:remaining}
+C(u_0,\nu)
+:=\sup_{t\in[0,T^*)}C(t)
+<\infty,
+\end{equation}
+with \(C(t)\) as in~\eqref{eq:C-running}. The finite value may depend
+on \((u_0,\nu)\) only.
+\end{theorem}
+
+That is the entire remainder for this route. Equivalently, writing
+\(E(t)=\{r(\,\cdot\,,t)\ge 1\}\),
+\begin{equation}
+\label{eq:remaining-pairs}
+\sup_{t<T^*}
+\sup_{\substack{x,y\in E(t)\\ x\neq y}}
+\frac{\abs{\xi(x,t)-\xi(y,t)}}{\abs{x-y}^{1/2}}
+<\infty.
+\end{equation}
+No other estimate is missing from Theorem~\ref{thm:A}: local existence,
+the stretching representation, the high-high / complementary split,
+Hardy--Littlewood--Sobolev at order \(1/2\), absorption into
+\(\nu\norm{\nabla\omega}_{L^2}^2\), Gronwall against the energy integral,
+and the \(H^1\) blow-up alternative are already closed.
+
+\subsection{A legitimate reduction, and two that are not}
+
+On \(E(t)\) one has \(r\ge 1\), hence
+\begin{equation}
+\label{eq:xi-by-omega}
+\abs{\xi(x)-\xi(y)}
+\le 2\abs{\omega(x)-\omega(y)}.
+\end{equation}
+Thus~\eqref{eq:remaining} follows from uniform \(\tfrac12\)-H\"older
+continuity of \(\omega\) itself on \(E(t)\). That is still a statement
+only about intense vorticity, not about \(\norm{\omega}_\infty\).
+
+The following are \emph{not} the remaining problem, because each is
+already known to be equivalent to global regularity by continuation, and
+using any of them to bound \(C\) is circular:
+\begin{itemize}
+\item \(\sup_{t<T^*}\norm{\omega(t)}_{L^2}<\infty\) (Kato \(H^1\)),
+\item \(\int_0^{T^*}\norm{\omega(t)}_{L^\infty}\,\dd t<\infty\)
+(Beale--Kato--Majda),
+\item \(\nabla\omega\in L^\infty(0,T^*;L^6)\) (Morrey,~\eqref{eq:morrey}),
+\item \(u\in L^p_t L^q_x\) with \(2/p+3/q=1\), \(q>3\) (Serrin).
+\end{itemize}
+The point of~\eqref{eq:remaining} is that it is geometrically weaker than
+a bound on \(\abs{\omega}\): a vortex that intensifies while remaining
+spatially aligned can have large \(r\) and still small
+\(\abs{\xi(x)-\xi(y)}\). Theorem~\ref{thm:A} is designed to turn that
+alignment into an enstrophy bound. Beir\~ao da Veiga~\cite{BdV2016}
+argues that \(\beta=1/2\) is critical for this method; the remaining
+statement is not a minor calculation.
+
+\subsection{What the direction equation must yield}
+
+The only unused dynamical information is~\eqref{eq:xi-evol} on \(E(t)\).
+For \(x,y\in E(t)\),
+\begin{equation}
+\label{eq:xi-diff}
+\begin{split}
+D_t^x\xi(x)-D_t^y\xi(y)
+&=P_{\xi(x)}\bigl(S(x)\xi(x)\bigr)
+-P_{\xi(y)}\bigl(S(y)\xi(y)\bigr)\\
+&\qquad
++\nu\Bigl(r(x)^{-1}P_{\xi(x)}\Delta\omega(x)
+-r(y)^{-1}P_{\xi(y)}\Delta\omega(y)\Bigr),
+\end{split}
+\end{equation}
+where \(D_t^x=\partial_t+u(x)\cdot\nabla_x\). The first line is the
+misalignment of strain; the second is the viscous increment of direction.
+To prove~\eqref{eq:remaining} it is necessary and sufficient to show that
+this difference, divided by \(\abs{x-y}^{1/2}\), remains bounded on
+\(E(t)\times E(t)\) up to \(T^*\), with a bound depending only on
+\((u_0,\nu)\). Degeneracy is already removed: \(r(x),r(y)\ge 1\).
+
+That difference estimate is the next (and last) step on this route.
+
 \begin{thebibliography}{9}
 \bibitem{BdVB2002}
 H.\ Beir\~ao da Veiga and L.\,C.\ Berselli,
