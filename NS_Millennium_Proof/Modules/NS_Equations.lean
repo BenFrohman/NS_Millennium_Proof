@@ -2813,6 +2813,25 @@ public theorem stretching_inner_le
     _ ≤ C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 :=
         mul_le_mul_of_nonneg_right hCZ (sq_nonneg _)
 
+/-- At a spatial maximum of `|ω|`, the stretching density is cubic in
+`M = ‖ω‖_∞`: `⟨ω,(ω·∇)u⟩ ≤ C_CZ M³`. May 21 (9) printed `C_CZ M²`;
+that is one power of `M` short for the density (it is the BKM ODE for
+`Ṁ` after dividing by `M`). -/
+public theorem stretching_inner_le_at_max
+    (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
+    (hu : DifferentiableAt ℝ u x)
+    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω)
+    (hmax : ‖ω x‖ = vorticity_sup_norm ω) :
+    inner ℝ (ω x) (convective ω u x) ≤
+      C_CZ * vorticity_sup_norm ω ^ 3 := by
+  have h := stretching_inner_le ω u x C_CZ hu hCZ
+  rw [hmax] at h
+  have hpow :
+      C_CZ * vorticity_sup_norm ω * vorticity_sup_norm ω ^ 2 =
+        C_CZ * vorticity_sup_norm ω ^ 3 := by ring
+  rw [hpow] at h
+  exact h
+
 /-- `___method.pdf` / living document stretching in `dQ/dt`:
 `4 |ω|² φ ⟨ω,(ω·∇)u⟩ ≤ 4 C_CZ M |ω|⁴ φ` when `φ ≥ 0`.
 The factor `4` is the product rule on `|ω|⁴`; CZ is `stretching_inner_le`. -/
@@ -3537,6 +3556,7 @@ public theorem parabolic_regularity_from_vorticity_bound
 #print axioms cyclicLiePairing_expand
 #print axioms convective_norm_le_of_CZ
 #print axioms stretching_inner_le
+#print axioms stretching_inner_le_at_max
 #print axioms stretching_quartic_le
 #print axioms transport_inner_vanishes_of_grad_zero
 #print axioms vorticity_transport_inner

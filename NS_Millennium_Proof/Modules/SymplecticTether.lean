@@ -406,6 +406,29 @@ public theorem tetherKernel_quadratic_form (F : Functional) (ω : CoadjointOrbit
   funext x
   rw [real_inner_self_eq_norm_sq]
 
+/-- The canonical kernel is symmetric in the two test functionals.
+A Poisson correction must be antisymmetric; these cannot both hold
+unless the kernel vanishes. -/
+public theorem tetherKernel_comm (ω : CoadjointOrbit) (F G : Functional) :
+    TetherKernel ω F G = TetherKernel ω G F := by
+  unfold TetherKernel
+  congr 1
+  congr 1
+  funext x
+  rw [real_inner_comm]
+
+/-- Antisymmetry of a bilinear correction forces the diagonal to vanish.
+C3 negative-semidefiniteness `B(F,F) ≤ -κ ∫ |ω|² ‖Π_u δF‖²` is therefore
+incompatible with a Poisson (antisymmetric) correction, except on the
+kernel of `Π_u`. -/
+public theorem antisymmetric_correction_diagonal_zero
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (h : ∀ ω F G, B ω F G = -B ω G F)
+    (ω : CoadjointOrbit) (F : Functional) :
+    B ω F F = 0 := by
+  have := h ω F F
+  linarith
+
 public theorem tetherKernel_C3 (F : Functional) (ω : CoadjointOrbit) :
     TetherKernel ω F F ≤
       -kappa * ∫ x,
@@ -794,6 +817,8 @@ While the Jacobi crack is still in progress they will show `sorryAx` — this is
 -/
 
 #print axioms tethered_jacobi_identity
+#print axioms tetherKernel_comm
+#print axioms antisymmetric_correction_diagonal_zero
 #print axioms tetherKernel_C2_of_no_gateaux
 #print axioms tetherKernel_degenerates_on_kinetic_energy
 #print axioms tetherKernel_C2_of_identifications
