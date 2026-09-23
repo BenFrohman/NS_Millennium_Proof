@@ -1,0 +1,73 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+\title{Referee Note on the Supplied Lean~4 Module\\
+and the Hodge--Navier--Stokes Architecture}
+\author{}
+\date{21 September 2026}
+
+\begin{document}
+\maketitle
+
+\section{Verdict}
+
+The Lean file does not formalize the Navier--Stokes Millennium Problem. The \texttt{sorry} in \texttt{smooth\_solution\_implies\_empty\_singularity\_locus} cannot be removed by metric-space convergence, by Mathlib measure theory, or by any protocol that forbids new axioms. The goal is not a consequence of the declared hypotheses. Completing it by an axiom that restates the goal would violate the stated Axiom Control Verification.
+
+The accompanying \LaTeX\ document does not prove the Hodge conjecture and does not prove global regularity of Navier--Stokes.
+
+\section{What the Lean module actually declares}
+
+Four objects are introduced by \texttt{axiom} or by a structure with no content.
+
+\begin{itemize}[leftmargin=1.4em]
+\item \texttt{VelocityField : Type} is an uninterpreted type. It does not carry a map $\T^3\times[0,\infty)\to\R^3$, a divergence-free condition, or the Navier--Stokes equation.
+\item \texttt{enstrophyDensity} is an uninterpreted function to $\R$.
+\item \texttt{SingularitySection} packages an arbitrary \texttt{Ideal S} together with a field \texttt{is\_coherent : True}. The coherence field is the unit type. It does not constrain the ideal.
+\item The comparison \texttt{enstrophyDensity u p < ⊤} is not well-typed in Mathlib: the codomain is $\R$, and $\top$ is not an element of $\R$. The intended type is \texttt{WithTop ℝ} or \texttt{ENNReal}. As written the theorem does not elaborate.
+\end{itemize}
+
+The theorem then asserts
+\[
+\bigl(\forall p,\ \texttt{enstrophyDensity}\,u\,p < \top\bigr)
+\Longrightarrow
+\texttt{ideal\_sec.ideal}=\top.
+\]
+No hypothesis relates \texttt{enstrophyDensity} to \texttt{ideal\_sec.ideal}. The ideal is an arbitrary ideal of an arbitrary commutative ring $S$. Boundedness of an unrelated real-valued function does not force that ideal to be the unit ideal.
+
+The definition
+\[
+\texttt{ClayNavierStokesRegularity}\,S
+:=\forall u,\ \texttt{Nonempty}\,(\texttt{SingularitySection}\,u\,S)
+\]
+is not Fefferman's statement (A) or (B).
+
+\section{The multiplier sheaf is oriented the wrong way}
+
+Part~II of the \LaTeX\ source sets $\varphi=\log(1+\Omega)$ with $\Omega=\abs{\omega}^2$. When $\Omega\to\infty$ the weight $e^{-2\varphi}$ collapses, so the ideal becomes larger. That is the opposite of an ideal whose zero locus is the singular set.
+
+\section{Part~I does not resolve the Hodge conjecture}
+
+A primitive rational $(2,2)$ class, a Lefschetz pencil, and Cattani--Kaplan--Schmid algebraicity of Hodge loci do not produce algebraic cycles representing an arbitrary Hodge class.
+
+\section{Instruction}
+
+Do not fill \texttt{sorry} in \texttt{smooth\_solution\_implies\_empty\_singularity\_locus}. Do not replace it by an axiom. Do not treat \texttt{ClayNavierStokesRegularity} as Fefferman's problem. Record the file as an uninterpreted interface with an undischarged goal.
+
+\end{document}
