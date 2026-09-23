@@ -1,0 +1,145 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\grad}{\nabla}
+
+\title{What Is Proved, and What Clay (A) and (B) Ask}
+\author{Benjamin Frohman}
+\date{9 September 2026}
+
+\begin{document}
+\maketitle
+
+\section{The official questions}
+
+Fefferman's formulation~\cite{Fefferman2000} offers four statements. Only the first two are existence-and-smoothness claims for the unforced equations.
+
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{(A)} Every smooth, divergence-free initial velocity on $\R^3$, with suitable decay at infinity, produces a unique solution that remains smooth for all $t>0$.
+\item \textbf{(B)} The same statement on $\T^3=\R^3/\Z^3$, for every smooth, divergence-free, periodic initial velocity.
+\end{itemize}
+
+In both cases the quantifier is universal in the initial datum and empty in extra hypotheses on the ensuing solution. The only objects allowed to appear in the hypothesis are $u_0$, $\nu$, and the unmodified Navier--Stokes equations.
+
+\section{What has been proved}
+
+\begin{definition}
+\label{def:71}
+There exist $\Omega=\Omega(u_0,\nu)>0$ and $C=C(u_0,\nu)<\infty$, independent of the maximal time $T_*$, such that
+\[
+\abs{\xi(x,t)-\xi(y,t)}\le C\abs{x-y}^{1/2}
+\]
+whenever $r(x,t),r(y,t)\ge\Omega$ and $t\in[0,T_*)$.
+\end{definition}
+
+\begin{theorem}
+\label{thm:crit}
+If a classical solution of the unmodified equations on $\T^3$ satisfies Definition~\ref{def:71}, then $T_*=\infty$ and the solution is globally smooth.
+\end{theorem}
+
+Theorem~\ref{thm:crit} is a regularity criterion of Constantin--Fefferman / Beir\~ao da Veiga--Berselli type. It is technically sound as an implication. It is not statement (A) and it is not statement (B).
+
+\section{Why the implication is not Clay}
+
+Write $\mathrm{G}$ for Definition~\ref{def:71} and $\mathrm{R}$ for global smoothness. Theorem~\ref{thm:crit} is
+\[
+\mathrm{G}\Longrightarrow\mathrm{R}.
+\]
+Statement (B) is
+\[
+\forall u_0\in C^\infty_{\mathrm{div}}(\T^3),\quad \mathrm{R}(u_0).
+\]
+The second does not follow from the first. What would follow from the first is
+\[
+\bigl(\forall u_0\in C^\infty_{\mathrm{div}}(\T^3),\ \mathrm{G}(u_0)\bigr)\Longrightarrow\bigl(\forall u_0,\ \mathrm{R}(u_0)\bigr).
+\]
+The missing premise is that $\mathrm{G}$ holds for every smooth divergence-free initial datum, with constants depending only on that datum and on $\nu$. That premise has not been proved. It is not a consequence of the energy equality. It is not a consequence of local existence. It is the open geometric core of the same problem.
+
+The comparison with Beale--Kato--Majda is exact. The implication
+\[
+\int_0^{T_*}\norm{\omega}_{L^\infty}\,\mathrm{d}t<\infty\Longrightarrow\mathrm{R}
+\]
+is true, classical, and insufficient for (A) or (B), because the integral is not known to be finite for arbitrary $u_0$. Definition~\ref{def:71} occupies the same logical position.
+
+\section{What would constitute a Clay claim}
+
+A claim of (B) requires one of the following, and nothing less.
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item A proof that Definition~\ref{def:71} holds for every smooth divergence-free $u_0$ on $\T^3$, with $\Omega$ and $C$ depending only on $u_0$ and $\nu$.
+\item A different argument that produces $\mathrm{R}$ for every such $u_0$ without passing through Definition~\ref{def:71}.
+\end{enumerate}
+
+An argument that adds a vector field to the vorticity equation, or that uses $\norm{\omega}_{L^\infty}$ as an input to bound $\norm{\omega}_{L^\infty}$, is neither (1) nor (2).
+
+\section{The identity that would close the gap}
+
+Remainders (A)--(C) in the two-point law for $\delta\xi=\xi(x)-\xi(y)$ are built from the unmodified strain
+\[
+S=\frac12\bigl(\grad u+(\grad u)^\top\bigr).
+\]
+An identity that closed those remainders would have to be of the following form.
+
+\begin{proposition}[Required shape; not established]
+\label{prop:shape}
+There exist constants depending only on $u_0$ and $\nu$, and a threshold $\Omega>0$, such that on $\{r\ge\Omega\}\times\{r\ge\Omega\}$,
+\begin{equation}
+\label{eq:shape}
+\delta\xi\cdot\bigl(S(x)\xi(x)-S(y)\xi(y)\bigr)
+\le
+-\gamma\frac{\abs{\delta\xi}^2}{\abs{x-y}^{0}}
++
+\varepsilon\bigl(\abs{\grad\xi(x)}^2+\abs{\grad\xi(y)}^2\bigr)
++
+K_{\varepsilon}\abs{\delta\xi}^2,
+\end{equation}
+with $\gamma\ge 0$, $\varepsilon$ arbitrarily small, and $K_{\varepsilon}$ independent of $T_*$ and of $\norm{\omega}_{L^\infty}$.
+\end{proposition}
+
+Three constraints are mandatory.
+
+\begin{itemize}[leftmargin=1.6em]
+\item The left-hand side uses only the strain already present in $\mathrm{D}_t\omega=S\omega+\nu\Delta\omega$. No added vector field.
+\item Every constant is built from $\norm{u_0}_{L^2}$, $\nu$, and $\Omega$. The quantity $\norm{\omega}_{L^\infty}$ does not appear as an input.
+\item The inequality is definite enough that Gronwall on $\abs{\delta\xi}^2/\abs{x-y}$ remains finite up to every finite time.
+\end{itemize}
+
+No such identity is known. The algebraic structure of $S$ works against it: $\operatorname{tr} S=0$, so $S$ has eigenvalues of both signs, and the quadratic form $\xi\mapsto\xi\cdot S\xi$ cannot serve as a Lyapunov function of definite sign. The nonlocal representation of $S$ through Biot--Savart makes $\delta S$ a Calder\'on--Zygmund increment of $\omega$, whose size is not controlled by the energy class.
+
+Until an identity of shape~\eqref{eq:shape} is derived from the unmodified equations, Definition~\ref{def:71} remains an assumption, and Theorem~\ref{thm:crit} remains a criterion.
+
+\section{Revised public claim}
+
+The accurate statement, with the tether, the metriplectic extension, the holographic dual, and the assertion of a Clay solution omitted, is the following.
+
+\begin{quote}
+For the unmodified three-dimensional incompressible Navier--Stokes equations on $\T^3$, uniform $C^{0,1/2}$ coherence of the vorticity direction on high-amplitude sets implies global smoothness. That implication does not establish smoothness for arbitrary initial data. The Clay problems (A) and (B) remain open.
+\end{quote}
+
+\begin{thebibliography}{9}
+\bibitem{Fefferman2000}
+C.~L. Fefferman,
+\emph{Existence and smoothness of the Navier--Stokes equation},
+Clay Mathematics Institute Millennium Prize Problems, 2000.
+\end{thebibliography}
+
+\end{document}
