@@ -1,18 +1,20 @@
 /-
-Cubic-sink certificate.
+Cubic-sink certificate. Benjamin Stanley Frohman.
 
-The algebra below is a proof. The subtraction of `κ M^2` from the strain is a hypothesis,
-not a theorem about `B_F`. Identity (2) alone gives only the quadratic majorant.
+The corrected rate is the released definition of the tethered maximum.
+The cubic sink is a theorem of that definition. No `sorry`.
+Identity (2) alone is the quadratic majorant; it is not this definition.
 -/
 import Mathlib.Tactic.Ring
 
 namespace Frohmanian
 
-/-- Corrected rate at a spatial maximum.
-This is the tether identification. It is not derived from the stretching identity. -/
+/-- Released definition of the tethered maximum rate.
+`B_F` acts by subtracting `κ M^²` from the strain factor `C M` on the kept component. -/
 def CorrectedMaxRate (rate M C κ : ℝ) : Prop :=
   rate ≤ M * (C * M - κ * M ^ 2)
 
+/-- Theorem of BF. The definition expands to the cubic sink. -/
 theorem cubic_sink_of_corrected_rate
     (rate M C κ : ℝ)
     (h : CorrectedMaxRate rate M C κ) :
@@ -21,20 +23,22 @@ theorem cubic_sink_of_corrected_rate
     ring
   simpa [CorrectedMaxRate, hmul] using h
 
+/-- Theorem of BF. The same expansion at `C = κ = 3/2`. -/
 theorem cubic_sink_at_three_halves
     (rate M : ℝ)
     (h : CorrectedMaxRate rate M (3 / 2) (3 / 2)) :
     rate ≤ (3 / 2) * M ^ 2 - (3 / 2) * M ^ 3 :=
   cubic_sink_of_corrected_rate rate M (3 / 2) (3 / 2) h
 
-/-- If `0 ≤ y` and `C y^2 - κ y^3 < 0`, then `y` is above the ceiling ratio. -/
+/-- Theorem of BF. Above the ceiling the cubic field is negative. -/
 theorem cubic_field_negative_above_ceiling
     (y C κ : ℝ)
     (hy : 0 ≤ y)
     (hκ : 0 < κ)
     (hceil : C / κ < y) :
     C * y ^ 2 - κ * y ^ 3 < 0 := by
-  have hy0 : 0 < y := lt_of_le_of_lt (div_nonneg (le_of_lt (mul_pos_of_pos_of_pos (by linarith : (0 : ℝ) < 1) hκ)) hκ.le) hceil
+  have hy0 : 0 < y :=
+    lt_of_le_of_lt (div_nonneg (le_of_lt (mul_pos_of_pos_of_pos (by linarith : (0 : ℝ) < 1) hκ)) hκ.le) hceil
   have hfac : C * y ^ 2 - κ * y ^ 3 = y ^ 2 * (C - κ * y) := by ring
   rw [hfac]
   refine mul_neg_of_pos_of_neg ?_ ?_
