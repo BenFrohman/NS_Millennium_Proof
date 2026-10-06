@@ -9,6 +9,7 @@ module
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.NS_Equations
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
+public import NS_Millennium_Proof.Modules.GlobalRegularity
 
 /-!
 # Central Definitions / Naming for the Frohmanian Tether (Canonical)
@@ -20,8 +21,8 @@ This module is the public initialization root for Frohman's novel objects.
 The live definitions are:
 
 * `kappa` / `CalderonZygmundConstant3D` / `kappa'`
-* `TetherKernel` / `TetheredBracket` / notation 𝔉𝕋
-* `frohmanian_tether_theorem`
+* `TetherKernel` / `TetheredBracket` / notation 𝔏𝔓
+* `frohmanian_tether_theorem` — declared in `GlobalRegularity`, re-exported here
 * paper §2.1 operators in `NavierStokes3D`: `curl`, `convective`, `laplacian`,
   `curl_gradient`, `curl_convective`, `curl_time_deriv`, `curl_laplacian`,
   `VorticityTransportRegularity`, `vorticity_transport_at`, `vorticity_transport`
@@ -39,5 +40,7 @@ namespace FrohmanianTether
 /-- Initialization: `κ` is the live Calderón–Zygmund constant. -/
 public theorem kappa_is_initialized : kappa = CalderonZygmundConstant3D :=
   kappa_eq_three_halves.trans CalderonZygmundConstant3D_eq_three_halves.symm
+
+export GlobalRegularity (frohmanian_tether_theorem)
 
 end FrohmanianTether
