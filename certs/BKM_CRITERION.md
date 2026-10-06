@@ -4,11 +4,13 @@ Date: 2026-10-06. This note corrects the statement. It does not close the proof.
 
 ## The criterion
 
-Beale, Kato, and Majda, Comm. Math. Phys. 94 (1984), proved a continuation criterion for 3D incompressible Euler. Let ω = curl u, and let T_* be the first time a smooth solution stops being smooth. The solution continues past any T < T_* if
+Beale, Kato, and Majda, Comm. Math. Phys. 94 (1984), proved a continuation criterion for 3D incompressible Euler. Let \(\omega=\nabla\times u\), and let \(T_*\) be the first time a smooth solution stops being smooth. The solution continues past any \(T<T_*\) if
 
-    ∫_0^T ||ω(t)||_L∞ dt < ∞.
+\[
+\int_0^T \|\omega(t)\|_{L^\infty(\mathbb{R}^3)}\,dt<\infty.
+\]
 
-A singularity at T_* forces that integral to diverge. The same criterion is used for Navier–Stokes. Viscosity does not remove it.
+A singularity at \(T_*\) forces that integral to diverge as \(T\to T_*\). The same criterion is used for Navier–Stokes. Viscosity does not remove it.
 
 ## What is not proved
 
@@ -20,4 +22,4 @@ The integral, the stretching identification, local existence on the interval use
 
 ## What a correction would be
 
-A proof that, for every smooth divergence-free finite-energy initial datum, the Navier–Stokes solution satisfies the integral bound above. The proposed comparison y' ≤ C y^2 − κ y^3 is not that proof until it is derived from the equation.
+A proof that, for every smooth divergence-free finite-energy initial datum, the Navier–Stokes solution satisfies the integral bound above. The proposed comparison \(y'\le C y^2-\kappa y^3\) is not that proof until it is derived from the equation.
