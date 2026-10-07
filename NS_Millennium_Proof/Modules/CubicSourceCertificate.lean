@@ -8,6 +8,7 @@ Authors: Benjamin Stanley Frohman
 module
 
 public import Mathlib.Tactic.Ring
+public import Mathlib.Tactic.Linarith
 
 /-!
 # Cubic source versus hypothesized cubic sink
