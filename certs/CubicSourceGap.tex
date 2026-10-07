@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\title{A cubic source for the vorticity maximum,\\ and a recorded gap in the periodic continuation criterion}
+\author{Benjamin Stanley Frohman}
+\date{7 October 2026}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+\maketitle
+\begin{center}
+Copyright \copyright\ 2026 Benjamin Stanley Frohman.\\
+This note is released under the Creative Commons Attribution 4.0 International license (CC BY 4.0).\\
+The accompanying Lean record, if deposited, is released under Apache-2.0.\\
+This document does not claim a solution of the Navier--Stokes Millennium Problem.
+\end{center}
+
+\begin{abstract}
+For a smooth divergence-free solution of the unforced periodic Navier--Stokes equations, the vorticity maximum $M(t)=\|\omega(t)\|_{L^\infty}$ satisfies the cubic source bound $M'\le C_{\mathrm{CZ}} M^2$ at a spatial maximum. The comparison equation $y'=C y^2$ can become infinite in finite time, so this bound does not close the Beale--Kato--Majda integral. A quadratic reduction of the strain would replace the pairing $C_{\mathrm{CZ}} M^3$ by $C_{\mathrm{CZ}} M^3-\kappa M^4$ and the rate by $C_{\mathrm{CZ}} M^2-\kappa M^3$. That reduction is recorded here as an open identity. It is not derived from the unmodified vorticity equation.
+\end{abstract}
+
+\section{Setting}
+Let $u$ be a smooth divergence-free solution of the unforced periodic Navier--Stokes equations on $\mathbb{T}^3$, with viscosity $\nu\ge 0$, and let $\omega=\nabla\times u$. Write $M(t)=\|\omega(t)\|_{L^\infty}$. The vorticity equation is
+\[
+\partial_t\omega+(u\cdot\nabla)\omega=(\omega\cdot\nabla)u+\nu\Delta\omega.
+\]
+Fix a time at which $|\omega|$ attains a spatial maximum at $x$, and write $M=|\omega(x)|$.
+
+\section{The proved pairing}
+At a critical point of $|\omega|^2$, the transport pairing vanishes:
+\[
+\omega\cdot(u\cdot\nabla)\omega=\tfrac12 u\cdot\nabla(|\omega|^2)=0.
+\]
+The identity $\omega\cdot\Delta\omega=\tfrac12\Delta(|\omega|^2)-|\nabla\omega|^2$ and $\Delta(|\omega|^2)\le 0$ at a maximum give $\omega\cdot\Delta\omega\le 0$. Biot--Savart recovers $\nabla u$ from $\omega$ by a Calder\'on--Zygmund operator, which is bounded from $L^\infty$ into $\mathrm{BMO}$ and not on $L^\infty$. The usable pointwise bound is
+\begin{equation}
+\label{eq:source}
+\omega(x)\cdot\bigl((\omega(x)\cdot\nabla)u(x)\bigr)\le C_{\mathrm{CZ}} M^3.
+\end{equation}
+Thus $\omega(x)\cdot\partial_t\omega(x)\le C_{\mathrm{CZ}} M^3$. Along the maximizing point, $\omega\cdot\partial_t\omega=M M'$ for $M>0$, so
+\begin{equation}
+\label{eq:rate-source}
+M'\le C_{\mathrm{CZ}} M^2.
+\end{equation}
+The comparison equation $y'=C y^2$ has the solution $y(t)=y_0/(1-C y_0 t)$ for $C y_0 t<1$, which becomes infinite at $t=1/(C y_0)$. The Beale--Kato--Majda continuation criterion requires $\int\|\omega\|_{L^\infty}\,dt<\infty$. The bound \eqref{eq:rate-source} does not make that integral finite.
+
+\section{The missing identity}
+The open line is a quadratic reduction of the same pairing. It asserts that there exists $\kappa>0$, depending only on the initial datum and on $\nu$, and not on $M(t)$, such that
+\begin{equation}
+\label{eq:missing}
+\omega(x)\cdot\bigl((\omega(x)\cdot\nabla)u(x)\bigr)
+\le\bigl(C_{\mathrm{CZ}} M-\kappa M^2\bigr)M^2.
+\end{equation}
+The right-hand side expands by algebra:
+\begin{equation}
+\label{eq:expand}
+\bigl(C_{\mathrm{CZ}} M-\kappa M^2\bigr)M^2=C_{\mathrm{CZ}} M^3-\kappa M^4.
+\end{equation}
+The subtracted term is $\kappa M^4$. It is not $\kappa M^5$. If \eqref{eq:missing} held, transport and viscosity would give
+\[
+\omega(x)\cdot\partial_t\omega(x)\le C_{\mathrm{CZ}} M^3-\kappa M^4,
+\]
+and, for $M>0$,
+\begin{equation}
+\label{eq:sink}
+M'\le C_{\mathrm{CZ}} M^2-\kappa M^3=M^2\bigl(C_{\mathrm{CZ}}-\kappa M\bigr).
+\end{equation}
+For $y>C_{\mathrm{CZ}}/\kappa$ the field $C y^2-\kappa y^3$ is negative, so a trajectory obeying \eqref{eq:sink} cannot cross the ceiling $C_{\mathrm{CZ}}/\kappa$. A bounded continuous maximum has finite integral on every finite time interval, and Beale--Kato--Majda would continue the solution. Equation \eqref{eq:missing} is not an identity of the unmodified vorticity equation.
+
+\section{What the hypothesis is}
+Write $\mathrm{rate}$ for an upper bound on $M'$. The rate form of \eqref{eq:sink} is the assumption
+\begin{equation}
+\label{eq:hypothesis}
+\mathrm{rate}\le M\bigl(C_{\mathrm{CZ}} M-\kappa M^2\bigr).
+\end{equation}
+Expanding \eqref{eq:hypothesis} is ring arithmetic and returns $C_{\mathrm{CZ}} M^2-\kappa M^3$. The assumption already contains the reduced factor. It does not derive \eqref{eq:missing}.
+
+The weight $1+\kappa M^2\ge 0$ multiplies the proved source and produces another source,
+\[
+C_{\mathrm{CZ}} M^3\bigl(1+\kappa M^2\bigr)=C_{\mathrm{CZ}} M^3+C_{\mathrm{CZ}}\kappa M^5.
+\]
+The term of degree five is not the sink. A degeneracy $B(F,H)\equiv 0$ on a kinetic-energy Hamiltonian leaves the energy field classical and does not insert $-\kappa M^2$ into the strain. The logarithmic repair $\|\nabla u\|_{L^\infty}\lesssim\|\omega\|_{L^\infty}(1+\log^+\|\omega\|_{H^s})$ assumes control of a higher norm and is an integral criterion, not a derivation of \eqref{eq:missing}.
+
+\section{Record}
+The checked statement is \eqref{eq:rate-source}. The open statement is the reduction of the pairing from $C_{\mathrm{CZ}} M^3$ to $C_{\mathrm{CZ}} M^3-\kappa M^4$. No theorem in this note closes that reduction. A formal certificate that expands \eqref{eq:hypothesis} is an expansion of a hypothesis. It is not a proof of global regularity for the periodic Navier--Stokes equations.
+
+\end{document}
