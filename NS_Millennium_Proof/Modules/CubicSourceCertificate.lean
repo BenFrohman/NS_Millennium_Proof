@@ -45,40 +45,17 @@ public theorem cubic_sink_of_corrected_rate
   have hmul : M * (C * M - κ * M ^ 2) = C * M ^ 2 - κ * M ^ 3 := by ring
   simpa [CorrectedMaxRate, hmul] using h
 
-/-- Identity (2) gives only the quadratic majorant. -/
-public theorem quadratic_rate_of_classical_source
-    (rate M C : ℝ) (hM : 0 < M)
-    (h : ClassicalStretchingSource (M * rate) M C) :
-    rate ≤ C * M ^ 2 := by
-  have hrewrite : C * M ^ 3 = M * (C * M ^ 2) := by ring
-  have hmul : M * rate ≤ M * (C * M ^ 2) := by
-    simpa [ClassicalStretchingSource, hrewrite] using h
-  exact le_of_mul_le_mul_left hmul hM
+/-- The source and the hypothesized sink are different polynomials. -/
+public theorem source_ne_sink_form (M C κ : ℝ) :
+    C * M ^ 3 - (C * M ^ 2 - κ * M ^ 3) = κ * M ^ 3 := by ring
 
-/-- The product rule multiplies by a nonnegative factor and preserves the source. -/
-public theorem weighted_source_of_pairing
-    (pairing M C κ : ℝ) (hκ : 0 ≤ κ)
-    (h : ClassicalStretchingSource pairing M C) :
-    pairing * (1 + κ * M ^ 2) ≤ C * M ^ 3 + C * κ * M ^ 5 := by
-  have hfac : 0 ≤ 1 + κ * M ^ 2 := by
-    have : 0 ≤ κ * M ^ 2 := mul_nonneg hκ (sq_nonneg M)
-    linarith
-  have hmul := mul_le_mul_of_nonneg_right h hfac
-  calc
-    pairing * (1 + κ * M ^ 2) ≤ (C * M ^ 3) * (1 + κ * M ^ 2) := by
-      simpa [ClassicalStretchingSource] using hmul
-    _ = C * M ^ 3 + C * κ * M ^ 5 := by ring
+/-- Expanding the hypothesized rate gives the sink polynomial.
+The subtraction is in the hypothesis `CorrectedMaxRate`, not in `NS_PDE`. -/
+public theorem corrected_rate_polynomial (M C κ : ℝ) :
+    M * (C * M - κ * M ^ 2) = C * M ^ 2 - κ * M ^ 3 := by ring
 
-/-- ODE fact about the hypothesized field. Not a theorem about `ω · ∂ₜω`. -/
-public theorem cubic_field_negative_above_ceiling
-    (y C κ : ℝ) (hy : 0 < y) (hκ : 0 < κ) (hceil : C / κ < y) :
-    C * y ^ 2 - κ * y ^ 3 < 0 := by
-  have hfac : C * y ^ 2 - κ * y ^ 3 = y ^ 2 * (C - κ * y) := by ring
-  rw [hfac]
-  refine mul_neg_of_pos_of_neg (pow_pos hy 2) ?_
-  have hky : C < κ * y := by
-    have := mul_lt_mul_of_pos_left hceil hκ
-    rwa [mul_div_cancel₀ C hκ.ne'] at this
-  linarith
+/-- The comparison field factors. Negative above the ceiling is not proved here. -/
+public theorem cubic_field_factor (y C κ : ℝ) :
+    C * y ^ 2 - κ * y ^ 3 = y ^ 2 * (C - κ * y) := by ring
 
 end Frohmanian.CubicSourceAudit
