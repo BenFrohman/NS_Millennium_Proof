@@ -34,11 +34,7 @@ Statement (B) remains open.
 
 namespace Frohmanian.AssemblyGap
 
-/-- The ceiling package is not an identity of the unmodified equation. -/
-public def CeilingPackage (C κ y M0 : ℝ) : Prop :=
-  0 < C ∧ 0 < κ ∧ 0 ≤ M0 ∧ M0 ≤ max M0 (C / κ)
+/-- Name of the open package. Not a proof that the package holds. -/
+public def hRiccatiName : String := "hRiccati"
 
-/-- Dropping the binder claims this package with no hypothesis.
-This definition does not inhabit it. -/
-unimplemented_feature 
 end Frohmanian.AssemblyGap
