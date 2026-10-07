@@ -45,9 +45,14 @@ public theorem cubic_sink_of_corrected_rate
   have hmul : M * (C * M - κ * M ^ 2) = C * M ^ 2 - κ * M ^ 3 := by ring
   simpa [CorrectedMaxRate, hmul] using h
 
-/-- The source and the hypothesized sink are different polynomials. -/
-public theorem source_ne_sink_form (M C κ : ℝ) :
-    C * M ^ 3 - (C * M ^ 2 - κ * M ^ 3) = κ * M ^ 3 := by ring
+/-- Rate-level gap. A pairing cubic is not subtracted from a rate polynomial. -/
+public theorem source_rate_sub_sink (M C κ : ℝ) :
+    C * M ^ 2 - (C * M ^ 2 - κ * M ^ 3) = κ * M ^ 3 := by ring
+
+/-- Pairing-level gap after the reduced factor is already on the pairing.
+This is not the missing identity. -/
+public theorem reduced_pairing_gap (M C κ : ℝ) :
+    C * M ^ 3 - ((C * M - κ * M ^ 2) * M ^ 2) = κ * M ^ 4 := by ring
 
 /-- Expanding the hypothesized rate gives the sink polynomial.
 The subtraction is in the hypothesis `CorrectedMaxRate`, not in `NS_PDE`. -/
