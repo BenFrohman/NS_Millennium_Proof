@@ -15,9 +15,11 @@ public import Mathlib.Tactic.Ring
 Audit module. It does not discharge `hRiccati`, `global_regularity_for_NS`,
 or `frohmanian_tether_theorem`.
 
-Identity (2) at a spatial maximum is a cubic source: the pairing is at most
-`C_CZ M³`, so `M' ≤ C_CZ M²` for `M > 0`. The factor `1 + κ M²` is
-nonnegative and preserves that source. It does not produce `-κ M³`.
+At a spatial maximum the proved pairing is `C M³`, so `M' ≤ C M²` for `M > 0`.
+The missing identity is the reduced pairing `(C M - κ M²) M²`.
+That expands to `C M³ - κ M⁴`, and the corresponding rate is `C M² - κ M³`.
+The `M⁵` term is only the weighted source `C M³ (1 + κ M²)`.
+It is not a sink.
 
 `cubic_sink_of_corrected_rate` is `ring` applied to `CorrectedMaxRate`.
 The subtraction of `κ M²` from the strain is a hypothesis, not a theorem
@@ -38,6 +40,11 @@ public def CorrectedMaxRate (rate M C κ : ℝ) : Prop :=
 public def ClassicalStretchingSource (pairing M C : ℝ) : Prop :=
   pairing ≤ C * M ^ 3
 
+/-- Missing identity, recorded and not proved.
+`pairing = ω · ((ω · ∇) u)` at a spatial maximum. -/
+public def ReducedStrain (pairing M C κ : ℝ) : Prop :=
+  pairing ≤ (C * M - κ * M ^ 2) * M ^ 2
+
 /-- Algebra only. The hypothesis is not a theorem about `B_F`. -/
 public theorem cubic_sink_of_corrected_rate
     (rate M C κ : ℝ) (h : CorrectedMaxRate rate M C κ) :
@@ -49,8 +56,8 @@ public theorem cubic_sink_of_corrected_rate
 public theorem source_rate_sub_sink (M C κ : ℝ) :
     C * M ^ 2 - (C * M ^ 2 - κ * M ^ 3) = κ * M ^ 3 := by ring
 
-/-- Pairing-level gap after the reduced factor is already on the pairing.
-This is not the missing identity. -/
+/-- Pairing-level gap. The subtracted term is `κ M⁴`, not `κ M⁵`.
+This equality assumes the reduced factor is already on the pairing. -/
 public theorem reduced_pairing_gap (M C κ : ℝ) :
     C * M ^ 3 - ((C * M - κ * M ^ 2) * M ^ 2) = κ * M ^ 4 := by ring
 
@@ -58,6 +65,10 @@ public theorem reduced_pairing_gap (M C κ : ℝ) :
 The subtraction is in the hypothesis `CorrectedMaxRate`, not in `NS_PDE`. -/
 public theorem corrected_rate_polynomial (M C κ : ℝ) :
     M * (C * M - κ * M ^ 2) = C * M ^ 2 - κ * M ^ 3 := by ring
+
+/-- The `M⁵` term is the weighted source, not the sink. -/
+public theorem weighted_source_polynomial (M C κ : ℝ) :
+    C * M ^ 3 * (1 + κ * M ^ 2) = C * M ^ 3 + C * κ * M ^ 5 := by ring
 
 /-- The comparison field factors. Negative above the ceiling is not proved here. -/
 public theorem cubic_field_factor (y C κ : ℝ) :
