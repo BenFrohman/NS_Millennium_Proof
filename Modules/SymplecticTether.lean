@@ -15,5 +15,4 @@ This file does not redeclare `tethered_reproduces_classical_euler`.
 The lake theorem is `(F) (ω) (hδ) (hdiv) (hInt)`.
 -/
 
-export NS_Millennium_Proof.Modules.SymplecticTether
-  (tethered_reproduces_classical_euler)
+export FrohmanianTether (tethered_reproduces_classical_euler)
