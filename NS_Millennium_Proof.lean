@@ -12,7 +12,7 @@ Authors: Benjamin Stanley Frohman
 Original work by Benjamin Stanley Frohman (X.com : Investor0x / Bit21).
 
 Lean 4 encoding of the Frohmanian Symplectic Tether proof of 3D incompressible
-Navier–Stokes global regularity (`kappa`, `TetherKernel` / 𝔉𝕋, BKM, uniqueness).
+Navier–Stokes global regularity (`kappa`, `TetherKernel` / 𝔉𝔓, BKM, uniqueness).
 -/
 
 import NS_Millennium_Proof.Modules.NS_Equations
@@ -25,6 +25,12 @@ import NS_Millennium_Proof.Modules.ClosureBlueprint
 import NS_Millennium_Proof.Modules.IndependentMajorant
 import NS_Millennium_Proof.Modules.GlobalRegularity
 import NS_Millennium_Proof.Definitions.FrohmanianTether
+
+-- Top-level re-exports. Not a second declaration. `lake build` elaborates these
+-- because the root imports them. `export` is a namespace, not a module path.
+import Modules.GlobalRegularity
+import Modules.SymplecticTether
+import Modules.TetheredLyapunov
 
 export FrohmanianTether (TetheredBracket TetherKernel kappa)
 export GlobalRegularity (frohmanian_tether_theorem)
