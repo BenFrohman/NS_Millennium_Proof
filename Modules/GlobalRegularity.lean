@@ -16,5 +16,4 @@ This file does not redeclare `frohmanian_tether_theorem` or
 An empty binder is not a second proof.
 -/
 
-export NS_Millennium_Proof.Modules.GlobalRegularity
-  (frohmanian_tether_theorem global_regularity_for_NS)
+export GlobalRegularity (frohmanian_tether_theorem global_regularity_for_NS)
