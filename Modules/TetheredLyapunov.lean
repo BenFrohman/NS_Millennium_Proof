@@ -12,9 +12,9 @@ public import NS_Millennium_Proof.Modules.TetheredLyapunov
 Real path: `NS_Millennium_Proof/Modules/TetheredLyapunov.lean`.
 
 This file does not redeclare `global_regularity` or
-`riccati_ceiling_of_vorticity_di`. `comparison_ode_stability` is not in
-this namespace. The lake file calls `AnalyticPipeline.comparison_ode_stability`.
-The ceiling hypothesis is `hDI` on the lake theorem.
+`riccati_ceiling_of_vorticity_di`. The ceiling hypothesis is `hDI` on the
+lake theorem. `comparison_ode_stability` is `AnalyticPipeline.comparison_ode_stability`,
+not a declaration in this namespace.
 -/
 
 export TetheredLyapunov (global_regularity riccati_ceiling_of_vorticity_di)
