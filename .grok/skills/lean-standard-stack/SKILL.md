@@ -63,18 +63,19 @@ Own-repo license is Apache-2.0 as in `LICENSE`, with the copyright notice in `CO
 
 Before opening a PR against `leanprover-community/mathlib4` or any other community repo:
 
-1. Read that repo's `CONTRIBUTING`, style guide, and AI policy. Those rules win over this skill where they conflict.
+1. Read that repo's `CONTRIBUTING`, style guide, naming guide, and AI policy. Those rules win over this skill where they conflict.
 2. Discuss non-trivial additions on the Lean Zulip first, in the author's own words. LLM-written Zulip or GitHub comments are forbidden by Mathlib.
-3. Match the target header. Mathlib's header is:
+3. Copy the copyright header of a neighboring file in the target repo. Do not invent a private banner. The Mathlib header linter expects this shape:
 
 ```lean
 /-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 ```
 
-Do not add `All rights reserved` or a private copyright banner to a Mathlib file. Authorship is the `Authors:` line plus git history. Copyright of a Mathlib contribution is Apache-2.0 as described in Mathlib's `LICENSE`.
+Authorship is the `Authors:` line plus git history. A Mathlib contribution is released under Apache 2.0 as described in Mathlib's `LICENSE`. Authorship is retained; an exclusive copyright lock is not.
 4. The author must be able to defend every design choice without an AI. If that is not true, do not open the PR.
 5. PR body discloses the tool and how it was used: Grok Heavy was used in repo scaffolding / Lean transcription from the author's paper proof. If a substantial amount of the diff is LLM-produced, comment `LLM-generated` so the label is applied.
 6. Open the PR against the community default branch from a fork, not against the fork's own default branch. Small, self-contained diffs. One logical change.
