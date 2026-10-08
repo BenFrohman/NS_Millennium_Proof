@@ -30,10 +30,9 @@ lean_lib ForMathlib where
 lean_lib NS_Millennium_Proof where
   roots := #[`NS_Millennium_Proof]
   -- Restored proof modules (Benjamin Stanley Frohman, 2026-08-26).
-  -- Top-level `Modules/` is a schematic shadow (`GlobalRegularityShadow`).
-  -- It is not a glob of this target. Names are `_shadow` / `_schematic`
-  -- so they cannot collide with `NS_Millennium_Proof.Modules`.
-  -- CI only checks that those files exist.
+  -- Real target is `NS_Millennium_Proof/Modules`. Top-level `Modules/`
+  -- re-exports that path for the three colliding files. It does not redeclare
+  -- the theorems. CI only checks that those files exist.
   -- Skeleton (`import Mathlib`) and Widgets (ProofWidgets) stay in-tree but out of
   -- the default target so `lake build` remains kernel-passable.
   globs := #[
