@@ -13,6 +13,7 @@ Real path: `NS_Millennium_Proof/Modules/SymplecticTether.lean`.
 
 This file does not redeclare `tethered_reproduces_classical_euler`.
 The lake theorem is `(F) (ω) (hδ) (hdiv) (hInt)`.
+`export` takes the namespace, not the module path.
 -/
 
 export FrohmanianTether (tethered_reproduces_classical_euler)
