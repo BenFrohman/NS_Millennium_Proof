@@ -7,6 +7,7 @@ Authors: Benjamin Stanley Frohman
 
 module
 
+public import Mathlib.Data.Real.Basic
 public import Mathlib.Tactic.Ring
 
 /-!
