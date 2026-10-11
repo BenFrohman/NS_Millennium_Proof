@@ -368,20 +368,17 @@ public theorem div_cross_right (ω : EuclideanSpace ℝ (Fin 3)) (x : T3) :
       (fderiv ℝ (fun z => cross ω z 0) x) (EuclideanSpace.single 0 1) = 0 := by
     rw [h0, fderiv_fun_sub (hmul (ω 1) 2) (hmul (ω 2) 1)]
     simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 2),
-      fderiv_const_mul (hd 1), fderiv_coord, EuclideanSpace.single,
-      PiLp.single_apply]
+      fderiv_const_mul (hd 1), fderiv_coord, EuclideanSpace.single]
   have e1 :
       (fderiv ℝ (fun z => cross ω z 1) x) (EuclideanSpace.single 1 1) = 0 := by
     rw [h1, fderiv_fun_sub (hmul (ω 2) 0) (hmul (ω 0) 2)]
     simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 0),
-      fderiv_const_mul (hd 2), fderiv_coord, EuclideanSpace.single,
-      PiLp.single_apply]
+      fderiv_const_mul (hd 2), fderiv_coord, EuclideanSpace.single]
   have e2 :
       (fderiv ℝ (fun z => cross ω z 2) x) (EuclideanSpace.single 2 1) = 0 := by
     rw [h2, fderiv_fun_sub (hmul (ω 0) 1) (hmul (ω 1) 0)]
     simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 1),
-      fderiv_const_mul (hd 0), fderiv_coord, EuclideanSpace.single,
-      PiLp.single_apply]
+      fderiv_const_mul (hd 0), fderiv_coord, EuclideanSpace.single]
   refine Finset.sum_eq_zero fun i _ => ?_
   fin_cases i
   · exact e0

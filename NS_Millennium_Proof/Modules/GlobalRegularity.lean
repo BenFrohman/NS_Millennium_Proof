@@ -95,11 +95,11 @@ public theorem frohmanian_tether_theorem
       (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2))
       (hν : 0 < ν),
       τ ≤ (hKato u₁ ν hsm hdiv hE hν).T)
-    (hInt : ∀ u₀ ν (hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
+    (hInt : ∀ u₀ ν (_ : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
       (_q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν → ∀ t ∈ Set.Icc (0 : ℝ) T,
         Integrable (fun x : T3 => ‖v t x‖ ^ 2))
-    (huniq_shift : ∀ u₀ ν (hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
+    (huniq_shift : ∀ u₀ ν (_ : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
       (_q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν →
       ∀ t ∈ Set.Icc (0 : ℝ) T,
