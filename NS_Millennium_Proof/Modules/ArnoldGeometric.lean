@@ -173,8 +173,9 @@ public structure CoadjointOrbit where
   val : T3 → EuclideanSpace ℝ (Fin 3)
   property : ∀ x, NavierStokes3D.div val x = 0
 
-/-- Classical coadjoint action of `SDiff(𝕋³)` on vorticity (pushforward of 2-forms).
-The concrete diffeomorphism calculus is a documented classical black box. -/
+/-- Current encoding of the coadjoint action.
+The map ignores its diffeomorphism argument and returns the same orbit.
+This is not \(\mathrm{SDiff}\) equivariance. -/
 @[expose]
 public noncomputable def CoadjointAction (_g : T3 → T3) (ω : CoadjointOrbit) : CoadjointOrbit :=
   ω
