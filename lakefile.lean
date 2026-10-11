@@ -30,7 +30,8 @@ lean_lib ForMathlib where
 lean_lib NS_Millennium_Proof where
   roots := #[`NS_Millennium_Proof]
   -- Restored proof modules (Benjamin Stanley Frohman, 2026-08-26).
-  -- Top-level `Modules/` copies match `NS_Millennium_Proof/Modules/` (CI structure check).
+  -- The only elaboration is `NS_Millennium_Proof/Modules/`.
+  -- The old top-level `Modules/` tree is quarantined and is not a build root.
   -- Skeleton (`import Mathlib`) and Widgets (ProofWidgets) stay in-tree but out of
   -- the default target so `lake build` remains kernel-passable.
   globs := #[
