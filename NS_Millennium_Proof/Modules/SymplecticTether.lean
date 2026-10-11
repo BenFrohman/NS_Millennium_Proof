@@ -611,6 +611,74 @@ public theorem reduced_pairing_of_unmodified_and_tether
   clear ht hNS hreg hu hCZ htransp hvisc hν hmax htether hκ
   sorry
 
+/-- At a spatial maximum the transport pairing vanishes and `ν ⟨ω, Δω⟩ ≤ 0`,
+so neither term adds a positive remainder above `⟨ω, (ω·∇)u⟩`. -/
+public theorem time_pairing_le_stretching_at_max
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+    (hNS : NS_PDE u p ν)
+    (hreg : VorticityTransportRegularity u p t x)
+    (htransp : inner ℝ (vorticity (u t) x)
+      (convective (u t) (vorticity (u t)) x) = 0)
+    (hvisc : inner ℝ (vorticity (u t) x)
+      (laplacian (vorticity (u t)) x) ≤ 0)
+    (hν : 0 ≤ ν) :
+    inner ℝ (vorticity (u t) x)
+        (time_deriv (fun s => vorticity (u s)) t x) ≤
+      inner ℝ (vorticity (u t) x)
+        (convective (vorticity (u t)) (u t) x) := by
+  have hinter := vorticity_transport_inner u p ν t ht x hNS hreg
+  have hviscν :
+      inner ℝ (vorticity (u t) x)
+          (ν • laplacian (vorticity (u t)) x) ≤ 0 := by
+    rw [inner_smul_right]
+    exact mul_nonpos_of_nonneg_of_nonpos hν hvisc
+  linarith [hinter, htransp, hviscν]
+
+/-- Move `TetherKernel(F,F)` onto the classical stretching bound.
+`(C3)` gives `TetherKernel(F,F) = -κ ∫ |ω|² ‖Π_u δF‖²`.
+If that weight is at least `M⁴`, the sum is at most `C M³ - κ M⁴`.
+`hweight` is the missing comparison; it is not `CorrectedMaxRate` or
+`ReducedStrain`, and it is not discharged. -/
+public theorem tethered_stretching_of_weight
+    (ωField uField : VelocityField) (x : T3) (C M : ℝ)
+    (hu : DifferentiableAt ℝ uField x)
+    (hCZ : ‖fderiv ℝ uField x‖ ≤ C * vorticity_sup_norm ωField)
+    (hmax : ‖ωField x‖ = M ∧ M = vorticity_sup_norm ωField)
+    (orbit : CoadjointOrbit) (testF : Functional)
+    (hweight : M ^ 4 ≤ ∫ y,
+        ‖orbit.val y‖ ^ 2 *
+          ‖Pi_u (velocity_from_vorticity orbit)
+              (FunctionalDerivative testF orbit) y‖ ^ 2 ∂volume) :
+    inner ℝ (ωField x) (convective ωField uField x) +
+        TetherKernel orbit testF testF ≤
+      (C * M - kappa * M ^ 2) * M ^ 2 := by
+  have hpoint : ‖ωField x‖ = vorticity_sup_norm ωField := by
+    rw [← hmax.2, hmax.1]
+  have hstretch :=
+    stretching_inner_le_at_max ωField uField x C hu hCZ hpoint
+  have hcubic :
+      inner ℝ (ωField x) (convective ωField uField x) ≤ C * M ^ 3 := by
+    simpa [hmax.2] using hstretch
+  have hker : TetherKernel orbit testF testF =
+      -kappa * ∫ y,
+        ‖orbit.val y‖ ^ 2 *
+          ‖Pi_u (velocity_from_vorticity orbit)
+              (FunctionalDerivative testF orbit) y‖ ^ 2 ∂volume :=
+    tetherKernel_quadratic_form testF orbit
+  have hkerLe : TetherKernel orbit testF testF ≤ -kappa * M ^ 4 := by
+    rw [hker]
+    exact mul_le_mul_of_nonpos_left hweight (neg_nonpos.mpr kappa_pos.le)
+  have hsum :
+      inner ℝ (ωField x) (convective ωField uField x) +
+          TetherKernel orbit testF testF ≤
+        C * M ^ 3 + -kappa * M ^ 4 := by
+    linarith
+  have hrew :
+      C * M ^ 3 + -kappa * M ^ 4 = (C * M - kappa * M ^ 2) * M ^ 2 := by
+    ring
+  exact hsum.trans_eq hrew
+
 /-- If the right `Π_u` factor vanishes, the kernel is zero (C2 mechanism). -/
 public theorem tetherKernel_of_right_factor_zero
     (ω : CoadjointOrbit) (F G : Functional)
