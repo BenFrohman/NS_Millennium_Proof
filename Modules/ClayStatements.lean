@@ -1,0 +1,29 @@
+/-!
+# Clay Millennium Problem: Official Statements
+
+Official statement: Charles L. Fefferman, "Existence and Smoothness of the Navier–Stokes Equation",
+Clay Mathematics Institute, 2000.
+https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf
+
+This file records the statements. It does not prove them.
+The formalization works on the torus (Clay B).
+-/
+
+import NS_Millennium_Proof.Modules.NS_Equations
+
+open MeasureTheory
+
+/-- Clay B (Fefferman): Global existence and smoothness on the 3-torus, force zero.
+    Official statement (B). The formalization works on this domain.
+    This is the statement. It is not a theorem. -/
+def Clay_B : Prop :=
+  ∀ (u₀ : T3 → EuclideanSpace ℝ (Fin 3)) (ν : ℝ),
+    0 < ν →
+    (∀ x, ∑ i, fderiv ℝ (u₀ · i) x = 0) →
+    ∃ (u : ℝ → T3 → EuclideanSpace ℝ (Fin 3))
+      (p : ℝ → T3 → ℝ),
+      (∀ t ≥ 0, ContDiff ℝ ⊤ (u t)) ∧
+      (∀ t ≥ 0, ∀ x, ∑ i, fderiv ℝ (u t · i) x = 0) ∧
+      (∀ t ≥ 0, Integrable (fun x => ‖u t x‖ ^ 2)) ∧
+      NS_PDE (fun t x => u t x) (fun t x => p t x) ν ∧
+      ∀ x, u 0 x = u₀ x
