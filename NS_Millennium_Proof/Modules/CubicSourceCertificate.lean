@@ -38,12 +38,12 @@ public def CorrectedMaxRate (rate M C κ : ℝ) : Prop :=
   rate ≤ M * (C * M - κ * M ^ 2)
 
 /-- Classical pairing bound at a spatial maximum: a cubic source. -/
-public def ClassicalStretchingSource (pairing M C : ℝ) : Prop :=
+@[expose] public def ClassicalStretchingSource (pairing M C : ℝ) : Prop :=
   pairing ≤ C * M ^ 3
 
 /-- Missing identity, recorded and not proved.
 `pairing = ω · ((ω · ∇) u)` at a spatial maximum. -/
-public def ReducedStrain (pairing M C κ : ℝ) : Prop :=
+@[expose] public def ReducedStrain (pairing M C κ : ℝ) : Prop :=
   pairing ≤ (C * M - κ * M ^ 2) * M ^ 2
 
 /-- Algebra only. The hypothesis is not a theorem about `B_F`. -/
