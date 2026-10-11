@@ -15,7 +15,7 @@ public import Mathlib.Tactic.Ring
 # Assembly gap
 
 This file does not discharge `hRiccati`,
-`ns_global_regularity_of_vorticity_sup_rate`, or `frohmanian_tether_theorem`.
+`ns_global_regularity_of_cubic_damped_rate`, or `frohmanian_tether_theorem`.
 
 `hRiccati` is a label for the package `∃ C κ'' y` with
 `y' ≤ C y² - κ'' y³` and `M ≤ y`. The checked input from the unmodified
