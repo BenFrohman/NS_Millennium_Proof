@@ -28,7 +28,7 @@ public import Mathlib.Analysis.Calculus.ContDiff.Basic
 -- • synthInstanceFailed / unknownIdentifier / invalidDottedIdent / invalidField: eliminated by
 --   the notation cleanup and the explicit `open ArnoldGeometric hiding CoadjointOrbit`.
 -- • inferBinderTypeFailed: the schematic theorems (frohmanian_tether_theorem,
---   global_regularity_for_NS) now have fully explicit 6-arg signatures matching the author
+--   ns_global_regularity_of_vorticity_sup_rate) now have fully explicit 6-arg signatures matching the author
 --   abstract; all binders are elaborated before bodies.
 -- • dependsOnNoncomputable: top-level theorems that use choice (Gâteaux representative,
 --   Biot–Savart integrals, Riccati solution) are marked `noncomputable` or live in
@@ -63,13 +63,17 @@ open NavierStokes3D MeasureTheory
 
 /-! ## Main Theorem — Frohmanian Symplectic Tether Theorem -/
 
-/-- Conditional assembly. The fourth conjunct is global smoothness given `hDI`,
+/-- Conditional assembly. The fourth conjunct is
+`ns_global_regularity_of_vorticity_sup_rate`: global smoothness given `hDI`,
 a Kato witness, a positive restart length, and uniqueness. `hDI` is the rate
 `M' ≤ C M² - κ'' M³`. This theorem does not derive that rate from the
-unmodified vorticity equation.
+unmodified vorticity equation, and it is not Fefferman's statement (B).
 Editor green ticks only mean this declaration elaborated. The certificate is
 `#print axioms frohmanian_tether_theorem`: it must list `propext`,
-`Classical.choice`, `Quot.sound` and must **not** list `sorryAx`. -/
+`Classical.choice`, `Quot.sound` and must **not** list `sorryAx`.
+
+Author: Benjamin Stanley Frohman
+-/
 public theorem frohmanian_tether_theorem
     (hKato : ∀ u₀ ν, ContDiff ℝ ⊤ u₀ → (∀ x, div u₀ x = 0) →
       Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → 0 < ν →
@@ -185,15 +189,17 @@ This is linked directly to the exact form `navier_stokes_eq` from Sections 1–2
 public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
   ∃ p : TimeDependentPressure, navier_stokes_eq u p ν
 
-/-- Conditional global regularity given the rate.
+/-- The vorticity-supremum rate implies a global smooth solution.
 
-If `M` is differentiable and continuous and
-`M' ≤ C M² - κ'' M³` for some `C > 0` and `κ'' > 0`, and a Kato witness, a
-positive restart length, and uniqueness are supplied, then the solution is
-global and smooth. The ceiling is `riccati_ceiling_of_vorticity_di`. This
-theorem does not derive the rate from the unmodified vorticity equation.
+`hDI` is the closed inequality `M' ≤ C M² - κ'' M³` for some `C > 0` and
+`κ'' > 0`, with `M` differentiable and continuous. A Kato witness, a positive
+restart length, and uniqueness are also assumed. The ceiling is
+`riccati_ceiling_of_vorticity_di`. This is not Fefferman's statement (B),
+and it does not derive the rate from the unmodified vorticity equation.
+
+Author: Benjamin Stanley Frohman
 -/
-public theorem global_regularity_for_NS
+public theorem ns_global_regularity_of_vorticity_sup_rate
     (u0 : TimeDependentVelocity)
     (h_div_free : ∀ t x, div (u0 t) x = 0)
     (h_smooth : IsSmooth (u0 0))
@@ -292,7 +298,7 @@ native evaluation. See the dedicated subsection below.)
    - Current status for this project: Once the remaining schematic `sorry`s inside the novel
      geometry (especially the six named sub-haves in `h_cyclic_integrand_zero` in SymplecticTether)
      and the classical black boxes are filled or properly cited, the blue ticks will appear on
-     `global_regularity_for_NS` and `frohmanian_tether_theorem`.
+     `ns_global_regularity_of_vorticity_sup_rate` and `frohmanian_tether_theorem`.
    - Protection: incomplete proofs, explicit `sorry` in the *current* theorem, honest tactic bugs.
    - Limitation: does *not* detect `sorry` or incomplete proofs in dependencies.
 
@@ -359,7 +365,7 @@ and Canonicality) and the two-layer architecture.
 
 ## Current Honest Development State (rails off)
 
-As long as classical black-box `sorry`s remain inside `global_regularity_for_NS`,
+As long as classical black-box `sorry`s remain inside `ns_global_regularity_of_vorticity_sup_rate`,
 `frohmanian_tether_theorem`, or any lemma they depend on, `#print axioms` will
 report `sorryAx`. This is *expected and visible*.
 
@@ -375,7 +381,7 @@ novel claims are `propext`, `Classical.choice`, and `Quot.sound`.
 After the two main theorems you will find:
 
     #print axioms frohmanian_tether_theorem
-    #print axioms global_regularity_for_NS
+    #print axioms ns_global_regularity_of_vorticity_sup_rate
 
 Run these (or `lake build` followed by inspecting the output) to see the current axiom
 surface. As the proof matures, these commands become part of the permanent validation
@@ -386,6 +392,6 @@ these four levels onto the project's novel geometry and the goal of unique proof
 -/
 
 #print axioms frohmanian_tether_theorem
-#print axioms global_regularity_for_NS
+#print axioms ns_global_regularity_of_vorticity_sup_rate
 
 end GlobalRegularity

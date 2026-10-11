@@ -240,7 +240,7 @@ This module follows the guidance in §7 Definitions, with the following delibera
 
 - `theorem` / `lemma` is reserved for actual assertions that require proof:
   - `degeneracy_for_mollified_sup_norm_proxy`
-  - `uniqueness_of_minimal_tether` (the 5-step canonicity Theorem 2.3)
+  - `uniqueness_of_minimal_tether` in `Uniqueness.lean` (polarization under saturation, not every antisymmetric map)
   - `tether_coadjoint_invariance`
   - `tethered_reproduces_classical_euler`
   - `tethered_jacobi_identity` (the explicit verification on test functionals F_p)
@@ -870,8 +870,9 @@ See the comment in Uniqueness.lean for the move rationale and non-circularity.
 
 /-! ## Invariance (C1) — skeleton -/
 
-/-- C1 for the current `CoadjointAction` (identity on the orbit). The SDiff
-pushforward transcription replaces this proof, not the statement. -/
+/-- C1 for the current encoding of `CoadjointAction`.
+The action returns the identical orbit, so the kernel is invariant by definition.
+This is not a proof of \(\mathrm{SDiff}\) equivariance. -/
 theorem tether_coadjoint_invariance
     (_g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit) :
     TetherKernel (CoadjointAction _g ω) F G = TetherKernel ω F G := by

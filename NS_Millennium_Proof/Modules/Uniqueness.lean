@@ -352,9 +352,13 @@ public theorem tetherKernel_polarizes
   intro hP
   simpa using hP ω F G
 
-/-- Unique minimal bilinear correction: C1–C3 plus saturation of the
-quadratic form plus polarization. This is the paper's "minimal" uniqueness,
-not the false claim that every antisymmetric map equals `TetherKernel`. -/
+/-- Equality of an antisymmetric bilinear form `B` with `TetherKernel`
+under the additional hypotheses that `B` saturates the quadratic weight
+on the diagonal (`SaturatesTetherQuadratic`) and both forms polarize.
+The conclusion is the polarization identity under those assumptions.
+It is not the claim that every antisymmetric map satisfying (C1)–(C3)
+equals the kernel.
+Steps 1, 3, and 4 are not used in the derivation of the equality. -/
 public theorem uniqueness_of_minimal_tether
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (h_antisym : ∀ ω F G, B ω F G = -B ω G F)

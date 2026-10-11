@@ -13,8 +13,8 @@ public import Mathlib.Tactic.Ring
 /-!
 # Cubic source versus hypothesized cubic sink
 
-Audit module. It does not discharge `hRiccati`, `global_regularity_for_NS`,
-or `frohmanian_tether_theorem`.
+Audit module. It does not discharge `hRiccati`,
+`ns_global_regularity_of_vorticity_sup_rate`, or `frohmanian_tether_theorem`.
 
 At a spatial maximum the proved pairing is `C M³`, so `M' ≤ C M²` for `M > 0`.
 The missing identity is the reduced pairing `(C M - κ M²) M²`.
