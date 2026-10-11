@@ -46,12 +46,10 @@ public import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 /-! # Global Regularity: Final Integration and the Frohmanian Symplectic Tether Theorem
 
-This module assembles everything and states the main theorem exactly as
-formulated in the audited LaTeX (including the three parts of Theorem 2.1
-and the unconditional corollary from the PASS 5 argument).
-
-The top-level statement below is the exact Abstract formulation supplied by the author
-(Sections 1 + overall theorem), using the Frohmanian Symplectic Tether as the central device.
+This module assembles the conditional statement. Global smoothness is proved
+only after the rate `M' ≤ C M² - κ'' M³` is assumed, together with a Kato
+witness, a positive restart length, and uniqueness. The rate is not derived
+from the unmodified vorticity equation.
 -/
 
 namespace GlobalRegularity
@@ -65,9 +63,10 @@ open NavierStokes3D MeasureTheory
 
 /-! ## Main Theorem — Frohmanian Symplectic Tether Theorem -/
 
-/-- High-level statement of the full theorem.
-The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
-and TetheredLyapunov.lean (unconditional global regularity via independent majorant).
+/-- Conditional assembly. The fourth conjunct is global smoothness given `hDI`,
+a Kato witness, a positive restart length, and uniqueness. `hDI` is the rate
+`M' ≤ C M² - κ'' M³`. This theorem does not derive that rate from the
+unmodified vorticity equation.
 Editor green ticks only mean this declaration elaborated. The certificate is
 `#print axioms frohmanian_tether_theorem`: it must list `propext`,
 `Classical.choice`, `Quot.sound` and must **not** list `sorryAx`. -/
@@ -186,13 +185,13 @@ This is linked directly to the exact form `navier_stokes_eq` from Sections 1–2
 public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
   ∃ p : TimeDependentPressure, navier_stokes_eq u p ν
 
-/-- Main theorem (Abstract, formalized).
+/-- Conditional global regularity given the rate.
 
-Every smooth, divergence-free initial velocity field on the three-torus generates
-a unique globally smooth solution to the 3D incompressible Navier–Stokes equations.
-
-This is the top-level statement whose proof proceeds via the Frohmanian Symplectic Tether
-(the 5-step uniqueness + tethered Lyapunov + independent majorant + BKM upgrade).
+If `M` is differentiable and continuous and
+`M' ≤ C M² - κ'' M³` for some `C > 0` and `κ'' > 0`, and a Kato witness, a
+positive restart length, and uniqueness are supplied, then the solution is
+global and smooth. The ceiling is `riccati_ceiling_of_vorticity_di`. This
+theorem does not derive the rate from the unmodified vorticity equation.
 -/
 public theorem global_regularity_for_NS
     (u0 : TimeDependentVelocity)
@@ -201,11 +200,17 @@ public theorem global_regularity_for_NS
     (h_finite_energy : Integrable (fun x : T3 => ‖u0 0 x‖ ^ 2))
     (ν : ℝ) (h_ν_pos : ν > 0)
     (w : KatoLocalWitness (u0 0) ν)
-    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    (hDI : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
       NS_PDE u p ν → u 0 = u0 0 →
-        ∃ Y : ℝ,
-          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+        ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
+          (∀ s ≥ (0 : ℝ),
+            DifferentiableAt ℝ
+              (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
+          (∀ s ≥ (0 : ℝ),
+            deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+              C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+                κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
+          Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
     (τ : ℝ) (hτ : 0 < τ)
     (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar (u0 0) ν →
       ∃ T' ∈ existenceTimes (u0 0) ν, t + τ ≤ T')
@@ -225,6 +230,15 @@ public theorem global_regularity_for_NS
       v 0 = u0 0 →
       (∀ t ≥ (0 : ℝ), satisfies_NavierStokes v ν) →
       ∀ t ≥ (0 : ℝ), v t = u t) := by
+  have hRiccati :
+      ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+        NS_PDE u p ν → u 0 = u0 0 →
+          ∃ Y : ℝ,
+            (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+            Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
+    intro u p hNS hu0
+    obtain ⟨C, κ'', hC, hκ, hdiff, hDIu, hcont⟩ := hDI u p hNS hu0
+    exact riccati_ceiling_of_vorticity_di u C κ'' hC hκ hdiff hDIu hcont
   obtain ⟨hNS, hu0, hsm, hnn, _hdiv⟩ :=
     TetheredLyapunov.global_regularity_of_restart (u0 0) ν
       (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos

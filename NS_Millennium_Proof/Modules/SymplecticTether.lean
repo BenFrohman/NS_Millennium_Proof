@@ -581,36 +581,6 @@ public theorem max_rate_of_reduced_pairing
       (C * M - k * M ^ 2) * M ^ 2 = (C * M ^ 2 - k * M ^ 3) * M := by ring
   exact hpair.trans_eq hrew
 
-/-- Reduced pairing at a spatial maximum from the unmodified equation + tether.
-`IsSpatialMaximum`, `SatisfiesUnmodifiedVorticity`, and `pairingAtMax` are not
-declarations in this module. The maximum is `‖ω(x)‖ = M = ‖ω‖_∞`, the
-unmodified equation is `NS_PDE` together with the transport and viscosity facts
-at that point, and the tether hypothesis is (C3) for `TetherKernel`.
-Does not assume `CorrectedMaxRate` or `ReducedStrain`.
-Not used by `frohmanian_tether_theorem` or `global_regularity_for_NS`. -/
-public theorem reduced_pairing_of_unmodified_and_tether
-    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
-    (t : ℝ) (ht : 0 ≤ t) (x : T3)
-    (hNS : NS_PDE u p ν)
-    (hreg : VorticityTransportRegularity u p t x)
-    (hu : DifferentiableAt ℝ (u t) x)
-    (C M : ℝ)
-    (hCZ : ‖fderiv ℝ (u t) x‖ ≤ C * vorticity_sup_norm (vorticity (u t)))
-    (htransp : inner ℝ (vorticity (u t) x)
-      (convective (u t) (vorticity (u t)) x) = 0)
-    (hvisc : inner ℝ (vorticity (u t) x)
-      (laplacian (vorticity (u t)) x) ≤ 0)
-    (hν : 0 ≤ ν)
-    (hmax : ‖vorticity (u t) x‖ = M ∧
-      M = vorticity_sup_norm (vorticity (u t)))
-    (htether : ProducesControllableNegativeFeedback TetherKernel)
-    (hκ : kappa = CalderonZygmundConstant3D) :
-    inner ℝ (vorticity (u t) x)
-        (convective (vorticity (u t)) (u t) x) ≤
-      (C * M - kappa * M ^ 2) * M ^ 2 := by
-  clear ht hNS hreg hu hCZ htransp hvisc hν hmax htether hκ
-  sorry
-
 /-- At a spatial maximum the transport pairing vanishes and `ν ⟨ω, Δω⟩ ≤ 0`,
 so neither term adds a positive remainder above `⟨ω, (ω·∇)u⟩`. -/
 public theorem time_pairing_le_stretching_at_max
@@ -1068,7 +1038,6 @@ While the Jacobi crack is still in progress they will show `sorryAx` — this is
 #print axioms div_biot_savart_of_eq_curl
 #print axioms div_biot_savart_velocity_of_interchange
 #print axioms degeneracy_for_mollified_sup_norm_proxy
-#print axioms reduced_pairing_of_unmodified_and_tether
 -- (step* and uniqueness_of_minimal_tether moved to Uniqueness.lean / FrohmanianTether namespace per modular cleanup.
 -- Validation prints live there now; see Uniqueness.lean end for #print axioms on the 5-step.)
 -- #print axioms step1_locality
@@ -1080,49 +1049,5 @@ While the Jacobi crack is still in progress they will show `sorryAx` — this is
 -- - Use the identifier `FrohmanianTether` for the core new mathematical object.
 -- - Optional notation for the custom symbol 𝔉𝕋
 scoped notation "𝔉𝕋" => TetheredBracket
-
-/-- Test functional given by the L² pairing against the vorticity itself. -/
-noncomputable def stretching_test_functional (ω : CoadjointOrbit) : Functional :=
-  fun ω' => ∫ x, pairing (ω.val x) (ω'.val x) ∂volume
-
-/-- Weight of this test functional at a spatial maximum dominates M⁴
-under the unmodified vorticity equation. -/
-theorem hweight_of_unmodified_max
-    (ω : CoadjointOrbit) (M : ℝ)
-    (hmax : ∃ x, ‖ω.val x‖ = M ∧ M = vorticity_sup_norm ω.val) :
-    M ^ 4 ≤ ∫ x, ‖ω.val x‖ ^ 2 *
-      ‖Pi_u (velocity_from_vorticity ω)
-        (FunctionalDerivative (stretching_test_functional ω) ω) x‖ ^ 2 ∂volume := by
-  sorry
-
-#print axioms hweight_of_unmodified_max
-
-/-- A spatial maximum of vorticity: some point attains `M = ‖ω‖_∞`. -/
-def IsSpatialMaximum (ω : CoadjointOrbit) (M : ℝ) : Prop :=
-  ∃ x, ‖ω.val x‖ = M ∧ M = vorticity_sup_norm ω.val
-
-/-- The orbit is the vorticity, at some time, of a solution of the unmodified
-velocity equation `NS_PDE`. Velocity, pressure, viscosity, and time stay inside
-this predicate; they are not binders of the weight statement. -/
-def SatisfiesUnmodifiedVorticity (ω : CoadjointOrbit) : Prop :=
-  ∃ (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν t : ℝ),
-    0 ≤ t ∧ NS_PDE u p ν ∧
-      (∀ x, VorticityTransportRegularity u p t x) ∧
-        ω.val = vorticity (u t)
-
-/-- The unmodified vorticity equation at a spatial maximum forces a test
-functional whose projected weight is at least M⁴.
-This is the identification that closes the reduced pairing. -/
-theorem weight_from_unmodified_equation
-    (ω : CoadjointOrbit) (M : ℝ)
-    (hmax : IsSpatialMaximum ω M)
-    (hunmod : SatisfiesUnmodifiedVorticity ω) :
-    ∃ F : Functional,
-      M ^ 4 ≤ ∫ x, ‖ω.val x‖ ^ 2 *
-        ‖Pi_u (velocity_from_vorticity ω)
-          (FunctionalDerivative F ω) x‖ ^ 2 ∂volume := by
-  sorry
-
-#print axioms weight_from_unmodified_equation
 
 end FrohmanianTether
