@@ -5,15 +5,19 @@
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
 [![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
 
-A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem** on the periodic
-torus, together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
+A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem**,
+together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
 a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
-tied to a Lyapunov/enstrophy argument.
+tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originator of that tether.
 
 > ### Scope
-> This repository is the **Frohmanian Symplectic Tether proof** of 3D incompressible Navier–Stokes
-> global regularity, together with its Lean 4 encoding for the world library. The mathematics is
-> the paper proof. The Lean development is the machine-checked transcription of that proof.
+> Benjamin Stanley Frohman is the originator of the Frohmanian Symplectic Tether.
+> The Lean domain is `T3 := EuclideanSpace ℝ (Fin 3)`.
+> Fefferman's statement (B) is the periodic torus. Neither regularity head is that statement.
+>
+> `ns_global_regularity_of_cubic_damped_rate` assumes the cubic rate
+> `M' ≤ C M² − κ'' M³` and does not derive it.
+> `global_regularity_for_NS` assumes a vorticity ceiling and does not derive it.
 
 ## Approach at a glance
 
