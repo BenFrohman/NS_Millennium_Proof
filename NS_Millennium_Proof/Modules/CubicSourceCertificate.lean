@@ -16,15 +16,11 @@ public import Mathlib.Tactic.Ring
 Audit module. It does not discharge `hRiccati`, `global_regularity_for_NS`,
 or `frohmanian_tether_theorem`.
 
-At a spatial maximum the proved pairing is `C M³`, so `M' ≤ C M²` for `M > 0`.
-The missing identity is the reduced pairing `(C M - κ M²) M²`.
-That expands to `C M³ - κ M⁴`, and the corresponding rate is `C M² - κ M³`.
-The `M⁵` term is only the weighted source `C M³ (1 + κ M²)`.
-It is not a sink.
-
-`cubic_sink_of_corrected_rate` is `ring` applied to `CorrectedMaxRate`.
-The subtraction of `κ M²` from the strain is a hypothesis, not a theorem
-about `B_F`. `B(F,H) ≡ 0` does not insert the minus.
+The transport identity at a point, written and not rewritten, is
+`⟨ω, ∂t ω⟩ + ⟨ω, (u · ∇) ω⟩ = ⟨ω, (ω · ∇) u⟩ + ν ⟨ω, Δ ω⟩`.
+The pairing in `ReducedStrain` is the stretching term `ω · ((ω · ∇) u)`.
+At a spatial maximum the proved bound on that pairing is `C M³`.
+`ReducedStrain` replaces it by `(C M - κ M²) M²`. That replacement is not proved.
 
 Do not import this file from `GlobalRegularity`, `TetheredLyapunov`,
 `IndependentMajorant`, or the discharge of `hRiccati`.
@@ -32,8 +28,15 @@ Do not import this file from `GlobalRegularity`, `TetheredLyapunov`,
 
 namespace Frohmanian.CubicSourceAudit
 
+/-- Transport identity at a point. This is the equation. It is not a bound.
+`innerDt` is `⟨ω, ∂t ω⟩`, `transport` is `⟨ω, (u · ∇) ω⟩`,
+`pairing` is `⟨ω, (ω · ∇) u⟩`, `viscous` is `ν ⟨ω, Δ ω⟩`. -/
+@[expose] public def TransportIdentity
+    (innerDt transport pairing viscous : ℝ) : Prop :=
+  innerDt + transport = pairing + viscous
+
 /-- Rate already assumed to carry the strain subtraction `C M - κ M²`.
-Not derived from `ω · ∂ₜω`. -/
+Not derived from `ω · ∂t ω`. -/
 public def CorrectedMaxRate (rate M C κ : ℝ) : Prop :=
   rate ≤ M * (C * M - κ * M ^ 2)
 
@@ -42,7 +45,9 @@ public def CorrectedMaxRate (rate M C κ : ℝ) : Prop :=
   pairing ≤ C * M ^ 3
 
 /-- Missing identity, recorded and not proved.
-`pairing = ω · ((ω · ∇) u)` at a spatial maximum. -/
+`pairing = ω · ((ω · ∇) u)` at a spatial maximum.
+The transport identity writes this pairing on the right-hand side.
+It does not replace the pairing by `(C M - κ M²) M²`. -/
 @[expose] public def ReducedStrain (pairing M C κ : ℝ) : Prop :=
   pairing ≤ (C * M - κ * M ^ 2) * M ^ 2
 
@@ -53,17 +58,15 @@ public theorem cubic_sink_of_corrected_rate
   have hmul : M * (C * M - κ * M ^ 2) = C * M ^ 2 - κ * M ^ 3 := by ring
   simpa [CorrectedMaxRate, hmul] using h
 
-/-- Rate-level gap. A pairing cubic is not subtracted from a rate polynomial. -/
+/-- Rate-level gap. -/
 public theorem source_rate_sub_sink (M C κ : ℝ) :
     C * M ^ 2 - (C * M ^ 2 - κ * M ^ 3) = κ * M ^ 3 := by ring
 
-/-- Pairing-level gap. The subtracted term is `κ M⁴`, not `κ M⁵`.
-This equality assumes the reduced factor is already on the pairing. -/
+/-- Pairing-level gap. The subtracted term is `κ M⁴`. -/
 public theorem reduced_pairing_gap (M C κ : ℝ) :
     C * M ^ 3 - ((C * M - κ * M ^ 2) * M ^ 2) = κ * M ^ 4 := by ring
 
-/-- Expanding the hypothesized rate gives the sink polynomial.
-The subtraction is in the hypothesis `CorrectedMaxRate`, not in `NS_PDE`. -/
+/-- Expanding the hypothesized rate gives the sink polynomial. -/
 public theorem corrected_rate_polynomial (M C κ : ℝ) :
     M * (C * M - κ * M ^ 2) = C * M ^ 2 - κ * M ^ 3 := by ring
 
@@ -71,7 +74,7 @@ public theorem corrected_rate_polynomial (M C κ : ℝ) :
 public theorem weighted_source_polynomial (M C κ : ℝ) :
     C * M ^ 3 * (1 + κ * M ^ 2) = C * M ^ 3 + C * κ * M ^ 5 := by ring
 
-/-- The comparison field factors. Negative above the ceiling is not proved here. -/
+/-- The comparison field factors. -/
 public theorem cubic_field_factor (y C κ : ℝ) :
     C * y ^ 2 - κ * y ^ 3 = y ^ 2 * (C - κ * y) := by ring
 
