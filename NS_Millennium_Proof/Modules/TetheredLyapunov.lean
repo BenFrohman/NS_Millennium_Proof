@@ -114,7 +114,8 @@ of the monadic structure described in the reference:
   exactly the Functor.map use case ("transforming each element... by applying a function").
 
 - The comparison of S_ε(t) against the independent majorant y(t) (see
-  `majorant_comparison_principle`, `uniform_majorant_bound`, `riccati_majorant_global_bound`,
+  `majorant_comparison_principle`, `uniform_majorant_bound`, `comparison_majorant_global_bound`
+  (user-authored; scalar ODE comparison built on `AnalyticPipeline.comparison_ode_stability`),
   and the 6-step skeleton inside `lemma_3_1_uniform_bound_and_continuation`) is a sequential,
   *data-dependent* process. The bound at later times literally depends on the value of the
   majorant at earlier times (the cubic Riccati term −κ'' y³ grows with y itself). This is
@@ -866,7 +867,9 @@ private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : �
   -- See docs/Clarified_Degeneracy_and_Majorant_Blocks.lean (BLOCK 3) for the
   -- user's clarified/expanded version of the key_differential_inequality,
   -- majorant_comparison_principle, uniform_majorant_bound, riccati_majorant_global_bound,
-  -- and comparison_principle, with the explicit "form forced by the differential
+  -- and comparison_principle (names as they appear in that unbuilt docs draft; the built
+  -- versions are `majorant_comparison_principle`, `uniform_majorant_bound` and
+  -- `comparison_majorant_global_bound` in this file), with the explicit "form forced by the differential
   -- inequality after absorption" and Riccati ODE groundwork.
 
     -- Full first-principles form (polished PASS 3/5 Section 3):

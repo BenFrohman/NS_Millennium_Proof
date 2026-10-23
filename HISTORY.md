@@ -1,7 +1,7 @@
 # Project History & Priority Claim
 
 **Project:** NS_Millennium_Proof — Frohmanian Symplectic Tether Framework  
-**Author:** Benjamin Stanley Frohman (X.com : Investor0x / Bit21)  
+**Author:** Benjamin Stanley Frohman  
 **Primary Development Period:** February–June 2026
 
 ## Key Milestones

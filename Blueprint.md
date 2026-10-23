@@ -487,6 +487,16 @@ the "unique proof confirmation" property the user has repeatedly requested.
 - Still trusts the structural integrity of the `.olean` files.
 
 **Level 4 — Gold standard: comparator + external checkers (nanoda and others)**
+- Terminology: "comparator" here means the external Lean tool
+  [leanprover/comparator](https://github.com/leanprover/comparator), and "nanoda" means the
+  independent kernel [ammkrn/nanoda_lib](https://github.com/ammkrn/nanoda_lib). Neither is
+  vendored, forked or run in this repository's CI, and no comparator/nanoda run has been
+  recorded yet. Do not confuse them with the user-authored *comparison* lemmas (the scalar
+  Riccati ODE comparison: `AnalyticPipeline.comparison_ode_stability`,
+  `AnalyticPipeline.comparison_ode_nonneg`, `TetheredLyapunov.ComparisonODE`,
+  `TetheredLyapunov.comparison_ode_exists`, `majorant_comparison_principle`,
+  `comparison_majorant_global_bound`, and their `ClosureBlueprint`/`IndependentMajorant`
+  re-exports), which are proved in the default build.
 - The level that would deliver the strongest possible assurance that the proof of the
   Frohmanian Symplectic Tether Theorem is exactly the one described in the three source
   documents, with no hidden circularity, no ad-hoc choices, and no implementation trickery
