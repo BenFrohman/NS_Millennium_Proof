@@ -56,7 +56,7 @@ lake exe cache get   # download prebuilt Mathlib artifacts
 lake build           # build the project
 ```
 
-The pinned toolchain is **Lean 4.30.0-rc1** with **Mathlib @ v4.30.0-rc1**.
+The pinned toolchain is **Lean 4.30.0-rc1** with **Mathlib @ v4.30.0-rc1**. It was developed originally on Lean 4.28.0; currently pinned to v4.30.0-rc1.
 
 ## Authorship, priority, and citation
 
