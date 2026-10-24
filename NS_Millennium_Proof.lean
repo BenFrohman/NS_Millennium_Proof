@@ -4,22 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
-/-!
-# NS Millennium Proof — Frohmanian Symplectic Tether (Main Entry & Kernel Axiom Audit)
-
-**Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
-
-Original work by Benjamin Stanley Frohman.
-
-Lean 4 encoding of the Frohmanian Symplectic Tether conditional reduction for 3D
-incompressible Navier–Stokes global regularity (`kappa`, `TetherKernel` / 𝔉𝕋, BKM,
-`IsPhysicalNSSolution` non-vacuity, and uniqueness).
-
-Compiling this root target (`lake build`) automatically executes the kernel-level
-axiom and zero-`sorry` audit across all 14 modules and fails the build if any
-theorem depends on `sorryAx` or any axiom outside `[propext, Classical.choice, Quot.sound]`.
--/
-
+import Lean
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 import NS_Millennium_Proof.Modules.AnalyticPipeline
 import NS_Millennium_Proof.Modules.ArnoldGeometric
@@ -35,6 +20,22 @@ import NS_Millennium_Proof.Modules.NS_Equations
 import NS_Millennium_Proof.Modules.SymplecticTether
 import NS_Millennium_Proof.Modules.TetheredLyapunov
 import NS_Millennium_Proof.Modules.Uniqueness
+
+/-!
+# NS Millennium Proof — Frohmanian Symplectic Tether (Main Entry & Kernel Axiom Audit)
+
+**Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
+
+Original work by Benjamin Stanley Frohman.
+
+Lean 4 encoding of the Frohmanian Symplectic Tether conditional reduction for 3D
+incompressible Navier–Stokes global regularity (`kappa`, `TetherKernel` / 𝔉𝕋, BKM,
+`IsPhysicalNSSolution` non-vacuity, and uniqueness).
+
+Compiling this root target (`lake build`) automatically executes the kernel-level
+axiom and zero-`sorry` audit across all 14 modules and fails the build if any
+theorem depends on `sorryAx` or any axiom outside `[propext, Classical.choice, Quot.sound]`.
+-/
 
 export FrohmanianTether (TetheredBracket TetherKernel kappa)
 export GlobalRegularity (frohmanian_tether_theorem)
@@ -55,10 +56,10 @@ open Lean Elab Command in
     let (c, b) := stats.getD mod (0,0)
     stats := stats.insert mod (c+1, if nonstd.isEmpty then b else b+1)
     unless nonstd.isEmpty do bad := bad.push s!"{n} : {nonstd}"
-  for (m,(c,b)) in stats.toList do IO.println s!"{m}: theorems={c} nonstandard={b}"
-  for s in bad do IO.println s
+  for (m,(c,b)) in stats.toList do logInfo s!"{m}: theorems={c} nonstandard={b}"
+  for s in bad do logInfo s
   let total := stats.fold (fun acc _ (c, _) => acc + c) 0
-  IO.println s!"TOTAL theorems={total} nonstandard={bad.size}"
+  logInfo s!"TOTAL theorems={total} nonstandard={bad.size}"
   unless bad.isEmpty do throwError "axiom audit FAILED: {bad.size} theorem(s) use non-standard axioms"
 
 #print axioms GlobalRegularity.frohmanian_tether_theorem
