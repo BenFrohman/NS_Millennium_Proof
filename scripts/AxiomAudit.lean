@@ -43,3 +43,12 @@ open Lean Elab Command
   let total := stats.fold (fun acc _ (c, _) => acc + c) 0
   IO.println s!"TOTAL theorems={total} nonstandard={bad.size}"
   unless bad.isEmpty do throwError "axiom audit FAILED: {bad.size} theorem(s) use non-standard axioms"
+
+#print axioms GlobalRegularity.frohmanian_tether_theorem
+#print axioms GlobalRegularity.global_regularity_for_NS
+#print axioms FrohmanianTether.ClayStatements.global_regularity_for_NS_nonvacuous_at_zero
+#print axioms FrohmanianTether.ClayStatements.frohmanianTetherRate_zero
+#print axioms FrohmanianTether.ClayStatements.frohmanianTetherBound_zero
+#print axioms FrohmanianTether.uniqueness_of_minimal_tether
+#print axioms FrohmanianTether.uniqueness_of_minimal_symmetric_tether
+#print axioms TetheredLyapunov.riccati_ceiling_of_vorticity_di
