@@ -24,6 +24,7 @@ import NS_Millennium_Proof.Modules.AnalyticPipeline
 import NS_Millennium_Proof.Modules.ClosureBlueprint
 import NS_Millennium_Proof.Modules.IndependentMajorant
 import NS_Millennium_Proof.Modules.GlobalRegularity
+import NS_Millennium_Proof.Modules.ClayStatements
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 
 export FrohmanianTether (TetheredBracket TetherKernel kappa)

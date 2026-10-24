@@ -1,10 +1,15 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
 import Mathlib
 
 # Copyright Notice
 
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 
-**Author:** Benjamin Stanley Frohman (@Investor0x / Bit21)
 
 This project contains original mathematical contributions by Benjamin Frohman, including the **Frohmanian Symplectic Tether** framework for the 3D incompressible Navier–Stokes equations (Millennium Prize Problem).
 

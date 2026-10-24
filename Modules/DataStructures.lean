@@ -31,6 +31,7 @@ namespace DataStructures
 abbrev VorticityArray := Array (Fin 3 → ℝ)  -- or more structured
 
 -- Proof-relevant: Array as List wrapper
-theorem array_as_list_equiv (α : Type) : Array α ≃ List α := sorry  -- Use mathlib equivalences when available
+def array_as_list_equiv (α : Type) : Array α ≃ List α :=
+  ⟨Array.toList, List.toArray, fun ⟨_⟩ => rfl, fun _ => rfl⟩
 
 end DataStructures

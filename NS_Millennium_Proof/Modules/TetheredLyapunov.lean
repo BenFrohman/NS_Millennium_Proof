@@ -114,8 +114,7 @@ of the monadic structure described in the reference:
   exactly the Functor.map use case ("transforming each element... by applying a function").
 
 - The comparison of S_ε(t) against the independent majorant y(t) (see
-  `majorant_comparison_principle`, `uniform_majorant_bound`, `comparison_majorant_global_bound`
-  (user-authored; scalar ODE comparison built on `AnalyticPipeline.comparison_ode_stability`),
+  `majorant_comparison_principle`, `uniform_majorant_bound`, `riccati_majorant_global_bound`,
   and the 6-step skeleton inside `lemma_3_1_uniform_bound_and_continuation`) is a sequential,
   *data-dependent* process. The bound at later times literally depends on the value of the
   majorant at earlier times (the cubic Riccati term −κ'' y³ grows with y itself). This is
@@ -867,9 +866,7 @@ private theorem key_differential_inequality_legacy_comments (_ε : ℝ) (_ω : �
   -- See docs/Clarified_Degeneracy_and_Majorant_Blocks.lean (BLOCK 3) for the
   -- user's clarified/expanded version of the key_differential_inequality,
   -- majorant_comparison_principle, uniform_majorant_bound, riccati_majorant_global_bound,
-  -- and comparison_principle (names as they appear in that unbuilt docs draft; the built
-  -- versions are `majorant_comparison_principle`, `uniform_majorant_bound` and
-  -- `comparison_majorant_global_bound` in this file), with the explicit "form forced by the differential
+  -- and comparison_principle, with the explicit "form forced by the differential
   -- inequality after absorption" and Riccati ODE groundwork.
 
     -- Full first-principles form (polished PASS 3/5 Section 3):
@@ -969,7 +966,7 @@ public def majorantField (C κ'' : ℝ) (y : ℝ) : ℝ :=
   C * y ^ 2 - κ'' * y ^ 3
 
 public theorem majorantField_contDiff (C κ'' : ℝ) :
-    ContDiff ℝ ⊤ (majorantField C κ'') := by
+    ContDiff ℝ (⊤ : ℕ∞) (majorantField C κ'') := by
   unfold majorantField
   fun_prop
 
@@ -1665,19 +1662,19 @@ obtained by taking the supremum over all such finite intervals.
 public theorem lemma_3_1_uniform_bound_and_continuation
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hM : 0 ≤ Mε0) :
     ∀ T : ℝ, 0 ≤ T → (T : EReal) < Tstar u₀ ν →
       ComparisonODE C κ'' Mε0 T ≤ max Mε0 (C / κ'') := by
   intro T hT0 _hTlt
-  have _hsetup : (∀ x, div u₀ x = 0) ∧ ContDiff ℝ ⊤ u₀ := ⟨h_divfree, h_smooth⟩
+  have _hsetup : (∀ x, div u₀ x = 0) ∧ ContDiff ℝ (⊤ : ℕ∞) u₀ := ⟨h_divfree, h_smooth⟩
   have hphase := phase_plane_analysis_of_majorant_ODE C κ'' Mε0 hC hκ hM T hT0
   exact hphase.2
 
 private theorem lemma_3_1_comments
     (_u₀ : VelocityField) (_ν : ℝ)
     (_h_divfree : ∀ x, div _u₀ x = 0)
-    (_h_smooth : ContDiff ℝ ⊤ _u₀)
+    (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) _u₀)
     (Mε0 C κ'' : ℝ) (hC : 0 < C) (hκ : 0 < κ'') (hM : 0 ≤ Mε0) :
     ∃ Y : ℝ, ∀ t ≥ (0 : ℝ),
       0 ≤ ComparisonODE C κ'' Mε0 t ∧ ComparisonODE C κ'' Mε0 t ≤ Y :=
@@ -1783,7 +1780,7 @@ public theorem lyapunov_density_unweighted_di_at_spatial_max
 public theorem global_regularity
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
@@ -1795,11 +1792,11 @@ public theorem global_regularity
     (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
     (hbelow : ∀ u : ℝ → VelocityField,
       ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
   ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
     NS_PDE u p ν ∧
     u 0 = u₀ ∧
-    (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t)) ∧
+    (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
     (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
     (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) := by
   -- Complete, explicit logical structure — Two-Layer Architecture (updated per
@@ -1827,7 +1824,7 @@ public theorem global_regularity
 
   -- Step 2.1: Kato/Leray local existence on a short interval (classical).
   -- Output type: `u`, `p`, `NS_PDE u p ν`, `u 0 = u₀`.
-  obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
+  obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
     local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν w
 
   obtain ⟨Y, hbound, hcont⟩ := hRiccati u p hNS hu0
@@ -1846,7 +1843,7 @@ public theorem global_regularity_zero (ν : ℝ) (_hν : 0 < ν) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧
       u 0 = (0 : VelocityField) ∧
-      (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t)) ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) := by
   refine ⟨fun _ => 0, fun _ => (0 : PressureField),
@@ -1864,12 +1861,12 @@ witnesses, rather than taken as extra hypotheses. -/
 public theorem global_regularity_of_restart
     (u₀ : VelocityField) (ν : ℝ)
     (_h_divfree : ∀ x, div u₀ x = 0)
-    (_h_smooth : ContDiff ℝ ⊤ u₀)
+    (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (_h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
     (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-      NS_PDE u p ν → u 0 = u₀ →
+      NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
         ∃ Y : ℝ,
           (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
           Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
@@ -1880,11 +1877,12 @@ public theorem global_regularity_of_restart
       T' ∈ existenceTimes u₀ ν →
       v 0 = u₀ →
       NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
     NS_PDE w.u w.p ν ∧
       w.u 0 = u₀ ∧
-      (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (w.u t)) ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (w.u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (w.u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (w.u t) x = 0) := by
   have hu0 : w.u 0 = u₀ := w.init
@@ -1892,7 +1890,7 @@ public theorem global_regularity_of_restart
     Tstar_eq_top_of_uniform_restart u₀ ν τ hτ
       (Tstar_pos_of_kato_witness u₀ ν w) hrestart
   have hbelow : ∀ T : ℝ, (T : EReal) < Tstar (w.u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (w.u t) := by
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (w.u t) := by
     intro T hTlt t ht
     by_cases hTnn : 0 ≤ T
     · have huniq' :
@@ -1900,13 +1898,14 @@ public theorem global_regularity_of_restart
             T' ∈ existenceTimes (w.u 0) ν →
             v 0 = w.u 0 →
             NS_PDE v q ν →
-            (∀ s ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v s)) →
+            (∀ s ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v s)) →
+            IsPhysicalNSSolution v →
             ∀ s ∈ Set.Icc (0 : ℝ) T', w.u s = v s := by
-        intro T' v q hmem hv0 hpde hsm
+        intro T' v q hmem hv0 hpde hsm hphys
         have hmem' : T' ∈ existenceTimes u₀ ν := by
           simpa [hu0] using hmem
         have hv0' : v 0 = u₀ := hv0.trans hu0
-        exact huniq T' v q hmem' hv0' hpde hsm
+        exact huniq T' v q hmem' hv0' hpde hsm hphys
       exact smoothness_below_Tstar_of_uniqueness w.u ν huniq' hTlt hTnn t ht
     · have hempty : Set.Icc (0 : ℝ) T = (∅ : Set ℝ) := by
         ext y
@@ -1918,7 +1917,7 @@ public theorem global_regularity_of_restart
       have : t ∈ (∅ : Set ℝ) := by
         rwa [hempty] at ht
       exact this.elim
-  obtain ⟨Y, hbound, hcont⟩ := hRiccati w.u w.p w.pde hu0
+  obtain ⟨Y, hbound, hcont⟩ := hRiccati w.u w.p w.pde hu0 w.phys
   refine ⟨w.pde, hu0, ?smooth, ?nn, ?div0⟩
   · exact AnalyticPipeline.bkm_regularity_pipeline w.u w.p ν h_pos_ν w.pde
       Y hbound hcont (by rw [hu0]; exact hTstar) hbelow
@@ -1934,12 +1933,12 @@ Sobolev proxy at time 0. -/
 public theorem global_regularity_of_kato_estimates
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
     (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-      NS_PDE u p ν → u 0 = u₀ →
+      NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
         ∃ Y : ℝ,
           (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
           Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
@@ -1951,14 +1950,15 @@ public theorem global_regularity_of_kato_estimates
       T' ∈ existenceTimes u₀ ν →
       v 0 = u₀ →
       NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
     NS_PDE w.u w.p ν ∧
       w.u 0 = u₀ ∧
-      (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (w.u t)) ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (w.u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (w.u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (w.u t) x = 0) := by
-  obtain ⟨Y, _hbound, _hcont⟩ := hRiccati w.u w.p w.pde w.init
+  obtain ⟨Y, _hbound, _hcont⟩ := hRiccati w.u w.p w.pde w.init w.phys
   exact global_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
     h_pos_ν w hRiccati (katoRestartTime C Y (max R 1))
     (katoRestartTime_pos C Y (max R 1)) (hrestart Y) huniq
@@ -1986,14 +1986,14 @@ identification of restart paths. -/
 public theorem global_regularity_of_constructions
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
-    (hKato : ∀ u₁, ContDiff ℝ ⊤ u₁ → (∀ x, div u₁ x = 0) →
+    (hKato : ∀ u₁, ContDiff ℝ (⊤ : ℕ∞) u₁ → (∀ x, div u₁ x = 0) →
       Integrable (fun x : T3 => ‖u₁ x‖ ^ 2) →
       KatoLocalWitness u₁ ν)
     (hDI : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-      NS_PDE u p ν → u 0 = u₀ →
+      NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
         ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
           (∀ s ≥ (0 : ℝ),
             DifferentiableAt ℝ
@@ -2004,17 +2004,26 @@ public theorem global_regularity_of_constructions
                 κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
           Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
     (τ : ℝ) (hτ : 0 < τ)
-    (hTlb : ∀ u₁ (hsm : ContDiff ℝ ⊤ u₁)
+    (hTlb : ∀ u₁ (hsm : ContDiff ℝ (⊤ : ℕ∞) u₁)
       (hdiv : ∀ x, div u₁ x = 0)
       (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2)),
       τ ≤ (hKato u₁ hsm hdiv hE).T)
     (hInt : ∀ (T : ℝ) (v : TimeDependentVelocity)
-      (_q : TimeDependentPressure),
-      T ∈ existenceTimes u₀ ν → ∀ t ∈ Set.Icc (0 : ℝ) T,
+      (q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
+      ∀ t ∈ Set.Icc (0 : ℝ) T,
         Integrable (fun x : T3 => ‖v t x‖ ^ 2))
     (huniq_shift : ∀ (T : ℝ) (v : TimeDependentVelocity)
-      (_q : TimeDependentPressure),
+      (q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       ∀ t ∈ Set.Icc (0 : ℝ) T,
         ∀ (w' : KatoLocalWitness (v t) ν),
           ∀ s ∈ Set.Icc (0 : ℝ) w'.T, v (t + s) = w'.u s)
@@ -2022,14 +2031,15 @@ public theorem global_regularity_of_constructions
       T' ∈ existenceTimes u₀ ν →
       v 0 = u₀ →
       NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       ∀ t ∈ Set.Icc (0 : ℝ) T', (hKato u₀ h_smooth h_divfree
         h_finite_energy).u t = v t) :
     NS_PDE (hKato u₀ h_smooth h_divfree h_finite_energy).u
       (hKato u₀ h_smooth h_divfree h_finite_energy).p ν ∧
       (hKato u₀ h_smooth h_divfree h_finite_energy).u 0 = u₀ ∧
       (∀ t ≥ (0 : ℝ),
-        ContDiff ℝ ⊤ ((hKato u₀ h_smooth h_divfree h_finite_energy).u t)) ∧
+        ContDiff ℝ (⊤ : ℕ∞) ((hKato u₀ h_smooth h_divfree h_finite_energy).u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm
         (vorticity ((hKato u₀ h_smooth h_divfree h_finite_energy).u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x,
@@ -2037,12 +2047,12 @@ public theorem global_regularity_of_constructions
   let w := hKato u₀ h_smooth h_divfree h_finite_energy
   have hRiccati :
       ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-        NS_PDE u p ν → u 0 = u₀ →
+        NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
           ∃ Y : ℝ,
             (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
             Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
-    intro u p hNS hu0
-    obtain ⟨C, κ'', hC, hκ, hdiff, hDIu, hcont⟩ := hDI u p hNS hu0
+    intro u p hNS hu0 hphys
+    obtain ⟨C, κ'', hC, hκ, hdiff, hDIu, hcont⟩ := hDI u p hNS hu0 hphys
     exact riccati_ceiling_of_vorticity_di u C κ'' hC hκ hdiff hDIu hcont
   have hrestart :=
     restart_of_kato_quantitative u₀ ν τ h_pos_ν hτ hKato hTlb hInt huniq_shift

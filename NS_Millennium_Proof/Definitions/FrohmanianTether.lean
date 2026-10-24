@@ -14,7 +14,7 @@ public import NS_Millennium_Proof.Modules.GlobalRegularity
 /-!
 # Central Definitions / Naming for the Frohmanian Tether (Canonical)
 
-**Original Author:** Benjamin Stanley Frohman (X.com : Investor0x / Bit21)
+**Original Author:** Benjamin Stanley Frohman
 **Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.**
 
 This module is the public initialization root for Frohman's novel objects.

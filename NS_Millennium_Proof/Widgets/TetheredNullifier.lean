@@ -160,7 +160,7 @@ deriving Inhabited, Repr
 -- placeholder and does not exercise RPC/JSON serialization of OrbitState. When the full
 -- reactive IO.Ref widget is activated, restore meta instances using Json.toJson + meta decls.)
 -- This will become a proper per-instance ref when we have RPC + client state.
-meta def defaultOrbitRef : IO.Ref OrbitState := sorry
+meta def defaultOrbitRef : IO (IO.Ref OrbitState) := IO.mkRef default
 
 def cancellationQuality (s : OrbitState) : Float :=
   -- When divergence = 0, quality = 1 (perfect cancellation of the three groups).

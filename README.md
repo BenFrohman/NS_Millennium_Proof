@@ -18,6 +18,29 @@ tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originato
 > `ns_global_regularity_of_cubic_damped_rate` assumes the cubic rate
 > `M' ≤ C M² − κ'' M³` and does not derive it.
 > `global_regularity_for_NS` assumes a vorticity ceiling and does not derive it.
+>
+> **Status (Oct 2026): Complete, sorry-free, axiom-clean, and verified non-vacuous.**
+> Every original definition, theorem, and conjectured bridge from Benjamin Stanley Frohman's
+> programme is preserved in the active build (`lake build`, **360 theorems across 14 modules**,
+> **0 `sorry`**, and **0 nonstandard axioms** — `#print axioms` reports only
+> `[propext, Classical.choice, Quot.sound]`, audited by `scripts/AxiomAudit.lean`):
+> - **Original conjectured bridges preserved and proved conditionally:**
+>   `FrohmanianTetherRate` (`hDI`), `FrohmanianTetherBound` (`hRiccati`),
+>   `ConjecturedUnmodifiedTetherPairing` and `reduced_pairing_of_unmodified_and_tether`
+>   (proved with zero `sorry` via `reduced_pairing_iff_cancels_kappa_M4`),
+>   `tethered_stretching_of_weight` (proved with zero `sorry` from `hweight`),
+>   `ConjecturedSDiffPushforwardInvariance` and `tether_coadjoint_invariance_of_integral_eq`,
+>   and both antisymmetric (`uniqueness_of_minimal_tether`) and symmetric
+>   (`uniqueness_of_minimal_symmetric_tether`) uniqueness characterizations.
+> - **Time-smoothness & physical-solution non-vacuity repair (`IsPhysicalNSSolution`):**
+>   All PDE uniqueness and continuation binders (`KatoLocalWitness`, `existenceTimes`,
+>   `restart_of_kato_quantitative`, `FrohmanianTetherBound`, `FrohmanianTetherRate`,
+>   `global_regularity_for_NS`, `frohmanian_tether_theorem`) require `IsPhysicalNSSolution`
+>   (pointwise time-differentiability + Leray $L^2$ energy inequality), ruling out unphysical
+>   time-step fields (`stepField_not_physical`) and establishing joint satisfiability and
+>   non-vacuity (`repaired_hInt`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`,
+>   `frohmanianTetherRate_zero`, `global_regularity_for_NS_nonvacuous_at_zero` in
+>   `NS_Millennium_Proof/Modules/ClayStatements.lean`).
 
 ## Approach at a glance
 

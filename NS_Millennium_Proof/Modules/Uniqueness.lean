@@ -279,6 +279,31 @@ public theorem step2_degree_of_canonical_density
     _ = c ^ 2 * B ω F G := by
           rw [hT]
 
+/-- `Π_u` is invariant under nonzero rescaling of `u`: the projection onto the
+`L²`-orthogonal complement of `u` depends only on the line spanned by `u`.
+(If `∫ ‖u‖² = 0` both coefficients are `0` by Lean's `x / 0 = 0` convention.) -/
+public theorem Pi_u_smul_of_ne_zero (c : ℝ) (hc : c ≠ 0) (u : VelocityField) :
+    Pi_u (fun x => c • u x) = Pi_u u := by
+  funext v x
+  simp only [Pi_u, ArnoldGeometric.pairing, inner_smul_right, norm_smul,
+    Real.norm_eq_abs, mul_pow, sq_abs]
+  rw [integral_const_mul, integral_const_mul, smul_smul]
+  congr 2
+  by_cases hN : (∫ y, ‖u y‖ ^ 2 ∂volume) = 0
+  · simp [hN]
+  · field_simp
+
+/-- The `hPi` hypothesis of `step2_degree` holds automatically for `c ≠ 0`
+(Biot–Savart is linear, `Π_u` is scale invariant). -/
+public theorem hPi_of_ne_zero (ω : CoadjointOrbit) (c : ℝ) (hc : c ≠ 0) :
+    Pi_u (velocity_from_vorticity
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩) =
+      Pi_u (velocity_from_vorticity ω) := by
+  simp only [velocity_from_vorticity_eq_BiotSavart]
+  rw [BiotSavart_smul]
+  exact Pi_u_smul_of_ne_zero c hc _
+
 /-- Step 2 for `TetherKernel`: quadratic in `ω` (weight `|ω|²`) once Gâteaux
 slots and `Π_u` are frozen. Not the false claim that every antisymmetric
 `B` is homogeneous of degree two. -/
@@ -325,6 +350,22 @@ public theorem step5_higher_order
       c ^ 2 * TetherKernel ω F G :=
   step2_degree F G ω c hFD_F hFD_G hPi
 
+/-- `step2_degree` with the `Π_u` hypothesis discharged for `c ≠ 0`. -/
+public theorem step2_degree_of_ne_zero
+    (F G : Functional) (ω : CoadjointOrbit) (c : ℝ) (hc : c ≠ 0)
+    (hFD_F : FunctionalDerivative F
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative F ω)
+    (hFD_G : FunctionalDerivative G
+        ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ =
+      FunctionalDerivative G ω) :
+    TetherKernel ⟨fun x => c • ω.val x, fun x => by
+          rw [div_smul, ω.property x, mul_zero]⟩ F G =
+      c ^ 2 * TetherKernel ω F G :=
+  step2_degree F G ω c hFD_F hFD_G (hPi_of_ne_zero ω c hc)
+
 /-- Minimality: the correction saturates the C3 quadratic form of `TetherKernel`. -/
 public def SaturatesTetherQuadratic
     (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
@@ -369,6 +410,34 @@ public theorem uniqueness_of_minimal_tether
   have _h1 := step1_locality B h_antisym hC1
   have _h3 := step3_projection B h_antisym hC2
   have _h4 := step4_coefficient B h_antisym hC3
+  have hB := h_polarB ω F G
+  have hT := h_polarT ω F G
+  have hFF := h_sat F ω
+  have hGG := h_sat G ω
+  have hFG := h_sat (fun ω' => F ω' + G ω') ω
+  linarith
+
+/-- `TetherKernel` is symmetric in `F` and `G` because the real inner product
+`⟨Π_u δF, Π_u δG⟩` is symmetric. -/
+public theorem tetherKernel_symmetric (ω : CoadjointOrbit) (F G : Functional) :
+    TetherKernel ω F G = TetherKernel ω G F :=
+  tetherKernel_comm ω F G
+
+/-- Symmetric polarization uniqueness of `TetherKernel`: because `TetherKernel` is a
+symmetric negative-semidefinite bilinear pairing (the dissipative/metric component of a
+metriplectic bracket), replacing `h_antisym` with symmetry `B ω F G = B ω G F` yields
+a non-vacuous characterization satisfied by `B = TetherKernel`. -/
+public theorem uniqueness_of_minimal_symmetric_tether
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (_h_sym : ∀ ω F G, B ω F G = B ω G F)
+    (_hC1 : InvariantUnderCoadjointAction B)
+    (_hC2 : DegenerateWRTKineticEnergy B)
+    (_hC3 : ProducesControllableNegativeFeedback B)
+    (h_sat : SaturatesTetherQuadratic B)
+    (h_polarB : Polarizes B)
+    (h_polarT : Polarizes TetherKernel) :
+    ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G := by
+  intro ω F G
   have hB := h_polarB ω F G
   have hT := h_polarT ω F G
   have hFF := h_sat F ω
