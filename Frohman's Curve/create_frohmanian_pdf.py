@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+# Released under Apache 2.0 license as described in the file LICENSE.
+# Authors: Benjamin Stanley Frohman
 """
 Polished PDF Generator: The Frohmanian Symplectic Tether Architecture,
 Reduced Jacobi Identity, and the Frohmanian Curve
