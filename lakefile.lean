@@ -34,6 +34,7 @@ lean_lib NS_Millennium_Proof where
   -- Skeleton (`import Mathlib`) and Widgets (ProofWidgets) stay in-tree but out of
   -- the default target so `lake build` remains kernel-passable.
   globs := #[
+    .one `NS_Millennium_Proof,
     .submodules `NS_Millennium_Proof.Modules,
     .submodules `NS_Millennium_Proof.Definitions
   ]
