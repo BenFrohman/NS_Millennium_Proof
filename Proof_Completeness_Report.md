@@ -1,5 +1,11 @@
 # Proof Completeness Report — Frohmanian Symplectic Tether NS Regularity
 
+> **Status correction (Oct 2026).** This report predates the audit. The regularity heads are
+> **conditional**: they take `FrohmanianTetherRate` (`hDI`) and `FrohmanianTetherBound`
+> (`hRiccati`) as explicit hypotheses, which are open. "Unconditional" below is withdrawn.
+> See `HWEIGHT_OBSTRUCTION.md`, `SCALE_INVARIANT_TETHER.md`, and the open targets
+> `Clay_A` / `Clay_B` in `NS_Millennium_Proof/Modules/ClayStatements.lean`.
+
 **Source**: Full audited living document provided in the query (original + all PASS 1-5 blocks).
 
 **Date**: Auto-generated during exhaustive implementation pass.
@@ -13,7 +19,7 @@
 - The corrected Lemma 3.1 (PASS 5 version) with finite-subinterval argument that closes the PASS 4 gap.
 - Independent comparison majorant with full phase-plane global boundedness (pure ODE, from Section 3 + PASS 3/5).
 - Differential inequality derivation with all cancellations, Hölder, Sobolev, Young absorption (Section 3).
-- Unconditional global regularity closure (BKM + parabolic regularity).
+- Global regularity closure (BKM + parabolic regularity), **conditional** on `FrohmanianTetherRate` / `FrohmanianTetherBound` (open).
 - Top-level main theorem with enforced non-circular dependency order.
 - All technical appendix items (Leray commutation from PASS 1 revision, etc.).
 
@@ -43,7 +49,7 @@ Auto-execution can continue on request for any specific inner lemma.
 - Appended large rigorous translations to Full_Proof_Skeleton.lean:
   - Full 5-step uniqueness with details from Section 2.7 + PASS 2.
   - Critical proxy degeneracy from Section 2.4.1 + PASS 1 (structured with substeps).
-  - Complete corrected Lemma 3.1 + unconditional regularity from PASS 5 + full Section 3 expansions (independent majorant, finite subintervals, phase-plane cases, absorption, BKM).
+  - Complete corrected Lemma 3.1 + regularity from PASS 5 (conditional on the tether rate; not unconditional) + full Section 3 expansions (independent majorant, finite subintervals, phase-plane cases, absorption, BKM).
 - All placed with comments referencing the exact source text/sections/PASS blocks you provided.
 - New DataStructures.lean for Array guidance.
 

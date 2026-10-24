@@ -1,5 +1,12 @@
 # 03 — Quartic Weight "Forced by the Uniqueness Theorem", κ = C_CZ(3), ε=κ/4 Absorption (Stronger Verbatim)
 
+> **Status note (Oct 2026).** The quotations below are historical paper wording. The claimed
+> absorption into `−κ M⁴` (equivalently the rate `M' ≤ C M² − κ'' M³`) is **not proved**; in Lean
+> it is the explicit hypothesis `FrohmanianTetherRate`. The pointwise form fails on smooth
+> divergence-free fields at moderate amplitude (`HWEIGHT_OBSTRUCTION.md`), and it is not
+> scale-invariant (`SCALE_INVARIANT_TETHER.md`). "Forced by the uniqueness theorem" refers to the
+> geometric layer only; it does not establish the analytic inequality.
+
 **Sources**: Roadmaps (coefficient matching), Grok Project-Tether Theorem Draft (direct analytic counterpart + operationally necessary), EDITfinals.tex (explicit ε=κ/4 + C_abs), Full_Living_Document, NEXT1/main.tex + Main8DRAFTAppends, NS-Polished.
 
 **Stronger phrasing for h_B_definition sub-haves + TetheredLyapunov lemma_3_1 + comments**:
