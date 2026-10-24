@@ -1,8 +1,9 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Benjamin Stanley Frohman, with formalization assistance from Grok (xAI)
-
+Authors: Benjamin Stanley Frohman
+-/
+/-
 This file is part of the Lean 4 formalization of the Frohmanian Symplectic Tether Theorem.
 
 See the root document `LaTeX_Lean_Relationship.md` (especially Sections 2–4 and the mapping table)

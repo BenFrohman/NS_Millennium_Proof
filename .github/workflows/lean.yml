@@ -37,6 +37,12 @@ jobs:
       - name: Build project
         run: lake build
 
+      - name: Source gate (no sorry/admit, no axiom declarations in default build)
+        run: python3 scripts/check_sources.py
+
+      - name: Axiom audit (only propext / Classical.choice / Quot.sound allowed)
+        run: lake env lean scripts/AxiomAudit.lean
+
   structure:
     name: Repository structure check
     runs-on: ubuntu-latest

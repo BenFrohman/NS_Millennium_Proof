@@ -28,7 +28,7 @@ Calderón–Zygmund stretching, uniqueness classification, Jacobi identity,
 Picard existence of the majorant ODE.
 
 `kappa` is `C_CZ(3) = (3/(8 π)) · 4 π = 3/2` from the strain kernel, not an axiom and not the stand-in `1`.
-`IsSmoothAtTime` is `ContDiff ℝ ⊤`, not a `constant`.
+`IsSmoothAtTime` is `ContDiff ℝ (⊤ : ℕ∞)`, not a `constant`.
 Admissible corrections use the real predicates C1–C3, not `True`.
 -/
 
@@ -94,14 +94,15 @@ public theorem comparison_ode_bound_of_equality
 /-- Kato / Leray local existence on a short interval. Classical. -/
 public theorem local_existence_kato
     (u₀ : VelocityField) (ν : ℝ)
-    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (hν : 0 < ν)
     (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
-      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
+      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       u 0 = u₀ ∧
+      IsPhysicalNSSolution u ∧
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
   NavierStokes3D.local_existence u₀ ν h_smooth h_divfree h_finite hν w
 
@@ -113,8 +114,8 @@ public theorem beale_kato_majda_criterion
       IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T))
     (hTstar : Tstar (u 0) ν = ⊤)
     (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
-    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) :=
   NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm hTstar hbelow
 
 /-- Calderón–Zygmund stretching: `|ω · ∇u| ≲ C_CZ(3) ‖ω‖_∞ |ω|` once the
@@ -200,8 +201,8 @@ public theorem bkm_regularity_pipeline
     (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
     (hTstar : Tstar (u 0) ν = ⊤)
     (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
-    ∀ τ ≥ (0 : ℝ), ContDiff ℝ ⊤ (u τ) :=
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    ∀ τ ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u τ) :=
   AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont hTstar hbelow
 
 /-- If a differentiable scalar majorant of `‖ω(t)‖_∞` obeys the Riccati
@@ -219,8 +220,8 @@ public theorem regularity_from_riccati_majorant
     (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
     (hTstar : Tstar (u 0) ν = ⊤)
     (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
-    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) := by
   have hceil : ∀ τ ≥ (0 : ℝ), y τ ≤ max (y 0) (C / κ'') :=
     fun τ hτ => comparison_ode_stability C κ'' hC hκ y hdiff hy_dot τ hτ
   have hbound :
@@ -229,12 +230,16 @@ public theorem regularity_from_riccati_majorant
   exact bkm_regularity_pipeline u p ν hν hNS (max (y 0) (C / κ'')) hbound hcont
     hTstar hbelow
 
-/-- Assembly: local existence, tether uniqueness, Young residual, Riccati ceiling,
-and BKM continuation. Smoothness is `ContDiff ℝ ⊤`, not a `constant`. -/
-public theorem global_regularity_for_NS
+/-- **Continuation under assumed global existence** (NOT a regularity theorem).
+This takes `hTstar : ∀ u, Tstar (u 0) ν = ⊤`, i.e. it *assumes* the maximal existence
+time is infinite, and only upgrades compact-interval smoothness to all `t ≥ 0`. Global
+existence is the content of regularity, so this statement is circular as a regularity
+claim; it is kept only as a bookkeeping lemma. For the honest conditional regularity
+statement see `global_regularity_for_NS` below (tether bound + uniform restart). -/
+public theorem continuation_under_global_existence
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
-    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
@@ -246,15 +251,47 @@ public theorem global_regularity_for_NS
     (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
     (hbelow : ∀ u : ℝ → VelocityField,
       ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧
       u 0 = u₀ ∧
-      (∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t)) ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
   TetheredLyapunov.global_regularity u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν
     w hRiccati hTstar hbelow
+
+/-- **Conditional global regularity** (Frohmanian Symplectic Tether, conditional).
+Derived from the open `FrohmanianTetherBound` hypothesis plus the classical uniform-restart
+and local-uniqueness binders, via `TetheredLyapunov.global_regularity_of_restart`.
+`Tstar = ⊤` is *derived* (restart lemma), not assumed. Not an unconditional Clay solution. -/
+public theorem global_regularity_for_NS
+    (u₀ : VelocityField) (ν : ℝ)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
+    (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (h_pos_ν : ν > 0)
+    (w : KatoLocalWitness u₀ ν)
+    (hRiccati : FrohmanianTetherBound u₀ ν)
+    (τ : ℝ) (hτ : 0 < τ)
+    (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
+      ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
+    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+      T' ∈ existenceTimes u₀ ν → v 0 = u₀ → NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
+      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+    ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
+      NS_PDE u p ν ∧
+      u 0 = u₀ ∧
+      (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
+      (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+      (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
+  ⟨w.u, w.p, TetheredLyapunov.global_regularity_of_restart u₀ ν h_divfree h_smooth
+    h_finite_energy h_pos_ν w
+    (fun u p hNS hu0 hphys =>
+      let ⟨Y, hb, hc, _⟩ := hRiccati u p hNS hu0 hphys
+      ⟨Y, hb, hc⟩) τ hτ hrestart huniq⟩
 
 /-! ## Section 4 — named geometric / Lyapunov skeletons (real types) -/
 
@@ -303,13 +340,15 @@ those real types (`sorryAx`), never `True`.
 3. A differentiable majorant of `M(t) = ‖ω(u t)‖_∞` obeying that field is
    the remaining paper transcription (`sorryAx` on the real type).
 4. `regularity_from_riccati_majorant` consumes it: comparison ceiling →
-   `IntegrableOn M (Icc 0 T)` → BKM `ContDiff ℝ ⊤ (u t)`.
+   `IntegrableOn M (Icc 0 T)` → BKM `ContDiff ℝ (⊤ : ℕ∞) (u t)`.
 -/
+-- NOTE: like `continuation_under_global_existence`, this takes `hTstar` (global existence)
+-- as a hypothesis; it records type composition only and is not a regularity claim.
 public theorem type_composition_sequence
     (u₀ : VelocityField) (ν : ℝ)
     (hν : 0 < ν)
     (hdiv : ∀ x, div u₀ x = 0)
-    (hsm : ContDiff ℝ ⊤ u₀)
+    (hsm : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (hE : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (w : KatoLocalWitness u₀ ν)
     (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
@@ -323,10 +362,10 @@ public theorem type_composition_sequence
     (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
     (hbelow : ∀ u : ℝ → VelocityField,
       ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
-      NS_PDE u p ν ∧ u 0 = u₀ ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
-  obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
+      NS_PDE u p ν ∧ u 0 = u₀ ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) := by
+  obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
     local_existence_kato u₀ ν hsm hdiv hE hν w
   have _young :
       ∀ M I₄ I₆ phi_norm C_abs : ℝ, 0 ≤ I₆ →

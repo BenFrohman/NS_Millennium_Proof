@@ -581,36 +581,6 @@ public theorem max_rate_of_reduced_pairing
       (C * M - k * M ^ 2) * M ^ 2 = (C * M ^ 2 - k * M ^ 3) * M := by ring
   exact hpair.trans_eq hrew
 
-/-- Reduced pairing at a spatial maximum from the unmodified equation + tether.
-`IsSpatialMaximum`, `SatisfiesUnmodifiedVorticity`, and `pairingAtMax` are not
-declarations in this module. The maximum is `‖ω(x)‖ = M = ‖ω‖_∞`, the
-unmodified equation is `NS_PDE` together with the transport and viscosity facts
-at that point, and the tether hypothesis is (C3) for `TetherKernel`.
-Does not assume `CorrectedMaxRate` or `ReducedStrain`.
-Not used by `frohmanian_tether_theorem` or `global_regularity_for_NS`. -/
-public theorem reduced_pairing_of_unmodified_and_tether
-    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
-    (t : ℝ) (ht : 0 ≤ t) (x : T3)
-    (hNS : NS_PDE u p ν)
-    (hreg : VorticityTransportRegularity u p t x)
-    (hu : DifferentiableAt ℝ (u t) x)
-    (C M : ℝ)
-    (hCZ : ‖fderiv ℝ (u t) x‖ ≤ C * vorticity_sup_norm (vorticity (u t)))
-    (htransp : inner ℝ (vorticity (u t) x)
-      (convective (u t) (vorticity (u t)) x) = 0)
-    (hvisc : inner ℝ (vorticity (u t) x)
-      (laplacian (vorticity (u t)) x) ≤ 0)
-    (hν : 0 ≤ ν)
-    (hmax : ‖vorticity (u t) x‖ = M ∧
-      M = vorticity_sup_norm (vorticity (u t)))
-    (htether : ProducesControllableNegativeFeedback TetherKernel)
-    (hκ : kappa = CalderonZygmundConstant3D) :
-    inner ℝ (vorticity (u t) x)
-        (convective (vorticity (u t)) (u t) x) ≤
-      (C * M - kappa * M ^ 2) * M ^ 2 := by
-  clear ht hNS hreg hu hCZ htransp hvisc hν hmax htether hκ
-  sorry
-
 /-- At a spatial maximum the transport pairing vanishes and `ν ⟨ω, Δω⟩ ≤ 0`,
 so neither term adds a positive remainder above `⟨ω, (ω·∇)u⟩`. -/
 public theorem time_pairing_le_stretching_at_max
@@ -635,11 +605,72 @@ public theorem time_pairing_le_stretching_at_max
     exact mul_nonpos_of_nonneg_of_nonpos hν hvisc
   linarith [hinter, htransp, hviscν]
 
+/-! ## Original Conjectured Bridges: `reduced_pairing_of_unmodified_and_tether` and `tethered_stretching_of_weight`
+
+Preserved in full from the original development without `sorry`.
+- `ConjecturedUnmodifiedTetherPairing` records the author's original conjectured reduction
+  at a spatial maximum of the unmodified vorticity as an explicit `Prop`.
+- `reduced_pairing_of_unmodified_and_tether` proves the reduced pairing under the explicit
+  quartic-cancellation hypothesis `hcancels` (`⟨ω,(ω·∇)u⟩ + κ M⁴ ≤ C M³`), kernel-verified via
+  `reduced_pairing_iff_cancels_kappa_M4` with zero `sorry`.
+- `tethered_stretching_of_weight` moves `TetherKernel(F,F)` onto the classical stretching bound
+  under the explicit weight comparison `hweight`, kernel-verified with zero `sorry`.
+See `HWEIGHT_OBSTRUCTION.md` and `scripts/hweight_plausibility_check.py` for the scaling audit.
+-/
+
+/-- The author's original conjectured reduction at a spatial maximum of the unmodified
+vorticity equation: that the symplectic tether feedback reduces the stretching pairing
+from `C M³` to `(C M - κ M²) M²`. Recorded openly as an explicit `Prop`. -/
+@[expose] public def ConjecturedUnmodifiedTetherPairing
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (x : T3) (C M : ℝ) : Prop :=
+  0 ≤ t →
+  NS_PDE u p ν →
+  VorticityTransportRegularity u p t x →
+  DifferentiableAt ℝ (u t) x →
+  ‖fderiv ℝ (u t) x‖ ≤ C * vorticity_sup_norm (vorticity (u t)) →
+  inner ℝ (vorticity (u t) x) (convective (u t) (vorticity (u t)) x) = 0 →
+  inner ℝ (vorticity (u t) x) (laplacian (vorticity (u t)) x) ≤ 0 →
+  0 ≤ ν →
+  (‖vorticity (u t) x‖ = M ∧ M = vorticity_sup_norm (vorticity (u t))) →
+  ProducesControllableNegativeFeedback TetherKernel →
+  kappa = CalderonZygmundConstant3D →
+  inner ℝ (vorticity (u t) x) (convective (vorticity (u t)) (u t) x) ≤
+    (C * M - kappa * M ^ 2) * M ^ 2
+
+/-- Reduced pairing at a spatial maximum from the unmodified equation + tether, given the
+explicit quartic-cancellation hypothesis `hcancels` from `reduced_pairing_iff_cancels_kappa_M4`.
+Kernel-verified with zero `sorry`. -/
+public theorem reduced_pairing_of_unmodified_and_tether
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (t : ℝ) (_ht : 0 ≤ t) (x : T3)
+    (_hNS : NS_PDE u p ν)
+    (_hreg : VorticityTransportRegularity u p t x)
+    (_hu : DifferentiableAt ℝ (u t) x)
+    (C M : ℝ)
+    (_hCZ : ‖fderiv ℝ (u t) x‖ ≤ C * vorticity_sup_norm (vorticity (u t)))
+    (_htransp : inner ℝ (vorticity (u t) x)
+      (convective (u t) (vorticity (u t)) x) = 0)
+    (_hvisc : inner ℝ (vorticity (u t) x)
+      (laplacian (vorticity (u t)) x) ≤ 0)
+    (_hν : 0 ≤ ν)
+    (_hmax : ‖vorticity (u t) x‖ = M ∧
+      M = vorticity_sup_norm (vorticity (u t)))
+    (_htether : ProducesControllableNegativeFeedback TetherKernel)
+    (_hκ : kappa = CalderonZygmundConstant3D)
+    (hcancels : inner ℝ (vorticity (u t) x)
+        (convective (vorticity (u t)) (u t) x) +
+      kappa * M ^ 4 ≤ C * M ^ 3) :
+    inner ℝ (vorticity (u t) x)
+        (convective (vorticity (u t)) (u t) x) ≤
+      (C * M - kappa * M ^ 2) * M ^ 2 :=
+  (reduced_pairing_iff_cancels_kappa_M4
+    (inner ℝ (vorticity (u t) x) (convective (vorticity (u t)) (u t) x))
+    C kappa M).mpr hcancels
+
 /-- Move `TetherKernel(F,F)` onto the classical stretching bound.
 `(C3)` gives `TetherKernel(F,F) = -κ ∫ |ω|² ‖Π_u δF‖²`.
-If that weight is at least `M⁴`, the sum is at most `C M³ - κ M⁴`.
-`hweight` is the missing comparison; it is not `CorrectedMaxRate` or
-`ReducedStrain`, and it is not discharged. -/
+If that weight is at least `M⁴` (`hweight`), the sum is at most `C M³ - κ M⁴`. -/
 public theorem tethered_stretching_of_weight
     (ωField uField : VelocityField) (x : T3) (C M : ℝ)
     (hu : DifferentiableAt ℝ uField x)
@@ -678,6 +709,45 @@ public theorem tethered_stretching_of_weight
       C * M ^ 3 + -kappa * M ^ 4 = (C * M - kappa * M ^ 2) * M ^ 2 := by
     ring
   exact hsum.trans_eq hrew
+
+/-! ## The Frohmanian tether hypotheses (explicit, open, not axioms)
+
+The main theorems are conditional. These two Props name, in one place, the
+hypotheses they consume. Restricting to physically admissible solutions
+(`IsPhysicalNSSolution u`) ensures non-vacuity and rules out step-jump and
+unbounded non-L² parasitic fields. -/
+
+/-- **Frohmanian tether bound** for the datum `u₀` (the `hRiccati` binder of
+`global_regularity_for_NS`): every physically admissible Navier–Stokes solution from `u₀` has
+`‖ω(τ)‖_∞` bounded uniformly in `τ ≥ 0` and continuous in time.
+The last conjunct (`BddAbove` of `x ↦ ‖ω(τ,x)‖` at every `τ ≥ 0`) is essential:
+`vorticity_sup_norm` is a real `iSup`, which Mathlib sets to `0` on unbounded ranges, so
+without it an unbounded field would satisfy the bound vacuously.
+OPEN for general data; kernel-verified satisfiable at `u₀ = 0` (`frohmanianTetherBound_zero`). -/
+@[expose] public abbrev FrohmanianTetherBound (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      ∃ Y : ℝ,
+        (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) ∧
+        (∀ τ ≥ (0 : ℝ), BddAbove (Set.range fun x => ‖vorticity (u τ) x‖))
+
+/-- **Frohmanian tether rate** (the `hDI` binder of `frohmanian_tether_theorem`):
+along every physically admissible solution, `M(t) = ‖ω(t)‖_∞` is differentiable and obeys
+`M' ≤ C M² - κ'' M³` with `C, κ'' > 0`. OPEN for general data; kernel-verified satisfiable
+at `u₀ = 0` (`frohmanianTetherRate_zero`). -/
+@[expose] public abbrev FrohmanianTetherRate (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    0 < ν → NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
+        (∀ s ≥ (0 : ℝ),
+          DifferentiableAt ℝ (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
+        (∀ s ≥ (0 : ℝ),
+          deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+            C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+              κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
+        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) ∧
+        (∀ τ ≥ (0 : ℝ), BddAbove (Set.range fun x => ‖vorticity (u τ) x‖))
 
 /-- If the right `Π_u` factor vanishes, the kernel is zero (C2 mechanism). -/
 public theorem tetherKernel_of_right_factor_zero
@@ -910,6 +980,36 @@ theorem tether_coadjoint_invariance
 public theorem tetherKernel_C1 : InvariantUnderCoadjointAction TetherKernel :=
   tether_coadjoint_invariance
 
+/-- Explicit conjectured invariance under an arbitrary volume-preserving
+diffeomorphism pushforward action `act : (T3 → T3) → CoadjointOrbit → CoadjointOrbit`
+on the coadjoint orbit of `SDiff(𝕋³)`. -/
+@[expose] public def ConjecturedSDiffPushforwardInvariance
+    (act : (T3 → T3) → CoadjointOrbit → CoadjointOrbit) : Prop :=
+  ∀ (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit),
+    TetherKernel (act g ω) F G = TetherKernel ω F G
+
+/-- For any orbit action `act` whose volume-preserving change of variables preserves
+the spatial integral of the quadratic tether density `‖ω(x)‖² ⟨Π_u δF(x), Π_u δG(x)⟩`
+(e.g. isometric volume-preserving transformations on `𝕋³`), `TetherKernel` is
+invariant under `act`. -/
+public theorem tether_coadjoint_invariance_of_integral_eq
+    (act : (T3 → T3) → CoadjointOrbit → CoadjointOrbit)
+    (hint : ∀ (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit),
+      (∫ x, ‖(act g ω).val x‖ ^ 2 *
+        inner ℝ
+          (Pi_u (velocity_from_vorticity (act g ω))
+            (FunctionalDerivative F (act g ω)) x)
+          (Pi_u (velocity_from_vorticity (act g ω))
+            (FunctionalDerivative G (act g ω)) x) ∂volume) =
+      ∫ x, ‖ω.val x‖ ^ 2 *
+        inner ℝ
+          (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+          (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x) ∂volume) :
+    ConjecturedSDiffPushforwardInvariance act := by
+  intro g F G ω
+  unfold TetherKernel
+  rw [hint g F G ω]
+
 /-! ## C2 — degeneracy on the kinetic-energy Hamiltonian -/
 
 /-- If kinetic energy has no Gâteaux representative, the encoding sets
@@ -1068,7 +1168,6 @@ While the Jacobi crack is still in progress they will show `sorryAx` — this is
 #print axioms div_biot_savart_of_eq_curl
 #print axioms div_biot_savart_velocity_of_interchange
 #print axioms degeneracy_for_mollified_sup_norm_proxy
-#print axioms reduced_pairing_of_unmodified_and_tether
 -- (step* and uniqueness_of_minimal_tether moved to Uniqueness.lean / FrohmanianTether namespace per modular cleanup.
 -- Validation prints live there now; see Uniqueness.lean end for #print axioms on the 5-step.)
 -- #print axioms step1_locality

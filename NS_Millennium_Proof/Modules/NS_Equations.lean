@@ -2248,11 +2248,41 @@ public theorem vorticity_transport_equation
     (t : ℝ) (x : T3) : ℝ :=
   deriv (fun s => f s x) t + inner ℝ (u t x) (gradient (f t) x)
 
-/-- Finite existence times: a positive `T` such that a smooth NS solution starting at `u₀`
-exists on the compact interval `[0, T]`. -/
+/-- Physical admissibility of a time-dependent velocity field (Clay Eq. (4) + time-smoothness):
+1. Pointwise time-differentiability (`s ↦ u s x` is differentiable at every `t ≥ 0`), ruling out
+   step jumps in time where Mathlib's `deriv` returns `0` by junk value.
+2. Spatial continuity and finite L² energy (`Integrable (fun x => ‖u t x‖ ^ 2)`) obeying the
+   Leray energy inequality `∫ ‖u t x‖² ≤ ∫ ‖u 0 x‖²`, ruling out unbounded parasitic pressure
+   waves on `ℝ³`.
+3. Causal extension `u t = u 0` for `t ≤ 0` on the total time line `ℝ`. -/
+@[expose] public def IsPhysicalNSSolution (u : TimeDependentVelocity) : Prop :=
+  (∀ t ≥ (0 : ℝ), ∀ x : T3, DifferentiableAt ℝ (fun s => u s x) t) ∧
+  (∀ t ≥ (0 : ℝ), Continuous (u t)) ∧
+  (∀ t ≥ (0 : ℝ), Integrable (fun x : T3 => ‖u t x‖ ^ 2)) ∧
+  (∀ t ≥ (0 : ℝ), (∫ x, ‖u t x‖ ^ 2 ∂volume) ≤ ∫ x, ‖u 0 x‖ ^ 2 ∂volume) ∧
+  (∀ t ≤ (0 : ℝ), u t = u 0)
+
+public theorem isPhysicalNSSolution_zero :
+    IsPhysicalNSSolution (fun _ => (0 : VelocityField)) :=
+  ⟨fun _ _ _ => differentiableAt_const 0,
+   fun _ _ => continuous_const,
+   fun _ _ => by simp,
+   fun _ _ => le_rfl,
+   fun _ _ => rfl⟩
+
+/-- Finite existence times: a positive `T` such that a physically admissible smooth NS solution
+starting at `u₀` exists on the compact interval `[0, T]`. -/
 public def existenceTimes (u₀ : VelocityField) (ν : ℝ) : Set ℝ :=
   { T | 0 < T ∧ ∃ u : TimeDependentVelocity, ∃ p : TimeDependentPressure,
-      u 0 = u₀ ∧ NS_PDE u p ν ∧ ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t) }
+      u 0 = u₀ ∧ NS_PDE u p ν ∧
+      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
+      IsPhysicalNSSolution u }
+
+/-- Unpatched existence horizons omitting `IsPhysicalNSSolution`, retained for the audit module
+`ClayStatements.lean` to document why pointwise `deriv` alone is vulnerable to step jumps. -/
+public def existenceTimes_unpatched (u₀ : VelocityField) (ν : ℝ) : Set ℝ :=
+  { T | 0 < T ∧ ∃ u : TimeDependentVelocity, ∃ p : TimeDependentPressure,
+      u 0 = u₀ ∧ NS_PDE u p ν ∧ ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t) }
 
 /-- Maximal existence time `T*` as an extended real: `sSup` of the existence times,
 or `0` if there are none (`insert 0`). Unbounded existence times give `T* = ⊤`.
@@ -2393,24 +2423,26 @@ public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
   Tpos : 0 < T
   u : TimeDependentVelocity
   p : TimeDependentPressure
-  smooth : ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)
+  smooth : ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)
   init : u 0 = u₀
   pde : NS_PDE u p ν
+  phys : IsPhysicalNSSolution u
 
 /-- Local existence of a smooth solution on a short interval (Kato 1972 / Leray 1934).
 The witness is the Kato/Leray construction; the implication is kernel-closed. -/
 public theorem local_existence
     (u₀ : VelocityField) (ν : ℝ)
-    (_h_smooth : ContDiff ℝ ⊤ u₀)
+    (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (_h_divfree : ∀ x, div u₀ x = 0)
     (_h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (_hν : 0 < ν)
     (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
-      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
+      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       u 0 = u₀ ∧
+      IsPhysicalNSSolution u ∧
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
-  ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.p, w.pde⟩
+  ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.phys, w.p, w.pde⟩
 
 /-- Time derivative is linear. Difference of two C¹-in-time fields. -/
 public theorem time_deriv_sub
@@ -2540,6 +2572,7 @@ public noncomputable def kato_witness_zero (ν : ℝ) :
   smooth := fun _t _ht => contDiff_const
   init := rfl
   pde := navier_stokes_eq_zero ν
+  phys := isPhysicalNSSolution_zero
 
 /-- Kato local existence for the rest state: 0-hyp construction, no `True`. -/
 public noncomputable def local_existence_zero (ν : ℝ) (_hν : 0 < ν) :
@@ -2550,7 +2583,7 @@ public noncomputable def local_existence_zero (ν : ℝ) (_hν : 0 < ν) :
 public theorem mem_existenceTimes_of_kato_witness
     (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν) :
     w.T ∈ existenceTimes u₀ ν :=
-  ⟨w.Tpos, w.u, w.p, w.init, w.pde, w.smooth⟩
+  ⟨w.Tpos, w.u, w.p, w.init, w.pde, w.smooth, w.phys⟩
 
 /-- Restrict a Kato witness to a shorter positive time. Paper continuation
 uses the same path; only the smoothness window shrinks. -/
@@ -2565,6 +2598,7 @@ public noncomputable def kato_witness_restrict
   smooth := fun s hs => w.smooth s ⟨hs.1, hs.2.trans ht.2⟩
   init := w.init
   pde := w.pde
+  phys := w.phys
 
 /-- Time shift: `∂t u(· + t₀) = (∂t u)(· + t₀)`. Chain rule, not a
 `True` gate. -/
@@ -2612,7 +2646,7 @@ public theorem smoothness_on_restart_interval
     (w : KatoLocalWitness u₀ ν)
     (w' : KatoLocalWitness (w.u w.T) ν)
     (huniq : ∀ s ∈ Set.Icc (0 : ℝ) w'.T, w.u (w.T + s) = w'.u s) :
-    ∀ t ∈ Set.Icc (0 : ℝ) (w.T + w'.T), ContDiff ℝ ⊤ (w.u t) := by
+    ∀ t ∈ Set.Icc (0 : ℝ) (w.T + w'.T), ContDiff ℝ (⊤ : ℕ∞) (w.u t) := by
   intro t ht
   by_cases hle : t ≤ w.T
   · exact w.smooth t ⟨ht.1, hle⟩
@@ -2634,7 +2668,7 @@ public theorem mem_existenceTimes_add_of_kato_restart
     (huniq : ∀ s ∈ Set.Icc (0 : ℝ) w'.T, w.u (w.T + s) = w'.u s) :
     w.T + w'.T ∈ existenceTimes u₀ ν :=
   ⟨add_pos w.Tpos w'.Tpos, w.u, w.p, w.init, w.pde,
-    smoothness_on_restart_interval u₀ ν w w' huniq⟩
+    smoothness_on_restart_interval u₀ ν w w' huniq, w.phys⟩
 
 /-- Quantitative Kato restart: a uniform lower bound `τ` on the Kato
 time of every smooth finite-energy slice, plus Cauchy identification
@@ -2643,20 +2677,29 @@ times `t + τ` below `T*`. Paper continuation construction. -/
 public theorem restart_of_kato_quantitative
     (u₀ : VelocityField) (ν τ : ℝ)
     (_hν : 0 < ν) (_hτ : 0 < τ)
-    (hKato : ∀ u₁, ContDiff ℝ ⊤ u₁ → (∀ x, div u₁ x = 0) →
+    (hKato : ∀ u₁, ContDiff ℝ (⊤ : ℕ∞) u₁ → (∀ x, div u₁ x = 0) →
       Integrable (fun x : T3 => ‖u₁ x‖ ^ 2) →
       KatoLocalWitness u₁ ν)
-    (hTlb : ∀ u₁ (hsm : ContDiff ℝ ⊤ u₁)
+    (hTlb : ∀ u₁ (hsm : ContDiff ℝ (⊤ : ℕ∞) u₁)
       (hdiv : ∀ x, div u₁ x = 0)
       (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2)),
       τ ≤ (hKato u₁ hsm hdiv hE).T)
     (hInt : ∀ (T : ℝ) (v : TimeDependentVelocity)
-      (_q : TimeDependentPressure),
-      T ∈ existenceTimes u₀ ν → ∀ t ∈ Set.Icc (0 : ℝ) T,
+      (q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
+      ∀ t ∈ Set.Icc (0 : ℝ) T,
         Integrable (fun x : T3 => ‖v t x‖ ^ 2))
     (huniq_shift : ∀ (T : ℝ) (v : TimeDependentVelocity)
-      (_q : TimeDependentPressure),
+      (q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       ∀ t ∈ Set.Icc (0 : ℝ) T,
         ∀ (w' : KatoLocalWitness (v t) ν),
           ∀ s ∈ Set.Icc (0 : ℝ) w'.T, v (t + s) = w'.u s) :
@@ -2665,29 +2708,29 @@ public theorem restart_of_kato_quantitative
   intro t ht0 htlt
   obtain ⟨T', hmem, hlt⟩ :=
     exists_mem_existenceTimes_gt_of_lt_Tstar u₀ ν htlt ht0
-  obtain ⟨v, q, hv0, hpde, hsm⟩ := hmem.2
+  obtain ⟨v, q, hv0, hpde, hsm, hphys⟩ := hmem.2
   have htI : t ∈ Set.Icc (0 : ℝ) T' := ⟨ht0, hlt.le⟩
-  have hvsm : ContDiff ℝ ⊤ (v t) := hsm t htI
+  have hvsm : ContDiff ℝ (⊤ : ℕ∞) (v t) := hsm t htI
   have hvdiv : ∀ x, div (v t) x = 0 := fun x => (hpde t ht0 x).2
   have hvE : Integrable (fun x : T3 => ‖v t x‖ ^ 2) :=
-    hInt T' v q hmem t htI
+    hInt T' v q hmem hv0 hpde hsm hphys t htI
   let w' := hKato (v t) hvsm hvdiv hvE
   have hτle : τ ≤ w'.T := hTlb (v t) hvsm hvdiv hvE
   by_cases htpos : 0 < t
   · have hsm' : ∀ s ∈ Set.Icc (0 : ℝ) (t + w'.T),
-        ContDiff ℝ ⊤ (v s) := by
+        ContDiff ℝ (⊤ : ℕ∞) (v s) := by
       intro s hs
       by_cases hle : s ≤ t
       · exact hsm s ⟨hs.1, hle.trans htI.2⟩
       · have hs0 : 0 ≤ s - t := sub_nonneg.mpr (le_of_not_ge hle)
         have hsT : s - t ≤ w'.T := by linarith [hs.2]
-        have heq := huniq_shift T' v q hmem t htI w' (s - t) ⟨hs0, hsT⟩
+        have heq := huniq_shift T' v q hmem hv0 hpde hsm hphys t htI w' (s - t) ⟨hs0, hsT⟩
         have hst : t + (s - t) = s := by ring
         rw [hst] at heq
         rw [heq]
         exact w'.smooth (s - t) ⟨hs0, hsT⟩
     have hmemAdd : t + w'.T ∈ existenceTimes u₀ ν :=
-      ⟨add_pos htpos w'.Tpos, v, q, hv0, hpde, hsm'⟩
+      ⟨add_pos htpos w'.Tpos, v, q, hv0, hpde, hsm', hphys⟩
     refine ⟨t + w'.T, hmemAdd, ?_⟩
     linarith [hτle]
   · have ht00 : t = 0 := le_antisymm (not_lt.mp htpos) ht0
@@ -2709,9 +2752,10 @@ public theorem mem_existenceTimes
     (u : TimeDependentVelocity) (p : TimeDependentPressure)
     (hu0 : u 0 = u₀)
     (hpde : NS_PDE u p ν)
-    (hsm : ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+    (hsm : ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t))
+    (hphys : IsPhysicalNSSolution u) :
     T ∈ existenceTimes u₀ ν :=
-  ⟨hT, u, p, hu0, hpde, hsm⟩
+  ⟨hT, u, p, hu0, hpde, hsm, hphys⟩
 
 /-- Curl of the zero field vanishes. -/
 public theorem curl_zero (x : T3) : curl (0 : VelocityField) x = 0 := by
@@ -2721,7 +2765,7 @@ public theorem curl_zero (x : T3) : curl (0 : VelocityField) x = 0 := by
 public theorem mem_existenceTimes_zero (ν : ℝ) {T : ℝ} (hT : 0 < T) :
     T ∈ existenceTimes (0 : VelocityField) ν :=
   ⟨hT, fun _ => 0, fun _ => (0 : PressureField), rfl, navier_stokes_eq_zero ν,
-    fun _ _ => contDiff_const⟩
+    fun _ _ => contDiff_const, isPhysicalNSSolution_zero⟩
 
 /-- The rest state has unbounded existence times, hence `T* = ⊤`. -/
 public theorem Tstar_zero_eq_top (ν : ℝ) :
@@ -2736,12 +2780,13 @@ existence hypothesis is the remaining Kato transcription. -/
 public theorem Tstar_pos_of_exists_smooth_solution
     (u₀ : VelocityField) (ν : ℝ)
     (h : ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
-      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
+      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       u 0 = u₀ ∧
+      IsPhysicalNSSolution u ∧
       ∃ p : ℝ → PressureField, NS_PDE u p ν) :
     (0 : EReal) < Tstar u₀ ν := by
-  obtain ⟨T, hTpos, u, hsmooth, hu0, p, hpde⟩ := h
-  have hmem : T ∈ existenceTimes u₀ ν := ⟨hTpos, u, p, hu0, hpde, hsmooth⟩
+  obtain ⟨T, hTpos, u, hsmooth, hu0, hphys, p, hpde⟩ := h
+  have hmem : T ∈ existenceTimes u₀ ν := ⟨hTpos, u, p, hu0, hpde, hsmooth, hphys⟩
   have hpos : (0 : EReal) < (T : EReal) := EReal.coe_pos.mpr hTpos
   exact lt_of_lt_of_le hpos (le_Tstar_of_mem_existenceTimes u₀ ν hmem)
 
@@ -2750,7 +2795,7 @@ public theorem Tstar_pos_of_kato_witness
     (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν) :
     (0 : EReal) < Tstar u₀ ν :=
   Tstar_pos_of_exists_smooth_solution u₀ ν
-    ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.p, w.pde⟩
+    ⟨w.T, w.Tpos, w.u, w.smooth, w.init, w.phys, w.p, w.pde⟩
 
 /-- Pointwise sup-norm proxy used by BKM. -/
 @[expose] public noncomputable def vorticity_sup_norm (ω : VorticityField) : ℝ :=
@@ -3223,8 +3268,8 @@ public theorem smoothness_of_Tstar_top
     (u : TimeDependentVelocity) (ν : ℝ)
     (hTstar : Tstar (u 0) ν = ⊤)
     (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
-    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) := by
   intro t ht
   have hlt : (t : EReal) < Tstar (u 0) ν := by
     rw [hTstar]
@@ -3244,8 +3289,8 @@ public theorem beale_kato_majda
       IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T))
     (hTstar : Tstar (u 0) ν = ⊤)
     (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
-    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) :=
   smoothness_of_Tstar_top u ν hTstar hbelow
 
 /-- L² energy of a nonnegative density that obeys `E' ≤ K E` and `E 0 = 0`
@@ -3308,6 +3353,30 @@ public theorem eq_of_l2_energy_zero
   have hE' : (∫ y, ‖w y‖ ^ 2 ∂MeasureTheory.volume) = 0 := by
     simpa [volume] using hE
   exact (not_lt_of_ge (le_of_eq hE')) hpos
+
+/-- Any physically admissible solution starting from quiescent initial data `u 0 = 0`
+vanishes identically at every `t ≥ 0` by the Leray energy inequality and continuity. -/
+public theorem eq_zero_of_isPhysicalNSSolution_zero
+    (u : TimeDependentVelocity) (hu0 : u 0 = 0)
+    (hphys : IsPhysicalNSSolution u) (t : ℝ) (ht : 0 ≤ t) :
+    u t = 0 := by
+  have hcont : Continuous (u t) := hphys.2.1 t ht
+  have hint : Integrable (fun x : T3 => ‖u t x‖ ^ 2) := hphys.2.2.1 t ht
+  have hle : (∫ x, ‖u t x‖ ^ 2 ∂volume) ≤ ∫ x, ‖u 0 x‖ ^ 2 ∂volume := hphys.2.2.2.1 t ht
+  have h0 : (∫ x, ‖u 0 x‖ ^ 2 ∂volume) = 0 := by simp [hu0]
+  have hle0 : (∫ x, ‖u t x‖ ^ 2 ∂volume) ≤ 0 := hle.trans_eq h0
+  have hge0 : 0 ≤ ∫ x, ‖u t x‖ ^ 2 ∂volume := integral_nonneg (fun _ => sq_nonneg _)
+  have heq0 : (∫ x, ‖u t x‖ ^ 2 ∂volume) = 0 := le_antisymm hle0 hge0
+  exact eq_of_l2_energy_zero (u t) hint heq0 hcont
+
+/-- Any physically admissible solution with `u 0 = 0` is identically zero on all of `ℝ`. -/
+public theorem eq_zero_of_isPhysicalNSSolution_zero_all
+    (u : TimeDependentVelocity) (hu0 : u 0 = 0)
+    (hphys : IsPhysicalNSSolution u) (t : ℝ) :
+    u t = 0 := by
+  rcases le_or_gt 0 t with ht | ht
+  · exact eq_zero_of_isPhysicalNSSolution_zero u hu0 hphys t ht
+  · rw [hphys.2.2.2.2 t ht.le, hu0]
 
 /-- Cauchy uniqueness from the energy Grönwall: if the L² difference of two
 continuous fields obeys `E' ≤ K E` and `E 0 = 0`, then the fields coincide. -/
@@ -3441,7 +3510,8 @@ public theorem uniqueness_of_existence_times_of_energy_gronwall
       T' ∈ existenceTimes u₀ ν →
       v 0 = u₀ →
       NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       (∀ t ∈ Set.Icc (0 : ℝ) T', ContinuousAt
         (fun s => ∫ x, ‖w.u s x - v s x‖ ^ 2 ∂volume) t) ∧
       (∀ t ∈ Set.Icc (0 : ℝ) T', DifferentiableAt ℝ
@@ -3456,10 +3526,11 @@ public theorem uniqueness_of_existence_times_of_energy_gronwall
       T' ∈ existenceTimes u₀ ν →
       v 0 = u₀ →
       NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t := by
-  intro T' v q hmem hv0 hpde hsm
-  obtain ⟨hcontE, hdiffE, hle, hInt, hcont⟩ := hgron T' v q hmem hv0 hpde hsm
+  intro T' v q hmem hv0 hpde hsm hphys
+  obtain ⟨hcontE, hdiffE, hle, hInt, hcont⟩ := hgron T' v q hmem hv0 hpde hsm hphys
   have hu0 : w.u 0 = v 0 := by
     rw [w.init, hv0]
   exact ns_cauchy_on_Icc_of_energy_gronwall w.u v K T' hu0
@@ -3474,14 +3545,15 @@ public theorem smoothness_below_Tstar_of_uniqueness
       T' ∈ existenceTimes (u 0) ν →
       v 0 = u 0 →
       NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ ⊤ (v t)) →
+      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
       ∀ t ∈ Set.Icc (0 : ℝ) T', u t = v t)
     {T : ℝ} (hT : (T : EReal) < Tstar (u 0) ν) (hTnn : 0 ≤ T) :
-    ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t) := by
+    ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t) := by
   obtain ⟨T', hmem, hlt⟩ :=
     exists_mem_existenceTimes_gt_of_lt_Tstar (u 0) ν hT hTnn
-  obtain ⟨v, q, hv0, hpde, hsm⟩ := hmem.2
-  have heq := huniq T' v q hmem hv0 hpde hsm
+  obtain ⟨v, q, hv0, hpde, hsm, hphys⟩ := hmem.2
+  have heq := huniq T' v q hmem hv0 hpde hsm hphys
   intro t ht
   have ht' : t ∈ Set.Icc (0 : ℝ) T' := ⟨ht.1, ht.2.trans hlt.le⟩
   rw [heq t ht']
@@ -3497,8 +3569,8 @@ public theorem parabolic_regularity_from_vorticity_bound
     (hcont : Continuous fun t : ℝ => vorticity_sup_norm (vorticity (u t)))
     (hTstar : Tstar (u 0) ν = ⊤)
     (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
-    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
+      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) :=
   beale_kato_majda u p ν hν hNS (fun T _hTlt => by
     by_cases hT0 : 0 ≤ T
     · exact hcont.continuousOn.integrableOn_Icc

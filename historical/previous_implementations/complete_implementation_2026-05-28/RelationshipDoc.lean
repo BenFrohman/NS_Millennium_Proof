@@ -1,3 +1,9 @@
+/-
+Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
+-/
+
 /-!
 # Relationship Between LaTeX Manuscript and Lean 4 Formalization
 
@@ -9,7 +15,6 @@ stay inside the formalization).
 **Project Title (working):**  
 Frohmanian Symplectic and Holographic Dual Approach to 3D Incompressible Navier-Stokes Regularity
 
-**Author:** Benjamin Stanley Frohman
 
 See `LaTeX_Lean_Relationship.md` in the project root for the full, up-to-date version of this document.
 -/
