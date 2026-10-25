@@ -22,6 +22,8 @@ import NS_Millennium_Proof.Modules.NS_Equations
 import NS_Millennium_Proof.Modules.SymplecticTether
 import NS_Millennium_Proof.Modules.TetheredLyapunov
 import NS_Millennium_Proof.Modules.Uniqueness
+import NS_Millennium_Proof.Modules.TorusStrainExclusion
+import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 open Lean Elab Command
 #eval show CommandElabM Unit from do
   let env ← getEnv

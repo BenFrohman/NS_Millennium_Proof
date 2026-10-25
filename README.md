@@ -21,9 +21,13 @@ tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originato
 >
 > **Status (Oct 2026): Complete, sorry-free, axiom-clean, and verified non-vacuous.**
 > Every original definition, theorem, and conjectured bridge from Benjamin Stanley Frohman's
-> programme is preserved in the active build (`lake build`, **360 theorems across 14 modules**,
+> programme is preserved in the active build (`lake build`, **392 theorems across 16 modules**,
 > **0 `sorry`**, and **0 nonstandard axioms** — `#print axioms` reports only
 > `[propext, Classical.choice, Quot.sound]`, audited by `scripts/AxiomAudit.lean`):
+> - **Periodic torus kinematics & conditional Clay (B) reductions (`Modules/TorusStrainExclusion.lean`, `Modules/HighSetDepletionAndBKM.lean`):**
+>   Proves unconditionally that spatial $\mathbb{Z}^3$-periodicity excludes any non-zero *global* linear background strain (`z3_periodic_linear_eq_zero`, `burgersLinearStrain_not_z3_periodic`; note that localized Burgers-like vortex structures can still form locally on $\mathbb{T}^3$, so this does **not** give unconditional Clay (B)), proves the pointwise Biot–Savart direction-alignment identities (`biot_savart_det_aligned_eq_zero`, `biot_savart_det_difference_identity`), parabolic $\lambda^6$ scaling homogeneity (`navier_stokes_scaling_homogeneity_deg6`), the ODE comparison ceiling (`comparison_ode_ceiling`), and the **conditional reductions** `clay_B_exact_of_periodic_tether_bound` and `clay_B_exact_of_torus_direction_depletion` whose analytic hypotheses (`PeriodicDirectionDepletionBound` / `PeriodicTetherClosingBound` and `PeriodicBKMContinuation`) remain **OPEN** and are stated explicitly as hypotheses.
+> - **Casimir non-degeneracy of the Frohmanian Symplectic Tether (`Modules/SymplecticTether.lean`):**
+>   Proves unconditionally `tetherPointwiseDensity_nonpos`, `tetherPointwiseDensity_strict_neg_of_noncasimir`, `tetherKernel_diagonal_nonpos`, `tetherKernel_strict_neg_of_orthogonal_component`, and `tetherKernel_nondegenerate_on_casimir_defect`.
 > - **Original conjectured bridges preserved and proved conditionally:**
 >   `FrohmanianTetherRate` (`hDI`), `FrohmanianTetherBound` (`hRiccati`),
 >   `ConjecturedUnmodifiedTetherPairing` and `reduced_pairing_of_unmodified_and_tether`

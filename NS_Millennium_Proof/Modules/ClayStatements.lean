@@ -598,4 +598,12 @@ public theorem clay_B_exact_of_periodic_tether_bound
     (hBKM : ∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) : Clay_B_exact :=
   fun ν u₀ hν hs hd hp => hBKM ν hν u₀ hd hs hp (hclose ν hν u₀ hd hs hp)
 
+#print axioms global_regularity_for_NS_nonvacuous_at_zero
+#print axioms frohmanianTetherRate_zero
+#print axioms frohmanianTetherBound_zero
+#print axioms repaired_hInt
+#print axioms repaired_huniq_at_zero
+#print axioms stepField_not_physical
+#print axioms clay_B_exact_of_periodic_tether_bound
+
 end FrohmanianTether.ClayStatements
