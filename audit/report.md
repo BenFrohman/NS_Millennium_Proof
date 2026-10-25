@@ -2,10 +2,10 @@
 
 **Verdict: PASS_WITH_WARNINGS**
 
-- Generated (UTC): 2026-10-25T23:54:36+00:00
+- Generated (UTC): 2026-10-25T23:58:58+00:00
 - Tool: titan-audit 1.0.0 (Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718))
-- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `ed45dcc0f025adc1c5688d4d2143855a6da69b86`
-- Tree SHA-256: `c9ad1520bce227d4d29b7c063bd1a71f292fb0040f04c670348901afd0b4c267` over 76 files
+- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `4714631c9faabc21718dee72c92aa26d9a86d2a1`
+- Tree SHA-256: `0b8947926512d878af27269f66a8129a09e350bfadb0ab5b3be141762b4d0d51` over 105 files
 
 ## Build
 

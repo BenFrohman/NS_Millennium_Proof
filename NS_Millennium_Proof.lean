@@ -19,9 +19,9 @@ import NS_Millennium_Proof.Modules.IndependentMajorant
 import NS_Millennium_Proof.Modules.NS_Equations
 import NS_Millennium_Proof.Modules.SymplecticTether
 import NS_Millennium_Proof.Modules.TetheredLyapunov
-import NS_Millennium_Proof.Modules.Uniqueness
-import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
+import NS_Millennium_Proof.Modules.TorusStrainExclusion
+import NS_Millennium_Proof.Modules.Uniqueness
 
 /-!
 # NS Millennium Proof — Frohmanian Symplectic Tether (Main Entry & Kernel Axiom Audit)
@@ -35,7 +35,7 @@ incompressible Navier–Stokes global regularity (`kappa`, `TetherKernel` / 𝔉
 `IsPhysicalNSSolution` non-vacuity, and uniqueness).
 
 Compiling this root target (`lake build`) automatically executes the kernel-level
-axiom and zero-`sorry` audit across all 14 modules and fails the build if any
+axiom and zero-`sorry` audit across all 16 modules and fails the build if any
 theorem depends on `sorryAx` or any axiom outside `[propext, Classical.choice, Quot.sound]`.
 -/
 

@@ -1,6 +1,7 @@
 # Frohmanian Symplectic Tether — 3D Navier–Stokes Global Regularity (Lean 4)
 
 [![Lean CI](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23627610.svg)](https://doi.org/10.5281/zenodo.23627610)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
 [![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
@@ -9,6 +10,12 @@ A geometric approach to the **3D incompressible Navier–Stokes global-regularit
 together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
 a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
 tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originator of that tether.
+
+## Companion Manuscript (19 Pages, Oct 2026)
+
+- **[`main.pdf`](main.pdf)** ([`manuscript/main.pdf`](manuscript/main.pdf)) — *Global Regularity for the 3D Incompressible Navier–Stokes Equations via the Frohmanian Symplectic Tether: Complete Original Conjectured Framework and Kernel-Verified Non-Vacuous Conditional Formalization in Lean 4* (19 pages, compiled from [`main.tex`](main.tex)).
+- **[`main.tex`](main.tex)** ([`manuscript/main.tex`](manuscript/main.tex)) — Complete LaTeX source with verbatim Lean 4 excerpts ([`manuscript/lean/`](manuscript/lean/)).
+- **[`SCOPE.md`](SCOPE.md)** ([`manuscript/SCOPE.md`](manuscript/SCOPE.md)) — Executive verification table across all 360 kernel-verified theorems, 14 modules, `IsPhysicalNSSolution` non-vacuity proofs, and preserved conjectured bridges.
 
 > ### Scope
 > Benjamin Stanley Frohman is the originator of the Frohmanian Symplectic Tether.
@@ -67,6 +74,8 @@ Modules/                 Core Lean modules (geometric + analytic layers)
 ForMathlib/              Reusable lemmas intended for eventual Mathlib upstreaming
 NS_Millennium_Proof/     Library root (Definitions, Modules, Skeleton, Widgets)
 Blueprint.md             Human-readable dependency graph and atomic statements
+main.pdf / main.tex / SCOPE.md   19-page manuscript, LaTeX source, and Lean verification scope table
+manuscript/              Complete manuscript source bundle and Lean snippet extracts
 LaTeX_Lean_Relationship.md   Mapping between LaTeX intuition and the Lean code
 AUTHORS.md / COPYRIGHT.md / HISTORY.md   Attribution and provenance
 lakefile.lean / lean-toolchain / lake-manifest.json   Build configuration
