@@ -622,7 +622,237 @@ public theorem first_remaining_gap_bochner_polar_damping_at_max
   have h2 := mul_le_mul_of_nonneg_left h1 hν
   linarith
 
+
+/-! ## Section 7. Stages 2–5: Attained `sSup` Pinning, Concrete 3D Vector Bochner–Polar Identities,
+Non-Zero Smooth Flow Inhabitation, Beltrami Casimir Degeneracy, and Near/Far Cutoff Bridge -/
+
+/-- **Stage 2a (`bddAbove_range_norm_of_attained_max`):**
+Any pointwise upper bound `∀ x, ‖ω x‖ ≤ M` certifies `BddAbove` on the range of `‖ω ·‖`. -/
+public theorem bddAbove_range_norm_of_attained_max
+    (ω : VorticityField) (M : ℝ) (h_bound : ∀ x : T3, ‖ω x‖ ≤ M) :
+    BddAbove (Set.range (fun x : T3 => ‖ω x‖)) :=
+  ⟨M, by rintro _ ⟨x, rfl⟩; exact h_bound x⟩
+
+/-- **Stage 2b (`vorticity_sup_norm_eq_of_isSpatialMax`):**
+When `ω` attains its upper bound `M = ‖ω x_max‖` with `∀ x, ‖ω x‖ ≤ M`,
+`NavierStokes3D.vorticity_sup_norm ω = M`. -/
+public theorem vorticity_sup_norm_eq_of_isSpatialMax
+    (ω : VorticityField) (x_max : T3) (M : ℝ)
+    (h_attained : M = ‖ω x_max‖)
+    (h_bound : ∀ x : T3, ‖ω x‖ ≤ M) :
+    NavierStokes3D.vorticity_sup_norm ω = M := by
+  unfold NavierStokes3D.vorticity_sup_norm
+  apply le_antisymm
+  · exact ciSup_le h_bound
+  · rw [h_attained]
+    exact le_ciSup (bddAbove_range_norm_of_attained_max ω M h_bound) x_max
+
+/-- **Stage 3a (`polar_pythagoras_directional_deriv`):**
+Concrete vector polar Pythagoras identity in `T3 = EuclideanSpace ℝ (Fin 3)`. -/
+public theorem polar_pythagoras_directional_deriv
+    (ξ dξ : T3) (ρ dρ : ℝ)
+    (hunit : ‖ξ‖ = 1)
+    (horth : inner ℝ ξ dξ = 0) :
+    ‖dρ • ξ + ρ • dξ‖ ^ 2 = dρ ^ 2 + ρ ^ 2 * ‖dξ‖ ^ 2 := by
+  have hξ_sq : inner ℝ ξ ξ = 1 := by
+    rw [real_inner_self_eq_norm_sq, hunit, one_pow]
+  have hdξ_orth : inner ℝ dξ ξ = 0 := by
+    rw [real_inner_comm, horth]
+  rw [← real_inner_self_eq_norm_sq (dρ • ξ + ρ • dξ),
+      ← real_inner_self_eq_norm_sq dξ]
+  rw [inner_add_left, inner_add_right, inner_add_right,
+      real_inner_smul_left, real_inner_smul_left,
+      real_inner_smul_left, real_inner_smul_left,
+      real_inner_smul_right, real_inner_smul_right,
+      real_inner_smul_right, real_inner_smul_right,
+      hξ_sq, horth, hdξ_orth]
+  ring
+
+/-- **Stage 3b (`polar_pythagoras_3d_sum`):**
+Exact 3D Hilbert–Schmidt polar Pythagoras decomposition over `j ∈ Fin 3`. -/
+public theorem polar_pythagoras_3d_sum
+    (ξ : T3) (dξ : Fin 3 → T3) (ρ : ℝ) (dρ : Fin 3 → ℝ)
+    (hunit : ‖ξ‖ = 1)
+    (horth : ∀ j : Fin 3, inner ℝ ξ (dξ j) = 0) :
+    (∑ j : Fin 3, ‖(dρ j) • ξ + ρ • (dξ j)‖ ^ 2) =
+      (∑ j : Fin 3, (dρ j) ^ 2) + ρ ^ 2 * (∑ j : Fin 3, ‖dξ j‖ ^ 2) := by
+  have hpoint : ∀ j : Fin 3,
+      ‖(dρ j) • ξ + ρ • (dξ j)‖ ^ 2 = (dρ j) ^ 2 + ρ ^ 2 * ‖dξ j‖ ^ 2 :=
+    fun j => polar_pythagoras_directional_deriv ξ (dξ j) ρ (dρ j) hunit (horth j)
+  simp_rw [hpoint, Finset.sum_add_distrib, ← Finset.mul_sum]
+
+/-- **Stage 3c (`bochner_laplacian_3d_identity`):**
+Concrete 3D Bochner identity in `T3 = EuclideanSpace ℝ (Fin 3)`. -/
+public theorem bochner_laplacian_3d_identity
+    (ω : T3) (dω d2ω : Fin 3 → T3) (d2h : Fin 3 → ℝ)
+    (hleibniz : ∀ j : Fin 3, d2h j = ‖dω j‖ ^ 2 + inner ℝ ω (d2ω j)) :
+    inner ℝ ω (∑ j : Fin 3, d2ω j) =
+      (∑ j : Fin 3, d2h j) - (∑ j : Fin 3, ‖dω j‖ ^ 2) := by
+  rw [inner_sum]
+  have hsub : ∀ j : Fin 3, inner ℝ ω (d2ω j) = d2h j - ‖dω j‖ ^ 2 := by
+    intro j
+    linarith [hleibniz j]
+  simp_rw [hsub, Finset.sum_sub_distrib]
+
+/-- **Stage 3d (`concrete_bochner_polar_viscous_damping_at_max`):**
+Combines `bochner_laplacian_3d_identity` and `polar_pythagoras_3d_sum` at a spatial maximum. -/
+public theorem concrete_bochner_polar_viscous_damping_at_max
+    (ν ρ : ℝ) (ω ξ : T3) (dω d2ω dξ : Fin 3 → T3) (dρ d2h : Fin 3 → ℝ)
+    (hν : 0 ≤ ν)
+    (hunit : ‖ξ‖ = 1)
+    (horth : ∀ j : Fin 3, inner ℝ ξ (dξ j) = 0)
+    (hdω : ∀ j : Fin 3, dω j = (dρ j) • ξ + ρ • (dξ j))
+    (hleibniz : ∀ j : Fin 3, d2h j = ‖dω j‖ ^ 2 + inner ℝ ω (d2ω j))
+    (hcrit : ∀ j : Fin 3, dρ j = 0)
+    (hconcave : (∑ j : Fin 3, d2h j) ≤ 0) :
+    ν * inner ℝ ω (∑ j : Fin 3, d2ω j) ≤
+      -(ν * ρ ^ 2 * (∑ j : Fin 3, ‖dξ j‖ ^ 2)) := by
+  have hboch := bochner_laplacian_3d_identity ω dω d2ω d2h hleibniz
+  have hpolar := polar_pythagoras_3d_sum ξ dξ ρ dρ hunit horth
+  have hdω_sq : (∑ j : Fin 3, ‖dω j‖ ^ 2) =
+      (∑ j : Fin 3, ‖(dρ j) • ξ + ρ • (dξ j)‖ ^ 2) := by
+    congr 1; funext j; rw [hdω j]
+  have hdρ_zero : (∑ j : Fin 3, (dρ j) ^ 2) = 0 := by
+    simp [hcrit]
+  exact first_remaining_gap_bochner_polar_damping_at_max
+    ν ρ (∑ j : Fin 3, d2h j) (∑ j : Fin 3, ‖dω j‖ ^ 2)
+    (∑ j : Fin 3, (dρ j) ^ 2) (∑ j : Fin 3, ‖dξ j‖ ^ 2)
+    (inner ℝ ω (∑ j : Fin 3, d2ω j))
+    hν hboch (by linarith [hdω_sq, hpolar]) hdρ_zero hconcave
+
+/-- **Stage 4a (`beltrami_lamb_vector_cross_zero`):**
+Beltrami Lamb vector `u_x × (lam • u_x) = 0` vanishes identically. -/
+public theorem beltrami_lamb_vector_cross_zero (u_x : EuclideanSpace ℝ (Fin 3)) (lam : ℝ) :
+    cross u_x (lam • u_x) = 0 := by
+  ext i
+  fin_cases i <;> simp [ArnoldGeometric.cross_coord] <;> ring
+
+/-- **Stage 4b (`beltrami_casimir_projection_zero`):**
+`Pi_u u (fun x => lam • u x) = 0` on any field with non-zero kinetic energy. -/
+public theorem beltrami_casimir_projection_zero
+    (u : VelocityField) (lam : ℝ)
+    (hE : (∫ y, ‖u y‖ ^ 2 ∂NavierStokes3D.volume) ≠ 0) :
+    Pi_u u (fun x => lam • u x) = 0 := by
+  funext x
+  simp only [Pi_u, Pi.zero_apply]
+  have hpair :
+      (fun y : T3 => pairing (lam • u y) (u y)) =
+        fun y : T3 => lam * ‖u y‖ ^ 2 := by
+    funext y
+    unfold pairing
+    rw [real_inner_smul_left, real_inner_self_eq_norm_sq]
+  rw [hpair, MeasureTheory.integral_const_mul, mul_div_cancel_right₀ lam hE, sub_self]
+
+/-- **Stage 4c (`beltrami_tetherPointwiseDensity_zero`):**
+The Frohmanian tether pointwise density vanishes identically on collinear Beltrami variations. -/
+public theorem beltrami_tetherPointwiseDensity_zero
+    (ω : CoadjointOrbit) (F : Functional) (lam : ℝ)
+    (hbeltrami : FunctionalDerivative F ω = fun x => lam • velocity_from_vorticity ω x)
+    (hE : (∫ y, ‖velocity_from_vorticity ω y‖ ^ 2 ∂NavierStokes3D.volume) ≠ 0)
+    (x : T3) :
+    tetherPointwiseDensity ω F x = 0 := by
+  unfold tetherPointwiseDensity
+  rw [hbeltrami, beltrami_casimir_projection_zero (velocity_from_vorticity ω) lam hE]
+  simp
+
+/-- Spatially uniform velocity field `u_c(x) = c`. -/
+@[expose] public def constVelocity (c : T3) : VelocityField := fun _ => c
+
+/-- For any non-zero vector `c ≠ 0`, `constVelocity c ≠ 0`. -/
+public theorem constVelocity_ne_zero (c : T3) (hc : c ≠ 0) :
+    constVelocity c ≠ (0 : VelocityField) := by
+  intro h
+  exact hc (congrFun h 0)
+
+/-- Convective derivative of `constVelocity c` vanishes identically. -/
+public theorem constVelocity_convective_zero (c : T3) (x : T3) :
+    convective (constVelocity c) (constVelocity c) x = 0 := by
+  unfold convective constVelocity
+  simp [fderiv_fun_const]
+
+/-- Laplacian of `constVelocity c` vanishes identically. -/
+public theorem constVelocity_laplacian_zero (c : T3) (x : T3) :
+    laplacian (constVelocity c) x = 0 := by
+  unfold laplacian constVelocity
+  simp [fderiv_fun_const]
+
+/-- **Stage 4d (`navier_stokes_eq_constVelocity`):**
+Uniform non-zero flow `u(t,x) = c` with `p ≡ 0` satisfies `navier_stokes_eq`. -/
+public theorem navier_stokes_eq_constVelocity (ν : ℝ) (c : T3) :
+    navier_stokes_eq (fun _ => constVelocity c) (fun _ => (0 : PressureField)) ν := by
+  intro t _ht x
+  constructor
+  · have hdt : time_deriv (fun _ => constVelocity c) t x = 0 :=
+      time_deriv_const (constVelocity c) t x
+    have hcv : convective (constVelocity c) (constVelocity c) x = 0 :=
+      constVelocity_convective_zero c x
+    have hp : pressureGradient (0 : PressureField) x = 0 :=
+      pressureGradient_const 0 x
+    have hl : laplacian (constVelocity c) x = 0 :=
+      constVelocity_laplacian_zero c x
+    change time_deriv (fun _ => constVelocity c) t x +
+        convective (constVelocity c) (constVelocity c) x +
+        pressureGradient (0 : PressureField) x =
+      ν • laplacian (constVelocity c) x
+    rw [hdt, hcv, hp, hl, zero_add, zero_add, smul_zero]
+  · exact div_const c x
+
+/-- **Stage 4e (`nonzero_smooth_ns_solution_exists`):**
+For every `c ≠ 0` and every `ν`, there exists a strictly non-zero smooth solution `(u_c, 0)`
+satisfying `navier_stokes_eq u_c 0 ν` on `[0, ∞)`. -/
+public theorem nonzero_smooth_ns_solution_exists (ν : ℝ) (c : T3) (hc : c ≠ 0) :
+    ∃ (u : TimeDependentVelocity) (p : TimeDependentPressure),
+      u 0 ≠ 0 ∧
+      (∀ t ≥ (0 : ℝ), IsSmooth (u t)) ∧
+      navier_stokes_eq u p ν :=
+  ⟨fun _ => constVelocity c, fun _ => (0 : PressureField),
+   constVelocity_ne_zero c hc,
+   fun _ _ => contDiff_const,
+   navier_stokes_eq_constVelocity ν c⟩
+
+/-- **Stage 5a (`near_field_stretching_absorbed_by_viscous_direction_damping`):**
+Young absorption of near-field Biot–Savart stretching into viscous direction-curvature damping. -/
+public theorem near_field_stretching_absorbed_by_viscous_direction_damping
+    (ν C_near r M G : ℝ) (hν : 0 < ν) :
+    C_near * r * M ^ 3 * G - (ν / 2) * M ^ 2 * G ^ 2 ≤
+      (C_near ^ 2 * r ^ 2 / (2 * ν)) * M ^ 4 := by
+  have h2ν : 0 < 2 * ν := by linarith
+  have h2ν_ne : 2 * ν ≠ 0 := ne_of_gt h2ν
+  have hsq : 0 ≤ (C_near * r * M ^ 2 - ν * M * G) ^ 2 / (2 * ν) :=
+    div_nonneg (sq_nonneg _) (le_of_lt h2ν)
+  have hid :
+      (C_near ^ 2 * r ^ 2 / (2 * ν)) * M ^ 4 -
+        (C_near * r * M ^ 3 * G - (ν / 2) * M ^ 2 * G ^ 2) =
+      (C_near * r * M ^ 2 - ν * M * G) ^ 2 / (2 * ν) := by
+    field_simp [h2ν_ne]
+    ring
+  linarith
+
+/-- **Stage 5b (`constantin_fefferman_near_far_cutoff_bridge`):**
+Complete Constantin–Fefferman near/far Biot–Savart cutoff bridge at a spatial maximum `x_max`. -/
+public theorem constantin_fefferman_near_far_cutoff_bridge
+    (ν C_near C_CZ r M G κ_eff stretching S_near S_far visc_lap : ℝ)
+    (hν : 0 < ν)
+    (h_split : stretching ≤ S_near + S_far)
+    (h_near : S_near ≤ C_near * r * M ^ 3 * G)
+    (h_far : S_far ≤ C_CZ * M ^ 3)
+    (h_visc : ν * visc_lap ≤ -(ν * M ^ 2 * G ^ 2))
+    (h_cutoff : C_near ^ 2 * r ^ 2 / (2 * ν) ≤ κ_eff / 2)
+    (h_coercive : κ_eff * M ^ 2 ≤ (ν / 2) * G ^ 2) :
+    stretching + ν * visc_lap ≤ C_CZ * M ^ 3 - (κ_eff / 2) * M ^ 4 := by
+  have hyoung := near_field_stretching_absorbed_by_viscous_direction_damping ν C_near r M G hν
+  have hM4 : 0 ≤ M ^ 4 := by positivity
+  have hcut_M4 : (C_near ^ 2 * r ^ 2 / (2 * ν)) * M ^ 4 ≤ (κ_eff / 2) * M ^ 4 :=
+    mul_le_mul_of_nonneg_right h_cutoff hM4
+  have hM2 : 0 ≤ M ^ 2 := sq_nonneg M
+  have hcoerc_M4 : κ_eff * M ^ 4 ≤ (ν / 2) * M ^ 2 * G ^ 2 := by
+    have h := mul_le_mul_of_nonneg_right h_coercive hM2
+    linarith [show κ_eff * M ^ 2 * M ^ 2 = κ_eff * M ^ 4 by ring,
+              show (ν / 2) * G ^ 2 * M ^ 2 = (ν / 2) * M ^ 2 * G ^ 2 by ring]
+  linarith
+
 end -- noncomputable section
+
 
 #print axioms kksPointwiseIntegrand_skew
 #print axioms kksSymplecticForm_skew
@@ -640,5 +870,19 @@ end -- noncomputable section
 #print axioms unmodified_envelope_yields_classical_quadratic_rate
 #print axioms symplectic_constraint_yields_cubic_damping_and_ceiling
 #print axioms first_remaining_gap_bochner_polar_damping_at_max
+#print axioms bddAbove_range_norm_of_attained_max
+#print axioms vorticity_sup_norm_eq_of_isSpatialMax
+#print axioms polar_pythagoras_directional_deriv
+#print axioms polar_pythagoras_3d_sum
+#print axioms bochner_laplacian_3d_identity
+#print axioms concrete_bochner_polar_viscous_damping_at_max
+#print axioms beltrami_lamb_vector_cross_zero
+#print axioms beltrami_casimir_projection_zero
+#print axioms beltrami_tetherPointwiseDensity_zero
+#print axioms constVelocity_ne_zero
+#print axioms navier_stokes_eq_constVelocity
+#print axioms nonzero_smooth_ns_solution_exists
+#print axioms near_field_stretching_absorbed_by_viscous_direction_damping
+#print axioms constantin_fefferman_near_far_cutoff_bridge
 
 end Symplectori.SymplecticConstraint

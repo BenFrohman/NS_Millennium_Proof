@@ -13,7 +13,7 @@ tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originato
 
 ## Standalone Self-Contained Repositories & Single-Sentence Final Product Theorems
 
-In addition to this full research repository (`437` theorems across `17` modules), the two self-contained tracks are published as dedicated standalone repositories with their own Single-Sentence Final Product Theorems (`FinalProductTheorem.lean`), PDF monographs, and Zenodo DOIs:
+In addition to this full research repository (`453` theorems across `17` modules), the two self-contained tracks are published as dedicated standalone repositories with their own Single-Sentence Final Product Theorems (`FinalProductTheorem.lean`), PDF monographs, and Zenodo DOIs:
 
 1. **[BenFrohman/frohmanian-symplectic-tether-regularity](https://github.com/BenFrohman/frohmanian-symplectic-tether-regularity)** — **Zenodo v1.1.0 DOI:** [`10.5281/zenodo.23717082`](https://doi.org/10.5281/zenodo.23717082) (Concept DOI: [`10.5281/zenodo.23652842`](https://doi.org/10.5281/zenodo.23652842), v1.0.0 DOI: [`10.5281/zenodo.23652843`](https://doi.org/10.5281/zenodo.23652843))
    - `350` kernel-verified theorems across `13` modules (`0 sorry`, `0` custom axioms).
@@ -26,7 +26,7 @@ In addition to this full research repository (`437` theorems across `17` modules
 
 - **[`main.pdf`](main.pdf)** ([`manuscript/main.pdf`](manuscript/main.pdf)) — *Global Regularity for the 3D Incompressible Navier–Stokes Equations via the Frohmanian Symplectic Tether: Complete Original Conjectured Framework and Kernel-Verified Non-Vacuous Conditional Formalization in Lean 4* (19 pages, compiled from [`main.tex`](main.tex)).
 - **[`main.tex`](main.tex)** ([`manuscript/main.tex`](manuscript/main.tex)) — Complete LaTeX source with verbatim Lean 4 excerpts ([`manuscript/lean/`](manuscript/lean/)).
-- **[`SCOPE.md`](SCOPE.md)** ([`manuscript/SCOPE.md`](manuscript/SCOPE.md)) — Executive verification table across all 437 kernel-verified theorems, 17 modules, `IsPhysicalNSSolution` non-vacuity proofs, and preserved conjectured bridges.
+- **[`SCOPE.md`](SCOPE.md)** ([`manuscript/SCOPE.md`](manuscript/SCOPE.md)) — Executive verification table across all 453 kernel-verified theorems, 17 modules, `IsPhysicalNSSolution` non-vacuity proofs, and preserved conjectured bridges.
 
 > ### Scope
 > Benjamin Stanley Frohman is the originator of the Frohmanian Symplectic Tether.
@@ -39,7 +39,7 @@ In addition to this full research repository (`437` theorems across `17` modules
 >
 > **Status (Oct 2026): Complete, sorry-free, axiom-clean, and verified non-vacuous.**
 > Every original definition, theorem, and conjectured bridge from Benjamin Stanley Frohman's
-> programme is preserved in the active build (`lake build`, **437 theorems across 17 modules**,
+> programme is preserved in the active build (`lake build`, **453 theorems across 17 modules**,
 > **0 `sorry`**, and **0 nonstandard axioms** — `#print axioms` reports only
 > `[propext, Classical.choice, Quot.sound]`, audited by `scripts/AxiomAudit.lean`):
 > - **Periodic torus kinematics & conditional Clay (B) reductions (`Modules/TorusStrainExclusion.lean`, `Modules/HighSetDepletionAndBKM.lean`):**
