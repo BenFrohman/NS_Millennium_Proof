@@ -7,6 +7,8 @@ Authors: Benjamin Stanley Frohman
 import Lean
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 import NS_Millennium_Proof.Modules.AnalyticPipeline
+import NS_Millennium_Proof.Modules.Stage6Calculus
+import NS_Millennium_Proof.Modules.MainTheorem
 import NS_Millennium_Proof.Modules.ArnoldGeometric
 import NS_Millennium_Proof.Modules.AssemblyGap
 import NS_Millennium_Proof.Modules.Assumptions

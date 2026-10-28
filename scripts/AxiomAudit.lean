@@ -9,6 +9,8 @@ Authors: Benjamin Stanley Frohman
 
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 import NS_Millennium_Proof.Modules.AnalyticPipeline
+import NS_Millennium_Proof.Modules.Stage6Calculus
+import NS_Millennium_Proof.Modules.MainTheorem
 import NS_Millennium_Proof.Modules.ArnoldGeometric
 import NS_Millennium_Proof.Modules.AssemblyGap
 import NS_Millennium_Proof.Modules.Assumptions
@@ -46,3 +48,9 @@ open Lean Elab Command
   let total := stats.fold (fun acc _ (c, _) => acc + c) 0
   IO.println s!"TOTAL theorems={total} nonstandard={bad.size}"
   unless bad.isEmpty do throwError "axiom audit FAILED: {bad.size} theorem(s) use non-standard axioms"
+
+#print axioms FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound
+#print axioms NS_Millennium_Proof.Stage6.polar_pythagoras_of_hasDerivAt
+#print axioms NS_Millennium_Proof.Stage6.bochner_leibniz_of_hasDerivAt
+#print axioms NS_Millennium_Proof.Stage6.shearU_heat
+#print axioms NS_Millennium_Proof.Stage6.shear_beltrami
