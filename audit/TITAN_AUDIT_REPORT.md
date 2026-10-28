@@ -2,10 +2,10 @@
 
 **Verdict: PASS_WITH_WARNINGS**
 
-- Generated (UTC): 2026-10-28T23:11:04+00:00
+- Generated (UTC): 2026-10-28T23:19:22+00:00
 - Tool: titan-audit 1.0.0 (Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718))
-- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `acf5883e4c54551fe1690dc1da75c7d3d6f9fe3f`
-- Tree SHA-256: `75777009f884edb88d54fc93d22ae41d9cb98db2738c4c3e0a7ea44e6f18ec6a` over 112 files
+- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `b04619c120852a33523363eb3fc3225d3fc5ae0e`
+- Tree SHA-256: `f2bc96908ff7a74af38419c04ae51855906104a0975971a59f5464d8706deb09` over 112 files
 
 ## Build
 
@@ -13,7 +13,7 @@
 
 ## Axiom audit
 
-- Modules: 21  Theorems: 470  Clean (only propext/Classical.choice/Quot.sound): 470
+- Modules: 21  Theorems: 494  Clean (only propext/Classical.choice/Quot.sound): 494
 - Nonstandard: 0
 
 | Module | Theorems | Nonstandard |
@@ -29,9 +29,9 @@
 | `NS_Millennium_Proof.Modules.GlobalRegularity` | 2 | 0 |
 | `NS_Millennium_Proof.Modules.HighSetDepletionAndBKM` | 8 | 0 |
 | `NS_Millennium_Proof.Modules.IndependentMajorant` | 2 | 0 |
-| `NS_Millennium_Proof.Modules.MainTheorem` | 1 | 0 |
+| `NS_Millennium_Proof.Modules.MainTheorem` | 6 | 0 |
 | `NS_Millennium_Proof.Modules.NS_Equations` | 143 | 0 |
-| `NS_Millennium_Proof.Modules.Stage6Calculus` | 16 | 0 |
+| `NS_Millennium_Proof.Modules.Stage6Calculus` | 35 | 0 |
 | `NS_Millennium_Proof.Modules.SymplecticConstraint` | 61 | 0 |
 | `NS_Millennium_Proof.Modules.SymplecticTether` | 38 | 0 |
 | `NS_Millennium_Proof.Modules.TetheredLyapunov` | 45 | 0 |

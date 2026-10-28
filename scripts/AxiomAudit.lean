@@ -54,3 +54,8 @@ open Lean Elab Command
 #print axioms NS_Millennium_Proof.Stage6.bochner_leibniz_of_hasDerivAt
 #print axioms NS_Millennium_Proof.Stage6.shearU_heat
 #print axioms NS_Millennium_Proof.Stage6.shear_beltrami
+#print axioms FrohmanianTether.HighSetDepletionAndBKM.clay_B_exact_of_hasDirectionCurvatureCoercivity
+#print axioms NS_Millennium_Proof.Stage6.inner_eq_zero_of_hasDerivAt_of_norm_eq_one
+#print axioms NS_Millennium_Proof.Stage6.norm_polar_deriv_sq_eq_of_hasDerivAt
+#print axioms NS_Millennium_Proof.Stage6.hasDerivAt_inner_self_deriv_of_hasDerivAt
+#print axioms NS_Millennium_Proof.Stage6.isShearBeltramiMode
