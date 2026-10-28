@@ -3,11 +3,11 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -->
-# Scope: Frohmanian Symplectic Tether — Conditional NS Regularity & Complete Original Programme (v2.1, 2026-10-24)
+# Scope: Frohmanian Symplectic Tether — Conditional NS Regularity & Complete Original Programme (v2.2, 2026-10-27)
 
 Author: Benjamin Stanley Frohman.
 
-**Overall status.** This manuscript and the companion Lean 4 formalization (`NS_Millennium_Proof`, **360 kernel-verified theorems across 14 modules**, **0 `sorry`**, **0 nonstandard axioms**) establish a **verified non-vacuous conditional reduction** for 3D incompressible Navier–Stokes global regularity, while preserving in full every original definition, theorem, physical motivation, and conjectured bridge from Benjamin Stanley Frohman's programme (`Frohmanian_Tether_Final_Submission_v8.tex`).
+**Overall status.** This manuscript and the companion Lean 4 formalization (`NS_Millennium_Proof`, **437 kernel-verified theorems across 17 modules**, **0 `sorry`**, **0 nonstandard axioms**) establish a **verified non-vacuous conditional reduction** for 3D incompressible Navier–Stokes global regularity, while preserving in full every original definition, theorem, physical motivation, and conjectured bridge from Benjamin Stanley Frohman's programme (`Frohmanian_Tether_Final_Submission_v8.tex`).
 
 1. **Kernel-verified conditional implication (0 `sorry`, non-vacuous):**
    Kato local existence (with uniform restart length) + physical-solution uniqueness (`IsPhysicalNSSolution`) + the cubic tether rate (`FrohmanianTetherRate`)
@@ -25,7 +25,7 @@ Author: Benjamin Stanley Frohman.
    - Both the symmetric metric-tether uniqueness theorem (`uniqueness_of_minimal_symmetric_tether`, `tetherKernel_symmetric`) and the antisymmetric uniqueness theorem (`uniqueness_of_minimal_tether`),
    - The full original physical motivation: modified Kirillov–Kostant–Souriau bracket, metriplectic viscous completion, $L^6$ Sobolev/Young quartic Lyapunov absorption, comparison of the original quadratic Riccati heuristic ($\dot{y}=C-\kappa'y^2$) with the rigorous cubic comparison ceiling ($\dot{y}=Cy^2-\kappa''y^3$), Onsager $\alpha=1$ persistence, and AdS/CFT fluid-gravity cosmic censorship.
 
-## Verification Table (360 Theorems across 14 Lean Modules, 0 `sorry`, 0 Nonstandard Axioms)
+## Verification Table (437 Theorems across 17 Lean Modules, 0 `sorry`, 0 Nonstandard Axioms)
 
 | Piece | Lean declaration / section | Status |
 |---|---|---|
@@ -46,3 +46,6 @@ Author: Benjamin Stanley Frohman.
 | Non-vacuity & joint satisfiability | `stepField_not_physical`, `repaired_hInt`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`, `frohmanianTetherRate_zero`, `global_regularity_for_NS_nonvacuous_at_zero` | Proved unconditionally at $u_0=0$ (axiom-clean) |
 | Historical unpatched binder audit | `library_huniq_unsatisfiable_at_zero`, `closing_bound_uniqueness_family_unsatisfiable` | Preserved & proved axiom-clean (motivates `IsPhysicalNSSolution`) |
 | N5 Periodic Clay (B) reduction | `Clay_B_exact`, `clay_B_exact_of_periodic_tether_bound` | Proved axiom-clean (conditional on `PeriodicTetherClosingBound`) |
+| KKS symplectic & metriplectic constraint (`SymplecticConstraint.lean`, 45 theorems) | `kks_skew_symmetric`, `kks_jacobi_identity`, `Pi_u_idempotent`, `Pi_u_self_adjoint`, `tether_preserves_casimir` | Proved axiom-clean (0 `sorry`) |
+| Torus linear strain exclusion (`TorusStrainExclusion.lean`, 19 theorems) | `z3_periodic_linear_eq_zero`, `burgersLinearStrain_not_z3_periodic` | Proved axiom-clean (0 `sorry`) |
+| High-set direction depletion & BKM (`HighSetDepletionAndBKM.lean`, 8 theorems) | `biot_savart_det_aligned_eq_zero`, `navier_stokes_scaling_homogeneity_deg6`, `clay_B_exact_of_torus_direction_depletion` | Proved axiom-clean (0 `sorry`) |

@@ -2,10 +2,10 @@
 
 **Verdict: PASS_WITH_WARNINGS**
 
-- Generated (UTC): 2026-10-25T23:58:58+00:00
+- Generated (UTC): 2026-10-28T00:53:59+00:00
 - Tool: titan-audit 1.0.0 (Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718))
-- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `4714631c9faabc21718dee72c92aa26d9a86d2a1`
-- Tree SHA-256: `0b8947926512d878af27269f66a8129a09e350bfadb0ab5b3be141762b4d0d51` over 105 files
+- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `1e66fa57dee12c84d58e613f7384a570d0144c55`
+- Tree SHA-256: `e29fdf8c85beeb4ca9c735bfe32971dd2808d6f7cdc1c48e68ac01518f890faf` over 108 files
 
 ## Build
 
@@ -13,7 +13,7 @@
 
 ## Axiom audit
 
-- Modules: 18  Theorems: 392  Clean (only propext/Classical.choice/Quot.sound): 392
+- Modules: 19  Theorems: 437  Clean (only propext/Classical.choice/Quot.sound): 437
 - Nonstandard: 0
 
 | Module | Theorems | Nonstandard |
@@ -30,6 +30,7 @@
 | `NS_Millennium_Proof.Modules.HighSetDepletionAndBKM` | 8 | 0 |
 | `NS_Millennium_Proof.Modules.IndependentMajorant` | 2 | 0 |
 | `NS_Millennium_Proof.Modules.NS_Equations` | 143 | 0 |
+| `NS_Millennium_Proof.Modules.SymplecticConstraint` | 45 | 0 |
 | `NS_Millennium_Proof.Modules.SymplecticTether` | 38 | 0 |
 | `NS_Millennium_Proof.Modules.TetheredLyapunov` | 45 | 0 |
 | `NS_Millennium_Proof.Modules.TorusStrainExclusion` | 19 | 0 |
@@ -52,5 +53,5 @@ Heuristics are advisory: a flag means *look here*, not *wrong*.
 
 ## Signature
 
-- ed25519 public key (base64): `c7BnJCTBz91GSJfR9q9g7XaE9b8u6r2wfKeXGzYuwKs=`
+- ed25519 public key (base64): `ZOyujV1yUEldQRZEDhmXCHa4ikWGfcTD+meZYssNLpo=`
 - Verify: `titan-audit verify report.json`

@@ -73,7 +73,7 @@
 
 \title{Global Regularity for the 3D Incompressible Navier--Stokes Equations via the Frohmanian Symplectic Tether\\[4pt]
 \large Complete Original Conjectured Framework and Kernel-Verified Non-Vacuous Conditional Formalization in Lean~4}
-\author{Benjamin Stanley Frohman\thanks{Copyright \copyright\ 2026 Benjamin Stanley Frohman. All rights reserved. Licensed under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}). Companion Lean~4 repository: \url{https://github.com/BenFrohman/NS_Millennium_Proof}. Zenodo DOI: \href{https://doi.org/10.5281/zenodo.23627610}{10.5281/zenodo.23627610}.}\\Independent Researcher\\\small ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718} \quad \texttt{frohmanbenjamin@gmail.com}}
+\author{Benjamin Stanley Frohman\thanks{Copyright \copyright\ 2026 Benjamin Stanley Frohman. All rights reserved. Licensed under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}). Companion Lean~4 repository: \url{https://github.com/BenFrohman/NS_Millennium_Proof}. Zenodo DOI: \href{https://doi.org/10.5281/zenodo.23717084}{10.5281/zenodo.23717084}.}\\Independent Researcher\\\small ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718} \quad \texttt{frohmanbenjamin@gmail.com}}
 \date{24 October 2026}
 
 \sloppy
@@ -81,7 +81,7 @@
 \maketitle
 
 \begin{abstract}
-We present in full both (1)~the complete original geometric and physical framework of the \textbf{Frohmanian Symplectic Tether} $\Tf$ (preserving without omission all original definitions, physical motivations, conjectured geometric--analytic bridges, and extensions from \emph{Frohmanian\_Tether\_Final\_Submission\_v8}), and (2)~its complete, kernel-verified, non-vacuous conditional formalization in Lean~4 (repository \texttt{NS\_Millennium\_Proof}: \textbf{360 theorems across 14 modules, zero \texttt{sorryAx}, and only the standard axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}}).
+We present in full both (1)~the complete original geometric and physical framework of the \textbf{Frohmanian Symplectic Tether} $\Tf$ (preserving without omission all original definitions, physical motivations, conjectured geometric--analytic bridges, and extensions from \emph{Frohmanian\_Tether\_Final\_Submission\_v8}), and (2)~its complete, kernel-verified, non-vacuous conditional formalization in Lean~4 (repository \texttt{NS\_Millennium\_Proof}: \textbf{437 theorems across 17 modules, zero \texttt{sorryAx}, and only the standard axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}}).
 
 Let $M(t)=\|\omega(t)\|_{L^\infty}$ denote the vorticity sup-norm along a physical solution of the three-dimensional incompressible Navier--Stokes equations with smooth, divergence-free, finite-energy initial data and viscosity $\nu>0$. We prove in Lean~4 (\lean{frohmanian_tether_theorem} and \lean{global_regularity_for_NS}) that if (i)~Kato local existence holds with a uniform restart length on the class of physical solutions (\lean{IsPhysicalNSSolution}, enforcing pointwise time-differentiability and the Leray $L^2$ energy inequality), (ii)~uniqueness holds within \lean{IsPhysicalNSSolution}, and (iii)~$M(t)$ satisfies the Frohmanian cubic differential inequality (\lean{FrohmanianTetherRate})
 \[
@@ -133,7 +133,7 @@ Then $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ for all $t\ge0$, and \eqref{eq:N
 
 \paragraph{Verification status of Theorem~\ref{thm:main}.}
 \begin{itemize}
-\item \textbf{Axiom-clean \& sorry-free:} The entire repository \texttt{NS\_Millennium\_Proof} builds cleanly (\texttt{lake build}, 2704 jobs) and passes \texttt{lake env lean scripts/AxiomAudit.lean} with \textbf{360 theorems across 14 modules, zero \texttt{sorryAx}, and zero nonstandard axioms} (depending only on \lean{propext}, \lean{Classical.choice}, \lean{Quot.sound}).
+\item \textbf{Axiom-clean \& sorry-free:} The entire repository \texttt{NS\_Millennium\_Proof} builds cleanly (\texttt{lake build}, 2704 jobs) and passes \texttt{lake env lean scripts/AxiomAudit.lean} with \textbf{437 theorems across 17 modules, zero \texttt{sorryAx}, and zero nonstandard axioms} (depending only on \lean{propext}, \lean{Classical.choice}, \lean{Quot.sound}).
 \item \textbf{Kernel-verified non-vacuous:} The physical-solution predicate \lean{IsPhysicalNSSolution} (Section~\ref{sec:vacuity}) rules out pathological time-step fields that previously exploited Mathlib's totalized derivative \lean{deriv} $=0$ at jump discontinuities (\lean{stepField_not_physical}). In \lean{ClayStatements.lean}, all hypotheses of Theorem~\ref{thm:main} are proved to be jointly satisfiable and unconditionally realized at $u_0=0$ (\lean{global_regularity_for_NS_nonvacuous_at_zero}).
 \item \textbf{Clear separation of proved implications vs.\ conjectured bridges:} The implication $\text{(K)}+\text{(R)}+\text{(U)}\implies\text{global regularity}$ is 100\% kernel-verified. Discharging the cubic rate (R) unconditionally from the unmodified vorticity equation \eqref{eq:vort} is the central conjectured bridge of the Frohmanian programme, presented in full in Sections~\ref{sec:original} and~\ref{sec:open}.
 \end{itemize}
@@ -480,7 +480,7 @@ Quoted verbatim from \texttt{NS\_Millennium\_Proof} (360 theorems, 0 \texttt{sor
 \leanfile{PeriodicBKMContinuation}
 
 \subsection*{Copyright and License}
-Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}). All rights reserved. This manuscript and its companion Lean~4 formalization (\url{https://github.com/BenFrohman/NS_Millennium_Proof}, Zenodo DOI: \href{https://doi.org/10.5281/zenodo.23627610}{10.5281/zenodo.23627610}) are licensed under the Apache License, Version~2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}). All rights reserved. This manuscript and its companion Lean~4 formalization (\url{https://github.com/BenFrohman/NS_Millennium_Proof}, Zenodo DOI: \href{https://doi.org/10.5281/zenodo.23717084}{10.5281/zenodo.23717084}) are licensed under the Apache License, Version~2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
 
 \begin{thebibliography}{99}
 \bibitem{Arnold1966} V.~I.~Arnold, Sur la g\'eom\'etrie diff\'erentielle des groupes de Lie de dimension infinie et ses applications \`a l'hydrodynamique des fluides parfaits, \emph{Ann.\ Inst.\ Fourier} 16 (1966), 319--361.

@@ -1,7 +1,7 @@
 # Frohmanian Symplectic Tether — 3D Navier–Stokes Global Regularity (Lean 4)
 
 [![Lean CI](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23627610.svg)](https://doi.org/10.5281/zenodo.23627610)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
 [![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
@@ -11,11 +11,22 @@ together with its **Lean 4** formalization. The central object is the *Frohmania
 a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
 tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originator of that tether.
 
+## Standalone Self-Contained Repositories & Single-Sentence Final Product Theorems
+
+In addition to this full research repository (`437` theorems across `17` modules), the two self-contained tracks are published as dedicated standalone repositories with their own Single-Sentence Final Product Theorems (`FinalProductTheorem.lean`), PDF monographs, and Zenodo DOIs:
+
+1. **[BenFrohman/frohmanian-symplectic-tether-regularity](https://github.com/BenFrohman/frohmanian-symplectic-tether-regularity)** — **Zenodo v1.1.0 DOI:** [`10.5281/zenodo.23717082`](https://doi.org/10.5281/zenodo.23717082) (Concept DOI: [`10.5281/zenodo.23652842`](https://doi.org/10.5281/zenodo.23652842), v1.0.0 DOI: [`10.5281/zenodo.23652843`](https://doi.org/10.5281/zenodo.23652843))
+   - `350` kernel-verified theorems across `13` modules (`0 sorry`, `0` custom axioms).
+   - Master 5-conjunct product theorem: `FrohmanianSymplecticTether.FinalProductTheorem.frohmanian_metriplectic_system_canonical_uniqueness_and_global_regularity_product_theorem` ($P_1 \wedge P_2 \wedge P_3 \wedge P_4 \wedge P_5$).
+2. **[BenFrohman/fefferman-clay-navier-stokes](https://github.com/BenFrohman/fefferman-clay-navier-stokes)** — **Zenodo v1.1.0 DOI:** [`10.5281/zenodo.23717083`](https://doi.org/10.5281/zenodo.23717083) (Concept DOI: [`10.5281/zenodo.23652840`](https://doi.org/10.5281/zenodo.23652840), v1.0.0 DOI: [`10.5281/zenodo.23652841`](https://doi.org/10.5281/zenodo.23652841))
+   - `186` kernel-verified theorems across `6` modules (`0 sorry`, `0` custom axioms).
+   - Master 5-conjunct product theorem: `FeffermanClayNS.FinalProductTheorem.fefferman_periodic_ns_exact_reduction_product_theorem` ($Q_1(\nu) \wedge Q_2 \wedge Q_3 \wedge Q_4 \wedge Q_5(\nu)$).
+
 ## Companion Manuscript (19 Pages, Oct 2026)
 
 - **[`main.pdf`](main.pdf)** ([`manuscript/main.pdf`](manuscript/main.pdf)) — *Global Regularity for the 3D Incompressible Navier–Stokes Equations via the Frohmanian Symplectic Tether: Complete Original Conjectured Framework and Kernel-Verified Non-Vacuous Conditional Formalization in Lean 4* (19 pages, compiled from [`main.tex`](main.tex)).
 - **[`main.tex`](main.tex)** ([`manuscript/main.tex`](manuscript/main.tex)) — Complete LaTeX source with verbatim Lean 4 excerpts ([`manuscript/lean/`](manuscript/lean/)).
-- **[`SCOPE.md`](SCOPE.md)** ([`manuscript/SCOPE.md`](manuscript/SCOPE.md)) — Executive verification table across all 360 kernel-verified theorems, 14 modules, `IsPhysicalNSSolution` non-vacuity proofs, and preserved conjectured bridges.
+- **[`SCOPE.md`](SCOPE.md)** ([`manuscript/SCOPE.md`](manuscript/SCOPE.md)) — Executive verification table across all 437 kernel-verified theorems, 17 modules, `IsPhysicalNSSolution` non-vacuity proofs, and preserved conjectured bridges.
 
 > ### Scope
 > Benjamin Stanley Frohman is the originator of the Frohmanian Symplectic Tether.
@@ -28,11 +39,13 @@ tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originato
 >
 > **Status (Oct 2026): Complete, sorry-free, axiom-clean, and verified non-vacuous.**
 > Every original definition, theorem, and conjectured bridge from Benjamin Stanley Frohman's
-> programme is preserved in the active build (`lake build`, **392 theorems across 16 modules**,
+> programme is preserved in the active build (`lake build`, **437 theorems across 17 modules**,
 > **0 `sorry`**, and **0 nonstandard axioms** — `#print axioms` reports only
 > `[propext, Classical.choice, Quot.sound]`, audited by `scripts/AxiomAudit.lean`):
 > - **Periodic torus kinematics & conditional Clay (B) reductions (`Modules/TorusStrainExclusion.lean`, `Modules/HighSetDepletionAndBKM.lean`):**
 >   Proves unconditionally that spatial $\mathbb{Z}^3$-periodicity excludes any non-zero *global* linear background strain (`z3_periodic_linear_eq_zero`, `burgersLinearStrain_not_z3_periodic`; note that localized Burgers-like vortex structures can still form locally on $\mathbb{T}^3$, so this does **not** give unconditional Clay (B)), proves the pointwise Biot–Savart direction-alignment identities (`biot_savart_det_aligned_eq_zero`, `biot_savart_det_difference_identity`), parabolic $\lambda^6$ scaling homogeneity (`navier_stokes_scaling_homogeneity_deg6`), the ODE comparison ceiling (`comparison_ode_ceiling`), and the **conditional reductions** `clay_B_exact_of_periodic_tether_bound` and `clay_B_exact_of_torus_direction_depletion` whose analytic hypotheses (`PeriodicDirectionDepletionBound` / `PeriodicTetherClosingBound` and `PeriodicBKMContinuation`) remain **OPEN** and are stated explicitly as hypotheses.
+> - **Symplectic-metriplectic KKS bracket, Jacobi identity, and projector geometry (`Modules/SymplecticConstraint.lean`, 45 theorems):**
+>   Proves unconditionally KKS skew-symmetry (`kks_skew_symmetric`), the cyclic Jacobi identity (`kks_jacobi_identity`), idempotence and self-adjointness of the Casimir-orthogonal projector (`Pi_u_idempotent`, `Pi_u_self_adjoint`), Casimir conservation (`tether_preserves_casimir`), and strict transverse metriplectic damping.
 > - **Casimir non-degeneracy of the Frohmanian Symplectic Tether (`Modules/SymplecticTether.lean`):**
 >   Proves unconditionally `tetherPointwiseDensity_nonpos`, `tetherPointwiseDensity_strict_neg_of_noncasimir`, `tetherKernel_diagonal_nonpos`, `tetherKernel_strict_neg_of_orthogonal_component`, and `tetherKernel_nondegenerate_on_casimir_defect`.
 > - **Original conjectured bridges preserved and proved conditionally:**
