@@ -25,7 +25,7 @@ Outputs: docs/graphics/matplotlib_visuals/*.svg + matching *.md
 
 import os
 
-OUT_DIR = "/Users/inv0x/lean-projects/NS_Millennium_Proof/docs/graphics/matplotlib_visuals"
+OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "docs/graphics/matplotlib_visuals")
 
 def write_svg(filename, content):
     path = os.path.join(OUT_DIR, filename)

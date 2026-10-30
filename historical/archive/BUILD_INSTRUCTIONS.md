@@ -88,7 +88,7 @@ lean Modules/TetheredLyapunov.lean
 
 If you get `missing module` errors, ensure you're in the correct directory:
 ```bash
-pwd  # Should show: /Users/inv0x/lean-projects/NS_Millennium_Proof
+pwd  # Should show: .
 ```
 
 If mathlib fails to download, check internet connection and retry:

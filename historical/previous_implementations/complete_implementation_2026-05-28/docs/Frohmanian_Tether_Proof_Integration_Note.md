@@ -1,7 +1,7 @@
 # Integration Note — Frohmanian Tether NS Proof (May 31 2026 session)
 
 ## New Reference Document Placed
-- Copied the authoritative `/Users/inv0x/Downloads/Frohmanian_Tether_NS_Proof_Conversation_Summary.md` (311 lines, containing the explicit 9-term Jacobi identity expansion before integration by parts, algebraic form of C_abs in the absorption step, Gagliardo-Nirenberg exponent derivation, strengthened non-circularity language, and Technical Appendix 7.2 on Calderón–Zygmund) into:
+- Copied the authoritative `~/Downloads/Frohmanian_Tether_NS_Proof_Conversation_Summary.md` (311 lines, containing the explicit 9-term Jacobi identity expansion before integration by parts, algebraic form of C_abs in the absorption step, Gagliardo-Nirenberg exponent derivation, strengthened non-circularity language, and Technical Appendix 7.2 on Calderón–Zygmund) into:
   - `ns_lean_local_clean/docs/Frohmanian_Tether_NS_Proof_Conversation_Summary.md`
   - `lean-projects/NS_Millennium_Proof/docs/Frohmanian_Tether_NS_Proof_Conversation_Summary.md`
 - The project can now `import` or `include` this file (or its LaTeX excerpts) directly in future formalization of the Jacobi cocycle verification, absorption estimates, and C3 forcing.

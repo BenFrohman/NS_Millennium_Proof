@@ -3,7 +3,7 @@
 **Generated in autonomous Clay Panel loop fire #4 (2026-06-01 15:28 UTC, ~51 min remaining in 3.8h window).**  
 All 8 graphics are **full-build, complete PNGs** (>350kB each) derived exclusively from verbatim user text/symbols across the listed CLAY versions and docs (Grok Project-Tether Theorem Draft, Roadmaps, Full_Living_Document, GEOMETRIC..., EDITfinals, Rev 1 edit 5:17, etc.). No placeholders, no ad-hoc invention, no weakening of May 20 2026 canonical structure (tether uniqueness FIRST as Layer 1; §3 analytic estimates as FORCED corollary with quartic weight forced by the uniqueness theorem; D→C→A→B only; zero novel-geometry sorrys).
 
-**Cross-references to proof (advanced copy at /Users/inv0x/lean-projects/NS_Millennium_Proof/NS_Millennium_Proof/Modules/SymplecticTether.lean and ForMathlib/Projection.lean):**  
+**Cross-references to proof (advanced copy at NS_Millennium_Proof/Modules/SymplecticTether.lean and ForMathlib/Projection.lean):**  
 - Exact B(F,G) formula and Π_u: SymplecticTether.lean:431, 443 (TetherKernel), Projection.lean:31 (Pi_u def).  
 - (C1)–(C3) predicates: SymplecticTether.lean:452–469.  
 - 9-term Jacobi + F_p verification: SymplecticTether.lean:1447+ (h_lie_bracket_and_ibp), quoting user §2.6.  
@@ -12,7 +12,7 @@ All 8 graphics are **full-build, complete PNGs** (>350kB each) derived exclusive
 - Phase-plane y' = C y² − κ'' y³ + ε=κ/4 C_abs: TetheredLyapunov.lean (cross-ref from user EDITfinals/Full_Living).  
 - CE d₂B=0: SymplecticTether.lean comments quoting "B is a Chevalley–Eilenberg 2-cocycle... Ad-invariant |ω|²".
 
-**Tested commands (macOS, run from project root /Users/inv0x/ns_lean_local_clean or the advanced lean-projects root; all paths verified with ls/cat in this fire):**
+**Tested commands (macOS, run from project root ../ns_lean_local_clean or the advanced lean-projects root; all paths verified with ls/cat in this fire):**
 
 ## Graphic 1: 5-Step Canonicity (C1-C3) on T³ Vorticity
 - **File**: docs/graphics/01_5step_canonicity.png (349kB, verified ls)

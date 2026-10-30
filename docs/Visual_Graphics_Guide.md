@@ -8,7 +8,7 @@
 
 **Access for All Readers (Tested Paths)**:  
 The 8 JPGs live at:  
-`/Users/inv0x/lean-projects/NS_Millennium_Proof/docs/graphics/visuals/01_5step_canonicity.jpg` … `08_shear_counterexample_t3.jpg` (263K–340K each, valid full renders generated 2026-06-01 via xAI Imagine, verified sizes and existence; post-cleanup these remain the only visuals in the docs/ tree).  
+`docs/graphics/visuals/01_5step_canonicity.jpg` … `08_shear_counterexample_t3.jpg` (263K–340K each, valid full renders generated 2026-06-01 via xAI Imagine, verified sizes and existence; post-cleanup these remain the only visuals in the docs/ tree).  
 
 ---
 
@@ -20,7 +20,7 @@ The 8 JPGs live at:
 
 **Exact Reader Instructions (Tested)**:  
 - **View**: On macOS, double-click `01_5step_canonicity.jpg` in Finder (opens in Preview). Or any browser/image viewer. The isometric T3 with 5 layered bridges, crimson tether membrane, indigo classical orbit, gold feedback at maxima is immediately legible.  
-- **Download**: `cp "/Users/inv0x/lean-projects/NS_Millennium_Proof/docs/graphics/visuals/01_5step_canonicity.jpg" ~/Downloads/01_5step_canonicity_Frohmanian_Tether.jpg`  
+- **Download**: `cp "docs/graphics/visuals/01_5step_canonicity.jpg" ~/Downloads/01_5step_canonicity_Frohmanian_Tether.jpg`  
   Or Finder: right-click the file → "Compress" or direct copy to USB/email.  
 - **Share**: Attach the JPG (or the renamed file) to email/Overleaf/arXiv/figshare. Recommended caption: "Figure 1: 5-Step Canonicity (C1–C3 + Step 5) forcing the unique minimal Frohmanian Symplectic Tether on the coadjoint orbit of volume-preserving diffeomorphisms. Visual from the Lean 4 formalization (NS_Millennium_Proof). 100% derived from Benjamin Stanley Frohman's CLAY main.tex (May 2026), Geometric_Reconstruction.md (B1–B4), and Version 41 details. See SymplecticTether.lean lines 171–175 and tethered_jacobi_identity."  
 - **Tested**: `ls -lh .../01_5step_canonicity.jpg` → 263K (full render, Jun 1 07:19). `file` confirms JPEG. Renders crisply at 16:9. No artifacts.
@@ -35,7 +35,7 @@ The 8 JPGs live at:
 
 **Exact Reader Instructions (Tested)**:  
 - **View**: Open `02_9term_jacobi.jpg` in Preview. Nine colored swirling flow tubes on T3 interior, colliding at translucent IBP surfaces, perfect cyclic balance to zero at center.  
-- **Download**: `cp "/Users/inv0x/lean-projects/NS_Millennium_Proof/docs/graphics/visuals/02_9term_jacobi.jpg" ~/Downloads/02_9term_Jacobi_IBP_Frohmanian.jpg`  
+- **Download**: `cp "docs/graphics/visuals/02_9term_jacobi.jpg" ~/Downloads/02_9term_Jacobi_IBP_Frohmanian.jpg`  
 - **Share**: Caption: "Figure 2: Explicit 9-Term Jacobi Integrand on the Reduced Coadjoint Orbit — Full IBP, Antisymmetric Contraction, and d₂B = 0 Closure. Visual from NS_Millennium_Proof formalization. Sole source: user's main.tex Jacobi section, Geometric_Reconstruction.md, and 2026-05-31 9-term text in living documents. See SymplecticTether.lean tethered_jacobi_identity and h_cyclic_integrand_zero (the 6 named sub-haves)."  
 - **Tested**: 273K, valid, 16:9. ls confirmed.
 
@@ -109,7 +109,7 @@ The 8 JPGs live at:
 - Reader access is immediate and local (no cloud dependency beyond the repo). The visuals elevate the proof to professional Clay-level presentation while remaining 100% faithful.  
 - Post-cleanup (2026-06-02): The autonomous scheduler / generator loop meta has been archived to `historical/`. The 8 visuals + this guide + the Lean formalization + the three top-level referee documents now constitute the complete, minimal Clay-auditable package. Further Lean work (e.g., expansion of schematic sub-haves inside `h_cyclic_integrand_zero`) proceeds directly without the loop scaffolding.  
 
-**Test of This Guide File Itself**: `ls -lh /Users/inv0x/lean-projects/NS_Millennium_Proof/docs/Visual_Graphics_Guide.md` and `head -30` of this file both succeed. All paths verified Jun 2 2026 (post strict cleanup).
+**Test of This Guide File Itself**: `ls -lh docs/Visual_Graphics_Guide.md` and `head -30` of this file both succeed. All paths verified Jun 2 2026 (post strict cleanup).
 
 *End of Visual Graphics Guide — the canonical referee companion to the eight full-build JPGs. All generator / scheduler scaffolding moved to historical/ on 2026-06-02. The visuals and this guide remain untouched.*
 
