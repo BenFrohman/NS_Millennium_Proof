@@ -110,13 +110,12 @@ public theorem local_existence_kato
 public theorem beale_kato_majda_criterion
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
-    (h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    (hloc : LocalExistenceTime u ν)
+    (hcrit : BKMContinuationCriterion u ν)
+    (h_bkm : PathBKMIntegrable u)
+    (hbelow : SmoothBelowTstar u ν) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) :=
-  NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm hTstar hbelow
+  NavierStokes3D.beale_kato_majda u p ν hν hNS hloc hcrit h_bkm hbelow
 
 /-- Calderón–Zygmund stretching: `|ω · ∇u| ≲ C_CZ(3) ‖ω‖_∞ |ω|` once the
 strain operator-norm bound `‖Du‖ ≤ C_CZ(3) ‖ω‖_∞` is supplied (Riesz / Biot–Savart).
@@ -198,11 +197,11 @@ public theorem bkm_regularity_pipeline
     (Y : ℝ)
     (hbound : ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y)
     (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    (hloc : LocalExistenceTime u ν)
+    (hcrit : BKMContinuationCriterion u ν)
+    (hbelow : SmoothBelowTstar u ν) :
     ∀ τ ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u τ) :=
-  AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont hTstar hbelow
+  AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont hloc hcrit hbelow
 
 /-- If a differentiable scalar majorant of `‖ω(t)‖_∞` obeys the Riccati
 inequality `y' ≤ C y² − κ'' y³`, the closed comparison theorem supplies the
@@ -217,9 +216,9 @@ public theorem regularity_from_riccati_majorant
     (hy_dot : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (hmaj : ∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t)
     (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    (hloc : LocalExistenceTime u ν)
+    (hcrit : BKMContinuationCriterion u ν)
+    (hbelow : SmoothBelowTstar u ν) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) := by
   have hceil : ∀ τ ≥ (0 : ℝ), y τ ≤ max (y 0) (C / κ'') :=
     fun τ hτ => comparison_ode_stability C κ'' hC hκ y hdiff hy_dot τ hτ
@@ -227,14 +226,14 @@ public theorem regularity_from_riccati_majorant
       ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ max (y 0) (C / κ'') :=
     fun τ hτ => (hmaj τ hτ).trans (hceil τ hτ)
   exact bkm_regularity_pipeline u p ν hν hNS (max (y 0) (C / κ'')) hbound hcont
-    hTstar hbelow
+    hloc hcrit hbelow
 
 /-- **Continuation under assumed global existence** (NOT a regularity theorem).
 This takes `hTstar : ∀ u, Tstar (u 0) ν = ⊤`, i.e. it *assumes* the maximal existence
 time is infinite, and only upgrades compact-interval smoothness to all `t ≥ 0`. Global
 existence is the content of regularity, so this statement is circular as a regularity
 claim; it is kept only as a bookkeeping lemma. For the honest conditional regularity
-statement see `global_regularity_for_NS` below (tether bound + uniform restart). -/
+statement see `global_regularity_for_NS` below (tether bound + BKM criterion). -/
 public theorem continuation_under_global_existence
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
@@ -243,23 +242,22 @@ public theorem continuation_under_global_existence
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
     (hRiccati : TetheredLyapunov.FiniteTimeVorticityBound u₀ ν)
-    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ u : ℝ → VelocityField,
-      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    (hTstar : ∀ u : ℝ → VelocityField, TstarIsTop u ν)
+    (hbelow : ∀ u : ℝ → VelocityField, SmoothBelowTstar u ν) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧
       u 0 = u₀ ∧
       (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
-  TetheredLyapunov.global_regularity u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν
+  TetheredLyapunov.global_regularity_scaffold u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν
     w hRiccati hTstar hbelow
 
 /-- **Conditional global regularity** (Frohmanian Symplectic Tether, conditional).
-Derived from the open `FrohmanianTetherBound` hypothesis plus the classical uniform-restart
-and local-uniqueness binders, via `TetheredLyapunov.global_regularity_of_restart`.
-`Tstar = ⊤` is *derived* (restart lemma), not assumed. Not an unconditional Clay solution. -/
+Derived from the open `FrohmanianTetherBound` hypothesis plus the classical
+`PhysicalBKMContinuationCriterionFor` and `KatoUniquenessOnExistenceTimes`, via
+`TetheredLyapunov.global_regularity_of_bkm_uniqueness`. `Tstar = ⊤` is derived from the
+vorticity bound through the BKM criterion. Not an unconditional Clay solution. -/
 public theorem global_regularity_for_NS
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
@@ -268,25 +266,18 @@ public theorem global_regularity_for_NS
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
     (hRiccati : FrohmanianTetherBound u₀ ν)
-    (τ : ℝ) (hτ : 0 < τ)
-    (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
-      ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
-    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
-      T' ∈ existenceTimes u₀ ν → v 0 = u₀ → NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
-      IsPhysicalNSSolution v →
-      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+    (hcrit : TetheredLyapunov.PhysicalBKMContinuationCriterionFor u₀ ν)
+    (huniq : TetheredLyapunov.KatoUniquenessOnExistenceTimes u₀ ν w) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧
       u 0 = u₀ ∧
       (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
-  ⟨w.u, w.p, TetheredLyapunov.global_regularity_of_restart u₀ ν h_divfree h_smooth
-    h_finite_energy h_pos_ν w
+  ⟨w.u, w.p, TetheredLyapunov.global_regularity_of_bkm_uniqueness u₀ ν h_pos_ν w
     (TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform
       (TetheredLyapunov.physicalUniformVorticityCeiling_of_tetherBound hRiccati))
-    τ hτ hrestart huniq⟩
+    hcrit huniq⟩
 
 /-! ## Section 4 — named geometric / Lyapunov skeletons (real types) -/
 
@@ -350,8 +341,6 @@ differentiable `y` obeying `y' ≤ C y² − κ'' y³` with `C, κ'' > 0`. A nam
 4. `regularity_from_riccati_majorant` consumes it: comparison ceiling →
    `IntegrableOn M (Icc 0 T)` → BKM `ContDiff ℝ (⊤ : ℕ∞) (u t)`.
 -/
--- NOTE: like `continuation_under_global_existence`, this takes `hTstar` (global existence)
--- as a hypothesis; it records type composition only and is not a regularity claim.
 public theorem type_composition_sequence
     (u₀ : VelocityField) (ν : ℝ)
     (hν : 0 < ν)
@@ -360,10 +349,8 @@ public theorem type_composition_sequence
     (hE : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (w : KatoLocalWitness u₀ ν)
     (hRiccati : RiccatiMajorantExists u₀ ν)
-    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ u : ℝ → VelocityField,
-      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    (hcrit : TetheredLyapunov.BKMContinuationCriterionFor u₀ ν)
+    (hbelow : TetheredLyapunov.SmoothBelowTstarFor u₀ ν) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧ u 0 = u₀ ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) := by
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
@@ -381,6 +368,7 @@ public theorem type_composition_sequence
     hRiccati u p hNS hu0
   refine ⟨u, p, hNS, hu0, ?_⟩
   exact regularity_from_riccati_majorant u p ν hν hNS C κ'' hC hκ y hdiff hy_dot
-    hmaj hcont (hTstar u) (hbelow u)
+    hmaj hcont (TetheredLyapunov.localExistenceTime_of_kato w u hu0)
+    (hcrit u p hNS hu0) (hbelow u p hNS hu0)
 
 end ClosureBlueprint

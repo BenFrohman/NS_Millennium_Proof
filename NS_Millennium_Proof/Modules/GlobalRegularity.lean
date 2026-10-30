@@ -198,7 +198,7 @@ public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop 
 `hRiccati : FrohmanianTetherBound (u0 0) ν` is a time-uniform bound on `‖ω‖_∞`.
 It is open; by BKM it is equivalent in difficulty to regularity itself
 (see `ClayStatements.lean`, `FrohmanianTetherClosingBound`). Given it, plus the
-classical local-theory binders `w`, `hrestart`, `huniq`, every smooth, divergence-free
+classical local-theory binders `w`, `hcrit` (BKM continuation criterion), `huniq`, every smooth, divergence-free
 initial field generates a unique global smooth solution. Not an unconditional Clay solution.
 
 This is the top-level statement whose proof proceeds via the Frohmanian Symplectic Tether
@@ -212,16 +212,8 @@ public theorem global_regularity_for_NS
     (ν : ℝ) (h_ν_pos : ν > 0)
     (w : KatoLocalWitness (u0 0) ν)
     (hRiccati : FrohmanianTetherBound (u0 0) ν)
-    (τ : ℝ) (hτ : 0 < τ)
-    (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar (u0 0) ν →
-      ∃ T' ∈ existenceTimes (u0 0) ν, t + τ ≤ T')
-    (huniq : ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
-      T' ∈ existenceTimes (u0 0) ν →
-      v 0 = u0 0 →
-      NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
-      IsPhysicalNSSolution v →
-      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+    (hcrit : TetheredLyapunov.PhysicalBKMContinuationCriterionFor (u0 0) ν)
+    (huniq : TetheredLyapunov.KatoUniquenessOnExistenceTimes (u0 0) ν w) :
   ∃ (u : TimeDependentVelocity),
     (∀ t ≥ (0 : ℝ), IsSmooth (u t)) ∧
     (u 0 = u0 0) ∧
@@ -233,11 +225,10 @@ public theorem global_regularity_for_NS
       (∀ t ≥ (0 : ℝ), satisfies_NavierStokes v ν) →
       ∀ t ≥ (0 : ℝ), v t = u t) := by
   obtain ⟨hNS, hu0, hsm, hnn, _hdiv⟩ :=
-    TetheredLyapunov.global_regularity_of_restart (u0 0) ν
-      (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos
+    TetheredLyapunov.global_regularity_of_bkm_uniqueness (u0 0) ν h_ν_pos
       w (TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform
           (TetheredLyapunov.physicalUniformVorticityCeiling_of_tetherBound hRiccati))
-      τ hτ hrestart huniq
+      hcrit huniq
   refine ⟨w.u, hsm, hu0, ?ns, hnn, ?uniq⟩
   · intro _t _ht
     exact ⟨w.phys, w.p, hNS⟩

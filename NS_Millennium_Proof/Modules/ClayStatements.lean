@@ -133,7 +133,7 @@ public def Clay_B : Prop :=
 
 /-- **Proved (no `sorry`, standard axioms only).** If the open closing bound held, then,
 together with the classical local-theory binders already used by
-`global_regularity_for_NS` (Kato witness `hKato`, restart time `τ`/`hrestart`,
+`global_regularity_for_NS` (Kato witness `hKato`, BKM continuation criterion `hcrit`,
 uniqueness `huniq`), *every* datum in the library's class would have a unique global
 solution, smooth (`ContDiff ℝ (⊤ : ℕ∞)`) at every `t ≥ 0`.
 
@@ -147,15 +147,9 @@ public theorem frohmanian_global_regularity_of_closing_bound
     (hclose : FrohmanianTetherClosingBound ν)
     (hKato : ∀ u₀ : VelocityField, ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) →
       Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → KatoLocalWitness u₀ ν)
-    (τ : ℝ) (hτ : 0 < τ)
-    (hrestart : ∀ u₀ : VelocityField, ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
-      ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
-    (huniq : ∀ (u₀ : VelocityField) (w : KatoLocalWitness u₀ ν)
-      (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
-      T' ∈ existenceTimes u₀ ν → v 0 = u₀ → NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
-      IsPhysicalNSSolution v →
-      ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t)
+    (hcrit : ∀ u₀ : VelocityField, TetheredLyapunov.PhysicalBKMContinuationCriterionFor u₀ ν)
+    (huniq : ∀ (u₀ : VelocityField) (w : KatoLocalWitness u₀ ν),
+      TetheredLyapunov.KatoUniquenessOnExistenceTimes u₀ ν w)
     (u₀ : VelocityField) (hdiv : ∀ x, div u₀ x = 0) (hsm : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (hE : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2)) :
     ∃ (u : TimeDependentVelocity),
@@ -169,7 +163,7 @@ public theorem frohmanian_global_regularity_of_closing_bound
         (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes v ν) →
         ∀ t ≥ (0 : ℝ), v t = u t) :=
   GlobalRegularity.global_regularity_for_NS (fun _ => u₀) (fun _ x => hdiv x) hsm hE ν hν
-    (hKato u₀ hsm hdiv hE) (hclose u₀ hdiv hsm hE) τ hτ (hrestart u₀)
+    (hKato u₀ hsm hdiv hE) (hclose u₀ hdiv hsm hE) (hcrit u₀)
     (huniq u₀ (hKato u₀ hsm hdiv hE))
 
 
@@ -518,7 +512,7 @@ public theorem frohmanianTetherRate_zero (ν : ℝ) : FrohmanianTetherRate 0 ν 
 /-- **Kernel-verified non-vacuity of `GlobalRegularity.global_regularity_for_NS`:**
 at quiescent initial data `u0 = 0`, every hypothesis of `global_regularity_for_NS`
 (`h_div_free`, `h_smooth`, `h_finite_energy`, `w = kato_witness_zero ν`,
-`hRiccati = frohmanianTetherBound_zero ν`, `hrestart`, and `huniq = repaired_huniq_at_zero ν`)
+`hRiccati = frohmanianTetherBound_zero ν`, `hcrit`, and `huniq = repaired_huniq_at_zero ν`)
 is unconditionally discharged, producing a global smooth solution without any unproved assumptions. -/
 public theorem global_regularity_for_NS_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
     ∃ (u : TimeDependentVelocity),
@@ -539,8 +533,10 @@ public theorem global_regularity_for_NS_nonvacuous_at_zero (ν : ℝ) (hν : 0 <
     ν hν
     (kato_witness_zero ν)
     (frohmanianTetherBound_zero ν)
-    1 one_pos
-    (fun t ht _ => ⟨t + 1, mem_existenceTimes_zero ν (by linarith), le_rfl⟩)
+    (by
+      intro u p _ hu0 _ T hT
+      rw [hu0, Tstar_zero_eq_top] at hT
+      exact absurd hT.symm (EReal.coe_ne_top T))
     (repaired_huniq_at_zero ν (kato_witness_zero ν))
 
 /-! ## Honest periodic chain: what the tether bound buys on `𝕋³`

@@ -120,13 +120,14 @@ The Frohmanian programme approaches this problem through a two-layer architectur
 \begin{theorem}[Conditional Global Regularity; \lean{frohmanian_tether_theorem}, \lean{global_regularity_for_NS}]\label{thm:main}
 Let $\nu>0$ and let $u_0$ be smooth (\lean{ContDiff ℝ ⊤}), divergence-free, and of finite $L^2$ energy. Assume within the class of physical solutions (\lean{IsPhysicalNSSolution}):
 \begin{enumerate}
-\item[(K)] \emph{Kato local existence with uniform restart}: a local smooth physical solution (\lean{KatoLocalWitness}) exists from every such datum, with a restart increment $\tau>0$ extending existence times below $T^*(u_0,\nu)$;
+\item[(K)] \emph{Kato local existence}: a local smooth physical solution (\lean{KatoLocalWitness}) exists from every such datum, so $T^*(u_0,\nu)>0$;
+\item[(C)] \emph{Beale--Kato--Majda continuation criterion} (\lean{PhysicalBKMContinuationCriterionFor}): if $T^*(u_0,\nu)$ is finite then $\int_0^{T^*}\|\omega\|_\infty\,dt=\infty$; $T^*=\infty$ is then derived from (K), (C) and the integrability supplied by (R);
 \item[(R)] \emph{Frohmanian cubic tether rate (\lean{FrohmanianTetherRate})}: along every physical solution from $u_0$, the vorticity sup-norm $t\mapsto M(t)$ is continuous, differentiable on $[0,\infty)$, and satisfies
 \[
 M'(t)\le \CZ\,M(t)^2-\kappa''\,M(t)^3\qquad(t\ge 0)
 \]
 for constants $\CZ>0$, $\kappa''>0$ (yielding \lean{FrohmanianTetherBound});
-\item[(U)] \emph{Physical uniqueness (\lean{huniq})}: smooth physical solutions (\lean{IsPhysicalNSSolution}) starting from $u_0$ agree with the Kato witness on each existence interval $[0,T]$.
+\item[(U)] \emph{Physical uniqueness (\lean{KatoUniquenessOnExistenceTimes})}: smooth physical solutions (\lean{IsPhysicalNSSolution}) starting from $u_0$ agree with the Kato witness on each existence interval $[0,T]$.
 \end{enumerate}
 Then $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ for all $t\ge0$, and \eqref{eq:NS} admits a globally defined physical solution $u$ on $[0,\infty)$ that is spatially $C^\infty$ for every $t\ge0$, divergence-free, and unique among all smooth physical solutions.
 \end{theorem}
@@ -135,7 +136,7 @@ Then $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ for all $t\ge0$, and \eqref{eq:N
 \begin{itemize}
 \item \textbf{Axiom-clean \& sorry-free:} The entire repository \texttt{NS\_Millennium\_Proof} builds cleanly (\texttt{lake build}, 2704 jobs) and passes \texttt{lake env lean scripts/AxiomAudit.lean} with \textbf{437 theorems across 17 modules, zero \texttt{sorryAx}, and zero nonstandard axioms} (depending only on \lean{propext}, \lean{Classical.choice}, \lean{Quot.sound}).
 \item \textbf{Kernel-verified non-vacuous:} The physical-solution predicate \lean{IsPhysicalNSSolution} (Section~\ref{sec:vacuity}) rules out pathological time-step fields that previously exploited Mathlib's totalized derivative \lean{deriv} $=0$ at jump discontinuities (\lean{stepField_not_physical}). In \lean{ClayStatements.lean}, all hypotheses of Theorem~\ref{thm:main} are proved to be jointly satisfiable and unconditionally realized at $u_0=0$ (\lean{global_regularity_for_NS_nonvacuous_at_zero}).
-\item \textbf{Clear separation of proved implications vs.\ conjectured bridges:} The implication $\text{(K)}+\text{(R)}+\text{(U)}\implies\text{global regularity}$ is 100\% kernel-verified. Discharging the cubic rate (R) unconditionally from the unmodified vorticity equation \eqref{eq:vort} is the central conjectured bridge of the Frohmanian programme, presented in full in Sections~\ref{sec:original} and~\ref{sec:open}.
+\item \textbf{Clear separation of proved implications vs.\ conjectured bridges:} The implication $\text{(K)}+\text{(C)}+\text{(R)}+\text{(U)}\implies\text{global regularity}$ is 100\% kernel-verified. Discharging the cubic rate (R) unconditionally from the unmodified vorticity equation \eqref{eq:vort} is the central conjectured bridge of the Frohmanian programme, presented in full in Sections~\ref{sec:original} and~\ref{sec:open}.
 \end{itemize}
 
 %=====================================================================

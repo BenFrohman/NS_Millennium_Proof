@@ -10,11 +10,11 @@ Author: Benjamin Stanley Frohman.
 **Overall status.** This manuscript and the companion Lean 4 formalization (`NS_Millennium_Proof`, **437 kernel-verified theorems across 17 modules**, **0 `sorry`**, **0 nonstandard axioms**) establish a **verified non-vacuous conditional reduction** for 3D incompressible Navier–Stokes global regularity, while preserving in full every original definition, theorem, physical motivation, and conjectured bridge from Benjamin Stanley Frohman's programme (`Frohmanian_Tether_Final_Submission_v8.tex`).
 
 1. **Kernel-verified conditional implication (0 `sorry`, non-vacuous):**
-   Kato local existence (with uniform restart length) + physical-solution uniqueness (`IsPhysicalNSSolution`) + the cubic tether rate (`FrohmanianTetherRate`)
+   Kato local existence + the Beale–Kato–Majda continuation criterion (`PhysicalBKMContinuationCriterionFor`) + physical-solution uniqueness (`KatoUniquenessOnExistenceTimes`, `IsPhysicalNSSolution`) + the cubic tether rate (`FrohmanianTetherRate`)
    $$M'(t)\le C_{\mathrm{CZ}}M(t)^2-\kappa''M(t)^3$$
    implies the global vorticity ceiling
    $$M(t)\le \max\!\Big(M(0),\ \tfrac{C_{\mathrm{CZ}}}{\kappa''}\Big)$$
-   and, via Beale–Kato–Majda continuation and uniform Kato restart, a globally smooth, divergence-free physical solution (`frohmanian_tether_theorem`, `global_regularity_for_NS`).
+   and, via Beale–Kato–Majda continuation ($T^*=\infty$ derived from $T^*>0$, the criterion and $\int_0^T M<\infty$), a globally smooth, divergence-free physical solution (`frohmanian_tether_theorem`, `global_regularity_for_NS`).
 2. **Time-smoothness & physical-solution non-vacuity repair (COMPLETED):**
    The formalization defines `IsPhysicalNSSolution u` (requiring pointwise time-differentiability $\forall t\ge 0, \forall x, \text{DifferentiableAt }\mathbb{R}\ (s\mapsto u(s,x))\ t$, spatial continuity, finite $L^2$ energy, and the Leray $L^2$ energy inequality $\int\|u(t)\|^2\le\int\|u(0)\|^2$). With `IsPhysicalNSSolution` threaded through `KatoLocalWitness`, `existenceTimes`, `FrohmanianTetherBound`, `FrohmanianTetherRate`, `global_regularity_for_NS`, and `frohmanian_tether_theorem`, the hypotheses are **jointly satisfiable and verified non-vacuous** in `ClayStatements.lean` (`stepField_not_physical`, `repaired_hInt`, `repaired_huniq_shift_at_zero`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`, `frohmanianTetherRate_zero`, `global_regularity_for_NS_nonvacuous_at_zero`).
 3. **Complete preservation of original conjectured bridges (0 `sorry`):**

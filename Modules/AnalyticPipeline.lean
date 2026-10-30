@@ -200,14 +200,14 @@ public theorem bkm_regularity_pipeline
     (Y : ℝ)
     (hbound : ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y)
     (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+    (hloc : LocalExistenceTime u ν)
+    (hcrit : BKMContinuationCriterion u ν)
+    (hbelow : SmoothBelowTstar u ν) :
     ∀ τ ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u τ) :=
-  beale_kato_majda u p ν hν hNS (fun T _hTlt =>
+  beale_kato_majda u p ν hν hNS hloc hcrit (fun T =>
     bkm_integrableOn_of_uniform_bound Y
       (fun τ => vorticity_sup_norm (vorticity (u τ))) hbound hcont T)
-    hTstar hbelow
+    hbelow
 
 /-- The Riccati differential inequality for `M(t) = ‖ω(t)‖_∞` produces the
 uniform ceiling `max(M 0, C/κ'')` together with the standing continuity of

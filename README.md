@@ -70,16 +70,25 @@ In addition to this full research repository (`453` theorems across `17` modules
 >   Named hypotheses (open, taken as explicit `Prop` arguments). Finite-horizon form, which is
 >   what Clay statement (B) needs: `FiniteTimeVorticityBound`, `PhysicalFiniteTimeVorticityBound`
 >   (for every `T` a bound `C(T)` on `sup_{[0,T]} ‖ω‖_∞`), `BKMIntegrability`,
->   `PhysicalBKMIntegrability` (`∫₀ᵀ ‖ω‖_∞ < ∞` for every `T`). `global_regularity`,
->   `global_regularity_of_bkmIntegrability`, `global_regularity_of_restart`,
->   `global_regularity_of_kato_estimates` and `continuation_under_global_existence` take these.
+>   `PhysicalBKMIntegrability` (`∫₀ᵀ ‖ω‖_∞ < ∞` for every `T`).
+>   BKM step: `beale_kato_majda` takes `LocalExistenceTime` (`T* > 0`), `BKMContinuationCriterion`
+>   (finite `T*` forces `∫₀^{T*} ‖ω‖_∞ = ∞`), `PathBKMIntegrable` and `SmoothBelowTstar`, and derives
+>   `T* = ⊤` (`Tstar_eq_top_of_bkm`); the integrability is necessary
+>   (`bkm_criterion_without_integrability_not_top`). `BKMContinuationCriterion` (u₀-level:
+>   `BKMContinuationCriterionFor`, `PhysicalBKMContinuationCriterionFor`), `SmoothBelowTstar`
+>   (`SmoothBelowTstarFor`) and `KatoUniquenessOnExistenceTimes` are classical and not formalized here.
+>   `global_regularity`, `global_regularity_of_bkmIntegrability`, `global_regularity_of_bkm_uniqueness`,
+>   `global_regularity_for_NS` and `frohmanian_global_regularity_of_closing_bound` go through this step.
+>   Scaffolding that does not use integrability: `beale_kato_majda_scaffold` (takes `TstarIsTop`;
+>   `beale_kato_majda_scaffold_integrability_unused`), `global_regularity_scaffold`,
+>   `continuation_under_global_existence`, and `global_regularity_of_restart` /
+>   `global_regularity_of_kato_estimates`, which derive `T* = ⊤` from `KatoUniformRestart` alone
+>   (`Tstar_top_of_restart_without_vorticity_bound`).
 >   Stronger uniform variants: `UniformVorticityCeiling`, `PhysicalUniformVorticityCeiling`,
 >   `PhysicalVorticityCubicRate` (`TetheredLyapunov.lean`), `RiccatiMajorantExists`
 >   (`ClosureBlueprint.lean`); proved bridges `finiteTimeVorticityBound_of_uniform`,
 >   `physicalFiniteTimeVorticityBound_of_uniform`, `bkmIntegrability_of_finiteTime`,
->   `physicalBKMIntegrability_of_finiteTime`. In this formalization `beale_kato_majda` closes from
->   `Tstar = ⊤` and smoothness below `Tstar`, so the open content of these theorems is in the
->   continuation hypotheses and in continuity of `‖ω(t)‖_∞` for all time. `PointwiseStrainSupBound`
+>   `physicalBKMIntegrability_of_finiteTime`. `PointwiseStrainSupBound`
 >   (`NS_Equations.lean`, `‖∇u(x)‖ ≤ C‖ω‖_∞`) and `PointwiseCZGradientBoundAtMax` are false in
 >   general (Calderón–Zygmund fails at `p = ∞`); `strain_sup_le_of_CZ`,
 >   `convective_norm_le_of_CZ`, `stretching_inner_le`, `stretching_inner_le_at_max`,
