@@ -1,11 +1,11 @@
-# titan-audit report: `ns_push`
+# titan-audit report: `NS_Millennium_Proof`
 
 **Verdict: PASS_WITH_WARNINGS**
 
-- Generated (UTC): 2026-10-28T23:19:22+00:00
+- Generated (UTC): 2026-10-30T18:34:46+00:00
 - Tool: titan-audit 1.0.0 (Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718))
-- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `b04619c120852a33523363eb3fc3225d3fc5ae0e`
-- Tree SHA-256: `f2bc96908ff7a74af38419c04ae51855906104a0975971a59f5464d8706deb09` over 112 files
+- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `49efc24531977445275884ae4713a8589ffbae24`
+- Tree SHA-256: `7fb431288c4e54ae87eca27cb02e19576d3b919d497fd9f496939a934256d7d3` over 112 files
 
 ## Build
 
@@ -13,7 +13,7 @@
 
 ## Axiom audit
 
-- Modules: 21  Theorems: 494  Clean (only propext/Classical.choice/Quot.sound): 494
+- Modules: 21  Theorems: 502  Clean (only propext/Classical.choice/Quot.sound): 502
 - Nonstandard: 0
 
 | Module | Theorems | Nonstandard |
@@ -34,7 +34,7 @@
 | `NS_Millennium_Proof.Modules.Stage6Calculus` | 35 | 0 |
 | `NS_Millennium_Proof.Modules.SymplecticConstraint` | 61 | 0 |
 | `NS_Millennium_Proof.Modules.SymplecticTether` | 38 | 0 |
-| `NS_Millennium_Proof.Modules.TetheredLyapunov` | 45 | 0 |
+| `NS_Millennium_Proof.Modules.TetheredLyapunov` | 53 | 0 |
 | `NS_Millennium_Proof.Modules.TorusStrainExclusion` | 19 | 0 |
 | `NS_Millennium_Proof.Modules.Uniqueness` | 16 | 0 |
 
@@ -48,12 +48,12 @@ Counts: axiom_outside_build=1, real_iSup_without_BddAbove=5, real_iSup_without_B
 - real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2290` `Tstar`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
 - real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2801` `vorticity_sup_norm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
 - real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2815` `strain_sup_norm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
-- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/SymplecticTether.lean:776` `MollifiedSupNormFunctional`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
+- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/SymplecticTether.lean:777` `MollifiedSupNormFunctional`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
 - real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/TetheredLyapunov.lean:502` `MollifiedSupNorm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
 
 Heuristics are advisory: a flag means *look here*, not *wrong*.
 
 ## Signature
 
-- ed25519 public key (base64): `ZOyujV1yUEldQRZEDhmXCHa4ikWGfcTD+meZYssNLpo=`
+- ed25519 public key (base64): `YoEHEghXFxrXvYKQoWQb+oDunzwdxBgpk03gxrdC7WI=`
 - Verify: `titan-audit verify report.json`
