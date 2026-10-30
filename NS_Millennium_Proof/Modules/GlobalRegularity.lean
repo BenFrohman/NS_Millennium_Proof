@@ -235,9 +235,9 @@ public theorem global_regularity_for_NS
   obtain ⟨hNS, hu0, hsm, hnn, _hdiv⟩ :=
     TetheredLyapunov.global_regularity_of_restart (u0 0) ν
       (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos
-      w (fun u p hNS hu0 hphys =>
-          let ⟨Y, hb, hc, _⟩ := hRiccati u p hNS hu0 hphys
-          ⟨Y, hb, hc⟩) τ hτ hrestart huniq
+      w (TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform
+          (TetheredLyapunov.physicalUniformVorticityCeiling_of_tetherBound hRiccati))
+      τ hτ hrestart huniq
   refine ⟨w.u, hsm, hu0, ?ns, hnn, ?uniq⟩
   · intro _t _ht
     exact ⟨w.phys, w.p, hNS⟩

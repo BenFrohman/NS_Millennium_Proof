@@ -1831,6 +1831,112 @@ public theorem physicalVorticityCubicRate_of_tetherRate
     let ⟨C, κ'', hC, hκ, hd, hdd, hc, _⟩ := h u p hν hNS hu0 hphys
     ⟨C, κ'', hC, hκ, hd, hdd, hc⟩
 
+/-! ## Finite-horizon vorticity control (the form Clay statement (B) needs)
+
+Fefferman's statement (B) asks for smoothness on `[0, ∞)` and bounded energy. It does not
+ask for a bound on `‖ω(t)‖_∞` that is uniform in `t`. The continuation arguments below only
+use a bound on each compact interval `[0, T]`, with a constant allowed to depend on `T` and
+on the data, or the Beale–Kato–Majda integrability `∫₀ᵀ ‖ω‖_∞ dt < ∞` for every `T`.
+The uniform ceilings above are the stronger variants; each implies its finite-horizon form. -/
+
+/-- **Finite-horizon vorticity bound** (open for general data): along every solution of the
+unmodified equations from `u₀`, for every `T ≥ 0` there is `C(T)` with
+`sup_{t ∈ [0,T]} ‖ω(t)‖_∞ ≤ C(T)`, and `t ↦ ‖ω(t)‖_∞` is continuous. -/
+@[expose] public def FiniteTimeVorticityBound (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ →
+      (∀ T ≥ (0 : ℝ), ∃ C : ℝ,
+        ∀ t ∈ Set.Icc (0 : ℝ) T, vorticity_sup_norm (vorticity (u t)) ≤ C) ∧
+      Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+
+/-- **Finite-horizon vorticity bound on physical solutions** (open for general data):
+`FiniteTimeVorticityBound` restricted to `IsPhysicalNSSolution` paths. -/
+@[expose] public def PhysicalFiniteTimeVorticityBound (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      (∀ T ≥ (0 : ℝ), ∃ C : ℝ,
+        ∀ t ∈ Set.Icc (0 : ℝ) T, vorticity_sup_norm (vorticity (u t)) ≤ C) ∧
+      Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+
+/-- **Beale–Kato–Majda integrability** (open for general data): along every solution from
+`u₀`, `t ↦ ‖ω(t)‖_∞` is integrable on `[0, T]` for every `T`, i.e. `∫₀ᵀ ‖ω‖_∞ dt < ∞`. -/
+@[expose] public def BKMIntegrability (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ →
+      ∀ T : ℝ, IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T)
+
+/-- `BKMIntegrability` restricted to `IsPhysicalNSSolution` paths. -/
+@[expose] public def PhysicalBKMIntegrability (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      ∀ T : ℝ, IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T)
+
+/-- Uniform ceiling ⇒ finite-horizon bound (take `C(T) = Y` for every `T`). -/
+public theorem finiteTimeVorticityBound_of_uniform
+    {u₀ : VelocityField} {ν : ℝ} (h : UniformVorticityCeiling u₀ ν) :
+    FiniteTimeVorticityBound u₀ ν :=
+  fun u p hNS hu0 =>
+    let ⟨Y, hb, hc⟩ := h u p hNS hu0
+    ⟨fun _T _hT => ⟨Y, fun t ht => hb t ht.1⟩, hc⟩
+
+/-- Physical uniform ceiling ⇒ physical finite-horizon bound. -/
+public theorem physicalFiniteTimeVorticityBound_of_uniform
+    {u₀ : VelocityField} {ν : ℝ} (h : PhysicalUniformVorticityCeiling u₀ ν) :
+    PhysicalFiniteTimeVorticityBound u₀ ν :=
+  fun u p hNS hu0 hphys =>
+    let ⟨Y, hb, hc⟩ := h u p hNS hu0 hphys
+    ⟨fun _T _hT => ⟨Y, fun t ht => hb t ht.1⟩, hc⟩
+
+/-- A function continuous on `ℝ` is integrable on every `[0, T]` (empty when `T < 0`). -/
+public theorem integrableOn_Icc_zero_of_continuous
+    (M : ℝ → ℝ) (hcont : Continuous M) (T : ℝ) :
+    IntegrableOn M (Set.Icc (0 : ℝ) T) :=
+  hcont.continuousOn.integrableOn_Icc
+
+/-- Finite-horizon bound ⇒ BKM integrability on every `[0, T]`. -/
+public theorem bkmIntegrability_of_finiteTime
+    {u₀ : VelocityField} {ν : ℝ} (h : FiniteTimeVorticityBound u₀ ν) :
+    BKMIntegrability u₀ ν :=
+  fun u p hNS hu0 T =>
+    integrableOn_Icc_zero_of_continuous _ (h u p hNS hu0).2 T
+
+/-- Physical finite-horizon bound ⇒ physical BKM integrability. -/
+public theorem physicalBKMIntegrability_of_finiteTime
+    {u₀ : VelocityField} {ν : ℝ} (h : PhysicalFiniteTimeVorticityBound u₀ ν) :
+    PhysicalBKMIntegrability u₀ ν :=
+  fun u p hNS hu0 hphys T =>
+    integrableOn_Icc_zero_of_continuous _ (h u p hNS hu0 hphys).2 T
+
+/-- Global regularity from BKM integrability alone (finite-horizon input), with the
+continuation hypotheses `hTstar`, `hbelow` as in `global_regularity`. -/
+public theorem global_regularity_of_bkmIntegrability
+    (u₀ : VelocityField) (ν : ℝ)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
+    (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (h_pos_ν : ν > 0)
+    (w : KatoLocalWitness u₀ ν)
+    (hBKM : BKMIntegrability u₀ ν)
+    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ u : ℝ → VelocityField,
+      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (u t)) :
+  ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
+    NS_PDE u p ν ∧
+    u 0 = u₀ ∧
+    (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
+    (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+    (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) := by
+  obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
+    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν w
+  refine ⟨u, p, hNS, hu0, ?smooth, ?nn, ?div0⟩
+  · exact beale_kato_majda u p ν h_pos_ν hNS
+      (fun T _hT => hBKM u p hNS hu0 T) (hTstar u) (hbelow u)
+  · intro t _ht
+    exact vorticity_sup_norm_nonneg _
+  · intro t ht x
+    exact (hNS t ht x).2
+
 public theorem global_regularity
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
@@ -1838,7 +1944,7 @@ public theorem global_regularity
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
-    (hRiccati : UniformVorticityCeiling u₀ ν)
+    (hRiccati : FiniteTimeVorticityBound u₀ ν)
     (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
     (hbelow : ∀ u : ℝ → VelocityField,
       ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
@@ -1869,7 +1975,7 @@ public theorem global_regularity
   -- This independence is a deliberate strength of the argument (see updated Section 3).
   --
   -- Non-circular continuation on compact intervals [0,T] < T* then transfers the
-  -- uniform bound from the majorant to the vorticity, after which classical BKM +
+  -- finite-horizon bound on each [0,T] to the vorticity, after which classical BKM +
   -- parabolic regularity close the proof.
 
   -- Step 2.1: Kato/Leray local existence on a short interval (classical).
@@ -1877,9 +1983,9 @@ public theorem global_regularity
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
     local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν w
 
-  obtain ⟨Y, hbound, hcont⟩ := hRiccati u p hNS hu0
   refine ⟨u, p, hNS, hu0, ?smooth, ?nn, ?div0⟩
-  · exact AnalyticPipeline.bkm_regularity_pipeline u p ν h_pos_ν hNS Y hbound hcont
+  · exact beale_kato_majda u p ν h_pos_ν hNS
+      (fun T _hT => bkmIntegrability_of_finiteTime hRiccati u p hNS hu0 T)
       (hTstar u) (hbelow u)
   · intro t _ht
     exact vorticity_sup_norm_nonneg _
@@ -1915,7 +2021,7 @@ public theorem global_regularity_of_restart
     (_h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
-    (hRiccati : PhysicalUniformVorticityCeiling u₀ ν)
+    (hRiccati : PhysicalFiniteTimeVorticityBound u₀ ν)
     (τ : ℝ) (hτ : 0 < τ)
     (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
       ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
@@ -1963,19 +2069,20 @@ public theorem global_regularity_of_restart
       have : t ∈ (∅ : Set ℝ) := by
         rwa [hempty] at ht
       exact this.elim
-  obtain ⟨Y, hbound, hcont⟩ := hRiccati w.u w.p w.pde hu0 w.phys
   refine ⟨w.pde, hu0, ?smooth, ?nn, ?div0⟩
-  · exact AnalyticPipeline.bkm_regularity_pipeline w.u w.p ν h_pos_ν w.pde
-      Y hbound hcont (by rw [hu0]; exact hTstar) hbelow
+  · exact beale_kato_majda w.u w.p ν h_pos_ν w.pde
+      (fun T _hT => physicalBKMIntegrability_of_finiteTime hRiccati w.u w.p w.pde hu0
+        w.phys T)
+      (by rw [hu0]; exact hTstar) hbelow
   · intro _t _ht
     exact vorticity_sup_norm_nonneg _
   · intro t ht x
     exact (w.pde t ht x).2
 
 /-- Same assembly, with the free restart length replaced by the paper Kato
-time `katoRestartTime C Y (max R 1)` from the log-Gronwall / quadratic
-comparison (Drive Steps 3.2–3.4). `Y` is the Riccati ceiling; `R` is the
-Sobolev proxy at time 0. -/
+time `katoRestartTime C C₀ (max R 1)` from the log-Gronwall / quadratic
+comparison (Drive Steps 3.2–3.4). `C₀` is the finite-horizon vorticity bound on `[0, 0]`;
+`hrestart` is assumed for every ceiling value. `R` is the Sobolev proxy at time 0. -/
 public theorem global_regularity_of_kato_estimates
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
@@ -1983,7 +2090,7 @@ public theorem global_regularity_of_kato_estimates
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
-    (hRiccati : PhysicalUniformVorticityCeiling u₀ ν)
+    (hRiccati : PhysicalFiniteTimeVorticityBound u₀ ν)
     (C R : ℝ)
     (hrestart : ∀ Y : ℝ,
       ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
@@ -2000,10 +2107,10 @@ public theorem global_regularity_of_kato_estimates
       (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (w.u t)) ∧
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (w.u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (w.u t) x = 0) := by
-  obtain ⟨Y, _hbound, _hcont⟩ := hRiccati w.u w.p w.pde w.init w.phys
+  obtain ⟨C₀, _hC₀⟩ := (hRiccati w.u w.p w.pde w.init w.phys).1 0 le_rfl
   exact global_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
-    h_pos_ν w hRiccati (katoRestartTime C Y (max R 1))
-    (katoRestartTime_pos C Y (max R 1)) (hrestart Y) huniq
+    h_pos_ν w hRiccati (katoRestartTime C C₀ (max R 1))
+    (katoRestartTime_pos C C₀ (max R 1)) (hrestart C₀) huniq
 
 /-- Riccati construction: the vorticity-sup-norm differential inequality
 produces the uniform ceiling used by BKM. This discharges `hRiccati`. -/
@@ -2081,10 +2188,12 @@ public theorem global_regularity_of_constructions
     intro u p hNS hu0 hphys
     obtain ⟨C, κ'', hC, hκ, hdiff, hDIu, hcont⟩ := hDI u p hNS hu0 hphys
     exact riccati_ceiling_of_vorticity_di u C κ'' hC hκ hdiff hDIu hcont
+  have hFin : PhysicalFiniteTimeVorticityBound u₀ ν :=
+    physicalFiniteTimeVorticityBound_of_uniform hRiccati
   have hrestart :=
     restart_of_kato_quantitative u₀ ν τ h_pos_ν hτ hKato hTlb hInt huniq_shift
   exact global_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
-    h_pos_ν w hRiccati τ hτ hrestart huniq
+    h_pos_ν w hFin τ hτ hrestart huniq
 
 #print axioms hasDerivAt_norm_sq_of_hasDerivAt
 #print axioms hasDerivAt_norm_pow_four
@@ -2104,6 +2213,12 @@ public theorem global_regularity_of_constructions
 #print axioms global_regularity_zero
 #print axioms global_regularity_of_restart
 #print axioms global_regularity_of_kato_estimates
+#print axioms finiteTimeVorticityBound_of_uniform
+#print axioms physicalFiniteTimeVorticityBound_of_uniform
+#print axioms bkmIntegrability_of_finiteTime
+#print axioms physicalBKMIntegrability_of_finiteTime
+#print axioms global_regularity_of_bkmIntegrability
+#print axioms global_regularity
 #print axioms riccati_ceiling_of_vorticity_di
 #print axioms global_regularity_of_constructions
 #print axioms enstrophy_di_of_spatial_max

@@ -242,7 +242,7 @@ public theorem continuation_under_global_existence
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
-    (hRiccati : TetheredLyapunov.UniformVorticityCeiling u₀ ν)
+    (hRiccati : TetheredLyapunov.FiniteTimeVorticityBound u₀ ν)
     (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
     (hbelow : ∀ u : ℝ → VelocityField,
       ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
@@ -284,9 +284,9 @@ public theorem global_regularity_for_NS
       (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
   ⟨w.u, w.p, TetheredLyapunov.global_regularity_of_restart u₀ ν h_divfree h_smooth
     h_finite_energy h_pos_ν w
-    (fun u p hNS hu0 hphys =>
-      let ⟨Y, hb, hc, _⟩ := hRiccati u p hNS hu0 hphys
-      ⟨Y, hb, hc⟩) τ hτ hrestart huniq⟩
+    (TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform
+      (TetheredLyapunov.physicalUniformVorticityCeiling_of_tetherBound hRiccati))
+    τ hτ hrestart huniq⟩
 
 /-! ## Section 4 — named geometric / Lyapunov skeletons (real types) -/
 
