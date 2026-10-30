@@ -1777,6 +1777,60 @@ public theorem lyapunov_density_unweighted_di_at_spatial_max
     mul_le_mul_of_nonneg_right hpair hfac
   simpa [ω, M, mul_assoc] using hmul
 
+/-! ## Named open hypotheses (dischargeable `Prop`s)
+
+Each conditional regularity theorem below takes one of these as an explicit argument.
+None is proved for general data; a proof of the `Prop` discharges the theorem. -/
+
+/-- **Uniform vorticity ceiling** (open for general data): along every solution of the
+unmodified equations from `u₀`, `‖ω(t)‖_∞` is bounded uniformly in `t ≥ 0` and continuous. -/
+@[expose] public def UniformVorticityCeiling (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ →
+      ∃ Y : ℝ,
+        (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+
+/-- **Uniform vorticity ceiling on physical solutions** (open for general data): as
+`UniformVorticityCeiling`, restricted to `IsPhysicalNSSolution` paths.
+`FrohmanianTetherBound` implies it (`physicalUniformVorticityCeiling_of_tetherBound`). -/
+@[expose] public def PhysicalUniformVorticityCeiling (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      ∃ Y : ℝ,
+        (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+
+/-- **Cubic vorticity rate on physical solutions** (open for general data): along every
+physical solution from `u₀`, `M(t) = ‖ω(t)‖_∞` is differentiable, continuous, and obeys
+`M' ≤ C M² − κ'' M³` with `C, κ'' > 0`. No such cubic sink is known for the unmodified
+equations. `FrohmanianTetherRate` implies it when `ν > 0`. -/
+@[expose] public def PhysicalVorticityCubicRate (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
+        (∀ s ≥ (0 : ℝ),
+          DifferentiableAt ℝ (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
+        (∀ s ≥ (0 : ℝ),
+          deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+            C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+              κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
+        Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))
+
+public theorem physicalUniformVorticityCeiling_of_tetherBound
+    {u₀ : VelocityField} {ν : ℝ} (h : FrohmanianTetherBound u₀ ν) :
+    PhysicalUniformVorticityCeiling u₀ ν :=
+  fun u p hNS hu0 hphys =>
+    let ⟨Y, hb, hc, _⟩ := h u p hNS hu0 hphys
+    ⟨Y, hb, hc⟩
+
+public theorem physicalVorticityCubicRate_of_tetherRate
+    {u₀ : VelocityField} {ν : ℝ} (hν : 0 < ν) (h : FrohmanianTetherRate u₀ ν) :
+    PhysicalVorticityCubicRate u₀ ν :=
+  fun u p hNS hu0 hphys =>
+    let ⟨C, κ'', hC, hκ, hd, hdd, hc, _⟩ := h u p hν hNS hu0 hphys
+    ⟨C, κ'', hC, hκ, hd, hdd, hc⟩
+
 public theorem global_regularity
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
@@ -1784,11 +1838,7 @@ public theorem global_regularity
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
-    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-      NS_PDE u p ν → u 0 = u₀ →
-        ∃ Y : ℝ,
-          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hRiccati : UniformVorticityCeiling u₀ ν)
     (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
     (hbelow : ∀ u : ℝ → VelocityField,
       ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
@@ -1865,11 +1915,7 @@ public theorem global_regularity_of_restart
     (_h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
-    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-      NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
-        ∃ Y : ℝ,
-          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hRiccati : PhysicalUniformVorticityCeiling u₀ ν)
     (τ : ℝ) (hτ : 0 < τ)
     (hrestart : ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
       ∃ T' ∈ existenceTimes u₀ ν, t + τ ≤ T')
@@ -1937,11 +1983,7 @@ public theorem global_regularity_of_kato_estimates
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
-    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-      NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
-        ∃ Y : ℝ,
-          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hRiccati : PhysicalUniformVorticityCeiling u₀ ν)
     (C R : ℝ)
     (hrestart : ∀ Y : ℝ,
       ∀ t : ℝ, 0 ≤ t → (t : EReal) < Tstar u₀ ν →
@@ -1992,17 +2034,7 @@ public theorem global_regularity_of_constructions
     (hKato : ∀ u₁, ContDiff ℝ (⊤ : ℕ∞) u₁ → (∀ x, div u₁ x = 0) →
       Integrable (fun x : T3 => ‖u₁ x‖ ^ 2) →
       KatoLocalWitness u₁ ν)
-    (hDI : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-      NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
-        ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
-          (∀ s ≥ (0 : ℝ),
-            DifferentiableAt ℝ
-              (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
-          (∀ s ≥ (0 : ℝ),
-            deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
-              C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
-                κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
-          Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
+    (hDI : PhysicalVorticityCubicRate u₀ ν)
     (τ : ℝ) (hτ : 0 < τ)
     (hTlb : ∀ u₁ (hsm : ContDiff ℝ (⊤ : ℕ∞) u₁)
       (hdiv : ∀ x, div u₁ x = 0)
@@ -2045,12 +2077,7 @@ public theorem global_regularity_of_constructions
       (∀ t ≥ (0 : ℝ), ∀ x,
         div ((hKato u₀ h_smooth h_divfree h_finite_energy).u t) x = 0) := by
   let w := hKato u₀ h_smooth h_divfree h_finite_energy
-  have hRiccati :
-      ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-        NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
-          ∃ Y : ℝ,
-            (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-            Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
+  have hRiccati : PhysicalUniformVorticityCeiling u₀ ν := by
     intro u p hNS hu0 hphys
     obtain ⟨C, κ'', hC, hκ, hdiff, hDIu, hcont⟩ := hDI u p hNS hu0 hphys
     exact riccati_ceiling_of_vorticity_di u C κ'' hC hκ hdiff hDIu hcont

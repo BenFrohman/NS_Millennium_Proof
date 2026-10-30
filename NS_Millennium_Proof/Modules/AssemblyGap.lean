@@ -46,7 +46,7 @@ public def hRiccatiName : String := "hRiccati"
 public theorem unmodified_max_pairing_is_classical_source
     (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
     (hu : DifferentiableAt ℝ u x)
-    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω)
+    (hCZ : PointwiseStrainSupBound u ω C_CZ x)
     (hmax : ‖ω x‖ = vorticity_sup_norm ω) :
     ClassicalStretchingSource
       (inner ℝ (ω x) (convective ω u x))
@@ -88,7 +88,7 @@ rate `⟨ω,(ω·∇)u⟩ / M ≤ C_CZ M²`, and nothing stronger. -/
 public theorem unmodified_max_rate_of_cubic_source
     (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
     (hu : DifferentiableAt ℝ u x)
-    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω)
+    (hCZ : PointwiseStrainSupBound u ω C_CZ x)
     (hmax : ‖ω x‖ = vorticity_sup_norm ω)
     (hM : 0 < vorticity_sup_norm ω) :
     inner ℝ (ω x) (convective ω u x) / vorticity_sup_norm ω ≤

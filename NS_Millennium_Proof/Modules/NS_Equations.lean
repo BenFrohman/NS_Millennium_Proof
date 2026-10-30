@@ -2815,12 +2815,24 @@ public theorem le_vorticity_sup_norm (ω : VorticityField) (x : T3)
 @[expose] public noncomputable def strain_sup_norm (u : VelocityField) : ℝ :=
   ⨆ x, ‖fderiv ℝ u x‖
 
+/-- **Pointwise strain-by-sup-vorticity bound** `‖Du(x)‖ ≤ C · ‖ω‖_∞`.
+
+This is **false in general**: the Biot–Savart / Riesz operators recovering `∇u` from `ω`
+are Calderón–Zygmund operators, bounded on `Lᵖ` for `1 < p < ∞` but **not** on `L∞`
+(CZ fails at `p = ∞`; the true bound carries a logarithmic loss). Every theorem that takes
+this `Prop` as a hypothesis is therefore conditional on a bound that is false in general;
+such theorems are linear-algebra consequences, not estimates for Navier–Stokes solutions. -/
+@[expose] public def PointwiseStrainSupBound (u : VelocityField) (ω : VorticityField)
+    (C : ℝ) (x : T3) : Prop :=
+  ‖fderiv ℝ u x‖ ≤ C * vorticity_sup_norm ω
+
 /-- Pointwise CZ/Biot–Savart bound `‖Du(x)‖ ≤ C_CZ ‖ω‖_∞` upgrades to
 `‖Du‖_∞ ≤ C_CZ ‖ω‖_∞`. Linear algebra on the supremum, not the Riesz
-theorem itself. -/
+theorem itself. Conditional on `PointwiseStrainSupBound`, which is false in
+general at `L∞`. -/
 public theorem strain_sup_le_of_CZ
     (u : VelocityField) (C_CZ : ℝ)
-    (hCZ : ∀ x, ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm (curl u))
+    (hCZ : ∀ x, PointwiseStrainSupBound u (curl u) C_CZ x)
     (_hbdd : BddAbove (Set.range fun x => ‖fderiv ℝ u x‖)) :
     strain_sup_norm u ≤ C_CZ * vorticity_sup_norm (curl u) :=
   ciSup_le fun x => hCZ x

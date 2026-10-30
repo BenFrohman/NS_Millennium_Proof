@@ -620,7 +620,8 @@ See `HWEIGHT_OBSTRUCTION.md` and `scripts/hweight_plausibility_check.py` for the
 
 /-- The author's original conjectured reduction at a spatial maximum of the unmodified
 vorticity equation: that the symplectic tether feedback reduces the stretching pairing
-from `C M³` to `(C M - κ M²) M²`. Recorded openly as an explicit `Prop`. -/
+from `C M³` to `(C M - κ M²) M²`. Recorded openly as an explicit `Prop`. Its strain
+antecedent is `PointwiseStrainSupBound`, which is false in general at `L∞`. -/
 @[expose] public def ConjecturedUnmodifiedTetherPairing
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
     (t : ℝ) (x : T3) (C M : ℝ) : Prop :=
@@ -628,7 +629,7 @@ from `C M³` to `(C M - κ M²) M²`. Recorded openly as an explicit `Prop`. -/
   NS_PDE u p ν →
   VorticityTransportRegularity u p t x →
   DifferentiableAt ℝ (u t) x →
-  ‖fderiv ℝ (u t) x‖ ≤ C * vorticity_sup_norm (vorticity (u t)) →
+  PointwiseStrainSupBound (u t) (vorticity (u t)) C x →
   inner ℝ (vorticity (u t) x) (convective (u t) (vorticity (u t)) x) = 0 →
   inner ℝ (vorticity (u t) x) (laplacian (vorticity (u t)) x) ≤ 0 →
   0 ≤ ν →

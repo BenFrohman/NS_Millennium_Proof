@@ -477,7 +477,8 @@ public structure SpatialMaxVorticityEnvelope
 
 /-- **Open Proof Obligation A (`PointwiseCZGradientBoundAtMax`):**
 At the spatial maximum $x_{\max}(t)$, the velocity gradient obeys the linear Calderón–Zygmund bound
-$\|\nabla u(t, x_{\max}(t))\| \le C_{\mathrm{CZ}} M(t)$ without a logarithmic higher-Sobolev loss. -/
+$\|\nabla u(t, x_{\max}(t))\| \le C_{\mathrm{CZ}} M(t)$ without a logarithmic higher-Sobolev loss. This is false in general: Calderón–Zygmund fails at
+`p = ∞`, so results assuming it are conditional on a bound that is false in general. -/
 public def PointwiseCZGradientBoundAtMax
     (u : TimeDependentVelocity) (M : ℝ → ℝ) (x_max : ℝ → T3) (C_CZ : ℝ) : Prop :=
   ∀ t ≥ (0 : ℝ),

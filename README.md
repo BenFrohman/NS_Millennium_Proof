@@ -67,6 +67,13 @@ In addition to this full research repository (`453` theorems across `17` modules
 >   `ConjecturedSDiffPushforwardInvariance` and `tether_coadjoint_invariance_of_integral_eq`,
 >   and both antisymmetric (`uniqueness_of_minimal_tether`) and symmetric
 >   (`uniqueness_of_minimal_symmetric_tether`) uniqueness characterizations.
+>   Named hypotheses (open, taken as explicit `Prop` arguments): `UniformVorticityCeiling`,
+>   `PhysicalUniformVorticityCeiling`, `PhysicalVorticityCubicRate` (`TetheredLyapunov.lean`),
+>   `RiccatiMajorantExists` (`ClosureBlueprint.lean`). `PointwiseStrainSupBound`
+>   (`NS_Equations.lean`, `‖∇u(x)‖ ≤ C‖ω‖_∞`) and `PointwiseCZGradientBoundAtMax` are false in
+>   general (Calderón–Zygmund fails at `p = ∞`); `strain_sup_le_of_CZ`,
+>   `calderon_zygmund_stretching_bound`, the `AssemblyGap` stretching lemmas and
+>   `ConjecturedUnmodifiedTetherPairing` are conditional on a bound that is false in general.
 > - **Time-smoothness & physical-solution non-vacuity repair (`IsPhysicalNSSolution`):**
 >   All PDE uniqueness and continuation binders (`KatoLocalWitness`, `existenceTimes`,
 >   `restart_of_kato_quantitative`, `FrohmanianTetherBound`, `FrohmanianTetherRate`,
