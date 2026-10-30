@@ -72,7 +72,8 @@ In addition to this full research repository (`453` theorems across `17` modules
 >   `RiccatiMajorantExists` (`ClosureBlueprint.lean`). `PointwiseStrainSupBound`
 >   (`NS_Equations.lean`, `‖∇u(x)‖ ≤ C‖ω‖_∞`) and `PointwiseCZGradientBoundAtMax` are false in
 >   general (Calderón–Zygmund fails at `p = ∞`); `strain_sup_le_of_CZ`,
->   `calderon_zygmund_stretching_bound`, the `AssemblyGap` stretching lemmas and
+>   `convective_norm_le_of_CZ`, `stretching_inner_le`, `stretching_inner_le_at_max`,
+>   `stretching_quartic_le`, `calderon_zygmund_stretching_bound`, the `AssemblyGap` stretching lemmas and
 >   `ConjecturedUnmodifiedTetherPairing` are conditional on a bound that is false in general.
 > - **Time-smoothness & physical-solution non-vacuity repair (`IsPhysicalNSSolution`):**
 >   All PDE uniqueness and continuation binders (`KatoLocalWitness`, `existenceTimes`,

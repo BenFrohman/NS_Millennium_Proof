@@ -2842,7 +2842,7 @@ public theorem strain_sup_le_of_CZ
 public theorem convective_norm_le_of_CZ
     (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
     (hu : DifferentiableAt ℝ u x)
-    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω) :
+    (hCZ : PointwiseStrainSupBound u ω C_CZ x) :
     ‖convective ω u x‖ ≤ C_CZ * vorticity_sup_norm ω * ‖ω x‖ := by
   have hnorm := convective_norm_le ω u x hu
   have hω : 0 ≤ ‖ω x‖ := norm_nonneg _
@@ -2856,7 +2856,7 @@ public theorem convective_norm_le_of_CZ
 public theorem stretching_inner_le
     (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
     (hu : DifferentiableAt ℝ u x)
-    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω) :
+    (hCZ : PointwiseStrainSupBound u ω C_CZ x) :
     inner ℝ (ω x) (convective ω u x) ≤
       C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 2 := by
   have hnorm := convective_norm_le ω u x hu
@@ -2877,7 +2877,7 @@ that is one power of `M` short for the density (it is the BKM ODE for
 public theorem stretching_inner_le_at_max
     (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
     (hu : DifferentiableAt ℝ u x)
-    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω)
+    (hCZ : PointwiseStrainSupBound u ω C_CZ x)
     (hmax : ‖ω x‖ = vorticity_sup_norm ω) :
     inner ℝ (ω x) (convective ω u x) ≤
       C_CZ * vorticity_sup_norm ω ^ 3 := by
@@ -2895,7 +2895,7 @@ The factor `4` is the product rule on `|ω|⁴`; CZ is `stretching_inner_le`. -/
 public theorem stretching_quartic_le
     (ω u : VelocityField) (phi : T3 → ℝ) (x : T3) (C_CZ : ℝ)
     (hu : DifferentiableAt ℝ u x)
-    (hCZ : ‖fderiv ℝ u x‖ ≤ C_CZ * vorticity_sup_norm ω)
+    (hCZ : PointwiseStrainSupBound u ω C_CZ x)
     (hφ : 0 ≤ phi x) :
     4 * ‖ω x‖ ^ 2 * inner ℝ (ω x) (convective ω u x) * phi x ≤
       4 * C_CZ * vorticity_sup_norm ω * ‖ω x‖ ^ 4 * phi x := by
