@@ -1,11 +1,11 @@
-# titan-audit report: `NS_Millennium_Proof`
+# titan-audit report: `ns_push`
 
 **Verdict: PASS_WITH_WARNINGS**
 
-- Generated (UTC): 2026-10-30T18:34:46+00:00
+- Generated (UTC): 2026-10-30T19:00:16+00:00
 - Tool: titan-audit 1.0.0 (Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718))
-- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `49efc24531977445275884ae4713a8589ffbae24`
-- Tree SHA-256: `7fb431288c4e54ae87eca27cb02e19576d3b919d497fd9f496939a934256d7d3` over 112 files
+- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `ca6709fc8b002cbe7e72fd8fecbebab0f2c8484f`
+- Tree SHA-256: `96ee72b51b6b6839ca90f371aa2b997bcd3c19be641b6368f2a10081402cf7f1` over 112 files
 
 ## Build
 
@@ -13,7 +13,7 @@
 
 ## Axiom audit
 
-- Modules: 21  Theorems: 502  Clean (only propext/Classical.choice/Quot.sound): 502
+- Modules: 21  Theorems: 512  Clean (only propext/Classical.choice/Quot.sound): 512
 - Nonstandard: 0
 
 | Module | Theorems | Nonstandard |
@@ -30,11 +30,11 @@
 | `NS_Millennium_Proof.Modules.HighSetDepletionAndBKM` | 8 | 0 |
 | `NS_Millennium_Proof.Modules.IndependentMajorant` | 2 | 0 |
 | `NS_Millennium_Proof.Modules.MainTheorem` | 6 | 0 |
-| `NS_Millennium_Proof.Modules.NS_Equations` | 143 | 0 |
+| `NS_Millennium_Proof.Modules.NS_Equations` | 148 | 0 |
 | `NS_Millennium_Proof.Modules.Stage6Calculus` | 35 | 0 |
 | `NS_Millennium_Proof.Modules.SymplecticConstraint` | 61 | 0 |
 | `NS_Millennium_Proof.Modules.SymplecticTether` | 38 | 0 |
-| `NS_Millennium_Proof.Modules.TetheredLyapunov` | 53 | 0 |
+| `NS_Millennium_Proof.Modules.TetheredLyapunov` | 58 | 0 |
 | `NS_Millennium_Proof.Modules.TorusStrainExclusion` | 19 | 0 |
 | `NS_Millennium_Proof.Modules.Uniqueness` | 16 | 0 |
 
@@ -45,9 +45,9 @@ Counts: axiom_outside_build=1, real_iSup_without_BddAbove=5, real_iSup_without_B
 
 ### Vacuity heuristics (in build)
 
-- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2290` `Tstar`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
-- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2801` `vorticity_sup_norm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
-- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2815` `strain_sup_norm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
+- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2291` `Tstar`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
+- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2802` `vorticity_sup_norm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
+- real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/NS_Equations.lean:2816` `strain_sup_norm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
 - real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/SymplecticTether.lean:777` `MollifiedSupNormFunctional`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
 - real_iSup_without_BddAbove `NS_Millennium_Proof/Modules/TetheredLyapunov.lean:502` `MollifiedSupNorm`: Real iSup/sSup is 0 on unbounded ranges; downstream bounds on it may be vacuous unless BddAbove is required.
 
