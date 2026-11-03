@@ -1,6 +1,6 @@
 # Frohmanian Symplectic Tether — 3D Navier–Stokes Global Regularity (Lean 4)
 
-[![Lean CI](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
+[![lean.yml](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
