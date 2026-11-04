@@ -5,34 +5,73 @@ Authors: Benjamin Stanley Frohman
 -/
 -- NS_Millennium_Proof/Modules/GlobalRegularity.lean
 public theorem frohmanian_tether_theorem
-    (hKato : ∀ (u₀ : VelocityField) (ν : ℝ),
-      ContDiff ℝ ⊤ u₀ → (∀ x, div u₀ x = 0) →
-      Integrable (fun x => ‖u₀ x‖ ^ 2) → ν > 0 →
+    (hKato : ∀ u₀ ν, ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) →
+      Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → 0 < ν →
       KatoLocalWitness u₀ ν)
-    (hDI : ∀ (u₀ : VelocityField) (ν : ℝ), FrohmanianTetherRate u₀ ν) :
-    ∃ (𝔗_F : VorticityField → FunctionalOnOrbit → FunctionalOnOrbit → ℝ),
-      (∀ F G, 𝔗_F = fun ω => TetherKernel ω F G) →
-      (∀ (u0 : TimeDependentVelocity) (ν : ℝ),
-        ContDiff ℝ ⊤ (u0 0) →
-        (∀ x, div (u0 0) x = 0) →
-        Integrable (fun x => ‖u0 0 x‖ ^ 2) →
-        ν > 0 →
-        ∀ (τ : ℝ), 0 < τ →
-        (∀ t : ℝ, 0 ≤ t → (t : ℝ≥0∞) < Tstar (u0 0) ν →
-          ∃ T' ∈ existenceTimes (u0 0) ν, t + τ ≤ T') →
-        (∀ T (hT : T ∈ existenceTimes (u0 0) ν) (v : TimeDependentVelocity) (q : PressureField),
-          v 0 = u0 0 → NS_PDE v q ν →
-          (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (v t)) →
-          IsPhysicalNSSolution v →
-          ∀ t ∈ Set.Icc 0 T, v t = (Classical.choose hT).1 t) →
-        ∃ (u : TimeDependentVelocity) (p : PressureField),
-          NS_PDE u p ν ∧ u 0 = u0 0 ∧
-          (∀ t ≥ 0, ContDiff ℝ ⊤ (u t)) ∧
-          IsPhysicalNSSolution u ∧
-          (∀ t ≥ 0, 0 ≤ vorticity_sup_norm (vorticity (u t))) ∧
-          (∀ t ≥ 0, ∀ x, div (u t) x = 0) ∧
-          (∀ (v : TimeDependentVelocity) (q : PressureField),
-            v 0 = u0 0 → NS_PDE v q ν →
-            (∀ t ≥ 0, ContDiff ℝ ⊤ (v t)) →
-            IsPhysicalNSSolution v →
-            ∀ t ≥ 0, v t = u t)) := ...
+    (hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν)
+    (τ : ℝ) (hτ : 0 < τ)
+    (hTlb : ∀ u₁ ν (hsm : ContDiff ℝ (⊤ : ℕ∞) u₁)
+      (hdiv : ∀ x, div u₁ x = 0)
+      (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2))
+      (hν : 0 < ν),
+      τ ≤ (hKato u₁ ν hsm hdiv hE hν).T)
+    (hInt : ∀ u₀ ν (_hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
+      (q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
+      ∀ t ∈ Set.Icc (0 : ℝ) T,
+        Integrable (fun x : T3 => ‖v t x‖ ^ 2))
+    (huniq_shift : ∀ u₀ ν (_hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
+      (q : TimeDependentPressure),
+      T ∈ existenceTimes u₀ ν →
+      v 0 = u₀ →
+      NS_PDE v q ν →
+      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+      IsPhysicalNSSolution v →
+      ∀ t ∈ Set.Icc (0 : ℝ) T,
+        ∀ (w' : KatoLocalWitness (v t) ν),
+          ∀ s ∈ Set.Icc (0 : ℝ) w'.T, v (t + s) = w'.u s)
+    (huniq : ∀ u₀ ν (w : KatoLocalWitness u₀ ν),
+      ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
+        T' ∈ existenceTimes u₀ ν →
+        v 0 = u₀ →
+        NS_PDE v q ν →
+        (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
+        IsPhysicalNSSolution v →
+        ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+  ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
+    (∀ F ω,
+      FunctionalDerivative KineticEnergyHamiltonian ω =
+          velocity_from_vorticity ω →
+      (∀ x, div (velocity_from_vorticity ω) x = 0) →
+      Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2) →
+      TetheredBracket F KineticEnergyHamiltonian ω =
+        ClassicalBracket F KineticEnergyHamiltonian ω) ∧
+    (∀ (SDiff : Type) [Group SDiff] [MulAction SDiff CoadjointOrbit] (B : CoadjointOrbit → Functional → Functional → ℝ),
+      (∀ ω F G, B ω F G = -B ω G F) →
+      InvariantUnderCoadjointAction SDiff B →
+      DegenerateWRTKineticEnergy B →
+      ProducesControllableNegativeFeedback B →
+      SaturatesTetherQuadratic B →
+      Polarizes B →
+      Polarizes TetherKernel →
+      ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
+    (∀ (B : CoadjointOrbit → Functional → Functional → ℝ)
+      (α : CoadjointOrbit → T3 → ℝ),
+      HasTetherKernelDensity B α →
+      (∀ ω x, α ω x = canonicalTetherDensity ω x) →
+      ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
+    (∀ (u₀ : VelocityField) (ν : ℝ),
+      0 < ν →
+      (∀ x, div u₀ x = 0) →
+      ContDiff ℝ (⊤ : ℕ∞) u₀ →
+      Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) →
+      ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
+        NS_PDE u p ν ∧
+        u 0 = u₀ ∧
+        (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
+        (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+        (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0)) := ...

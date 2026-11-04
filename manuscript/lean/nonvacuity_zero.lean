@@ -10,11 +10,13 @@ public theorem frohmanianTetherBound_zero (ν : ℝ) : FrohmanianTetherBound 0 �
 public theorem frohmanianTetherRate_zero (ν : ℝ) : FrohmanianTetherRate 0 ν := ...
 
 public theorem global_regularity_for_NS_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
-    ∃ (u : TimeDependentVelocity) (p : PressureField),
-      GlobalRegularity.satisfies_NavierStokes u p 0 ν ∧
-      (∀ t ≥ 0, ContDiff ℝ ⊤ (u t)) ∧
-      (∀ (v : TimeDependentVelocity) (q : PressureField),
-        v 0 = (0 : TimeDependentVelocity) 0 → NS_PDE v q ν →
-        (∀ t ≥ 0, ContDiff ℝ ⊤ (v t)) →
-        IsPhysicalNSSolution v →
-        ∀ t ≥ 0, v t = u t) := ...
+    ∃ (u : TimeDependentVelocity),
+      (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (u t)) ∧
+      (u 0 = 0) ∧
+      (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes u ν) ∧
+      (∀ t ≥ (0 : ℝ), GlobalRegularity.vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+      (∀ v : TimeDependentVelocity,
+        (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (v t)) →
+        v 0 = 0 →
+        (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes v ν) →
+        ∀ t ≥ (0 : ℝ), v t = u t) := ...
