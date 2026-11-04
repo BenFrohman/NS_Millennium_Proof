@@ -9,8 +9,7 @@ public theorem tethered_stretching_of_weight
     (hCZ : ‖fderiv ℝ uField x‖ ≤ C * vorticity_sup_norm ωField)
     (hmax : ‖ωField x‖ = M ∧ M = vorticity_sup_norm ωField)
     (orbit : CoadjointOrbit) (testF : Functional)
-    (hweight : M ^ 4 ≤ ∫ y,
-        ‖orbit.val y‖ ^ 2 *
+    (hweight : M ^ 4 ≤ Enstrophy orbit * ∫ y,
           ‖Pi_u (velocity_from_vorticity orbit)
               (FunctionalDerivative testF orbit) y‖ ^ 2 ∂volume) :
     inner ℝ (ωField x) (convective ωField uField x) +

@@ -206,8 +206,8 @@ Replaces the identity stub `CoadjointAction _g ω := ω` with a coherent mathema
 representing the action of a group of volume-preserving diffeomorphisms on `CoadjointOrbit`:
 1. `act g ω` is a divergence-free vorticity field on the coadjoint orbit;
 2. Every diffeomorphism $g$ preserves spatial Bochner integrals (`integral_comp_eq`);
-3. For any isometric volume-preserving transformation $g$, the quadratic tether integrand
-   pulls back by composition with $g$. -/
+3. For any isometric volume-preserving transformation $g$, the projected pairing
+   `⟨Π_u δF, Π_u δG⟩` (the integrand of `TetherKernel` after the global enstrophy factor) pulls back by composition with $g$. -/
 public structure VolumePreservingCoadjointAction (SDiff : Type*) [Group SDiff]
     [MulAction SDiff CoadjointOrbit] where
   /-- The underlying volume-preserving map of `g` (only these maps are required to
@@ -218,13 +218,11 @@ public structure VolumePreservingCoadjointAction (SDiff : Type*) [Group SDiff]
     (∫ x : T3, f (diffeo g x) ∂NavierStokes3D.volume) = ∫ x : T3, f x ∂NavierStokes3D.volume
   tether_integrand_pullback :
     ∀ (g : SDiff) (F G : Functional) (ω : CoadjointOrbit) (x : T3),
-      ‖(g • ω).val x‖ ^ 2 *
         inner ℝ
           (Pi_u (velocity_from_vorticity (g • ω))
             (FunctionalDerivative F (g • ω)) x)
           (Pi_u (velocity_from_vorticity (g • ω))
             (FunctionalDerivative G (g • ω)) x) =
-      ‖ω.val (diffeo g x)‖ ^ 2 *
         inner ℝ
           (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) (diffeo g x))
           (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) (diffeo g x))
@@ -238,12 +236,11 @@ public theorem volumePreservingCoadjointAction_preserves_TetherKernel
     TetherIntegralPreserved SDiff := by
   intro g F G ω
   let f : T3 → ℝ := fun y =>
-    ‖ω.val y‖ ^ 2 *
       inner ℝ
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) y)
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) y)
   have hfun :
-      (fun x => ‖(CoadjointAction g ω).val x‖ ^ 2 *
+      (fun x =>
         inner ℝ
           (Pi_u (velocity_from_vorticity (CoadjointAction g ω))
             (FunctionalDerivative F (CoadjointAction g ω)) x)
@@ -353,8 +350,7 @@ correction" (`main.tex` §3.3, lines 196–201) by explicitly separating:
 - the symmetric negative-semidefinite projected metric bilinear form `tetherMetricForm ω δu δv`. -/
 @[expose] public noncomputable def tetherMetricForm
     (ω : CoadjointOrbit) (δu δv : VelocityField) : ℝ :=
-  -kappa * ∫ x : T3,
-    ‖ω.val x‖ ^ 2 *
+  -kappa * Enstrophy ω * ∫ x : T3,
       inner ℝ
         (Pi_u (velocity_from_vorticity ω) δu x)
         (Pi_u (velocity_from_vorticity ω) δv x)
@@ -397,21 +393,21 @@ public theorem FrohmanianMetriplecticPairing_diag_eq_metric
     rw [kksSymplecticForm_self_zero, zero_add]
   · unfold tetherMetricForm
     have hnn : ∀ x : T3,
-        0 ≤ ‖ω.val x‖ ^ 2 *
+        0 ≤
           inner ℝ
             (Pi_u (velocity_from_vorticity ω) δu x)
             (Pi_u (velocity_from_vorticity ω) δu x) := by
       intro x
       rw [real_inner_self_eq_norm_sq]
-      exact mul_nonneg (sq_nonneg _) (sq_nonneg _)
+      exact sq_nonneg _
     have hint : 0 ≤ ∫ x : T3,
-        ‖ω.val x‖ ^ 2 *
           inner ℝ
             (Pi_u (velocity_from_vorticity ω) δu x)
             (Pi_u (velocity_from_vorticity ω) δu x) ∂NavierStokes3D.volume :=
       integral_nonneg hnn
     have hκ : -kappa ≤ 0 := neg_nonpos.mpr kappa_pos.le
-    exact mul_nonpos_of_nonpos_of_nonneg hκ hint
+    have hE : 0 ≤ Enstrophy ω := integral_nonneg fun y => sq_nonneg _
+    exact mul_nonpos_of_nonpos_of_nonneg (mul_nonpos_of_nonpos_of_nonneg hκ hE) hint
 
 /-! ## Section 4. In-Place Correction 4: Periodic Cell Energy on $\mathbb{T}^3 = [0,1]^3$ (`unitCube`)
 and One-Sided Smooth Time Derivatives (`main.tex` §2 & §6) -/
