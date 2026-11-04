@@ -1057,4 +1057,23 @@ public theorem classical_bracket_reproduces_Euler
 #print axioms kineticEnergyHamiltonian_hasDerivAt_velocity_pairing
 #print axioms isVelocityGateauxRepresentative_kineticEnergy_at
 
+/-- Antisymmetry of the Lie--Poisson bracket `ClassicalBracket` (no hypotheses). -/
+public theorem classicalBracket_antisymm (F G : CoadjointOrbit → ℝ) (ω : CoadjointOrbit) :
+    ClassicalBracket F G ω = - ClassicalBracket G F ω := by
+  unfold ClassicalBracket
+  rw [← integral_neg]
+  congr 1
+  funext x
+  unfold classical_bracket_integrand pairing cross
+  rw [← inner_neg_right]
+  congr 1
+  rw [← cross_anticomm]
+  rfl
+
+/-- `{F,F}_cl = 0` for every functional (via `cross_self`). -/
+public theorem classicalBracket_self (F : CoadjointOrbit → ℝ) (ω : CoadjointOrbit) :
+    ClassicalBracket F F ω = 0 := by
+  unfold ClassicalBracket classical_bracket_integrand pairing cross
+  simp [cross_self]
+
 end ArnoldGeometric
