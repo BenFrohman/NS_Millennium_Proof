@@ -486,7 +486,7 @@ used: C1 moves `ω`, not the test functionals, so it gives no vanishing in the `
   ∀ ω (H : Functional), FunctionalDerivative H ω = 0 →
     ∃ c : ℝ, ∀ G, B ω H G = c * B ω KineticEnergyHamiltonian G
 
-/-- **Route 1**: `PairsToZeroIfDerivativeVanishes` DERIVED from symmetry + C2 + the classical
+/-- **[fallback / superseded] Route 1**: `PairsToZeroIfDerivativeVanishes` DERIVED from symmetry + C2 + the classical
 hypothesis `ZeroDerivAlongEnergy`. C2 is used; C1 is not (see above). -/
 public theorem pairsToZero_of_C2
     (B : CoadjointOrbit → Functional → Functional → ℝ)
@@ -496,7 +496,7 @@ public theorem pairsToZero_of_C2
   obtain ⟨c, hc⟩ := hE ω H hH
   rw [hc G, h_sym, hC2 G ω, mul_zero]
 
-/-- **Step 1 (locality in the derivatives), fallback form**: `B ω F G` depends only on
+/-- **[fallback / superseded] Step 1 (locality in the derivatives), fallback form**: `B ω F G` depends only on
 `δF ω`, `δG ω`. Proved from symmetry + `Step1Hyp`. Step 1 is conditional on an assumption of
 nearly the same strength as its conclusion; C1 and C2 are unused here. -/
 public theorem step1_locality_sym
@@ -522,7 +522,7 @@ of `F, G`. -/
       Q (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω))
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω))
 
-/-- **Step 1, route 1 (NOT primary: collapsed to a near-equivalent assumption)**: locality from symmetry, bilinearity, derivative
+/-- **[fallback / superseded] Step 1, route 1 (NOT primary: collapsed to a near-equivalent assumption)**: locality from symmetry, bilinearity, derivative
 linearity, C2 and `ZeroDerivAlongEnergy`. -/
 public theorem step1_locality_route1
     (B : CoadjointOrbit → Functional → Functional → ℝ)
@@ -569,7 +569,7 @@ public theorem step2_quadratic
     · simp [Q, ha, hb]
   · simp [Q, ha]
 
-/-- **Step 1, route 2 (PRIMARY)**: locality in the derivatives as an immediate corollary of
+/-- **Step 1, route 2 (PRIMARY; used by `step2_quadratic_and_locality`)**: locality in the derivatives as an immediate corollary of
 Step 2's factorization through `Π_u δF`, `Π_u δG`. Route 1 (`ZeroDerivAlongEnergy`, or the
 user's `SplitsIntoEnergyPlusSDiff`) collapsed: given C1 and C2 it is logically equivalent to
 `PairsToZeroIfDerivativeVanishes`, so it is as strong as the conclusion. -/
