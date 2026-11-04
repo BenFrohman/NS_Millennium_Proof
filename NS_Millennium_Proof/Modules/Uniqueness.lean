@@ -542,8 +542,6 @@ and is carried, not needed. -/
 public theorem step2_quadratic
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (h_sym : ∀ ω F G, B ω F G = B ω G F)
-    (_h1 : ∀ ω (F G F' G' : Functional), FunctionalDerivative F ω = FunctionalDerivative F' ω →
-      FunctionalDerivative G ω = FunctionalDerivative G' ω → B ω F G = B ω F' G')
     (h_proj : ∀ ω (F F' G : Functional),
       Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) =
         Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F' ω) → B ω F G = B ω F' G) :
@@ -581,7 +579,24 @@ public theorem step1_of_factorization
       FunctionalDerivative G ω = FunctionalDerivative G' ω → B ω F G = B ω F' G' := by
   intro ω F G F' G' hF hG
   obtain ⟨Q, -, hQ⟩ := h2 ω
-  rw [hQ, hQ, hF, hG]
+  rw [hQ F G, hQ F' G', hF, hG]
+
+/-- **Steps 1+2 (route 2, ADOPTED; replaces a separate Step 1)**: for each `ω` there is ONE
+symmetric `Q`, chosen before `F, G` are quantified, with `B ω F G = Q (Π_u δF) (Π_u δG)` for
+all `F G`; locality in the derivatives is the immediate corollary
+(`rw [hQ F G, hQ F' G', hF, hG]`). The factorization is PROVED from `h_sym` and the named
+hypothesis `h_proj` (B sees `δF` only through `Π_u δF`); `h_proj` is the open content. -/
+public theorem step2_quadratic_and_locality
+    (B : CoadjointOrbit → Functional → Functional → ℝ)
+    (h_sym : ∀ ω F G, B ω F G = B ω G F)
+    (h_proj : ∀ ω (F F' G : Functional),
+      Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) =
+        Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F' ω) → B ω F G = B ω F' G) :
+    FactorsThroughProjection B ∧
+    ∀ ω (F G F' G' : Functional), FunctionalDerivative F ω = FunctionalDerivative F' ω →
+      FunctionalDerivative G ω = FunctionalDerivative G' ω → B ω F G = B ω F' G' :=
+  have h2 := step2_quadratic B h_sym h_proj
+  ⟨h2, step1_of_factorization B h2⟩
 
 /-- **Step 3 (scalar multiple of the canonical density)**: from Step 2, the named
 density hypothesis `h_density` (OPEN: the pointwise kernel `Q = ∫ α ⟨·,·⟩`, a
@@ -635,7 +650,7 @@ public theorem step5_eq_tether
 Open inputs: `Step1Hyp`, `h_proj`, `h_density`, `h_weight`; `h_nondeg` is a nondegeneracy witness. -/
 public theorem uniqueness_of_minimal_tether_core
     (B : CoadjointOrbit → Functional → Functional → ℝ)
-    (h_sym : ∀ ω F G, B ω F G = B ω G F) (H1 : Step1Hyp B)
+    (h_sym : ∀ ω F G, B ω F G = B ω G F)
     (h_proj : ∀ ω (F F' G : Functional),
       Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) =
         Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F' ω) → B ω F G = B ω F' G)
@@ -646,8 +661,7 @@ public theorem uniqueness_of_minimal_tether_core
         inner ℝ (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
           (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x) ∂NavierStokes3D.volume) ≠ 0) :
     ∀ ω F G, B ω F G = TetherKernel ω F G :=
-  have h1 := step1_locality_sym B h_sym H1
-  have h2 := step2_quadratic B h_sym h1 h_proj
+  have h2 := (step2_quadratic_and_locality B h_sym h_proj).1
   have h3 := step3_scalar B h2 h_density h_weight
   have h4 := step4_scalar_eq_kappa B h3 h_sat h_nondeg
   step5_eq_tether B h4
