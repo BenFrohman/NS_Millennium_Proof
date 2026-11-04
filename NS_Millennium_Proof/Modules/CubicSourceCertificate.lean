@@ -12,7 +12,7 @@ public import Mathlib.Tactic.Ring
 /-!
 # Cubic source versus hypothesized cubic sink
 
-Audit module. It does not discharge `hRiccati`, `global_regularity_for_NS`,
+Audit module. It does not discharge `hRiccati`, `conditional_regularity_of_open_hyps`,
 or `frohmanian_tether_theorem`.
 
 The transport identity at a point, written and not rewritten, is
@@ -24,7 +24,7 @@ At a spatial maximum the proved bound on that pairing is `C_CZ M³`.
 `C_CZ` is the Calderón–Zygmund parameter used in `NS_Equations`.
 It is not a fixed numerical value in this file.
 
-Do not import this file from `GlobalRegularity`, `TetheredLyapunov`,
+Do not import this file from `ConditionalRegularity`, `TetheredLyapunov`,
 `IndependentMajorant`, or the discharge of `hRiccati`.
 -/
 

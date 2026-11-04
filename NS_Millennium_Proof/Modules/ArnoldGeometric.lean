@@ -53,7 +53,7 @@ public import NS_Millennium_Proof.Modules.NS_Equations
 -- • dependsOnNoncomputable: guarded by noncomputable section (when present) + explicit marking.
 -- • synthInstanceFailed / unknownIdentifier: primary historical sources were the projector
 --   work (now isolated in ForMathlib/Projection.lean) and early bracket naming. Fixed by
---   granular imports and consistent open hygiene in downstream consumers (GlobalRegularity).
+--   granular imports and consistent open hygiene in downstream consumers (ConditionalRegularity).
 -- • projNonPropFromProp / propRecLargeElim: avoided by keeping all geometric predicates
 --   (InvariantUnderCoadjointAction, etc.) at Prop level and never eliminating them into
 --   data inside this file. The PLift bridge lives in the widget (TetheredNullifier.lean).

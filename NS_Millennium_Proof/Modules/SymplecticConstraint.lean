@@ -6,7 +6,7 @@ Authors: Benjamin Stanley Frohman
 
 module
 
-public import NS_Millennium_Proof.Modules.GlobalRegularity
+public import NS_Millennium_Proof.Modules.ConditionalRegularity
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.Uniqueness
 public import NS_Millennium_Proof.Modules.AssemblyGap
@@ -74,7 +74,7 @@ open FrohmanianTether.ClayStatements
 open FrohmanianTether.TorusStrainExclusion
 open FrohmanianTether.HighSetDepletionAndBKM
 open TetheredLyapunov
-open GlobalRegularity hiding vorticity_sup_norm
+open ConditionalRegularity hiding vorticity_sup_norm
 open Frohmanian.AssemblyGap
 open Frohmanian.CubicSourceAudit
 open MeasureTheory hiding volume

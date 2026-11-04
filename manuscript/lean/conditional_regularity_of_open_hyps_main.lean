@@ -3,8 +3,8 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
--- NS_Millennium_Proof/Modules/GlobalRegularity.lean
-public theorem global_regularity_for_NS
+-- NS_Millennium_Proof/Modules/ConditionalRegularity.lean
+public theorem conditional_regularity_of_open_hyps
     (u0 : TimeDependentVelocity)
     (h_div_free : ∀ t x, div (u0 t) x = 0)
     (h_smooth : IsSmooth (u0 0))
@@ -25,7 +25,7 @@ public theorem global_regularity_for_NS
       (∀ t ≥ (0 : ℝ), satisfies_NavierStokes v ν) →
       ∀ t ≥ (0 : ℝ), v t = u t) := by
   obtain ⟨hNS, hu0, hsm, hnn, _hdiv⟩ :=
-    TetheredLyapunov.global_regularity_of_bkm_uniqueness (u0 0) ν h_ν_pos
+    TetheredLyapunov.conditional_regularity_of_bkm_uniqueness (u0 0) ν h_ν_pos
       w (TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform
           (TetheredLyapunov.physicalUniformVorticityCeiling_of_tetherBound hRiccati))
       hcrit huniq

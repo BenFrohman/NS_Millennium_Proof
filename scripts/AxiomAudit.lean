@@ -18,7 +18,7 @@ import NS_Millennium_Proof.Modules.ClayStatements
 import NS_Millennium_Proof.Modules.ClosureBlueprint
 import NS_Millennium_Proof.Modules.CubicSourceCertificate
 import NS_Millennium_Proof.Modules.ForMathlib.Projection
-import NS_Millennium_Proof.Modules.GlobalRegularity
+import NS_Millennium_Proof.Modules.ConditionalRegularity
 import NS_Millennium_Proof.Modules.IndependentMajorant
 import NS_Millennium_Proof.Modules.NS_Equations
 import NS_Millennium_Proof.Modules.SymplecticTether

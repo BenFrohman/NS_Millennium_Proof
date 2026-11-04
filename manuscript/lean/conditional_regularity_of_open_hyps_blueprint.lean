@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 -- NS_Millennium_Proof/Modules/ClosureBlueprint.lean
-public theorem global_regularity_for_NS
+public theorem conditional_regularity_of_open_hyps
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)

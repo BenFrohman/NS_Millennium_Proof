@@ -29,7 +29,7 @@ public import Mathlib
   Jacobi + Chevalley–Eilenberg 2-cocycle, degeneracy for the mollified proxy) lives in the current
   reorganized modules under `NS_Millennium_Proof/Modules/` (SymplecticTether.lean for the novel geometry,
   TetheredLyapunov.lean for the analytic closure, ArnoldGeometric for the classical black boxes,
-  plus supporting modules Assumptions, Uniqueness, GlobalRegularity, and ForMathlib/Projection).
+  plus supporting modules Assumptions, Uniqueness, ConditionalRegularity, and ForMathlib/Projection).
 - The high-level narrative skeleton is here in `Skeleton/PaperOverview.lean` and `UniquenessOverview.lean`.
 - Visual evidence (static + living/dynamic) is in `docs/`:
   - The 8 canonical visuals (JPGs) + vector SVGs in `docs/graphics/`.
@@ -142,7 +142,7 @@ theorem frohmanian_symplectic_tether :
   -- Paper constructs 𝔗_F explicitly via tetherB, proves uniqueness from (C1)-(C3), then derives regularity.
   -- Existence from explicit kernel; uniqueness from (A1)-(A5) + lowest-order quadratic metric form.
   -- The detailed 5-step + propext proof is in `NS_Millennium_Proof/Modules/SymplecticTether.lean`.
-  -- Proved in NS_Millennium_Proof/Modules/GlobalRegularity.lean (frohmanian_tether_theorem)
+  -- Proved in NS_Millennium_Proof/Modules/ConditionalRegularity.lean (frohmanian_tether_theorem)
 
 /-! ## Global regularity corollary – explicit Lyapunov functional (paper §3) -/
 
@@ -201,9 +201,9 @@ noncomputable def metriplecticFlow (bracket : _) (H : _) (diss : SymmetricDissip
 - The claim resolves a Millennium Problem; community verification (and peer review) would be required before acceptance.
 - This Lean file makes the logical flow precise and highlights exactly where the paper claims "first-principles" derivations occur.
 
-The structure above is the complete logical skeleton of the paper translated into Lean. Every axiom, lemma, and the main theorem appear verbatim in formal statements. The detailed geometric engine (with all Lean Language Reference compliance, propext uniqueness, 9-term Jacobi + cocycle, and structured tactic proofs using calc/have) is in the current `NS_Millennium_Proof/Modules/SymplecticTether.lean` (and supporting modules). The analytic estimates and independent majorant (non-circular, forced by the geometric uniqueness) are in `TetheredLyapunov.lean` and `GlobalRegularity.lean`. The "connective tissue" (explicit links between layers and to the living visuals) is documented in the added section above and in the sharpened `tethered_jacobi_identity` (and the new `five_step_uniqueness_forces_jacobi_preservation_and_analytic_closure` connector lemma in SymplecticTether.lean).
+The structure above is the complete logical skeleton of the paper translated into Lean. Every axiom, lemma, and the main theorem appear verbatim in formal statements. The detailed geometric engine (with all Lean Language Reference compliance, propext uniqueness, 9-term Jacobi + cocycle, and structured tactic proofs using calc/have) is in the current `NS_Millennium_Proof/Modules/SymplecticTether.lean` (and supporting modules). The analytic estimates and independent majorant (non-circular, forced by the geometric uniqueness) are in `TetheredLyapunov.lean` and `ConditionalRegularity.lean`. The "connective tissue" (explicit links between layers and to the living visuals) is documented in the added section above and in the sharpened `tethered_jacobi_identity` (and the new `five_step_uniqueness_forces_jacobi_preservation_and_analytic_closure` connector lemma in SymplecticTether.lean).
 Tracing sources: all claims here are verbatim from the user's CLAY main.tex (May 2026), Geometric_Reconstruction.md, Conversation Summary §2.6/Version 41, and the 8 visuals.
-Tracing self/paper: The 5-step canonicity (SymplecticTether.lean, earlier) is used in the Jacobi vanishing (same file, below in tethered_jacobi_identity), which ensures the correction is harmless for the independent majorant (TetheredLyapunov.lean, see global_regularity_for_NS and the quartic forced by uniqueness). This is the end-to-end non-circular chain of the paper (§2 geometric → §3 analytic as corollary). See also the Visual Portal and Manim scenes for the dynamic visualization of each link.
+Tracing self/paper: The 5-step canonicity (SymplecticTether.lean, earlier) is used in the Jacobi vanishing (same file, below in tethered_jacobi_identity), which ensures the correction is harmless for the independent majorant (TetheredLyapunov.lean, see conditional_regularity_of_open_hyps and the quartic forced by uniqueness). This is the end-to-end non-circular chain of the paper (§2 geometric → §3 analytic as corollary). See also the Visual Portal and Manim scenes for the dynamic visualization of each link.
 All definitions and theorems above are formalized in `NS_Millennium_Proof/Modules/`.
 -/
 

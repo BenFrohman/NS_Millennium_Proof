@@ -22,13 +22,13 @@ public import Mathlib.Analysis.Calculus.ContDiff.Basic
 -- This file historically contained the last 7 hard errors (custom unicode-in-identifier notation,
 -- ambiguous CoadjointOrbit export, ContDiff ∞ syntax, vorticity_L references). All were fixed
 -- in the "priority 2" work (clean ASCII identifiers, open hygiene with `hiding`, granular
--- ContDiff import, alignment to the 6-arg schematic global_regularity signature).
+-- ContDiff import, alignment to the 6-arg schematic conditional_regularity signature).
 -- The full Error Explanations table integration (this session) confirms that the current state
 -- avoids every row:
 -- • synthInstanceFailed / unknownIdentifier / invalidDottedIdent / invalidField: eliminated by
 --   the notation cleanup and the explicit `open ArnoldGeometric hiding CoadjointOrbit`.
 -- • inferBinderTypeFailed: the schematic theorems (frohmanian_tether_theorem,
---   global_regularity_for_NS) now have fully explicit 6-arg signatures matching the author
+--   conditional_regularity_of_open_hyps) now have fully explicit 6-arg signatures matching the author
 --   abstract; all binders are elaborated before bodies.
 -- • dependsOnNoncomputable: top-level theorems that use choice (Gâteaux representative,
 --   Biot–Savart integrals, Riccati solution) are marked `noncomputable` or live in
@@ -41,7 +41,7 @@ public import Mathlib.Analysis.Calculus.ContDiff.Basic
 -- to Layer 2 analytic continuation). This keeps the error surface minimal and makes the
 -- "unique proof confirmation" property easy to audit: any future green proof of the novel
 -- geometry will be visibly the one that satisfies the author abstract's ∃! form.
--- Cross-ref: all prior reference blocks (especially §5 module hygiene and the GlobalRegularity
+-- Cross-ref: all prior reference blocks (especially §5 module hygiene and the ConditionalRegularity
 -- cleanup that removed the last hard errors) are still in force.
 
 /-! # Global Regularity: Final Integration and the Frohmanian Symplectic Tether Theorem
@@ -54,7 +54,7 @@ The top-level statement below is the exact Abstract formulation supplied by the 
 (Sections 1 + overall theorem), using the Frohmanian Symplectic Tether as the central device.
 -/
 
-namespace GlobalRegularity
+namespace ConditionalRegularity
 
 open FrohmanianTether TetheredLyapunov
 open ArnoldGeometric hiding CoadjointOrbit
@@ -157,7 +157,7 @@ public theorem frohmanian_tether_theorem
   · intro u₀ ν hνpos hdiv hsm hE
     let w := hKato u₀ ν hsm hdiv hE hνpos
     have hreg :=
-      global_regularity_of_constructions u₀ ν hdiv hsm hE hνpos
+      conditional_regularity_of_constructions u₀ ν hdiv hsm hE hνpos
         (fun u₁ hsm₁ hdiv₁ hE₁ => hKato u₁ ν hsm₁ hdiv₁ hE₁ hνpos)
         (fun u p hNS hu0 hphys =>
           let ⟨C, κ'', hC, hκ, hd, hdd, hc, _⟩ := hDI u₀ ν u p hνpos hNS hu0 hphys
@@ -204,7 +204,7 @@ initial field generates a unique global smooth solution. Not an unconditional Cl
 This is the top-level statement whose proof proceeds via the Frohmanian Symplectic Tether
 (the 5-step uniqueness + tethered Lyapunov + independent majorant + BKM upgrade).
 -/
-public theorem global_regularity_for_NS
+public theorem conditional_regularity_of_open_hyps
     (u0 : TimeDependentVelocity)
     (h_div_free : ∀ t x, div (u0 t) x = 0)
     (h_smooth : IsSmooth (u0 0))
@@ -225,7 +225,7 @@ public theorem global_regularity_for_NS
       (∀ t ≥ (0 : ℝ), satisfies_NavierStokes v ν) →
       ∀ t ≥ (0 : ℝ), v t = u t) := by
   obtain ⟨hNS, hu0, hsm, hnn, _hdiv⟩ :=
-    TetheredLyapunov.global_regularity_of_bkm_uniqueness (u0 0) ν h_ν_pos
+    TetheredLyapunov.conditional_regularity_of_bkm_uniqueness (u0 0) ν h_ν_pos
       w (TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform
           (TetheredLyapunov.physicalUniformVorticityCeiling_of_tetherBound hRiccati))
       hcrit huniq
@@ -278,7 +278,7 @@ native evaluation. See the dedicated subsection below.)
    - Current status for this project: Once the remaining schematic `sorry`s inside the novel
      geometry (especially the six named sub-haves in `h_cyclic_integrand_zero` in SymplecticTether)
      and the classical black boxes are filled or properly cited, the blue ticks will appear on
-     `global_regularity_for_NS` and `frohmanian_tether_theorem`.
+     `conditional_regularity_of_open_hyps` and `frohmanian_tether_theorem`.
    - Protection: incomplete proofs, explicit `sorry` in the *current* theorem, honest tactic bugs.
    - Limitation: does *not* detect `sorry` or incomplete proofs in dependencies.
 
@@ -345,7 +345,7 @@ and Canonicality) and the two-layer architecture.
 
 ## Current Honest Development State (rails off)
 
-As long as classical black-box `sorry`s remain inside `global_regularity_for_NS`,
+As long as classical black-box `sorry`s remain inside `conditional_regularity_of_open_hyps`,
 `frohmanian_tether_theorem`, or any lemma they depend on, `#print axioms` will
 report `sorryAx`. This is *expected and visible*.
 
@@ -361,7 +361,7 @@ novel claims are `propext`, `Classical.choice`, and `Quot.sound`.
 After the two main theorems you will find:
 
     #print axioms frohmanian_tether_theorem
-    #print axioms global_regularity_for_NS
+    #print axioms conditional_regularity_of_open_hyps
 
 Run these (or `lake build` followed by inspecting the output) to see the current axiom
 surface. As the proof matures, these commands become part of the permanent validation
@@ -372,6 +372,6 @@ these four levels onto the project's novel geometry and the goal of unique proof
 -/
 
 #print axioms frohmanian_tether_theorem
-#print axioms global_regularity_for_NS
+#print axioms conditional_regularity_of_open_hyps
 
-end GlobalRegularity
+end ConditionalRegularity

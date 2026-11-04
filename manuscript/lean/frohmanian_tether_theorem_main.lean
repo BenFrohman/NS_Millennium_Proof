@@ -3,7 +3,7 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
--- NS_Millennium_Proof/Modules/GlobalRegularity.lean
+-- NS_Millennium_Proof/Modules/ConditionalRegularity.lean
 public theorem frohmanian_tether_theorem
     (hKato : ∀ u₀ ν, ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) →
       Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → 0 < ν →
