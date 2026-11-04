@@ -1,0 +1,42 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,hyperref}
+\title{NS\_Millennium\_Proof: Machine-Checked Certificates and Open Assumptions}
+\author{Frohman, Benjamin Stanley\\ ORCID 0009-0006-7068-3718\\ \texttt{frohmanbenjamin@gmail.com}}
+\date{November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+This note lists what the Lean~4 / Mathlib development \texttt{NS\_Millennium\_Proof} machine-checks, and which analytic inputs stay open as explicit hypotheses. It does \emph{not} claim a solution of the Navier--Stokes Millennium Problem. Every regularity statement in the repository is conditional on the hypotheses listed in Section~3.
+\end{abstract}
+
+\section{Build and axiom audit}
+Full \texttt{lake build} (Lean v4.30.0-rc1, Mathlib): \textbf{successful, 2705 jobs}, with no errors and zero \texttt{declaration uses 'sorry'} warnings. The 170 in-build \texttt{\#print axioms} reports all list only \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}. The built tree contains no active \texttt{axiom} declarations; the one in \texttt{Modules/Assumptions.lean} is inside a comment. Files outside the build target (e.g.\ \texttt{docs/*.lean}, the root-level \texttt{Projection.lean}, \texttt{Tether.lean}, \texttt{historical/}) contain \texttt{sorry} or \texttt{axiom} and are \emph{not} certified.
+
+\section{Machine-checked certificates (theorems)}
+\begin{itemize}
+\item \texttt{classicalBracket\_antisymm}, \texttt{classicalBracket\_self}: the classical Lie--Poisson bracket satisfies $\{F,G\}=-\{G,F\}$ and $\{F,F\}=0$ (branch \texttt{gateaux-pairing}).
+\item \texttt{tetherKernel\_self\_nonpos}: $T(F,F)=-\kappa\int\|\omega(x)\|^2\,|\Pi_u\delta F(x)|^2\,dx\le 0$, with no extra hypotheses (pointwise weight; branch \texttt{gateaux-pairing}).
+\item \texttt{tetherKernel\_comm}, \texttt{tethered\_jacobi\_identity}, \texttt{antisymmetric\_correction\_diagonal\_zero}, \texttt{uniqueness\_of\_minimal\_tether}, \texttt{step2\_degree}, \texttt{step5\_higher\_order}.
+\item \texttt{kineticEnergy\_hasDerivAt\_velocity\_pairing}, \texttt{isVelocityGateauxRepresentative\_kineticEnergy\_at}: under differentiability, Biot--Savart integrability and a domination package, $\frac{d}{dt}H(\omega+t\varepsilon)|_{0}=\int\langle u,\mathrm{BS}\,\varepsilon\rangle$ (\emph{velocity} pairing).
+\item \texttt{gateaux\_representative\_unique} (with side conditions on differentiability, divergence, integrability, continuity).
+\item NS-layer lemmas such as \texttt{beale\_kato\_majda}, \texttt{local\_existence}, \texttt{eq\_of\_l2\_energy\_zero}, as stated in \texttt{NS\_Equations.lean} with their own hypotheses.
+\item \texttt{global\_regularity\_for\_NS}, \texttt{frohmanian\_tether\_theorem}, \texttt{conditional\_global\_regularity}: \emph{conditional} implications only (see Section~3).
+\end{itemize}
+
+\section{Open assumptions (stated, not machine-checked)}
+\begin{enumerate}
+\item A Kato local-existence witness \texttt{KatoLocalWitness} for the initial data.
+\item A uniform vorticity bound \texttt{hRiccati}, or the differential inequality \texttt{hDI} ($\dot Y\le CY^2-\kappa''Y^3$) for $Y=\|\omega\|_\infty$. This is the analytic core and is \textbf{not proved}.
+\item The uniform restart hypothesis \texttt{hrestart}, the uniqueness hypothesis \texttt{huniq}, and \texttt{TetherCoefficientBounded}.
+\item Jacobi for the classical bracket (only the pointwise \texttt{cross\_jacobi\_identity} is proved), the identification of coadjoint orbits with symplectic leaves, and $T(F,F)\not\equiv0$ for the integrated kernel.
+\end{enumerate}
+
+\section{Open item: $\delta H=\psi$, not $u$}
+\texttt{IsGateauxRepresentative} pairs $\delta$ directly with the vorticity variation $\varepsilon$. For $H=\tfrac12\int|\mathrm{BS}\,\omega|^2$,
+\[\frac{d}{dt}H(\omega+t\varepsilon)\Big|_{0}=\int\langle u,\mathrm{BS}\,\varepsilon\rangle=\int\langle\psi,\varepsilon\rangle,\]
+so the vorticity-pairing representative is the stream function $\psi$. The hypothesis \texttt{h : IsGateauxRepresentative KineticEnergyHamiltonian $\omega$ (velocity\_from\_vorticity $\omega$)} is \textbf{false as stated}. Counterexample: $u=(\sin z,0,0)$, $\omega=(0,\cos z,0)$, $\varepsilon=\omega$. The derivative is $\int|u|^2>0$, but $\int\langle u,\omega\rangle=0$. Only the velocity pairing is proved. Results that assume $\delta H=u$ (C2 via \texttt{tetherKernel\_C2\_of\_KEDeriv}, \texttt{tetherKernel\_degenerates\_on\_kinetic\_energy}) are conditional on a hypothesis that fails in the vorticity pairing.
+
+\section*{License}
+Text CC-BY-4.0; code Apache-2.0. Copyright \copyright\ 2026 Benjamin Stanley Frohman.
+\end{document}

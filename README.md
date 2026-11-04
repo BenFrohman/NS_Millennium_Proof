@@ -87,3 +87,16 @@ Independent research. If this corpus is useful: **[Sponsor on GitHub](https://gi
 ## License
 
 [Apache License 2.0](LICENSE) © 2026 Benjamin Stanley Frohman.
+
+## Workflow and audit discipline
+
+Every change to `main` follows the same checks:
+
+1. **Green build.** `lake build` finishes with no errors.
+2. **Standard axioms only.** `#print axioms` on each certificate lists only `propext`, `Classical.choice` and `Quot.sound`. Any `sorryAx` or user `axiom` fails the audit and must be listed by name and location.
+3. **Open assumptions are visible.** Each analytic input that is not yet proved appears as an explicit hypothesis in a theorem statement, never as a hidden `axiom` or a `sorry`.
+4. **No `sorry` on the geometric layer.** The bracket, kernel and Gâteaux files build with zero `sorry` warnings.
+5. **Paper matches the code.** After each green push, a Zenodo paper is published that lists exactly the machine-checked certificates and the open assumptions of that commit, and nothing more.
+
+Licensing: code is Apache-2.0 (`LICENSE`); papers and notes are CC-BY-4.0 (`LICENSE-CC-BY-4.0`).
+Copyright (c) 2026 Benjamin Stanley Frohman.
