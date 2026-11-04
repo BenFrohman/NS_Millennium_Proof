@@ -28,6 +28,7 @@ import NS_Millennium_Proof.Modules.Uniqueness
 import NS_Millennium_Proof.Modules.PlanSteps
 import NS_Millennium_Proof.Modules.Combined
 import NS_Millennium_Proof.Modules.ConcreteSDiff
+import NS_Millennium_Proof.Modules.ScalingIdentities
 
 /-!
 # NS Millennium Proof — Frohmanian Symplectic Tether (Main Entry & Kernel Axiom Audit)
