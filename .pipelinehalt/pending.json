@@ -1,0 +1,147 @@
+{
+  "tool": "pipelinehalt",
+  "anchor": "/workspace/ph-runs/_out/NS_Millennium_Proof/anchor.json",
+  "instructions": "Fill in `answer` for each question (start with yes/intentional or no/unintended, optionally followed by an explanation), then run `pipelinehalt answer --anchor <anchor> --from <this file>`. Blank answers stay open.",
+  "questions": [
+    {
+      "id": "cdf871b6ca1c",
+      "claimId": "thm:main",
+      "kind": "silent",
+      "question": "Paper claim Theorem 1.1 (thm:main) states: “Let $\\nu>0$ and let $u_0$ be smooth (\\lean{ContDiff ℝ ⊤}), divergence-free, and of finite $L^2$ energy. Assume within the class of physical solutions (\\lean{IsPhysicalNSSolution}): •[(K)] \\emph{Kato …”. No Lean declaration matching it was found among 135 candidates. Closest candidate: `lemma_3_1_uniform_bound_and_continuation` (score 0.17, below threshold 0.2). Is this claim intentionally not formalized, or which declaration should it map to?",
+      "answer": ""
+    },
+    {
+      "id": "9415a2e4de2c",
+      "claimId": "thm:main",
+      "kind": "ambiguous",
+      "question": "Paper claim Theorem 1.1 (thm:main) states: “Let $\\nu>0$ and let $u_0$ be smooth (\\lean{ContDiff ℝ ⊤}), divergence-free, and of finite $L^2$ energy. Assume within the class of physical solutions (\\lean{IsPhysicalNSSolution}): •[(K)] \\emph{Kato …”. Its title is “Conditional Global Regularity; \\lean{frohmanian_tether_theorem}, \\lean{global_regularity_for_NS}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": ""
+    },
+    {
+      "id": "e75338c6a714",
+      "claimId": "def:tether",
+      "kind": "silent",
+      "question": "Paper claim Definition 3.1 (def:tether) states: “For a velocity field $u=\\mathrm{BS}(\\omega)$ with $\\|u\\|_{L^2}\\neq0$, let $\\Pi_u=P^\\perp_u$ be the $L^2$-orthogonal Gram--Schmidt projection onto the complement of $\\operatorname{span}\\{u\\}$: \\[ \\Pi_…”. No Lean declaration matching it was found among 127 candidates. Closest candidate: `projectionOrthogonalToU.` (score 0.13, below threshold 0.2). Is this claim intentionally not formalized, or which declaration should it map to?",
+      "answer": ""
+    },
+    {
+      "id": "5eee1cf6e942",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hδ : FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "1a1be1fad790",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hdiv : ∀ x, div (velocity_from_vorticity ω) x = 0`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "d676a5d8143e",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hInt : Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2)`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "5eee1cf6e942",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hδ : FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "1a1be1fad790",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hdiv : ∀ x, div (velocity_from_vorticity ω) x = 0`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "d676a5d8143e",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hInt : Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2)`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "5eee1cf6e942",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hδ : FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "1a1be1fad790",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hdiv : ∀ x, div (velocity_from_vorticity ω) x = 0`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "d676a5d8143e",
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `degeneracy_for_mollified_sup_norm_proxy` assumes `hInt : Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2)`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": ""
+    },
+    {
+      "id": "3b4f1c8ac605",
+      "claimId": "lem:localmax",
+      "kind": "silent",
+      "question": "Paper claim Lemma 4.1 (lem:localmax) states: “Let $x$ satisfy $\\|\\omega(x)\\|=\\|\\omega\\|_{L^\\infty}$ and suppose $\\|\\nabla u(x)\\|\\le\\CZ\\|\\omega\\|_{L^\\infty}$ (\\lean{hCZ}). Then \\[ \\langle\\omega(x),(\\omega\\cdot\\nabla)u(x)\\rangle\\le\\CZ\\,\\|\\omega\\|_…”. No Lean declaration matching it was found among 135 candidates. Closest candidate: `step4_coefficient` (score 0.11, below threshold 0.2). Is this claim intentionally not formalized, or which declaration should it map to?",
+      "answer": ""
+    },
+    {
+      "id": "5e5d552b0287",
+      "claimId": "lem:localmax",
+      "kind": "ambiguous",
+      "question": "Paper claim Lemma 4.1 (lem:localmax) states: “Let $x$ satisfy $\\|\\omega(x)\\|=\\|\\omega\\|_{L^\\infty}$ and suppose $\\|\\nabla u(x)\\|\\le\\CZ\\|\\omega\\|_{L^\\infty}$ (\\lean{hCZ}). Then \\[ \\langle\\omega(x),(\\omega\\cdot\\nabla)u(x)\\rangle\\le\\CZ\\,\\|\\omega\\|_…”. Its title is “Stretching at a spatial maximum; proved, \\lean{stretching_inner_le_at_max}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": ""
+    },
+    {
+      "id": "b8ffde411914",
+      "claimId": "lem:transport",
+      "kind": "silent",
+      "question": "Paper claim Lemma 4.2 (lem:transport) states: “At a spatial maximum where the convective transport pairing $\\langle\\omega,(u\\cdot\\nabla)\\omega\\rangle(x)$ vanishes and $\\langle\\omega,\\Delta\\omega\\rangle(x)\\le0$, along any solution of \\eqref{eq:vor…”. No Lean declaration matching it was found among 135 candidates. Closest candidate: `euler_energy_conservation` (score 0.17, below threshold 0.2). Is this claim intentionally not formalized, or which declaration should it map to?",
+      "answer": ""
+    },
+    {
+      "id": "efc10fabcc0e",
+      "claimId": "lem:cubic",
+      "kind": "silent",
+      "question": "Paper claim Lemma 4.3 (lem:cubic) states: “Let $C>0$, $\\kappa''>0$, and let $y:[0,\\infty)\\to\\R$ be differentiable on $[0,\\infty)$ with \\[ y'(s)\\le C\\,y(s)^2-\\kappa''\\,y(s)^3\\qquad(s\\ge0). \\] Then for every $t\\ge0$, \\[ y(t)\\le\\max\\Bigl(y(0),\\ …”. No Lean declaration matching it was found among 135 candidates. Closest candidate: `majorant_comparison_principle` (score 0.24, but it matches claim lem:majorant better). Is this claim intentionally not formalized, or which declaration should it map to?",
+      "answer": ""
+    },
+    {
+      "id": "5604cd92a6b0",
+      "claimId": "lem:cubic",
+      "kind": "ambiguous",
+      "question": "Paper claim Lemma 4.3 (lem:cubic) states: “Let $C>0$, $\\kappa''>0$, and let $y:[0,\\infty)\\to\\R$ be differentiable on $[0,\\infty)$ with \\[ y'(s)\\le C\\,y(s)^2-\\kappa''\\,y(s)^3\\qquad(s\\ge0). \\] Then for every $t\\ge0$, \\[ y(t)\\le\\max\\Bigl(y(0),\\ …”. Its title is “Cubic comparison stability; proved, \\lean{comparison_ode_stability}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": ""
+    },
+    {
+      "id": "66e0c28378de",
+      "claimId": "lem:majorant",
+      "kind": "ambiguous",
+      "question": "Paper claim Lemma 4.4 (lem:majorant) states: “For $C,\\kappa''>0$ and $y_0\\ge0$, any solution $Y_{C,\\kappa''}(t;y_0)$ of the comparison ODE $y'=Cy^2-\\kappa''y^3$, $y(0)=y_0$ (\\lean{ComparisonODE}) satisfies $0\\le Y_{C,\\kappa''}(t;y_0)\\le\\max(y_0,…”. Its title is “Explicit majorant global bound; proved, \\lean{comparison_majorant_global_bound}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": ""
+    },
+    {
+      "id": "06bf1c024fe6",
+      "claimId": "prop:ceiling",
+      "kind": "silent",
+      "question": "Paper claim Proposition 4.5 (prop:ceiling) states: “If $M(t)=\\|\\omega(t)\\|_{L^\\infty}$ is differentiable on $[0,\\infty)$ and satisfies $M'(t)\\le \\CZ M(t)^2-\\kappa''M(t)^3$, then \\[ \\sup_{t\\ge0}M(t)\\le\\max\\Bigl(M(0),\\frac{\\CZ}{\\kappa''}\\Bigr). \\]”. No Lean declaration matching it was found among 135 candidates. Closest candidate: `majorant_comparison_principle` (score 0.25, but it matches claim lem:majorant better). Is this claim intentionally not formalized, or which declaration should it map to?",
+      "answer": ""
+    },
+    {
+      "id": "e96b01a5c691",
+      "claimId": "prop:ceiling",
+      "kind": "ambiguous",
+      "question": "Paper claim Proposition 4.5 (prop:ceiling) states: “If $M(t)=\\|\\omega(t)\\|_{L^\\infty}$ is differentiable on $[0,\\infty)$ and satisfies $M'(t)\\le \\CZ M(t)^2-\\kappa''M(t)^3$, then \\[ \\sup_{t\\ge0}M(t)\\le\\max\\Bigl(M(0),\\frac{\\CZ}{\\kappa''}\\Bigr). \\]”. Its title is “Cubic rate $\\Rightarrow$ uniform vorticity ceiling; proved, \\lean{riccati_ceiling_of_vorticity_di}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": ""
+    }
+  ]
+}
