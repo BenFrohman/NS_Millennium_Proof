@@ -81,7 +81,7 @@
 \maketitle
 
 \begin{abstract}
-We present in full both (1)~the complete original geometric and physical framework of the \textbf{Frohmanian Symplectic Tether} $\Tf$ (preserving without omission all original definitions, physical motivations, conjectured geometric--analytic bridges, and extensions from \emph{Frohmanian\_Tether\_Final\_Submission\_v8}), and (2)~its complete, kernel-verified, non-vacuous conditional formalization in Lean~4 (repository \texttt{NS\_Millennium\_Proof}: \textbf{518 theorems across 20 modules, zero \texttt{sorryAx}, and only the standard axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}}).
+We present in full both (1)~the complete original geometric and physical framework of the \textbf{Frohmanian Symplectic Tether} $\Tf$ (preserving without omission all original definitions, physical motivations, conjectured geometric--analytic bridges, and extensions from \emph{Frohmanian\_Tether\_Final\_Submission\_v8}), and (2)~its complete, kernel-verified, non-vacuous conditional formalization in Lean~4 (repository \texttt{NS\_Millennium\_Proof}: \textbf{532 theorems across 22 modules, zero \texttt{sorryAx}, and only the standard axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}}).
 
 Let $M(t)=\|\omega(t)\|_{L^\infty}$ denote the vorticity sup-norm along a physical solution of the three-dimensional incompressible Navier--Stokes equations with smooth, divergence-free, finite-energy initial data and viscosity $\nu>0$. We prove in Lean~4 (\lean{frohmanian_tether_theorem} and \lean{conditional_regularity_of_open_hyps}) that if (i)~Kato local existence holds with a uniform restart length on the class of physical solutions (\lean{IsPhysicalNSSolution}, enforcing pointwise time-differentiability and the Leray $L^2$ energy inequality), (ii)~uniqueness holds within \lean{IsPhysicalNSSolution}, and (iii)~$M(t)$ satisfies the Frohmanian cubic differential inequality (\lean{FrohmanianTetherRate})
 \[
@@ -127,14 +127,14 @@ Let $\nu>0$ and let $u_0$ be smooth (\lean{ContDiff ℝ ⊤}), divergence-free, 
 M'(t)\le \CZ\,M(t)^2-\kappa''\,M(t)^3\qquad(t\ge 0)
 \]
 for constants $\CZ>0$, $\kappa''>0$ (yielding \lean{FrohmanianTetherBound});
-\item[(U)] \emph{Physical uniqueness (\lean{huniq})}: smooth physical solutions (\lean{IsPhysicalNSSolution}) starting from $u_0$ agree with the Kato witness on each existence interval $[0,T]$.
+\item[(U)] \emph{Physical uniqueness (\texttt{huniq})}: smooth physical solutions (\lean{IsPhysicalNSSolution}) starting from $u_0$ agree with the Kato witness on each existence interval $[0,T]$.
 \end{enumerate}
 Then $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ for all $t\ge0$, and \eqref{eq:NS} admits a physical solution defined $u$ on $[0,\infty)$ that is spatially $C^\infty$ for every $t\ge0$, divergence-free, and unique among all smooth physical solutions.
 \end{theorem}
 
 \paragraph{Verification status of Theorem~\ref{thm:main}.}
 \begin{itemize}
-\item \textbf{Axiom-clean \& sorry-free:} The entire repository \texttt{NS\_Millennium\_Proof} builds cleanly (\texttt{lake build NS\_Millennium\_Proof}, 2714 jobs); its default target contains \textbf{518 theorems across 20 modules, zero \texttt{sorryAx}, and zero nonstandard axioms} (counted by \texttt{collectAxioms} over every theorem; \texttt{lake env lean scripts/AxiomAudit.lean} also passes) (depending only on \lean{propext}, \lean{Classical.choice}, \lean{Quot.sound}).
+\item \textbf{Axiom-clean \& sorry-free:} The entire repository \texttt{NS\_Millennium\_Proof} builds cleanly (\texttt{lake build NS\_Millennium\_Proof}, 2716 jobs); its default target contains \textbf{532 theorems across 22 modules, zero \texttt{sorryAx}, and zero nonstandard axioms} (counted by \texttt{collectAxioms} over every theorem; \texttt{lake env lean scripts/AxiomAudit.lean} also passes) (depending only on \lean{propext}, \lean{Classical.choice}, \lean{Quot.sound}).
 \item \textbf{Kernel-verified non-vacuous:} The physical-solution predicate \lean{IsPhysicalNSSolution} (Section~\ref{sec:vacuity}) rules out pathological time-step fields that previously exploited Mathlib's totalized derivative \lean{deriv} $=0$ at jump discontinuities (\lean{stepField_not_physical}). In \lean{ClayStatements.lean}, all hypotheses of Theorem~\ref{thm:main} are proved to be jointly satisfiable and unconditionally realized at $u_0=0$ (\lean{conditional_regularity_nonvacuous_at_zero}).
 \item \textbf{Clear separation of proved implications vs.\ open premises:} The implication $\text{(K)}+\text{(R)}+\text{(U)}\implies\text{(the conclusion of Theorem~\ref{thm:main})}$ is kernel-verified \emph{as an implication}. Hypothesis (R) is an open assumption: the tether does not supply it (its damping coefficient is $0$, Section~\ref{sec:damping}), and no derivation of (R) from \eqref{eq:vort} is known. Theorem~\ref{thm:main} therefore depends on an unresolved premise and is \emph{not} a regularity result for Navier--Stokes. Non-vacuity at $u_0=0$ shows only that the hypotheses are jointly satisfiable in a trivial case.
 \end{itemize}
@@ -177,7 +177,7 @@ For a velocity field $u=\mathrm{BS}(\omega)$ with $\|u\|_{L^2}\neq0$, let $\Pi_u
 \[
 \Pi_u v=v-\frac{\langle v,u\rangle_{L^2}}{\|u\|_{L^2}^2}\,u
 \]
-(Lean: \lean{ForMathlib.Pi_u}, with $\Pi_u v=v$ when $\|u\|_{L^2}=0$). With universal 3D Calderón--Zygmund constant $\kappa=\CZ(3)=\frac{3}{8\pi}\cdot 4\pi=\frac{3}{2}$ (Lean: \lean{kappa_eq_three_halves} in \lean{ForMathlib/NS/Tether.lean}), define the Frohmanian tether kernel
+(Lean: \lean{ForMathlib.Pi_u}, with $\Pi_u v=v$ when $\|u\|_{L^2}=0$). With universal 3D Calderón--Zygmund constant $\kappa=\CZ(3)=\frac{3}{8\pi}\cdot 4\pi=\frac{3}{2}$ (Lean: \lean{kappa_eq_three_halves} in \lean{SymplecticTether.lean}), define the Frohmanian tether kernel
 \[
 T(F,G)(\omega)=B(F,G)(\omega)=-\kappa\,\|\omega\|_{L^2}^2\int_{\T}\Bigl\langle \Pi_u\Bigl(\frac{\delta F}{\delta\omega}\Bigr)(x),\,\Pi_u\Bigl(\frac{\delta G}{\delta\omega}\Bigr)(x)\Bigr\rangle\,dV ,
 \]
@@ -209,7 +209,7 @@ In \lean{Uniqueness.lean}, the canonicity theorem \lean{uniqueness_of_minimal_te
 \subsection{Coadjoint Invariance and the Conditional Jacobiator Lemma}
 In \lean{SymplecticTether.lean}:
 \begin{itemize}
-\item \textbf{Abstract \& push-forward coadjoint invariance:} \lean{tether_coadjoint_invariance} and \lean{tetherKernel_C1} verify \lean{InvariantUnderCoadjointAction TetherKernel} \emph{conditionally} on \lean{SDiffActionHyp} and \lean{TetherIntegralPreserved}. Here $\mathrm{SDiff}$ is an \emph{abstract} group acting on the orbit type (a Lean \texttt{MulAction}); it is not constructed as the diffeomorphism group of $\T$, and volume preservation is a \emph{hypothesis} on the field \texttt{diffeo} of \lean{VolumePreservingCoadjointAction}, not a theorem. To represent the full infinite-dimensional diffeomorphism push-forward $\omega\mapsto g_*\omega$ on $\mathrm{SDiff}(\T)$ without hiding the geometric bridge, we also define \lean{ConjecturedSDiffPushforwardInvariance} and prove \lean{tether_coadjoint_invariance_of_integral_eq}, showing that volume-preserving push-forward equivariance of the projected integrand yields coadjoint invariance of \lean{TetherKernel} (the enstrophy weight is itself coadjoint-invariant).
+\item \textbf{Abstract \& push-forward coadjoint invariance:} \lean{tether_coadjoint_invariance} and \lean{tetherKernel_C1} verify \lean{InvariantUnderCoadjointAction TetherKernel} \emph{conditionally} on \lean{SDiffActionHyp} and \lean{TetherIntegralPreserved}. Here $\mathrm{SDiff}$ is an \emph{abstract} group acting on the orbit type (a Lean \texttt{MulAction}); it is not constructed as the diffeomorphism group of $\T$, and volume preservation is a \emph{hypothesis} on the field \texttt{diffeo} of \lean{VolumePreservingCoadjointAction}, not a theorem. A concrete instance is given in \texttt{ConcreteSDiff.lean}: \lean{ConcreteSDiff.SDiffConcrete} is a subgroup of \texttt{Equiv.Perm T3} whose elements $g$ are measurable with measurable inverse, \texttt{MeasurePreserving} for \texttt{volume} in both directions, and preserve divergence-freeness under composition (this last property is part of the definition, not a theorem). It acts by scalar composition $g\cdot\omega=\omega\circ g^{-1}$, which is not the geometric push-forward $(Dg\,\omega)\circ g^{-1}$; no smoothness is imposed, and \texttt{T3} is \texttt{EuclideanSpace ℝ (Fin 3)}, not the quotient torus. For this action the field \texttt{casimir\_invariant} of \lean{SDiffActionHyp} is proved (\lean{ConcreteSDiff.casimir_invariant}, via \texttt{MeasurePreserving.integral\_comp'}), and \texttt{transitive\_on\_casimir\_levels} remains an open hypothesis (\lean{ConcreteSDiff.sdiffActionHyp_of_transitive}). To represent the full infinite-dimensional diffeomorphism push-forward $\omega\mapsto g_*\omega$ on $\mathrm{SDiff}(\T)$ without hiding the geometric bridge, we also define \lean{ConjecturedSDiffPushforwardInvariance} and prove \lean{tether_coadjoint_invariance_of_integral_eq}, showing that volume-preserving push-forward equivariance of the projected integrand yields coadjoint invariance of \lean{TetherKernel} (the enstrophy weight is itself coadjoint-invariant).
 \item \textbf{Conditional Jacobiator lemma (\lean{tethered_jacobi_identity}):} this lemma assumes, as explicit hypotheses, that the cyclic Jacobiator of \lean{TetheredBracket} equals a cyclic Lie-pairing integral and that this integral vanishes, and concludes that the Jacobiator vanishes. Both hypotheses are open; the lemma does \emph{not} establish a Jacobi identity for the full bracket, and none is claimed (a metriplectic bracket with nonzero symmetric part is not expected to satisfy one).
 \end{itemize}
 
@@ -218,7 +218,7 @@ In \lean{SymplecticTether.lean}:
 
 \subsection{Local-Maximum Stretching and Transport Lemmas}
 \begin{lemma}[Stretching at a spatial maximum; proved, \lean{stretching_inner_le_at_max}]\label{lem:localmax}
-Let $x$ satisfy $\|\omega(x)\|=\|\omega\|_{L^\infty}$ and suppose $\|\nabla u(x)\|\le\CZ\|\omega\|_{L^\infty}$ (\lean{hCZ}). Then
+Let $x$ satisfy $\|\omega(x)\|=\|\omega\|_{L^\infty}$ and suppose $\|\nabla u(x)\|\le\CZ\|\omega\|_{L^\infty}$ (\texttt{hCZ}). Then
 \[
 \langle\omega(x),(\omega\cdot\nabla)u(x)\rangle\le\CZ\,\|\omega\|_{L^\infty}^3 .
 \]
@@ -266,7 +266,7 @@ If $M(t)=\|\omega(t)\|_{L^\infty}$ is differentiable on $[0,\infty)$ and satisfi
 \end{proposition}
 
 \subsection{Resolution of the Unpatched Time-Derivative Vacuity and Proof of Joint Satisfiability}\label{sec:vacuity}
-In an earlier unpatched version of the Lean library, \lean{NS_PDE u p ν} was used in the uniqueness binder \lean{huniq} without requiring time-differentiability of the comparison field $v$. Because Mathlib defines \lean{deriv} to return $0$ at non-differentiable points, the spatially constant step field $v(t)=\mathbf 1_{\{t>1\}}e_0$ with $p=0$ had formal time derivative $0$ everywhere (including at the jump $t=1$), thereby satisfying \lean{NS_PDE} from $v(0)=0$ while violating uniqueness at $t=2$. We preserve this audit discovery as a formal theorem (\lean{library_huniq_unsatisfiable_at_zero} in \lean{ClayStatements.lean}) to document why the unpatched binder (\lean{existenceTimes_unpatched}) needed repair.
+In an earlier unpatched version of the Lean library, \lean{NS_PDE u p ν} was used in the uniqueness binder \texttt{huniq} without requiring time-differentiability of the comparison field $v$. Because Mathlib defines \lean{deriv} to return $0$ at non-differentiable points, the spatially constant step field $v(t)=\mathbf 1_{\{t>1\}}e_0$ with $p=0$ had formal time derivative $0$ everywhere (including at the jump $t=1$), thereby satisfying \lean{NS_PDE} from $v(0)=0$ while violating uniqueness at $t=2$. We preserve this audit discovery as a formal theorem (\lean{library_huniq_unsatisfiable_at_zero} in \lean{ClayStatements.lean}) to document why the unpatched binder (\lean{existenceTimes_unpatched}) needed repair.
 
 \paragraph{The Completed Repair (\texttt{IsPhysicalNSSolution}).}
 By threading \lean{IsPhysicalNSSolution} through \lean{KatoLocalWitness}, \lean{existenceTimes}, \lean{restart_of_kato_quantitative}, \lean{FrohmanianTetherBound}, \lean{FrohmanianTetherRate}, \lean{conditional_regularity_of_open_hyps}, and \lean{frohmanian_tether_theorem}, every solution and comparison field is required to be pointwise time-differentiable on $[0,\infty)$ and to obey the Leray $L^2$ energy inequality $\int\|v(t)\|^2\le\int\|v(0)\|^2$. In \lean{ClayStatements.lean}, we prove the complete non-vacuity and joint-satisfiability theorem suite:
@@ -310,15 +310,15 @@ The original programme derived a damping term for $M(t)$ from the tether. That d
 \]
 and $T(\mathcal M,H)=T(H,\mathcal M)=0$ by symmetry of $T$ and (C2), because $\Pi_u(\delta H/\delta\omega)=\Pi_u u=0$. Hence the damping coefficient contributed by the tether is exactly $\mathbf{0}$: the tethered evolution of every functional coincides with its Euler evolution, and the negative diagonal values $T(F,F)\le0$ never enter the dynamics generated by $H$.
 
-\paragraph{Projection lower-bound gap.} Any attempt to extract damping from the diagonal $T(F,F)$ (as in \lean{tethered_stretching_of_weight}) requires a lower bound $M^4\le\|\omega\|_{L^2}^2\int|\Pi_u\delta F/\delta\omega|^2$ (\lean{hweight}) for a test functional tied to $M$. No such lower bound on the projected component is known, and $\Pi_u$ annihilates exactly the direction $u=\delta H/\delta\omega$ that drives the evolution; this gap is open.
+\paragraph{Projection lower-bound gap.} Any attempt to extract damping from the diagonal $T(F,F)$ (as in \lean{tethered_stretching_of_weight}) requires a lower bound $M^4\le\|\omega\|_{L^2}^2\int|\Pi_u\delta F/\delta\omega|^2$ (\texttt{hweight}) for a test functional tied to $M$. No such lower bound on the projected component is known, and $\Pi_u$ annihilates exactly the direction $u=\delta H/\delta\omega$ that drives the evolution; this gap is open.
 
 \paragraph{Open status.} Consequently the cubic rate (R) (\lean{FrohmanianTetherRate}) and the closing bound (\lean{FrohmanianTetherBound}, \lean{PeriodicTetherClosingBound}) are \textbf{open assumptions}. Candidate repair routes---for example an explicit dissipative (metriplectic) bracket $[F,H]_{\mathrm{diss}}$ with a nonzero $[M,H]$, a time-integrated or non-local mechanism, or a scale-compensated coefficient (Section~\ref{sec:open})---are listed only as \emph{open candidates}; none is carried out here.
 
 \subsection{Conjectured Unmodified-Tether Pairing Bridge at Spatial Maxima}
-\emph{Caveat.} By Section~\ref{sec:damping} the tether contributes no damping; the results in this subsection are proved implications from explicit, open hypotheses (\lean{ConjecturedUnmodifiedTetherPairing}, \lean{hweight}) and do not supply (R).
+\emph{Caveat.} By Section~\ref{sec:damping} the tether contributes no damping; the results in this subsection are proved implications from explicit, open hypotheses (\lean{ConjecturedUnmodifiedTetherPairing}, \texttt{hweight}) and do not supply (R).
 The central analytic bridge of the original programme connects the quadratic feedback of the tether kernel to the pointwise vortex-stretching pairing at a spatial maximum $x_*$ of $|\omega|$ (where $\|\omega(x_*)\|=M(t)=\|\omega\|_{L^\infty}$). In \lean{SymplecticTether.lean}, this bridge is formalized without \lean{sorry} via two complementary theorems:
 \begin{enumerate}
-\item \textbf{Weighted tether-stretching absorption (\lean{tethered_stretching_of_weight}):} Under the weight dominance condition (\lean{hweight})
+\item \textbf{Weighted tether-stretching absorption (\lean{tethered_stretching_of_weight}):} Under the weight dominance condition (\texttt{hweight})
 \[
 M(t)^4 \le \|\omega_{\mathrm{orb}}\|_{L^2}^2\int_{\T} \bigl|\Pi_u(\delta F/\delta\omega)(y)\bigr|^2\,dy,
 \]
@@ -326,7 +326,7 @@ the sum of the pointwise stretching pairing $\langle\omega(x_*),(\omega\cdot\nab
 \[
 \langle\omega(x_*),(\omega\cdot\nabla)u(x_*)\rangle + B(F,F)(\omega_{\mathrm{orb}}) \le (C M(t) - \kappa\,M(t)^2)\,M(t)^2,
 \]
-where $C$ is the strain constant in \lean{hCZ}. This implication is proved in \lean{SymplecticTether.lean} with zero \lean{sorry}s.
+where $C$ is the strain constant in \texttt{hCZ}. This implication is proved in \lean{SymplecticTether.lean} with zero \lean{sorry}s.
 \item \textbf{Unmodified stretching reduction (\lean{reduced_pairing_of_unmodified_and_tether}):} The bridge proposition \lean{ConjecturedUnmodifiedTetherPairing} (stated along a Navier--Stokes solution at time $t$ and a spatial maximum $x$) asserts the bound $\langle\omega(x),(\omega\cdot\nabla)u(x)\rangle\le(CM-\kappa M^2)M^2$ under the local-maximum hypotheses. The theorem \lean{reduced_pairing_of_unmodified_and_tether} derives this bound from the explicit cancellation hypothesis \lean{hcancels} ($\langle\omega,(\omega\cdot\nabla)u\rangle+\kappa M^4\le CM^3$), which is itself the open content.
 \end{enumerate}
 \leanfile{reduced_pairing}
@@ -391,7 +391,7 @@ For historical completeness and traceability, Table~\ref{tab:14point} maps each 
 10 & Quartic Lyapunov $S_\varepsilon$, scalar $\varphi$, $L^6$ absorption, cubic ODE $y'=Cy^2-\kappa''y^3$, BKM & \lean{LyapunovS}, \lean{comparison_ode_stability}, \lean{frohmanian_tether_theorem}, \lean{conditional_regularity_of_open_hyps} & Kernel-verified conditional implication + non-vacuity at $u_0=0$; premise (R) open, damping coefficient $=0$\\
 11 & Relation to Onsager's conjecture ($\alpha=1$ persistence) & Section~\ref{sec:original} of this paper & Preserved in manuscript as physical motivation\\
 12 & Metriplectic \& holographic fluid--gravity extensions & \texttt{Skeleton/PaperOverview.lean} (outside the default build target) \& Section~\ref{sec:original} & Preserved in manuscript \& overview module\\
-13 & Technical Appendix: invariance, MWR, mollifiers, pressure & \lean{NS_Equations.lean}, \lean{TetheredLyapunov.lean}, \lean{AnalyticPipeline.lean} & Kernel-verified lemmas (518 theorems in the default target)\\
+13 & Technical Appendix: invariance, MWR, mollifiers, pressure & \lean{NS_Equations.lean}, \lean{TetheredLyapunov.lean}, \lean{AnalyticPipeline.lean} & Kernel-verified lemmas (532 theorems in the default target)\\
 14 & Conclusion: non-circular conditional architecture & \lean{ConditionalRegularity.lean}, \lean{ClayStatements.lean} & Checked by \texttt{scripts/AxiomAudit.lean}\\
 \bottomrule
 \end{tabular}
@@ -411,8 +411,8 @@ The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{Perio
 While the conditional implication Theorem~\ref{thm:main} is proved and non-vacuous in Lean~4, its premise (R) is unresolved: the tether's damping coefficient is $0$ (Section~\ref{sec:damping}), and discharging the cubic rate hypothesis (R) (\lean{FrohmanianTetherRate}) unconditionally from the unmodified vorticity equation \eqref{eq:vort} remains an open mathematical problem for the following structural reasons:
 \begin{enumerate}
 \item \textbf{Parabolic scaling dimension of $\kappa''$:} Under the Navier--Stokes rescaling \eqref{eq:scaling}, $M'(t)$ scales as $\lambda^4$, $\CZ M(t)^2$ scales as $\lambda^4$, and $\kappa'' M(t)^3$ scales as $\lambda^6$. A fixed constant $\kappa''>0$ therefore carries the dimension of time and cannot be formed from viscosity $\nu$ alone ($[\nu]=L^2T^{-1}$) without incorporating a solution-dependent or scale-compensating functional (see \texttt{SCALE\_INVARIANT\_TETHER.md} and \texttt{CLAY\_B\_T3.md}).
-\item \textbf{Pointwise strain at spatial maxima (\texttt{HWEIGHT\_OBSTRUCTION.md}):} Because $B(F,H)=0$ by Proposition~\ref{prop:degen} and $B$ is symmetric, $B(M,H)=0$ for every $M$: the tether adds no damping term to \eqref{eq:vort} or to any functional. Consequently, the pointwise inequality $\langle\omega,(\omega\cdot\nabla)u\rangle(x_*)\le\CZ M^3-\kappa M^4$ (\lean{ConjecturedUnmodifiedTetherPairing}) and the integral weight dominance condition $M^4\le\|\omega\|_{L^2}^2\int|\Pi_u\delta F|^2$ (\lean{hweight}) do not hold for arbitrary divergence-free fields with vanishing stretching at the maximum when $M>\CZ/\kappa$. Closing (R) for the unmodified PDE therefore requires a non-local or time-integrated mechanism beyond pointwise evaluation at a single time slice.
-\item \textbf{Calderón--Zygmund $L^\infty$ logarithm:} Singular integral operators (such as $\nabla u=\nabla\mathrm{BS}(\omega)$) are not bounded from $L^\infty$ to $L^\infty$ without a logarithmic Sobolev correction $\|\nabla u\|_{L^\infty}\lesssim \|\omega\|_{L^\infty}(1+\log^+(\|\omega\|_{H^s}/\|\omega\|_{L^\infty}))$ \cite{BKM1984} (cited, not formalized in the Lean library). In the pointwise local-maximum lemma, $\|\nabla u(x)\|\le\CZ\|\omega\|_{L^\infty}$ enters as the explicit hypothesis \lean{hCZ}.
+\item \textbf{Pointwise strain at spatial maxima (\texttt{HWEIGHT\_OBSTRUCTION.md}):} Because $B(F,H)=0$ by Proposition~\ref{prop:degen} and $B$ is symmetric, $B(M,H)=0$ for every $M$: the tether adds no damping term to \eqref{eq:vort} or to any functional. Consequently, the pointwise inequality $\langle\omega,(\omega\cdot\nabla)u\rangle(x_*)\le\CZ M^3-\kappa M^4$ (\lean{ConjecturedUnmodifiedTetherPairing}) and the integral weight dominance condition $M^4\le\|\omega\|_{L^2}^2\int|\Pi_u\delta F|^2$ (\texttt{hweight}) do not hold for arbitrary divergence-free fields with vanishing stretching at the maximum when $M>\CZ/\kappa$. Closing (R) for the unmodified PDE therefore requires a non-local or time-integrated mechanism beyond pointwise evaluation at a single time slice.
+\item \textbf{Calderón--Zygmund $L^\infty$ logarithm:} Singular integral operators (such as $\nabla u=\nabla\mathrm{BS}(\omega)$) are not bounded from $L^\infty$ to $L^\infty$ without a logarithmic Sobolev correction $\|\nabla u\|_{L^\infty}\lesssim \|\omega\|_{L^\infty}(1+\log^+(\|\omega\|_{H^s}/\|\omega\|_{L^\infty}))$ \cite{BKM1984} (cited, not formalized in the Lean library). In the pointwise local-maximum lemma, $\|\nabla u(x)\|\le\CZ\|\omega\|_{L^\infty}$ enters as the explicit hypothesis \texttt{hCZ}.
 \end{enumerate}
 
 %=====================================================================
@@ -433,10 +433,10 @@ A5/C3 Negative feedback & \lean{ProducesControllableNegativeFeedback} & \textbf{
 Bracket structure & \lean{TetheredBracket} & Metriplectic-type (antisymmetric $+$ symmetric $\le0$); \textbf{not} antisymmetric; no Jacobi claimed\\
 Conditional Jacobiator lemma & \lean{tethered_jacobi_identity} & Proved from two open hypotheses; not a Jacobi identity\\
 Tether damping coefficient & $T(M,H)=0$ (symmetry $+$ C2) & \textbf{Zero}; cubic rate (R) and closing bound are \textbf{open assumptions}\\
-G4 Stretching at spatial max & \lean{stretching_inner_le_at_max} & \textbf{Proved axiom-clean} (given \lean{hCZ})\\
+G4 Stretching at spatial max & \lean{stretching_inner_le_at_max} & \textbf{Proved axiom-clean} (given \texttt{hCZ})\\
 G4 Transport/viscosity at max & \lean{time_pairing_le_stretching_at_max} & \textbf{Proved axiom-clean}\\
 Conjectured pairing bridge & \lean{ConjecturedUnmodifiedTetherPairing}, \lean{reduced_pairing_of_unmodified_and_tether} & \textbf{Proved axiom-clean (0 \lean{sorry})} from explicit bridge hypothesis\\
-Weighted stretching lemma & \lean{tethered_stretching_of_weight} & \textbf{Proved axiom-clean (0 \lean{sorry})} from \lean{hweight}\\
+Weighted stretching lemma & \lean{tethered_stretching_of_weight} & \textbf{Proved axiom-clean (0 \lean{sorry})} from \texttt{hweight}\\
 N1 Lyapunov vehicle $S_\varepsilon,\varphi$ & \lean{LyapunovS}, \lean{IsEnstrophyAccumulation} & \textbf{Proved axiom-clean}\\
 N2 Cubic ODE comparison & \lean{comparison_ode_stability} & \textbf{Proved axiom-clean}\\
 N2 Explicit majorant bound & \lean{comparison_majorant_global_bound} & \textbf{Proved axiom-clean}\\
@@ -466,7 +466,7 @@ The hypotheses of \lean{Combined.combined_conditional_capstone} are: \lean{SDiff
 %=====================================================================
 \appendix
 \section{Exact Lean Statements}\label{app:lean}
-Quoted verbatim from \texttt{NS\_Millennium\_Proof} (518 theorems, 0 \texttt{sorry}, 0 nonstandard axioms).
+Quoted verbatim from \texttt{NS\_Millennium\_Proof} (532 theorems, 0 \texttt{sorry}, 0 nonstandard axioms).
 
 \paragraph{Physical solution class (\texttt{NS\_Equations.lean}).}
 \leanfile{IsPhysicalNSSolution}
