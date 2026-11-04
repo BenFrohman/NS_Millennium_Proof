@@ -198,3 +198,7 @@ See [`NAMING.md`](NAMING.md) for the canonical names (Frohmanian Tether Hypothes
 ## AI Assistance Disclosure
 
 Grok (xAI), via the Grok Bot assistant, provided scaffolding, drafting, and collaboration support on formalization, code, and papers in this repository. Benjamin Stanley Frohman is the sole author: he directed, reviewed, and is responsible for all of the work. Grok is not a coauthor.
+
+## Zenodo archive
+
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23627609.svg)](https://doi.org/10.5281/zenodo.23627609) Global Regularity for the 3D Incompressible Navier–Stokes Equations via the Frohmanian Symplectic Tether: Lean 4 Formalization and Conditional Cubic Comparison Framework (v2.2) — all versions: [10.5281/zenodo.23627609](https://doi.org/10.5281/zenodo.23627609); latest version: [10.5281/zenodo.23749850](https://doi.org/10.5281/zenodo.23749850)
