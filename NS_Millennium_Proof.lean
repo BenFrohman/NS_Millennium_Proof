@@ -25,6 +25,7 @@ import NS_Millennium_Proof.Modules.TetheredLyapunov
 import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.Uniqueness
+import NS_Millennium_Proof.Modules.PlanSteps
 
 /-!
 # NS Millennium Proof — Frohmanian Symplectic Tether (Main Entry & Kernel Axiom Audit)
