@@ -83,14 +83,14 @@
 \begin{abstract}
 We present in full both (1)~the complete original geometric and physical framework of the \textbf{Frohmanian Symplectic Tether} $\Tf$ (preserving without omission all original definitions, physical motivations, conjectured geometric--analytic bridges, and extensions from \emph{Frohmanian\_Tether\_Final\_Submission\_v8}), and (2)~its complete, kernel-verified, non-vacuous conditional formalization in Lean~4 (repository \texttt{NS\_Millennium\_Proof}: \textbf{532 theorems across 22 modules, zero \texttt{sorryAx}, and only the standard axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}}).
 
-Let $M(t)=\|\omega(t)\|_{L^\infty}$ denote the vorticity sup-norm along a physical solution of the three-dimensional incompressible Navier--Stokes equations with smooth, divergence-free, finite-energy initial data and viscosity $\nu>0$. We prove in Lean~4 (\lean{frohmanian_tether_theorem} and \lean{conditional_regularity_of_open_hyps}) that if (i)~Kato local existence holds with a uniform restart length on the class of physical solutions (\lean{IsPhysicalNSSolution}, enforcing pointwise time-differentiability and the Leray $L^2$ energy inequality), (ii)~uniqueness holds within \lean{IsPhysicalNSSolution}, and (iii)~$M(t)$ satisfies the Frohmanian cubic differential inequality (\lean{FrohmanianTetherRate})
+Let $M(t)=\|\omega(t)\|_{L^\infty}$ denote the vorticity sup-norm (\lean{vorticity_sup_norm}) along a physical solution (\lean{IsPhysicalNSSolution}) of the three-dimensional incompressible Navier--Stokes equations with smooth, divergence-free, finite-energy initial data and viscosity $\nu>0$. We prove in Lean~4 (\lean{frohmanian_tether_theorem} and \lean{conditional_regularity_of_open_hyps}) that if (i)~Kato local existence holds with a uniform restart length on the class of physical solutions (\lean{IsPhysicalNSSolution}, enforcing pointwise time-differentiability and the Leray $L^2$ energy inequality), (ii)~uniqueness holds within \lean{IsPhysicalNSSolution}, and (iii)~$M(t)$ satisfies the Frohmanian cubic differential inequality (\lean{FrohmanianTetherRate})
 \[
 M'(t)\le \CZ\,M(t)^2-\kappa''\,M(t)^3,\qquad t\ge 0,
 \]
 for constants $\CZ,\kappa''>0$, then a scalar comparison argument (\lean{comparison_ode_stability}) yields the uniform ceiling $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ (\lean{FrohmanianTetherBound}), and, as a Lean-checked implication from these open hypotheses, the Beale--Kato--Majda criterion together with uniform Kato restart yields a smooth, divergence-free physical solution.
 
 Crucially, the time-smoothness and physical-energy repair (\lean{IsPhysicalNSSolution}) is \textbf{fully implemented and kernel-verified non-vacuous}: in \lean{ClayStatements.lean}, we prove that unphysical time-step fields are excluded (\lean{stepField_not_physical}) and that all hypotheses of \lean{conditional_regularity_of_open_hyps} (\lean{repaired_hInt}, \lean{repaired_huniq_at_zero}, \lean{frohmanianTetherBound_zero}, \lean{frohmanianTetherRate_zero}) hold simultaneously and unconditionally at $u_0=0$ (\lean{conditional_regularity_nonvacuous_at_zero}). Furthermore, every original conjectured bridge—including \lean{reduced_pairing_of_unmodified_and_tether} (via \lean{ConjecturedUnmodifiedTetherPairing}), \lean{tethered_stretching_of_weight}, \lean{tether_coadjoint_invariance_of_integral_eq} (via \lean{ConjecturedSDiffPushforwardInvariance}), and the symmetric uniqueness characterization (\lean{uniqueness_of_minimal_tether}, which delegates to \lean{uniqueness_of_minimal_symmetric_tether})—is compiled in the Lean build with zero \lean{sorry}s.
-\paragraph{Status of the damping premise.} The full tethered bracket $\{F,G\}_{\Tf}=\{F,G\}_{\mathrm{cl}}+T(F,G)$ is of \emph{metriplectic type}: an antisymmetric Lie--Poisson part plus a symmetric, negative-semidefinite tether $T$. It is \emph{not} antisymmetric and no Jacobi identity is claimed for it. Because $T$ is symmetric and degenerate on the kinetic energy (C2), $T(M,H)=0$ for every functional $M$, so the bracket contributes \emph{no} damping to the evolution of any functional, including $M(t)=\|\omega\|_{L^\infty}$: the damping coefficient derived from the bracket is $0$. The cubic rate (R) and the resulting closing bound are therefore \textbf{open assumptions}, not consequences of the tether. Every statement below that passes through (R)---the Riccati/cubic comparison ceiling and the conditional regularity theorems---depends on this unresolved premise. \textbf{No regularity claim for the Navier--Stokes equations is made.}
+\paragraph{Status of the damping premise.} The full tethered bracket $\{F,G\}_{\Tf}=\{F,G\}_{\mathrm{cl}}+T(F,G)$ is of \emph{metriplectic type}: an antisymmetric Lie--Poisson part plus a symmetric (\lean{tetherKernel_symmetric}), negative-semidefinite (\lean{tetherKernel_diagonal_nonpos}) tether $T$; antisymmetry of the Lie--Poisson part is cited from \cite{Arnold1966}, not formalized. It is \emph{not} antisymmetric and no Jacobi identity is claimed for it. Because $T$ is symmetric and degenerate on the kinetic energy (C2), $T(M,H)=0$ for every functional $M$ (\lean{tetherKernel_left_H_zero}), so the bracket contributes \emph{no} damping to the evolution of any functional, including $M(t)=\|\omega\|_{L^\infty}$: the damping coefficient derived from the bracket is $0$. The cubic rate (R) and the resulting closing bound are therefore \textbf{open assumptions}, not consequences of the tether. Every statement below that passes through (R)---the Riccati/cubic comparison ceiling and the conditional regularity theorems---depends on this unresolved premise. \textbf{No regularity claim for the Navier--Stokes equations is made.}
 \end{abstract}
 
 \tableofcontents
@@ -98,23 +98,23 @@ Crucially, the time-smoothness and physical-energy repair (\lean{IsPhysicalNSSol
 %=====================================================================
 \section{Introduction}\label{sec:intro}
 
-The incompressible Navier--Stokes equations on $\T=\R^3/\mathbb{Z}^3$ (or on $\R^3$ with finite energy) are
+The incompressible Navier--Stokes equations on $\T=\R^3/\mathbb{Z}^3$ (or on $\R^3$ with finite energy) are (Lean: \lean{NS_PDE})
 \begin{equation}\label{eq:NS}
-\partial_t u+(u\cdot\nabla)u+\nabla p=\nu\Delta u,\qquad \nabla\cdot u=0,\qquad u(0)=u_0,
+\partial_t u+(u\cdot\nabla)u+\nabla p=\nu\Delta u,\qquad \nabla\cdot u=0,\qquad u(0)=u_0,\qquad\text{(\lean{NS_PDE})}
 \end{equation}
-with $\nu>0$. Taking the curl yields the vorticity transport equation for $\omega=\nabla\times u$:
+with $\nu>0$. Taking the curl yields (standard calculation, not formalized here) the vorticity transport equation for $\omega=\nabla\times u$:
 \begin{equation}\label{eq:vort}
 \partial_t\omega+(u\cdot\nabla)\omega=(\omega\cdot\nabla)u+\nu\Delta\omega .
 \end{equation}
-By the Beale--Kato--Majda theorem \cite{BKM1984}, a smooth solution can be continued past $T$ whenever $\int_0^T\|\omega(t)\|_{L^\infty}\,dt<\infty$. A uniform ceiling on $M(t)=\|\omega(t)\|_{L^\infty}$ therefore implies, by BKM (cited, not formalized), smooth continuation of that solution. Obtaining such a bound for arbitrary large smooth data is the core difficulty of the Clay Millennium Problem \cite{Fefferman2006}: the vortex-stretching term $(\omega\cdot\nabla)u$ is supercritical with respect to the natural parabolic scaling
+By the Beale--Kato--Majda theorem \cite{BKM1984} (cited, not formalized), a smooth solution can be continued past $T$ whenever $\int_0^T\|\omega(t)\|_{L^\infty}\,dt<\infty$. A uniform ceiling on $M(t)=\|\omega(t)\|_{L^\infty}$ therefore implies, by BKM (cited, not formalized), smooth continuation of that solution. Obtaining such a bound for arbitrary large smooth data is the core difficulty of the Clay Millennium Problem \cite{Fefferman2006} (background, not formalized): the vortex-stretching term $(\omega\cdot\nabla)u$ is supercritical with respect to the natural parabolic scaling
 \begin{equation}\label{eq:scaling}
-u_\lambda(x,t)=\lambda u(\lambda x,\lambda^2t),\qquad \omega_\lambda(x,t)=\lambda^2\omega(\lambda x,\lambda^2 t),
+u_\lambda(x,t)=\lambda u(\lambda x,\lambda^2t),\qquad \omega_\lambda(x,t)=\lambda^2\omega(\lambda x,\lambda^2 t),\qquad\text{(standard; not formalized)}
 \end{equation}
 which leaves \eqref{eq:NS} invariant at fixed $\nu$.
 
 The Frohmanian programme approaches this problem through a two-layer architecture:
 \begin{enumerate}
-\item \textbf{Geometric layer (\texttt{ArnoldGeometric.lean}, \texttt{SymplecticTether.lean}, \texttt{Uniqueness.lean}, \texttt{ForMathlib/Projection.lean}):} Starting from Arnold's coadjoint orbit of volume-preserving diffeomorphisms \cite{Arnold1966,ArnoldKhesin1998}, we introduce the \textbf{Frohmanian Symplectic Tether} $\Tf$—realized concretely via the $L^2$-projected quadratic kernel \lean{TetherKernel} with universal Calderón--Zygmund coupling $\kappa=\CZ(3)=3/2$. By projecting functional derivatives orthogonally to the velocity field $u=\delta H/\delta\omega$ via the Gram--Schmidt projector $\Pi_u$ (\lean{Pi_u}), the tether satisfies exact degeneracy $B(F,H)=0$ on the kinetic-energy Hamiltonian $H$ (\lean{tetherKernel_degenerates_on_kinetic_energy}), leaving the reversible Euler vector field unmodified while supplying a negative-semidefinite diagonal value $T(F,F)=-\kappa\|\omega\|_{L^2}^2\int|\Pi_u\delta F/\delta\omega|^2$ (\lean{ProducesControllableNegativeFeedback}). The same degeneracy implies that the tether induces no damping of $M(t)$ (Section~\ref{sec:damping}).
+\item \textbf{Geometric layer (\texttt{ArnoldGeometric.lean}, \texttt{SymplecticTether.lean}, \texttt{Uniqueness.lean}, \texttt{ForMathlib/Projection.lean}):} Starting from Arnold's coadjoint orbit of volume-preserving diffeomorphisms \cite{Arnold1966,ArnoldKhesin1998}, we introduce the \textbf{Frohmanian Symplectic Tether} $\Tf$—realized concretely via the $L^2$-projected quadratic kernel \lean{TetherKernel} with universal Calderón--Zygmund coupling $\kappa=\CZ(3)=3/2$. By projecting functional derivatives orthogonally to the velocity field $u=\delta H/\delta\omega$ via the Gram--Schmidt projector $\Pi_u$ (\lean{Pi_u}), the tether satisfies exact degeneracy $B(F,H)=0$ on the kinetic-energy Hamiltonian $H$ (\lean{tetherKernel_degenerates_on_kinetic_energy}), leaving the reversible Euler vector field unmodified while supplying a negative-semidefinite diagonal value $T(F,F)=-\kappa\|\omega\|_{L^2}^2\int|\Pi_u\delta F/\delta\omega|^2$ (\lean{ProducesControllableNegativeFeedback}). The same degeneracy implies that the tether induces no damping of $M(t)$ (Section~\ref{sec:damping}; \lean{tetherKernel_left_H_zero}).
 \item \textbf{Analytic layer (\texttt{NS\_Equations.lean}, \texttt{TetheredLyapunov.lean}, \texttt{IndependentMajorant.lean}, \texttt{CubicSourceCertificate.lean}, \texttt{AnalyticPipeline.lean}, \texttt{ClosureBlueprint.lean}, \texttt{ConditionalRegularity.lean}, \texttt{ClayStatements.lean}):} Using the quartic Lyapunov functional $S_\varepsilon(t)$ weighted by the transported enstrophy-accumulation scalar $\varphi$ (\lean{LyapunovS}, \lean{IsEnstrophyAccumulation}), the programme links the cubic rate $M'(t)\le \CZ M(t)^2-\kappa'' M(t)^3$ (\lean{FrohmanianTetherRate})---an \emph{open assumption} not derived from the tether (Section~\ref{sec:damping})---to the autonomous comparison ODE $y'=Cy^2-\kappa''y^3$ (\lean{comparison_ode_stability}, \lean{comparison_majorant_global_bound}), yielding the uniform ceiling $M(t)\le\max(M(0),\CZ/\kappa'')$ (\lean{riccati_ceiling_of_vorticity_di}) and, \emph{conditionally on that assumption and the further open hypotheses (K), (U)}, the smooth-continuation conclusion of Theorem~\ref{thm:main}.
 \end{enumerate}
 
@@ -136,7 +136,7 @@ Then $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ for all $t\ge0$, and \eqref{eq:N
 \begin{itemize}
 \item \textbf{Axiom-clean \& sorry-free:} The entire repository \texttt{NS\_Millennium\_Proof} builds cleanly (\texttt{lake build NS\_Millennium\_Proof}, 2716 jobs); its default target contains \textbf{532 theorems across 22 modules, zero \texttt{sorryAx}, and zero nonstandard axioms} (counted by \texttt{collectAxioms} over every theorem; \texttt{lake env lean scripts/AxiomAudit.lean} also passes) (depending only on \lean{propext}, \lean{Classical.choice}, \lean{Quot.sound}).
 \item \textbf{Kernel-verified non-vacuous:} The physical-solution predicate \lean{IsPhysicalNSSolution} (Section~\ref{sec:vacuity}) rules out pathological time-step fields that previously exploited Mathlib's totalized derivative \lean{deriv} $=0$ at jump discontinuities (\lean{stepField_not_physical}). In \lean{ClayStatements.lean}, all hypotheses of Theorem~\ref{thm:main} are proved to be jointly satisfiable and unconditionally realized at $u_0=0$ (\lean{conditional_regularity_nonvacuous_at_zero}).
-\item \textbf{Clear separation of proved implications vs.\ open premises:} The implication $\text{(K)}+\text{(R)}+\text{(U)}\implies\text{(the conclusion of Theorem~\ref{thm:main})}$ is kernel-verified \emph{as an implication}. Hypothesis (R) is an open assumption: the tether does not supply it (its damping coefficient is $0$, Section~\ref{sec:damping}), and no derivation of (R) from \eqref{eq:vort} is known. Theorem~\ref{thm:main} therefore depends on an unresolved premise and is \emph{not} a regularity result for Navier--Stokes. Non-vacuity at $u_0=0$ shows only that the hypotheses are jointly satisfiable in a trivial case.
+\item \textbf{Clear separation of proved implications vs.\ open premises:} The implication $\text{(K)}+\text{(R)}+\text{(U)}\implies\text{(the conclusion of Theorem~\ref{thm:main})}$ is kernel-verified \emph{as an implication} (\lean{Combined.combined_conditional_capstone}). Hypothesis (R) is an open assumption: the tether does not supply it (its damping coefficient is $0$, Section~\ref{sec:damping}), and no derivation of (R) from \eqref{eq:vort} is known. Theorem~\ref{thm:main} therefore depends on an unresolved premise and is \emph{not} a regularity result for Navier--Stokes. Non-vacuity at $u_0=0$ shows only that the hypotheses are jointly satisfiable in a trivial case (\lean{conditional_regularity_nonvacuous_at_zero}).
 \end{itemize}
 
 %=====================================================================
@@ -148,10 +148,10 @@ We therefore define the physical solution class \lean{IsPhysicalNSSolution} in \
 \leanfile{IsPhysicalNSSolution}
 A time-dependent velocity field $u$ belongs to \lean{IsPhysicalNSSolution} if and only if for all $t\ge0$:
 \begin{enumerate}
-\item $s\mapsto u(s,x)$ is pointwise differentiable at $t$ for every $x\in\R^3$;
-\item $x\mapsto u(t,x)$ is continuous and has finite kinetic energy $\int_{\R^3}\|u(t,x)\|^2\,dx<\infty$;
-\item $u$ obeys the classical Leray $L^2$ energy inequality $\int_{\R^3}\|u(t,x)\|^2\,dx\le\int_{\R^3}\|u(0,x)\|^2\,dx$;
-\item $u(t)=u(0)$ for $t\le0$ (initial-value convention on $(-\infty,0]$).
+\item $s\mapsto u(s,x)$ is pointwise differentiable at $t$ for every $x\in\R^3$ (field of \lean{IsPhysicalNSSolution});
+\item $x\mapsto u(t,x)$ is continuous and has finite kinetic energy $\int_{\R^3}\|u(t,x)\|^2\,dx<\infty$ (field of \lean{IsPhysicalNSSolution});
+\item $u$ obeys the classical Leray $L^2$ energy inequality $\int_{\R^3}\|u(t,x)\|^2\,dx\le\int_{\R^3}\|u(0,x)\|^2\,dx$ (field of \lean{IsPhysicalNSSolution});
+\item $u(t)=u(0)$ for $t\le0$ (initial-value convention on $(-\infty,0]$; field of \lean{IsPhysicalNSSolution}).
 \end{enumerate}
 
 The classical PDE inputs enter as explicit, transparent hypotheses:
@@ -165,7 +165,7 @@ The classical PDE inputs enter as explicit, transparent hypotheses:
 \section{Geometric Layer: The Frohmanian Symplectic Tether}\label{sec:geom}
 
 \subsection{The Classical Arnold Lie--Poisson Bracket}
-On the coadjoint orbit $\mathcal O$ of the group $\mathrm{SDiff}(\T)$ of volume-preserving diffeomorphisms, the classical Kirillov--Kostant--Souriau / Arnold Lie--Poisson bracket \cite{Arnold1966,ArnoldKhesin1998} is
+On the coadjoint orbit $\mathcal O$ of the group $\mathrm{SDiff}(\T)$ of volume-preserving diffeomorphisms, the classical Kirillov--Kostant--Souriau / Arnold Lie--Poisson bracket \cite{Arnold1966,ArnoldKhesin1998} (Lean: \lean{ClassicalBracket}) is
 \[
 \{F,G\}_{\mathrm{cl}}(\omega)=\int_{\T}\omega\cdot\Bigl(\frac{\delta F}{\delta\omega}\times\frac{\delta G}{\delta\omega}\Bigr)\,dV .
 \]
@@ -191,17 +191,17 @@ B(F,H)(\omega)=0\qquad\text{for every functional }F.
 \]
 \end{proposition}
 \begin{proof}
-If $\|u\|_{L^2}\ne0$, $\Pi_u u=u-(\langle u,u\rangle_{L^2}/\|u\|_{L^2}^2)u=0$, so the projected factor $\Pi_u(\delta H/\delta\omega)$ vanishes pointwise. If $\|u\|_{L^2}=0$, $u=0$ a.e.\ and $\Pi_u 0=0$ (\lean{Pi_u_zero}). Thus $\{F,H\}_{\Tf}=\{F,H\}_{\mathrm{cl}}$ for all $F$: the reversible Euler vector field generated by $H$ is preserved unmodified.
+If $\|u\|_{L^2}\ne0$, $\Pi_u u=u-(\langle u,u\rangle_{L^2}/\|u\|_{L^2}^2)u=0$, so the projected factor $\Pi_u(\delta H/\delta\omega)$ vanishes pointwise (\lean{projection_orthogonal_to_u}). If $\|u\|_{L^2}=0$, $u=0$ a.e.\ and $\Pi_u 0=0$ (\lean{Pi_u_zero}). Thus $\{F,H\}_{\Tf}=\{F,H\}_{\mathrm{cl}}$ for all $F$: the reversible Euler vector field generated by $H$ is preserved unmodified (\lean{tetherKernel_degenerates_on_kinetic_energy}).
 \end{proof}
 
 \subsection{Metriplectic Structure of the Tethered Bracket}\label{sec:metriplectic}
 The tether $T$ of Definition~\ref{def:tether} is a \emph{symmetric} bilinear form in $(F,G)$ (\lean{tetherKernel_comm}, \lean{tetherKernel_symmetric}) and is negative-semidefinite, $T(F,F)=-\kappa\|\omega\|_{L^2}^2\int|\Pi_u\delta F/\delta\omega|^2\le0$ (\lean{ProducesControllableNegativeFeedback}). Hence
 \[
-\{F,G\}_{\Tf}=\underbrace{\{F,G\}_{\mathrm{cl}}}_{\text{antisymmetric, Lie--Poisson}}+\underbrace{T(F,G)}_{\text{symmetric, }\le0}
+\{F,G\}_{\Tf}=\underbrace{\{F,G\}_{\mathrm{cl}}}_{\text{antisymmetric, Lie--Poisson}}+\underbrace{T(F,G)}_{\text{symmetric, }\le0}\qquad\text{(\lean{tetherKernel_symmetric}, \lean{tetherKernel_diagonal_nonpos})}
 \]
-is a bracket of \emph{metriplectic type} in the sense of Morrison \cite{Morrison1986}. The full bracket is \textbf{not} antisymmetric, and \textbf{no Jacobi identity is claimed for it}; only its antisymmetric part $\{\cdot,\cdot\}_{\mathrm{cl}}$ is a Lie--Poisson bracket.
+is a bracket of \emph{metriplectic type} in the sense of Morrison \cite{Morrison1986} (symmetry and sign: \lean{tetherKernel_symmetric}, \lean{tetherKernel_diagonal_nonpos}; antisymmetry of the classical part is cited, not formalized). The full bracket is \textbf{not} antisymmetric, and \textbf{no Jacobi identity is claimed for it}; only its antisymmetric part $\{\cdot,\cdot\}_{\mathrm{cl}}$ is a Lie--Poisson bracket (cited, not formalized). The symmetric part is nonzero off $H$ (\lean{tetherKernel_strict_neg_of_orthogonal_component}).
 
-\paragraph{Energy conservation via (C2).} Since $\{H,H\}_{\mathrm{cl}}=0$ by antisymmetry and $T(H,H)=0$ by kinetic-energy degeneracy (Proposition~\ref{prop:degen}, condition (C2)), the tethered flow $\dot F=\{F,H\}_{\Tf}$ conserves $H$: $\dot H=\{H,H\}_{\mathrm{cl}}+T(H,H)=0$.
+\paragraph{Energy conservation via (C2).} Since $\{H,H\}_{\mathrm{cl}}=0$ by antisymmetry (not formalized) and $T(H,H)=0$ by kinetic-energy degeneracy (Proposition~\ref{prop:degen}, condition (C2), \lean{tetherKernel_degenerates_on_kinetic_energy}), the tethered flow $\dot F=\{F,H\}_{\Tf}$ conserves $H$: $\dot H=\{H,H\}_{\mathrm{cl}}+T(H,H)=0$. Here $T(H,H)=0$ is \lean{tetherKernel_degenerates_on_kinetic_energy}; $\{H,H\}_{\mathrm{cl}}=0$ is not formalized.
 
 \subsection{Canonicity: Symmetric Uniqueness}
 In \lean{Uniqueness.lean}, the canonicity theorem \lean{uniqueness_of_minimal_tether} is stated for \emph{symmetric} kernels $B'(\omega,F,G)=B'(\omega,G,F)$ and delegates to \lean{uniqueness_of_minimal_symmetric_tether}: among symmetric bilinear kernels carrying the coadjoint-invariance (C1), kinetic-energy degeneracy (C2) and negative-feedback (C3) hypotheses, together with quadratic saturation (\lean{SaturatesTetherQuadratic}) and polarization of $B'$ and of \lean{TetherKernel} (\lean{Polarizes}), $B'$ equals \lean{TetherKernel}. The proof goes through polarization and saturation; the hypotheses (C1)--(C3) appear in the statement but are not used by the proof. The five-step route (\lean{uniqueness_of_minimal_tether_core}) uses the density hypothesis, the enstrophy weight $\alpha(\omega,x)=-c\,\|\omega\|_{L^2}^2$, saturation and a non-degeneracy witness. \lean{TetherKernel} itself is symmetric (\lean{tetherKernel_symmetric}).
@@ -209,7 +209,7 @@ In \lean{Uniqueness.lean}, the canonicity theorem \lean{uniqueness_of_minimal_te
 \subsection{Coadjoint Invariance and the Conditional Jacobiator Lemma}
 In \lean{SymplecticTether.lean}:
 \begin{itemize}
-\item \textbf{Abstract \& push-forward coadjoint invariance:} \lean{tether_coadjoint_invariance} and \lean{tetherKernel_C1} verify \lean{InvariantUnderCoadjointAction TetherKernel} \emph{conditionally} on \lean{SDiffActionHyp} and \lean{TetherIntegralPreserved}. Here $\mathrm{SDiff}$ is an \emph{abstract} group acting on the orbit type (a Lean \texttt{MulAction}); it is not constructed as the diffeomorphism group of $\T$, and volume preservation is a \emph{hypothesis} on the field \texttt{diffeo} of \lean{VolumePreservingCoadjointAction}, not a theorem. A concrete instance is given in \texttt{ConcreteSDiff.lean}: \lean{ConcreteSDiff.SDiffConcrete} is a subgroup of \texttt{Equiv.Perm T3} whose elements $g$ are measurable with measurable inverse, \texttt{MeasurePreserving} for \texttt{volume} in both directions, and preserve divergence-freeness under composition (this last property is part of the definition, not a theorem). It acts by scalar composition $g\cdot\omega=\omega\circ g^{-1}$, which is not the geometric push-forward $(Dg\,\omega)\circ g^{-1}$; no smoothness is imposed, and \texttt{T3} is \texttt{EuclideanSpace ℝ (Fin 3)}, not the quotient torus. For this action the field \texttt{casimir\_invariant} of \lean{SDiffActionHyp} is proved (\lean{ConcreteSDiff.casimir_invariant}, via \texttt{MeasurePreserving.integral\_comp'}), and \texttt{transitive\_on\_casimir\_levels} remains an open hypothesis (\lean{ConcreteSDiff.sdiffActionHyp_of_transitive}). To represent the full infinite-dimensional diffeomorphism push-forward $\omega\mapsto g_*\omega$ on $\mathrm{SDiff}(\T)$ without hiding the geometric bridge, we also define \lean{ConjecturedSDiffPushforwardInvariance} and prove \lean{tether_coadjoint_invariance_of_integral_eq}, showing that volume-preserving push-forward equivariance of the projected integrand yields coadjoint invariance of \lean{TetherKernel} (the enstrophy weight is itself coadjoint-invariant).
+\item \textbf{Abstract \& push-forward coadjoint invariance:} \lean{tether_coadjoint_invariance} and \lean{tetherKernel_C1} verify \lean{InvariantUnderCoadjointAction TetherKernel} \emph{conditionally} on \lean{SDiffActionHyp} and \lean{TetherIntegralPreserved}. Here $\mathrm{SDiff}$ is an \emph{abstract} group acting on the orbit type (a Lean \texttt{MulAction}); it is not constructed as the diffeomorphism group of $\T$, and volume preservation is a \emph{hypothesis} on the field \texttt{diffeo} of \lean{VolumePreservingCoadjointAction}, not a theorem. A concrete instance is given in \texttt{ConcreteSDiff.lean}: \lean{ConcreteSDiff.SDiffConcrete} is a subgroup of \texttt{Equiv.Perm T3} whose elements $g$ are measurable with measurable inverse, \texttt{MeasurePreserving} for \texttt{volume} in both directions, and preserve divergence-freeness under composition (this last property is part of the definition, not a theorem). It (\lean{ConcreteSDiff.SDiffConcrete}) acts by scalar composition $g\cdot\omega=\omega\circ g^{-1}$, which is not the geometric push-forward $(Dg\,\omega)\circ g^{-1}$; no smoothness is imposed, and \texttt{T3} is \texttt{EuclideanSpace ℝ (Fin 3)}, not the quotient torus. For this action the field \texttt{casimir\_invariant} of \lean{SDiffActionHyp} is proved (\lean{ConcreteSDiff.casimir_invariant}, via \texttt{MeasurePreserving.integral\_comp'}), and \texttt{transitive\_on\_casimir\_levels} remains an open hypothesis (\lean{ConcreteSDiff.sdiffActionHyp_of_transitive}). To represent the full infinite-dimensional diffeomorphism push-forward $\omega\mapsto g_*\omega$ on $\mathrm{SDiff}(\T)$ without hiding the geometric bridge, we also define \lean{ConjecturedSDiffPushforwardInvariance} and prove \lean{tether_coadjoint_invariance_of_integral_eq}, showing that volume-preserving push-forward equivariance of the projected integrand yields coadjoint invariance of \lean{TetherKernel} (the enstrophy weight is itself coadjoint-invariant).
 \item \textbf{Conditional Jacobiator lemma (\lean{tethered_jacobi_identity}):} this lemma assumes, as explicit hypotheses, that the cyclic Jacobiator of \lean{TetheredBracket} equals a cyclic Lie-pairing integral and that this integral vanishes, and concludes that the Jacobiator vanishes. Both hypotheses are open; the lemma does \emph{not} establish a Jacobi identity for the full bracket, and none is claimed (a metriplectic bracket with nonzero symmetric part is not expected to satisfy one).
 \end{itemize}
 
@@ -232,7 +232,7 @@ At a spatial maximum where the convective transport pairing $\langle\omega,(u\cd
 \end{lemma}
 
 \subsection{The Quartic Lyapunov Vehicle and Cubic Comparison ODE}
-\emph{Caveat.} The comparison results below are proved implications \emph{from} a cubic differential inequality. Whether $M(t)$ satisfies such an inequality is the unresolved premise of Section~\ref{sec:damping}; nothing in this section establishes it.
+\emph{Caveat.} The comparison results below are proved implications \emph{from} a cubic differential inequality. Whether $M(t)$ satisfies such an inequality is open; it is the unresolved premise of Section~\ref{sec:damping}; nothing in this section establishes it.
 Let $\varphi$ solve the linear transport equation (\lean{IsEnstrophyAccumulation})
 \begin{equation}\label{eq:phi}
 \partial_t\varphi+u\cdot\nabla\varphi=|\omega|^2,
@@ -297,26 +297,26 @@ and its local projected metric realization (formalized in \lean{FrohmanianTether
 \begin{equation}\label{eq:orig_local_B}
 B(F,G) = -\kappa\,\|\omega\|_{L^2}^2 \int_{\T} \Bigl[\Pi_u\Bigl(\frac{\delta F}{\delta\omega}\Bigr)(x)\Bigr]\cdot\Bigl[\Pi_u\Bigl(\frac{\delta G}{\delta\omega}\Bigr)(x)\Bigr]\,dx,
 \end{equation}
-with $\kappa = \CZ(3) = 3/2$. On tangent variations $(\delta u,\delta v)\in T_\omega\mathcal{O}$, the associated tethered pairing is
+with $\kappa = \CZ(3) = 3/2$. On tangent variations $(\delta u,\delta v)\in T_\omega\mathcal{O}$, the associated tethered pairing (original programme; not formalized as stated, the formalized kernel is \lean{TetherKernel}) is
 \begin{equation}\label{eq:orig_2form}
 \Tf(\delta u,\delta v) = \int_{\T}\omega\cdot(\delta u\times\delta v)\,dV - \kappa\int_{\T}|\omega|^2(\delta u\cdot\delta v)\,dV.
 \end{equation}
-Because $\Pi_u u = 0$ for $u=\delta H/\delta\omega$, the tether is strictly degenerate along the kinetic-energy Hamiltonian ($B(F,H)\equiv0$, proved in Proposition~\ref{prop:degen}), so the reversible Hamiltonian vector field generated by $H$ remains the exact classical Euler vector field. As explained in Section~\ref{sec:metriplectic}, the augmented bracket \eqref{eq:orig_bracket} is metriplectic-type, not a Poisson bracket, and the 2-form language of \emph{v8} is retained only historically.
+Because $\Pi_u u = 0$ for $u=\delta H/\delta\omega$, the tether is strictly degenerate along the kinetic-energy Hamiltonian ($B(F,H)\equiv0$, proved in Proposition~\ref{prop:degen}, \lean{tetherKernel_degenerates_on_kinetic_energy}), so the reversible Hamiltonian vector field generated by $H$ remains the exact classical Euler vector field. As explained in Section~\ref{sec:metriplectic}, the augmented bracket \eqref{eq:orig_bracket} is metriplectic-type, not a Poisson bracket, and the 2-form language of \emph{v8} is retained only historically.
 
 \subsection{The Damping Coefficient Vanishes: Explicit Caveat}\label{sec:damping}
-The original programme derived a damping term for $M(t)$ from the tether. That derivation does not survive. Let $\mathcal M$ be any functional (e.g.\ a smoothed version of $M(t)=\|\omega\|_{L^\infty}$). Along the tethered flow,
+The original programme derived a damping term for $M(t)$ from the tether; that derivation is not established, as shown below. That derivation does not survive. Let $\mathcal M$ be any functional (\lean{FunctionalDerivative} gives its derivative) (e.g.\ a smoothed version of $M(t)=\|\omega\|_{L^\infty}$). Along the tethered flow,
 \[
-\dot{\mathcal M}=\{\mathcal M,H\}_{\mathrm{cl}}+T(\mathcal M,H),
+\dot{\mathcal M}=\{\mathcal M,H\}_{\mathrm{cl}}+T(\mathcal M,H),\qquad\text{(\lean{tetherKernel_left_H_zero})}
 \]
-and $T(\mathcal M,H)=T(H,\mathcal M)=0$ by symmetry of $T$ and (C2), because $\Pi_u(\delta H/\delta\omega)=\Pi_u u=0$. Hence the damping coefficient contributed by the tether is exactly $\mathbf{0}$: the tethered evolution of every functional coincides with its Euler evolution, and the negative diagonal values $T(F,F)\le0$ never enter the dynamics generated by $H$.
+and $T(\mathcal M,H)=T(H,\mathcal M)=0$ by symmetry of $T$ and (C2) (\lean{tetherKernel_left_H_zero}), because $\Pi_u(\delta H/\delta\omega)=\Pi_u u=0$. Hence the damping coefficient contributed by the tether is exactly $\mathbf{0}$ (\lean{tetherKernel_left_H_zero}): the tethered evolution of every functional coincides with its Euler evolution, and the negative diagonal values $T(F,F)\le0$ never enter the dynamics generated by $H$.
 
 \paragraph{Projection lower-bound gap.} Any attempt to extract damping from the diagonal $T(F,F)$ (as in \lean{tethered_stretching_of_weight}) requires a lower bound $M^4\le\|\omega\|_{L^2}^2\int|\Pi_u\delta F/\delta\omega|^2$ (\texttt{hweight}) for a test functional tied to $M$. No such lower bound on the projected component is known, and $\Pi_u$ annihilates exactly the direction $u=\delta H/\delta\omega$ that drives the evolution; this gap is open.
 
-\paragraph{Open status.} Consequently the cubic rate (R) (\lean{FrohmanianTetherRate}) and the closing bound (\lean{FrohmanianTetherBound}, \lean{PeriodicTetherClosingBound}) are \textbf{open assumptions}. Candidate repair routes---for example an explicit dissipative (metriplectic) bracket $[F,H]_{\mathrm{diss}}$ with a nonzero $[M,H]$, a time-integrated or non-local mechanism, or a scale-compensated coefficient (Section~\ref{sec:open})---are listed only as \emph{open candidates}; none is carried out here.
+\paragraph{Open status.} Consequently the cubic rate (R) (\lean{FrohmanianTetherRate}) and the closing bound (\lean{FrohmanianTetherBound}, \lean{PeriodicTetherClosingBound}) are \textbf{open assumptions}. Candidate repair routes---for example an explicit dissipative (metriplectic) bracket $[F,H]_{\mathrm{diss}}$ with a nonzero $[M,H]$, a time-integrated or non-local mechanism, or a scale-compensated coefficient (Section~\ref{sec:open})---are listed only as candidates and remain open; none is carried out here.
 
 \subsection{Conjectured Unmodified-Tether Pairing Bridge at Spatial Maxima}
 \emph{Caveat.} By Section~\ref{sec:damping} the tether contributes no damping; the results in this subsection are proved implications from explicit, open hypotheses (\lean{ConjecturedUnmodifiedTetherPairing}, \texttt{hweight}) and do not supply (R).
-The central analytic bridge of the original programme connects the quadratic feedback of the tether kernel to the pointwise vortex-stretching pairing at a spatial maximum $x_*$ of $|\omega|$ (where $\|\omega(x_*)\|=M(t)=\|\omega\|_{L^\infty}$). In \lean{SymplecticTether.lean}, this bridge is formalized without \lean{sorry} via two complementary theorems:
+The central analytic bridge of the original programme connects the quadratic feedback of the tether kernel to the pointwise vortex-stretching pairing (\lean{reduced_pairing_of_unmodified_and_tether}, \lean{tethered_stretching_of_weight}) at a spatial maximum $x_*$ of $|\omega|$ (where $\|\omega(x_*)\|=M(t)=\|\omega\|_{L^\infty}$). In \lean{SymplecticTether.lean}, this bridge is formalized without \lean{sorry} via two complementary theorems:
 \begin{enumerate}
 \item \textbf{Weighted tether-stretching absorption (\lean{tethered_stretching_of_weight}):} Under the weight dominance condition (\texttt{hweight})
 \[
@@ -333,7 +333,7 @@ where $C$ is the strain constant in \texttt{hCZ}. This implication is proved in 
 \leanfile{tethered_stretching_of_weight}
 
 \subsection{Quartic Lyapunov Absorption and Quadratic Riccati Heuristic vs.\ Cubic Ceiling}
-In Section~3 and Appendix~A (Item~10) of \emph{Frohmanian\_Tether\_Final\_Submission\_v8}, two related ODE reductions were introduced for the evolution of $M_\varepsilon(t)=\|\omega_\varepsilon(t)\|_{L^\infty}$:
+In Section~3 and Appendix~A (Item~10) of \emph{Frohmanian\_Tether\_Final\_Submission\_v8}, two related ODE reductions (historical, not formalized as stated) were introduced for the evolution of $M_\varepsilon(t)=\|\omega_\varepsilon(t)\|_{L^\infty}$:
 \begin{enumerate}
 \item \textbf{The Quartic Lyapunov $L^6$ Absorption and Cubic Comparison ODE (Formalized in Lean):}
 Differentiating the mollified quartic Lyapunov functional
@@ -348,11 +348,11 @@ which motivates the autonomous cubic comparison ODE (\lean{FrohmanianTetherRate}
 \begin{equation}\label{eq:orig_cubic_ode}
 y'(t) = C\,y(t)^2 - \kappa''\,y(t)^3,\qquad y(0)=M(0).
 \end{equation}
-As proved in Lemma~\ref{lem:cubic} (\lean{comparison_ode_stability}), the equilibrium $y_*=C/\kappa''$ is globally asymptotically stable on $(0,\infty)$, yielding the ceiling $M(t)\le\max(M(0),C/\kappa'')$ for every trajectory that satisfies the inequality. Whether $M(t)$ does satisfy it is the unresolved premise of Section~\ref{sec:damping}.
+As proved in Lemma~\ref{lem:cubic} (\lean{comparison_ode_stability}), the equilibrium $y_*=C/\kappa''$ is globally asymptotically stable on $(0,\infty)$, yielding the ceiling $M(t)\le\max(M(0),C/\kappa'')$ for every trajectory that satisfies the inequality. Whether $M(t)$ does satisfy it is open; it is the unresolved premise of Section~\ref{sec:damping}.
 \item \textbf{The Original Quadratic Riccati Heuristic (from Section~3 of v8; depends on the unresolved damping premise):}
-In Section~3 of \emph{v8}, an alternative constant-source quadratic Riccati heuristic was written:
+In Section~3 of \emph{v8}, an alternative constant-source quadratic Riccati heuristic (not proved) was written:
 \begin{equation}\label{eq:orig_quad_riccati}
-\frac{d}{dt}M_\varepsilon(t) \le C - \kappa'\,M_\varepsilon(t)^2,
+\frac{d}{dt}M_\varepsilon(t) \le C - \kappa'\,M_\varepsilon(t)^2\qquad\text{(heuristic, not proved)}
 \end{equation}
 with comparison trajectory $y(t)=\sqrt{C/\kappa'}\tanh\bigl(\sqrt{C\kappa'}\,t+\phi_0\bigr)$ for $y(0)<\sqrt{C/\kappa'}$ (and $\coth$ for $y(0)>\sqrt{C/\kappa'}$), both bounded above by $\max\bigl(M(0),\sqrt{C/\kappa'}\bigr)$. In our Lean~4 formalization, the cubic differential inequality \eqref{eq:orig_cubic_ode} from Appendix~A (Item~10) of \emph{v8} is adopted as the canonical formulation (\lean{FrohmanianTetherRate}) because its phase-plane barrier proof (\lean{comparison_ode_stability}) handles both small and large initial data uniformly without switching between $\tanh$ and $\coth$ branches.
 \end{enumerate}
@@ -360,12 +360,12 @@ with comparison trajectory $y(t)=\sqrt{C/\kappa'}\tanh\bigl(\sqrt{C\kappa'}\,t+\
 \subsection{Metriplectic Completion, Onsager's Conjecture, and Holographic Fluid--Gravity Motivation}
 The broader physical motivation of the Frohmanian programme in Sections~4--6 and Appendix~A (Items~11--12) of \emph{v8} encompasses three structural themes:
 \begin{itemize}
-\item \textbf{Metriplectic Viscous Completion \cite{Morrison1986}:} The tethered bracket is already metriplectic-type, but its symmetric part is degenerate on $H$ and so dissipates nothing (Section~\ref{sec:damping}). Viscous dissipation $\nu\Delta u$ would have to be represented by a separate symmetric dissipative bracket $[F,H]_{\mathrm{diss}}$ (an open candidate, not constructed here):
+\item \textbf{Metriplectic Viscous Completion \cite{Morrison1986}:} The tethered bracket is already metriplectic-type, but its symmetric part is degenerate on $H$ and so dissipates nothing (Section~\ref{sec:damping}; \lean{tetherKernel_left_H_zero}). Viscous dissipation $\nu\Delta u$ would have to be represented by a separate symmetric dissipative bracket $[F,H]_{\mathrm{diss}}$ (an open candidate, not constructed here; this remains open):
 \[
 \frac{dF}{dt} = \{F,H\}_{\Tf} + [F,H]_{\mathrm{diss}}.
 \]
-In the Lean~4 statement of Theorem~\ref{thm:main}, \emph{if} a vorticity ceiling $M(t)\le Y$ were available, classical Beale--Kato--Majda continuation and parabolic regularity would upgrade the solution to $C^\infty$; no such ceiling is established here.
-\item \textbf{Relation to Onsager's Conjecture \cite{Isett2018}:} Onsager's conjecture (proved by Isett \cite{Isett2018}) states that weak Euler solutions conserve kinetic energy for Hölder regularity $\alpha>1/3$, whereas anomalous dissipation can occur for $\alpha\le1/3$. \emph{If} a vorticity ceiling held (an open premise, Section~\ref{sec:damping}), smooth solutions would remain in the Lipschitz/smooth class ($\alpha=1$); no such conclusion is drawn here.
+In the Lean~4 statement of Theorem~\ref{thm:main}, \emph{if} a vorticity ceiling $M(t)\le Y$ were available, classical Beale--Kato--Majda continuation and parabolic regularity would upgrade the solution to $C^\infty$; such a ceiling is not established here (BKM and parabolic regularity are cited, not formalized).
+\item \textbf{Relation to Onsager's Conjecture \cite{Isett2018}:} Onsager's conjecture (proved by Isett \cite{Isett2018}) states that weak Euler solutions conserve kinetic energy for Hölder regularity $\alpha>1/3$, whereas anomalous dissipation can occur for $\alpha\le1/3$. \emph{If} a vorticity ceiling held (an open premise, Section~\ref{sec:damping}), smooth solutions would remain in the Lipschitz/smooth class ($\alpha=1$); this is not claimed.
 \item \textbf{Holographic Fluid--Gravity Dual and Cosmic Censorship:} Under the AdS/CFT fluid--gravity correspondence, a finite-time vorticity blow-up on the 3D boundary manifold corresponds to the formation of a naked curvature singularity in the 4D asymptotically AdS bulk spacetime. Penrose's cosmic censorship conjecture in the bulk therefore provides a geometric dual heuristic motivating the existence of an ultraviolet vorticity ceiling on the boundary.
 \end{itemize}
 
@@ -401,7 +401,7 @@ For historical completeness and traceability, Table~\ref{tab:14point} maps each 
 %=====================================================================
 \section{The Periodic Clay (B) Statement and Scaling Analysis}\label{sec:clay}
 
-Fefferman's problem (B) \cite{Fefferman2006} asks, on $\T$ with $f\equiv0$, for smooth spatially periodic solutions $(u,p)$ on $\R^3\times[0,\infty)$. It is formalized in \lean{ClayStatements.lean}:
+Fefferman's problem (B) \cite{Fefferman2006} asks (background, not formalized here as such), on $\T$ with $f\equiv0$, for smooth spatially periodic solutions $(u,p)$ on $\R^3\times[0,\infty)$. It is formalized in \lean{ClayStatements.lean}:
 \leanfile{Clay_B_exact}
 \leanfile{IsPeriodicSmoothSolution}
 The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{PeriodicTetherClosingBound} and classical periodic BKM continuation \lean{PeriodicBKMContinuation} is proved axiom-clean:
@@ -410,9 +410,9 @@ The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{Perio
 \subsection{Scaling Analysis and Open Analytic Questions}\label{sec:obstruction}\label{sec:open}
 While the conditional implication Theorem~\ref{thm:main} is proved and non-vacuous in Lean~4, its premise (R) is unresolved: the tether's damping coefficient is $0$ (Section~\ref{sec:damping}), and discharging the cubic rate hypothesis (R) (\lean{FrohmanianTetherRate}) unconditionally from the unmodified vorticity equation \eqref{eq:vort} remains an open mathematical problem for the following structural reasons:
 \begin{enumerate}
-\item \textbf{Parabolic scaling dimension of $\kappa''$:} Under the Navier--Stokes rescaling \eqref{eq:scaling}, $M'(t)$ scales as $\lambda^4$, $\CZ M(t)^2$ scales as $\lambda^4$, and $\kappa'' M(t)^3$ scales as $\lambda^6$. A fixed constant $\kappa''>0$ therefore carries the dimension of time and cannot be formed from viscosity $\nu$ alone ($[\nu]=L^2T^{-1}$) without incorporating a solution-dependent or scale-compensating functional (see \texttt{SCALE\_INVARIANT\_TETHER.md} and \texttt{CLAY\_B\_T3.md}).
+\item \textbf{Parabolic scaling dimension of $\kappa''$:} Under the Navier--Stokes rescaling \eqref{eq:scaling}, $M'(t)$ scales as $\lambda^4$, $\CZ M(t)^2$ scales as $\lambda^4$, and $\kappa'' M(t)^3$ scales as $\lambda^6$ (\lean{navier_stokes_vorticity_dt_scaling_exponent}, \lean{unnormalized_quartic_scaling_mismatch}). A fixed constant $\kappa''>0$ therefore (\lean{unnormalized_quartic_scaling_mismatch}) carries the dimension of time and cannot be formed from viscosity $\nu$ alone ($[\nu]=L^2T^{-1}$) without incorporating a solution-dependent or scale-compensating functional (see \texttt{SCALE\_INVARIANT\_TETHER.md} and \texttt{CLAY\_B\_T3.md}).
 \item \textbf{Pointwise strain at spatial maxima (\texttt{HWEIGHT\_OBSTRUCTION.md}):} Because $B(F,H)=0$ by Proposition~\ref{prop:degen} and $B$ is symmetric, $B(M,H)=0$ for every $M$: the tether adds no damping term to \eqref{eq:vort} or to any functional. Consequently, the pointwise inequality $\langle\omega,(\omega\cdot\nabla)u\rangle(x_*)\le\CZ M^3-\kappa M^4$ (\lean{ConjecturedUnmodifiedTetherPairing}) and the integral weight dominance condition $M^4\le\|\omega\|_{L^2}^2\int|\Pi_u\delta F|^2$ (\texttt{hweight}) do not hold for arbitrary divergence-free fields with vanishing stretching at the maximum when $M>\CZ/\kappa$. Closing (R) for the unmodified PDE therefore requires a non-local or time-integrated mechanism beyond pointwise evaluation at a single time slice.
-\item \textbf{Calderón--Zygmund $L^\infty$ logarithm:} Singular integral operators (such as $\nabla u=\nabla\mathrm{BS}(\omega)$) are not bounded from $L^\infty$ to $L^\infty$ without a logarithmic Sobolev correction $\|\nabla u\|_{L^\infty}\lesssim \|\omega\|_{L^\infty}(1+\log^+(\|\omega\|_{H^s}/\|\omega\|_{L^\infty}))$ \cite{BKM1984} (cited, not formalized in the Lean library). In the pointwise local-maximum lemma, $\|\nabla u(x)\|\le\CZ\|\omega\|_{L^\infty}$ enters as the explicit hypothesis \texttt{hCZ}.
+\item \textbf{Calderón--Zygmund $L^\infty$ logarithm:} Singular integral operators (such as $\nabla u=\nabla\mathrm{BS}(\omega)$) are not bounded from $L^\infty$ to $L^\infty$ without a logarithmic Sobolev correction $\|\nabla u\|_{L^\infty}\lesssim \|\omega\|_{L^\infty}(1+\log^+(\|\omega\|_{H^s}/\|\omega\|_{L^\infty}))$ \cite{BKM1984} (cited, not formalized in the Lean library). In the pointwise local-maximum lemma, $\|\nabla u(x)\|\le\CZ\|\omega\|_{L^\infty}$ enters as the explicit hypothesis \lean{hCZ} of \lean{stretching_inner_le_at_max}.
 \end{enumerate}
 
 %=====================================================================
@@ -461,7 +461,7 @@ N5 Clay (B) conditional reduction & \lean{clay_B_exact_of_periodic_tether_bound}
 \item Geometric layer proved: C1, C2, C3, canonicity, Casimir conservation and $T(M,H)=0$ are proved in \lean{Combined.combined_conditional_capstone} from its listed hypotheses.
 \item Analytic layer stated as open assumptions: \lean{FrohmanianTetherRate}, \lean{FrohmanianTetherClosingBound}, Kato local existence, BKM continuation and Kato uniqueness are hypotheses of \lean{Combined.combined_conditional_capstone}, not theorems.
 \end{itemize}
-The hypotheses of \lean{Combined.combined_conditional_capstone} are: \lean{SDiffActionHyp}, \lean{TetherIntegralPreserved}, \lean{KineticEnergyDerivIsVelocity}, $\nabla\cdot u=0$ and finite energy on the orbit, \lean{IsCoadjointMotion}, symmetry of $B$, \texttt{h\_proj}, \texttt{h\_dens}, \texttt{h\_weight}, \texttt{h\_sat}, \texttt{h\_nondeg}, smooth divergence-free finite-energy $u_0$, $\nu>0$, \lean{KatoLocalWitness}, \lean{FrohmanianTetherRate}, \lean{FrohmanianTetherClosingBound}, \lean{PhysicalBKMContinuationCriterionFor} and \lean{KatoUniquenessOnExistenceTimes}. Under the symmetric C2 design the damping coefficient is $0$, so nothing proved here supplies the rate or closing-bound hypotheses.
+The hypotheses of \lean{Combined.combined_conditional_capstone} are: \lean{SDiffActionHyp}, \lean{TetherIntegralPreserved}, \lean{KineticEnergyDerivIsVelocity}, $\nabla\cdot u=0$ and finite energy on the orbit, \lean{IsCoadjointMotion}, symmetry of $B$, \texttt{h\_proj}, \texttt{h\_dens}, \texttt{h\_weight}, \texttt{h\_sat}, \texttt{h\_nondeg}, smooth divergence-free finite-energy $u_0$, $\nu>0$, \lean{KatoLocalWitness}, \lean{FrohmanianTetherRate}, \lean{FrohmanianTetherClosingBound}, \lean{PhysicalBKMContinuationCriterionFor} and \lean{KatoUniquenessOnExistenceTimes}. Under the symmetric C2 design the damping coefficient is $0$ (\lean{tetherKernel_left_H_zero}), so nothing proved here supplies the rate or closing-bound hypotheses.
 
 %=====================================================================
 \appendix
@@ -476,7 +476,7 @@ Quoted verbatim from \texttt{NS\_Millennium\_Proof} (532 theorems, 0 \texttt{sor
 \leanfile{frohmanian_tether_theorem_main}
 \paragraph{Blueprint variant (\texttt{ClosureBlueprint.lean}).}
 \leanfile{conditional_regularity_of_open_hyps_blueprint}
-\paragraph{Non-vacuity and joint satisfiability at $u_0=0$ (\texttt{ClayStatements.lean}).}
+\paragraph{Non-vacuity and joint satisfiability at $u_0=0$ (\protect\lean{conditional_regularity_nonvacuous_at_zero}).}
 \leanfile{nonvacuity_zero}
 \paragraph{Comparison and ceiling (\texttt{IndependentMajorant.lean}, \texttt{TetheredLyapunov.lean}).}
 \leanfile{comparison_ode_stability}
@@ -518,7 +518,7 @@ Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \href{https://orcid.
 \bibitem{ConstantinFoias1988} P.~Constantin, C.~Foias, \emph{Navier--Stokes Equations}, Univ.\ Chicago Press, 1988.
 \bibitem{Fefferman2006} C.~L.~Fefferman, Existence and smoothness of the Navier--Stokes equation, in \emph{The Millennium Prize Problems}, Clay Math.\ Inst., 2006.
 \bibitem{Isett2018} P.~Isett, A proof of Onsager's conjecture, \emph{Ann.\ of Math.} 188 (2018), 871--963.
-\bibitem{Kato1984} T.~Kato, Strong $L^p$-solutions of the Navier--Stokes equation in $\mathbb R^m$, with applications to weak solutions, \emph{Math.\ Z.} 187 (1984), 471--480.
+\bibitem{Kato1984} T.~Kato, Strong L\textsuperscript{p}-solutions of the Navier--Stokes equation in \ensuremath{\mathbb R^m}, with applications to weak solutions, \emph{Math.\ Z.} 187 (1984), 471--480.
 \bibitem{MarsdenRatiu1986} J.~E.~Marsden, T.~Ratiu, Reduction of Poisson manifolds, \emph{Lett.\ Math.\ Phys.} 11 (1986), 161--169.
 \bibitem{Morrison1986} P.~J.~Morrison, A paradigm for joined Hamiltonian and dissipative systems, \emph{Physica D} 18 (1986), 410--419.
 \bibitem{Stein1993} E.~M.~Stein, \emph{Harmonic Analysis: Real-Variable Methods, Orthogonality, and Oscillatory Integrals}, Princeton Univ.\ Press, 1993.
