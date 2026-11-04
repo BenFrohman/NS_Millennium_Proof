@@ -122,9 +122,9 @@ public theorem frohmanian_tether_theorem
       Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2) →
       TetheredBracket F KineticEnergyHamiltonian ω =
         ClassicalBracket F KineticEnergyHamiltonian ω) ∧
-    (∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
+    (∀ (SDiff : Type) [Group SDiff] [MulAction SDiff CoadjointOrbit] (B : CoadjointOrbit → Functional → Functional → ℝ),
       (∀ ω F G, B ω F G = -B ω G F) →
-      InvariantUnderCoadjointAction B →
+      InvariantUnderCoadjointAction SDiff B →
       DegenerateWRTKineticEnergy B →
       ProducesControllableNegativeFeedback B →
       SaturatesTetherQuadratic B →
@@ -150,8 +150,8 @@ public theorem frohmanian_tether_theorem
   refine ⟨TetherKernel, ?_, ?_, ?_, ?_⟩
   · intro F ω hδ hdiv hInt
     exact tethered_reproduces_classical_euler F ω hδ hdiv hInt
-  · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
-    exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
+  · intro SDiff _ _ B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
+    exact uniqueness_of_minimal_tether_antisymmetric SDiff B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
   · intro B α hrepr hα ω F G
     exact uniqueness_of_kernel_density B α hrepr hα ω F G
   · intro u₀ ν hνpos hdiv hsm hE

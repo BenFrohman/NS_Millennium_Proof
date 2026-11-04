@@ -369,11 +369,12 @@ Property (C1): The correction is invariant under the coadjoint action of SDiff(T
 Defined as a `def` returning `Prop` per Lean reference §7 (Definitions).
 This is a predicate on the higher-order object `B`, not a theorem asserting a specific fact.
 -/
-@[expose] public def InvariantUnderCoadjointAction (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
+@[expose] public def InvariantUnderCoadjointAction (SDiff : Type*) [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
   -- (C1): The correction B is invariant under the coadjoint action of SDiff(T³).
   -- For all volume-preserving g, the value of the correction is unchanged when the vorticity
   -- and the test functionals are transformed by the coadjoint action.
-  ∀ (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit),
+  ∀ (g : SDiff) (F G : Functional) (ω : CoadjointOrbit),
     B (CoadjointAction g ω) F G = B ω F G
 
 @[expose] public def DegenerateWRTKineticEnergy (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
@@ -971,15 +972,50 @@ See the comment in Uniqueness.lean for the move rationale and non-circularity.
 
 /-! ## Invariance (C1) — skeleton -/
 
-/-- C1 for the current `CoadjointAction` (identity on the orbit). The SDiff
-pushforward transcription replaces this proof, not the statement. -/
-theorem tether_coadjoint_invariance
-    (_g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit) :
-    TetherKernel (CoadjointAction _g ω) F G = TetherKernel ω F G := by
-  simp [CoadjointAction]
+/-- **C1 integral-preservation hypothesis (OPEN)** for the abstract SDiff action: the
+spatial integral of the tether density is unchanged by `g • ω`. -/
+@[expose] public def TetherIntegralPreserved (SDiff : Type*) [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] : Prop :=
+  ∀ (g : SDiff) (F G : Functional) (ω : CoadjointOrbit),
+    (∫ x, ‖(CoadjointAction g ω).val x‖ ^ 2 *
+      inner ℝ
+        (Pi_u (velocity_from_vorticity (CoadjointAction g ω))
+          (FunctionalDerivative F (CoadjointAction g ω)) x)
+        (Pi_u (velocity_from_vorticity (CoadjointAction g ω))
+          (FunctionalDerivative G (CoadjointAction g ω)) x) ∂volume) =
+    ∫ x, ‖ω.val x‖ ^ 2 *
+      inner ℝ
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x) ∂volume
 
-public theorem tetherKernel_C1 : InvariantUnderCoadjointAction TetherKernel :=
-  tether_coadjoint_invariance
+/-- C1 for `TetherKernel` under the abstract SDiff action (formerly `simp [CoadjointAction]`
+under the identity stub), now from the integral-preservation hypothesis. -/
+public theorem tether_coadjoint_invariance (SDiff : Type*) [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] (_hyp : SDiffActionHyp SDiff)
+    (h_density : TetherIntegralPreserved SDiff)
+    (g : SDiff) (F G : Functional) (ω : CoadjointOrbit) :
+    TetherKernel (CoadjointAction g ω) F G = TetherKernel ω F G := by
+  unfold TetherKernel
+  rw [h_density g F G ω]
+
+/-- **Formerly trivial.** Under the identity stub, C1 for `TetherKernel` held by `simp`.
+With the abstract action it is a NAMED HYPOTHESIS: `TetherKernel` is invariant under `A`
+(OPEN: requires the real pushforward and `F, G` transforming covariantly). -/
+@[expose] public def TetherKernelInvariant (SDiff : Type*) [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] : Prop :=
+  InvariantUnderCoadjointAction SDiff TetherKernel
+
+/-- C1 for `TetherKernel`, conditional on the named hypothesis. -/
+public theorem tether_satisfies_C1 (SDiff : Type*) [Group SDiff] [MulAction SDiff CoadjointOrbit]
+    (hyp : SDiffActionHyp SDiff) (h_density : TetherIntegralPreserved SDiff) :
+    TetherKernelInvariant SDiff :=
+  tether_coadjoint_invariance SDiff hyp h_density
+
+/-- Former name of `tether_satisfies_C1`. -/
+public theorem tetherKernel_C1 (SDiff : Type*) [Group SDiff] [MulAction SDiff CoadjointOrbit]
+    (hyp : SDiffActionHyp SDiff) (h_density : TetherIntegralPreserved SDiff) :
+    TetherKernelInvariant SDiff :=
+  tether_satisfies_C1 SDiff hyp h_density
 
 /-- Explicit conjectured invariance under an arbitrary volume-preserving
 diffeomorphism pushforward action `act : (T3 → T3) → CoadjointOrbit → CoadjointOrbit`

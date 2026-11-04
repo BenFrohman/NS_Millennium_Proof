@@ -41,10 +41,10 @@ namespace ClosureBlueprint
 
 /-- A bilinear correction is admissible when it is antisymmetric and satisfies
 the three necessary conditions extracted from vorticity transport. -/
-public structure IsAdmissibleCorrection
+public structure IsAdmissibleCorrection (SDiff : Type*) [Group SDiff] [MulAction SDiff CoadjointOrbit]
     (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop where
   antisym : ∀ ω F G, B ω F G = -B ω G F
-  invariance : InvariantUnderCoadjointAction B
+  invariance : InvariantUnderCoadjointAction SDiff B
   degeneracy : DegenerateWRTKineticEnergy B
   feedback : ProducesControllableNegativeFeedback B
 
@@ -132,13 +132,14 @@ public theorem calderon_zygmund_stretching_bound
 
 /-- Unique minimal admissible correction is `TetherKernel`. -/
 public theorem tether_kernel_uniqueness
+    (SDiff : Type*) [Group SDiff] [MulAction SDiff CoadjointOrbit]
     (B : CoadjointOrbit → Functional → Functional → ℝ)
-    (hB : IsAdmissibleCorrection B)
+    (hB : IsAdmissibleCorrection SDiff B)
     (h_sat : SaturatesTetherQuadratic B)
     (h_polarB : Polarizes B)
     (h_polarT : Polarizes TetherKernel) :
     ∀ ω F G, B ω F G = TetherKernel ω F G :=
-  uniqueness_of_minimal_tether B hB.antisym hB.invariance hB.degeneracy hB.feedback
+  uniqueness_of_minimal_tether_antisymmetric SDiff B hB.antisym hB.invariance hB.degeneracy hB.feedback
     h_sat h_polarB h_polarT
 
 /-- Density-form uniqueness: substitution of `α = -κ |ω|²` into the
