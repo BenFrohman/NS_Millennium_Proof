@@ -5,6 +5,13 @@
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
 [![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
 
+> ### Status (2026-10-13) — conditional result, not a Clay solution
+> - **Proved:** conditional regularity given a T-uniform tether coefficient bound
+>   (`HonestReduction.conditional_global_regularity`, sorry-free).
+> - **Open:** that bound (`HonestReduction.TetherCoefficientBounded`), equivalent in strength to the Clay problem.
+> - **Disproved as stated:** the `reduced_pairing_of_unmodified_and_tether` estimate
+>   (see [`HWEIGHT_OBSTRUCTION.md`](HWEIGHT_OBSTRUCTION.md)); removed from the build.
+
 A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem**,
 together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
 a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
@@ -27,8 +34,8 @@ The proof is organized as a **two-layer, non-circular** architecture:
    and a degeneracy result with respect to the kinetic-energy Hamiltonian (`Modules/SymplecticTether.lean`,
    `Modules/ArnoldGeometric.lean`).
 2. **Analytic layer** — a tethered Lyapunov / enstrophy differential inequality in which higher-order
-   dissipation absorbs the nonlinear vorticity-stretching term (`Modules/TetheredLyapunov.lean`,
-   `Modules/IndependentMajorant.lean`), closing to global regularity (`Modules/GlobalRegularity.lean`).
+   dissipation is meant to absorb the nonlinear vorticity-stretching term (`Modules/TetheredLyapunov.lean`,
+   `Modules/IndependentMajorant.lean`), giving global regularity *conditional on* the open rate/bound hypothesis (`Modules/GlobalRegularity.lean`).
 
 Reusable, potentially upstreamable lemmas live under [`ForMathlib/`](ForMathlib/README.md) following the
 hygiene pattern used in Tao's PFR project.
