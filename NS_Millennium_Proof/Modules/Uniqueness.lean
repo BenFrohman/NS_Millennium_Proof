@@ -118,8 +118,8 @@ lemma step4_coefficient
 -- alone. See `step5_higher_order` (`TetherKernel` via `step2_degree`).
 
 /-- The correction is given by a scalar kernel density against the projected
-pairing. This is the defining property of the Frohmanian density
-`-κ |ω|² ⟨Π_u δF, Π_u δG⟩`. -/
+pairing. The Frohmanian kernel `-κ ‖ω‖² ∫ ⟨Π_u δF, Π_u δG⟩` is the case of the
+spatially constant density `α ω x = -κ ‖ω‖²` (global enstrophy). -/
 public def HasTetherKernelDensity
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (α : CoadjointOrbit → T3 → ℝ) : Prop :=
@@ -132,14 +132,13 @@ public def HasTetherKernelDensity
             (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
         ∂volume
 
-/-- Canonical density of `TetherKernel`: `-κ |ω(x)|²`. -/
-public noncomputable def canonicalTetherDensity (ω : CoadjointOrbit) (x : T3) : ℝ :=
-  -kappa * ‖ω.val x‖ ^ 2
+/-- Canonical density of `TetherKernel`: the spatially constant `-κ ‖ω‖²`
+(`‖ω‖² = Enstrophy ω`, the global enstrophy; it does not depend on `x`). -/
+public noncomputable def canonicalTetherDensity (ω : CoadjointOrbit) (_x : T3) : ℝ :=
+  -kappa * Enstrophy ω
 
-/-- If `B` is defined by a density `α` and `α = -κ |ω|²` pointwise, then
-`B = TetherKernel` by substitution and `integral_const_mul`. This is
-Reconstruction Lemmas 2.3.1–2.3.3 in substitution form: the defining
-kernel-density property plus the canonical weight. -/
+/-- If `B` is defined by a density `α` and `α = -κ ‖ω‖²`, then `B = TetherKernel`
+by substitution and `integral_const_mul`. -/
 public theorem uniqueness_of_kernel_density
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (α : CoadjointOrbit → T3 → ℝ)
@@ -147,23 +146,10 @@ public theorem uniqueness_of_kernel_density
     (hα : ∀ ω x, α ω x = canonicalTetherDensity ω x) :
     ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G := by
   intro ω F G
-  have hB := h_repr ω F G
-  let KFG : T3 → ℝ := fun x =>
-    inner ℝ
-      (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
-      (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
-  have hfun :
-      (fun x => α ω x * KFG x) =
-        fun x => (-kappa) * (‖ω.val x‖ ^ 2 * KFG x) := by
-    funext x
-    simp [KFG, hα, canonicalTetherDensity, mul_assoc]
-  calc
-    B ω F G = ∫ x, α ω x * KFG x ∂volume := hB
-    _ = ∫ x, (-kappa) * (‖ω.val x‖ ^ 2 * KFG x) ∂volume := by rw [hfun]
-    _ = -kappa * ∫ x, ‖ω.val x‖ ^ 2 * KFG x ∂volume :=
-        integral_const_mul (μ := volume) _ _
-    _ = TetherKernel ω F G := by
-        simp [TetherKernel, KFG]
+  rw [h_repr ω F G]
+  simp only [hα, canonicalTetherDensity]
+  rw [integral_const_mul (μ := volume)]
+  rfl
 
 /-- Function-equality form: a density equal to `canonicalTetherDensity` as
 functions yields `B = TetherKernel` as functions. -/
@@ -183,21 +169,7 @@ public theorem tetherKernel_has_canonical_density :
     HasTetherKernelDensity TetherKernel canonicalTetherDensity := by
   intro ω F G
   unfold TetherKernel canonicalTetherDensity
-  have hf :
-      (fun x =>
-        (-kappa * ‖ω.val x‖ ^ 2) *
-          inner ℝ
-            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
-            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) =
-      fun x =>
-        (-kappa) *
-          (‖ω.val x‖ ^ 2 *
-            inner ℝ
-              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
-              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) := by
-    funext x
-    ring
-  rw [hf, integral_const_mul (μ := volume)]
+  rw [integral_const_mul (μ := volume)]
 
 /-- Reconstruction 2.3.1 in substitution form: a correction with the
 canonical density is homogeneous of degree two in `ω` once the Gâteaux
@@ -230,56 +202,16 @@ public theorem step2_degree_of_canonical_density
       rw [div_smul, ω.property x, mul_zero]⟩
   have hTc : B ωc F G = TetherKernel ωc F G := hB ωc F G
   have hT : B ω F G = TetherKernel ω F G := hB ω F G
-  have hfun :
-      (fun x =>
-        ‖ωc.val x‖ ^ 2 *
-          inner ℝ
-            (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative F ωc) x)
-            (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative G ωc) x)) =
-      fun x =>
-        c ^ 2 *
-          (‖ω.val x‖ ^ 2 *
-            inner ℝ
-              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
-              (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)) := by
-    funext x
-    simp [ωc, hFD_F, hFD_G, hPi, norm_smul, Real.norm_eq_abs, sq_abs, mul_pow,
-      mul_assoc]
-  calc
-    B ωc F G = TetherKernel ωc F G := hTc
-    _ = -kappa *
-          ∫ x,
-            ‖ωc.val x‖ ^ 2 *
-              inner ℝ
-                (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative F ωc) x)
-                (Pi_u (velocity_from_vorticity ωc) (FunctionalDerivative G ωc) x)
-            ∂volume := by
-          simp [TetherKernel]
-    _ = -kappa *
-          ∫ x,
-            c ^ 2 *
-              (‖ω.val x‖ ^ 2 *
-                inner ℝ
-                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
-                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x))
-            ∂volume := by
-          rw [hfun]
-    _ = c ^ 2 *
-          (-kappa *
-            ∫ x,
-              ‖ω.val x‖ ^ 2 *
-                inner ℝ
-                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
-                  (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
-              ∂volume) := by
-          rw [integral_const_mul (μ := volume)]
-          ring
-    _ = c ^ 2 * TetherKernel ω F G := by
-          simp [TetherKernel]
-    _ = c ^ 2 * B ω F G := by
-          rw [hT]
+  have hE : Enstrophy ωc = c ^ 2 * Enstrophy ω := by
+    unfold Enstrophy
+    simp only [ωc, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs]
+    rw [integral_const_mul (μ := volume)]
+  rw [hTc, hT]
+  unfold TetherKernel
+  rw [hE, hFD_F, hFD_G, hPi]
+  ring
 
-/-- Step 2 for `TetherKernel`: quadratic in `ω` (weight `|ω|²`) once Gâteaux
+/-- Step 2 for `TetherKernel`: quadratic in `ω` (global weight `‖ω‖²`) once Gâteaux
 slots and `Π_u` are frozen. Not the false claim that every antisymmetric
 `B` is homogeneous of degree two. -/
 public theorem step2_degree

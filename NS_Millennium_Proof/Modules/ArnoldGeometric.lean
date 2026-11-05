@@ -845,6 +845,10 @@ noncomputable def classical_bracket_integrand
 public noncomputable def ClassicalBracket (F G : CoadjointOrbit → ℝ) (ω : CoadjointOrbit) : ℝ :=
   ∫ x, classical_bracket_integrand F G ω x ∂(volume)
 
+/-- Global enstrophy `‖ω‖² = ∫ |ω|²` (canonical tether weight, author decision 2026-11-03). -/
+@[expose] public noncomputable def Enstrophy (ω : CoadjointOrbit) : ℝ :=
+  ∫ x, ‖ω.val x‖ ^ 2 ∂(volume)
+
 /-- Kinetic energy Hamiltonian. -/
 public noncomputable def KineticEnergyHamiltonian (ω : CoadjointOrbit) : ℝ :=
   (1/2) * ∫ x, ‖BiotSavart ω.val x‖^2 ∂(volume)

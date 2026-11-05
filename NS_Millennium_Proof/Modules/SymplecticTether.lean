@@ -346,10 +346,11 @@ The analytic pipeline's ε-Young that produces I₆ coefficient `κ/4` uses
 /-! ## The Quadratic Metric Correction (the Tether) -/
 
 /-- Canonical Frohmanian tether kernel
-`B(F,G)(ω) = -κ ∫ |ω|² (Π_u (δF/δω) · Π_u (δG/δω)) dλ`. -/
+`B(F,G)(ω) = -κ ‖ω‖² ∫ (Π_u (δF/δω) · Π_u (δG/δω)) dλ`, with the GLOBAL enstrophy
+`‖ω‖² = Enstrophy ω = ∫ |ω|²` outside the integral (author decision 2026-11-03; the former
+pointwise `|ω(x)|²` density is a different object). -/
 @[expose] public noncomputable def TetherKernel (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
-  -kappa * ∫ x,
-    ‖ω.val x‖ ^ 2 *
+  -kappa * Enstrophy ω * ∫ x,
       inner ℝ
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
@@ -388,16 +389,14 @@ This is a predicate on the higher-order object `B`, not a theorem asserting a sp
     (B : CoadjointOrbit → Functional → Functional → ℝ) : Prop :=
   ∀ (F : Functional) (ω : CoadjointOrbit),
     B ω F F ≤
-      -kappa * ∫ x,
-        ‖ω.val x‖ ^ 2 *
+      -kappa * Enstrophy ω * ∫ x,
           ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
         ∂volume
 
-/-- C3 as equality for the canonical kernel: `𝔗(F,F) = -κ ∫ |ω|² ‖Π_u δF‖²`. -/
+/-- C3 as equality for the canonical kernel: `𝔗(F,F) = -κ ‖ω‖² ∫ ‖Π_u δF‖²`. -/
 public theorem tetherKernel_quadratic_form (F : Functional) (ω : CoadjointOrbit) :
     TetherKernel ω F F =
-      -kappa * ∫ x,
-        ‖ω.val x‖ ^ 2 *
+      -kappa * Enstrophy ω * ∫ x,
           ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
         ∂volume := by
   unfold TetherKernel
@@ -418,7 +417,7 @@ public theorem tetherKernel_comm (ω : CoadjointOrbit) (F G : Functional) :
   rw [real_inner_comm]
 
 /-- Antisymmetry of a bilinear correction forces the diagonal to vanish.
-C3 negative-semidefiniteness `B(F,F) ≤ -κ ∫ |ω|² ‖Π_u δF‖²` is therefore
+C3 negative-semidefiniteness `B(F,F) ≤ -κ ‖ω‖² ∫ ‖Π_u δF‖²` is therefore
 incompatible with a Poisson (antisymmetric) correction, except on the
 kernel of `Π_u`. -/
 public theorem antisymmetric_correction_diagonal_zero
@@ -431,8 +430,7 @@ public theorem antisymmetric_correction_diagonal_zero
 
 public theorem tetherKernel_C3 (F : Functional) (ω : CoadjointOrbit) :
     TetherKernel ω F F ≤
-      -kappa * ∫ x,
-        ‖ω.val x‖ ^ 2 *
+      -kappa * Enstrophy ω * ∫ x,
           ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
         ∂volume :=
   le_of_eq (tetherKernel_quadratic_form F ω)
@@ -456,7 +454,7 @@ public theorem reduced_pairing_iff_cancels_kappa_M4
 /-- At a spatial maximum, `⟨ω, ∂ₜω⟩` from the unmodified vorticity equation
 is at most the cubic source `C M³`, hence at most the reduced pairing
 plus the remainder `κ M⁴`. C3 is the separate bound
-`TetherKernel(F,F) ≤ -κ ∫ |ω|² ‖Π_u δF‖² ≤ 0`.
+`TetherKernel(F,F) ≤ -κ ‖ω‖² ∫ ‖Π_u δF‖² ≤ 0`.
 The reduced inequality is the left-hand side of the equivalence below.
 It is not discharged: cancelling `κ M⁴` is strictly stronger than the
 cubic source, and the C3 diagonal is not a summand of `⟨ω, ∂ₜω⟩`.
@@ -486,8 +484,7 @@ public theorem unmodified_pairing_and_c3_diagonal
         vorticity_sup_norm (vorticity (u t)) ^ 2 +
         kappa * vorticity_sup_norm (vorticity (u t)) ^ 4 ∧
     TetherKernel orbit testF testF ≤
-      -kappa * ∫ y,
-        ‖orbit.val y‖ ^ 2 *
+      -kappa * Enstrophy orbit * ∫ y,
           ‖Pi_u (velocity_from_vorticity orbit)
               (FunctionalDerivative testF orbit) y‖ ^ 2 ∂volume ∧
     TetherKernel orbit testF testF ≤ 0 ∧
@@ -504,7 +501,6 @@ public theorem unmodified_pairing_and_c3_diagonal
       (time_deriv (fun s => vorticity (u s)) t x)
   set M := vorticity_sup_norm (vorticity (u t))
   set integrand : T3 → ℝ := fun y =>
-    ‖orbit.val y‖ ^ 2 *
       ‖Pi_u (velocity_from_vorticity orbit)
           (FunctionalDerivative testF orbit) y‖ ^ 2
   have hpair :=
@@ -522,14 +518,13 @@ public theorem unmodified_pairing_and_c3_diagonal
   have hrem : pairing ≤ (C * M - kappa * M ^ 2) * M ^ 2 + kappa * M ^ 4 :=
     hcubic.trans (le_of_eq hsplit)
   have hdiag : TetherKernel orbit testF testF ≤
-      -kappa * ∫ y, integrand y ∂volume := by
-    simpa [ProducesControllableNegativeFeedback, integrand] using
-      hC3 testF orbit
-  have hnn : 0 ≤ integrand := fun y => mul_nonneg (sq_nonneg _) (sq_nonneg _)
+      -kappa * Enstrophy orbit * ∫ y, integrand y ∂volume := hC3 testF orbit
+  have hnn : 0 ≤ integrand := fun y => sq_nonneg _
   have hint : 0 ≤ ∫ y, integrand y ∂volume := integral_nonneg hnn
-  have hsign : -kappa * ∫ y, integrand y ∂volume ≤ 0 := by
-    rw [neg_mul]
-    exact neg_nonpos.mpr (mul_nonneg kappa_pos.le hint)
+  have hE : 0 ≤ Enstrophy orbit := integral_nonneg fun y => sq_nonneg _
+  have hsign : -kappa * Enstrophy orbit * ∫ y, integrand y ∂volume ≤ 0 := by
+    rw [neg_mul, neg_mul]
+    exact neg_nonpos.mpr (mul_nonneg (mul_nonneg kappa_pos.le hE) hint)
   have hnonpos : TetherKernel orbit testF testF ≤ 0 := hdiag.trans hsign
   have hiff := reduced_pairing_iff_cancels_kappa_M4 pairing C kappa M
   exact ⟨hcubic, hrem, hdiag, hnonpos, hiff⟩
@@ -645,7 +640,7 @@ public theorem time_pairing_le_stretching_at_max
   linarith [hinter, htransp, hviscν]
 
 /-- Move `TetherKernel(F,F)` onto the classical stretching bound.
-`(C3)` gives `TetherKernel(F,F) = -κ ∫ |ω|² ‖Π_u δF‖²`.
+`(C3)` gives `TetherKernel(F,F) = -κ ‖ω‖² ∫ ‖Π_u δF‖²`.
 If that weight is at least `M⁴`, the sum is at most `C M³ - κ M⁴`.
 `hweight` is the missing comparison; it is not `CorrectedMaxRate` or
 `ReducedStrain`, and it is not discharged. -/
@@ -655,8 +650,7 @@ public theorem tethered_stretching_of_weight
     (hCZ : ‖fderiv ℝ uField x‖ ≤ C * vorticity_sup_norm ωField)
     (hmax : ‖ωField x‖ = M ∧ M = vorticity_sup_norm ωField)
     (orbit : CoadjointOrbit) (testF : Functional)
-    (hweight : M ^ 4 ≤ ∫ y,
-        ‖orbit.val y‖ ^ 2 *
+    (hweight : M ^ 4 ≤ Enstrophy orbit * ∫ y,
           ‖Pi_u (velocity_from_vorticity orbit)
               (FunctionalDerivative testF orbit) y‖ ^ 2 ∂volume) :
     inner ℝ (ωField x) (convective ωField uField x) +
@@ -670,13 +664,12 @@ public theorem tethered_stretching_of_weight
       inner ℝ (ωField x) (convective ωField uField x) ≤ C * M ^ 3 := by
     simpa [hmax.2] using hstretch
   have hker : TetherKernel orbit testF testF =
-      -kappa * ∫ y,
-        ‖orbit.val y‖ ^ 2 *
+      -kappa * Enstrophy orbit * ∫ y,
           ‖Pi_u (velocity_from_vorticity orbit)
               (FunctionalDerivative testF orbit) y‖ ^ 2 ∂volume :=
     tetherKernel_quadratic_form testF orbit
   have hkerLe : TetherKernel orbit testF testF ≤ -kappa * M ^ 4 := by
-    rw [hker]
+    rw [hker, mul_assoc]
     exact mul_le_mul_of_nonpos_left hweight (neg_nonpos.mpr kappa_pos.le)
   have hsum :
       inner ℝ (ωField x) (convective ωField uField x) +
@@ -968,7 +961,6 @@ public theorem tetherKernel_degenerates_on_kinetic_energy
       refine mul_eq_zero.mpr (Or.inr ?_)
       have hker :
           (fun x =>
-            ‖ω.val x‖ ^ 2 *
               inner ℝ
                 (Pi_u u (FunctionalDerivative F ω) x)
                 (Pi_u u u x)) =ᵐ[volume] 0 :=
@@ -1094,12 +1086,16 @@ scoped notation "𝔉𝕋" => TetheredBracket
 /-- Integral sign of the tether (unconditional): `T(F,F) ≤ 0`, via `integral_nonneg`. -/
 public theorem tetherKernel_self_nonpos (F : Functional) (ω : CoadjointOrbit) :
     TetherKernel ω F F ≤ 0 := by
+  have hEns : 0 ≤ Enstrophy ω := by
+    unfold Enstrophy; exact MeasureTheory.integral_nonneg (fun x => by positivity)
   rw [tetherKernel_quadratic_form]
-  have hI : 0 ≤ ∫ x, ‖ω.val x‖ ^ 2 *
-      ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2 ∂volume :=
-    MeasureTheory.integral_nonneg (fun x => by positivity)
+  have hI : 0 ≤ ∫ x, ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2
+      ∂volume := MeasureTheory.integral_nonneg (fun x => by positivity)
   have hk := kappa_pos
-  nlinarith
+  have : 0 ≤ kappa * Enstrophy ω * ∫ x,
+      ‖Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x‖ ^ 2 ∂volume := by
+    positivity
+  linarith
 
 /-! ### Gateaux representative of kinetic energy: recorded mismatch (no proof attempted to force it)
 
