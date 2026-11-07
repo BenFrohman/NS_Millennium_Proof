@@ -1,0 +1,194 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
+% Released under Apache 2.0 license as described in the file LICENSE.
+% Author: Frohman, Benjamin Stanley
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{xurl}
+\usepackage{hyperref}
+\hypersetup{pdftitle={Correction: Uniform Envelope versus Cubic Differential Hypothesis},pdfauthor={Frohman, Benjamin Stanley}}
+\newcommand{\lean}[1]{{\upshape\path{#1}}}
+\emergencystretch=2em
+\title{\textbf{Correction: Uniform Vorticity Envelope versus Cubic Differential Hypothesis}}
+\author{Frohman, Benjamin Stanley\\\small\texttt{frohmanbenjamin@gmail.com}}
+\date{November 6, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+This addendum separates the uniform-envelope assumption in the checked Lean
+reduction from a genuinely differential assumption on the actual vorticity
+supremum. It records the conditional comparison proved in the accompanying source
+patch, tests a proposed coercivity mechanism on explicit periodic solutions, and
+identifies the remaining analytic obligation. It is not a proof of general
+Navier--Stokes regularity. Earlier published PDFs and archives are unchanged.
+\end{abstract}
+
+\section{The corrected distinction}
+The baseline source is \lean{BenFrohman/NS_Millennium_Proof} at commit
+\lean{c98fe859867affeba4508b3e51583cfa6b20087c}.
+Historically \lean{DirectionCurvatureBound} abbreviates
+\lean{PeriodicDirectionDepletionBound}. Its actual body assumes that, for every
+smooth divergence-free periodic datum, there are positive constants $C,\kappa$
+such that every represented local solution satisfies
+\[
+ M(t)\leq\max\{M(0),C/\kappa\},\qquad 0\leq t<T.
+\]
+Here $M(t)=\|\operatorname{curl}u(t)\|_\infty$. The constants may depend on
+viscosity and the datum, but not on the solution or its lifespan. This definition
+does not assert a differential inequality. The accurate public name is now
+\lean{UniformVorticityEnvelopeBound}; the original body, historical aliases and
+original conditional theorem are preserved.
+
+The separate \lean{CubicVorticityDifferentialBound}$(u,\tau,C,\kappa)$ explicitly
+requires $\tau\geq0$, $C,\kappa>0$, bounded spatial vorticity-norm ranges, ordinary
+differentiability of the actual $M$ at every point of $[0,\tau]$, and
+\[
+ M'(t)\leq C M(t)^2-\kappa M(t)^3\quad(0\leq t\leq\tau).
+\]
+The boundedness guard matters for the real-valued conditional supremum used in
+Lean. No differential estimate or differentiability of a supremum is inferred
+merely from smoothness of the velocity.
+
+\section{The checked conditional consequences}
+The existing \lean{comparison_ode_ceiling}, with all its hypotheses, gives the
+compact envelope above. The new source proves this for the actual curl supremum,
+then bounds the actual curl pointwise using spatial boundedness. On an actual
+\lean{IsPeriodicSmoothSolutionOn}, compatible compact hypotheses for every
+$0\leq\tau<T$ with the \emph{same} coefficients give the envelope on $[0,T)$;
+the initial identity comes from that solution's definition. A zero-trajectory
+regression shows that the differential predicate is inhabited.
+
+\lean{clay_reduces_to_uniform_vorticity_envelope} accurately names the existing
+conditional reduction: the uniform envelope for every positive viscosity,
+\emph{and} the separately assumed periodic BKM continuation principle, imply
+\lean{Clay_B_exact}. Neither premise is established by that reduction.
+
+The Stage6 additions check the derivative of $M_0e^{-at}$, its cubic estimate
+with $C=\kappa M_0$, and the fixed-coefficient obstruction below. These are
+\emph{scalar} calculus and algebra theorems. Assembly of the following vector
+fields into the Lean solution structure and identification of their suprema are
+not newly formalized here; the explicit PDE calculations are separate
+mathematical checks.
+
+\section{What the PDE identity supplies}
+For a classical unforced incompressible solution, let $\omega=\operatorname{curl}u$,
+$S=(\nabla u+(\nabla u)^T)/2$ and $\rho=|\omega|$. Then
+\[
+ (\partial_t+u\cdot\nabla)\frac{|\omega|^2}{2}
+ =\omega\cdot S\omega+\nu\Delta\frac{|\omega|^2}{2}-\nu|\nabla\omega|^2.
+\]
+Where $\rho>0$, write $\omega=\rho\xi$, $|\xi|=1$. Differentiating gives
+\begin{align*}
+ |\nabla\omega|^2&=|\nabla\rho|^2+\rho^2|\nabla\xi|^2,\\
+ (\partial_t+u\cdot\nabla-\nu\Delta)\rho
+ &=\rho\,\xi\cdot S\xi-\nu\rho|\nabla\xi|^2.
+\end{align*}
+At a positive spatial maximum $\nabla\rho=0$ and $\Delta\rho\leq0$. These facts do
+not give a lower bound on direction curvature. A general maximum-in-time argument
+also needs a justified one-sided/Dini derivative treatment of maximizing-branch
+switches, not an automatic ordinary derivative of $M$.
+
+\subsection{Beltrami family: fixed coefficients versus data dependence}
+On the unit torus take $\nu>0$, $t\geq0$, $k=2\pi$, $a=\nu k^2$, $A>0$, and
+\[
+ u_A(t,x)=Ae^{-at}(\sin(kx_3),\cos(kx_3),0),\qquad p=0.
+\]
+Direct differentiation gives $\operatorname{div}u_A=0$, $(u_A\cdot\nabla)u_A=0$,
+$\Delta u_A=-k^2u_A$, $\partial_tu_A=\nu\Delta u_A$ and
+$\operatorname{curl}u_A=ku_A$. Consequently
+\[
+ M_A(t)=kAe^{-at},\qquad M_A'=-aM_A.
+\]
+At zero, the cubic estimate is equivalent to
+$\kappa M_A(0)^2-CM_A(0)-a\leq0$. For fixed $C\geq0$, $\kappa>0$ and $a\geq0$,
+this fails at sufficiently large amplitude. The Lean theorem
+\lean{fixed_cubic_constants_fail_for_some_amplitude} proves the quantified scalar
+obstruction. This does \emph{not} refute the data-dependent envelope: choosing
+$C=\kappa M_A(0)$ makes the cubic right-hand side
+$\kappa M_A(t)^2(M_A(0)-M_A(t))\geq0$, while $M_A'\leq0$. The latter special-case
+sufficient estimate is also checked in Lean for the scalar profile.
+
+\subsection{Single shear: direction-only coercivity fails}
+Instead take the actual periodic heat shear
+\[
+ v_A(t,x)=Ae^{-at}(\sin(kx_3),0,0),\qquad p=0.
+\]
+The same divergence, convection and heat calculation verifies the unforced
+Navier--Stokes equations. Here
+\[
+ \omega_A(t,x)=(0,kAe^{-at}\cos(kx_3),0).
+\]
+At $x_3=0$, its norm attains the positive global maximum $M=kAe^{-at}$.
+In a neighborhood $\cos(kx_3)>0$, so $\xi=(0,1,0)$ is constant and
+$|\nabla\xi|^2=0$. Thus the bare premise
+\[
+ \kappa M^2\leq\nu|\nabla\xi|^2
+\]
+from \lean{viscous_direction_dissipation_bridge} fails for \emph{every}
+$\kappa>0$, even if it depends on this datum. This refutes promotion of that
+premise to an unconditional assertion at every positive maximum, not the
+existing implication which assumes it. Nor does it refute a different estimate
+restricted above a data-dependent threshold. The actual damping here comes from
+amplitude curvature:
+\[
+ \omega_A\cdot\Delta\omega_A=-k^2M^2,\qquad M'=-\nu k^2M.
+\]
+Discarding amplitude curvature loses this real viscous contribution.
+
+\subsection{Scaling is not a coercivity proof}
+For the parabolic rescaling $u_\lambda(t,x)=\lambda u(\lambda^2t,\lambda x)$,
+one has $M_\lambda(t)=\lambda^2M(\lambda^2t)$ and the time derivative scales
+by $\lambda^4$ wherever it exists. A cubic inequality therefore transforms with
+$C_\lambda=C$ and $\kappa_\lambda=\kappa/\lambda^2$, not fixed positive
+$\kappa$. Likewise $\nu|\nabla\xi|^2$ scales by $\lambda^2$ whereas $M^2$ scales
+by $\lambda^4$. This does not contradict data-dependent coefficients. On the
+fixed unit torus the displayed transformation preserves unit periodicity for
+positive integer $\lambda$; arbitrary domain rescalings are not the same torus.
+The separate scale-homogeneous premise $\kappa_{\rm eff}M\leq\nu|\nabla\xi|^2$
+in the source only yields $M'\leq(C-\kappa_{\rm eff})M^2$, not cubic damping
+in $M$. Scaling supplies neither coercivity premise.
+
+\section{Endpoint representation and remaining obligation}
+The Lean local-solution structure constrains only nonnegative times. Extend the
+zero forward solution by $(\sin(kx_3),\cos(kx_3),0)$ for negative times. It is
+still the zero solution on $[0,T)$, but its actual vorticity supremum jumps from
+$k$ to zero at time zero. Hence ordinary two-sided differentiability of $M$ at
+zero cannot follow for every represented solution. This is not an obstruction to
+right-sided PDE smoothness. The globally zero trajectory, unlike this other
+extension, passes the new regression. The compact differential predicate is an
+explicit additional condition on a given trajectory, not a universal PDE theorem.
+
+A sufficient net-source estimate at the relevant positive maxima would be
+\[
+ \omega\cdot S\omega+\nu\omega\cdot\Delta\omega
+ \leq CM^3-\kappa M^4,
+\]
+with correctly quantified positive coefficients uniform in time and lifespan.
+Division by $M$ then gives the cubic rate after a justified maximum-derivative
+argument. The repository proves the algebra conditionally, not this general
+source estimate. An endpoint $L^\infty$ Calderon--Zygmund bound cannot silently
+supply it. A suitable source estimate and a one-sided/Dini comparison bridge
+remain analytic/formal obligations. No general regularity breakthrough is claimed.
+
+\section{Reproduction and evidence boundary}
+Use Lean \lean{leanprover/lean4:v4.30.0-rc1} and Mathlib commit
+\lean{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7}; all package pins are in
+\lean{lake-manifest.json}. Run \lean{lake build}, then the Lean scripts
+\lean{scripts/AxiomAudit.lean}, \lean{scripts/EnvelopeCorrectionAudit.lean}, and
+\lean{scripts/CertificateAxiomInventory.lean} using \lean{lake env lean}.
+The correction audit checks old API compatibility and every new theorem's axioms;
+the inventory reports transitive axioms per noninternal project theorem.
+No new axiom, \lean{sorry} or \lean{native_decide} is introduced. Standard-axiom
+checks establish neither a missing analytic hypothesis nor novelty.
+
+The Markdown companion \lean{docs/VORTICITY_ENVELOPE_CORRECTION.md} supplies exact
+pinned source permalinks and the full named-theorem list. The review bundle
+contains sources, dependency/toolchain pins, logs, project artifacts and hashes;
+it is not a standalone independently trusted proof certificate. Earlier
+published PDFs/Zenodo records are not modified or republished.
+
+\smallskip\noindent Copyright (c) 2026 Benjamin Stanley Frohman.
+Existing Apache-2.0 licensing and third-party notices are unchanged.
+\end{document}
