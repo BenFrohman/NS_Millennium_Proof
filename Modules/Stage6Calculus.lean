@@ -1,7 +1,7 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Benjamin Stanley Frohman
+Authors: Frohman, Benjamin Stanley
 -/
 module
 
@@ -187,6 +187,61 @@ the mode solves the unforced Navier–Stokes system component-wise. -/
 theorem shear_convective_and_div_zero (dU dV : ℝ) :
     (0 : ℝ) * dU = 0 ∧ (0 : ℝ) * dV = 0 ∧ (0 : ℝ) + 0 + 0 = 0 := by
   refine ⟨zero_mul _, zero_mul _, by ring⟩
+
+/-! ### Quantified tests of a cubic estimate against the decaying mode
+
+These are scalar calculus theorems, not an assembly of the vector-valued PDE or
+its spatial supremum. The accompanying correction computes the mode's magnitude
+`M(t) = M₀ exp(-a t)` and states that formalization boundary explicitly.
+-/
+
+/-- Exact derivative of the magnitude profile of a decaying eigenmode. -/
+theorem exponential_profile_hasDerivAt (M₀ a t : ℝ) :
+    HasDerivAt (fun s => M₀ * exp (-a * s))
+      (-a * (M₀ * exp (-a * t))) t := by
+  have h := (((hasDerivAt_id t).const_mul (-a)).exp).const_mul M₀
+  convert h using 1; simp; ring
+
+/-- A data-dependent cubic coefficient is consistent with exponential decay:
+choose `C = κ M₀`. This is a special-case sufficient estimate, not a general PDE bound. -/
+theorem exponential_profile_satisfies_cubic_bound
+    {M₀ a κ t : ℝ} (hM₀ : 0 < M₀) (ha : 0 ≤ a) (hκ : 0 < κ) (ht : 0 ≤ t) :
+    deriv (fun s => M₀ * exp (-a * s)) t ≤
+      (κ * M₀) * (M₀ * exp (-a * t)) ^ 2 -
+        κ * (M₀ * exp (-a * t)) ^ 3 := by
+  rw [(exponential_profile_hasDerivAt M₀ a t).deriv]
+  have hM : 0 ≤ M₀ * exp (-a * t) := mul_nonneg hM₀.le (exp_pos _).le
+  have he : exp (-a * t) ≤ 1 := exp_le_one_iff.mpr (by nlinarith)
+  have hcap : M₀ * exp (-a * t) ≤ M₀ := by
+    calc
+      M₀ * exp (-a * t) ≤ M₀ * 1 := mul_le_mul_of_nonneg_left he hM₀.le
+      _ = M₀ := mul_one _
+  have hrhs : 0 ≤ κ * (M₀ - M₀ * exp (-a * t)) *
+      (M₀ * exp (-a * t)) ^ 2 :=
+    mul_nonneg (mul_nonneg hκ.le (sub_nonneg.mpr hcap)) (sq_nonneg _)
+  have hdec : -a * (M₀ * exp (-a * t)) ≤ 0 :=
+    mul_nonpos_of_nonpos_of_nonneg (neg_nonpos.mpr ha) hM
+  nlinarith [hrhs]
+
+/-- Fixed positive cubic damping cannot dominate every exponentially decaying
+amplitude. The constants here are fixed BEFORE `M`; this does not refute a
+bound whose constants may depend on the initial datum. -/
+theorem fixed_cubic_constants_fail_for_some_amplitude
+    {C κ a : ℝ} (hC : 0 ≤ C) (hκ : 0 < κ) (ha : 0 ≤ a) :
+    ∃ M : ℝ, 0 < M ∧ C * M ^ 2 - κ * M ^ 3 < -a * M := by
+  let M : ℝ := (C + a + 1) / κ + 1
+  have hfrac : 0 < (C + a + 1) / κ := div_pos (by linarith) hκ
+  have hMone : 1 < M := by dsimp [M]; linarith
+  have hM : 0 < M := by linarith
+  have hcancel : κ * M = C + a + 1 + κ := by
+    dsimp [M]
+    field_simp
+  have hgap : a < κ * M - C := by linarith
+  have hprod := mul_lt_mul_of_pos_right hgap hM
+  have haM : a ≤ a * M := by nlinarith
+  have hq : 0 < κ * M ^ 2 - C * M - a := by nlinarith [hprod]
+  have hmul := mul_pos hq hM
+  exact ⟨M, hM, by nlinarith [hmul]⟩
 
 end NS_Millennium_Proof.Stage6
 

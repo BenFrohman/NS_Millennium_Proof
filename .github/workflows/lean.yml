@@ -40,6 +40,11 @@ jobs:
       - name: Build project
         run: lake build
 
+      - name: Audit envelope correction and backwards-compatible API
+        run: |
+          lake env lean scripts/EnvelopeCorrectionAudit.lean
+          lake env lean scripts/CertificateAxiomInventory.lean
+
   structure:
     name: Repository structure check
     runs-on: ubuntu-latest

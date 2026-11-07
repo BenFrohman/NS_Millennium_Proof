@@ -1,4 +1,4 @@
-# Frohmanian Symplectic Tether — 3D Navier–Stokes Global Regularity (Lean 4)
+# Frohmanian Symplectic Tether — Conditional Navier–Stokes Reductions (Lean 4)
 
 [![lean.yml](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084)
@@ -8,23 +8,58 @@
 
 A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem**,
 together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
-a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
-tied to a Lyapunov/enstrophy argument. Benjamin Stanley Frohman is the originator of that tether.
+a proposed construction on coadjoint orbits intended to control vortex stretching. Its required
+analytic link to general unmodified Navier–Stokes solutions is not established. Benjamin Stanley Frohman is the originator of that tether.
 
-## Main Theorem (proved reduction)
+## Main theorem: conditional reduction, not a PDE estimate
 
-`clay_reduces_to_direction_curvature_bound` (Lean 4 + Mathlib, `0 sorry`, axioms `[propext, Classical.choice, Quot.sound]`):
+`clay_reduces_to_uniform_vorticity_envelope` states:
 
-> For every ν > 0, assuming the classical periodic Beale–Kato–Majda continuation principle `PeriodicBKMContinuation ν` (a published theorem, Kato 1972 / Beale–Kato–Majda 1984, **not** formalized here and therefore an explicit hypothesis), the named estimate `DirectionCurvatureBound ν` implies Fefferman's exact periodic Clay statement `Clay_B_exact ν`.
+> If, for every positive viscosity, both `UniformVorticityEnvelopeBound ν` and
+> `PeriodicBKMContinuation ν` hold, then `Clay_B_exact` holds.
 
-- `DirectionCurvatureBound ν` (high-set direction-curvature / cubic depletion bound `M' ≤ C M² − κ M³`) is the single named **open** estimate (conjecture). It is **not** proved.
-- The Clay problem is **not** claimed solved. The converse (`Clay_B_exact → DirectionCurvatureBound`) is **not** proved.
+The accurately named envelope assumes, for each smooth divergence-free periodic
+initial datum, positive constants `C, κ` independent of the local solution's
+lifespan, with `M(t) ≤ max (M(0)) (C/κ)` for every local periodic solution.
+It does **not** assume or prove a differential inequality. Historical names
+`PeriodicDirectionDepletionBound`, `DirectionCurvatureBound` and
+`clay_reduces_to_direction_curvature_bound` retain their original propositions/API.
+
+The separate `CubicVorticityDifferentialBound u τ C κ` concerns the **actual**
+`M(t) = vorticity_sup_norm (vorticity (u t))`: it explicitly requires bounded
+spatial ranges, ordinary differentiability on `[0,τ]`, positive coefficients, and
+`M' ≤ C M² − κ M³`. The compact comparison and its half-open-lifespan consequence
+are proved conditionally. Neither that inequality nor differentiability of the
+supremum is inferred from PDE smoothness. In particular, ordinary differentiability
+at zero depends on the otherwise unconstrained negative-time extension.
+
+The envelope and the BKM continuation principle remain separate hypotheses.
+No unconditional Clay solution, converse, or equivalence of the two assumptions
+is claimed. See [the source/paper correction and quantified shear tests](docs/VORTICITY_ENVELOPE_CORRECTION.md).
+A synchronized [correction addendum (PDF)](docs/VorticityEnvelopeCorrection.pdf)
+with [TeX source](docs/VorticityEnvelopeCorrection.tex) accompanies the source fix.
+The existing manuscript PDFs and published archives are **not** updated by this
+source correction; their differential formulation must be read with that addendum.
+
+Reproduce against the exact `lean-toolchain` and `lake-manifest.json`:
+
+```sh
+lake build
+lake env lean scripts/AxiomAudit.lean
+lake env lean scripts/EnvelopeCorrectionAudit.lean
+lake env lean scripts/CertificateAxiomInventory.lean
+```
+
+The root build checks the full project and audits theorem dependencies; the
+additional script checks the corrected API and prints each new theorem's axioms.
+These checks validate conditional Lean statements, not a missing PDE hypothesis
+or the truth of the paper's stronger analytic claims. Author: Frohman, Benjamin Stanley.
 
 **Main Theorem A (unconditional supporting facts):** attained-maximum ⇒ `BddAbove` and sup-norm equality; Bochner and polar Pythagoras identities, now *derived* from `HasDerivAt` along coordinate lines (`Stage6Calculus.lean`); the near/far cutoff absorption algebra; Burgers-strain exclusion on 𝕋³; the comparison-ODE ceiling; and a genuinely non-constant exact periodic shear Beltrami mode `e^{-4π²νt}(sin 2πz, cos 2πz, 0)` checked component-wise.
 
 ## Standalone Self-Contained Repositories & Single-Sentence Final Product Theorems
 
-In addition to this full research repository (`453` theorems across `17` modules), the two self-contained tracks are published as dedicated standalone repositories with their own Single-Sentence Final Product Theorems (`FinalProductTheorem.lean`), PDF monographs, and Zenodo DOIs:
+In addition to this research repository (see fresh build/audit logs for declaration counts), the two self-contained tracks are published as dedicated standalone repositories with their own Single-Sentence Final Product Theorems (`FinalProductTheorem.lean`), PDF monographs, and Zenodo DOIs:
 
 1. **[BenFrohman/frohmanian-symplectic-tether-regularity](https://github.com/BenFrohman/frohmanian-symplectic-tether-regularity)** — **Zenodo v1.1.0 DOI:** [`10.5281/zenodo.23717082`](https://doi.org/10.5281/zenodo.23717082) (Concept DOI: [`10.5281/zenodo.23652842`](https://doi.org/10.5281/zenodo.23652842), v1.0.0 DOI: [`10.5281/zenodo.23652843`](https://doi.org/10.5281/zenodo.23652843))
    - `350` kernel-verified theorems across `13` modules (`0 sorry`, `0` custom axioms).
@@ -37,7 +72,7 @@ In addition to this full research repository (`453` theorems across `17` modules
 
 - **[`main.pdf`](main.pdf)** ([`manuscript/main.pdf`](manuscript/main.pdf)) — *Global Regularity for the 3D Incompressible Navier–Stokes Equations via the Frohmanian Symplectic Tether: Complete Original Conjectured Framework and Kernel-Verified Non-Vacuous Conditional Formalization in Lean 4* (19 pages, compiled from [`main.tex`](main.tex)).
 - **[`main.tex`](main.tex)** ([`manuscript/main.tex`](manuscript/main.tex)) — Complete LaTeX source with verbatim Lean 4 excerpts ([`manuscript/lean/`](manuscript/lean/)).
-- **[`SCOPE.md`](SCOPE.md)** ([`manuscript/SCOPE.md`](manuscript/SCOPE.md)) — Executive verification table across all 453 kernel-verified theorems, 17 modules, `IsPhysicalNSSolution` non-vacuity proofs, and preserved conjectured bridges.
+- **[`SCOPE.md`](SCOPE.md)** ([`manuscript/SCOPE.md`](manuscript/SCOPE.md)) — Historical verification table; use fresh audit logs for current declaration counts, `IsPhysicalNSSolution` non-vacuity proofs, and preserved conjectured bridges.
 
 > ### Scope
 > Benjamin Stanley Frohman is the originator of the Frohmanian Symplectic Tether.
@@ -48,9 +83,9 @@ In addition to this full research repository (`453` theorems across `17` modules
 > `M' ≤ C M² − κ'' M³` and does not derive it.
 > `global_regularity_for_NS` assumes a vorticity ceiling and does not derive it.
 >
-> **Status (Oct 2026): Complete, sorry-free, axiom-clean, and verified non-vacuous.**
+> **Status: conditional formalization; the general analytic input remains unproved.**
 > Every original definition, theorem, and conjectured bridge from Benjamin Stanley Frohman's
-> programme is preserved in the active build (`lake build`, **470 theorems across 17 modules**,
+> programme is preserved in the active build (`lake build`; see its current theorem audit,
 > **0 `sorry`**, and **0 nonstandard axioms** — `#print axioms` reports only
 > `[propext, Classical.choice, Quot.sound]`, audited by `scripts/AxiomAudit.lean`):
 > - **Periodic torus kinematics & conditional Clay (B) reductions (`Modules/TorusStrainExclusion.lean`, `Modules/HighSetDepletionAndBKM.lean`):**

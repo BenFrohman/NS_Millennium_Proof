@@ -1,7 +1,7 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Benjamin Stanley Frohman
+Authors: Frohman, Benjamin Stanley
 -/
 
 module
@@ -188,8 +188,10 @@ passed explicitly as hypotheses to the conditional reduction theorems
 For every smooth, divergence-free, `ℤ³`-periodic initial datum `u₀`, there exist positive
 constants `C_CZ, κ'' > 0` such that along any local-in-time periodic smooth solution `(u, p)` on
 `[0, T) × (ℝ³ / ℤ³)`, the spatial supremum of vorticity `M(t) = ‖ω(t)‖_∞` obeys the uniform
-ceiling `M(t) ≤ max ‖ω₀‖_∞ (C_CZ / κ'')` induced by the cubic direction-depletion differential
-inequality `M' ≤ C_CZ M² - κ'' M³` (`comparison_ode_ceiling`). -/
+ceiling `M(t) ≤ max ‖ω₀‖_∞ (C_CZ / κ'')`. This definition assumes the
+ceiling itself; it does NOT assert or derive a differential inequality. The accurate
+public name is `UniformVorticityEnvelopeBound`. A separate genuinely differential
+compact-interval predicate and conditional comparison are defined below. -/
 @[expose] public def PeriodicDirectionDepletionBound (ν : ℝ) : Prop :=
   ∀ u₀ : VelocityField,
     (∀ x, div u₀ x = 0) → ContDiff ℝ (⊤ : ℕ∞) u₀ → IsZ3Periodic u₀ →
@@ -199,6 +201,78 @@ inequality `M' ≤ C_CZ M² - κ'' M³` (`comparison_ode_ceiling`). -/
             ∀ t ∈ Set.Ico (0 : ℝ) T,
               vorticity_sup_norm (vorticity (u t)) ≤
                 max (vorticity_sup_norm (vorticity u₀)) (C / κ_dir)
+
+/-- Accurate public name for the existing envelope assumption. The historical
+`PeriodicDirectionDepletionBound` definition and all its clients are preserved. -/
+@[expose] public abbrev UniformVorticityEnvelopeBound (ν : ℝ) : Prop :=
+  PeriodicDirectionDepletionBound ν
+
+/-- A genuinely differential, solution-linked compact-interval hypothesis.
+This is an additional hypothesis, NOT a theorem about Navier--Stokes solutions.
+The boundedness guard makes the real-valued spatial supremum meaningful. Ordinary
+`DifferentiableAt` at zero is explicit: one-sided solution smoothness does not imply it,
+and a spatial supremum need not be differentiable even for a smooth velocity. -/
+@[expose] public def CubicVorticityDifferentialBound
+    (u : TimeDependentVelocity) (τ C κ_cubic : ℝ) : Prop :=
+  0 ≤ τ ∧ 0 < C ∧ 0 < κ_cubic ∧
+    ∀ t ∈ Set.Icc (0 : ℝ) τ,
+      BddAbove (Set.range (fun x => ‖vorticity (u t) x‖)) ∧
+      DifferentiableAt ℝ (fun s => vorticity_sup_norm (vorticity (u s))) t ∧
+      deriv (fun s => vorticity_sup_norm (vorticity (u s))) t ≤
+        C * (vorticity_sup_norm (vorticity (u t))) ^ 2 -
+          κ_cubic * (vorticity_sup_norm (vorticity (u t))) ^ 3
+
+/-- The exact compact-interval comparison, conditional on all analytic premises. -/
+public theorem vorticity_envelope_of_cubic_differential_bound
+    {u : TimeDependentVelocity} {τ C κ_cubic : ℝ}
+    (h : CubicVorticityDifferentialBound u τ C κ_cubic) :
+    ∀ t ∈ Set.Icc (0 : ℝ) τ,
+      vorticity_sup_norm (vorticity (u t)) ≤
+        max (vorticity_sup_norm (vorticity (u 0))) (C / κ_cubic) := by
+  exact comparison_ode_ceiling _ τ C κ_cubic h.2.1 h.2.2.1
+    (fun t ht => (h.2.2.2 t ht).2.1)
+    (fun t ht => (h.2.2.2 t ht).2.2)
+
+/-- The guarded supremum comparison also bounds the actual curl at every point. -/
+public theorem pointwise_vorticity_envelope_of_cubic_differential_bound
+    {u : TimeDependentVelocity} {τ C κ_cubic : ℝ}
+    (h : CubicVorticityDifferentialBound u τ C κ_cubic)
+    {t : ℝ} (ht : t ∈ Set.Icc (0 : ℝ) τ) (x : T3) :
+    ‖vorticity (u t) x‖ ≤ max (vorticity_sup_norm (vorticity (u 0))) (C / κ_cubic) := by
+  exact (le_vorticity_sup_norm _ x (h.2.2.2 t ht).1).trans
+    (vorticity_envelope_of_cubic_differential_bound h t ht)
+
+/-- Compatible compact hypotheses with the SAME constants give an envelope on
+an actual solution's half-open lifespan. No PDE estimate or differentiability of
+its spatial supremum is inferred from smoothness. -/
+public theorem periodic_solution_envelope_of_compact_cubic_bounds
+    {ν T : ℝ} {u₀ : VelocityField} {u : TimeDependentVelocity}
+    {p : TimeDependentPressure} {C κ_cubic : ℝ}
+    (hsol : IsPeriodicSmoothSolutionOn ν T u₀ u p)
+    (hcompact : ∀ τ : ℝ, 0 ≤ τ → τ < T →
+      CubicVorticityDifferentialBound u τ C κ_cubic) :
+    ∀ t ∈ Set.Ico (0 : ℝ) T,
+      vorticity_sup_norm (vorticity (u t)) ≤
+        max (vorticity_sup_norm (vorticity u₀)) (C / κ_cubic) := by
+  intro t ht
+  have hb := vorticity_envelope_of_cubic_differential_bound
+    (hcompact t ht.1 ht.2) t ⟨ht.1, le_rfl⟩
+  simpa only [hsol.2.2.2.1] using hb
+
+/-- Regression: the genuine zero trajectory satisfies the differential hypothesis. -/
+public theorem cubicVorticityDifferentialBound_zero
+    {τ C κ_cubic : ℝ} (hτ : 0 ≤ τ) (hC : 0 < C) (hκ_cubic : 0 < κ_cubic) :
+    CubicVorticityDifferentialBound (fun _ => (0 : VelocityField)) τ C κ_cubic := by
+  refine ⟨hτ, hC, hκ_cubic, ?_⟩
+  intro t _ht
+  refine ⟨?_, ?_, ?_⟩
+  · refine ⟨0, ?_⟩
+    rintro _ ⟨x, rfl⟩
+    simp only [vorticity, curl_zero, norm_zero, le_refl]
+  · simpa only [vorticity_sup_norm_zero_field] using
+      (differentiableAt_const (c := (0 : ℝ)) (x := t))
+  · simp only [vorticity_sup_norm_zero_field]
+    simp
 
 /-- **Proved (standard axioms): Periodic Direction Depletion Bound implies Periodic Tether Closing Bound.** -/
 public theorem periodicTetherClosingBound_of_directionDepletion
