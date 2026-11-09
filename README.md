@@ -236,4 +236,16 @@ Grok (xAI), via the Grok Bot assistant, provided scaffolding, drafting, and coll
 
 ## Zenodo archive
 
-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23627609.svg)](https://doi.org/10.5281/zenodo.23627609) Global Regularity for the 3D Incompressible Navier–Stokes Equations via the Frohmanian Symplectic Tether: Lean 4 Formalization and Conditional Cubic Comparison Framework (v2.2) — all versions: [10.5281/zenodo.23627609](https://doi.org/10.5281/zenodo.23627609); latest version: [10.5281/zenodo.23749850](https://doi.org/10.5281/zenodo.23749850)
+This repository owns the Zenodo record family below. Do **not** confuse it with
+[`frohmanian-tether-sdiff`](https://github.com/BenFrohman/frohmanian-tether-sdiff)
+([`10.5281/zenodo.24082000`](https://doi.org/10.5281/zenodo.24082000)), a different project.
+
+| Role | DOI | Notes |
+|------|-----|-------|
+| **Version DOI (badge / `CITATION.cff`)** | [`10.5281/zenodo.23717084`](https://doi.org/10.5281/zenodo.23717084) | Zenodo **v2.2.0**; pinned to GitHub tag [`v2.2.0`](https://github.com/BenFrohman/NS_Millennium_Proof/tree/v2.2.0) / commit [`8a5ec50`](https://github.com/BenFrohman/NS_Millennium_Proof/commit/8a5ec50aa602318c0c611269731e7d41cd30b75b) |
+| Concept DOI (all versions) | [`10.5281/zenodo.23627609`](https://doi.org/10.5281/zenodo.23627609) | Resolves to the latest deposited version in this family |
+| Latest Zenodo version DOI | [`10.5281/zenodo.23749850`](https://doi.org/10.5281/zenodo.23749850) | Labeled Zenodo **v2.3.0**; still points at the same GitHub `v2.2.0` / `8a5ec50` snapshot and adds one extra PDF. There is **no** GitHub tag `v2.3.0`. |
+| Earlier version | [`10.5281/zenodo.23627610`](https://doi.org/10.5281/zenodo.23627610) | Zenodo **v2.1.0** |
+
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084) Version DOI for the archived `v2.2.0` release.
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23627609.svg)](https://doi.org/10.5281/zenodo.23627609) Concept DOI for all versions of this record family.
