@@ -203,7 +203,47 @@ The globally zero trajectory passes the Lean regression; the arbitrary negative
 extension is a different trajectory. A general PDE bridge should use an appropriate
 one-sided/Dini formulation or explicitly justify a compatible norm extension.
 
+## 4a. v1.1: the shear as an actual solution (Lean)
+
+`NS_Millennium_Proof/Modules/ShearSolution.lean` (29 theorems) proves, against the
+repository's own `curl`, `laplacian`, `convective`, `div`, `vorticity_sup_norm` and
+`IsPeriodicSmoothSolutionOn`, that `v_A(t,x) = A e^{-ν k² t} sin(k x₃) e₁`, `k = 2π`,
+`p = 0` is an actual periodic smooth solution, with
+`sup_x |curl v_A(t,x)| = k A e^{-ν k² t}` for `A > 0`. Hence the data-dependent cubic
+bound (`C = κ k A`) and the fixed-constant obstruction hold for an actual solution.
+Only this single shear is assembled. The Beltrami family, the direction field `ξ`
+(so the failure of `κ M² ≤ ν |∇ξ|²`), and any estimate for general solutions are
+**not** formalized; they remain hand calculations or open.
+
+### Lean hypothesis → paper assumption
+
+| Lean declaration / hypothesis | Paper assumption it encodes | Match |
+|---|---|---|
+| `shearU A ν t x = (A * exp (-(ν*K^2)*t) * sin (K * x 2)) • e0`, `K = 2π` | `v_A = A e^{-νk²t} sin(k x₃) e₁`, `k = 2π` | exact (`x 2` is `x₃`, 0-indexed) |
+| `zeroP` | pressure `p = 0` | exact |
+| `IsPeriodicSmoothSolutionOn ν T (shearU A ν 0) (shearU A ν) zeroP` | smooth periodic NS solution on `[0,T)` with datum `v_A(0)` | exact (repository predicate, one-sided time derivative within `[0,∞)`) |
+| `shear_isPeriodicSmoothSolutionOn (A ν T : ℝ)` | holds for all `A, ν, T` | Lean is more general (no sign hypotheses needed) |
+| `hA : 0 < A` (sup-norm, cubic, envelope) | `A > 0` | exact; for `A < 0` the sup is `k|A|`, not claimed |
+| `hν : 0 ≤ ν` | viscosity `ν > 0` | Lean more general (`ν ≥ 0`) |
+| `hκ : 0 < κ`, `hτ : 0 ≤ τ` | `κ > 0`, start time `τ ≥ 0` | exact |
+| `CubicVorticityDifferentialBound (shearU A ν) τ (κ*(K*A)) κ` | `M' ≤ C M³ − κ M⁴` for `t ≥ τ`, `C = κ M₀` | exact (`M₀ = kA`) |
+| `hC : 0 ≤ C` in `shear_fixed_cubic_constants_fail` | fixed `C ≥ 0`, `κ > 0` independent of data | exact; witness horizon `T = 1`, failure at `τ = 0` |
+| `shear_envelope_nonvacuous` conclusion | envelope `sup|ω(t)| ≤ max(sup|ω₀|, C/κ)` on `[0,T)` with `v_A(0) ≠ 0` | exact |
+
+No mismatch between a Lean hypothesis and the paper's assumptions was found; the two
+"more general" rows weaken hypotheses and are recorded rather than hidden.
+
 ## 5. Reproduction and evidence boundary
+
+One command (repository root, pinned Lean `v4.30.0-rc1`, Mathlib `0c154d67103f74be3a0f2c509f72ccbf5be9f2a7`):
+
+```
+lake exe cache get && lake build && python3 scripts/check_envelope_axioms.py
+```
+
+CI run [42925945732](https://github.com/BenFrohman/NS_Millennium_Proof/actions/runs/42925945732) on commit `1bcbb3845f99543b1b77d07292188ce13eb74315` passed: `PASS: 37 declarations, standard axioms only` (each `[propext, Classical.choice, Quot.sound]`), inventory `TOTAL_THEOREM_DECLARATIONS 530`, `ShearSolution: theorems=33 nonstandard=0`. Paper v1.1: `docs/VorticityEnvelopeCorrection.tex` / `.pdf` (Independent Researcher, Texas, United States).
+
+Older step-by-step commands:
 
 Run `lake build`, `lake env lean scripts/AxiomAudit.lean`, and
 `lake env lean scripts/EnvelopeCorrectionAudit.lean`, and
