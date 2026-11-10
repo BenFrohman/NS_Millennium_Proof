@@ -23,7 +23,8 @@ if len(entries) != len(expected):
     sys.exit(f'expected {len(expected)} axiom lines, saw {len(entries)}')
 allowed = {'propext', 'Classical.choice', 'Quot.sound'}
 for name, line in zip(expected, entries):
-    if not line.startswith("'" + name + "'"):
+    printed = line[1:line.index("'", 1)]
+    if printed != name and not printed.endswith('.' + name):
         sys.exit('order mismatch: ' + line)
     if line.endswith('does not depend on any axioms'):
         continue
