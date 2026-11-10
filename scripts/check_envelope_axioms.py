@@ -4,7 +4,7 @@ Copyright (c) 2026 Benjamin Stanley Frohman. Apache-2.0. Author: Benjamin Stanle
 import re, subprocess, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-src = (ROOT/'scripts'/'JacobiAxiomAudit.lean').read_text()
+src = (ROOT/'scripts'/'EnvelopeCorrectionAudit.lean').read_text()
 expected = re.findall(r'^#print axioms (\S+)$', src, re.M)
 run = subprocess.run(['lake', 'env', 'lean', 'scripts/EnvelopeCorrectionAudit.lean'], cwd=ROOT,
                      text=True, capture_output=True)
