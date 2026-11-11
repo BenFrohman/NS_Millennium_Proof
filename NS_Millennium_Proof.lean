@@ -22,6 +22,7 @@ import NS_Millennium_Proof.Modules.NS_Equations
 import NS_Millennium_Proof.Modules.SymplecticTether
 import NS_Millennium_Proof.Modules.SymplecticConstraint
 import NS_Millennium_Proof.Modules.TetheredLyapunov
+import NS_Millennium_Proof.Modules.TetherRateCounterexample
 import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.ShearSolution
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
@@ -69,6 +70,7 @@ open Lean Elab Command in
   unless bad.isEmpty do throwError "axiom audit FAILED: {bad.size} theorem(s) use non-standard axioms"
 
 #print axioms GlobalRegularity.frohmanian_tether_theorem
+#print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
 #print axioms GlobalRegularity.global_regularity_for_NS
 #print axioms FrohmanianTether.ClayStatements.global_regularity_for_NS_nonvacuous_at_zero
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherRate_zero
