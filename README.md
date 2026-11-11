@@ -65,7 +65,7 @@ In addition to this research repository (see fresh build/audit logs for declarat
    - `350` kernel-verified theorems across `13` modules (`0 sorry`, `0` custom axioms).
    - Master 5-conjunct product theorem: `FrohmanianSymplecticTether.FinalProductTheorem.frohmanian_metriplectic_system_canonical_uniqueness_and_global_regularity_product_theorem` ($P_1 \wedge P_2 \wedge P_3 \wedge P_4 \wedge P_5$).
 2. **[BenFrohman/fefferman-clay-navier-stokes](https://github.com/BenFrohman/fefferman-clay-navier-stokes)** — **Zenodo v1.1.0 DOI:** [`10.5281/zenodo.23717083`](https://doi.org/10.5281/zenodo.23717083) (Concept DOI: [`10.5281/zenodo.23652840`](https://doi.org/10.5281/zenodo.23652840), v1.0.0 DOI: [`10.5281/zenodo.23652841`](https://doi.org/10.5281/zenodo.23652841))
-   - `186` kernel-verified theorems across `6` modules (`0 sorry`, `0` custom axioms).
+   - `225` `theorem`/`lemma` declarations across `7` modules (`0 sorry`, `0` custom axioms), counted in the source at commit `4cb2150`.
    - Master 5-conjunct product theorem: `FeffermanClayNS.FinalProductTheorem.fefferman_periodic_ns_exact_reduction_product_theorem` ($Q_1(\nu) \wedge Q_2 \wedge Q_3 \wedge Q_4 \wedge Q_5(\nu)$).
 
 ## Companion Manuscript (19 Pages, Oct 2026)
