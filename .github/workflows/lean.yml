@@ -42,8 +42,9 @@ jobs:
 
       - name: Audit envelope correction and backwards-compatible API
         run: |
-          lake env lean scripts/EnvelopeCorrectionAudit.lean
-          lake env lean scripts/CertificateAxiomInventory.lean
+          set -o pipefail
+          python3 scripts/check_envelope_axioms.py | tee envelope-axioms.txt
+          lake env lean scripts/CertificateAxiomInventory.lean | tee certificate-axiom-inventory.txt
 
   structure:
     name: Repository structure check

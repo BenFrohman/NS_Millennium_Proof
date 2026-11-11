@@ -23,6 +23,7 @@ import NS_Millennium_Proof.Modules.SymplecticTether
 import NS_Millennium_Proof.Modules.SymplecticConstraint
 import NS_Millennium_Proof.Modules.TetheredLyapunov
 import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
+import NS_Millennium_Proof.Modules.ShearSolution
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.Uniqueness
 
