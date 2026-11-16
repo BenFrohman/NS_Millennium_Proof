@@ -65,9 +65,13 @@ open NavierStokes3D MeasureTheory
 
 /-! ## Main Theorem — Frohmanian Symplectic Tether Theorem -/
 
-/-- High-level statement of the full theorem.
+/-- **Conditional** statement (not an unconditional Clay solution).
+The NS-regularity conjunct holds *given* the hypothesis `hDI`, the rate
+`M' ≤ C M² - κ'' M³`, which is NOT derived from the unmodified equation in this
+repository (the attempted derivation `reduced_pairing_of_unmodified_and_tether` was
+false as stated; see `HWEIGHT_OBSTRUCTION.md` and `HonestReduction.lean`).
 The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
-and TetheredLyapunov.lean (unconditional global regularity via independent majorant).
+and TetheredLyapunov.lean (global regularity conditional on the rate hypothesis).
 Editor green ticks only mean this declaration elaborated. The certificate is
 `#print axioms frohmanian_tether_theorem`: it must list `propext`,
 `Classical.choice`, `Quot.sound` and must **not** list `sorryAx`. -/
@@ -186,9 +190,11 @@ This is linked directly to the exact form `navier_stokes_eq` from Sections 1–2
 public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
   ∃ p : TimeDependentPressure, navier_stokes_eq u p ν
 
-/-- Main theorem (Abstract, formalized).
+/-- Main theorem (Abstract, formalized) — **CONDITIONAL on `hRiccati`**, a T-uniform
+`L^∞` vorticity bound (`HonestReduction.TetherCoefficientBounded`), which is open and
+equivalent in strength to the Clay problem. Not an unconditional Clay solution.
 
-Every smooth, divergence-free initial velocity field on the three-torus generates
+Given that bound (and the classical local theory hypotheses), every smooth, divergence-free initial velocity field on the three-torus generates
 a unique globally smooth solution to the 3D incompressible Navier–Stokes equations.
 
 This is the top-level statement whose proof proceeds via the Frohmanian Symplectic Tether
