@@ -5,6 +5,8 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import Lean
+import NS_Millennium_Proof.Semantics
+import NS_Millennium_Proof.TruthGate
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 import NS_Millennium_Proof.Modules.AnalyticPipeline
 import NS_Millennium_Proof.Modules.Stage6Calculus
@@ -68,6 +70,17 @@ open Lean Elab Command in
   let total := stats.fold (fun acc _ (c, _) => acc + c) 0
   logInfo s!"TOTAL theorems={total} nonstandard={bad.size}"
   unless bad.isEmpty do throwError "axiom audit FAILED: {bad.size} theorem(s) use non-standard axioms"
+
+/-! ## Truth Gate (semantics lock)
+
+Fails the default `lake build` unless `NS_Millennium_Proof.Semantics` is imported, every public
+theorem listed in `truth-gate.lock.json` has type exactly its lock's `paper_claim` and is proved
+as `intended_correspondence.mp <formal proof>`, no paper side aliases its formal side, no
+correspondence is `rfl`/`Iff.rfl` or definitional, the locked statement and paper hashes match,
+no lock declaration uses `sorryAx`, `Lean.ofReduceBool` or a non-standard axiom, and no
+unregistered theorem concludes a headline Clay proposition or a locked claim. A lock with
+status `drift` keeps the build red until the author decides. -/
+#eval TruthGate.runTruthGate "truth-gate.lock.json"
 
 #print axioms GlobalRegularity.frohmanian_tether_theorem
 #print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable

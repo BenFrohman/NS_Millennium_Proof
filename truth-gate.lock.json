@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "repo": "BenFrohman/NS_Millennium_Proof",
+  "toolchain": "leanprover/lean4:v4.30.0-rc1",
+  "mathlib": "0c154d67103f74be3a0f2c509f72ccbf5be9f2a7",
+  "locked_commit": "(set when the author approves; the commit containing this file)",
+  "approver": {
+    "name": "Frohman, Benjamin Stanley",
+    "status": "PENDING AUTHOR APPROVAL: every paper_claim transcription awaits the author's written approval"
+  },
+  "standard_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "scan_prefix": "NS_Millennium_Proof",
+  "semantics_module": "NS_Millennium_Proof.Semantics",
+  "headline_conclusions": [
+    "FrohmanianTether.ClayStatements.Clay_A",
+    "FrohmanianTether.ClayStatements.Clay_B",
+    "FrohmanianTether.ClayStatements.Clay_B_exact",
+    "FrohmanianTether.ClayStatements.Clay_B_exact_with_energy",
+    "FrohmanianTether.ClayStatements.Clay_D_periodic"
+  ],
+  "locks": [
+    {
+      "id": "EnvelopeReduction",
+      "namespace": "NS_Millennium_Proof.Semantics.EnvelopeReduction",
+      "status": "locked",
+      "paper": {
+        "path": "docs/VorticityEnvelopeCorrection.tex",
+        "sha256": "e35cbb8274d914297828e67fd748968cb4ef56a22bd8bd4a482e7d7f0cb633a7",
+        "section": "§2 The checked conditional consequences",
+        "quote": "conditional reduction: the uniform envelope for every positive viscosity,\n\\emph{and} the separately assumed periodic BKM continuation principle, imply\n\\lean{Clay_B_exact}."
+      },
+      "formal_proof": "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope_formal",
+      "shared_vocabulary": [
+        "FrohmanianTether.ClayStatements.Clay_B_exact",
+        "FrohmanianTether.ClayStatements.PeriodicBKMContinuation"
+      ],
+      "public": [
+        "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope"
+      ],
+      "paper_claim_sha256": "",
+      "formal_claim_sha256": ""
+    },
+    {
+      "id": "DirectionCurvatureReduction",
+      "namespace": "NS_Millennium_Proof.Semantics.DirectionCurvatureReduction",
+      "status": "locked",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0",
+        "section": "Abstract",
+        "quote": "assuming \\lean{PeriodicBKMContinuation}~$\\nu$ for every $\\nu>0$, the hypothesis \\lean{DirectionCurvatureBound}~$\\nu$ for every $\\nu>0$ implies \\lean{Clay_B_exact}. Here \\lean{DirectionCurvatureBound} is an abbreviation for \\lean{UniformVorticityEnvelopeBound}, an \\emph{assumed} uniform ceiling on $\\|\\omega(t)\\|_\\infty$ along periodic smooth solutions (not a differential inequality)"
+      },
+      "formal_proof": "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound_formal",
+      "shared_vocabulary": [
+        "FrohmanianTether.ClayStatements.Clay_B_exact",
+        "FrohmanianTether.ClayStatements.PeriodicBKMContinuation"
+      ],
+      "public": [
+        "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound"
+      ],
+      "paper_claim_sha256": "",
+      "formal_claim_sha256": ""
+    },
+    {
+      "id": "PeriodicTetherReduction",
+      "namespace": "NS_Millennium_Proof.Semantics.PeriodicTetherReduction",
+      "status": "locked",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0",
+        "section": "§The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)",
+        "quote": "The reduction from \\lean{Clay_B_exact} to the periodic closing bound \\lean{PeriodicTetherClosingBound} and classical periodic BKM continuation \\lean{PeriodicBKMContinuation} is proved axiom-clean"
+      },
+      "formal_proof": "FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound_formal",
+      "shared_vocabulary": [
+        "FrohmanianTether.ClayStatements.Clay_B_exact",
+        "FrohmanianTether.ClayStatements.PeriodicBKMContinuation",
+        "FrohmanianTether.ClayStatements.PeriodicTetherClosingBound"
+      ],
+      "public": [
+        "FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound"
+      ],
+      "paper_claim_sha256": "",
+      "formal_claim_sha256": ""
+    },
+    {
+      "id": "ConditionalGlobalRegularity",
+      "namespace": "NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity",
+      "status": "drift",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0",
+        "section": "§1 Introduction, Theorem 1.1 (thm:main)",
+        "quote": "Then $M(t)\\le\\max\\bigl(M(0),\\CZ/\\kappa''\\bigr)$ for all $t\\ge0$, and \\eqref{eq:NS} admits a globally defined physical solution $u$ on $[0,\\infty)$ that is spatially $C^\\infty$ for every $t\\ge0$, divergence-free, and unique among all smooth physical solutions."
+      },
+      "formal_proof": "",
+      "shared_vocabulary": [
+        "NavierStokes3D.NS_PDE",
+        "NavierStokes3D.IsPhysicalNSSolution",
+        "NavierStokes3D.KatoLocalWitness",
+        "NavierStokes3D.vorticity_sup_norm",
+        "NavierStokes3D.vorticity",
+        "NavierStokes3D.div",
+        "NavierStokes3D.T3",
+        "NavierStokes3D.TimeDependentVelocity",
+        "NavierStokes3D.TimeDependentPressure",
+        "NavierStokes3D.VelocityField",
+        "NavierStokes3D.existenceTimes",
+        "TetheredLyapunov.KatoUniquenessOnExistenceTimes",
+        "TetheredLyapunov.PhysicalBKMContinuationCriterionFor"
+      ],
+      "public": [
+        "GlobalRegularity.global_regularity_for_NS"
+      ],
+      "drift": "main.tex Theorem 1.1 is attributed to global_regularity_for_NS, but Lean proves a different statement: it assumes the time-uniform bound FrohmanianTetherBound instead of the paper's cubic rate (R) FrohmanianTetherRate, one given Kato witness instead of (K) local existence from every datum, and its conclusion has no ceiling M(t) <= max(M(0), C/kappa''). Theorem 1.1 as transcribed (Semantics.PaperTheorem11) is unsettled in Lean: not proved, not disproved. Needs the author's decision.",
+      "paper_claim_sha256": "",
+      "formal_claim_sha256": ""
+    },
+    {
+      "id": "TetherTheorem",
+      "namespace": "NS_Millennium_Proof.Semantics.TetherTheorem",
+      "status": "drift",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0",
+        "section": "§1 Introduction, Theorem 1.1 (thm:main)",
+        "quote": "\\begin{theorem}[Conditional Global Regularity; \\lean{frohmanian_tether_theorem}, \\lean{global_regularity_for_NS}]\\label{thm:main}"
+      },
+      "formal_proof": "",
+      "shared_vocabulary": [],
+      "public": [
+        "GlobalRegularity.frohmanian_tether_theorem"
+      ],
+      "drift": "main.tex Theorem 1.1 is attributed to frohmanian_tether_theorem, whose hypothesis hDI : forall u0 nu, FrohmanianTetherRate u0 nu is unsatisfiable (TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable, proved). The theorem is vacuous and is not Theorem 1.1. Needs the author's decision.",
+      "paper_claim_sha256": "",
+      "formal_claim_sha256": ""
+    }
+  ],
+  "intermediate": [
+    {
+      "name": "FrohmanianTether.HighSetDepletionAndBKM.clay_B_exact_of_torus_direction_depletion",
+      "reason": "Intermediate step of the envelope/direction-curvature reductions. No paper states it as its claim (the Zenodo 23652841 description only lists it as a conditional reduction)."
+    },
+    {
+      "name": "FrohmanianTether.ClayStatements.clay_B_exact_of_with_energy",
+      "reason": "Definitional implication Clay_B_exact_with_energy -> Clay_B_exact; no paper claim."
+    }
+  ],
+  "note": "A pass means only that the kernel-checked certificate inhabits the locked proposition. Every locked paper claim is conditional on open hypotheses; nothing here claims a Clay problem is solved."
+}

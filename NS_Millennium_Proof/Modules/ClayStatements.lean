@@ -588,8 +588,11 @@ References also: Constantin–Foias, *Navier–Stokes Equations* (1988). -/
 
 /-- **Proved (standard axioms).** Periodic tether closing bound + classical periodic BKM
 continuation, for every `ν > 0`, gives `Clay_B_exact`. Conditional: the bound is OPEN and is
-the whole difficulty; the Frohmanian assembly contributes no step that BKM does not. -/
-public theorem clay_B_exact_of_periodic_tether_bound
+the whole difficulty; the Frohmanian assembly contributes no step that BKM does not.
+Formal side of the Truth Gate lock `PeriodicTetherReduction`; the public
+`clay_B_exact_of_periodic_tether_bound` (in `MainTheorem.lean`) is obtained from it only by
+transport across `NS_Millennium_Proof.Semantics.PeriodicTetherReduction.intended_correspondence`. -/
+public theorem clay_B_exact_of_periodic_tether_bound_formal
     (hclose : ∀ ν > (0 : ℝ), PeriodicTetherClosingBound ν)
     (hBKM : ∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) : Clay_B_exact :=
   fun ν u₀ hν hs hd hp => hBKM ν hν u₀ hd hs hp (hclose ν hν u₀ hd hs hp)
@@ -600,6 +603,6 @@ public theorem clay_B_exact_of_periodic_tether_bound
 #print axioms repaired_hInt
 #print axioms repaired_huniq_at_zero
 #print axioms stepField_not_physical
-#print axioms clay_B_exact_of_periodic_tether_bound
+#print axioms clay_B_exact_of_periodic_tether_bound_formal
 
 end FrohmanianTether.ClayStatements
