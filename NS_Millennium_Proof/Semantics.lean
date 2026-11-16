@@ -11,6 +11,31 @@ public import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 /-!
 # Semantics lock (Truth Gate)
 
+PAPER_PATH: main.tex
+PAPER_SHA256: bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0
+PAPER_SECTION: Abstract (main theorem `clay_reduces_to_direction_curvature_bound`); also §"The Periodic Clay (B) Statement and Scaling Analysis" (sec:clay) and §1 Theorem 1.1 (thm:main, DRIFT)
+
+Locked paper claims in `main.tex`, quoted verbatim (lock `DirectionCurvatureReduction`, then lock
+`PeriodicTetherReduction`):
+
+PAPER_QUOTE_BEGIN
+assuming \lean{PeriodicBKMContinuation}~$\nu$ for every $\nu>0$, the hypothesis \lean{DirectionCurvatureBound}~$\nu$ for every $\nu>0$ implies \lean{Clay_B_exact}. Here \lean{DirectionCurvatureBound} is an abbreviation for \lean{UniformVorticityEnvelopeBound}, an \emph{assumed} uniform ceiling on $\|\omega(t)\|_\infty$ along periodic smooth solutions (not a differential inequality)
+PAPER_QUOTE_END
+
+PAPER_QUOTE_BEGIN
+The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{PeriodicTetherClosingBound} and classical periodic BKM continuation \lean{PeriodicBKMContinuation} is proved axiom-clean
+PAPER_QUOTE_END
+
+Second paper (lock `EnvelopeReduction`; checked by the in-build gate against
+`truth-gate.lock.json`): `docs/VorticityEnvelopeCorrection.tex`, sha256
+`e35cbb8274d914297828e67fd748968cb4ef56a22bd8bd4a482e7d7f0cb633a7`, §2 "The checked conditional
+consequences".
+
+Scope: CONDITIONAL. Every locked claim is an implication whose hypotheses (the uniform vorticity
+envelope / ceiling or the periodic tether closing bound, and periodic BKM continuation, for every
+`ν > 0`) are OPEN and stay explicit on both sides. The analytic link of the tether is not
+established. Nothing here is a proof of the Navier–Stokes Millennium problem.
+
 **All `paper_claim` transcriptions below are PENDING AUTHOR APPROVAL.** Until the author
 approves them in writing, a green gate certifies only that each public theorem inhabits the
 transcription as written, not that the transcription is the reading the author intends.
@@ -40,10 +65,13 @@ Observation first: before any tactic on a public obligation, run
 `#print NS_Millennium_Proof.Semantics.<Lock>.paper_claim`.
 -/
 
+@[expose] public section
+
 open NavierStokes3D MeasureTheory FrohmanianTether FrohmanianTether.ClayStatements
 
 namespace NS_Millennium_Proof.Semantics
 
+-- TRUTH-GATE LOCK BEGIN
 /-! ## Paper-side vocabulary (transcribed from the papers, not from the Lean hypotheses) -/
 
 /-- Paper: `docs/VorticityEnvelopeCorrection.tex`, §1 "The corrected distinction"
@@ -54,7 +82,7 @@ $M(t)\leq\max\{M(0),C/\kappa\},\qquad 0\leq t<T.$ Here $M(t)=\|\operatorname{cur
 `M(0)` is read on the solution itself.
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def PaperUniformEnvelope (ν : ℝ) : Prop :=
+def PaperUniformEnvelope (ν : ℝ) : Prop :=
   ∀ u₀ : VelocityField,
     ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) → IsZ3Periodic u₀ →
       ∃ C k : ℝ, 0 < C ∧ 0 < k ∧
@@ -71,7 +99,7 @@ $M(t)\leq\max\{M(0),C/\kappa\},\qquad 0\leq t<T.$ Here $M(t)=\|\operatorname{cur
 periodic datum, valid along every local periodic smooth solution on its whole lifespan.
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def PaperUniformCeiling (ν : ℝ) : Prop :=
+def PaperUniformCeiling (ν : ℝ) : Prop :=
   ∀ u₀ : VelocityField,
     ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) → IsZ3Periodic u₀ →
       ∃ Y : ℝ, ∀ (T : ℝ) (u : TimeDependentVelocity) (p : TimeDependentPressure),
@@ -88,17 +116,17 @@ namespace EnvelopeReduction
 BKM continuation principle, imply \lean{Clay_B_exact}." Conditional: both premises are open.
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def paper_claim : Prop :=
+def paper_claim : Prop :=
   ((∀ ν : ℝ, 0 < ν → PaperUniformEnvelope ν) ∧ (∀ ν : ℝ, 0 < ν → PeriodicBKMContinuation ν)) →
     Clay_B_exact
 
 /-- What Lean proves (`clay_reduces_to_uniform_vorticity_envelope_formal`). -/
-@[expose] public def formal_claim : Prop :=
+def formal_claim : Prop :=
   (∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) →
     (∀ ν > (0 : ℝ), HighSetDepletionAndBKM.UniformVorticityEnvelopeBound ν) → Clay_B_exact
 
 /-- The paper's envelope (with `M(0)` read on the solution) is the Lean envelope. -/
-public theorem paperUniformEnvelope_iff (ν : ℝ) :
+theorem paperUniformEnvelope_iff (ν : ℝ) :
     PaperUniformEnvelope ν ↔ HighSetDepletionAndBKM.UniformVorticityEnvelopeBound ν := by
   constructor
   · intro h u₀ hdiv hsm hper
@@ -115,7 +143,7 @@ public theorem paperUniformEnvelope_iff (ν : ℝ) :
     exact hb T u p hsol t ⟨ht0, htT⟩
 
 /-- **Fixed once.** -/
-public theorem intended_correspondence : formal_claim ↔ paper_claim := by
+theorem intended_correspondence : formal_claim ↔ paper_claim := by
   unfold formal_claim paper_claim
   simp only [paperUniformEnvelope_iff]
   constructor
@@ -140,17 +168,17 @@ differential inequality)". The hypothesis is transcribed from that description
 (`PaperUniformCeiling`), not from the Lean abbreviation.
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def paper_claim : Prop :=
+def paper_claim : Prop :=
   (∀ ν : ℝ, 0 < ν → PeriodicBKMContinuation ν) →
     (∀ ν : ℝ, 0 < ν → PaperUniformCeiling ν) → Clay_B_exact
 
 /-- What Lean proves (`clay_reduces_to_direction_curvature_bound_formal`). -/
-@[expose] public def formal_claim : Prop :=
+def formal_claim : Prop :=
   (∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) →
     (∀ ν > (0 : ℝ), HighSetDepletionAndBKM.DirectionCurvatureBound ν) → Clay_B_exact
 
 /-- A single uniform ceiling is the same as the `max(M(0), C/κ)` envelope with `C, κ > 0`. -/
-public theorem paperUniformCeiling_iff (ν : ℝ) :
+theorem paperUniformCeiling_iff (ν : ℝ) :
     PaperUniformCeiling ν ↔ HighSetDepletionAndBKM.DirectionCurvatureBound ν := by
   constructor
   · intro h u₀ hdiv hsm hper
@@ -166,7 +194,7 @@ public theorem paperUniformCeiling_iff (ν : ℝ) :
       fun T u p hsol t ht0 htT => hb T u p hsol t ⟨ht0, htT⟩⟩
 
 /-- **Fixed once.** -/
-public theorem intended_correspondence : formal_claim ↔ paper_claim := by
+theorem intended_correspondence : formal_claim ↔ paper_claim := by
   unfold formal_claim paper_claim
   constructor
   · intro h hB hC
@@ -188,17 +216,17 @@ namespace PeriodicTetherReduction
 are open; they are taken for every positive viscosity, as `Clay_B_exact` quantifies `ν > 0`.
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def paper_claim : Prop :=
+def paper_claim : Prop :=
   ((∀ ν : ℝ, 0 < ν → PeriodicTetherClosingBound ν) ∧
       (∀ ν : ℝ, 0 < ν → PeriodicBKMContinuation ν)) → Clay_B_exact
 
 /-- What Lean proves (`clay_B_exact_of_periodic_tether_bound_formal`). -/
-@[expose] public def formal_claim : Prop :=
+def formal_claim : Prop :=
   (∀ ν > (0 : ℝ), PeriodicTetherClosingBound ν) →
     (∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) → Clay_B_exact
 
 /-- **Fixed once.** -/
-public theorem intended_correspondence : formal_claim ↔ paper_claim := by
+theorem intended_correspondence : formal_claim ↔ paper_claim := by
   unfold formal_claim paper_claim
   constructor
   · intro h hp
@@ -222,7 +250,7 @@ globally defined physical solution $u$ on $[0,\infty)$ that is spatially $C^\inf
 $t\ge0$, divergence-free, and unique among all smooth physical solutions."
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def PaperTheorem11 : Prop :=
+def PaperTheorem11 : Prop :=
   ∀ (ν : ℝ) (u₀ : VelocityField), 0 < ν →
     ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) → Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) →
     -- (K) Kato local existence from every such datum
@@ -254,10 +282,10 @@ namespace ConditionalGlobalRegularity
 proves; no `intended_correspondence` exists for this lock.
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def paper_claim : Prop := PaperTheorem11
+def paper_claim : Prop := PaperTheorem11
 
 /-- The statement of `GlobalRegularity.global_regularity_for_NS` as Lean proves it. -/
-@[expose] public def formal_claim : Prop :=
+def formal_claim : Prop :=
   ∀ (u0 : TimeDependentVelocity) (_h_div_free : ∀ t x, div (u0 t) x = 0)
     (_h_smooth : GlobalRegularity.IsSmooth (u0 0))
     (_h_finite_energy : Integrable (fun x : T3 => ‖u0 0 x‖ ^ 2))
@@ -288,7 +316,7 @@ over every datum and is unsatisfiable
 not Theorem 1.1. No `intended_correspondence` exists for this lock.
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def paper_claim : Prop := PaperTheorem11
+def paper_claim : Prop := PaperTheorem11
 
 end TetherTheorem
 
@@ -297,19 +325,22 @@ end TetherTheorem
 /-- Conjunction of the locked paper claims (locks 1–3).
 
 **Transcription status: PENDING AUTHOR APPROVAL** (Frohman, Benjamin Stanley). -/
-@[expose] public def paper_claim : Prop :=
+def paper_claim : Prop :=
   EnvelopeReduction.paper_claim ∧ DirectionCurvatureReduction.paper_claim ∧
     PeriodicTetherReduction.paper_claim
 
 /-- Conjunction of the corresponding formal claims. -/
-@[expose] public def formal_claim : Prop :=
+def formal_claim : Prop :=
   EnvelopeReduction.formal_claim ∧ DirectionCurvatureReduction.formal_claim ∧
     PeriodicTetherReduction.formal_claim
 
 /-- **Fixed once.** The aggregate correspondence, built from the per-claim locks. -/
-public theorem intended_correspondence : formal_claim ↔ paper_claim :=
+theorem intended_correspondence : formal_claim ↔ paper_claim :=
   and_congr EnvelopeReduction.intended_correspondence
     (and_congr DirectionCurvatureReduction.intended_correspondence
       PeriodicTetherReduction.intended_correspondence)
 
+-- TRUTH-GATE LOCK END
 end NS_Millennium_Proof.Semantics
+
+end

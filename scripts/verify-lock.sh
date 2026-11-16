@@ -15,6 +15,7 @@ mkdir -p truth-gate-report
 fail() { echo "TRUTH GATE FAIL: $*"; exit 1; }
 
 echo "== 1/5 static checks"
+python3 scripts/truth_gate_check.py | tee truth-gate-report/static-lock.txt
 [ -f NS_Millennium_Proof/Semantics.lean ] || fail "NS_Millennium_Proof/Semantics.lean missing"
 [ -f truth-gate.lock.json ] || fail "truth-gate.lock.json missing"
 grep -q '^import NS_Millennium_Proof.Semantics$' NS_Millennium_Proof.lean || fail "root does not import NS_Millennium_Proof.Semantics"

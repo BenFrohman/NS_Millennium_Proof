@@ -30,6 +30,74 @@ nothing, and the gate would pass anything. That is forbidden.
   Changing a locked statement needs the author's explicit approval and a new lock.
 * **Every `paper_claim` transcription is PENDING AUTHOR APPROVAL** until the author signs off.
 
+## The locked claims (PENDING AUTHOR APPROVAL)
+
+Primary paper: PAPER_PATH `main.tex`, PAPER_SHA256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`.
+
+### `EnvelopeReduction` (LOCKED)
+
+* paper: `docs/VorticityEnvelopeCorrection.tex`, sha256 `e35cbb8274d914297828e67fd748968cb4ef56a22bd8bd4a482e7d7f0cb633a7`
+* section: §2 The checked conditional consequences
+* public theorem(s): `FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope`
+
+Verbatim quote:
+
+```
+conditional reduction: the uniform envelope for every positive viscosity,
+\emph{and} the separately assumed periodic BKM continuation principle, imply
+\lean{Clay_B_exact}.
+```
+
+### `DirectionCurvatureReduction` (LOCKED)
+
+* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
+* section: Abstract
+* public theorem(s): `FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound`
+
+Verbatim quote:
+
+```
+assuming \lean{PeriodicBKMContinuation}~$\nu$ for every $\nu>0$, the hypothesis \lean{DirectionCurvatureBound}~$\nu$ for every $\nu>0$ implies \lean{Clay_B_exact}. Here \lean{DirectionCurvatureBound} is an abbreviation for \lean{UniformVorticityEnvelopeBound}, an \emph{assumed} uniform ceiling on $\|\omega(t)\|_\infty$ along periodic smooth solutions (not a differential inequality)
+```
+
+### `PeriodicTetherReduction` (LOCKED)
+
+* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
+* section: §The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)
+* public theorem(s): `FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound`
+
+Verbatim quote:
+
+```
+The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{PeriodicTetherClosingBound} and classical periodic BKM continuation \lean{PeriodicBKMContinuation} is proved axiom-clean
+```
+
+### `ConditionalGlobalRegularity` (DRIFT)
+
+* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
+* section: §1 Introduction, Theorem 1.1 (thm:main)
+* public theorem(s): `GlobalRegularity.global_regularity_for_NS`
+* drift: main.tex Theorem 1.1 is attributed to global_regularity_for_NS, but Lean proves a different statement: it assumes the time-uniform bound FrohmanianTetherBound instead of the paper's cubic rate (R) FrohmanianTetherRate, one given Kato witness instead of (K) local existence from every datum, and its conclusion has no ceiling M(t) <= max(M(0), C/kappa''). Theorem 1.1 as transcribed (Semantics.PaperTheorem11) is unsettled in Lean: not proved, not disproved. Needs the author's decision.
+
+Verbatim quote:
+
+```
+Then $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ for all $t\ge0$, and \eqref{eq:NS} admits a globally defined physical solution $u$ on $[0,\infty)$ that is spatially $C^\infty$ for every $t\ge0$, divergence-free, and unique among all smooth physical solutions.
+```
+
+### `TetherTheorem` (DRIFT)
+
+* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
+* section: §1 Introduction, Theorem 1.1 (thm:main)
+* public theorem(s): `GlobalRegularity.frohmanian_tether_theorem`
+* drift: main.tex Theorem 1.1 is attributed to frohmanian_tether_theorem, whose hypothesis hDI : forall u0 nu, FrohmanianTetherRate u0 nu is unsatisfiable (TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable, proved). The theorem is vacuous and is not Theorem 1.1. Needs the author's decision.
+
+Verbatim quote:
+
+```
+\begin{theorem}[Conditional Global Regularity; \lean{frohmanian_tether_theorem}, \lean{global_regularity_for_NS}]\label{thm:main}
+```
+
 ## What fails the gate (and therefore `lake build`)
 
 `NS_Millennium_Proof.lean` runs `#eval TruthGate.runTruthGate "truth-gate.lock.json"` during
