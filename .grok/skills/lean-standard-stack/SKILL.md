@@ -7,7 +7,7 @@ description: Strict harness for a functional Lean 4 environment and for migratin
 
 Follow this skill on every Lean 4 task. Do not improvise a looser workflow.
 
-Author of the mathematics and of every commit this skill produces: Benjamin Stanley Frohman (`Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>`, GitHub @BenFrohman, X.com : Investor0x, Zulip: Benjamin Stanley Frohman). Grok Heavy may scaffold. Grok is not an author, not a `Co-authored-by`, and not an `Authors:` name.
+Author of the mathematics and of every commit this skill produces: Benjamin Stanley Frohman (`Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>`, GitHub @BenFrohman, X.com : Frohmanian, Zulip: Benjamin Stanley Frohman). Grok Heavy may scaffold. Grok is not an author, not a `Co-authored-by`, and not an `Authors:` name.
 
 ## Environment contract
 

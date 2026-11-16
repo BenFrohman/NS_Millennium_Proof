@@ -51,7 +51,7 @@ downstream.
    ```
    Author: Benjamin Stanley Frohman
    GitHub: @BenFrohman
-   X.com : Investor0x
+   X.com : Frohmanian
    Zulip: Benjamin Stanley Frohman
    ```
 
