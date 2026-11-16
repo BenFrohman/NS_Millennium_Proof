@@ -6,8 +6,12 @@ Authors: Benjamin Stanley Frohman
 
 import NS_Millennium_Proof.TruthGate
 
-/-! Truth Gate fixture `neg_drift` (expected: DRIFT). Run from the repository root:
-`lake env lean scripts/truth-gate-tests/neg_drift.lean`. -/
+/-!
+# neg_drift
+
+Truth Gate fixture `neg_drift` (expected: DRIFT). Run from the repository root:
+`lake env lean scripts/truth-gate-tests/neg_drift.lean`.
+-/
 
 -- Same-file theorem bodies must be available to the gate.
 set_option Elab.async false

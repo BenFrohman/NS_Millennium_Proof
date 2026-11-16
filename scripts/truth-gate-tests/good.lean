@@ -6,8 +6,12 @@ Authors: Benjamin Stanley Frohman
 
 import NS_Millennium_Proof.TruthGate
 
-/-! Truth Gate fixture `good` (expected: PASS). Run from the repository root:
-`lake env lean scripts/truth-gate-tests/good.lean`. -/
+/-!
+# good
+
+Truth Gate fixture `good` (expected: PASS). Run from the repository root:
+`lake env lean scripts/truth-gate-tests/good.lean`.
+-/
 
 -- Same-file theorem bodies must be available to the gate.
 set_option Elab.async false

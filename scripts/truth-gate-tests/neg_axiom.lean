@@ -6,8 +6,12 @@ Authors: Benjamin Stanley Frohman
 
 import NS_Millennium_Proof.TruthGate
 
-/-! Truth Gate fixture `neg_axiom` (expected: AXIOM). Run from the repository root:
-`lake env lean scripts/truth-gate-tests/neg_axiom.lean`. -/
+/-!
+# neg_axiom
+
+Truth Gate fixture `neg_axiom` (expected: AXIOM). Run from the repository root:
+`lake env lean scripts/truth-gate-tests/neg_axiom.lean`.
+-/
 
 -- Same-file theorem bodies must be available to the gate.
 set_option Elab.async false
