@@ -44,7 +44,8 @@ public import Mathlib.Analysis.Calculus.ContDiff.Basic
 -- Cross-ref: all prior reference blocks (especially §5 module hygiene and the ConditionalRegularity
 -- cleanup that removed the last hard errors) are still in force.
 
-/-! # Global Regularity: Final Integration and the Frohmanian Symplectic Tether Theorem
+/-!
+ # Global Regularity: Final Integration and the Frohmanian Symplectic Tether Theorem
 
 This module assembles everything and states the main theorem exactly as
 formulated in the audited LaTeX (including the three parts of Theorem 2.1
@@ -71,6 +72,13 @@ The regularity conjunct holds *given* `hDI : ∀ u₀ ν, FrohmanianTetherRate u
 binders `hKato`, `hTlb`, `hInt`, `huniq_shift`, `huniq`. `FrohmanianTetherRate` is open
 and is not derived from the unmodified equation in this repository
 (see `HWEIGHT_OBSTRUCTION.md`). This is not an unconditional Clay solution.
+**VACUOUS:** `hDI` is unsatisfiable, so this theorem holds vacuously and carries no information
+about Navier–Stokes flows. `TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable`
+(module `NS_Millennium_Proof.Modules.TetherRateCounterexample`) proves
+`¬ ∀ u₀ ν, FrohmanianTetherRate u₀ ν`. `NS_PDE`/`IsPhysicalNSSolution` impose no spatial
+differentiability, and Mathlib's `fderiv` is `0` at non-differentiable points. So a steady
+finite-energy field with a nowhere-differentiable (Takagi) component satisfies `NS_PDE` while its
+vorticity is unbounded, which violates the `BddAbove` conjunct of the rate.
 The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
 and TetheredLyapunov.lean (global regularity conditional on the rate, via the majorant).
 Editor green ticks only mean this declaration elaborated. The certificate is

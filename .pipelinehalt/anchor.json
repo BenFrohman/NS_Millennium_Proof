@@ -1,0 +1,192 @@
+{
+  "title": "Global Regularity for the 3D Incompressible Navier--Stokes Equations via the Frohmanian Symplectic Tether\\\\[4pt]\n\\large Complete Original Conjectured Framework and Kernel-Verified Non-Vacuous Conditional Formalization in Lean~4",
+  "source": "main.tex",
+  "claims": [
+    {
+      "id": "thm:main",
+      "number": "Theorem 1.1",
+      "statement": "Let $\\nu>0$ and let $u_0$ be smooth (\\lean{ContDiff ℝ ⊤}), divergence-free, and of finite $L^2$ energy. Assume within the class of physical solutions (\\lean{IsPhysicalNSSolution}): •[(K)] \\emph{Kato local existence}: a local smooth physical solution (\\lean{KatoLocalWitness}) exists from every such datum, so $T^*(u_0,\\nu)>0$; •[(C)] \\emph{Beale--Kato--Majda continuation criterion} (\\lean{PhysicalBKMContinuationCriterionFor}): if $T^*(u_0,\\nu)$ is finite then $\\int_0^{T^*}\\|\\omega\\|_\\infty\\,dt=\\infty$; $T^*=\\infty$ is then derived from (K), (C) and the integrability supplied by (R); •[(R)] \\emph{Frohmanian cubic tether rate (\\lean{FrohmanianTetherRate})}: along every physical solution from $u_0$, the vorticity sup-norm $t\\mapsto M(t)$ is continuous, differentiable on $[0,\\infty)$, and satisfies \\[ M'(t)\\le \\CZ\\,M(t)^2-\\kappa''\\,M(t)^3\\qquad(t\\ge 0) \\] for constants $\\CZ>0$, $\\kappa''>0$ (yielding \\lean{FrohmanianTetherBound}); •[(U)] \\emph{Physical uniqueness (\\lean{KatoUniquenessOnExistenceTimes})}: smooth physical solutions (\\lean{IsPhysicalNSSolution}) starting from $u_0$ agree with the Kato witness on each existence interval $[0,T]$. Then $M(t)\\le\\max\\bigl(M(0),\\CZ/\\kappa''\\bigr)$ for all $t\\ge0$, and \\eqref{eq:NS} admits a globally defined physical solution $u$ on $[0,\\infty)$ that is spatially $C^\\infty$ for every $t\\ge0$, divergence-free, and unique among all smooth physical solutions.",
+      "kind": "theorem",
+      "source": "main.tex:120",
+      "title": "Conditional Global Regularity; \\lean{frohmanian_tether_theorem}, \\lean{global_regularity_for_NS}"
+    },
+    {
+      "id": "def:tether",
+      "number": "Definition 3.1",
+      "statement": "For a velocity field $u=\\mathrm{BS}(\\omega)$ with $\\|u\\|_{L^2}\\neq0$, let $\\Pi_u=P^\\perp_u$ be the $L^2$-orthogonal Gram--Schmidt projection onto the complement of $\\operatorname{span}\\{u\\}$: \\[ \\Pi_u v=v-\\frac{\\langle v,u\\rangle_{L^2}}{\\|u\\|_{L^2}^2}\\,u \\] (Lean: \\lean{ForMathlib.Pi_u}, with $\\Pi_u v=v$ when $\\|u\\|_{L^2}=0$). With universal 3D Calderón--Zygmund constant $\\kappa=\\CZ(3)=\\frac{3}{8\\pi}\\cdot 4\\pi=\\frac{3}{2}$ (Lean: \\lean{kappa_eq_three_halves} in \\lean{ForMathlib/NS/Tether.lean}), define the Frohmanian tether kernel \\[ B(F,G)(\\omega)=-\\kappa\\int_{\\T}|\\omega(x)|^2\\,\\Bigl\\langle \\Pi_u\\Bigl(\\frac{\\delta F}{\\delta\\omega}\\Bigr)(x),\\,\\Pi_u\\Bigl(\\frac{\\delta G}{\\delta\\omega}\\Bigr)(x)\\Bigr\\rangle\\,dV . \\] The full tethered bracket is $\\{F,G\\}_{\\Tf}=\\{F,G\\}_{\\mathrm{cl}}+B(F,G)$.",
+      "kind": "definition",
+      "source": "main.tex:175",
+      "title": "Frohmanian tether kernel; Lean \\lean{TetherKernel}, \\lean{Pi_u}"
+    },
+    {
+      "id": "prop:degen",
+      "number": "Proposition 3.2",
+      "statement": "Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]",
+      "kind": "proposition",
+      "source": "main.tex:187",
+      "title": "Strict Degeneracy on Kinetic Energy; proved, \\lean{tetherKernel_degenerates_on_kinetic_energy}, \\lean{tetherKernel_C2}"
+    },
+    {
+      "id": "lem:localmax",
+      "number": "Lemma 4.1",
+      "statement": "Let $x$ satisfy $\\|\\omega(x)\\|=\\|\\omega\\|_{L^\\infty}$ and suppose $\\|\\nabla u(x)\\|\\le\\CZ\\|\\omega\\|_{L^\\infty}$ (\\lean{hCZ}). Then \\[ \\langle\\omega(x),(\\omega\\cdot\\nabla)u(x)\\rangle\\le\\CZ\\,\\|\\omega\\|_{L^\\infty}^3 . \\]",
+      "kind": "lemma",
+      "source": "main.tex:215",
+      "title": "Stretching at a spatial maximum; proved, \\lean{stretching_inner_le_at_max}"
+    },
+    {
+      "id": "lem:transport",
+      "number": "Lemma 4.2",
+      "statement": "At a spatial maximum where the convective transport pairing $\\langle\\omega,(u\\cdot\\nabla)\\omega\\rangle(x)$ vanishes and $\\langle\\omega,\\Delta\\omega\\rangle(x)\\le0$, along any solution of \\eqref{eq:vort} with $\\nu\\ge0$, \\[ \\langle\\omega,\\partial_t\\omega\\rangle(x)\\le\\langle\\omega,(\\omega\\cdot\\nabla)u\\rangle(x). \\]",
+      "kind": "lemma",
+      "source": "main.tex:222",
+      "title": "Transport and viscosity at a spatial maximum; proved, \\lean{time_pairing_le_stretching_at_max}"
+    },
+    {
+      "id": "lem:cubic",
+      "number": "Lemma 4.3",
+      "statement": "Let $C>0$, $\\kappa''>0$, and let $y:[0,\\infty)\\to\\R$ be differentiable on $[0,\\infty)$ with \\[ y'(s)\\le C\\,y(s)^2-\\kappa''\\,y(s)^3\\qquad(s\\ge0). \\] Then for every $t\\ge0$, \\[ y(t)\\le\\max\\Bigl(y(0),\\ \\frac{C}{\\kappa''}\\Bigr). \\]",
+      "kind": "lemma",
+      "source": "main.tex:240",
+      "title": "Cubic comparison stability; proved, \\lean{comparison_ode_stability}"
+    },
+    {
+      "id": "lem:majorant",
+      "number": "Lemma 4.4",
+      "statement": "For $C,\\kappa''>0$ and $y_0\\ge0$, any solution $Y_{C,\\kappa''}(t;y_0)$ of the comparison ODE $y'=Cy^2-\\kappa''y^3$, $y(0)=y_0$ (\\lean{ComparisonODE}) satisfies $0\\le Y_{C,\\kappa''}(t;y_0)\\le\\max(y_0,C/\\kappa'')$ for all $t\\ge0$.",
+      "kind": "lemma",
+      "source": "main.tex:251",
+      "title": "Explicit majorant global bound; proved, \\lean{comparison_majorant_global_bound}"
+    },
+    {
+      "id": "prop:ceiling",
+      "number": "Proposition 4.5",
+      "statement": "If $M(t)=\\|\\omega(t)\\|_{L^\\infty}$ is differentiable on $[0,\\infty)$ and satisfies $M'(t)\\le \\CZ M(t)^2-\\kappa''M(t)^3$, then \\[ \\sup_{t\\ge0}M(t)\\le\\max\\Bigl(M(0),\\frac{\\CZ}{\\kappa''}\\Bigr). \\]",
+      "kind": "proposition",
+      "source": "main.tex:255",
+      "title": "Cubic rate $\\Rightarrow$ uniform vorticity ceiling; proved, \\lean{riccati_ceiling_of_vorticity_di}"
+    }
+  ],
+  "clarifications": {
+    "9415a2e4de2c": {
+      "claimId": "thm:main",
+      "kind": "ambiguous",
+      "question": "Paper claim Theorem 1.1 (thm:main) states: “Let $\\nu>0$ and let $u_0$ be smooth (\\lean{ContDiff ℝ ⊤}), divergence-free, and of finite $L^2$ energy. Assume within the class of physical solutions (\\lean{IsPhysicalNSSolution}): •[(K)] \\emph{Kato …”. Its title is “Conditional Global Regularity; \\lean{frohmanian_tether_theorem}, \\lean{global_regularity_for_NS}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": "harmless wording: the title is a short description plus \\lean{} names that exist and are the mapped declarations.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:52.769Z"
+    },
+    "5e5d552b0287": {
+      "claimId": "lem:localmax",
+      "kind": "ambiguous",
+      "question": "Paper claim Lemma 4.1 (lem:localmax) states: “Let $x$ satisfy $\\|\\omega(x)\\|=\\|\\omega\\|_{L^\\infty}$ and suppose $\\|\\nabla u(x)\\|\\le\\CZ\\|\\omega\\|_{L^\\infty}$ (\\lean{hCZ}). Then \\[ \\langle\\omega(x),(\\omega\\cdot\\nabla)u(x)\\rangle\\le\\CZ\\,\\|\\omega\\|_…”. Its title is “Stretching at a spatial maximum; proved, \\lean{stretching_inner_le_at_max}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": "harmless wording: the title is a short description plus \\lean{} names that exist and are the mapped declarations.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:52.917Z"
+    },
+    "5604cd92a6b0": {
+      "claimId": "lem:cubic",
+      "kind": "ambiguous",
+      "question": "Paper claim Lemma 4.3 (lem:cubic) states: “Let $C>0$, $\\kappa''>0$, and let $y:[0,\\infty)\\to\\R$ be differentiable on $[0,\\infty)$ with \\[ y'(s)\\le C\\,y(s)^2-\\kappa''\\,y(s)^3\\qquad(s\\ge0). \\] Then for every $t\\ge0$, \\[ y(t)\\le\\max\\Bigl(y(0),\\ …”. Its title is “Cubic comparison stability; proved, \\lean{comparison_ode_stability}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": "harmless wording: the title is a short description plus \\lean{} names that exist and are the mapped declarations.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:53.051Z"
+    },
+    "66e0c28378de": {
+      "claimId": "lem:majorant",
+      "kind": "ambiguous",
+      "question": "Paper claim Lemma 4.4 (lem:majorant) states: “For $C,\\kappa''>0$ and $y_0\\ge0$, any solution $Y_{C,\\kappa''}(t;y_0)$ of the comparison ODE $y'=Cy^2-\\kappa''y^3$, $y(0)=y_0$ (\\lean{ComparisonODE}) satisfies $0\\le Y_{C,\\kappa''}(t;y_0)\\le\\max(y_0,…”. Its title is “Explicit majorant global bound; proved, \\lean{comparison_majorant_global_bound}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": "harmless wording: the title is a short description plus \\lean{} names that exist and are the mapped declarations.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:53.192Z"
+    },
+    "e96b01a5c691": {
+      "claimId": "prop:ceiling",
+      "kind": "ambiguous",
+      "question": "Paper claim Proposition 4.5 (prop:ceiling) states: “If $M(t)=\\|\\omega(t)\\|_{L^\\infty}$ is differentiable on $[0,\\infty)$ and satisfies $M'(t)\\le \\CZ M(t)^2-\\kappa''M(t)^3$, then \\[ \\sup_{t\\ge0}M(t)\\le\\max\\Bigl(M(0),\\frac{\\CZ}{\\kappa''}\\Bigr). \\]”. Its title is “Cubic rate $\\Rightarrow$ uniform vorticity ceiling; proved, \\lean{riccati_ceiling_of_vorticity_di}”, which does not appear to describe that statement. Is the title or the statement misworded?",
+      "answer": "harmless wording: the title is a short description plus \\lean{} names that exist and are the mapped declarations.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:53.332Z"
+    },
+    "6e803a6b0715": {
+      "claimId": "thm:main",
+      "kind": "conditional",
+      "question": "Paper claim Theorem 1.1 (thm:main) states: “Let $\\nu>0$ and let $u_0$ be smooth (\\lean{ContDiff ℝ ⊤}), divergence-free, and of finite $L^2$ energy. Assume within the class of physical solutions (\\lean{IsPhysicalNSSolution}): •[(K)] \\emph{Kato …”. Lean theorem `global_regularity_for_NS` assumes `h_divfree : ∀ x, div u₀ x = 0`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'u_0 … divergence-free' (thm:main); h_divfree : ∀ x, div u₀ x = 0.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:53.469Z"
+    },
+    "de150fad9c22": {
+      "claimId": "thm:main",
+      "kind": "conditional",
+      "question": "Paper claim Theorem 1.1 (thm:main) states: “Let $\\nu>0$ and let $u_0$ be smooth (\\lean{ContDiff ℝ ⊤}), divergence-free, and of finite $L^2$ energy. Assume within the class of physical solutions (\\lean{IsPhysicalNSSolution}): •[(K)] \\emph{Kato …”. Lean theorem `global_regularity_for_NS` assumes `h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2)`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'of finite L^2 energy'; h_finite_energy : Integrable ‖u₀‖².",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:53.604Z"
+    },
+    "18f967d287c5": {
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `tetherKernel_degenerates_on_kinetic_energy` assumes `hδH : FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'Whenever δH/δω = u' (prop:degen); hδH is that hypothesis.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:53.740Z"
+    },
+    "21ee103563e5": {
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `tetherKernel_degenerates_on_kinetic_energy` assumes `hdiv : ∀ x, div (velocity_from_vorticity ω) x = 0`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: '∇·u = 0'; hdiv is that hypothesis.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:53.868Z"
+    },
+    "cb75c079e949": {
+      "claimId": "prop:degen",
+      "kind": "conditional",
+      "question": "Paper claim Proposition 3.2 (prop:degen) states: “Whenever $\\delta H/\\delta\\omega=u$, $\\nabla\\cdot u=0$, and $u\\in L^2$, one has $\\Pi_u u=0$ (\\lean{projection_orthogonal_to_u}) and hence \\[ B(F,H)(\\omega)=0\\qquad\\text{for every functional }F. \\]”. Lean theorem `tetherKernel_degenerates_on_kinetic_energy` assumes `hInt : Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2)`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'u ∈ L^2'; hInt : Integrable ‖u‖² is that hypothesis.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:54.001Z"
+    },
+    "41b6ca9092d3": {
+      "claimId": "lem:localmax",
+      "kind": "conditional",
+      "question": "Paper claim Lemma 4.1 (lem:localmax) states: “Let $x$ satisfy $\\|\\omega(x)\\|=\\|\\omega\\|_{L^\\infty}$ and suppose $\\|\\nabla u(x)\\|\\le\\CZ\\|\\omega\\|_{L^\\infty}$ (\\lean{hCZ}). Then \\[ \\langle\\omega(x),(\\omega\\cdot\\nabla)u(x)\\rangle\\le\\CZ\\,\\|\\omega\\|_…”. Lean theorem `stretching_inner_le_at_max` assumes `hmax : ‖ω x‖ = vorticity_sup_norm ω`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'Let x satisfy ‖ω(x)‖ = ‖ω‖_{L^∞}'; hmax is that hypothesis.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:54.136Z"
+    },
+    "f1ab07f604ab": {
+      "claimId": "lem:localmax",
+      "kind": "conditional",
+      "question": "Paper claim Lemma 4.1 (lem:localmax) states: “Let $x$ satisfy $\\|\\omega(x)\\|=\\|\\omega\\|_{L^\\infty}$ and suppose $\\|\\nabla u(x)\\|\\le\\CZ\\|\\omega\\|_{L^\\infty}$ (\\lean{hCZ}). Then \\[ \\langle\\omega(x),(\\omega\\cdot\\nabla)u(x)\\rangle\\le\\CZ\\,\\|\\omega\\|_…”. Lean theorem `stretching_inner_le_at_max` assumes `hCZ : PointwiseStrainSupBound u ω C_CZ x`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'suppose ‖∇u(x)‖ ≤ C_CZ‖ω‖_{L^∞} (\\lean{hCZ})'; PointwiseStrainSupBound u ω C x := ‖fderiv ℝ u x‖ ≤ C * vorticity_sup_norm ω (NS_Equations.lean:2826).",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:54.277Z"
+    },
+    "0f8e0f448864": {
+      "claimId": "lem:transport",
+      "kind": "conditional",
+      "question": "Paper claim Lemma 4.2 (lem:transport) states: “At a spatial maximum where the convective transport pairing $\\langle\\omega,(u\\cdot\\nabla)\\omega\\rangle(x)$ vanishes and $\\langle\\omega,\\Delta\\omega\\rangle(x)\\le0$, along any solution of \\eqref{eq:vor…”. Lean theorem `time_pairing_le_stretching_at_max` assumes `htransp : inner ℝ (vorticity (u t) x) (convective (u t) (vorticity (u t)) x) = 0`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'where the convective transport pairing ⟨ω,(u·∇)ω⟩(x) vanishes'; htransp is that hypothesis.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:54.552Z"
+    },
+    "e672cec34b34": {
+      "claimId": "lem:transport",
+      "kind": "conditional",
+      "question": "Paper claim Lemma 4.2 (lem:transport) states: “At a spatial maximum where the convective transport pairing $\\langle\\omega,(u\\cdot\\nabla)\\omega\\rangle(x)$ vanishes and $\\langle\\omega,\\Delta\\omega\\rangle(x)\\le0$, along any solution of \\eqref{eq:vor…”. Lean theorem `time_pairing_le_stretching_at_max` assumes `hvisc : inner ℝ (vorticity (u t) x) (laplacian (vorticity (u t)) x) ≤ 0`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: '⟨ω,Δω⟩(x) ≤ 0'; hvisc is that hypothesis.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:54.685Z"
+    },
+    "7a7b7a56310d": {
+      "claimId": "lem:cubic",
+      "kind": "conditional",
+      "question": "Paper claim Lemma 4.3 (lem:cubic) states: “Let $C>0$, $\\kappa''>0$, and let $y:[0,\\infty)\\to\\R$ be differentiable on $[0,\\infty)$ with \\[ y'(s)\\le C\\,y(s)^2-\\kappa''\\,y(s)^3\\qquad(s\\ge0). \\] Then for every $t\\ge0$, \\[ y(t)\\le\\max\\Bigl(y(0),\\ …”. Lean theorem `comparison_ode_stability` assumes `hy_dot : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3`, which the claim does not state. Is this extra hypothesis intentional?",
+      "answer": "stated in the claim: 'y'(s) ≤ C y(s)^2 − κ'' y(s)^3 (s ≥ 0)'; hy_dot is that hypothesis.",
+      "verdict": "intentional",
+      "answeredAt": "2026-11-03T20:00:54.814Z"
+    }
+  }
+}

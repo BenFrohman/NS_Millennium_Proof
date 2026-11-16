@@ -3,6 +3,13 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
+/-!
+# manuscript.lean.riccati_ceiling_of_vorticity_di
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem riccati_ceiling_of_vorticity_di
     (u : TimeDependentVelocity) (C κ'' : ℝ)
     (hC : 0 < C) (hκ : 0 < κ'')

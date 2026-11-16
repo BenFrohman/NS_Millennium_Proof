@@ -5,6 +5,14 @@ Authors: Benjamin Stanley Frohman
 -->
 # Scope: Frohmanian Symplectic Tether — Conditional NS Regularity & Complete Original Programme (v2.2, 2026-10-27)
 
+**Current source/paper correction:** `DirectionCurvatureBound` historically names
+an assumed uniform envelope, not the manuscript's differential inequality.
+`UniformVorticityEnvelopeBound` is the explicit accurate name; the separately
+defined `CubicVorticityDifferentialBound` has all compact-interval analytic premises.
+Only its conditional comparison consequences are proved. See
+[the exact mapping, shear obstructions, and remaining PDE obligation](docs/VORTICITY_ENVELOPE_CORRECTION.md).
+Historical declaration counts below are not current build evidence.
+
 Author: Benjamin Stanley Frohman.
 
 **Overall status.** This manuscript and the companion Lean 4 formalization (`NS_Millennium_Proof`, **437 kernel-verified theorems across 17 modules**, **0 `sorry`**, **0 nonstandard axioms**) establish a **verified non-vacuous conditional reduction** for 3D incompressible Navier–Stokes global regularity, while preserving in full every original definition, theorem, physical motivation, and conjectured bridge from Benjamin Stanley Frohman's programme (`Frohmanian_Tether_Final_Submission_v8.tex`).

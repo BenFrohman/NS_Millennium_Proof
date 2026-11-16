@@ -4,7 +4,7 @@
 - Benjamin Stanley Frohman
 
 **GitHub:** [@BenFrohman](https://github.com/BenFrohman)
-**X.com : Investor0x** ([x.com/Investor0x](https://x.com/Investor0x))
+**X.com : Frohmanian** ([x.com/Frohmanian](https://x.com/Frohmanian))
 
 **Primary Author and Originator:**
 - Benjamin Stanley Frohman — creator of the Frohmanian Symplectic Tether framework, geometric constructions, tether kernel, and global regularity proof (2026).

@@ -3,6 +3,13 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
+/-!
+# manuscript.lean.stretching_inner_le_at_max
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem stretching_inner_le_at_max
     (ω u : VelocityField) (x : T3) (C_CZ : ℝ)
     (hu : DifferentiableAt ℝ u x)

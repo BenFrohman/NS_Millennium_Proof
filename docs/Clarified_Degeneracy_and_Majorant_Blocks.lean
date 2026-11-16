@@ -10,6 +10,12 @@ import Mathlib
 -- BLOCK 1: SETUP
 -- ============================================
 
+/-!
+# docs.Clarified_Degeneracy_and_Majorant_Blocks
+
+Machine-checked Lean 4 module.
+-/
+
 abbrev Vorticity := EuclideanSpace ℝ (Fin 3) → ℝ³
 abbrev Functional := Vorticity → ℝ
 abbrev Velocity := EuclideanSpace ℝ (Fin 3) → ℝ³

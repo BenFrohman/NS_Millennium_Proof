@@ -3,6 +3,13 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
+/-!
+# manuscript.lean.Clay_B_exact
+
+Machine-checked Lean 4 module.
+-/
+
 @[expose] public def Clay_B_exact : Prop :=
   ∀ (ν : ℝ) (u₀ : VelocityField),
     0 < ν →

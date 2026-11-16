@@ -1,0 +1,73 @@
+Scaling exponents under u_l(x)=l u(l x) (w_l=l^2 w), nu fixed, measured numerically:
+   M      exponent +2.00
+   s      exponent +6.00
+   E      exponent -1.00
+   Om     exponent +1.00
+   P      exponent +3.00
+   S_int  exponent +3.00
+
+field | variant | failures (A, nu) of 10 | notes
+Lamb-Oseen tube | V0 original: s <= C M^3 - kappa M^4 | 6 | e.g. [(1, 0.01), (10, 0.01)]
+Lamb-Oseen tube | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 4 | e.g. [(0.01, 0.01), (0.01, 1.0)]
+Lamb-Oseen tube | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 8 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+Lamb-Oseen tube | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+Lamb-Oseen tube | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=0.000; largest admissible k3 = 1
+Lamb-Oseen tube | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= 1.25e-20
+Lamb-Oseen tube | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= -4.52e-22
+Burgers vortex (localized strain) | V0 original: s <= C M^3 - kappa M^4 | 8 | e.g. [(0.1, 0.01), (1, 0.01)]
+Burgers vortex (localized strain) | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 6 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+Burgers vortex (localized strain) | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 9 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+Burgers vortex (localized strain) | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+Burgers vortex (localized strain) | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=0.528; largest admissible k3 = 0.472
+Burgers vortex (localized strain) | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= 0.0986
+Burgers vortex (localized strain) | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= 0.0029
+shear layer | V0 original: s <= C M^3 - kappa M^4 | 6 | e.g. [(1, 0.01), (10, 0.01)]
+shear layer | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 4 | e.g. [(0.01, 0.01), (0.01, 1.0)]
+shear layer | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 8 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+shear layer | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+shear layer | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=-0.000; largest admissible k3 = 1
+shear layer | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= -1.23e-19
+shear layer | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= 3.28e-14
+Taylor-Green | V0 original: s <= C M^3 - kappa M^4 | 6 | e.g. [(1, 0.01), (10, 0.01)]
+Taylor-Green | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 4 | e.g. [(0.01, 0.01), (0.01, 1.0)]
+Taylor-Green | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 8 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+Taylor-Green | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+Taylor-Green | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=-0.000; largest admissible k3 = 1
+Taylor-Green | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= 4.69e-19
+Taylor-Green | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= 8.29e-22
+ABC (A=B=C=1) | V0 original: s <= C M^3 - kappa M^4 | 6 | e.g. [(1, 0.01), (10, 0.01)]
+ABC (A=B=C=1) | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 4 | e.g. [(0.01, 0.01), (0.01, 1.0)]
+ABC (A=B=C=1) | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 9 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+ABC (A=B=C=1) | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+ABC (A=B=C=1) | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=0.000; largest admissible k3 = 1
+ABC (A=B=C=1) | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= 1.53e-16
+ABC (A=B=C=1) | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= 5.19e-20
+random spectral #0 | V0 original: s <= C M^3 - kappa M^4 | 6 | e.g. [(1, 0.01), (10, 0.01)]
+random spectral #0 | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 4 | e.g. [(0.01, 0.01), (0.01, 1.0)]
+random spectral #0 | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 8 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+random spectral #0 | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+random spectral #0 | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=0.094; largest admissible k3 = 0.906
+random spectral #0 | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= 0.00285
+random spectral #0 | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= -1.51e-06
+random spectral #1 | V0 original: s <= C M^3 - kappa M^4 | 6 | e.g. [(1, 0.01), (10, 0.01)]
+random spectral #1 | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 4 | e.g. [(0.01, 0.01), (0.01, 1.0)]
+random spectral #1 | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 8 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+random spectral #1 | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+random spectral #1 | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=-0.225; largest admissible k3 = 1.22
+random spectral #1 | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= -0.00788
+random spectral #1 | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= 0.000106
+random spectral #2 | V0 original: s <= C M^3 - kappa M^4 | 6 | e.g. [(1, 0.01), (10, 0.01)]
+random spectral #2 | V1 viscous: s <= C M^3 - kappa nu M^4/U^2 | 4 | e.g. [(0.01, 0.01), (0.01, 1.0)]
+random spectral #2 | V2+ energy: s <= C M^3 - kappa M^3 Re_E | 8 | e.g. [(0.01, 0.01), (0.1, 0.01)]
+random spectral #2 | V2- energy: s <= C M^3 - kappa M^3 / Re_E | 2 | e.g. [(0.01, 1.0), (0.1, 1.0)]
+random spectral #2 | V3 bounded: s <= C M^3 (1 - k3 g(Re_E)) | n/a | sigma=s/(CM^3)=0.240; largest admissible k3 = 0.76
+random spectral #2 | V4 direction: s <= K M^3 ell |grad xi| | n/a | needed K >= 0.00852
+random spectral #2 | V5 integrated: int wSw <= K Om^3/4 P^3/4 | n/a | needed K >= 5.49e-05
+
+Exact Burgers vortex at the axis (analytic, unbounded strain field):
+a/M | sigma=s/(C M^3) | largest admissible k3 for V3 | V4 needs K >=
+0.1 | 0.1990 | 0.8010 (g<=1) | inf (grad xi = 0, s > 0)
+1 | 1.0000 | 0.0000 (g<=1) | inf (grad xi = 0, s > 0)
+10 | 1.0000 | 0.0000 (g<=1) | inf (grad xi = 0, s > 0)
+100 | 1.0000 | 0.0000 (g<=1) | inf (grad xi = 0, s > 0)
+1000 | 1.0000 | 0.0000 (g<=1) | inf (grad xi = 0, s > 0)

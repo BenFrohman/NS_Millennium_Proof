@@ -12,7 +12,7 @@ as `LaTeX_Lean_Relationship.md` so that the mapping is visible directly inside t
 Lean project (useful for Blueprint, doc generation, and reviewers who prefer to
 stay inside the formalization).
 
-**Project Title (working):**  
+**Project Title (working):**
 Frohmanian Symplectic and Holographic Dual Approach to 3D Incompressible Navier-Stokes Regularity
 
 

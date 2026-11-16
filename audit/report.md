@@ -1,10 +1,10 @@
-# titan-audit report: `NS_Millennium_Proof`
+# titan-audit report: `ns_push`
 
 **Verdict: PASS_WITH_WARNINGS**
 
-- Generated (UTC): 2026-10-30T20:14:33+00:00
+- Generated (UTC): 2026-10-30T20:25:47+00:00
 - Tool: titan-audit 1.0.0 (Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718))
-- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `195b9f906a8d185ff3699786c8b3d580753a8627`
+- Toolchain: `leanprover/lean4:v4.30.0-rc1`  Git HEAD: `dc60b4943a9ae22fb443e0f2abb2ce514714aa49`
 - Tree SHA-256: `126693f4eb8dbe2b412c8e67b41fb70c59bb956fcb03d0292df66fa79abc1ca3` over 112 files
 
 ## Build

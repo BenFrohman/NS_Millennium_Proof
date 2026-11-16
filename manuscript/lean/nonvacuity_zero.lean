@@ -3,7 +3,15 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 -- NS_Millennium_Proof/Modules/ClayStatements.lean
+
+/-!
+# manuscript.lean.nonvacuity_zero
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem stepField_not_physical : ¬ IsPhysicalNSSolution stepField := ...
 public theorem repaired_huniq_at_zero (ν : ℝ) (w : KatoLocalWitness 0 ν) : ... := ...
 public theorem frohmanianTetherBound_zero (ν : ℝ) : FrohmanianTetherBound 0 ν := ...

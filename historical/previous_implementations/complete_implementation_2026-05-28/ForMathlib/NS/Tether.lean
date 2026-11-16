@@ -39,7 +39,6 @@ and justification is restored to the full original strength.
 
 This module is deliberately isolated so the geometric layer can be reasoned about
 independently and (ideally) upstreamed.
-
 -/
 
 -- Per the exact reference text provided by the user ("Universe Parameter Declarations"):
