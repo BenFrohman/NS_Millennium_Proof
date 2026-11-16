@@ -11,8 +11,8 @@ Usage:
 
 Each PATH is a .lean file or a directory scanned recursively (`.lake` is skipped).
 Run from the Lake package root.  `--exclude FILE` skips one file (it is listed in the
-output so the exclusion is visible).  `--require-imported-by AUDIT.lean` additionally
-fails if some scanned file is not in the import closure of AUDIT.lean, so the axiom
+output so the exclusion is visible).  `--require-imported-by AUDIT.lean` (repeatable)
+additionally fails if some scanned file is not in the import closure of the AUDIT files, so the axiom
 audit cannot silently miss a module.
 """
 import re
@@ -88,20 +88,22 @@ def closure(audit: Path) -> set:
 
 
 def main(argv):
-    excludes, audit, paths = set(), None, []
+    excludes, audits, paths = set(), [], []
     it = iter(argv)
     for a in it:
         if a == '--exclude':
             excludes.add(Path(next(it)))
         elif a == '--require-imported-by':
-            audit = Path(next(it))
+            audits.append(Path(next(it)))
         else:
             paths.append(a)
     if not paths:
         sys.exit(__doc__)
-    if audit is not None and not audit.exists():
-        sys.exit(f'audit file not found: {audit}')
-    reach = closure(audit) if audit else None
+    for audit in audits:
+        if not audit.exists():
+            sys.exit(f'audit file not found: {audit}')
+    reach = set().union(*(closure(a) for a in audits)) if audits else None
+    audit = ' + '.join(map(str, audits))
     bad, missing, count = [], [], 0
     for f in files(paths):
         if f in excludes:
@@ -120,7 +122,7 @@ def main(argv):
     if missing:
         print('\n'.join(f'NOT IMPORTED by {audit}: {m}' for m in missing))
         sys.exit(f'FAIL: {len(missing)} scanned module(s) are outside the axiom audit')
-    if audit is not None:
+    if audits:
         print(f'coverage: every scanned module is imported (transitively) by {audit}')
     if bad:
         print('\n'.join(bad))
