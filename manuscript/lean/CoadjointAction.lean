@@ -3,7 +3,15 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 -- NS_Millennium_Proof/Modules/ArnoldGeometric.lean (abstract SDiff action; replaces the former identity stub)
+
+/-!
+# manuscript.lean.CoadjointAction
+
+Machine-checked Lean 4 module.
+-/
+
 public abbrev CoadjointAction {SDiff : Type*} [Group SDiff] [MulAction SDiff CoadjointOrbit]
     (g : SDiff) (ω : CoadjointOrbit) : CoadjointOrbit :=
   g • ω

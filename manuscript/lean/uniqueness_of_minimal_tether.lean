@@ -3,7 +3,15 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 -- NS_Millennium_Proof/Modules/Uniqueness.lean
+
+/-!
+# manuscript.lean.uniqueness_of_minimal_tether
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem step2_quadratic_and_locality
     (B : CoadjointOrbit → Functional → Functional → ℝ)
     (h_sym : ∀ ω F G, B ω F G = B ω G F)

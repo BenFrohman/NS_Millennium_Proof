@@ -3,7 +3,15 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 -- NS_Millennium_Proof/Modules/SymplecticTether.lean
+
+/-!
+# manuscript.lean.tether_coadjoint_invariance
+
+Machine-checked Lean 4 module.
+-/
+
 @[expose] public def TetherIntegralPreserved (SDiff : Type*) [Group SDiff]
     [MulAction SDiff CoadjointOrbit] : Prop :=
   ∀ (g : SDiff) (F G : Functional) (ω : CoadjointOrbit),
