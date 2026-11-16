@@ -14,6 +14,12 @@ Neither is committed as a definition of the equation.
 Author: Benjamin Stanley Frohman.
 -/
 
+/-!
+# NS_Millennium_Proof.UnmodifiedLines
+
+Machine-checked Lean 4 module.
+-/
+
 namespace Frohmanian
 
 /-- Divergence-free means the divergence is the zero scalar, not `True`. -/

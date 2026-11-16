@@ -16,6 +16,12 @@ public import NS_Millennium_Proof.Modules.NS_Equations
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 public import NS_Millennium_Proof.Modules.ForMathlib.Projection
 
+/-!
+# NS_Millennium_Proof.Modules.SymplecticTether
+
+Machine-checked Lean 4 module.
+-/
+
 universe u
 
 -- This file is converted to a Lean module per §5 of the Lean Language Reference.

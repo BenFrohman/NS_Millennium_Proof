@@ -4,6 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+/-!
+# historical.previous_implementations.complete_implementation_2026-05-28.Modules.NS_Equations
+
+Machine-checked Lean 4 module.
+-/
+
 # Copyright Notice
 
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.

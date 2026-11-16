@@ -3,6 +3,7 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 /-
 This file is part of the Lean 4 formalization of the Frohmanian Symplectic Tether Theorem.
 
@@ -52,4 +53,10 @@ and the three source documents, with judgment calls documented in Blueprint.md (
 for canonicity).
 
 See `LaTeX_Lean_Relationship.md` §3 for the exact row in the mapping table and the current Clay audit status.
+-/
+
+/-!
+# historical.MathPort_Header_Template
+
+Machine-checked Lean 4 module.
 -/

@@ -7,11 +7,11 @@ Authors: Benjamin Stanley Frohman
 /-!
 # Frohmanian Symplectic Tether - Complete Geometric Layer (Phases 1.2-1.3)
 
-This module contains the full definitions of the three conditions (C1)-(C3) 
+This module contains the full definitions of the three conditions (C1)-(C3)
 and the critical early lemma: degeneracy for the exact mollified sup-norm proxy
-used in the analytic estimates. 
+used in the analytic estimates.
 
-This is proved here, in the geometric phase, before any estimates — per the 
+This is proved here, in the geometric phase, before any estimates — per the
 non-circularity requirements in the living document and all PASS audits.
 -/
 

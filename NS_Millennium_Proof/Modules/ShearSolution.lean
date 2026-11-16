@@ -1,30 +1,17 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Author: Benjamin Stanley Frohman
-
-# The decaying periodic shear as an actual solution (envelope-correction addendum)
-
-`shearU A ν t x = A e^{-ν k² t} sin(k x₃) e₁` with `k = 2π`, pressure `0`.
-
-Proved here, against the repository's own definitions (`IsPeriodicSmoothSolutionOn`,
-`curl`, `laplacian`, `convective`, `div`, `vorticity_sup_norm`,
-`CubicVorticityDifferentialBound`):
-
-* `shear_isPeriodicSmoothSolutionOn`: it is a smooth `ℤ³`-periodic solution on every `[0,T)`.
-* `shear_vorticity_sup_norm`: its vorticity sup-norm is exactly `k A e^{-ν k² t}` (`A > 0`).
-* `shear_cubic_bound_data_dependent`: it satisfies `CubicVorticityDifferentialBound`
-  with the DATA-DEPENDENT constant `C = κ · k A`.
-* `shear_fixed_cubic_constants_fail`: for any FIXED `C ≥ 0`, `κ > 0` (and `ν ≥ 0`) some
-  amplitude `A > 0` gives an actual solution violating the cubic bound already at `t = 0`.
-* `shear_envelope_nonvacuous`: the conditional envelope theorem applies to a NONZERO
-  actual solution.
-
-This is one explicit solution family. It neither proves nor refutes any estimate for
-general solutions, and it is not a statement about the Clay problem.
+Authors: Benjamin Stanley Frohman
 -/
+
 import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.Stage6Calculus
+
+/-!
+# NS_Millennium_Proof.Modules.ShearSolution
+
+Machine-checked Lean 4 module.
+-/
 
 open NavierStokes3D FrohmanianTether.ClayStatements FrohmanianTether.HighSetDepletionAndBKM
 open Real

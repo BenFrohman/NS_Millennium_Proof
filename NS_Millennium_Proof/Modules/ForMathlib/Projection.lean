@@ -11,6 +11,12 @@ public import Mathlib.MeasureTheory.Integral.Bochner.Basic
 public import NS_Millennium_Proof.Modules.NS_Equations
 public import NS_Millennium_Proof.Modules.ArnoldGeometric
 
+/-!
+# NS_Millennium_Proof.Modules.ForMathlib.Projection
+
+Machine-checked Lean 4 module.
+-/
+
 open InnerProductSpace
 open ArnoldGeometric (pairing)
 open NavierStokes3D
