@@ -7,6 +7,7 @@ Authors: Benjamin Stanley Frohman
 -- Axiom audit for the default build target. Run: lake env lean scripts/AxiomAudit.lean
 -- Fails (non-zero exit) if any theorem depends on axioms beyond propext/Classical.choice/Quot.sound.
 
+import NS_Millennium_Proof.Semantics
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 import NS_Millennium_Proof.Modules.AnalyticPipeline
 import NS_Millennium_Proof.Modules.Stage6Calculus
