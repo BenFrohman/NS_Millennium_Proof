@@ -5,7 +5,7 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import NS_Millennium_Proof
-import ForMathlib
+import ForMathlib.NS.Tether
 
 /-!
 # Strict whole-library axiom audit

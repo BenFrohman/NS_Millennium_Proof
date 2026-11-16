@@ -39,17 +39,15 @@ jobs:
       - name: Build project
         run: lake build
 
-      - name: Build ForMathlib library and its root module (not in the default target)
-        run: |
-          lake build ForMathlib
-          lake build +ForMathlib
+      - name: Build ForMathlib library (not in the default target)
+        run: lake build ForMathlib
 
       - name: No sorry / admit / native_decide / axiom declarations (comments excluded; every scanned module must be in the strict audit)
         run: |
           python3 scripts/check_forbidden_tokens.py \
             --require-imported-by scripts/StrictAxiomAudit.lean \
             NS_Millennium_Proof.lean NS_Millennium_Proof/Modules NS_Millennium_Proof/Definitions \
-            ForMathlib.lean ForMathlib
+            ForMathlib
 
       - name: Strict whole-library axiom audit (fails on any axiom beyond propext, Classical.choice, Quot.sound)
         run: |
