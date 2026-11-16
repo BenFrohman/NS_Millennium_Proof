@@ -3,7 +3,15 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 -- NS_Millennium_Proof/Modules/SymplecticTether.lean (sorry-free)
+
+/-!
+# manuscript.lean.reduced_pairing
+
+Machine-checked Lean 4 module.
+-/
+
 public def ConjecturedUnmodifiedTetherPairing
     (u : VelocityField) (ω : VorticityField) (x : EuclideanSpace ℝ (Fin 3)) : Prop :=
   pairing (ω x) (convective ω u x) ≤

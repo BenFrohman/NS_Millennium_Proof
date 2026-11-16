@@ -1,11 +1,18 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Frohman, Benjamin Stanley
+Authors: Benjamin Stanley Frohman
 -/
+
 import NS_Millennium_Proof.Modules.MainTheorem
 import NS_Millennium_Proof.Modules.Stage6Calculus
 import NS_Millennium_Proof.Modules.ShearSolution
+
+/-!
+# scripts.EnvelopeCorrectionAudit
+
+Machine-checked Lean 4 module.
+-/
 
 open NavierStokes3D FrohmanianTether.ClayStatements
 open FrohmanianTether.HighSetDepletionAndBKM

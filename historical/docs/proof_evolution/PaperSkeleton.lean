@@ -54,7 +54,9 @@ open MeasureTheory Set
 variable (𝕋³ : Type*) [MeasureSpace 𝕋³] [IsManifold 𝕋³] [NormedSpace ℝ (VectorField 𝕋³)]
   [LieAlgebra ℝ (LieAlg 𝕋³)] -- Lie algebra of divergence-free vector fields
 
-/-- Vorticity field: divergence-free vector field on \(\mathbb{T}^3\). -/
+/-- Vorticity field: divergence-free vector field on \(\mathbb{T}^3\).
+-/
+
 abbrev Vorticity := {ω : 𝕋³ → ℝ³ // DivergenceFree ω ∧ ω ∈ L2 𝕋³}
 
 /-- Co-adjoint orbit \(\mathcal{O}\) of \(\mathfrak{sdiff}(\mathbb{T}^3)\) in suitable Sobolev space \(H^s\) (\(s > 5/2\)). -/

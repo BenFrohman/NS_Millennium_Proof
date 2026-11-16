@@ -3,7 +3,15 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 -- NS_Millennium_Proof/Modules/GlobalRegularity.lean
+
+/-!
+# manuscript.lean.global_regularity_for_NS_main
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem global_regularity_for_NS
     (u0 : TimeDependentVelocity) (ν : ℝ)
     (h_smooth : ContDiff ℝ ⊤ (u0 0))

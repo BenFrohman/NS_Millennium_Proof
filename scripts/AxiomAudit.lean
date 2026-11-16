@@ -27,6 +27,13 @@ import NS_Millennium_Proof.Modules.Uniqueness
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.SymplecticConstraint
+
+/-!
+# scripts.AxiomAudit
+
+Machine-checked Lean 4 module.
+-/
+
 open Lean Elab Command
 #eval show CommandElabM Unit from do
   let env ← getEnv

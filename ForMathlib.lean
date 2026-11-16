@@ -5,3 +5,9 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import ForMathlib.NS.Tether
+
+/-!
+# ForMathlib
+
+Machine-checked Lean 4 module.
+-/

@@ -3,6 +3,13 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
+/-!
+# manuscript.lean.comparison_majorant_global_bound
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem comparison_majorant_global_bound (C κ'' y0 : ℝ) (hC : 0 < C) (hκ : 0 < κ'')
     (hy0 : 0 ≤ y0) :
     ∃ Y : ℝ, ∀ t ≥ (0 : ℝ),

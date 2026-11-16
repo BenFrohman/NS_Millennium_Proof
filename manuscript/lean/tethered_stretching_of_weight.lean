@@ -3,6 +3,13 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
+/-!
+# manuscript.lean.tethered_stretching_of_weight
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem tethered_stretching_of_weight
     (ωField uField : VelocityField) (x : T3) (C M : ℝ)
     (hu : DifferentiableAt ℝ uField x)

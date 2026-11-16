@@ -6,6 +6,12 @@ Authors: Benjamin Stanley Frohman
 
 import NS_Millennium_Proof.Modules.ArnoldGeometric
 
+/-!
+# Modules.TrajectoryDistinction
+
+Machine-checked Lean 4 module.
+-/
+
 open ArnoldGeometric
 
 namespace TrajectoryDistinction

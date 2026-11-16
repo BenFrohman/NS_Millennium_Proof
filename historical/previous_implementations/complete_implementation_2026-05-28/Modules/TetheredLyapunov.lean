@@ -6,6 +6,12 @@ Authors: Benjamin Stanley Frohman
 
 import Mathlib
 
+/-!
+# historical.previous_implementations.complete_implementation_2026-05-28.Modules.TetheredLyapunov
+
+Machine-checked Lean 4 module.
+-/
+
 # Copyright Notice
 
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.

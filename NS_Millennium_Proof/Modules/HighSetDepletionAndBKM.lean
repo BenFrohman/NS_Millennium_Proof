@@ -1,12 +1,18 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Frohman, Benjamin Stanley
+Authors: Benjamin Stanley Frohman
 -/
 
 module
 
 public import NS_Millennium_Proof.Modules.TorusStrainExclusion
+
+/-!
+# NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
+
+Machine-checked Lean 4 module.
+-/
 
 open scoped BigOperators Gradient Topology
 open ENNReal InnerProductSpace MeasureTheory Finset Filter
