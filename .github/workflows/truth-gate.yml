@@ -63,3 +63,15 @@ jobs:
           path: |
             semantics-lock.txt
             truth-gate-report/
+
+  author-approval:
+    # Fails while truth-gate.lock.json approver status is PENDING, so a green
+    # technical run cannot be read as the author's approval of paper_claim.
+    # Static only (no lake build). Pattern from p2q-jumps-lean feat/v1.4-full-formalization.
+    name: Lock approved by the author
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Lock approved by the author
+        run: SKIP_BUILD=1 REQUIRE_APPROVAL=1 bash scripts/verify-lock.sh
