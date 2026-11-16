@@ -39,8 +39,10 @@ jobs:
       - name: Build project
         run: lake build
 
-      - name: Build ForMathlib library (not in the default target)
-        run: lake build ForMathlib
+      - name: Build ForMathlib library and its root module (not in the default target)
+        run: |
+          lake build ForMathlib
+          lake build +ForMathlib
 
       - name: No sorry / admit / native_decide / axiom declarations (comments excluded; every scanned module must be in the strict audit)
         run: |
