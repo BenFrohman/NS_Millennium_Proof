@@ -201,6 +201,19 @@ and is physically admissible (`IsPhysicalNSSolution u`). -/
 public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
   IsPhysicalNSSolution u ∧ ∃ p : TimeDependentPressure, navier_stokes_eq u p ν
 
+/-- Unfolding lemma for `satisfies_NavierStokes` (its body is not exported by the module). -/
+public theorem satisfies_NavierStokes_iff (u : TimeDependentVelocity) (ν : ℝ) :
+    satisfies_NavierStokes u ν ↔
+      IsPhysicalNSSolution u ∧ ∃ p : TimeDependentPressure, navier_stokes_eq u p ν :=
+  Iff.rfl
+
+/-- `GlobalRegularity.vorticity_sup_norm` is `NavierStokes3D.vorticity_sup_norm`
+(its body is not exported by the module). -/
+public theorem vorticity_sup_norm_eq (ω : VorticityField) :
+    GlobalRegularity.vorticity_sup_norm ω = NavierStokes3D.vorticity_sup_norm ω := by
+  unfold GlobalRegularity.vorticity_sup_norm
+  rfl
+
 /-- Main theorem (Abstract, formalized) — **conditional on `hRiccati`**.
 
 `hRiccati : FrohmanianTetherBound (u0 0) ν` is a time-uniform bound on `‖ω‖_∞`.

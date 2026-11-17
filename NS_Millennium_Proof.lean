@@ -5,6 +5,8 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import Lean
+import NS_Millennium_Proof.Semantics
+import NS_Millennium_Proof.TruthGate
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 import NS_Millennium_Proof.Modules.AnalyticPipeline
 import NS_Millennium_Proof.Modules.Stage6Calculus
@@ -31,6 +33,8 @@ import NS_Millennium_Proof.Modules.PlanSteps
 import NS_Millennium_Proof.Modules.Combined
 import NS_Millennium_Proof.Modules.ConcreteSDiff
 import NS_Millennium_Proof.Modules.ScalingIdentities
+import NS_Millennium_Proof.Modules.CeilingFromRate
+import NS_Millennium_Proof.Modules.LyapunovDIStatus
 
 /-!
 # NS Millennium Proof — Frohmanian Symplectic Tether (Main Entry & Kernel Axiom Audit)
@@ -73,9 +77,25 @@ open Lean Elab Command in
   logInfo s!"TOTAL theorems={total} nonstandard={bad.size}"
   unless bad.isEmpty do throwError "axiom audit FAILED: {bad.size} theorem(s) use non-standard axioms"
 
+/-! ## Truth Gate (semantics lock)
+
+Fails the default `lake build` unless `NS_Millennium_Proof.Semantics` is imported, every public
+theorem listed in `truth-gate.lock.json` has type exactly its lock's `paper_claim` and is proved
+as `intended_correspondence.mp <formal proof>`, no paper side aliases its formal side, no
+correspondence is `rfl`/`Iff.rfl` or definitional, the locked statement and paper hashes match,
+no lock declaration uses `sorryAx`, `Lean.ofReduceBool` or a non-standard axiom, and no
+unregistered theorem concludes a headline Clay proposition or a locked claim. A lock with
+status `drift` keeps the build red until the author decides. -/
+#eval TruthGate.runTruthGate "truth-gate.lock.json"
+
 #print axioms ConditionalRegularity.frohmanian_tether_theorem
 #print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
 #print axioms ConditionalRegularity.conditional_regularity_of_open_hyps
+#print axioms CeilingFromRate.conditional_global_regularity_with_ceiling
+#print axioms CeilingFromRate.hypotheses_jointly_satisfiable_at_zero
+#print axioms CeilingFromRate.theorem_1_1
+#print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable
+#print axioms LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable
 #print axioms FrohmanianTether.ClayStatements.conditional_regularity_nonvacuous_at_zero
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherRate_zero
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherBound_zero

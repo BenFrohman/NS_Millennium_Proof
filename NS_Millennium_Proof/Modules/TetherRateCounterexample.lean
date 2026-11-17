@@ -6,6 +6,7 @@ Authors: Benjamin Stanley Frohman
 
 import Mathlib
 import NS_Millennium_Proof.Modules.ConditionalRegularity
+import NS_Millennium_Proof.Semantics
 
 /-!
 # `frohmanian_tether_theorem` is vacuous: its `hDI` hypothesis is unsatisfiable
@@ -644,6 +645,15 @@ theorem TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable :
     ¬ ∀ (u₀ : NavierStokes3D.VelocityField) (ν : ℝ), FrohmanianTether.FrohmanianTetherRate u₀ ν :=
   TetherRateCounterexample.not_forall_frohmanianTetherRate
 
+/-- **Proposition `prop:hDI` of `main.tex`.** Type:
+`NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim`; obtained only by transport across the
+Truth Gate lock `TetherTheorem`. -/
+theorem TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable :
+    NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim :=
+  NS_Millennium_Proof.Semantics.TetherTheorem.intended_correspondence.mp
+    TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
+
 #print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
+#print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable
 #print axioms TetherRateCounterexample.not_frohmanianTetherBound_U
 #print axioms TetherRateCounterexample.not_forall_frohmanianTetherRate

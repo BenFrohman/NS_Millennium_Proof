@@ -32,13 +32,13 @@ Author: Benjamin Stanley Frohman.
 | G1 Tether kernel & projector $\Pi_u$ | `TetherKernel`, `Pi_u` | Proved (`tetherKernel_symmetric`, `projector_orthogonality`) |
 | G2 Degeneracy on $H$ (Route A) | `tetherKernel_degenerates_on_kinetic_energy`, `tetherKernel_C2` | Proved axiom-clean |
 | A1 Symmetry & antisymmetry | `tetherKernel_symmetric`, `uniqueness_of_minimal_symmetric_tether`, `uniqueness_of_minimal_tether` | Both symmetric and antisymmetric uniqueness proved axiom-clean |
-| A3/C1 Coadjoint invariance | `tether_coadjoint_invariance`, `tether_coadjoint_invariance_of_integral_eq` | Proved for abstract action and under `ConjecturedSDiffPushforwardInvariance` |
+| A3/C1 Coadjoint invariance | `tether_coadjoint_invariance`, `tether_coadjoint_invariance_of_integral_eq` | Proved only **conditionally** on `SDiffActionHyp` and `TetherIntegralPreserved` for an abstract `MulAction` (not the actual SDiff(T³) action), resp. on an explicit integral-preservation hypothesis; real SDiff invariance is open |
 | A5/C3 Negative feedback on $B(F,F)$ | `ProducesControllableNegativeFeedback` | Proved axiom-clean |
 | Reduced 9-term Jacobi identity | `tethered_jacobi_identity` | Proved conditionally on cyclic cocycle hypothesis |
 | G4 Stretching & transport at max | `stretching_inner_le_at_max`, `time_pairing_le_stretching_at_max` | Proved axiom-clean (given `hCZ`) |
 | Conjectured unmodified-tether pairing | `ConjecturedUnmodifiedTetherPairing`, `reduced_pairing_of_unmodified_and_tether` | Proved axiom-clean (0 `sorry`) from explicit bridge hypothesis |
 | Weighted stretching absorption | `tethered_stretching_of_weight` | Proved axiom-clean (0 `sorry`) from `hweight` |
-| N1 Lyapunov vehicle $S_\varepsilon,\varphi$ | `LyapunovS`, `IsEnstrophyAccumulation`, `lyapunov_differential_inequality` | Proved axiom-clean |
+| N1 Lyapunov vehicle $S_\varepsilon,\varphi$ | `LyapunovS`, `IsEnstrophyAccumulation` | Definitions only. No `lyapunov_differential_inequality` exists; the differential inequality is **not proved** (old stub proving `True` kept unbuilt at `drafts/AnalyticEstimates_stub.lean`). The exact smooth periodic `dS/dt` identity on T³ is proved in `weighted-enstrophy-identities` (`dS_identity_smooth`, commit 9e4cfd22); `CalderonZygmundLp`, `WeightedToSupReduction`, `PhiSupControl` there are **open** |
 | N2 Cubic comparison & majorant | `comparison_ode_stability`, `comparison_majorant_global_bound` | Proved axiom-clean |
 | N3 Rate $\Rightarrow$ ceiling | `riccati_ceiling_of_vorticity_di` | Proved axiom-clean |
 | N4 Physical solution predicate | `IsPhysicalNSSolution`, `isPhysicalNSSolution_zero`, `eq_zero_of_isPhysicalNSSolution_zero` | Proved axiom-clean |

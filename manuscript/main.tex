@@ -335,12 +335,12 @@ where $C$ is the strain constant in \texttt{hCZ}. This implication is proved in 
 \subsection{Quartic Lyapunov Absorption and Quadratic Riccati Heuristic vs.\ Cubic Ceiling}
 In Section~3 and Appendix~A (Item~10) of \emph{Frohmanian\_Tether\_Final\_Submission\_v8}, two related ODE reductions (historical, not formalized as stated) were introduced for the evolution of $M_\varepsilon(t)=\|\omega_\varepsilon(t)\|_{L^\infty}$:
 \begin{enumerate}
-\item \textbf{The Quartic Lyapunov $L^6$ Absorption and Cubic Comparison ODE (Formalized in Lean):}
+\item \textbf{The Quartic Lyapunov $L^6$ Absorption (heuristic, not proved in Lean) and Cubic Comparison ODE (comparison lemma proved in Lean):}
 Differentiating the mollified quartic Lyapunov functional
 \[
 S_\varepsilon(t)=\int_{\T}\Bigl(\frac12|\omega_\varepsilon|^2+\frac{\kappa}{4}|\omega_\varepsilon|^4\varphi_\varepsilon\Bigr)\,d\lambda
 \]
-along the vorticity transport equation and applying Hölder's inequality with conjugate exponents $(3/2,3)$ (\lean{AnalyticPipeline.holderConjugate_three_halves_three}, \lean{holder_I4}), the 3D Sobolev embedding $H^1\hookrightarrow L^6$ (\lean{holder_I4_le_sobolev}), and Young's absorption parameter $\varepsilon=\kappa/4$ yields
+along the vorticity transport equation and applying Hölder's inequality with conjugate exponents $(3/2,3)$ (\lean{AnalyticPipeline.holderConjugate_three_halves_three}, \lean{holder_I4}), the 3D Sobolev embedding $H^1\hookrightarrow L^6$ (\lean{holder_I4_le_sobolev}), and Young's absorption parameter $\varepsilon=\kappa/4$ is \emph{expected} to yield the following inequality, which is \textbf{not proved} in this repository (no declaration \texttt{lyapunov\_differential\_inequality} exists; only the ingredients above are proved; the exact smooth periodic identity for $dS/dt$ is \texttt{dS\_identity\_smooth} in the separate repository \texttt{weighted-enstrophy-identities}, commit \texttt{9e4cfd22}, where the closing steps \texttt{CalderonZygmundLp}, \texttt{WeightedToSupReduction}, \texttt{PhiSupControl} are open)
 \begin{equation}\label{eq:orig_dS}
 \frac{dS_\varepsilon}{dt}\le C_{\mathrm{abs}}\bigl(1+M_\varepsilon(t)^3\|\varphi_\varepsilon\|_{L^\infty}^{3/2}\bigr)-\kappa'\int_{\T}|\omega_\varepsilon|^6\,d\lambda,
 \end{equation}
@@ -437,7 +437,7 @@ G4 Stretching at spatial max & \lean{stretching_inner_le_at_max} & \textbf{Prove
 G4 Transport/viscosity at max & \lean{time_pairing_le_stretching_at_max} & \textbf{Proved axiom-clean}\\
 Conjectured pairing bridge & \lean{ConjecturedUnmodifiedTetherPairing}, \lean{reduced_pairing_of_unmodified_and_tether} & \textbf{Proved axiom-clean (0 \lean{sorry})} from explicit bridge hypothesis\\
 Weighted stretching lemma & \lean{tethered_stretching_of_weight} & \textbf{Proved axiom-clean (0 \lean{sorry})} from \texttt{hweight}\\
-N1 Lyapunov vehicle $S_\varepsilon,\varphi$ & \lean{LyapunovS}, \lean{IsEnstrophyAccumulation} & \textbf{Proved axiom-clean}\\
+N1 Lyapunov vehicle $S_\varepsilon,\varphi$ & \lean{LyapunovS}, \lean{IsEnstrophyAccumulation} & \textbf{Definitions only}; the differential inequality for $S_\varepsilon$ is \textbf{not proved} (see \texttt{LyapunovDIStatus.lean})\\
 N2 Cubic ODE comparison & \lean{comparison_ode_stability} & \textbf{Proved axiom-clean}\\
 N2 Explicit majorant bound & \lean{comparison_majorant_global_bound} & \textbf{Proved axiom-clean}\\
 N3 Rate $\Rightarrow$ ceiling & \lean{riccati_ceiling_of_vorticity_di} & \textbf{Proved axiom-clean} implication; premise unresolved\\

@@ -4,6 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+-- UNBUILT STUB (moved from Modules/AnalyticEstimates.lean on 2026-11-16). Its theorems prove only
+-- `True`; `TetheredLyapunov.lyapunov_differential_inequality` and `TetheredLyapunov.tetheredLyapunov`
+-- referenced below do not exist. Nothing here is a result. See
+-- NS_Millennium_Proof/Modules/LyapunovDIStatus.lean for the status of the intended inequality.
+
 /-!
 # Phase 2 (continued): Mollified Lyapunov, Differential Inequality, and Full Regularity
 
