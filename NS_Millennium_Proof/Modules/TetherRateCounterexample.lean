@@ -5,7 +5,7 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import Mathlib
-import NS_Millennium_Proof.Modules.GlobalRegularity
+import NS_Millennium_Proof.Modules.ConditionalRegularity
 
 /-!
 # `frohmanian_tether_theorem` is vacuous: its `hDI` hypothesis is unsatisfiable

@@ -53,7 +53,7 @@ public import NS_Millennium_Proof.Modules.NS_Equations
 -- • dependsOnNoncomputable: guarded by noncomputable section (when present) + explicit marking.
 -- • synthInstanceFailed / unknownIdentifier: primary historical sources were the projector
 --   work (now isolated in ForMathlib/Projection.lean) and early bracket naming. Fixed by
---   granular imports and consistent open hygiene in downstream consumers (GlobalRegularity).
+--   granular imports and consistent open hygiene in downstream consumers (ConditionalRegularity).
 -- • projNonPropFromProp / propRecLargeElim: avoided by keeping all geometric predicates
 --   (InvariantUnderCoadjointAction, etc.) at Prop level and never eliminating them into
 --   data inside this file. The PLift bridge lives in the widget (TetheredNullifier.lean).
@@ -173,11 +173,77 @@ public structure CoadjointOrbit where
   val : T3 → EuclideanSpace ℝ (Fin 3)
   property : ∀ x, NavierStokes3D.div val x = 0
 
-/-- Classical coadjoint action of `SDiff(𝕋³)` on vorticity (pushforward of 2-forms).
-The concrete diffeomorphism calculus is a documented classical black box. -/
-@[expose]
-public noncomputable def CoadjointAction (_g : T3 → T3) (ω : CoadjointOrbit) : CoadjointOrbit :=
-  ω
+/-- **Abstract action of `SDiff(𝕋³)` on divergence-free vorticity fields** (pushforward of
+vorticity 2-forms), replacing the former identity stub `CoadjointAction _g ω := ω`
+(local branch `sdiff-abstract-action`). The group `SDiff` is abstract, with
+`[Group SDiff] [MulAction SDiff CoadjointOrbit]`; the naturality laws are then theorems
+(`one_smul`, `mul_smul`), and divergence-freeness of `g • ω` is automatic from the
+`CoadjointOrbit` subtype. The concrete pushforward `φ_* ω = (Dφ ω) ∘ φ⁻¹` is not built. -/
+public abbrev CoadjointAction {SDiff : Type*} [Group SDiff] [MulAction SDiff CoadjointOrbit]
+    (g : SDiff) (ω : CoadjointOrbit) : CoadjointOrbit :=
+  g • ω
+
+section SDiffAbstract
+variable {SDiff : Type*} [Group SDiff] [MulAction SDiff CoadjointOrbit]
+
+/-- Naturality (identity), proved from `MulAction`. -/
+public theorem CoadjointAction_one (ω : CoadjointOrbit) :
+    CoadjointAction (1 : SDiff) ω = ω := one_smul _ _
+
+/-- Naturality (composition), proved from `MulAction`. -/
+public theorem CoadjointAction_mul (g h : SDiff) (ω : CoadjointOrbit) :
+    CoadjointAction (g * h) ω = CoadjointAction g (CoadjointAction h ω) := mul_smul _ _ _
+
+/-- Proved: the inverse undoes the action. -/
+public theorem CoadjointAction_inv (g : SDiff) (ω : CoadjointOrbit) :
+    CoadjointAction g⁻¹ (CoadjointAction g ω) = ω := inv_smul_smul g ω
+
+/-- Proved: the image is divergence-free (from the subtype). -/
+public theorem CoadjointAction_div (g : SDiff) (ω : CoadjointOrbit) (x : T3) :
+    NavierStokes3D.div (CoadjointAction g ω).val x = 0 := (CoadjointAction g ω).property x
+
+end SDiffAbstract
+
+/-- The Casimir `C_f(ω) = ∫ f(|ω(x)|) dx`. -/
+@[expose] public noncomputable def Casimir (f : ℝ → ℝ) (ω : CoadjointOrbit) : ℝ :=
+  ∫ x, f ‖ω.val x‖ ∂volume
+
+/-- Enstrophy `∫ |ω|² = C_{r ↦ r²}`. -/
+@[expose] public noncomputable def Enstrophy (ω : CoadjointOrbit) : ℝ :=
+  Casimir (fun r => r ^ 2) ω
+
+/-- **Hypothesis structure for the SDiff action (fields OPEN; passed as arguments, never
+`axiom`s).** `casimir_invariant` is expected for the real pushforward;
+`transitive_on_casimir_levels` is the author's reading of "only |ω|² is invariant" and is NOT
+expected to hold for the real SDiff action (orbits are finer than Casimir level sets).
+Enstrophy invariance is the `f = (·)^2` case, derived as `SDiffActionHyp.enstrophy_invariant`. -/
+public structure SDiffActionHyp (SDiff : Type*) [Group SDiff] [MulAction SDiff CoadjointOrbit] :
+    Prop where
+  casimir_invariant : ∀ (f : ℝ → ℝ) (g : SDiff) (ω : CoadjointOrbit),
+    (∫ x, f ‖(g • ω).val x‖ ∂volume) = ∫ x, f ‖ω.val x‖ ∂volume
+  transitive_on_casimir_levels : ∀ ω₁ ω₂ : CoadjointOrbit,
+    (∀ f : ℝ → ℝ, Casimir f ω₁ = Casimir f ω₂) → ∃ g : SDiff, g • ω₁ = ω₂
+
+/-- Proved: enstrophy invariance from `casimir_invariant` with `f = (·)^2`. -/
+public theorem SDiffActionHyp.enstrophy_invariant {SDiff : Type*} [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] (H : SDiffActionHyp SDiff) (g : SDiff)
+    (ω : CoadjointOrbit) : Enstrophy (CoadjointAction g ω) = Enstrophy ω :=
+  H.casimir_invariant (fun r => r ^ 2) g ω
+
+/-- Proved from `SDiffActionHyp`: every point of an orbit has the same Casimirs. -/
+public theorem casimir_const_on_orbit {SDiff : Type*} [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] (H : SDiffActionHyp SDiff) (f : ℝ → ℝ) (ω ω' : CoadjointOrbit)
+    (h : ω' ∈ MulAction.orbit SDiff ω) : Casimir f ω' = Casimir f ω := by
+  obtain ⟨g, rfl⟩ := h
+  exact H.casimir_invariant f g ω
+
+/-- Proved from `SDiffActionHyp`: orbits = Casimir level sets (uses `transitive_on_levels`). -/
+public theorem orbit_eq_casimir_level {SDiff : Type*} [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] (H : SDiffActionHyp SDiff) (ω ω' : CoadjointOrbit) :
+    ω' ∈ MulAction.orbit SDiff ω ↔ ∀ f, Casimir f ω = Casimir f ω' := by
+  constructor
+  · intro h f; exact (casimir_const_on_orbit H f ω ω' h).symm
+  · intro h; obtain ⟨g, hg⟩ := H.transitive_on_casimir_levels ω ω' h; exact ⟨g, hg⟩
 
 /-- Vector cross product on the model `ℝ³`, via mathlib `crossProduct`. -/
 @[expose] public noncomputable def cross (u v : EuclideanSpace ℝ (Fin 3)) : EuclideanSpace ℝ (Fin 3) :=
@@ -1056,5 +1122,33 @@ public theorem classical_bracket_reproduces_Euler
 #print axioms gateaux_representative_unique
 #print axioms kineticEnergyHamiltonian_hasDerivAt_velocity_pairing
 #print axioms isVelocityGateauxRepresentative_kineticEnergy_at
+
+/-- Antisymmetry of the Lie--Poisson bracket `ClassicalBracket` (proved, no hypotheses). -/
+public theorem classicalBracket_antisymm (F G : CoadjointOrbit → ℝ) (ω : CoadjointOrbit) :
+    ClassicalBracket F G ω = - ClassicalBracket G F ω := by
+  unfold ClassicalBracket
+  rw [← integral_neg]
+  congr 1
+  funext x
+  unfold classical_bracket_integrand pairing cross
+  rw [← inner_neg_right]
+  congr 1
+  rw [← cross_anticomm]
+  rfl
+
+/-- `{F,F}_cl = 0` for every functional (proved via `cross_self`). -/
+public theorem classicalBracket_self (F : CoadjointOrbit → ℝ) (ω : CoadjointOrbit) :
+    ClassicalBracket F F ω = 0 := by
+  unfold ClassicalBracket classical_bracket_integrand pairing cross
+  simp [cross_self]
+
+/-- `{H,H}_cl = 0` for the kinetic-energy Hamiltonian. -/
+public theorem classicalBracket_H_H (ω : CoadjointOrbit) :
+    ClassicalBracket KineticEnergyHamiltonian KineticEnergyHamiltonian ω = 0 :=
+  classicalBracket_self _ ω
+
+#print axioms classicalBracket_antisymm
+#print axioms classicalBracket_self
+#print axioms classicalBracket_H_H
 
 end ArnoldGeometric

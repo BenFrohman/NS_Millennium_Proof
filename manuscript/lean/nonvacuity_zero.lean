@@ -17,12 +17,14 @@ public theorem repaired_huniq_at_zero (ν : ℝ) (w : KatoLocalWitness 0 ν) : .
 public theorem frohmanianTetherBound_zero (ν : ℝ) : FrohmanianTetherBound 0 ν := ...
 public theorem frohmanianTetherRate_zero (ν : ℝ) : FrohmanianTetherRate 0 ν := ...
 
-public theorem global_regularity_for_NS_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
-    ∃ (u : TimeDependentVelocity) (p : PressureField),
-      GlobalRegularity.satisfies_NavierStokes u p 0 ν ∧
-      (∀ t ≥ 0, ContDiff ℝ ⊤ (u t)) ∧
-      (∀ (v : TimeDependentVelocity) (q : PressureField),
-        v 0 = (0 : TimeDependentVelocity) 0 → NS_PDE v q ν →
-        (∀ t ≥ 0, ContDiff ℝ ⊤ (v t)) →
-        IsPhysicalNSSolution v →
-        ∀ t ≥ 0, v t = u t) := ...
+public theorem conditional_regularity_of_open_hyps_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
+    ∃ (u : TimeDependentVelocity),
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (u t)) ∧
+      (u 0 = 0) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes u ν) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+      (∀ v : TimeDependentVelocity,
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (v t)) →
+        v 0 = 0 →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes v ν) →
+        ∀ t ≥ (0 : ℝ), v t = u t) := ...

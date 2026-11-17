@@ -11,8 +11,7 @@ Machine-checked Lean 4 module.
 -/
 
 @[expose] public noncomputable def TetherKernel (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
-  -kappa * ∫ x,
-    ‖ω.val x‖ ^ 2 *
+  -kappa * Enstrophy ω * ∫ x,
       inner ℝ
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
