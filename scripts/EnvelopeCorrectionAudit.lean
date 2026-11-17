@@ -22,7 +22,13 @@ example (ν : ℝ) : UniformVorticityEnvelopeBound ν = PeriodicDirectionDepleti
 example (ν : ℝ) : DirectionCurvatureBound ν = PeriodicDirectionDepletionBound ν := rfl
 example (hBKM : ∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) :
     (∀ ν > (0 : ℝ), DirectionCurvatureBound ν) → Clay_B_exact :=
-  clay_reduces_to_direction_curvature_bound hBKM
+  clay_reduces_to_direction_curvature_bound_formal hBKM
+-- The transported public theorem (Truth Gate lock `DirectionCurvatureReduction`) gives the same
+-- curried API: its paper-side hypothesis is converted by the lock's own correspondence.
+example : (∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) →
+    (∀ ν > (0 : ℝ), DirectionCurvatureBound ν) → Clay_B_exact :=
+  NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.intended_correspondence.mpr
+    clay_reduces_to_direction_curvature_bound
 
 #print axioms vorticity_envelope_of_cubic_differential_bound
 #print axioms pointwise_vorticity_envelope_of_cubic_differential_bound
