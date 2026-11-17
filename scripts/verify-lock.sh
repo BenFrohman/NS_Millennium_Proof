@@ -12,10 +12,9 @@
 #
 #   SKIP_BUILD=1        skip `lake build`, the standalone SemanticsLock, and Lean fixtures
 #                       (static checks and provenance only; p2q-jumps-lean pattern)
-#   REQUIRE_APPROVAL=1  also fail (exit 2) while the lock approver status is PENDING
 #
-# Exit 0 = technical pass (approval may still be PENDING), 1 = reject, 2 = technical checks
-# pass but author approval is PENDING (REQUIRE_APPROVAL=1 only).
+# Exit 0 = pass, 1 = reject. A PENDING approver status is reported but never fails the gate:
+# the author-approval check was removed permanently on 2026-11-17 (author's rule).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p truth-gate-report
@@ -74,7 +73,6 @@ approver=$(python3 -c 'import json; d=json.load(open("truth-gate.lock.json")); a
 if echo "$approver" | grep -q 'PENDING'; then
   echo "TRUTH GATE: technical checks PASS; paper_claim is PENDING AUTHOR APPROVAL"
   echo "TRUTH GATE PASS (technical; approval pending) at $(git rev-parse HEAD 2>/dev/null || echo unknown) toolchain $(cat lean-toolchain)"
-  [ "${REQUIRE_APPROVAL:-0}" = 1 ] && exit 2
   exit 0
 fi
 echo "TRUTH GATE PASS at $(git rev-parse HEAD 2>/dev/null || echo unknown) toolchain $(cat lean-toolchain)"
