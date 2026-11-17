@@ -32,7 +32,7 @@ Author: Benjamin Stanley Frohman.
 | G1 Tether kernel & projector $\Pi_u$ | `TetherKernel`, `Pi_u` | Proved (`tetherKernel_symmetric`, `projector_orthogonality`) |
 | G2 Degeneracy on $H$ (Route A) | `tetherKernel_degenerates_on_kinetic_energy`, `tetherKernel_C2` | Proved axiom-clean |
 | A1 Symmetry & antisymmetry | `tetherKernel_symmetric`, `uniqueness_of_minimal_symmetric_tether`, `uniqueness_of_minimal_tether` | Both symmetric and antisymmetric uniqueness proved axiom-clean |
-| A3/C1 Coadjoint invariance | `tether_coadjoint_invariance`, `tether_coadjoint_invariance_of_integral_eq` | **Trivial only** for the placeholder `CoadjointAction` (the identity), not SDiff invariance; push-forward invariance proved only from an explicit integral-preservation hypothesis (open for real SDiff push-forwards) |
+| A3/C1 Coadjoint invariance | `tether_coadjoint_invariance`, `tether_coadjoint_invariance_of_integral_eq` | Proved only **conditionally** on `SDiffActionHyp` and `TetherIntegralPreserved` for an abstract `MulAction` (not the actual SDiff(T³) action), resp. on an explicit integral-preservation hypothesis; real SDiff invariance is open |
 | A5/C3 Negative feedback on $B(F,F)$ | `ProducesControllableNegativeFeedback` | Proved axiom-clean |
 | Reduced 9-term Jacobi identity | `tethered_jacobi_identity` | Proved conditionally on cyclic cocycle hypothesis |
 | G4 Stretching & transport at max | `stretching_inner_le_at_max`, `time_pairing_le_stretching_at_max` | Proved axiom-clean (given `hCZ`) |

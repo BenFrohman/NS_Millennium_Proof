@@ -3,6 +3,7 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
 import Mathlib
 import NS_Millennium_Proof.Modules.ClayStatements
 import NS_Millennium_Proof.Modules.AnalyticPipeline
@@ -11,12 +12,12 @@ import NS_Millennium_Proof.Semantics
 /-!
 # Conditional global regularity with the explicit vorticity ceiling, from the single-datum rate
 
-`global_regularity_for_NS` assumes the time-uniform bound `FrohmanianTetherBound` and its
+`conditional_regularity_of_open_hyps` assumes the time-uniform bound `FrohmanianTetherBound` and its
 conclusion has no explicit ceiling. This file proves the version closer to the original
 Theorem 1.1 of `main.tex`: from the **single-datum** cubic rate (R) `FrohmanianTetherRate (u0 0) ν`
 (not the all-data rate, which `TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable`
 proves unsatisfiable), a Kato witness, the BKM criterion (C) and uniqueness (U), the conclusion of
-`global_regularity_for_NS` holds together with the ceiling `M(t) ≤ max (M 0) (C / κ'')`.
+`conditional_regularity_of_open_hyps` holds together with the ceiling `M(t) ≤ max (M 0) (C / κ'')`.
 
 Scope (honest): (R) for a given nonzero datum is OPEN; (R), (C), (U) and the witness are proved
 jointly satisfiable only at `u0 = 0` (`hypotheses_jointly_satisfiable_at_zero`). This is not a
@@ -40,7 +41,7 @@ theorem frohmanianTetherBound_of_rate (u₀ : VelocityField) (ν : ℝ) (hν : 0
 /-- **Conditional global regularity with the explicit ceiling** (single-datum rate (R)). -/
 theorem conditional_global_regularity_with_ceiling
     (u0 : TimeDependentVelocity) (h_div_free : ∀ t x, div (u0 t) x = 0)
-    (h_smooth : GlobalRegularity.IsSmooth (u0 0))
+    (h_smooth : ConditionalRegularity.IsSmooth (u0 0))
     (h_finite_energy : Integrable (fun x : T3 => ‖u0 0 x‖ ^ 2))
     (ν : ℝ) (h_ν_pos : ν > 0)
     (w : KatoLocalWitness (u0 0) ν)
@@ -48,21 +49,21 @@ theorem conditional_global_regularity_with_ceiling
     (hcrit : TetheredLyapunov.PhysicalBKMContinuationCriterionFor (u0 0) ν)
     (huniq : TetheredLyapunov.KatoUniquenessOnExistenceTimes (u0 0) ν w) :
     ∃ u : TimeDependentVelocity,
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (u t)) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (u t)) ∧
       u 0 = u0 0 ∧
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes u ν) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes u ν) ∧
       (∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧ ∀ t ≥ (0 : ℝ),
         vorticity_sup_norm (vorticity (u t)) ≤
           max (vorticity_sup_norm (vorticity (u 0))) (C / κ'')) ∧
       (∀ v : TimeDependentVelocity,
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (v t)) →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (v t)) →
         v 0 = u0 0 →
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes v ν) →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes v ν) →
         ∀ t ≥ (0 : ℝ), v t = u t) := by
   obtain ⟨u, hs, h0, hns, _, hun⟩ :=
-    GlobalRegularity.global_regularity_for_NS u0 h_div_free h_smooth h_finite_energy ν h_ν_pos
+    ConditionalRegularity.conditional_regularity_of_open_hyps u0 h_div_free h_smooth h_finite_energy ν h_ν_pos
       w (frohmanianTetherBound_of_rate (u0 0) ν h_ν_pos hR) hcrit huniq
-  obtain ⟨hphys, p, heq⟩ := (GlobalRegularity.satisfies_NavierStokes_iff u ν).1 (hns 0 le_rfl)
+  obtain ⟨hphys, p, heq⟩ := (ConditionalRegularity.satisfies_NavierStokes_iff u ν).1 (hns 0 le_rfl)
   obtain ⟨C, k, hC, hk, hdiff, hDI, _, _⟩ := hR u p h_ν_pos heq h0 hphys
   exact ⟨u, hs, h0, hns, ⟨C, k, hC, hk, fun t ht =>
     AnalyticPipeline.comparison_ode_stability C k hC hk _ hdiff hDI t ht⟩, hun⟩
@@ -71,7 +72,7 @@ theorem conditional_global_regularity_with_ceiling
 simultaneously, for the zero datum. (Satisfiability for any nonzero datum is not known.) -/
 theorem hypotheses_jointly_satisfiable_at_zero (ν : ℝ) (_hν : 0 < ν) :
     (∀ (t : ℝ) (x : T3), div ((fun _ : ℝ => (0 : VelocityField)) t) x = 0) ∧
-    GlobalRegularity.IsSmooth (0 : VelocityField) ∧
+    ConditionalRegularity.IsSmooth (0 : VelocityField) ∧
     Integrable (fun x : T3 => ‖(0 : VelocityField) x‖ ^ 2) ∧
     ∃ w : KatoLocalWitness 0 ν,
       FrohmanianTetherRate 0 ν ∧
@@ -86,14 +87,14 @@ theorem hypotheses_jointly_satisfiable_at_zero (ν : ℝ) (_hν : 0 < ν) :
 /-- The theorem applied at the zero datum (all hypotheses discharged). -/
 theorem conditional_global_regularity_with_ceiling_at_zero (ν : ℝ) (hν : 0 < ν) :
     ∃ u : TimeDependentVelocity,
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (u t)) ∧ u 0 = 0 ∧
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes u ν) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (u t)) ∧ u 0 = 0 ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes u ν) ∧
       (∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧ ∀ t ≥ (0 : ℝ),
         vorticity_sup_norm (vorticity (u t)) ≤
           max (vorticity_sup_norm (vorticity (u 0))) (C / κ'')) ∧
       (∀ v : TimeDependentVelocity,
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (v t)) → v 0 = 0 →
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes v ν) →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (v t)) → v 0 = 0 →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes v ν) →
         ∀ t ≥ (0 : ℝ), v t = u t) := by
   obtain ⟨hdiv, hsm, hE, w, hR, hC, hU⟩ := hypotheses_jointly_satisfiable_at_zero ν hν
   exact conditional_global_regularity_with_ceiling (fun _ : ℝ => (0 : VelocityField)) hdiv hsm hE ν hν w hR hC hU

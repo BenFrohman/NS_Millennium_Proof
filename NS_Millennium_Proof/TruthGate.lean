@@ -13,7 +13,11 @@ import Lean
 enclosing `lake build` or `lake env lean` fails) unless every lock satisfies all of:
 
 * `paper_claim`, `formal_claim` and `intended_correspondence : formal_claim ↔ paper_claim`
-  exist (status `locked`); a lock with status `drift` always fails (DRIFT);
+  exist (status `locked`); a lock with status `drift` always fails (DRIFT); a lock with status
+  `unformalized` (a paper claim whose Lean formalization is not written yet) is reported as work
+  to do (TODO), not as a failure, provided it exports no public theorem and names no formal
+  proof; it is never reported as PASS and certifies nothing. DRIFT is reserved for a paper claim
+  that the kernel shows Lean does not prove as stated;
 * `paper_claim` is an independent transcription: its project-local dependency closure
   contains no `formal_claim`, no formal proof, no public theorem and no correspondence of any
   lock (ALIAS), and every project-local constant it shares with `formal_claim`'s closure lies
@@ -167,6 +171,7 @@ structure Lock where
   sharedVocabulary : Array Name
   publics : Array Name
   drift : String
+  todo : String
 
 private def getStr (j : Json) (k : String) : Except String String := j.getObjValAs? String k
 
@@ -185,7 +190,8 @@ private def parseLock (j : Json) : Except String Lock := do
     sharedVocabulary := ((j.getObjValAs? (Array String) "shared_vocabulary").toOption.getD #[]).map
       String.toName
     publics := ((j.getObjValAs? (Array String) "public").toOption.getD #[]).map String.toName
-    drift := (getStr j "drift").toOption.getD "" }
+    drift := (getStr j "drift").toOption.getD ""
+    todo := (getStr j "todo").toOption.getD "" }
 
 /-! ## The gate -/
 
@@ -317,6 +323,13 @@ def runTruthGate (lockPath : System.FilePath) (libraryMode : Bool := true) :
           unless ok do
             fails := fails.push s!"DRIFT {l.id}: {p}'s type is not formal_claim either"
       continue
+    if l.status == "unformalized" then
+      -- Work to do, not a failure. It may not be used: no public theorem, no formal proof.
+      unless l.publics.isEmpty do
+        fails := fails.push s!"SHAPE {l.id}: an unformalized lock exports public theorem(s); lock it first"
+      if l.formalProof.isSome then
+        fails := fails.push s!"SHAPE {l.id}: an unformalized lock names a formal proof; lock it first"
+      continue
     unless l.status == "locked" do
       fails := fails.push s!"STATUS {l.id}: unknown status {l.status}"
       continue
@@ -397,12 +410,15 @@ def runTruthGate (lockPath : System.FilePath) (libraryMode : Bool := true) :
     for p in l.publics do keys := keys.push s!" {p}:"
     if let some fp := l.formalProof then keys := keys.push s!" {fp}:"
     let mine := fails.filter fun s => keys.any fun k => (s.splitOn k).length > 1
-    if mine.isEmpty then
+    if mine.isEmpty && l.status == "unformalized" then
+      logInfo m!"TRUTH GATE TODO {l.id}: paper claim not yet formalized in Lean (work to do, not a failure; certifies nothing): {l.todo}"
+    else if mine.isEmpty then
       logInfo m!"TRUTH GATE PASS {l.id}"
     else
       logInfo m!"TRUTH GATE RED {l.id}: {mine.size} failure(s)"
   for s in fails do logInfo m!"TRUTH GATE FAIL {s}"
-  logInfo m!"TRUTH GATE SUMMARY locks={locks.size} failures={fails.size}"
+  let todos := (locks.filter fun l => l.status == "unformalized").size
+  logInfo m!"TRUTH GATE SUMMARY locks={locks.size} todo={todos} failures={fails.size}"
   unless fails.isEmpty do
     throwError "TRUTH GATE FAILED: {fails.size} failure(s); see TRUTH GATE FAIL lines"
 

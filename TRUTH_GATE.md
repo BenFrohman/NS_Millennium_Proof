@@ -32,7 +32,7 @@ nothing, and the gate would pass anything. That is forbidden.
 
 ## The locked claims (PENDING AUTHOR APPROVAL)
 
-Primary paper: PAPER_PATH `main.tex`, PAPER_SHA256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`.
+Primary paper: PAPER_PATH `main.tex`, PAPER_SHA256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`.
 
 ### `EnvelopeReduction` (LOCKED)
 
@@ -50,7 +50,7 @@ conditional reduction: the uniform envelope for every positive viscosity,
 
 ### `DirectionCurvatureReduction` (LOCKED)
 
-* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
+* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
 * section: Abstract
 * public theorem(s): `FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound`
 
@@ -62,7 +62,7 @@ assuming \lean{PeriodicBKMContinuation}~$\nu$ for every $\nu>0$, the hypothesis 
 
 ### `PeriodicTetherReduction` (LOCKED)
 
-* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
+* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
 * section: §The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)
 * public theorem(s): `FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound`
 
@@ -74,7 +74,7 @@ The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{Perio
 
 ### `ConditionalGlobalRegularity` (LOCKED)
 
-* paper: `main.tex`, sha256 `PAPERSHA`
+* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
 * section: §1 Introduction, Theorem 1.1 (thm:main)
 * formal proof: `CeilingFromRate.conditional_global_regularity_with_ceiling`
 * public theorem(s): `CeilingFromRate.theorem_1_1`
@@ -91,7 +91,7 @@ Then there is a velocity field $u$ with $u(0)=u_0(0)$ that is spatially $C^\inft
 
 ### `TetherTheorem` (LOCKED)
 
-* paper: `main.tex`, sha256 `PAPERSHA`
+* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
 * section: §1 Introduction, Proposition prop:hDI
 * formal proof: `TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable`
 * public theorem(s): `TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable`
@@ -121,6 +121,8 @@ It is not the case that for every velocity field $u_0$ and every $\nu\in\mathbb{
 | `UNTRANSPORTED` | a public theorem is not `intended_correspondence.mp <formal proof>` with type `paper_claim` |
 | `UNREGISTERED` | some other theorem concludes a headline Clay proposition or a locked claim |
 | `DRIFT` | the paper's English claim is not what Lean proves; red until the author decides |
+
+Not a failure: `TODO` (status `unformalized`). A paper claim whose Lean formalization has not been written yet is work to do, not DRIFT: formalize it and rerun `lake build`. It never reports PASS, certifies nothing, and may not export a public theorem or name a formal proof (that is a `SHAPE` failure). DRIFT is for a claim the kernel shows Lean does not prove as stated.
 
 A mismatch keeps the gate red and is reported. It is never patched: never weaken `paper_claim`,
 drop a hypothesis, or redefine it to match the formal side.

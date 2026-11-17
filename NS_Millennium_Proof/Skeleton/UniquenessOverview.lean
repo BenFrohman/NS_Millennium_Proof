@@ -71,7 +71,7 @@ Classical NS PDE + Coadjoint Orbit Geometry
           ↓
    Independent Majorant + Differential Inequality (TetheredLyapunov, Layer 2)
           ↓
-   Global Regularity Corollary (GlobalRegularity)
+   Global Regularity Corollary (ConditionalRegularity)
           ↓
    [Future] Metriplectic Structure + Conjecture
           ↓

@@ -6,7 +6,7 @@ Authors: Benjamin Stanley Frohman
 
 module
 
-public import NS_Millennium_Proof.Modules.GlobalRegularity
+public import NS_Millennium_Proof.Modules.ConditionalRegularity
 public import Mathlib.Analysis.Calculus.ContDiff.Basic
 
 /-!
@@ -36,7 +36,7 @@ namespace FrohmanianTether.ClayStatements
 /-! ## Open target: the closing bound (Task: what would make the result unconditional) -/
 
 /-- **Frohmanian tether closing bound** (OPEN). For every viscosity-`ν` datum in the class
-consumed by `global_regularity_for_NS`, the Frohmanian tether bound holds: every solution
+consumed by `conditional_regularity_of_open_hyps`, the Frohmanian tether bound holds: every solution
 from it has `‖ω(τ)‖_∞` bounded uniformly in `τ ≥ 0`.
 
 Scaling: `‖ω‖_∞ ↦ λ² ‖ω‖_∞` under `u_λ(x,t) = λ u(λx, λ²t)`, and `sup_t` is
@@ -44,7 +44,7 @@ scale-neutral, so the bound is *supercritical*; its time-integrated form
 `∫₀^T ‖ω‖_∞ dt < ∞` (Beale–Kato–Majda) is the critical one. By BKM and the decay of
 Leray solutions, this bound for all data is equivalent to global regularity, so proving it
 is the Millennium Problem itself, not a reduction of it. -/
-public def FrohmanianTetherClosingBound (ν : ℝ) : Prop :=
+@[expose] public def FrohmanianTetherClosingBound (ν : ℝ) : Prop :=
   ∀ u₀ : VelocityField,
     (∀ x, div u₀ x = 0) → ContDiff ℝ (⊤ : ℕ∞) u₀ →
       Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) →
@@ -133,16 +133,16 @@ public def Clay_B : Prop :=
 
 /-- **Proved (no `sorry`, standard axioms only).** If the open closing bound held, then,
 together with the classical local-theory binders already used by
-`global_regularity_for_NS` (Kato witness `hKato`, BKM continuation criterion `hcrit`,
+`conditional_regularity_of_open_hyps` (Kato witness `hKato`, BKM continuation criterion `hcrit`,
 uniqueness `huniq`), *every* datum in the library's class would have a unique global
 solution, smooth (`ContDiff ℝ (⊤ : ℕ∞)`) at every `t ≥ 0`.
 
-This is the exact sense in which `global_regularity_for_NS` plus the closing bound
+This is the exact sense in which `conditional_regularity_of_open_hyps` plus the closing bound
 "yields" global regularity. It does **not** yet yield `Clay_A` or `Clay_B`: the library
 treats C^∞ data (`ContDiff ℝ (⊤ : ℕ∞)`) on `T3` but has no periodicity or decay hypotheses, gives
 smoothness in `x` at each time rather than jointly in `(t, x)`, and gives no uniform
 energy bound. Those bridges are not formalized. -/
-public theorem frohmanian_global_regularity_of_closing_bound
+public theorem frohmanian_conditional_regularity_of_closing_bound
     (ν : ℝ) (hν : 0 < ν)
     (hclose : FrohmanianTetherClosingBound ν)
     (hKato : ∀ u₀ : VelocityField, ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) →
@@ -153,16 +153,16 @@ public theorem frohmanian_global_regularity_of_closing_bound
     (u₀ : VelocityField) (hdiv : ∀ x, div u₀ x = 0) (hsm : ContDiff ℝ (⊤ : ℕ∞) u₀)
     (hE : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2)) :
     ∃ (u : TimeDependentVelocity),
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (u t)) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (u t)) ∧
       (u 0 = u₀) ∧
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes u ν) ∧
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes u ν) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ v : TimeDependentVelocity,
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (v t)) →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (v t)) →
         v 0 = u₀ →
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes v ν) →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes v ν) →
         ∀ t ≥ (0 : ℝ), v t = u t) :=
-  GlobalRegularity.global_regularity_for_NS (fun _ => u₀) (fun _ x => hdiv x) hsm hE ν hν
+  ConditionalRegularity.conditional_regularity_of_open_hyps (fun _ => u₀) (fun _ x => hdiv x) hsm hE ν hν
     (hKato u₀ hsm hdiv hE) (hclose u₀ hdiv hsm hE) (hcrit u₀)
     (huniq u₀ (hKato u₀ hsm hdiv hE))
 
@@ -290,12 +290,12 @@ public theorem clay_B_exact_of_with_energy (h : Clay_B_exact_with_energy) : Clay
 
 /-! ## Audit finding: the library's uniqueness binder is unsatisfiable
 
-`huniq` in `global_regularity_for_NS` / `global_regularity_of_restart` quantifies over every
+`huniq` in `conditional_regularity_of_open_hyps` / `conditional_regularity_of_restart` quantifies over every
 `v` with `NS_PDE v q ν` that is smooth **in `x`** on `[0, T']`. `NS_PDE` uses
 `deriv (fun s => v s x)`, which is `0` where `v` is not differentiable in `t`. Hence the
 step field `v t = 𝟙[t > 1] e₀` (with `q = 0`) "solves" NS from `u₀ = 0`, as does `v ≡ 0`, and
 the binder would force them equal. So no witness satisfies it at `u₀ = 0`, and the closing
-theorem `frohmanian_global_regularity_of_closing_bound` (which demands it for *all* data) has
+theorem `frohmanian_conditional_regularity_of_closing_bound` (which demands it for *all* data) has
 an unsatisfiable hypothesis set. Classical uniqueness needs time regularity in the class. -/
 
 /-- Step-in-time constant field: `0` for `t ≤ 1`, `e₀` for `t > 1`. -/
@@ -390,7 +390,7 @@ spatial continuity, and the Leray L² energy inequality `∫ ‖u t x‖² ≤ �
 1. `stepField` is proved not physically admissible (`stepField_not_physical`);
 2. the repaired uniqueness hypothesis `huniq` is proved satisfiable at `u₀ = 0` (`repaired_huniq_at_zero`);
 3. `FrohmanianTetherBound 0 ν` and `FrohmanianTetherRate 0 ν` are proved unconditionally (`frohmanianTetherBound_zero`, `frohmanianTetherRate_zero`);
-4. `GlobalRegularity.global_regularity_for_NS` is instantiated unconditionally at `u₀ = 0` (`global_regularity_for_NS_nonvacuous_at_zero`), proving that all of its hypotheses are jointly satisfiable. -/
+4. `ConditionalRegularity.conditional_regularity_of_open_hyps` is instantiated unconditionally at `u₀ = 0` (`conditional_regularity_nonvacuous_at_zero`), proving that all of its hypotheses are jointly satisfiable. -/
 
 /-- `stepField` violates `IsPhysicalNSSolution` (it jumps from `0` to `e₀ ≠ 0` at `t = 1`). -/
 public theorem stepField_not_physical : ¬ IsPhysicalNSSolution stepField := by
@@ -402,7 +402,7 @@ public theorem stepField_not_physical : ¬ IsPhysicalNSSolution stepField := by
   simp [stepField] at h2
 
 /-- With `IsPhysicalNSSolution v`, the `L²` integrability hypothesis `hInt` of
-`restart_of_kato_quantitative`, `global_regularity_of_constructions`, and
+`restart_of_kato_quantitative`, `conditional_regularity_of_constructions`, and
 `frohmanian_tether_theorem` holds **unconditionally** for every initial datum
 `u₀` and viscosity `ν`. -/
 public theorem repaired_hInt (u₀ : VelocityField) (ν : ℝ) :
@@ -419,7 +419,7 @@ public theorem repaired_hInt (u₀ : VelocityField) (ν : ℝ) :
 
 /-- With `IsPhysicalNSSolution v`, the shifted-restart uniqueness hypothesis
 `huniq_shift` of `restart_of_kato_quantitative`,
-`global_regularity_of_constructions`, and `frohmanian_tether_theorem` is
+`conditional_regularity_of_constructions`, and `frohmanian_tether_theorem` is
 **provably satisfied** at `u₀ = 0`: both `v` and any restart witness `w'`
 starting at `v t = 0` vanish identically on `[0, ∞)`. -/
 public theorem repaired_huniq_shift_at_zero (ν : ℝ) :
@@ -441,7 +441,7 @@ public theorem repaired_huniq_shift_at_zero (ν : ℝ) :
     eq_zero_of_isPhysicalNSSolution_zero w'.u hw0 w'.phys s hs.1
   rw [hvts, hws]
 
-/-- With `IsPhysicalNSSolution v`, the uniqueness binder `huniq` of `global_regularity_for_NS`
+/-- With `IsPhysicalNSSolution v`, the uniqueness binder `huniq` of `conditional_regularity_of_open_hyps`
 is unconditionally satisfied at `u₀ = 0` for *every* `w : KatoLocalWitness 0 ν`. -/
 public theorem repaired_huniq_at_zero (ν : ℝ) (w : KatoLocalWitness 0 ν) :
     ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
@@ -509,23 +509,23 @@ public theorem frohmanianTetherRate_zero (ν : ℝ) : FrohmanianTetherRate 0 ν 
     dsimp [vorticity]
     rw [hu_all τ, curl_zero x, norm_zero]
 
-/-- **Kernel-verified non-vacuity of `GlobalRegularity.global_regularity_for_NS`:**
-at quiescent initial data `u0 = 0`, every hypothesis of `global_regularity_for_NS`
+/-- **Kernel-verified non-vacuity of `ConditionalRegularity.conditional_regularity_of_open_hyps`:**
+at quiescent initial data `u0 = 0`, every hypothesis of `conditional_regularity_of_open_hyps`
 (`h_div_free`, `h_smooth`, `h_finite_energy`, `w = kato_witness_zero ν`,
 `hRiccati = frohmanianTetherBound_zero ν`, `hcrit`, and `huniq = repaired_huniq_at_zero ν`)
 is unconditionally discharged, producing a global smooth solution without any unproved assumptions. -/
-public theorem global_regularity_for_NS_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
+public theorem conditional_regularity_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
     ∃ (u : TimeDependentVelocity),
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (u t)) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (u t)) ∧
       (u 0 = 0) ∧
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes u ν) ∧
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes u ν) ∧
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ v : TimeDependentVelocity,
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (v t)) →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (v t)) →
         v 0 = 0 →
-        (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes v ν) →
+        (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes v ν) →
         ∀ t ≥ (0 : ℝ), v t = u t) :=
-  GlobalRegularity.global_regularity_for_NS
+  ConditionalRegularity.conditional_regularity_of_open_hyps
     (fun _ => 0)
     (fun _ x => div_zero_field x)
     contDiff_const
@@ -597,7 +597,7 @@ public theorem clay_B_exact_of_periodic_tether_bound_formal
     (hBKM : ∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) : Clay_B_exact :=
   fun ν u₀ hν hs hd hp => hBKM ν hν u₀ hd hs hp (hclose ν hν u₀ hd hs hp)
 
-#print axioms global_regularity_for_NS_nonvacuous_at_zero
+#print axioms conditional_regularity_nonvacuous_at_zero
 #print axioms frohmanianTetherRate_zero
 #print axioms frohmanianTetherBound_zero
 #print axioms repaired_hInt

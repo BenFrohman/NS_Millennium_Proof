@@ -42,7 +42,7 @@ The independent majorant is introduced first precisely to make the analytic clos
 forced corollary (see the quartic weight "forced by the uniqueness theorem of the tether"
 in the source and in h_feedback_fixes_coefficient in SymplecticTether).
 Tracing sources: CLAY main.tex §3, Conversation Summary, Full_Living_Document, visuals 04/07.
-Tracing self: this module's global_regularity_for_NS is the end of the chain started in
+Tracing self: this module's conditional_regularity_of_open_hyps is the end of the chain started in
 SymplecticTether's 5-step (earlier in the paper and in the file structure).
 Dynamic living: see the Visual Portal and living_pde_visuals.py (majorant phase-plane scene).
 -- Author dev reference (not for referee submission): editable Mermaid source for the
@@ -60,7 +60,7 @@ Machine-checked Lean 4 module.
 
 universe u
 
--- Converted to module per Lean ref §5. The analytic side (majorant, Lemma 3.1, global_regularity)
+-- Converted to module per Lean ref §5. The analytic side (majorant, Lemma 3.1, conditional_regularity)
 -- is public API. Heavy classical sorries remain as private implementation details where possible.
 
 /-
@@ -238,7 +238,7 @@ The full table from the reference (Error Explanations section) was integrated in
 as the final step of the systematic reference campaign (§§14, 4.2–4.5, 5, 6, 7, Error Explanations).
 
 Key rows that are especially relevant to the analytic side (differential inequality, Lemma 3.1
-continuation, independent majorant ODE, global_regularity assembly):
+continuation, independent majorant ODE, conditional_regularity assembly):
 
 - `dependsOnNoncomputable`: Guarded by the `noncomputable section` at the top of this file.
   All classical black boxes (local existence, BKM, parabolic regularity, CZ constants,
@@ -320,7 +320,7 @@ every finite [0, T] < T* to a global bound on [0, T*).
 
 ## Relevance of the Four Escalating Checks Here
 
-- Blue ticks on `lemma_3_1_uniform_bound_and_continuation`, `global_regularity`, etc. give the
+- Blue ticks on `lemma_3_1_uniform_bound_and_continuation`, `conditional_regularity`, etc. give the
   everyday assurance that the majorant comparison and continuation logic elaborated and were
   accepted by the kernel (using the geometric justification imported from SymplecticTether).
 
@@ -350,7 +350,7 @@ The core non-circular continuation logic itself (local smoothness on [0,T] → f
 and Y(T) → comparison on that interval → sup over all T < T*) is ordinary proof and should
 remain free of native evaluation.
 
-See the much larger validation block in GlobalRegularity.lean (which calls into this file)
+See the much larger validation block in ConditionalRegularity.lean (which calls into this file)
 and the dedicated "Validation and Trust Strategy" section now added to Blueprint.md.
 -/
 
@@ -419,7 +419,7 @@ This module follows the guidance in the Lean Language Reference, §7 Definitions
 cross-referenced with the namespace/section practices from §6.
 
 Key conventions applied here:
-- Use `theorem` for assertions and existence statements (e.g. `global_regularity`,
+- Use `theorem` for assertions and existence statements (e.g. `conditional_regularity`,
   `lemma_3_1_uniform_bound_and_continuation`, `comparison_majorant_global_bound`).
 - Use `def` (often `noncomputable`) for data and mathematical objects that are not proofs
   (mollifiers, the Lyapunov functional definitions, the comparison ODE, etc.).
@@ -1952,7 +1952,7 @@ public theorem localExistenceTime_of_kato {u₀ : VelocityField} {ν : ℝ}
 /-- **Global regularity from BKM integrability.** `T* = ⊤` is derived from the Kato
 local existence time, `BKMContinuationCriterionFor`, and `BKMIntegrability`
 (`NavierStokes3D.Tstar_eq_top_of_bkm`). Open input: `BKMIntegrability`. -/
-public theorem global_regularity_of_bkmIntegrability
+public theorem conditional_regularity_of_bkmIntegrability
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
@@ -1979,9 +1979,9 @@ public theorem global_regularity_of_bkmIntegrability
     exact (hNS t ht x).2
 
 /-- **Global regularity from the finite-horizon vorticity bound**, through
-`bkmIntegrability_of_finiteTime` and `global_regularity_of_bkmIntegrability`.
+`bkmIntegrability_of_finiteTime` and `conditional_regularity_of_bkmIntegrability`.
 Open input: `FiniteTimeVorticityBound`. -/
-public theorem global_regularity
+public theorem conditional_regularity
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
@@ -1997,11 +1997,11 @@ public theorem global_regularity
     (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
     (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
     (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
-  global_regularity_of_bkmIntegrability u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν w
+  conditional_regularity_of_bkmIntegrability u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν w
     (bkmIntegrability_of_finiteTime hRiccati) hcrit hbelow
 
 /-- Scaffolding: the earlier assembly taking `T* = ⊤` for every path as an input. -/
-public theorem global_regularity_scaffold
+public theorem conditional_regularity_scaffold
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
@@ -2057,7 +2057,7 @@ public theorem global_regularity_scaffold
 /-- Rest-state global regularity: the zero field is a globally smooth
 NS solution for any positive viscosity. No Kato, Riccati, `T*`, or
 continuation hypotheses. -/
-public theorem global_regularity_zero (ν : ℝ) (_hν : 0 < ν) :
+public theorem conditional_regularity_zero (ν : ℝ) (_hν : 0 < ν) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧
       u 0 = (0 : VelocityField) ∧
@@ -2076,7 +2076,7 @@ public theorem global_regularity_zero (ν : ℝ) (_hν : 0 < ν) :
 /-- Assembly with `T* = ⊤` and compact-interval smoothness *proved* from
 uniform Kato restart plus Cauchy identification of existence-time
 witnesses, rather than taken as extra hypotheses. -/
-public theorem global_regularity_of_restart
+public theorem conditional_regularity_of_restart
     (u₀ : VelocityField) (ν : ℝ)
     (_h_divfree : ∀ x, div u₀ x = 0)
     (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
@@ -2161,7 +2161,7 @@ Kato local existence time, `PhysicalBKMContinuationCriterionFor`, and the BKM in
 supplied by `PhysicalFiniteTimeVorticityBound`; smoothness below `T*` comes from
 `KatoUniquenessOnExistenceTimes`. No restart hypothesis.
 Open input: `PhysicalFiniteTimeVorticityBound`. -/
-public theorem global_regularity_of_bkm_uniqueness
+public theorem conditional_regularity_of_bkm_uniqueness
     (u₀ : VelocityField) (ν : ℝ)
     (h_pos_ν : ν > 0)
     (w : KatoLocalWitness u₀ ν)
@@ -2183,7 +2183,7 @@ public theorem global_regularity_of_bkm_uniqueness
   · intro t ht x
     exact (w.pde t ht x).2
 
-/-- In `global_regularity_of_restart`, `T* = ⊤` follows from `KatoUniformRestart` and the
+/-- In `conditional_regularity_of_restart`, `T* = ⊤` follows from `KatoUniformRestart` and the
 Kato witness alone; the vorticity-bound argument is not used for it. -/
 public theorem Tstar_top_of_restart_without_vorticity_bound
     (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν)
@@ -2195,7 +2195,7 @@ public theorem Tstar_top_of_restart_without_vorticity_bound
 time `katoRestartTime C C₀ (max R 1)` from the log-Gronwall / quadratic
 comparison (Drive Steps 3.2–3.4). `C₀` is the finite-horizon vorticity bound on `[0, 0]`;
 `hrestart` is assumed for every ceiling value. `R` is the Sobolev proxy at time 0. -/
-public theorem global_regularity_of_kato_estimates
+public theorem conditional_regularity_of_kato_estimates
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
@@ -2220,7 +2220,7 @@ public theorem global_regularity_of_kato_estimates
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (w.u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (w.u t) x = 0) := by
   obtain ⟨C₀, _hC₀⟩ := (hRiccati w.u w.p w.pde w.init w.phys).1 0 le_rfl
-  exact global_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
+  exact conditional_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
     h_pos_ν w hRiccati (katoRestartTime C C₀ (max R 1))
     (katoRestartTime_pos C C₀ (max R 1)) (hrestart C₀) huniq
 
@@ -2244,7 +2244,7 @@ public theorem riccati_ceiling_of_vorticity_di
 /-- Assembly from the four paper constructions: Kato local existence,
 Riccati ceiling from the vorticity DI, quantitative restart, and Cauchy
 identification of restart paths. -/
-public theorem global_regularity_of_constructions
+public theorem conditional_regularity_of_constructions
     (u₀ : VelocityField) (ν : ℝ)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
@@ -2304,7 +2304,7 @@ public theorem global_regularity_of_constructions
     physicalFiniteTimeVorticityBound_of_uniform hRiccati
   have hrestart :=
     restart_of_kato_quantitative u₀ ν τ h_pos_ν hτ hKato hTlb hInt huniq_shift
-  exact global_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
+  exact conditional_regularity_of_restart u₀ ν h_divfree h_smooth h_finite_energy
     h_pos_ν w hFin τ hτ hrestart huniq
 
 #print axioms hasDerivAt_norm_sq_of_hasDerivAt
@@ -2322,19 +2322,19 @@ public theorem global_regularity_of_constructions
 #print axioms lyapunovSminus_density_neg_of_large_weight
 #print axioms hasDerivAt_lyapunov_density_unweighted
 #print axioms majorantField_factor
-#print axioms global_regularity_zero
-#print axioms global_regularity_of_restart
-#print axioms global_regularity_of_kato_estimates
+#print axioms conditional_regularity_zero
+#print axioms conditional_regularity_of_restart
+#print axioms conditional_regularity_of_kato_estimates
 #print axioms finiteTimeVorticityBound_of_uniform
 #print axioms physicalFiniteTimeVorticityBound_of_uniform
 #print axioms bkmIntegrability_of_finiteTime
 #print axioms physicalBKMIntegrability_of_finiteTime
-#print axioms global_regularity_of_bkmIntegrability
-#print axioms global_regularity_of_bkm_uniqueness
+#print axioms conditional_regularity_of_bkmIntegrability
+#print axioms conditional_regularity_of_bkm_uniqueness
 #print axioms Tstar_top_of_restart_without_vorticity_bound
-#print axioms global_regularity
+#print axioms conditional_regularity
 #print axioms riccati_ceiling_of_vorticity_di
-#print axioms global_regularity_of_constructions
+#print axioms conditional_regularity_of_constructions
 #print axioms enstrophy_di_of_spatial_max
 #print axioms lyapunov_density_unweighted_di_at_spatial_max
 

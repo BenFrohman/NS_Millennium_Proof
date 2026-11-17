@@ -12,7 +12,7 @@ public import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 # Semantics lock (Truth Gate)
 
 PAPER_PATH: main.tex
-PAPER_SHA256: bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0
+PAPER_SHA256: 6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764
 PAPER_SECTION: Abstract (main theorem `clay_reduces_to_direction_curvature_bound`); also §"The Periodic Clay (B) Statement and Scaling Analysis" (sec:clay) §1 Theorem 1.1 (thm:main) and §1 Proposition prop:hDI
 
 Locked paper claims in `main.tex`, quoted verbatim (locks `DirectionCurvatureReduction`,
@@ -102,7 +102,7 @@ def PaperUniformEnvelope (ν : ℝ) : Prop :=
                 max (vorticity_sup_norm (vorticity (u 0))) (C / k)
 
 /-- Paper: `main.tex`, Abstract (sha256
-`bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`). Verbatim:
+`6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`). Verbatim:
 "an \emph{assumed} uniform ceiling on $\|\omega(t)\|_\infty$ along periodic smooth solutions
 (not a differential inequality)". Transcribed as one ceiling `Y` per smooth divergence-free
 periodic datum, valid along every local periodic smooth solution on its whole lifespan.
@@ -168,7 +168,7 @@ end EnvelopeReduction
 namespace DirectionCurvatureReduction
 
 /-- Paper: `main.tex`, Abstract (sha256
-`bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`). Verbatim:
+`6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`). Verbatim:
 "assuming \lean{PeriodicBKMContinuation}~$\nu$ for every $\nu>0$, the hypothesis
 \lean{DirectionCurvatureBound}~$\nu$ for every $\nu>0$ implies \lean{Clay_B_exact}. Here
 \lean{DirectionCurvatureBound} is an abbreviation for \lean{UniformVorticityEnvelopeBound}, an
@@ -218,7 +218,7 @@ end DirectionCurvatureReduction
 namespace PeriodicTetherReduction
 
 /-- Paper: `main.tex`, §"The Periodic Clay (B) Statement and Scaling Analysis" (sec:clay)
-(sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`). Verbatim:
+(sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`). Verbatim:
 "The reduction from \lean{Clay_B_exact} to the periodic closing bound
 \lean{PeriodicTetherClosingBound} and classical periodic BKM continuation
 \lean{PeriodicBKMContinuation} is proved axiom-clean". Both premises are named in the paper and
@@ -318,7 +318,7 @@ def paper_claim : Prop :=
 proves it. -/
 def formal_claim : Prop :=
   ∀ (u0 : TimeDependentVelocity) (_h_div_free : ∀ t x, div (u0 t) x = 0)
-    (_h_smooth : GlobalRegularity.IsSmooth (u0 0))
+    (_h_smooth : ConditionalRegularity.IsSmooth (u0 0))
     (_h_finite_energy : Integrable (fun x : T3 => ‖u0 0 x‖ ^ 2))
     (ν : ℝ) (_h_ν_pos : ν > 0)
     (w : KatoLocalWitness (u0 0) ν)
@@ -326,16 +326,16 @@ def formal_claim : Prop :=
     (_hcrit : TetheredLyapunov.PhysicalBKMContinuationCriterionFor (u0 0) ν)
     (_huniq : TetheredLyapunov.KatoUniquenessOnExistenceTimes (u0 0) ν w),
   ∃ u : TimeDependentVelocity,
-    (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (u t)) ∧
+    (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (u t)) ∧
     u 0 = u0 0 ∧
-    (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes u ν) ∧
+    (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes u ν) ∧
     (∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧ ∀ t ≥ (0 : ℝ),
       vorticity_sup_norm (vorticity (u t)) ≤
         max (vorticity_sup_norm (vorticity (u 0))) (C / κ'')) ∧
     (∀ v : TimeDependentVelocity,
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.IsSmooth (v t)) →
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (v t)) →
       v 0 = u0 0 →
-      (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes v ν) →
+      (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes v ν) →
       ∀ t ≥ (0 : ℝ), v t = u t)
 
 /-- Under `0 < ν`, the paper's (R) for one datum is `FrohmanianTetherRate` for that datum. -/
@@ -353,10 +353,10 @@ theorem paperSingleDatumRate_iff (a : VelocityField) (ν : ℝ) (hν : 0 < ν) :
 /-- `satisfies_NavierStokes` does not depend on `t`, so its `∀ t ≥ 0` form is the paper's
 "physical solution of `navier_stokes_eq` for some pressure". -/
 theorem forall_satisfies_iff (u : TimeDependentVelocity) (ν : ℝ) :
-    (∀ t ≥ (0 : ℝ), GlobalRegularity.satisfies_NavierStokes u ν) ↔
+    (∀ t ≥ (0 : ℝ), ConditionalRegularity.satisfies_NavierStokes u ν) ↔
       PaperPhysicalNSSolution u ν := by
-  rw [show PaperPhysicalNSSolution u ν ↔ GlobalRegularity.satisfies_NavierStokes u ν from
-    (GlobalRegularity.satisfies_NavierStokes_iff u ν).symm]
+  rw [show PaperPhysicalNSSolution u ν ↔ ConditionalRegularity.satisfies_NavierStokes u ν from
+    (ConditionalRegularity.satisfies_NavierStokes_iff u ν).symm]
   exact ⟨fun h => h 0 le_rfl, fun h _ _ => h⟩
 
 /-- **Fixed once.** -/

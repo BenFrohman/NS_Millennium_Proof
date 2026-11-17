@@ -13,7 +13,7 @@ public import Mathlib.Tactic.Ring
 /-!
 # Assembly gap
 
-This file does not discharge `hRiccati`, `global_regularity_for_NS`,
+This file does not discharge `hRiccati`, `conditional_regularity_of_open_hyps`,
 or `frohmanian_tether_theorem`.
 
 `hRiccati` is a label for the package `∃ C κ'' y` with
@@ -21,7 +21,7 @@ or `frohmanian_tether_theorem`.
 equation is the cubic source `⟨ω, (ω·∇)u⟩ ≤ C_CZ M³`, hence
 `pairing / M ≤ C_CZ M²` when `M > 0`. The continuation code does not
 consume that inequality. It unpacks the package and sends it to
-`global_regularity`.
+`conditional_regularity`.
 
 `conditional_riccati` expands `CorrectedMaxRate`. `conditional_ceiling`
 is the phase line of that hypothesized field. Neither constructs `y`,

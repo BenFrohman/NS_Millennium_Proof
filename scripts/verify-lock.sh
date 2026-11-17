@@ -48,7 +48,14 @@ if [ "${SKIP_BUILD:-0}" != 1 ]; then
   set -e
   [ "$rc" -eq 0 ] || fail "scripts/SemanticsLock.lean failed (exit $rc)"
   grep -q 'TRUTH GATE SUMMARY .* failures=0' truth-gate-report/semantics-lock.txt || fail "gate summary not clean"
-  if grep -E "^'.*' depends on axioms" truth-gate-report/semantics-lock.txt | grep -vE "depends on axioms: \[(propext|Classical.choice|Quot.sound)(, (propext|Classical.choice|Quot.sound))*\]$" ; then
+  # Lean wraps long axiom lists over several lines (continuation lines start with a space);
+  # join them first so every listed axiom is checked, not just the first line.
+  awk '/^\x27.*\x27 depends on axioms/ { if (buf != "") print buf; buf = $0; next }
+       buf != "" && /^ / { buf = buf $0; next }
+       { if (buf != "") print buf; buf = "" }
+       END { if (buf != "") print buf }' truth-gate-report/semantics-lock.txt \
+    > truth-gate-report/axioms-joined.txt
+  if grep -E "^'.*' depends on axioms" truth-gate-report/axioms-joined.txt | grep -vE "depends on axioms: \[(propext|Classical.choice|Quot.sound)(, (propext|Classical.choice|Quot.sound))*\]$" ; then
     fail "non-standard axiom in a locked or public declaration"
   fi
 

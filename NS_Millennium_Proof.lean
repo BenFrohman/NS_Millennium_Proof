@@ -18,7 +18,7 @@ import NS_Millennium_Proof.Modules.ClayStatements
 import NS_Millennium_Proof.Modules.ClosureBlueprint
 import NS_Millennium_Proof.Modules.CubicSourceCertificate
 import NS_Millennium_Proof.Modules.ForMathlib.Projection
-import NS_Millennium_Proof.Modules.GlobalRegularity
+import NS_Millennium_Proof.Modules.ConditionalRegularity
 import NS_Millennium_Proof.Modules.IndependentMajorant
 import NS_Millennium_Proof.Modules.NS_Equations
 import NS_Millennium_Proof.Modules.SymplecticTether
@@ -29,6 +29,10 @@ import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.ShearSolution
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.Uniqueness
+import NS_Millennium_Proof.Modules.PlanSteps
+import NS_Millennium_Proof.Modules.Combined
+import NS_Millennium_Proof.Modules.ConcreteSDiff
+import NS_Millennium_Proof.Modules.ScalingIdentities
 import NS_Millennium_Proof.Modules.CeilingFromRate
 import NS_Millennium_Proof.Modules.LyapunovDIStatus
 
@@ -49,7 +53,7 @@ theorem depends on `sorryAx` or any axiom outside `[propext, Classical.choice, Q
 -/
 
 export FrohmanianTether (TetheredBracket TetherKernel kappa)
-export GlobalRegularity (frohmanian_tether_theorem)
+export ConditionalRegularity (frohmanian_tether_theorem)
 
 open Lean Elab Command in
 #eval show CommandElabM Unit from do
@@ -84,15 +88,15 @@ unregistered theorem concludes a headline Clay proposition or a locked claim. A 
 status `drift` keeps the build red until the author decides. -/
 #eval TruthGate.runTruthGate "truth-gate.lock.json"
 
-#print axioms GlobalRegularity.frohmanian_tether_theorem
+#print axioms ConditionalRegularity.frohmanian_tether_theorem
 #print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
-#print axioms GlobalRegularity.global_regularity_for_NS
+#print axioms ConditionalRegularity.conditional_regularity_of_open_hyps
 #print axioms CeilingFromRate.conditional_global_regularity_with_ceiling
 #print axioms CeilingFromRate.hypotheses_jointly_satisfiable_at_zero
 #print axioms CeilingFromRate.theorem_1_1
 #print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable
 #print axioms LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable
-#print axioms FrohmanianTether.ClayStatements.global_regularity_for_NS_nonvacuous_at_zero
+#print axioms FrohmanianTether.ClayStatements.conditional_regularity_nonvacuous_at_zero
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherRate_zero
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherBound_zero
 #print axioms FrohmanianTether.uniqueness_of_minimal_tether
