@@ -29,6 +29,8 @@ import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.ShearSolution
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.Uniqueness
+import NS_Millennium_Proof.Modules.CeilingFromRate
+import NS_Millennium_Proof.Modules.LyapunovDIStatus
 
 /-!
 # NS Millennium Proof — Frohmanian Symplectic Tether (Main Entry & Kernel Axiom Audit)
@@ -85,6 +87,11 @@ status `drift` keeps the build red until the author decides. -/
 #print axioms GlobalRegularity.frohmanian_tether_theorem
 #print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
 #print axioms GlobalRegularity.global_regularity_for_NS
+#print axioms CeilingFromRate.conditional_global_regularity_with_ceiling
+#print axioms CeilingFromRate.hypotheses_jointly_satisfiable_at_zero
+#print axioms CeilingFromRate.theorem_1_1
+#print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable
+#print axioms LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable
 #print axioms FrohmanianTether.ClayStatements.global_regularity_for_NS_nonvacuous_at_zero
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherRate_zero
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherBound_zero

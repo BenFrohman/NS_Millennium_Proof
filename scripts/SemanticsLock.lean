@@ -28,6 +28,8 @@ import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.ShearSolution
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.Uniqueness
+import NS_Millennium_Proof.Modules.CeilingFromRate
+import NS_Millennium_Proof.Modules.LyapunovDIStatus
 
 /-!
 # scripts.SemanticsLock
@@ -64,9 +66,14 @@ public theorem; only `propext`, `Classical.choice` and `Quot.sound` may appear.
 #print NS_Millennium_Proof.Semantics.PeriodicTetherReduction.paper_claim
 #print NS_Millennium_Proof.Semantics.PeriodicTetherReduction.formal_claim
 
--- Drift locks: a paper side exists, no correspondence does.
-#print NS_Millennium_Proof.Semantics.PaperTheorem11
+#check @NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.intended_correspondence
+#print NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.paper_claim
 #print NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.formal_claim
+#print NS_Millennium_Proof.Semantics.PaperSingleDatumRate
+#print NS_Millennium_Proof.Semantics.PaperPhysicalNSSolution
+#check @NS_Millennium_Proof.Semantics.TetherTheorem.intended_correspondence
+#print NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim
+#print NS_Millennium_Proof.Semantics.TetherTheorem.formal_claim
 
 /-! ## 2. The gate -/
 
@@ -78,6 +85,13 @@ public theorem; only `propext`, `Classical.choice` and `Quot.sound` may appear.
 #print axioms NS_Millennium_Proof.Semantics.EnvelopeReduction.intended_correspondence
 #print axioms NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.intended_correspondence
 #print axioms NS_Millennium_Proof.Semantics.PeriodicTetherReduction.intended_correspondence
+#print axioms NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.intended_correspondence
+#print axioms NS_Millennium_Proof.Semantics.TetherTheorem.intended_correspondence
 #print axioms FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope
 #print axioms FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound
 #print axioms FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound
+#print axioms CeilingFromRate.conditional_global_regularity_with_ceiling
+#print axioms CeilingFromRate.theorem_1_1
+#print axioms CeilingFromRate.hypotheses_jointly_satisfiable_at_zero
+#print axioms LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable
+#print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable

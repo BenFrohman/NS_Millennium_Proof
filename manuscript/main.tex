@@ -203,7 +203,7 @@ As an explicit bilinear integral kernel, $B(F,G)$ in Definition~\ref{def:tether}
 \subsection{Coadjoint Invariance and the 9-Term Reduced Jacobi Identity}
 In \lean{SymplecticTether.lean}, coadjoint invariance and the reduced Jacobi identity are formalized at two levels:
 \begin{itemize}
-\item \textbf{Abstract \& push-forward coadjoint invariance:} \lean{tether_coadjoint_invariance} and \lean{tetherKernel_C1} verify \lean{InvariantUnderCoadjointAction TetherKernel}. To represent the full infinite-dimensional diffeomorphism push-forward $\omega\mapsto g_*\omega$ on $\mathrm{SDiff}(\T)$ without hiding the geometric bridge, we also define \lean{ConjecturedSDiffPushforwardInvariance} and prove \lean{tether_coadjoint_invariance_of_integral_eq}, showing that volume-preserving push-forward equivariance of the weighted projected integrand immediately yields coadjoint invariance of \lean{TetherKernel}.
+\item \textbf{Placeholder and conditional push-forward coadjoint invariance:} \lean{tether_coadjoint_invariance} and \lean{tetherKernel_C1} verify \lean{InvariantUnderCoadjointAction TetherKernel} only for the current placeholder \lean{CoadjointAction}, which is the identity map on the orbit; this is trivial invariance, \emph{not} invariance under the actual $\mathrm{SDiff}(\T)$ coadjoint action. To represent the full infinite-dimensional diffeomorphism push-forward $\omega\mapsto g_*\omega$ on $\mathrm{SDiff}(\T)$ without hiding the geometric bridge, we also define \lean{ConjecturedSDiffPushforwardInvariance} and prove \lean{tether_coadjoint_invariance_of_integral_eq}, showing that volume-preserving push-forward equivariance of the weighted projected integrand immediately yields coadjoint invariance of \lean{TetherKernel}.
 \item \textbf{9-Term Reduced Jacobi Identity (\lean{tethered_jacobi_identity}):} Expands the cyclic Jacobiator of $\{F,G\}_{\Tf}=\{F,G\}_{\mathrm{cl}}+B(F,G)$ into its 9 constituent terms (3 pure classical Euler Lie--Poisson terms + 6 cross/tether terms grouped into cyclic families A, B, C) and proves that the full Jacobiator vanishes under the explicit Chevalley--Eilenberg cocycle cancellation hypothesis.
 \end{itemize}
 
@@ -320,12 +320,12 @@ holds if and only if \lean{ConjecturedUnmodifiedTetherPairing u ω x} holds (or 
 \subsection{Quartic Lyapunov Absorption and Quadratic Riccati Heuristic vs.\ Cubic Ceiling}
 In Section~3 and Appendix~A (Item~10) of \emph{Frohmanian\_Tether\_Final\_Submission\_v8}, two related ODE reductions were introduced for the evolution of $M_\varepsilon(t)=\|\omega_\varepsilon(t)\|_{L^\infty}$:
 \begin{enumerate}
-\item \textbf{The Quartic Lyapunov $L^6$ Absorption and Cubic Comparison ODE (Formalized in Lean):}
+\item \textbf{The Quartic Lyapunov $L^6$ Absorption (heuristic, not proved in Lean) and Cubic Comparison ODE (comparison lemma proved in Lean):}
 Differentiating the mollified quartic Lyapunov functional
 \[
 S_\varepsilon(t)=\int_{\T}\Bigl(\frac12|\omega_\varepsilon|^2+\frac{\kappa}{4}|\omega_\varepsilon|^4\varphi_\varepsilon\Bigr)\,d\lambda
 \]
-along the vorticity transport equation and applying Hölder's inequality with conjugate exponents $(3/2,3)$ (\lean{AnalyticPipeline.holderConjugate_three_halves_three}, \lean{holder_I4}), the 3D Sobolev embedding $H^1\hookrightarrow L^6$ (\lean{holder_I4_le_sobolev}), and Young's absorption parameter $\varepsilon=\kappa/4$ yields
+along the vorticity transport equation and applying Hölder's inequality with conjugate exponents $(3/2,3)$ (\lean{AnalyticPipeline.holderConjugate_three_halves_three}, \lean{holder_I4}), the 3D Sobolev embedding $H^1\hookrightarrow L^6$ (\lean{holder_I4_le_sobolev}), and Young's absorption parameter $\varepsilon=\kappa/4$ is \emph{expected} to yield the following inequality, which is \textbf{not proved} in this repository (no declaration \texttt{lyapunov\_differential\_inequality} exists; only the ingredients above are proved; the exact smooth periodic identity for $dS/dt$ is \texttt{dS\_identity\_smooth} in the separate repository \texttt{weighted-enstrophy-identities}, commit \texttt{9e4cfd22}, where the closing steps \texttt{CalderonZygmundLp}, \texttt{WeightedToSupReduction}, \texttt{PhiSupControl} are open)
 \begin{equation}\label{eq:orig_dS}
 \frac{dS_\varepsilon}{dt}\le C_{\mathrm{abs}}\bigl(1+M_\varepsilon(t)^3\|\varphi_\varepsilon\|_{L^\infty}^{3/2}\bigr)-\kappa'\int_{\T}|\omega_\varepsilon|^6\,d\lambda,
 \end{equation}
@@ -333,7 +333,7 @@ which motivates the autonomous cubic comparison ODE (\lean{FrohmanianTetherRate}
 \begin{equation}\label{eq:orig_cubic_ode}
 y'(t) = C\,y(t)^2 - \kappa''\,y(t)^3,\qquad y(0)=M(0).
 \end{equation}
-As proved in Lemma~\ref{lem:cubic} (\lean{comparison_ode_stability}), the equilibrium $y_*=C/\kappa''$ is globally asymptotically stable on $(0,\infty)$, yielding the rigorous, unconditionally valid ceiling $M(t)\le\max(M(0),C/\kappa'')$ for all initial data $M(0)\ge0$.
+As proved in Lemma~\ref{lem:cubic} (\lean{comparison_ode_stability}), the equilibrium $y_*=C/\kappa''$ is globally asymptotically stable on $(0,\infty)$, so every nonnegative solution $y$ of the comparison inequality satisfies $y(t)\le\max(y(0),C/\kappa'')$. This transfers to $M(t)$ only for a solution that \emph{satisfies} the rate inequality (R); (R) for all data is proved unsatisfiable (\lean{frohmanian_tether_theorem_hDI_unsatisfiable} in the root \texttt{main.tex}), and (R) for a given datum is open.
 \item \textbf{The Original Quadratic Riccati Heuristic (from Section~3 of v8):}
 In Section~3 of \emph{v8}, an alternative constant-source quadratic Riccati heuristic was written:
 \begin{equation}\label{eq:orig_quad_riccati}
@@ -369,7 +369,7 @@ For historical completeness and traceability, Table~\ref{tab:14point} maps each 
 3 & Phase space: coadjoint orbit $\mathcal{O}$ of $\mathrm{SDiff}$ & \lean{VorticityField}, \lean{FunctionalOnOrbit}, \lean{CoadjointAction} & Defined in \lean{ArnoldGeometric.lean}, \lean{SymplecticTether.lean}\\
 4 & Classical Arnold Lie--Poisson bracket $\{F,G\}_{\mathrm{cl}}$ & \lean{ClassicalLiePoissonBracket}, \lean{classical_bracket_reproduces_Euler} & Kernel-verified (0 \lean{sorry})\\
 5 & Explicit Frohmanian Tether $B(F,G)$, $\Pi_u$, $\kappa=3/2$, degeneracy & \lean{TetherKernel}, \lean{Pi_u}, \lean{kappa_eq_three_halves}, \lean{tetherKernel_C2} & Kernel-verified (0 \lean{sorry})\\
-6 & Coadjoint invariance of quadratic correction & \lean{tether_coadjoint_invariance}, \lean{tether_coadjoint_invariance_of_integral_eq} & Kernel-verified (abstract \& conditional push-forward)\\
+6 & Coadjoint invariance of quadratic correction & \lean{tether_coadjoint_invariance}, \lean{tether_coadjoint_invariance_of_integral_eq} & Trivial for the placeholder action (\lean{CoadjointAction} is the identity); SDiff push-forward invariance only conditional on \lean{ConjecturedSDiffPushforwardInvariance}-type hypothesis (open)\\
 7 & Reduced Jacobi identity (9-term expansion + cocycle) & \lean{tethered_jacobi_identity} & Kernel-verified (conditional on cocycle vanishing)\\
 8 & Canonicity \& Uniqueness Theorem (5-step) & \lean{uniqueness_of_minimal_tether}, \lean{uniqueness_of_minimal_symmetric_tether}, \lean{step2_degree} & Kernel-verified (both antisymmetric \& symmetric forms)\\
 9 & Variational principle \& Leray projector orthogonality & \lean{projector_orthogonality}, \lean{pressure_energy_pairing_vanishes} & Kernel-verified (0 \lean{sorry})\\
@@ -413,14 +413,14 @@ G1 Tether kernel & \lean{TetherKernel}, \lean{Pi_u} & Defined \& symmetric (\lea
 G2 Degeneracy $B(F,H)=0$ & \lean{tetherKernel_degenerates_on_kinetic_energy}, \lean{tetherKernel_C2} & \textbf{Proved axiom-clean}\\
 A1 Antisymmetric uniqueness & \lean{uniqueness_of_minimal_tether} & \textbf{Proved axiom-clean}\\
 A1 Symmetric uniqueness & \lean{uniqueness_of_minimal_symmetric_tether} & \textbf{Proved axiom-clean}\\
-A3/C1 Coadjoint invariance & \lean{tether_coadjoint_invariance}, \lean{tether_coadjoint_invariance_of_integral_eq} & \textbf{Proved axiom-clean} (abstract \& conditional on \lean{ConjecturedSDiffPushforwardInvariance})\\
+A3/C1 Coadjoint invariance & \lean{tether_coadjoint_invariance}, \lean{tether_coadjoint_invariance_of_integral_eq} & \textbf{Trivial only}: \lean{CoadjointAction} is currently the identity, so \lean{tether_coadjoint_invariance} is not SDiff invariance; push-forward invariance is proved only from the integral-preservation hypothesis \lean{hint} (open for actual SDiff push-forwards)\\
 A5/C3 Negative feedback & \lean{ProducesControllableNegativeFeedback} & \textbf{Proved axiom-clean}\\
 Reduced 9-term Jacobi & \lean{tethered_jacobi_identity} & \textbf{Proved axiom-clean} (conditional on cyclic cocycle)\\
 G4 Stretching at spatial max & \lean{stretching_inner_le_at_max} & \textbf{Proved axiom-clean} (given \lean{hCZ})\\
 G4 Transport/viscosity at max & \lean{time_pairing_le_stretching_at_max} & \textbf{Proved axiom-clean}\\
 Conjectured pairing bridge & \lean{ConjecturedUnmodifiedTetherPairing}, \lean{reduced_pairing_of_unmodified_and_tether} & \textbf{Proved axiom-clean (0 \lean{sorry})} from explicit bridge hypothesis\\
 Weighted stretching lemma & \lean{tethered_stretching_of_weight} & \textbf{Proved axiom-clean (0 \lean{sorry})} from \lean{hweight}\\
-N1 Lyapunov vehicle $S_\varepsilon,\varphi$ & \lean{LyapunovS}, \lean{IsEnstrophyAccumulation}, \lean{lyapunov_differential_inequality} & \textbf{Proved axiom-clean}\\
+N1 Lyapunov vehicle $S_\varepsilon,\varphi$ & \lean{LyapunovS}, \lean{IsEnstrophyAccumulation} & \textbf{Definitions only.} No declaration \texttt{lyapunov\_differential\_inequality} exists in this repository; the differential inequality for $S_\varepsilon$ is \textbf{not proved} here (the former stub \texttt{Modules/AnalyticEstimates.lean}, which proved only \texttt{True}, is kept unbuilt at \texttt{drafts/AnalyticEstimates\_stub.lean}). The exact identity for $dS/dt$ for smooth periodic solutions on $\T$ is proved separately (\texttt{dS\_identity\_smooth}, repository \texttt{weighted-enstrophy-identities}, commit \texttt{9e4cfd22}); there the steps \texttt{CalderonZygmundLp}, \texttt{WeightedToSupReduction} and \texttt{PhiSupControl} remain \textbf{open}\\
 N2 Cubic ODE comparison & \lean{comparison_ode_stability} & \textbf{Proved axiom-clean}\\
 N2 Explicit majorant bound & \lean{comparison_majorant_global_bound} & \textbf{Proved axiom-clean}\\
 N3 Rate $\Rightarrow$ ceiling & \lean{riccati_ceiling_of_vorticity_di} & \textbf{Proved axiom-clean}\\

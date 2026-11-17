@@ -72,30 +72,37 @@ Verbatim quote:
 The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{PeriodicTetherClosingBound} and classical periodic BKM continuation \lean{PeriodicBKMContinuation} is proved axiom-clean
 ```
 
-### `ConditionalGlobalRegularity` (DRIFT)
+### `ConditionalGlobalRegularity` (LOCKED)
 
-* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
+* paper: `main.tex`, sha256 `PAPERSHA`
 * section: §1 Introduction, Theorem 1.1 (thm:main)
-* public theorem(s): `GlobalRegularity.global_regularity_for_NS`
-* drift: main.tex Theorem 1.1 is attributed to global_regularity_for_NS, but Lean proves a different statement: it assumes the time-uniform bound FrohmanianTetherBound instead of the paper's cubic rate (R) FrohmanianTetherRate, one given Kato witness instead of (K) local existence from every datum, and its conclusion has no ceiling M(t) <= max(M(0), C/kappa''). Theorem 1.1 as transcribed (Semantics.PaperTheorem11) is unsettled in Lean: not proved, not disproved. Needs the author's decision.
+* formal proof: `CeilingFromRate.conditional_global_regularity_with_ceiling`
+* public theorem(s): `CeilingFromRate.theorem_1_1`
+* scope: conditional on a Kato witness, the cubic rate (R) for the ONE given datum (open for every
+  nonzero datum), BKM continuation (C) and uniqueness (U); hypotheses jointly satisfiable at
+  `u₀ = 0` (`CeilingFromRate.hypotheses_jointly_satisfiable_at_zero`). Replaces the former DRIFT
+  wording of Theorem 1.1 (see `CHANGELOG.md`).
 
 Verbatim quote:
 
 ```
-Then $M(t)\le\max\bigl(M(0),\CZ/\kappa''\bigr)$ for all $t\ge0$, and \eqref{eq:NS} admits a globally defined physical solution $u$ on $[0,\infty)$ that is spatially $C^\infty$ for every $t\ge0$, divergence-free, and unique among all smooth physical solutions.
+Then there is a velocity field $u$ with $u(0)=u_0(0)$ that is spatially $C^\infty$ for every $t\ge0$, is a physical solution of \lean{navier_stokes_eq} with viscosity $\nu$ for some pressure, satisfies $M(t)\le\max\bigl(M(0),C/\kappa''\bigr)$ for every $t\ge0$ for some constants $C>0$ and $\kappa''>0$, and agrees at every $t\ge0$ with every velocity field $v$ that has $v(0)=u_0(0)$, is spatially $C^\infty$ for every $t\ge0$, and is a physical solution of \lean{navier_stokes_eq} with viscosity $\nu$ for some pressure.
 ```
 
-### `TetherTheorem` (DRIFT)
+### `TetherTheorem` (LOCKED)
 
-* paper: `main.tex`, sha256 `bca0d13a99d759f256dd0c31e421b6f18b2c12e0f1bb7d3afc094d90bb8539c0`
-* section: §1 Introduction, Theorem 1.1 (thm:main)
-* public theorem(s): `GlobalRegularity.frohmanian_tether_theorem`
-* drift: main.tex Theorem 1.1 is attributed to frohmanian_tether_theorem, whose hypothesis hDI : forall u0 nu, FrohmanianTetherRate u0 nu is unsatisfiable (TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable, proved). The theorem is vacuous and is not Theorem 1.1. Needs the author's decision.
+* paper: `main.tex`, sha256 `PAPERSHA`
+* section: §1 Introduction, Proposition prop:hDI
+* formal proof: `TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable`
+* public theorem(s): `TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable`
+* scope: a negative result about the all-data rate hypothesis `hDI` of
+  `frohmanian_tether_theorem` (which is therefore vacuous); the witness is not a classical
+  Navier–Stokes solution. Replaces the former DRIFT attribution (see `CHANGELOG.md`).
 
 Verbatim quote:
 
 ```
-\begin{theorem}[Conditional Global Regularity; \lean{frohmanian_tether_theorem}, \lean{global_regularity_for_NS}]\label{thm:main}
+It is not the case that for every velocity field $u_0$ and every $\nu\in\mathbb{R}$ the following holds: for every $(u,p)$ with $\nu>0$, \lean{NS_PDE}~$u$~$p$~$\nu$, $u(0)=u_0$ and \lean{IsPhysicalNSSolution}~$u$, the map $t\mapsto M(t)$ is continuous on $\mathbb{R}$, $x\mapsto|\omega(u(t))(x)|$ is bounded above for every $t\ge0$, and there are constants $C>0$ and $\kappa''>0$ such that for every $s\ge0$ the map $t\mapsto M(t)$ is differentiable at $s$ with $M'(s)\le C\,M(s)^2-\kappa''\,M(s)^3$.
 ```
 
 ## What fails the gate (and therefore `lake build`)
