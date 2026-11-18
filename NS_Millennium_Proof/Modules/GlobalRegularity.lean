@@ -162,6 +162,48 @@ public theorem frohmanian_tether_theorem
         (huniq u₀ ν w)
     exact ⟨w.u, w.p, hreg⟩
 
+/-- The geometric tether, with no `hDI` and no regularity claim.
+
+The cubic rate `M' ≤ C M² − κ'' M³` is not a theorem of `NS_PDE` in this
+module. The fourth conjunct of `frohmanian_tether_theorem` uses that rate
+through `hDI`. This statement keeps the three conjuncts whose proofs do not
+call `hDI`: the tether reproduces the classical Euler bracket on the kinetic
+energy, a correction satisfying (C1)–(C3), saturation, and polarization equals
+`TetherKernel`, and a kernel with the canonical density equals `TetherKernel`.
+-/
+public theorem frohmanian_tether_geometric :
+    ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
+      (∀ F ω,
+        FunctionalDerivative KineticEnergyHamiltonian ω =
+            velocity_from_vorticity ω →
+        (∀ x, div (velocity_from_vorticity ω) x = 0) →
+        Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2) →
+        TetheredBracket F KineticEnergyHamiltonian ω =
+          ClassicalBracket F KineticEnergyHamiltonian ω) ∧
+      (∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
+        (∀ ω F G, B ω F G = -B ω G F) →
+        InvariantUnderCoadjointAction B →
+        DegenerateWRTKineticEnergy B →
+        ProducesControllableNegativeFeedback B →
+        SaturatesTetherQuadratic B →
+        Polarizes B →
+        Polarizes TetherKernel →
+        ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
+      (∀ (B : CoadjointOrbit → Functional → Functional → ℝ)
+        (α : CoadjointOrbit → T3 → ℝ),
+        HasTetherKernelDensity B α →
+        (∀ ω x, α ω x = canonicalTetherDensity ω x) →
+        ∀ ω F G, B ω F G = 𝔗_F ω F G) := by
+  refine ⟨TetherKernel, ?_, ?_, ?_⟩
+  · intro F ω hδ hdiv hInt
+    exact tethered_reproduces_classical_euler F ω hδ hdiv hInt
+  · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
+    exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
+  · intro B α hrepr hα ω F G
+    exact uniqueness_of_kernel_density B α hrepr hα ω F G
+
+#print axioms frohmanian_tether_geometric
+
 /-! ## Abstract (exact formulation supplied by the author) -/
 
 open NavierStokes3D
