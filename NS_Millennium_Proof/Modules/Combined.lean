@@ -124,8 +124,8 @@ theorem combined_conditional_capstone
     (∀ f t, Casimir f (ωt t) = Casimir f (ωt 0)) ∧
     -- (4) no damping: T(M,H) = 0
     (∀ ω M, TetherKernel ω KineticEnergyHamiltonian M = 0) ∧
-    -- (5) analytic layer, conditional on hRate / hClose
-    TetheredLyapunov.PhysicalVorticityCubicRate u₀ ν ∧
+    -- (5) classical periodic rate, assumed. It is not a weak-class cubic rate.
+    FrohmanianTetherRate u₀ ν ∧
     (∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧ u 0 = u₀ ∧
       (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
@@ -136,7 +136,7 @@ theorem combined_conditional_capstone
     uniqueness_of_minimal_tether_core B h_sym h_proj h_dens h_weight h_sat h_nondeg,
     fun f t => PlanSteps.casimir_conserved hyp ωt hω f t,
     fun ω M => (tetherKernel_left_H_zero hC2 ω M).1,
-    TetheredLyapunov.physicalVorticityCubicRate_of_tetherRate h_pos_ν hRate, ?_⟩
+    hRate, ?_⟩
   exact ClosureBlueprint.conditional_regularity_of_open_hyps u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν
     w (hClose u₀ h_divfree h_smooth h_finite_energy) hcrit huniq
 

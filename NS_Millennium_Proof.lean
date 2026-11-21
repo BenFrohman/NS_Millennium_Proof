@@ -89,15 +89,13 @@ status `drift` keeps the build red until the author decides. -/
 #eval TruthGate.runTruthGate "truth-gate.lock.json"
 
 #print axioms ConditionalRegularity.frohmanian_tether_theorem
-#print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
 #print axioms ConditionalRegularity.conditional_regularity_of_open_hyps
-#print axioms CeilingFromRate.conditional_global_regularity_with_ceiling
-#print axioms CeilingFromRate.hypotheses_jointly_satisfiable_at_zero
+#print axioms CeilingFromRate.classical_vorticity_ceiling
 #print axioms CeilingFromRate.theorem_1_1
-#print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable
+#print axioms TetherRateCounterexample.zero_classical_periodic_solution
 #print axioms LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable
 #print axioms FrohmanianTether.ClayStatements.conditional_regularity_nonvacuous_at_zero
-#print axioms FrohmanianTether.ClayStatements.frohmanianTetherRate_zero
+#print axioms NavierStokes3D.zero_isPeriodicSmoothSolution
 #print axioms FrohmanianTether.ClayStatements.frohmanianTetherBound_zero
 #print axioms FrohmanianTether.uniqueness_of_minimal_tether
 #print axioms FrohmanianTether.uniqueness_of_minimal_symmetric_tether

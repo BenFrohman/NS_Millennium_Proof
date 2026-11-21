@@ -67,61 +67,17 @@ open NavierStokes3D MeasureTheory
 /-! ## Main Theorem — Frohmanian Symplectic Tether Theorem -/
 
 /-- High-level statement of the full theorem — **conditional**.
-The regularity conjunct holds *given* `hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν`
-(the rate `M' ≤ C M² - κ'' M³` along every solution) and the classical local-theory
-binders `hKato`, `hTlb`, `hInt`, `huniq_shift`, `huniq`. `FrohmanianTetherRate` is open
-and is not derived from the unmodified equation in this repository
-(see `HWEIGHT_OBSTRUCTION.md`). This is not an unconditional Clay solution.
-**VACUOUS:** `hDI` is unsatisfiable, so this theorem holds vacuously and carries no information
-about Navier–Stokes flows. `TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable`
-(module `NS_Millennium_Proof.Modules.TetherRateCounterexample`) proves
-`¬ ∀ u₀ ν, FrohmanianTetherRate u₀ ν`. `NS_PDE`/`IsPhysicalNSSolution` impose no spatial
-differentiability, and Mathlib's `fderiv` is `0` at non-differentiable points. So a steady
-finite-energy field with a nowhere-differentiable (Takagi) component satisfies `NS_PDE` while its
-vorticity is unbounded, which violates the `BddAbove` conjunct of the rate.
-The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
-and TetheredLyapunov.lean (global regularity conditional on the rate, via the majorant).
-Editor green ticks only mean this declaration elaborated. The certificate is
-`#print axioms frohmanian_tether_theorem`: it must list `propext`,
+The geometric conjuncts are the tether's Euler bracket and the two uniqueness statements.
+The analytic conjunct is the comparison ceiling along classical periodic smooth solutions,
+given `hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν`. That rate is the cubic differential
+inequality on `IsPeriodicSmoothSolution` with force `0`. It is open. It is not a theorem
+about `NS_PDE` and `IsPhysicalNSSolution`. This is not an unconditional Clay solution:
+Clay (B) still needs a solution from every smooth periodic datum, and the rate is not
+proved for those solutions.
+The certificate is `#print axioms frohmanian_tether_theorem`: it must list `propext`,
 `Classical.choice`, `Quot.sound` and must **not** list `sorryAx`. -/
 public theorem frohmanian_tether_theorem
-    (hKato : ∀ u₀ ν, ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) →
-      Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) → 0 < ν →
-      KatoLocalWitness u₀ ν)
-    (hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν)
-    (τ : ℝ) (hτ : 0 < τ)
-    (hTlb : ∀ u₁ ν (hsm : ContDiff ℝ (⊤ : ℕ∞) u₁)
-      (hdiv : ∀ x, div u₁ x = 0)
-      (hE : Integrable (fun x : T3 => ‖u₁ x‖ ^ 2))
-      (hν : 0 < ν),
-      τ ≤ (hKato u₁ ν hsm hdiv hE hν).T)
-    (hInt : ∀ u₀ ν (_hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
-      (q : TimeDependentPressure),
-      T ∈ existenceTimes u₀ ν →
-      v 0 = u₀ →
-      NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
-      IsPhysicalNSSolution v →
-      ∀ t ∈ Set.Icc (0 : ℝ) T,
-        Integrable (fun x : T3 => ‖v t x‖ ^ 2))
-    (huniq_shift : ∀ u₀ ν (_hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
-      (q : TimeDependentPressure),
-      T ∈ existenceTimes u₀ ν →
-      v 0 = u₀ →
-      NS_PDE v q ν →
-      (∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ (⊤ : ℕ∞) (v t)) →
-      IsPhysicalNSSolution v →
-      ∀ t ∈ Set.Icc (0 : ℝ) T,
-        ∀ (w' : KatoLocalWitness (v t) ν),
-          ∀ s ∈ Set.Icc (0 : ℝ) w'.T, v (t + s) = w'.u s)
-    (huniq : ∀ u₀ ν (w : KatoLocalWitness u₀ ν),
-      ∀ (T' : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
-        T' ∈ existenceTimes u₀ ν →
-        v 0 = u₀ →
-        NS_PDE v q ν →
-        (∀ t ∈ Set.Icc (0 : ℝ) T', ContDiff ℝ (⊤ : ℕ∞) (v t)) →
-        IsPhysicalNSSolution v →
-        ∀ t ∈ Set.Icc (0 : ℝ) T', w.u t = v t) :
+    (hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν) :
   ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
     (∀ F ω,
       FunctionalDerivative KineticEnergyHamiltonian ω =
@@ -144,17 +100,13 @@ public theorem frohmanian_tether_theorem
       HasTetherKernelDensity B α →
       (∀ ω x, α ω x = canonicalTetherDensity ω x) →
       ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
-    (∀ (u₀ : VelocityField) (ν : ℝ),
+    (∀ (u₀ : VelocityField) (ν : ℝ) (u : TimeDependentVelocity) (p : TimeDependentPressure),
       0 < ν →
-      (∀ x, div u₀ x = 0) →
-      ContDiff ℝ (⊤ : ℕ∞) u₀ →
-      Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) →
-      ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
-        NS_PDE u p ν ∧
-        u 0 = u₀ ∧
-        (∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
-        (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
-        (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0)) := by
+      IsPeriodicSmoothSolution ν u₀ (fun _ _ => 0) u p →
+      ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
+        ∀ t ≥ (0 : ℝ),
+          vorticity_sup_norm (vorticity (u t)) ≤
+            max (vorticity_sup_norm (vorticity (u 0))) (C / κ'')) := by
   refine ⟨TetherKernel, ?_, ?_, ?_, ?_⟩
   · intro F ω hδ hdiv hInt
     exact tethered_reproduces_classical_euler F ω hδ hdiv hInt
@@ -162,20 +114,10 @@ public theorem frohmanian_tether_theorem
     exact uniqueness_of_minimal_tether_antisymmetric SDiff B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
   · intro B α hrepr hα ω F G
     exact uniqueness_of_kernel_density B α hrepr hα ω F G
-  · intro u₀ ν hνpos hdiv hsm hE
-    let w := hKato u₀ ν hsm hdiv hE hνpos
-    have hreg :=
-      conditional_regularity_of_constructions u₀ ν hdiv hsm hE hνpos
-        (fun u₁ hsm₁ hdiv₁ hE₁ => hKato u₁ ν hsm₁ hdiv₁ hE₁ hνpos)
-        (fun u p hNS hu0 hphys =>
-          let ⟨C, κ'', hC, hκ, hd, hdd, hc, _⟩ := hDI u₀ ν u p hνpos hNS hu0 hphys
-          ⟨C, κ'', hC, hκ, hd, hdd, hc⟩)
-        τ hτ
-        (fun u₁ hsm₁ hdiv₁ hE₁ => hTlb u₁ ν hsm₁ hdiv₁ hE₁ hνpos)
-        (hInt u₀ ν hνpos)
-        (huniq_shift u₀ ν hνpos)
-        (huniq u₀ ν w)
-    exact ⟨w.u, w.p, hreg⟩
+  · intro u₀ ν u p hν hsol
+    obtain ⟨C, κ'', hC, hκ, hdiff, hDI', _, _⟩ := hDI u₀ ν u p hν hsol
+    exact ⟨C, κ'', hC, hκ, fun t ht =>
+      AnalyticPipeline.comparison_ode_stability C κ'' hC hκ _ hdiff hDI' t ht⟩
 
 /-! ## Abstract (exact formulation supplied by the author) -/
 

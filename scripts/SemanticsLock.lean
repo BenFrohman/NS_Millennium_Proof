@@ -73,8 +73,6 @@ public theorem; only `propext`, `Classical.choice` and `Quot.sound` may appear.
 #check @NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.intended_correspondence
 #print NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.paper_claim
 #print NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.formal_claim
-#print NS_Millennium_Proof.Semantics.PaperSingleDatumRate
-#print NS_Millennium_Proof.Semantics.PaperPhysicalNSSolution
 #check @NS_Millennium_Proof.Semantics.TetherTheorem.intended_correspondence
 #print NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim
 #print NS_Millennium_Proof.Semantics.TetherTheorem.formal_claim
@@ -94,8 +92,8 @@ public theorem; only `propext`, `Classical.choice` and `Quot.sound` may appear.
 #print axioms FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope
 #print axioms FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound
 #print axioms FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound
-#print axioms CeilingFromRate.conditional_global_regularity_with_ceiling
+#print axioms CeilingFromRate.classical_vorticity_ceiling
 #print axioms CeilingFromRate.theorem_1_1
-#print axioms CeilingFromRate.hypotheses_jointly_satisfiable_at_zero
+#print axioms NavierStokes3D.zero_isPeriodicSmoothSolution
 #print axioms LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable
-#print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable
+#print axioms TetherRateCounterexample.zero_classical_periodic_solution

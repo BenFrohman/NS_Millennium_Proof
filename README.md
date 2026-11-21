@@ -129,15 +129,16 @@ In addition to this research repository (see fresh build/audit logs for declarat
 >   `convective_norm_le_of_CZ`, `stretching_inner_le`, `stretching_inner_le_at_max`,
 >   `stretching_quartic_le`, `calderon_zygmund_stretching_bound`, the `AssemblyGap` stretching lemmas and
 >   `ConjecturedUnmodifiedTetherPairing` are conditional on a bound that is false in general.
-> - **Time-smoothness & physical-solution non-vacuity repair (`IsPhysicalNSSolution`):**
->   All PDE uniqueness and continuation binders (`KatoLocalWitness`, `existenceTimes`,
->   `restart_of_kato_quantitative`, `FrohmanianTetherBound`, `FrohmanianTetherRate`,
->   `global_regularity_for_NS`, `frohmanian_tether_theorem`) require `IsPhysicalNSSolution`
->   (pointwise time-differentiability + Leray $L^2$ energy inequality), ruling out unphysical
->   time-step fields (`stepField_not_physical`) and establishing joint satisfiability and
->   non-vacuity (`repaired_hInt`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`,
->   `frohmanianTetherRate_zero`, `global_regularity_for_NS_nonvacuous_at_zero` in
->   `NS_Millennium_Proof/Modules/ClayStatements.lean`).
+> - **Classical periodic solution (`IsPeriodicSmoothSolution`):** Clay (B) and (D) use joint
+>   `ContDiffOn` smoothness, `navier_stokes_eq_Ici`, and `IsZ3Periodic` in
+>   `NS_Millennium_Proof/Modules/NS_Equations.lean`. `FrohmanianTetherRate` quantifies over that
+>   class with force 0. The rate is open. The zero field is one such solution
+>   (`zero_isPeriodicSmoothSolution`). It is not `FrohmanianTetherRate 0 ν`, and it is not Clay (B) or (D).
+> - **Weak class (`IsPhysicalNSSolution`):** `KatoLocalWitness`, `existenceTimes`,
+>   `restart_of_kato_quantitative`, `FrohmanianTetherBound`, and `conditional_regularity_of_open_hyps`
+>   still use this predicate. It rules out the time-step field (`stepField_not_physical`).
+>   `frohmanianTetherBound_zero` holds on this class. The Takagi field `U` lies in this class and
+>   refutes `FrohmanianTetherBound`. `U` is not a classical solution and is not a Clay (D) witness.
 
 ## Approach at a glance
 

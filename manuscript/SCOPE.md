@@ -7,6 +7,12 @@ Authors: Benjamin Stanley Frohman
 
 Author: Benjamin Stanley Frohman.
 
+**21 November 2026.** This copy is not the Zenodo-facing paper. The current statement is root
+`main.tex` and `NS_Millennium_Proof/Modules/`. The classical solution class is
+`IsPeriodicSmoothSolution` with force 0. `FrohmanianTetherRate 0 ν` is not proved. The zero
+field is one classical solution (`zero_isPeriodicSmoothSolution`). Clay (B) and (D) stay open.
+Sentences below that name `frohmanianTetherRate_zero` are historical and are withdrawn.
+
 **Overall status.** This manuscript and the companion Lean 4 formalization (`NS_Millennium_Proof`, **437 kernel-verified theorems across 17 modules**, **0 `sorry`**, **0 nonstandard axioms**) establish a **verified non-vacuous conditional reduction** for 3D incompressible Navier–Stokes global regularity, while preserving in full every original definition, theorem, physical motivation, and conjectured bridge from Benjamin Stanley Frohman's programme (`Frohmanian_Tether_Final_Submission_v8.tex`).
 
 1. **Kernel-verified conditional implication (0 `sorry`, non-vacuous):**
