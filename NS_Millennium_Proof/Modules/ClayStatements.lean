@@ -193,13 +193,10 @@ Encoding choices. Periodicity is invariance under the whole lattice `ℤ³`
 one-sided derivative on `[0, ∞)`, so the statement never looks at `t < 0`.
 Smoothness is `ContDiffOn ℝ ∞` jointly in `(t, x)` on `[0, ∞) × ℝ³` (C^∞, not analytic). -/
 
-/-- The lattice vector `∑ⱼ kⱼ eⱼ` for `k ∈ ℤ³`. -/
-@[expose] public noncomputable def latticeVec (k : Fin 3 → ℤ) : T3 :=
-  ∑ j : Fin 3, ((k j : ℤ) : ℝ) • EuclideanSpace.single j (1 : ℝ)
-
-/-- `f` is `ℤ³`-periodic, i.e. descends to `ℝ³/ℤ³`. -/
-@[expose] public def IsZ3Periodic {α : Type*} (f : T3 → α) : Prop :=
-  ∀ (k : Fin 3 → ℤ) (x : T3), f (x + latticeVec k) = f x
+/-! `latticeVec`, `IsZ3Periodic`, `unitCube`, `navier_stokes_eq_Ici`, and
+`IsPeriodicSmoothSolution` are defined in `NavierStokes3D` (`NS_Equations.lean`) so the
+rate in `SymplecticTether.lean` can use the classical class without an import cycle.
+This namespace sees them through `open NavierStokes3D`. -/
 
 /-- **Proved.** `ℤ³`-periodicity is exactly Fefferman's unit-shift condition (8)/(10). -/
 public theorem isZ3Periodic_iff_unit_shifts {α : Type*} (f : T3 → α) :
@@ -224,27 +221,6 @@ public theorem isZ3Periodic_iff_unit_shifts {α : Type*} (f : T3 → α) :
       rwa [← Int.cast_smul_eq_zsmul ℝ] at this
     unfold latticeVec
     rw [Fin.sum_univ_three, ← add_assoc, ← add_assoc, hz, hz, hz]
-
-/-- Unit cell `[0,1]³` (integration domain for the cell energy). -/
-@[expose] public def unitCube : Set T3 := {x | ∀ i : Fin 3, x i ∈ Set.Icc (0 : ℝ) 1}
-
-/-- Fefferman (1)+(2) on `ℝ³ × [0, ∞)` with force `f`, one-sided time derivative. -/
-@[expose] public def navier_stokes_eq_Ici (u : TimeDependentVelocity) (p : TimeDependentPressure)
-    (ν : ℝ) (f : ℝ → T3 → EuclideanSpace ℝ (Fin 3)) : Prop :=
-  ∀ t ≥ (0 : ℝ), ∀ x : T3,
-    derivWithin (fun s => u s x) (Set.Ici 0) t + convective (u t) (u t) x +
-        pressureGradient (p t) x = ν • laplacian (u t) x + f t x ∧
-      div (u t) x = 0
-
-/-- The admissible-solution clause shared by (B) and (D): (1),(2),(3),(10) [+ erratum for `p`],(11). -/
-@[expose] public def IsPeriodicSmoothSolution (ν : ℝ) (u₀ : VelocityField)
-    (f : ℝ → T3 → EuclideanSpace ℝ (Fin 3))
-    (u : TimeDependentVelocity) (p : TimeDependentPressure) : Prop :=
-  ContDiffOn ℝ ∞ (fun q : ℝ × T3 => u q.1 q.2) (Set.Ici (0 : ℝ) ×ˢ Set.univ) ∧
-  ContDiffOn ℝ ∞ (fun q : ℝ × T3 => p q.1 q.2) (Set.Ici (0 : ℝ) ×ˢ Set.univ) ∧
-  navier_stokes_eq_Ici u p ν f ∧
-  u 0 = u₀ ∧
-  ∀ t ≥ (0 : ℝ), IsZ3Periodic (u t) ∧ IsZ3Periodic (p t)
 
 /-- **Clay (B), exact** (OPEN — a `Prop`, not a theorem). -/
 @[expose] public def Clay_B_exact : Prop :=
@@ -389,8 +365,8 @@ spatial continuity, and the Leray L² energy inequality `∫ ‖u t x‖² ≤ �
 `stepField` and unbounded non-L² parasitic waves. With this repair:
 1. `stepField` is proved not physically admissible (`stepField_not_physical`);
 2. the repaired uniqueness hypothesis `huniq` is proved satisfiable at `u₀ = 0` (`repaired_huniq_at_zero`);
-3. `FrohmanianTetherBound 0 ν` and `FrohmanianTetherRate 0 ν` are proved unconditionally (`frohmanianTetherBound_zero`, `frohmanianTetherRate_zero`);
-4. `ConditionalRegularity.conditional_regularity_of_open_hyps` is instantiated unconditionally at `u₀ = 0` (`conditional_regularity_nonvacuous_at_zero`), proving that all of its hypotheses are jointly satisfiable. -/
+3. `FrohmanianTetherBound 0 ν` holds for the weak class (`frohmanianTetherBound_zero`). The classical rate `FrohmanianTetherRate 0 ν` is not this fact: it quantifies over every `IsPeriodicSmoothSolution`, and that universal statement is open. The zero field itself is one classical solution (`NavierStokes3D.zero_isPeriodicSmoothSolution`);
+4. `ConditionalRegularity.conditional_regularity_of_open_hyps` is instantiated unconditionally at `u₀ = 0` (`conditional_regularity_nonvacuous_at_zero`) for the weak class. That is one rest-state solution, not Clay (B) or (D). -/
 
 /-- `stepField` violates `IsPhysicalNSSolution` (it jumps from `0` to `e₀ ≠ 0` at `t = 1`). -/
 public theorem stepField_not_physical : ¬ IsPhysicalNSSolution stepField := by
@@ -402,9 +378,9 @@ public theorem stepField_not_physical : ¬ IsPhysicalNSSolution stepField := by
   simp [stepField] at h2
 
 /-- With `IsPhysicalNSSolution v`, the `L²` integrability hypothesis `hInt` of
-`restart_of_kato_quantitative`, `conditional_regularity_of_constructions`, and
-`frohmanian_tether_theorem` holds **unconditionally** for every initial datum
-`u₀` and viscosity `ν`. -/
+`restart_of_kato_quantitative` and `conditional_regularity_of_constructions`
+holds **unconditionally** for every initial datum `u₀` and viscosity `ν`.
+`frohmanian_tether_theorem` does not take `hInt`. -/
 public theorem repaired_hInt (u₀ : VelocityField) (ν : ℝ) :
     ∀ (T : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν →
@@ -418,10 +394,10 @@ public theorem repaired_hInt (u₀ : VelocityField) (ν : ℝ) :
   exact hphys.2.2.1 t ht.1
 
 /-- With `IsPhysicalNSSolution v`, the shifted-restart uniqueness hypothesis
-`huniq_shift` of `restart_of_kato_quantitative`,
-`conditional_regularity_of_constructions`, and `frohmanian_tether_theorem` is
-**provably satisfied** at `u₀ = 0`: both `v` and any restart witness `w'`
-starting at `v t = 0` vanish identically on `[0, ∞)`. -/
+`huniq_shift` of `restart_of_kato_quantitative` and
+`conditional_regularity_of_constructions` is **provably satisfied** at
+`u₀ = 0`: both `v` and any restart witness `w'` starting at `v t = 0` vanish
+identically on `[0, ∞)`. `frohmanian_tether_theorem` does not take `huniq_shift`. -/
 public theorem repaired_huniq_shift_at_zero (ν : ℝ) :
     ∀ (T : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
       T ∈ existenceTimes (0 : VelocityField) ν →
@@ -476,31 +452,6 @@ public theorem frohmanianTetherBound_zero (ν : ℝ) : FrohmanianTetherBound 0 �
   refine ⟨0, ?_, ?_, ?_⟩
   · intro τ _hτ
     rw [hu_all τ, vorticity_sup_norm_zero_field]
-  · rw [hfun]
-    exact continuous_const
-  · intro τ _hτ
-    refine ⟨0, ?_⟩
-    rintro y ⟨x, rfl⟩
-    dsimp [vorticity]
-    rw [hu_all τ, curl_zero x, norm_zero]
-
-/-- `FrohmanianTetherRate 0 ν` holds unconditionally after the `IsPhysicalNSSolution` repair. -/
-public theorem frohmanianTetherRate_zero (ν : ℝ) : FrohmanianTetherRate 0 ν := by
-  intro u p _hν _hNS hu0 hphys
-  have hu_all : ∀ τ : ℝ, u τ = 0 :=
-    eq_zero_of_isPhysicalNSSolution_zero_all u hu0 hphys
-  have hfun : (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) = fun _ => (0 : ℝ) := by
-    funext τ
-    rw [hu_all τ, vorticity_sup_norm_zero_field]
-  refine ⟨1, 1, one_pos, one_pos, ?_, ?_, ?_, ?_⟩
-  · intro s _hs
-    rw [hfun]
-    exact differentiableAt_const 0
-  · intro s _hs
-    have hds : deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s = 0 := by
-      rw [hfun]; simp
-    rw [hds, hu_all s, vorticity_sup_norm_zero_field]
-    norm_num
   · rw [hfun]
     exact continuous_const
   · intro τ _hτ
@@ -598,7 +549,7 @@ public theorem clay_B_exact_of_periodic_tether_bound_formal
   fun ν u₀ hν hs hd hp => hBKM ν hν u₀ hd hs hp (hclose ν hν u₀ hd hs hp)
 
 #print axioms conditional_regularity_nonvacuous_at_zero
-#print axioms frohmanianTetherRate_zero
+#print axioms NavierStokes3D.zero_isPeriodicSmoothSolution
 #print axioms frohmanianTetherBound_zero
 #print axioms repaired_hInt
 #print axioms repaired_huniq_at_zero
