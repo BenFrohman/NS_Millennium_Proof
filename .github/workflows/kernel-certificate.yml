@@ -37,9 +37,13 @@ jobs:
         run: |
           set -o pipefail
           lake build 2>&1 | tee cert-out/build.log
+          lake build ForMathlib 2>&1 | tee -a cert-out/build.log
       - name: sorry / admit / native_decide / axiom scan
         run: |
           set -o pipefail
+          # Fails on a hit in the live library. historical/, docs/, and
+          # scripts/truth-gate-tests/ are printed as excluded and do not pass
+          # the certificate.
           python3 certificates/tools/sorry_scan.py 2>&1 | tee cert-out/sorry-scan.txt
       - name: '#print axioms (collectAxioms) for every theorem in the built modules'
         run: |
