@@ -734,12 +734,16 @@ OPEN for general data; kernel-verified satisfiable at `u₀ = 0` (`frohmanianTet
         (∀ τ ≥ (0 : ℝ), BddAbove (Set.range fun x => ‖vorticity (u τ) x‖))
 
 /-- **Frohmanian tether rate** (the `hDI` binder of `frohmanian_tether_theorem`):
-along every physically admissible solution, `M(t) = ‖ω(t)‖_∞` is differentiable and obeys
-`M' ≤ C M² - κ'' M³` with `C, κ'' > 0`. OPEN for general data; kernel-verified satisfiable
-at `u₀ = 0` (`frohmanianTetherRate_zero`). -/
+along every classical periodic smooth solution of the unforced equations
+(`IsPeriodicSmoothSolution` with force `0`, the solution class of Clay (B) and (D)),
+`M(t) = ‖ω(t)‖_∞` is differentiable and obeys `M' ≤ C M² - κ'' M³` with `C, κ'' > 0`.
+
+OPEN for a general smooth periodic datum. The zero field is one such solution
+(`zero_isPeriodicSmoothSolution`); that single field does not discharge the `∀`.
+`NS_PDE` and `IsPhysicalNSSolution` are not this class. -/
 @[expose] public abbrev FrohmanianTetherRate (u₀ : VelocityField) (ν : ℝ) : Prop :=
   ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
-    0 < ν → NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+    0 < ν → IsPeriodicSmoothSolution ν u₀ (fun _ _ => 0) u p →
       ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
         (∀ s ≥ (0 : ℝ),
           DifferentiableAt ℝ (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
