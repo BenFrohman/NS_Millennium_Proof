@@ -1807,10 +1807,11 @@ unmodified equations from `u₀`, `‖ω(t)‖_∞` is bounded uniformly in `t �
         (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
         Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
 
-/-- **Cubic vorticity rate on physical solutions** (open for general data): along every
-physical solution from `u₀`, `M(t) = ‖ω(t)‖_∞` is differentiable, continuous, and obeys
-`M' ≤ C M² − κ'' M³` with `C, κ'' > 0`. No such cubic sink is known for the unmodified
-equations. `FrohmanianTetherRate` implies it when `ν > 0`. -/
+/-- **Cubic vorticity rate on the weak class** (open for general data): along every
+`NS_PDE` + `IsPhysicalNSSolution` path from `u₀`, `M(t) = ‖ω(t)‖_∞` is differentiable,
+continuous, and obeys `M' ≤ C M² − κ'' M³` with `C, κ'' > 0`. This is not the classical
+periodic class. `FrohmanianTetherRate` quantifies over `IsPeriodicSmoothSolution` and does
+not imply this predicate. -/
 @[expose] public def PhysicalVorticityCubicRate (u₀ : VelocityField) (ν : ℝ) : Prop :=
   ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
     NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
@@ -1829,13 +1830,6 @@ public theorem physicalUniformVorticityCeiling_of_tetherBound
   fun u p hNS hu0 hphys =>
     let ⟨Y, hb, hc, _⟩ := h u p hNS hu0 hphys
     ⟨Y, hb, hc⟩
-
-public theorem physicalVorticityCubicRate_of_tetherRate
-    {u₀ : VelocityField} {ν : ℝ} (hν : 0 < ν) (h : FrohmanianTetherRate u₀ ν) :
-    PhysicalVorticityCubicRate u₀ ν :=
-  fun u p hNS hu0 hphys =>
-    let ⟨C, κ'', hC, hκ, hd, hdd, hc, _⟩ := h u p hν hNS hu0 hphys
-    ⟨C, κ'', hC, hκ, hd, hdd, hc⟩
 
 /-! ## Finite-horizon vorticity control (the form Clay statement (B) needs)
 

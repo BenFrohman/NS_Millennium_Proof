@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-21: classical periodic solution replaces the weak class in Theorem 1.1
+
+Source revision of `main.tex` and the Lean library. Not a new Zenodo deposit. The version
+DOI remains `10.5281/zenodo.24144853`. Clay (A), (B), (C), and (D) stay open.
+
+`FrohmanianTetherRate` now quantifies over `IsPeriodicSmoothSolution` with force 0.
+Theorem 1.1 is `CeilingFromRate.classical_vorticity_ceiling`: the comparison ceiling along one
+such solution, assuming the cubic differential inequality. The zero velocity and zero pressure
+are one such solution (`NavierStokes3D.zero_isPeriodicSmoothSolution`). That fact is not
+`FrohmanianTetherRate 0 ν`. The Takagi field still refutes `FrohmanianTetherBound` on the weak
+class. It is not a classical solution and not a Clay (D) witness.
+
 ## 2026-11-16: `main.tex` Theorem 1.1 rewritten to match the Lean (scope change; PENDING AUTHOR REVIEW)
 
 Branch `feat/semantics-lock` (PR #34). Author: Benjamin Stanley Frohman. **This is a scope change

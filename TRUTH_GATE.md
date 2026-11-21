@@ -21,10 +21,12 @@ nothing, and the gate would pass anything. That is forbidden.
   `intended_correspondence : formal_claim ↔ paper_claim`, proved by real reasoning.
 * Every public theorem that a paper cites is proved only as
   `intended_correspondence.mp <formal proof>` and has type exactly `paper_claim`.
-* Conditional results keep every hypothesis explicit on both sides. Every locked claim here is
-  an implication from named hypotheses that remain **open** (the uniform vorticity envelope or
-  periodic closing bound, and periodic BKM continuation). No Clay or Millennium problem is
-  claimed solved. The kernel certifies only that a proof inhabits the locked proposition.
+* Conditional results keep every hypothesis explicit on both sides. The envelope and periodic
+  reductions are implications from named hypotheses that remain **open** (the uniform vorticity
+  envelope or periodic closing bound, and periodic BKM continuation). Theorem 1.1 assumes the
+  cubic differential inequality on one classical periodic smooth solution. The zero-field
+  proposition is one such solution, not a solution from every datum. No Clay or Millennium
+  problem is claimed solved. The kernel certifies only that a proof inhabits the locked proposition.
 * `truth-gate.lock.json` records, per lock, the paper path/sha256/section/quote, the sha256 of
   both canonical statements, the formal proof, the public theorems and the shared vocabulary.
   Changing a locked statement needs the author's explicit approval and a new lock.
@@ -32,7 +34,7 @@ nothing, and the gate would pass anything. That is forbidden.
 
 ## The locked claims (PENDING AUTHOR APPROVAL)
 
-Primary paper: PAPER_PATH `main.tex`, PAPER_SHA256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`.
+Primary paper: PAPER_PATH `main.tex`, PAPER_SHA256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`.
 
 ### `EnvelopeReduction` (LOCKED)
 
@@ -50,7 +52,7 @@ conditional reduction: the uniform envelope for every positive viscosity,
 
 ### `DirectionCurvatureReduction` (LOCKED)
 
-* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
+* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
 * section: Abstract
 * public theorem(s): `FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound`
 
@@ -62,7 +64,7 @@ assuming \lean{PeriodicBKMContinuation}~$\nu$ for every $\nu>0$, the hypothesis 
 
 ### `PeriodicTetherReduction` (LOCKED)
 
-* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
+* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
 * section: §The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)
 * public theorem(s): `FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound`
 
@@ -74,35 +76,32 @@ The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{Perio
 
 ### `ConditionalGlobalRegularity` (LOCKED)
 
-* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
+* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
 * section: §1 Introduction, Theorem 1.1 (thm:main)
-* formal proof: `CeilingFromRate.conditional_global_regularity_with_ceiling`
+* formal proof: `CeilingFromRate.classical_vorticity_ceiling`
 * public theorem(s): `CeilingFromRate.theorem_1_1`
-* scope: conditional on a Kato witness, the cubic rate (R) for the ONE given datum (open for every
-  nonzero datum), BKM continuation (C) and uniqueness (U); hypotheses jointly satisfiable at
-  `u₀ = 0` (`CeilingFromRate.hypotheses_jointly_satisfiable_at_zero`). Replaces the former DRIFT
-  wording of Theorem 1.1 (see `CHANGELOG.md`).
+* scope: the comparison ceiling along one classical periodic smooth solution of the unforced
+  equations, assuming the cubic differential inequality. Not existence. Not Clay (B) or (D).
 
 Verbatim quote:
 
 ```
-Then there is a velocity field $u$ with $u(0)=u_0(0)$ that is spatially $C^\infty$ for every $t\ge0$, is a physical solution of \lean{navier_stokes_eq} with viscosity $\nu$ for some pressure, satisfies $M(t)\le\max\bigl(M(0),C/\kappa''\bigr)$ for every $t\ge0$ for some constants $C>0$ and $\kappa''>0$, and agrees at every $t\ge0$ with every velocity field $v$ that has $v(0)=u_0(0)$, is spatially $C^\infty$ for every $t\ge0$, and is a physical solution of \lean{navier_stokes_eq} with viscosity $\nu$ for some pressure.
+Along every classical periodic smooth solution of the unforced equations, if $M(s)$ is differentiable for every $s\ge0$ and $M'(s)\le C\,M(s)^2-\kappa''\,M(s)^3$ for constants $C>0$ and $\kappa''>0$, then $M(t)\le\max\bigl(M(0),C/\kappa''\bigr)$ for every $t\ge0$.
 ```
 
 ### `TetherTheorem` (LOCKED)
 
-* paper: `main.tex`, sha256 `6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764`
-* section: §1 Introduction, Proposition prop:hDI
-* formal proof: `TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable`
-* public theorem(s): `TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable`
-* scope: a negative result about the all-data rate hypothesis `hDI` of
-  `frohmanian_tether_theorem` (which is therefore vacuous); the witness is not a classical
-  Navier–Stokes solution. Replaces the former DRIFT attribution (see `CHANGELOG.md`).
+* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
+* section: §1 Introduction, Proposition prop:classical-zero
+* formal proof: `NavierStokes3D.zero_isPeriodicSmoothSolution`
+* public theorem(s): `TetherRateCounterexample.zero_classical_periodic_solution`
+* scope: the zero velocity and zero pressure are one classical periodic smooth solution of the
+  unforced equations. Not `FrohmanianTetherRate 0 ν`. Not Clay (B) or (D).
 
 Verbatim quote:
 
 ```
-It is not the case that for every velocity field $u_0$ and every $\nu\in\mathbb{R}$ the following holds: for every $(u,p)$ with $\nu>0$, \lean{NS_PDE}~$u$~$p$~$\nu$, $u(0)=u_0$ and \lean{IsPhysicalNSSolution}~$u$, the map $t\mapsto M(t)$ is continuous on $\mathbb{R}$, $x\mapsto|\omega(u(t))(x)|$ is bounded above for every $t\ge0$, and there are constants $C>0$ and $\kappa''>0$ such that for every $s\ge0$ the map $t\mapsto M(t)$ is differentiable at $s$ with $M'(s)\le C\,M(s)^2-\kappa''\,M(s)^3$.
+For every real viscosity $\nu$, the zero velocity and the zero pressure form a classical periodic smooth solution of the unforced equations with zero initial velocity.
 ```
 
 ## What fails the gate (and therefore `lake build`)

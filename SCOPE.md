@@ -17,14 +17,12 @@ Author: Benjamin Stanley Frohman.
 
 **Overall status.** This manuscript and the companion Lean 4 formalization (`NS_Millennium_Proof`, **437 kernel-verified theorems across 17 modules**, **0 `sorry`**, **0 nonstandard axioms**) establish a **verified non-vacuous conditional reduction** for 3D incompressible Navier–Stokes global regularity, while preserving in full every original definition, theorem, physical motivation, and conjectured bridge from Benjamin Stanley Frohman's programme (`Frohmanian_Tether_Final_Submission_v8.tex`).
 
-1. **Kernel-verified conditional implication (0 `sorry`, non-vacuous):**
-   Kato local existence + the Beale–Kato–Majda continuation criterion (`PhysicalBKMContinuationCriterionFor`) + physical-solution uniqueness (`KatoUniquenessOnExistenceTimes`, `IsPhysicalNSSolution`) + the cubic tether rate (`FrohmanianTetherRate`)
-   $$M'(t)\le C_{\mathrm{CZ}}M(t)^2-\kappa''M(t)^3$$
-   implies the global vorticity ceiling
-   $$M(t)\le \max\!\Big(M(0),\ \tfrac{C_{\mathrm{CZ}}}{\kappa''}\Big)$$
-   and, via Beale–Kato–Majda continuation ($T^*=\infty$ derived from $T^*>0$, the criterion and $\int_0^T M<\infty$), a globally smooth, divergence-free physical solution (`frohmanian_tether_theorem`, `conditional_regularity_of_open_hyps`).
-2. **Time-smoothness & physical-solution non-vacuity repair (COMPLETED):**
-   The formalization defines `IsPhysicalNSSolution u` (requiring pointwise time-differentiability $\forall t\ge 0, \forall x, \text{DifferentiableAt }\mathbb{R}\ (s\mapsto u(s,x))\ t$, spatial continuity, finite $L^2$ energy, and the Leray $L^2$ energy inequality $\int\|u(t)\|^2\le\int\|u(0)\|^2$). With `IsPhysicalNSSolution` threaded through `KatoLocalWitness`, `existenceTimes`, `FrohmanianTetherBound`, `FrohmanianTetherRate`, `conditional_regularity_of_open_hyps`, and `frohmanian_tether_theorem`, the hypotheses are **jointly satisfiable and verified non-vacuous** in `ClayStatements.lean` (`stepField_not_physical`, `repaired_hInt`, `repaired_huniq_shift_at_zero`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`, `frohmanianTetherRate_zero`, `conditional_regularity_nonvacuous_at_zero`).
+1. **Kernel-verified comparison ceiling:** along one classical periodic smooth solution of the unforced equations (`IsPeriodicSmoothSolution` with force 0), an assumed cubic inequality
+   $$M'(t)\le C M(t)^2-\kappa''M(t)^3$$
+   implies
+   $$M(t)\le \max\!\Big(M(0),\ \tfrac{C}{\kappa''}\Big)$$
+   (`CeilingFromRate.classical_vorticity_ceiling`, Theorem 1.1). The inequality is open. This is not existence and not Clay (B). `frohmanian_tether_theorem` assumes the same rate for every classical solution and concludes the ceiling. `conditional_regularity_of_open_hyps` is a separate weak-class statement.
+2. **Classical zero solution, and the weak class:** `zero_isPeriodicSmoothSolution` is the zero velocity and zero pressure. `FrohmanianTetherRate 0 ν` is not proved. `IsPhysicalNSSolution` remains the weak class used by `KatoLocalWitness`, `existenceTimes`, `FrohmanianTetherBound`, and `conditional_regularity_of_open_hyps` (`stepField_not_physical`, `repaired_hInt`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`, `conditional_regularity_nonvacuous_at_zero`). The Takagi field lies in that weak class and is not a classical solution. Clay (D) stays open.
 3. **Complete preservation of original conjectured bridges (0 `sorry`):**
    Every original definition and conjectured bridge from `v8.tex` is explicitly formalized without `sorry` and presented in full in the manuscript:
    - `ConjecturedUnmodifiedTetherPairing` and `reduced_pairing_of_unmodified_and_tether` (proved with zero `sorry` via `reduced_pairing_iff_cancels_kappa_M4`),
@@ -50,9 +48,11 @@ Author: Benjamin Stanley Frohman.
 | N2 Cubic comparison & majorant | `comparison_ode_stability`, `comparison_majorant_global_bound` | Proved axiom-clean |
 | N3 Rate $\Rightarrow$ ceiling | `riccati_ceiling_of_vorticity_di` | Proved axiom-clean |
 | N4 Physical solution predicate | `IsPhysicalNSSolution`, `isPhysicalNSSolution_zero`, `eq_zero_of_isPhysicalNSSolution_zero` | Proved axiom-clean |
-| N4 Main conditional theorems | `CeilingFromRate.conditional_global_regularity_with_ceiling` (Theorem 1.1), `conditional_regularity_of_open_hyps` | Proved axiom-clean as implications from open hypotheses (single-datum rate (R), resp. uniform bound (B)); hypotheses jointly satisfiable only at u₀ = 0 |
-| Vacuous assembled theorem | `frohmanian_tether_theorem` | **Vacuous**: its all-data rate hypothesis `hDI` is proved unsatisfiable (`frohmanian_tether_theorem_hDI_unsatisfiable`) |
-| Non-vacuity & joint satisfiability | `stepField_not_physical`, `repaired_hInt`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`, `frohmanianTetherRate_zero`, `conditional_regularity_nonvacuous_at_zero` | Proved unconditionally at $u_0=0$ (axiom-clean) |
+| N4 Comparison ceiling | `CeilingFromRate.classical_vorticity_ceiling` (Theorem 1.1) | Proved from an assumed cubic inequality on one classical periodic smooth solution. Not Clay (B) |
+| N4 Weak-class bound | `conditional_regularity_of_open_hyps` | Proved as an implication from the open weak-class bound |
+| Assembled tether theorem | `frohmanian_tether_theorem` | Conditional on the open classical rate for every datum. Analytic conjunct is the comparison ceiling |
+| Classical zero solution | `zero_isPeriodicSmoothSolution` | Proved. One solution, not `FrohmanianTetherRate 0 ν` |
+| Weak-class facts at 0 | `stepField_not_physical`, `repaired_hInt`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`, `conditional_regularity_nonvacuous_at_zero` | Proved on the weak class. Not Clay (B) or (D) |
 | Historical unpatched binder audit | `library_huniq_unsatisfiable_at_zero`, `closing_bound_uniqueness_family_unsatisfiable` | Preserved & proved axiom-clean (motivates `IsPhysicalNSSolution`) |
 | N5 Periodic Clay (B) reduction | `Clay_B_exact`, `clay_B_exact_of_periodic_tether_bound` | Proved axiom-clean (conditional on `PeriodicTetherClosingBound`) |
 | KKS symplectic & metriplectic constraint (`SymplecticConstraint.lean`, 45 theorems) | `kks_skew_symmetric`, `kks_jacobi_identity`, `Pi_u_idempotent`, `Pi_u_self_adjoint`, `tether_preserves_casimir` | Proved axiom-clean (0 `sorry`) |
