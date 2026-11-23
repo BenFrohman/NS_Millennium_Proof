@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+import Mathlib.Data.Array.Basic
+
 /-!
 # Data Structures for the Formalization (Array vs List)
 
@@ -24,7 +26,6 @@ def FieldArray : Type := Array ℝ³   -- flattened for T³ grid
 -- Equivalence theorems to the functional view in ArnoldGeometric etc.
 -/
 
-import Mathlib.Data.Array.Basic
 
 namespace DataStructures
 

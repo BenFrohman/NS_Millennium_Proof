@@ -9,7 +9,6 @@ module
 public meta import Lean
 public meta import Lean.Data.Json.Basic
 public meta import Lean.Data.Json.FromToJson.Basic
-public meta import ProofWidgets
 public meta import ProofWidgets.Component.HtmlDisplay
 
 -- PLift is in the core prelude (available after importing Lean in most contexts),

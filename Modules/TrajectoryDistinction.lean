@@ -12,7 +12,7 @@ import NS_Millennium_Proof.Modules.ArnoldGeometric
 Machine-checked Lean 4 module.
 -/
 
-open ArnoldGeometric
+open ArnoldGeometric NavierStokes3D
 
 namespace TrajectoryDistinction
 
@@ -22,7 +22,7 @@ def FieldTrajectory := ℝ → CoadjointOrbit
 /-- A particle trajectory in the physical domain. -/
 def ParticleTrajectory := ℝ → T3
 
-/-- The two trajectory notions are kept in separate types by construction.
+/- The two trajectory notions are kept in separate types by construction.
 No identification between CoadjointOrbit-valued paths and T3-valued paths
 is provided or required. -/
 

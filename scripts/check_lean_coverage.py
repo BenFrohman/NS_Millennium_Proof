@@ -82,7 +82,16 @@ def listing(f, built):
             for s in range(len(L)):
                 if DECL.match(L[s].strip()) and DECL.match(L[s].strip()).group(2) == name:
                     t = norm(" ".join(L[s:s + len(block) + 40]))
-                    if t.startswith(head):
+                    # `...` elides part of the statement: the quoted pieces must occur in order,
+                    # the first one at the start of the source declaration.
+                    pieces = [x.strip() for x in head.split("...") if x.strip()]
+                    pos, ok = 0, bool(pieces) and t.startswith(pieces[0])
+                    for x in pieces if ok else []:
+                        q = t.find(x, pos)
+                        if q < 0:
+                            ok = False; break
+                        pos = q + len(x)
+                    if ok:
                         hit = (b, s); break
             if hit: break
         if not hit:
