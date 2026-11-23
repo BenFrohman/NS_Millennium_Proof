@@ -91,20 +91,21 @@ public theorem comparison_ode_bound_of_equality
 
 /-! ## Section 2 — geometric and PDE theorems (paper statements, Lean types) -/
 
-/-- Kato / Leray local existence on a short interval. Classical. -/
+/-- Short-time fields stored in a `KatoLocalWitness`.
+The stated Kato/Leray theorem is `NavierStokes3D.local_existence`, and it is not proved. -/
 public theorem local_existence_kato
     (u₀ : VelocityField) (ν : ℝ)
-    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
-    (h_divfree : ∀ x, div u₀ x = 0)
-    (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (hν : 0 < ν)
+    (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
+    (_h_divfree : ∀ x, div u₀ x = 0)
+    (_h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (_hν : 0 < ν)
     (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       u 0 = u₀ ∧
       IsPhysicalNSSolution u ∧
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
-  NavierStokes3D.local_existence u₀ ν h_smooth h_divfree h_finite hν w
+  NavierStokes3D.local_existence_of_witness u₀ ν w
 
 /-- Beale–Kato–Majda: integrable `‖ω‖_∞` on compact time intervals ⇒ smoothness. -/
 public theorem beale_kato_majda_criterion
