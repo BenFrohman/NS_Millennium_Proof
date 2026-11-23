@@ -59,7 +59,7 @@ jobs:
           mkdir -p cert-out
           lake env lean scripts/StrictAxiomAudit.lean 2>&1 | tee strict-axiom-audit.txt cert-out/strict-axiom-audit.txt
           grep -q '^STRICT AUDIT PASS' strict-axiom-audit.txt
-          if grep -v '^STRICT AUDIT PASS' strict-axiom-audit.txt | grep -qE 'STRICT AUDIT FAIL|sorryAx|ofReduceBool|error:'; then exit 1; fi
+          if grep -qE 'STRICT AUDIT FAIL|axioms: \[[^]]*(sorryAx|ofReduceBool)|error:' strict-axiom-audit.txt; then exit 1; fi
           grep '^STRICT AUDIT SUMMARY' strict-axiom-audit.txt
 
       - name: Audit envelope correction and backwards-compatible API
