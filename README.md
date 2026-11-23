@@ -41,6 +41,15 @@ with [TeX source](docs/VorticityEnvelopeCorrection.tex) accompanies the source f
 The existing manuscript PDFs and published archives are **not** updated by this
 source correction; their differential formulation must be read with that addendum.
 
+Current status documents (November 2026):
+
+- [Official conditional theorem (Form B of H1, open)](docs/OFFICIAL_CONDITIONAL_THEOREM.md)
+- [Lyapunov identities and the cubic sink (hypothesized majorant, not derived)](docs/LYAPUNOV_CUBIC_SINK_STATUS.md)
+- [Form B status note](STATUS-FORM-B-2026-11-23.md)
+- [Conditional dependency spine](docs/TETHER_CONDITIONAL_SPINE.md)
+- Cover sheet: [docs/official-conditional-theorem/00_COVER_Official_Proposed_Theorem.pdf](docs/official-conditional-theorem/00_COVER_Official_Proposed_Theorem.pdf)
+
+
 Reproduce against the exact `lean-toolchain` and `lake-manifest.json`:
 
 ```sh
