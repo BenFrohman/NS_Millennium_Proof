@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
-import Mathlib.Data.Array.Basic
+import Mathlib.Logic.Equiv.Defs
 
 /-!
 # Data Structures for the Formalization (Array vs List)
