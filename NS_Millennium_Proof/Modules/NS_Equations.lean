@@ -2398,13 +2398,24 @@ public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
   pde : NS_PDE u p ν
 
 /-- Local existence of a smooth solution on a short interval (Kato 1972 / Leray 1934).
-The witness is the Kato/Leray construction; the implication is kernel-closed. -/
+
+Stated from a smooth, divergence-free, finite-energy initial field and `0 < ν`.
+This is not proved. Unpacking a `KatoLocalWitness` is `local_existence_of_witness`. -/
 public theorem local_existence
     (u₀ : VelocityField) (ν : ℝ)
-    (_h_smooth : ContDiff ℝ ⊤ u₀)
-    (_h_divfree : ∀ x, div u₀ x = 0)
-    (_h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (_hν : 0 < ν)
+    (h_smooth : ContDiff ℝ ⊤ u₀)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (hν : 0 < ν) :
+    ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
+      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
+      u 0 = u₀ ∧
+      ∃ p : ℝ → PressureField, NS_PDE u p ν := by
+  sorry
+
+/-- The fields stored in a `KatoLocalWitness`. Not Kato/Leray local existence. -/
+public theorem local_existence_of_witness
+    (u₀ : VelocityField) (ν : ℝ)
     (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
@@ -3233,20 +3244,16 @@ public theorem smoothness_of_Tstar_top
 
 /-- Beale–Kato–Majda criterion (Beale–Kato–Majda 1984).
 
-If the time-integral of `‖ω(t)‖_∞` stays finite up to the maximal time, continuation
-forces `T* = ⊤`; smoothness on compact subintervals then upgrades to all `t ≥ 0`.
-The integral hyp is the BKM input; `T* = ⊤` and the compact-interval smoothness
-are the continuation output. -/
+If the time-integral of `‖ω(t)‖_∞` stays finite on every compact interval below
+`T*`, the solution remains smooth for all `t ≥ 0`. This is not proved.
+`T* = ⊤` plus smoothness below `T*` is `smoothness_of_Tstar_top`, a different lemma. -/
 public theorem beale_kato_majda
-    (u : TimeDependentVelocity) (_p : TimeDependentPressure) (ν : ℝ)
-    (_hν : 0 < ν) (_hNS : NS_PDE u _p ν)
-    (_h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
-    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
-  smoothness_of_Tstar_top u ν hTstar hbelow
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+    (hν : 0 < ν) (hNS : NS_PDE u p ν)
+    (h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T)) :
+    ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
+  sorry
 
 /-- L² energy of a nonnegative density that obeys `E' ≤ K E` and `E 0 = 0`
 vanishes for all later times (Grönwall). Inner Cauchy uniqueness. -/
@@ -3494,10 +3501,7 @@ public theorem parabolic_regularity_from_vorticity_bound
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
     (M : ℝ)
     (_h_bound : ∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ M)
-    (hcont : Continuous fun t : ℝ => vorticity_sup_norm (vorticity (u t)))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+    (hcont : Continuous fun t : ℝ => vorticity_sup_norm (vorticity (u t))) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
   beale_kato_majda u p ν hν hNS (fun T _hTlt => by
     by_cases hT0 : 0 ≤ T
@@ -3510,7 +3514,7 @@ public theorem parabolic_regularity_from_vorticity_bound
         · intro hx
           exact hx.elim
       rw [hempty]
-      exact integrableOn_empty) hTstar hbelow
+      exact integrableOn_empty)
 
 #print axioms curl_gradient
 #print axioms local_existence

@@ -96,9 +96,6 @@ theorem frohmanian_tether_theorem :
           ∃ Y : ℝ,
             (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
             Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))) →
-      (∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤) →
-      (∀ u : ℝ → VelocityField, ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) →
       ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
         NS_PDE u p ν ∧
         u 0 = u₀ ∧
@@ -110,8 +107,8 @@ theorem frohmanian_tether_theorem :
     exact tethered_reproduces_classical_euler F ω hδ hdiv hInt
   · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
     exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
-  · intro u₀ ν w hνpos hdiv hsm hE hRiccati hTstar hbelow
-    exact global_regularity u₀ ν hdiv hsm hE hνpos w hRiccati hTstar hbelow
+  · intro u₀ ν w hνpos hdiv hsm hE hRiccati
+    exact global_regularity u₀ ν hdiv hsm hE hνpos w hRiccati
 
 /-! ## Abstract (exact formulation supplied by the author) -/
 
@@ -156,11 +153,7 @@ theorem global_regularity_for_NS
       NS_PDE u p ν → u 0 = u0 0 →
         ∃ Y : ℝ,
           (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
-    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ u : ℝ → VelocityField,
-      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))) :
   ∃! (u : TimeDependentVelocity),
     (∀ t ≥ (0 : ℝ), IsSmooth (u t)) ∧
     (u 0 = u0 0) ∧
@@ -169,7 +162,7 @@ theorem global_regularity_for_NS
   obtain ⟨u, p, hNS, hu0, hsm, hnn, _hdiv⟩ :=
     TetheredLyapunov.global_regularity (u0 0) ν
       (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos
-      w hRiccati hTstar hbelow
+      w hRiccati
   refine ⟨u, ?hexists, ?uniq⟩
   · refine ⟨hsm, hu0, ?ns, hnn⟩
     intro _t _ht

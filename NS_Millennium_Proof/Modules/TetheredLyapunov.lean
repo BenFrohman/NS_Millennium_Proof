@@ -1788,11 +1788,7 @@ public theorem global_regularity
       NS_PDE u p ν → u 0 = u₀ →
         ∃ Y : ℝ,
           (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
-    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ u : ℝ → VelocityField,
-      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))) :
   ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
     NS_PDE u p ν ∧
     u 0 = u₀ ∧
@@ -1825,12 +1821,11 @@ public theorem global_regularity
   -- Step 2.1: Kato/Leray local existence on a short interval (classical).
   -- Output type: `u`, `p`, `NS_PDE u p ν`, `u 0 = u₀`.
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
-    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν w
+    local_existence_of_witness u₀ ν w
 
   obtain ⟨Y, hbound, hcont⟩ := hRiccati u p hNS hu0
   refine ⟨u, p, hNS, hu0, ?smooth, ?nn, ?div0⟩
   · exact AnalyticPipeline.bkm_regularity_pipeline u p ν h_pos_ν hNS Y hbound hcont
-      (hTstar u) (hbelow u)
   · intro t _ht
     exact vorticity_sup_norm_nonneg _
   · intro t ht x
@@ -1918,7 +1913,7 @@ public theorem global_regularity_of_restart
   obtain ⟨Y, hbound, hcont⟩ := hRiccati w.u w.p w.pde hu0
   refine ⟨w.pde, hu0, ?smooth, ?nn, ?div0⟩
   · exact AnalyticPipeline.bkm_regularity_pipeline w.u w.p ν h_pos_ν w.pde
-      Y hbound hcont (by rw [hu0]; exact hTstar) hbelow
+      Y hbound hcont
   · intro _t _ht
     exact vorticity_sup_norm_nonneg _
   · intro t ht x

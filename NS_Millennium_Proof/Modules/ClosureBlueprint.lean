@@ -97,25 +97,21 @@ public theorem local_existence_kato
     (h_smooth : ContDiff ℝ ⊤ u₀)
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (hν : 0 < ν)
-    (w : KatoLocalWitness u₀ ν) :
+    (hν : 0 < ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ ⊤ (u t)) ∧
       u 0 = u₀ ∧
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
-  NavierStokes3D.local_existence u₀ ν h_smooth h_divfree h_finite hν w
+  NavierStokes3D.local_existence u₀ ν h_smooth h_divfree h_finite hν
 
 /-- Beale–Kato–Majda: integrable `‖ω‖_∞` on compact time intervals ⇒ smoothness. -/
 public theorem beale_kato_majda_criterion
     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
     (hν : 0 < ν) (hNS : NS_PDE u p ν)
     (h_bkm : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+      IntegrableOn (fun t => vorticity_sup_norm (vorticity (u t))) (Set.Icc 0 T)) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) :=
-  NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm hTstar hbelow
+  NavierStokes3D.beale_kato_majda u p ν hν hNS h_bkm
 
 /-- Calderón–Zygmund stretching: `|ω · ∇u| ≲ C_CZ(3) ‖ω‖_∞ |ω|` once the
 strain operator-norm bound `‖Du‖ ≤ C_CZ(3) ‖ω‖_∞` is supplied (Riesz / Biot–Savart).
@@ -202,7 +198,7 @@ public theorem bkm_regularity_pipeline
     (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
       ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
     ∀ τ ≥ (0 : ℝ), ContDiff ℝ ⊤ (u τ) :=
-  AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont hTstar hbelow
+  AnalyticPipeline.bkm_regularity_pipeline u p ν hν hNS Y hbound hcont
 
 /-- If a differentiable scalar majorant of `‖ω(t)‖_∞` obeys the Riccati
 inequality `y' ≤ C y² − κ'' y³`, the closed comparison theorem supplies the
@@ -216,10 +212,7 @@ public theorem regularity_from_riccati_majorant
     (hdiff : ∀ s ≥ (0 : ℝ), DifferentiableAt ℝ y s)
     (hy_dot : ∀ s ≥ (0 : ℝ), deriv y s ≤ C * (y s) ^ 2 - κ'' * (y s) ^ 3)
     (hmaj : ∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≤ y t)
-    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))
-    (hTstar : Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-      ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+    (hcont : Continuous fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) :
     ∀ t ≥ (0 : ℝ), ContDiff ℝ ⊤ (u t) := by
   have hceil : ∀ τ ≥ (0 : ℝ), y τ ≤ max (y 0) (C / κ'') :=
     fun τ hτ => comparison_ode_stability C κ'' hC hκ y hdiff hy_dot τ hτ
@@ -227,7 +220,6 @@ public theorem regularity_from_riccati_majorant
       ∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ max (y 0) (C / κ'') :=
     fun τ hτ => (hmaj τ hτ).trans (hceil τ hτ)
   exact bkm_regularity_pipeline u p ν hν hNS (max (y 0) (C / κ'')) hbound hcont
-    hTstar hbelow
 
 /-- Assembly: local existence, tether uniqueness, Young residual, Riccati ceiling,
 and BKM continuation. Smoothness is `ContDiff ℝ ⊤`, not a `constant`. -/
@@ -242,11 +234,7 @@ public theorem global_regularity_for_NS
       NS_PDE u p ν → u 0 = u₀ →
         ∃ Y : ℝ,
           (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
-    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
-    (hbelow : ∀ u : ℝ → VelocityField,
-      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
-        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))) :
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧
       u 0 = u₀ ∧
@@ -254,7 +242,7 @@ public theorem global_regularity_for_NS
       (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
       (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) :=
   TetheredLyapunov.global_regularity u₀ ν h_divfree h_smooth h_finite_energy h_pos_ν
-    w hRiccati hTstar hbelow
+    w hRiccati
 
 /-! ## Section 4 — named geometric / Lyapunov skeletons (real types) -/
 
