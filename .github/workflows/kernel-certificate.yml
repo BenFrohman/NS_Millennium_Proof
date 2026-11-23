@@ -86,7 +86,7 @@ jobs:
           echo "RESULT: $(grep -c ': OK (' cert-out/leanchecker.txt) of $(grep -c . cert-out/modules.txt) modules replayed through the kernel, 0 failures" | tee -a cert-out/leanchecker.txt
       - name: Upload certificate files
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: kernel-certificate
           path: cert-out/
