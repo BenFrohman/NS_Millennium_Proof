@@ -1,98 +1,133 @@
 #!/usr/bin/env python3
 # Copyright (c) 2026 Benjamin Stanley Frohman. Licensed under Apache-2.0.
-"""Coverage check, run after `lake build` in CI. EVERY tracked .lean file (`git ls-files '*.lean'`,
-only .lake/ left out) must be exactly one of:
-  BUILT    a module whose .olean exists after the CI build (module name = path under a srcDir
-           declared in the lakefile, or under the repository root);
-  CI-RUN   lakefile.lean, or a .lean file that a workflow or CI shell script runs by its path;
-  EXCERPT  a statement excerpt whose `-- <file>.lean, line N` header names a BUILT file and whose
-           code lines occur verbatim and contiguously in that file (proof bodies shown as `...`).
-Any other file FAILS, by name. There is no exclusion list."""
+"""Build every tracked .lean file. Run after `lake build` and `lake build ForMathlib` in CI.
+
+The file list is `git ls-files '*.lean'`. There is no exclusion list and no path is treated
+specially. Every file must end in exactly one of:
+  BUILT     its module .olean was produced by the lake build (module name = path under the
+            repository root or under a srcDir declared in the lakefile);
+  LAKEFILE  ./lakefile.lean, which Lake elaborates on every `lake` invocation;
+  COMPILED  `lake env lean <file>` (the repo's lake-manifest.json, lean-toolchain and Mathlib
+            cache) exits 0 with no error and no `declaration uses 'sorry'`;
+  LISTING   the file does not compile on its own because it is a paper listing (a quoted
+            declaration, proof bodies possibly shown as `...`). It passes only if every quoted
+            declaration header occurs verbatim in a BUILT file, and `#print axioms` on each quoted
+            declaration, run by `lake env lean` against the built module, shows no axiom beyond
+            propext, Classical.choice and Quot.sound.
+Anything else FAILS, with the file name and the first compiler errors. The full compiler output of
+every file is written to cert-out/lean-files/<path>.log."""
 import os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 OLEAN_ROOTS = [".lake/build/lib/lean", ".lake/build/lib"]
+LOGDIR = "cert-out/lean-files"
+STD = {"propext", "Classical.choice", "Quot.sound"}
+DECL = re.compile(r"^(?:@\[[^\]]*\]\s*)?(?:(?:public|private|protected|noncomputable|partial|unsafe)\s+)*"
+                  r"(theorem|lemma|def|abbrev|structure|class|instance|inductive)\s+([^\s:({\[]+)")
 
 def tracked():
-    return [f for f in subprocess.check_output(["git", "ls-files", "*.lean"]).decode().splitlines()
-            if f and not f.startswith(".lake/") and "/.lake/" not in f]
+    return [f for f in subprocess.check_output(["git", "ls-files", "*.lean"]).decode().splitlines() if f]
 
 def src_dirs():
-    txt = ""
-    for lf in ["lakefile.lean", "lakefile.toml"]:
-        if os.path.isfile(lf):
-            txt += open(lf, encoding="utf-8").read()
+    txt = "".join(open(lf, encoding="utf-8").read() for lf in ["lakefile.lean", "lakefile.toml"] if os.path.isfile(lf))
     ds = set(re.findall(r'srcDir\s*:?=\s*"([^"]*)"', txt))
     return sorted({d.strip("/").lstrip("./") for d in ds} - {"", "."}, key=len, reverse=True)
 
 def module_of(f):
     rel = f[:-5]
-    cands = [rel] + [rel[len(d) + 1:] for d in src_dirs() if rel.startswith(d + "/")]
-    for root in OLEAN_ROOTS:
-        for c in cands:
+    for c in [rel] + [rel[len(d) + 1:] for d in src_dirs() if rel.startswith(d + "/")]:
+        for root in OLEAN_ROOTS:
             if os.path.isfile(os.path.join(root, c + ".olean")):
                 return c.replace("/", ".")
     return None
 
-def ci_text():
-    txt = ""
-    for top in [".github/workflows", "scripts", "certificates/tools"]:
-        if not os.path.isdir(top):
-            continue
-        for dp, dn, fs in os.walk(top):
-            for n in sorted(fs):
-                if n.endswith((".yml", ".yaml", ".sh")):
-                    txt += open(os.path.join(dp, n), encoding="utf-8", errors="replace").read() + "\n"
-    if os.path.isfile("Makefile"):
-        txt += open("Makefile", encoding="utf-8").read()
-    return txt
+def run_lean(path, log):
+    os.makedirs(os.path.dirname(log), exist_ok=True)
+    p = subprocess.run(["lake", "env", "lean", path], capture_output=True, text=True)
+    out = p.stdout + p.stderr
+    open(log, "w", encoding="utf-8").write(out + f"\n[exit {p.returncode}]\n")
+    bad = p.returncode != 0 or re.search(r"(^|\s)error:", out) or "declaration uses 'sorry'" in out
+    return (not bad), out
 
-def check_excerpt(path, built):
-    t = open(path, encoding="utf-8", errors="replace").read()
-    m = re.search(r"^-- ([\w./-]+\.lean), lines? (\d+)(?:-\d+)?\s*$", t, re.M)
-    if not m:
-        return "no '-- <file>.lean, line N' provenance header"
-    src = m.group(1)
-    if src not in built:
-        return f"provenance file {src} is not a BUILT module"
-    body = re.sub(r"^\s*/-!.*?-/\s*", "", t[m.end():], count=1, flags=re.S)
-    lines = [l.strip() for l in body.split("\n") if l.strip()]
-    if not lines:
-        return "empty excerpt"
-    S = [l.strip() for l in open(src, encoding="utf-8").read().split("\n")]
-    def same(l, s, last):
-        if l == s:
-            return True
-        if "..." in l and s.startswith(l.split("...")[0].rstrip()):
-            return True
-        return last and s.startswith(l) and s[len(l):].strip() in (":=", ":= by")
-    for i in range(len(S)):
-        if all(i + k < len(S) and same(l, S[i + k], k == len(lines) - 1) for k, l in enumerate(lines)):
-            return None
-    return f"code is not a verbatim contiguous block of {src}"
+def norm(s):
+    return " ".join(s.split())
+
+def namespace_at(lines, i):
+    stack = []
+    for l in lines[:i]:
+        m = re.match(r"\s*namespace\s+(\S+)", l)
+        if m:
+            stack.append(m.group(1)); continue
+        m = re.match(r"\s*end\s+(\S+)\s*$", l)
+        if m and stack and stack[-1] == m.group(1):
+            stack.pop()
+    return ".".join(stack)
+
+def listing(f, built):
+    body = open(f, encoding="utf-8").read()
+    lines = body.split("\n")
+    decls = [(i, m.group(2)) for i, l in enumerate(lines) for m in [DECL.match(l.strip())] if m]
+    if not decls:
+        return "no declaration to check"
+    srcs = {b: open(b, encoding="utf-8").read().split("\n") for b in built}
+    checks = []
+    for k, (i, name) in enumerate(decls):
+        j = decls[k + 1][0] if k + 1 < len(decls) else len(lines)
+        block = [l for l in lines[i:j] if l.strip() and not l.strip().startswith("--")]
+        # header = text up to the first `:=` (the statement); `...` marks an elided body
+        head = norm(" ".join(block)).split(" := ")[0].split(":= ...")[0].strip()
+        hit = None
+        for b, L in srcs.items():
+            for s in range(len(L)):
+                if DECL.match(L[s].strip()) and DECL.match(L[s].strip()).group(2) == name:
+                    t = norm(" ".join(L[s:s + len(block) + 40]))
+                    if t.startswith(head):
+                        hit = (b, s); break
+            if hit: break
+        if not hit:
+            return f"quoted declaration `{name}` does not occur verbatim in any BUILT file"
+        b, s = hit
+        ns = namespace_at(srcs[b], s)
+        checks.append((built[b], (ns + "." if ns else "") + name))
+    gen = os.path.join(LOGDIR, f + ".axioms.lean")
+    os.makedirs(os.path.dirname(gen), exist_ok=True)
+    mods = sorted({m for m, _ in checks})
+    open(gen, "w", encoding="utf-8").write("".join(f"import {m}\n" for m in mods) +
+                                           "".join(f"#print axioms {n}\n" for _, n in checks))
+    ok, out = run_lean(gen, gen[:-5] + ".log")
+    if not ok:
+        return "axiom check did not compile:\n" + out[-1500:]
+    for n in re.findall(r"'([^']+)' depends on axioms: \[([^\]]*)\]", out):
+        extra = {a.strip() for a in n[1].split(",") if a.strip()} - STD
+        if extra:
+            return f"`{n[0]}` depends on nonstandard axioms {sorted(extra)}"
+    if len(re.findall(r"depends on axioms|does not depend on any axioms", out)) != len(checks):
+        return "axiom check did not report every quoted declaration:\n" + out[-1500:]
+    return None
 
 def main():
     files = tracked()
-    built = {f: module_of(f) for f in files}
-    built = {f: m for f, m in built.items() if m}
-    ci = ci_text()
-    counts = {"BUILT": 0, "CI-RUN": 0, "EXCERPT": 0}
+    built = {f: m for f in files for m in [module_of(f)] if m}
+    counts = {"BUILT": 0, "LAKEFILE": 0, "COMPILED": 0, "LISTING": 0}
     fails = []
     for f in files:
         if f in built:
-            counts["BUILT"] += 1; continue
-        if f == "lakefile.lean" or f in ci:
-            counts["CI-RUN"] += 1; print(f"  CI-RUN  {f}"); continue
-        r = check_excerpt(f, built)
-        if r is None:
-            counts["EXCERPT"] += 1; continue
-        fails.append(f"{f}: not built, not run by CI, not a verified excerpt ({r})")
-    print(f"COVERAGE: {len(files)} tracked .lean files: {counts['BUILT']} BUILT, {counts['CI-RUN']} CI-RUN, "
-          f"{counts['EXCERPT']} EXCERPT, {len(fails)} uncovered")
+            counts["BUILT"] += 1; print(f"BUILT     {f}", flush=True); continue
+        if f == "lakefile.lean":
+            counts["LAKEFILE"] += 1; print(f"LAKEFILE  {f}", flush=True); continue
+        ok, out = run_lean(f, os.path.join(LOGDIR, f + ".log"))
+        if ok:
+            counts["COMPILED"] += 1; print(f"COMPILED  {f}", flush=True); continue
+        why = listing(f, built) if not re.search(r"^\s*(public\s+)?(meta\s+)?import\s", open(f, encoding="utf-8").read(), re.M) else "file has imports"
+        if why is None:
+            counts["LISTING"] += 1; print(f"LISTING   {f}", flush=True); continue
+        errs = [l for l in out.splitlines() if "error" in l or "sorry" in l][:6]
+        fails.append(f); print(f"FAIL      {f}\n  compile: " + "\n  compile: ".join(errs or [out[-400:]]) + f"\n  listing: {why}", flush=True)
+    print(f"BUILD-EVERY-FILE: {len(files)} tracked .lean files: " + ", ".join(f"{v} {k}" for k, v in counts.items()) + f", {len(fails)} FAILED")
     if fails:
-        print("COVERAGE FAIL:\n" + "\n".join(fails)); return 1
-    print("COVERAGE PASS: every tracked .lean file is built, run by CI, or a verified excerpt of a built file")
+        print("BUILD-EVERY-FILE FAIL:\n" + "\n".join(fails)); return 1
+    print("BUILD-EVERY-FILE PASS: every tracked .lean file was built by lake, compiled by lean, or is a listing of a built declaration")
     return 0
 
 sys.exit(main())

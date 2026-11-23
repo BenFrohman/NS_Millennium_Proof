@@ -43,7 +43,7 @@ jobs:
           set -o pipefail
           lake build 2>&1 | tee cert-out/build.log
           lake build ForMathlib 2>&1 | tee -a cert-out/build.log
-      - name: Coverage (every tracked .lean file is built, run by CI, or a verified excerpt)
+      - name: Build every tracked .lean file (git ls-files, no exclusions; lake build or lake env lean)
         run: |
           set -o pipefail
           python3 scripts/check_lean_coverage.py | tee cert-out/coverage.txt
