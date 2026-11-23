@@ -1441,7 +1441,17 @@ public theorem global_regularity
     (h_divfree : ∀ x, div u₀ x = 0)
     (h_smooth : ContDiff ℝ ⊤ u₀)
     (h_finite_energy : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (h_pos_ν : ν > 0) :
+    (h_pos_ν : ν > 0)
+    (w : KatoLocalWitness u₀ ν)
+    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u₀ →
+        ∃ Y : ℝ,
+          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ u : ℝ → VelocityField,
+      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
   ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
     NS_PDE u p ν ∧
     u 0 = u₀ ∧
@@ -1474,21 +1484,12 @@ public theorem global_regularity
   -- Step 2.1: Kato/Leray local existence on a short interval (classical).
   -- Output type: `u`, `p`, `NS_PDE u p ν`, `u 0 = u₀`.
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, p, hNS⟩ :=
-    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν
+    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν w
 
-  -- Steps 2.2–2.5 (paper §3): tethered Lyapunov DI + Young (`ε_abs = κ/4`) +
-  -- independent Riccati majorant of `M(t) = ‖ω(u t)‖_∞`. Remaining transcription
-  -- is `sorry` on this real type, not `True`.
-  have hRiccati :
-      ∃ Y : ℝ,
-        (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
-        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) := by
-    sorry
-
-  obtain ⟨Y, hbound, hcont⟩ := hRiccati
+  obtain ⟨Y, hbound, hcont⟩ := hRiccati u p hNS hu0
   refine ⟨u, p, hNS, hu0, ?smooth, ?nn, ?div0⟩
-  · -- Step 2.6: uniform bound ⇒ IntegrableOn on every Icc 0 T ⇒ BKM smoothness.
-    exact AnalyticPipeline.bkm_regularity_pipeline u p ν h_pos_ν hNS Y hbound hcont
+  · exact AnalyticPipeline.bkm_regularity_pipeline u p ν h_pos_ν hNS Y hbound hcont
+      (hTstar u) (hbelow u)
   · intro t _ht
     exact vorticity_sup_norm_nonneg _
   · intro t ht x

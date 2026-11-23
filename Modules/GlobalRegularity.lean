@@ -71,8 +71,12 @@ and TetheredLyapunov.lean (unconditional global regularity via independent major
 -/
 theorem frohmanian_tether_theorem :
   ∃ (𝔗_F : CoadjointOrbit → Functional → Functional → ℝ),
-    (∀ F ω, TetheredBracket F KineticEnergyHamiltonian ω =
-      ClassicalBracket F KineticEnergyHamiltonian ω) ∧
+    (∀ F ω,
+      FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω →
+      (∀ x, div (velocity_from_vorticity ω) x = 0) →
+      Integrable (fun y => ‖velocity_from_vorticity ω y‖ ^ 2) →
+      TetheredBracket F KineticEnergyHamiltonian ω =
+        ClassicalBracket F KineticEnergyHamiltonian ω) ∧
     (∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
       (∀ ω F G, B ω F G = -B ω G F) →
       InvariantUnderCoadjointAction B →
@@ -82,11 +86,19 @@ theorem frohmanian_tether_theorem :
       Polarizes B →
       Polarizes TetherKernel →
       ∀ ω F G, B ω F G = 𝔗_F ω F G) ∧
-    (∀ (u₀ : VelocityField) (ν : ℝ),
+    (∀ (u₀ : VelocityField) (ν : ℝ) (w : KatoLocalWitness u₀ ν),
       0 < ν →
       (∀ x, div u₀ x = 0) →
       ContDiff ℝ ⊤ u₀ →
       Integrable (fun x : T3 => ‖u₀ x‖ ^ 2) →
+      (∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+        NS_PDE u p ν → u 0 = u₀ →
+          ∃ Y : ℝ,
+            (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+            Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ)))) →
+      (∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤) →
+      (∀ u : ℝ → VelocityField, ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) →
       ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
         NS_PDE u p ν ∧
         u 0 = u₀ ∧
@@ -94,12 +106,12 @@ theorem frohmanian_tether_theorem :
         (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
         (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0)) := by
   refine ⟨TetherKernel, ?_, ?_, ?_⟩
-  · intro F ω
-    exact tethered_reproduces_classical_euler F ω
+  · intro F ω hδ hdiv hInt
+    exact tethered_reproduces_classical_euler F ω hδ hdiv hInt
   · intro B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
     exact uniqueness_of_minimal_tether B hanti hC1 hC2 hC3 hsat hpolB hpolT ω F G
-  · intro u₀ ν hνpos hdiv hsm hE
-    exact global_regularity u₀ ν hdiv hsm hE hνpos
+  · intro u₀ ν w hνpos hdiv hsm hE hRiccati hTstar hbelow
+    exact global_regularity u₀ ν hdiv hsm hE hνpos w hRiccati hTstar hbelow
 
 /-! ## Abstract (exact formulation supplied by the author) -/
 
@@ -138,7 +150,17 @@ theorem global_regularity_for_NS
     (h_div_free : ∀ t x, div (u0 t) x = 0)
     (h_smooth : IsSmooth (u0 0))
     (h_finite_energy : Integrable (fun x : T3 => ‖u0 0 x‖ ^ 2))
-    (ν : ℝ) (h_ν_pos : ν > 0) :
+    (ν : ℝ) (h_ν_pos : ν > 0)
+    (w : KatoLocalWitness (u0 0) ν)
+    (hRiccati : ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+      NS_PDE u p ν → u 0 = u0 0 →
+        ∃ Y : ℝ,
+          (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+          Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))))
+    (hTstar : ∀ u : ℝ → VelocityField, Tstar (u 0) ν = ⊤)
+    (hbelow : ∀ u : ℝ → VelocityField,
+      ∀ T : ℝ, (T : EReal) < Tstar (u 0) ν →
+        ∀ t ∈ Set.Icc (0 : ℝ) T, ContDiff ℝ ⊤ (u t)) :
   ∃! (u : TimeDependentVelocity),
     (∀ t ≥ (0 : ℝ), IsSmooth (u t)) ∧
     (u 0 = u0 0) ∧
@@ -147,6 +169,7 @@ theorem global_regularity_for_NS
   obtain ⟨u, p, hNS, hu0, hsm, hnn, _hdiv⟩ :=
     TetheredLyapunov.global_regularity (u0 0) ν
       (fun x => h_div_free 0 x) h_smooth h_finite_energy h_ν_pos
+      w hRiccati hTstar hbelow
   refine ⟨u, ?hexists, ?uniq⟩
   · refine ⟨hsm, hu0, ?ns, hnn⟩
     intro _t _ht

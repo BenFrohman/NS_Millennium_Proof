@@ -314,7 +314,8 @@ public theorem classical_bracket_reproduces_Euler
     (u : TimeDependentVelocity) (p : TimeDependentPressure)
     (hEuler : ∀ t ≥ (0 : ℝ), ∀ x : T3,
       time_deriv u t x + convective (u t) (u t) x + pressureGradient (p t) x = 0 ∧
-        div (u t) x = 0) :
+        div (u t) x = 0)
+    (hreg : ∀ t ≥ (0 : ℝ), ∀ x, VorticityTransportRegularity u p t x) :
     ∀ t ≥ (0 : ℝ), ∀ x : T3,
       time_deriv (fun s => vorticity (u s)) t x + convective (u t) (vorticity (u t)) x =
         convective (vorticity (u t)) (u t) x := by
@@ -324,6 +325,6 @@ public theorem classical_bracket_reproduces_Euler
     have ⟨hmom, hdiv⟩ := hEuler t' ht' x'
     refine ⟨?_, hdiv⟩
     simpa [zero_smul] using hmom
-  simpa [zero_smul] using vorticity_transport u p 0 hNS t ht x
+  simpa [zero_smul] using vorticity_transport u p 0 hNS hreg t ht x
 
 end ArnoldGeometric

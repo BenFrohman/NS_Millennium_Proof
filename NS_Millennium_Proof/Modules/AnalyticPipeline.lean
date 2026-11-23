@@ -250,7 +250,7 @@ public theorem holder_I4
     (h1 : MemLp (fun _ : T3 => (1 : ℝ)) (ENNReal.ofReal 3) volume) :
     ∫ x, ‖ω x‖ ^ 4 * |phi x| ∂volume ≤
       phiLinf * (∫ x, ‖ω x‖ ^ 6 ∂volume) ^ ((2 : ℝ) / 3) *
-        (∫ x, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := by
+        (∫ _, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := by
   have hpq := holderConjugate_three_halves_three
   have hf_nn : 0 ≤ᵐ[volume] fun x : T3 => ‖ω x‖ ^ 4 :=
     Filter.Eventually.of_forall fun _ => pow_nonneg (norm_nonneg _) _
@@ -266,7 +266,7 @@ public theorem holder_I4
   have hinter :
       ∫ x, ‖ω x‖ ^ 4 * (1 : ℝ) ∂volume ≤
         (∫ x, ‖ω x‖ ^ 6 ∂volume) ^ ((2 : ℝ) / 3) *
-          (∫ x, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := by
+          (∫ _, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := by
     have hfun :
         (fun a : T3 => (‖ω a‖ ^ 4) ^ ((3 : ℝ) / 2)) = fun a => ‖ω a‖ ^ 6 :=
       funext hpow
@@ -455,7 +455,7 @@ public theorem holder_I4_le_sobolev
   calc
     ∫ x, ‖ω x‖ ^ 4 * |phi x| ∂volume
         ≤ phiLinf * (∫ x, ‖ω x‖ ^ 6 ∂volume) ^ ((2 : ℝ) / 3) *
-            (∫ x, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := hH
+            (∫ _, (1 : ℝ) ∂volume) ^ ((1 : ℝ) / 3) := hH
     _ ≤ phiLinf * (∫ x, ‖ω x‖ ^ 6 ∂volume) ^ ((2 : ℝ) / 3) *
             SobolevConstant3D :=
           mul_le_mul_of_nonneg_left hvol hprod

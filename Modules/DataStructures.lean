@@ -4,6 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+import Mathlib.Data.Real.Basic
+import Mathlib.Logic.Equiv.Array
+
 /-!
 # Data Structures for the Formalization (Array vs List)
 
@@ -23,7 +26,6 @@ Example:
 def FieldArray : Type := Array ℝ³   -- flattened for T³ grid
 -- Equivalence theorems to the functional view in ArnoldGeometric etc.
 -/
-import Mathlib.Data.Array.Basic
 
 namespace DataStructures
 
@@ -31,6 +33,7 @@ namespace DataStructures
 abbrev VorticityArray := Array (Fin 3 → ℝ)  -- or more structured
 
 -- Proof-relevant: Array as List wrapper
-theorem array_as_list_equiv (α : Type) : Array α ≃ List α := sorry  -- Use mathlib equivalences when available
+def array_as_list_equiv (α : Type) : Array α ≃ List α :=
+  Equiv.arrayEquivList α
 
 end DataStructures

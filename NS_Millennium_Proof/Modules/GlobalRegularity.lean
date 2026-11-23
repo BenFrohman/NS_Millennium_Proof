@@ -96,7 +96,7 @@ public theorem frohmanian_tether_theorem
       (_q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν → ∀ t ∈ Set.Icc (0 : ℝ) T,
         Integrable (fun x : T3 => ‖v t x‖ ^ 2))
-    (huniq_shift : ∀ u₀ ν (hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
+    (huniq_shift : ∀ u₀ ν (_hν : 0 < ν) (T : ℝ) (v : TimeDependentVelocity)
       (_q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν →
       ∀ t ∈ Set.Icc (0 : ℝ) T,

@@ -19,9 +19,9 @@ package NS_Millennium_Proof where
 -- Novel core must remain free of `Lean.trustCompiler`.
 require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "v4.30.0-rc1"
 
--- Reusable, Mathlib-oriented lemmas as a standalone target so downstream
--- projects can depend on just the general results without the novel core:
---   lake build ForMathlib
+-- Reusable, Mathlib-oriented lemmas. This is a default target, so plain
+-- `lake build` compiles it together with the main library.
+@[default_target]
 lean_lib ForMathlib where
   roots := #[`ForMathlib]
   globs := #[.submodules `ForMathlib]
@@ -30,13 +30,23 @@ lean_lib ForMathlib where
 lean_lib NS_Millennium_Proof where
   roots := #[`NS_Millennium_Proof]
   -- Restored proof modules (Benjamin Stanley Frohman, 2026-08-26).
-  -- Top-level `Modules/` copies match `NS_Millennium_Proof/Modules/` (CI structure check).
-  -- Skeleton (`import Mathlib`) and Widgets (ProofWidgets) stay in-tree but out of
-  -- the default target so `lake build` remains kernel-passable.
+  -- Skeleton and Widgets are in the default build. They still contain `sorry`
+  -- in the narrative skeleton and the widget ref; those are not the kernel
+  -- certificate of `NS_Millennium_Proof.Modules`.
   globs := #[
     .submodules `NS_Millennium_Proof.Modules,
-    .submodules `NS_Millennium_Proof.Definitions
+    .submodules `NS_Millennium_Proof.Definitions,
+    .submodules `NS_Millennium_Proof.Skeleton,
+    .submodules `NS_Millennium_Proof.Widgets,
+    .submodules `NS_Millennium_Proof.Lean_Formalization_2026_05_28
   ]
+
+-- Top-level mirror. `Modules.AnalyticEstimates` is the file that still names
+-- the May module path; that path is a re-export of the live majorant.
+@[default_target]
+lean_lib Modules where
+  roots := #[`Modules]
+  globs := #[.submodules `Modules]
   -- The library uses Lean's module system (§5 of the Language Reference).
   -- Individual .lean files are prefixed with `module` and use `public import` / `public meta import`
   -- to control public API vs private implementation and meta-phase code (widgets, tactics).

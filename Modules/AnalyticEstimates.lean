@@ -4,6 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+import NS_Millennium_Proof.Modules.NS_Equations
+import NS_Millennium_Proof.Lean_Formalization_2026_05_28.Modules.IndependentMajorant
+
 /-!
 # Phase 2 (continued): Mollified Lyapunov, Differential Inequality, and Full Regularity
 
@@ -11,11 +14,10 @@ Direct translation of Section 3 + all PASS refinements from the living document.
 All steps justified using only previously established geometric properties and the independent majorant.
 -/
 
-import NS_Millennium_Proof.Lean_Formalization_2026_05_28.Modules.IndependentMajorant
 
 namespace AnalyticEstimates
 
-open IndependentMajorant SymplecticTether
+open IndependentMajorant FrohmanianTether NavierStokes3D
 
 -- Mollifier, auxiliary field, S_ε, differential inequality derivation
 -- (full details with all cancellations, Hölder, Sobolev, Young absorption exactly as in the living document)
