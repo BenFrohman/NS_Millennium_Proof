@@ -2477,7 +2477,11 @@ public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
 /-- Local existence of a smooth solution on a short interval (Kato 1972 / Leray 1934).
 
 Stated from a smooth, divergence-free, finite-energy initial field and `0 < ν`.
-This is not proved. Unpacking a `KatoLocalWitness` is `local_existence_of_witness`. -/
+Those four hypotheses are the theorem. This is not proved.
+Unpacking a `KatoLocalWitness` is `local_existence_of_witness`.
+
+Author: Benjamin Stanley Frohman.
+Mathematical source: Kato (1972), Leray (1934). -/
 public theorem local_existence
     (u₀ : VelocityField) (ν : ℝ)
     (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
