@@ -91,21 +91,24 @@ public theorem comparison_ode_bound_of_equality
 
 /-! ## Section 2 — geometric and PDE theorems (paper statements, Lean types) -/
 
-/-- Short-time fields stored in a `KatoLocalWitness`.
-The stated Kato/Leray theorem is `NavierStokes3D.local_existence`, and it is not proved. -/
+/-- Kato / Leray local existence on a short interval.
+Passes the smooth, divergence-free, finite-energy field and `0 < ν`
+to `NavierStokes3D.local_existence`. That theorem is not proved.
+
+Author: Benjamin Stanley Frohman.
+Mathematical source: Kato (1972), Leray (1934). -/
 public theorem local_existence_kato
     (u₀ : VelocityField) (ν : ℝ)
-    (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
-    (_h_divfree : ∀ x, div u₀ x = 0)
-    (_h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (_hν : 0 < ν)
-    (w : KatoLocalWitness u₀ ν) :
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (hν : 0 < ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
       u 0 = u₀ ∧
       IsPhysicalNSSolution u ∧
       ∃ p : ℝ → PressureField, NS_PDE u p ν :=
-  NavierStokes3D.local_existence_of_witness u₀ ν w
+  NavierStokes3D.local_existence u₀ ν h_smooth h_divfree h_finite hν
 
 /-- Beale–Kato–Majda: integrable `‖ω‖_∞` on compact time intervals ⇒ smoothness. -/
 public theorem beale_kato_majda_criterion
@@ -355,7 +358,7 @@ public theorem type_composition_sequence
     ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField),
       NS_PDE u p ν ∧ u 0 = u₀ ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ (⊤ : ℕ∞) (u t) := by
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
-    local_existence_kato u₀ ν hsm hdiv hE hν w
+    local_existence_kato u₀ ν hsm hdiv hE hν
   have _young :
       ∀ M I₄ I₆ phi_norm C_abs : ℝ, 0 ≤ I₆ →
         4 * CalderonZygmundConstant3D * M * I₄ ≤
