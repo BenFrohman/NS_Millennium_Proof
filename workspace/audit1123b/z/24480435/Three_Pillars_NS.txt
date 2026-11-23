@@ -1,0 +1,102 @@
+      A Lean-certified conditional implication, and three open
+                            formalizations,
+     in the classical theory of 3D incompressible Navier–Stokes
+                                   Benjamin Stanley Frohman
+                            Independent Researcher, Texas, United States
+                                   ORCID 0009-0006-7068-3718
+
+                                        November 17, 2026
+
+
+Copyright (c) 2026 Benjamin Stanley Frohman. The paper (this PDF and its LATEX source) is licensed
+under CC BY 4.0. Lean code in the companion repository is licensed under the Apache License 2.0.
+
+
+                                              Abstract
+         This note states only what a Lean 4 kernel certificate proves in the companion repository,
+     and lists three classical theorems that are not formalized there. Lean proves a conditional
+     implication: if the named hypotheses HypothesisB and BKMCriterion hold, then every
+     maximal classical solution of periodic incompressible Navier–Stokes is global. Kato local
+     existence, Fujita–Kato small-data global regularity, and the Beale–Kato–Majda continuation
+     criterion itself are not formalized in this repository and are not claimed as proved or as
+     kernel-certified. Clay Millennium Problem Statement (B) remains open.
+
+
+1   The Lean-certified implication
+The companion repository https://github.com/BenFrohman/frohmanian-tether-conditional-regularity
+proves, as ClassicalNS.analyticBridge_of_formB, the following statement, which is the only
+theorem claimed here.
+
+Theorem 1.1 (Conditional implication). For every bound C⋆ : R → R, if Lean’s HypothesisB
+holds for C⋆ and if Lean’s BKMCriterion holds, then for every viscosity ν > 0 and every
+smooth, periodic, divergence-free initial datum, every maximal classical solution (an object of
+                                                    ∫T
+type NSSolution) is global (T ⋆ = ⊤) and has finite 0 ∥∇u(t)∥L∞ dt for every finite T > 0.
+
+    The two hypotheses are named assumptions in the Lean development. They are not proved
+in Lean. An independent review of whether those encodings are faithful to the textbook Beale–
+Kato–Majda criterion, and whether they are vacuous, is in progress. This note transcribes the
+Lean statement as it stands. The unconditioned analytic-bridge statement is recorded only as
+the proposition analytic_bridge_unconditional_Statement, which has no proof.
+    The oﬀicial kernel certificate is the GitHub Actions artifact for the commit and run in the
+certificate block below.
+
+
+2   Open formalization items
+Earlier versions of this note stated three classical theorems with proof sketches: Kato local
+existence and a lifespan bound (former Theorem 2.1), Fujita–Kato small-data global regularity
+(former Theorem 3.1), and the Beale–Kato–Majda continuation criterion (former Theorem 4.1).
+
+                                                   1
+Those statements are not formalized in the companion Lean development. This paper does not
+present them as proved and does not attach a kernel certificate to them. Formalizing each of
+them in Lean, with only the standard axioms and no sorry, is left open.
+
+                            Table 1: Status of claims in this note.
+Item                                    Status                         Content
+Theorem 1.1                              Lean-certified, conditional   HypothesisB C⋆ → BKMCriterion →
+                                                                       AnalyticBridgeStatement
+Former Thm. 2.1, Kato local existence    Open, not formalized          not claimed
+Former Thm. 3.1, Fujita–Kato             Open, not formalized          not claimed
+Former Thm. 4.1, Beale–Kato–Majda        Open, not formalized          not claimed
+Clay Statement (B)                       Open                          unconditional large-data global regular-
+                                                                       ity
+
+
+
+References
+[1] T. Kato, Nonstationary flows of viscous and ideal fluids in R3 , J. Funct. Anal. 9 (1972),
+    296–305.
+
+[2] H. Fujita and T. Kato, On the Navier–Stokes initial value problem. I, Arch. Rational Mech.
+    Anal. 16 (1964), 269–315.
+
+[3] J. T. Beale, T. Kato, and A. Majda, Remarks on the breakdown of smooth solutions for the
+    3-D Euler equations, Comm. Math. Phys. 94 (1984), 61–66.
+
+[4] C. L. Fefferman, Existence and smoothness of the Navier–Stokes equation, Clay Mathematics
+    Institute Millennium Problem description (2000).
+
+Lean kernel certificate. This paper is accompanied by a Lean 4 kernel certificate produced
+from this repository’s own committed lake-manifest.json. The certificate is the Lean
+kernel’s own check, together with #print axioms. A hand-written CI summary is not a
+certificate. This work is strictly conditional and does not resolve the Clay Millennium
+Problem.
+  • Repository: https://github.com/BenFrohman/frohmanian-tether-conditional-regularity
+  • Git commit:
+    86336a9e7d9a3da117b271d23ee7c05848d5de61
+  • GitHub Actions run (lake build and kernel check):
+    45249571059
+  • lake-manifest.json SHA-256:
+    0024851d12fc7f5986ced05ff51d014f0b8b4df728bb8f9cef2812126a21ebb2
+  • Toolchain: leanprover/lean4:v4.30.0-rc1
+  • Mathlib revision:
+    0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 (v4.30.0-rc1)
+  • Rebuild command:
+    lake exe cache get && lake build && ./scripts/kernel_check.sh
+
+
+
+
+                                               2
+

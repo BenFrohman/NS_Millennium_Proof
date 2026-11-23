@@ -1,0 +1,73 @@
+﻿2026-11-17T08:36:46.2516670Z ##[group]Run set -o pipefail
+2026-11-17T08:36:46.2517143Z [36;1mset -o pipefail[0m
+2026-11-17T08:36:46.2517590Z [36;1mLEANBIN="$(dirname "$(elan which lean)")"[0m
+2026-11-17T08:36:46.2518026Z [36;1mPREFIX="$(dirname "$LEANBIN")"[0m
+2026-11-17T08:36:46.2518453Z [36;1mVER="$(sed 's/.*://' lean-toolchain | tr -d '[:space:]')"[0m
+2026-11-17T08:36:46.2518953Z [36;1mif [ -f "$PREFIX/src/lean/LeanChecker.lean" ]; then[0m
+2026-11-17T08:36:46.2519649Z [36;1m  sed 's/target\.isPrefixOf m/target == m/' "$PREFIX/src/lean/LeanChecker.lean" > /tmp/LeanCheckerExact.lean[0m
+2026-11-17T08:36:46.2521018Z [36;1m  echo "checker: leanchecker source shipped with $VER (src/lean/LeanChecker.lean), prefix match -> exact match, run with lean --run" > cert-out/leanchecker.txt[0m
+2026-11-17T08:36:46.2522131Z [36;1m  diff "$PREFIX/src/lean/LeanChecker.lean" /tmp/LeanCheckerExact.lean | sed 's/^/  patch: /' >> cert-out/leanchecker.txt || true[0m
+2026-11-17T08:36:46.2522974Z [36;1m  check() { lake env lean --run /tmp/LeanCheckerExact.lean -v "$1"; }[0m
+2026-11-17T08:36:46.2523925Z [36;1melif git ls-remote --exit-code --tags https://github.com/leanprover/lean4checker "refs/tags/$VER" >/dev/null; then[0m
+2026-11-17T08:36:46.2524781Z [36;1m  git clone -q --depth 1 --branch "$VER" https://github.com/leanprover/lean4checker /tmp/lean4checker[0m
+2026-11-17T08:36:46.2525511Z [36;1m  cp /tmp/lean4checker/Main.lean /tmp/Main.orig.lean[0m
+2026-11-17T08:36:46.2526069Z [36;1m  sed -i 's/target\.isPrefixOf m/target == m/' /tmp/lean4checker/Main.lean[0m
+2026-11-17T08:36:46.2526643Z [36;1m  (cd /tmp/lean4checker && lake build lean4checker)[0m
+2026-11-17T08:36:46.2527450Z [36;1m  echo "checker: lean4checker tag $VER ($(git -C /tmp/lean4checker rev-parse HEAD)), Main.lean prefix match -> exact match" > cert-out/leanchecker.txt[0m
+2026-11-17T08:36:46.2528502Z [36;1m  diff /tmp/Main.orig.lean /tmp/lean4checker/Main.lean | sed 's/^/  patch: /' >> cert-out/leanchecker.txt || true[0m
+2026-11-17T08:36:46.2529314Z [36;1m  check() { lake env /tmp/lean4checker/.lake/build/bin/lean4checker -v "$1"; }[0m
+2026-11-17T08:36:46.2529866Z [36;1melse[0m
+2026-11-17T08:36:46.2530649Z [36;1m  echo "NOT RUN: toolchain $VER ships no leanchecker and lean4checker has no tag $VER" | tee cert-out/leanchecker.txt; exit 0[0m
+2026-11-17T08:36:46.2531711Z [36;1mfi[0m
+2026-11-17T08:36:46.2532033Z [36;1mwhile read -r m; do[0m
+2026-11-17T08:36:46.2532435Z [36;1m  [ -n "$m" ] || continue[0m
+2026-11-17T08:36:46.2533144Z [36;1m  if out=$(check "$m" 2>&1); then echo "$m: OK ($(echo "$out" | grep -c '^replaying') module replayed)"; else echo "$m: FAILED"; echo "$out" | tail -20; fi[0m
+2026-11-17T08:36:46.2533968Z [36;1mdone < cert-out/modules.txt | tee -a cert-out/leanchecker.txt[0m
+2026-11-17T08:36:46.2534592Z [36;1mif grep -q ': FAILED$' cert-out/leanchecker.txt; then exit 1; fi[0m
+2026-11-17T08:36:46.2535560Z [36;1mecho "RESULT: $(grep -c ': OK (' cert-out/leanchecker.txt) of $(grep -c . cert-out/modules.txt) modules replayed through the kernel, 0 failures" | tee -a cert-out/leanchecker.txt[0m
+2026-11-17T08:36:46.2568373Z shell: /usr/bin/bash -e {0}
+2026-11-17T08:36:46.2568850Z ##[endgroup]
+2026-11-17T08:36:51.0584934Z FrohmanianTether: OK (1 module replayed)
+2026-11-17T08:36:55.0634593Z FrohmanianTether.AnalyticPipeline: OK (1 module replayed)
+2026-11-17T08:36:59.6096074Z FrohmanianTether.ArnoldGeometric: OK (1 module replayed)
+2026-11-17T08:37:03.5176910Z FrohmanianTether.AssemblyGap: OK (1 module replayed)
+2026-11-17T08:37:06.8055072Z FrohmanianTether.Assumptions: OK (1 module replayed)
+2026-11-17T08:37:10.9836001Z FrohmanianTether.ClayStatements: OK (1 module replayed)
+2026-11-17T08:37:14.9969168Z FrohmanianTether.ClosureBlueprint: OK (1 module replayed)
+2026-11-17T08:37:18.9634846Z FrohmanianTether.Combined: OK (1 module replayed)
+2026-11-17T08:37:22.9787196Z FrohmanianTether.ConcreteSDiff: OK (1 module replayed)
+2026-11-17T08:37:26.9108996Z FrohmanianTether.ConditionalRegularity: OK (1 module replayed)
+2026-11-17T08:37:30.5501391Z FrohmanianTether.CubicSourceCertificate: OK (1 module replayed)
+2026-11-17T08:37:35.1009597Z FrohmanianTether.ExplicitFlows: OK (1 module replayed)
+2026-11-17T08:37:39.1877270Z FrohmanianTether.FeffermanClayA: OK (1 module replayed)
+2026-11-17T08:37:43.1851228Z FrohmanianTether.ForMathlib.Projection: OK (1 module replayed)
+2026-11-17T08:37:47.1996398Z FrohmanianTether.HighSetDepletionAndBKM: OK (1 module replayed)
+2026-11-17T08:37:51.0791496Z FrohmanianTether.IndependentMajorant: OK (1 module replayed)
+2026-11-17T08:37:55.1292782Z FrohmanianTether.KineticEnergyDerivative: OK (1 module replayed)
+2026-11-17T08:37:59.0745988Z FrohmanianTether.MathlibAgreement: OK (1 module replayed)
+2026-11-17T08:38:04.7453961Z FrohmanianTether.NS_Equations: OK (1 module replayed)
+2026-11-17T08:38:08.7449773Z FrohmanianTether.PhysicalSolutionSanity: OK (1 module replayed)
+2026-11-17T08:38:13.4265994Z FrohmanianTether.Pillars: OK (1 module replayed)
+2026-11-17T08:38:18.1794081Z FrohmanianTether.Pillars.BKMContinuation: OK (1 module replayed)
+2026-11-17T08:38:22.8809680Z FrohmanianTether.Pillars.Uniqueness: OK (1 module replayed)
+2026-11-17T08:38:26.7880699Z FrohmanianTether.PlanSteps: OK (1 module replayed)
+2026-11-17T08:38:30.6507833Z FrohmanianTether.ScalingIdentities: OK (1 module replayed)
+2026-11-17T08:38:34.4943927Z FrohmanianTether.Semantics: OK (1 module replayed)
+2026-11-17T08:38:38.4764695Z FrohmanianTether.StrainBoundRefutation: OK (1 module replayed)
+2026-11-17T08:38:42.6649000Z FrohmanianTether.SymplecticConstraint: OK (1 module replayed)
+2026-11-17T08:38:46.6388909Z FrohmanianTether.SymplecticTether: OK (1 module replayed)
+2026-11-17T08:38:51.4609172Z FrohmanianTether.Takagi: OK (1 module replayed)
+2026-11-17T08:38:55.4858453Z FrohmanianTether.TestFieldFamily: OK (1 module replayed)
+2026-11-17T08:38:59.4312531Z FrohmanianTether.TetherC1: OK (1 module replayed)
+2026-11-17T08:39:03.3817482Z FrohmanianTether.TetherDefinitionAudit: OK (1 module replayed)
+2026-11-17T08:39:07.4254064Z FrohmanianTether.TetherEquivariantC1: OK (1 module replayed)
+2026-11-17T08:39:11.2837143Z FrohmanianTether.TetherImpliesBKM: OK (1 module replayed)
+2026-11-17T08:39:15.6499398Z FrohmanianTether.TetherNondegeneracy: OK (1 module replayed)
+2026-11-17T08:39:20.8643154Z FrohmanianTether.TetherRateCounterexample: OK (1 module replayed)
+2026-11-17T08:39:24.7411790Z FrohmanianTether.TetherRatePeriodicVacuity: OK (1 module replayed)
+2026-11-17T08:39:28.7736417Z FrohmanianTether.TetherWeight: OK (1 module replayed)
+2026-11-17T08:39:32.9748018Z FrohmanianTether.TetherWeightProof: OK (1 module replayed)
+2026-11-17T08:39:37.3430309Z FrohmanianTether.TetheredLyapunov: OK (1 module replayed)
+2026-11-17T08:39:41.4090320Z FrohmanianTether.TorusStrainExclusion: OK (1 module replayed)
+2026-11-17T08:39:45.4818740Z FrohmanianTether.Uniqueness: OK (1 module replayed)
+2026-11-17T08:39:45.4845164Z RESULT: 43 of 43 modules replayed through the kernel, 0 failures

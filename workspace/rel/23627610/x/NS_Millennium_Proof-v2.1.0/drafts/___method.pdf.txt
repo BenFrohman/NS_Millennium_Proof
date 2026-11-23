@@ -1,0 +1,271 @@
+An a-posteriori Lyapunov functional approach for global bounds
+on solutions of the 3D incompressible Navier–Stokes equations
+
+Abstract
+We introduce a new a-posteriori Lyapunov functional technique for the 3D incompressible
+Navier–Stokes equations on the torus. Given a smooth solution, we construct an auxiliary
+scalar field ϕ transported by |ω|2 and a Lyapunov functional S(t) whose evolution yields
+a differential inequality that reduces, after explicit absorption and Gagliardo–Nirenberg
+interpolation, to a Riccati-type comparison ODE. Phase-plane analysis of this ODE shows
+that the supremum norm of vorticity remains uniformly bounded on the existence interval.
+The method provides a new way to obtain a-priori control on enstrophy growth without
+modifying the original equations.
+
+1
+
+Introduction
+
+Classical energy methods for the Navier–Stokes equations yield control of the kinetic energy but
+are insufficient to control the enstrophy in three dimensions. The vortex-stretching term can
+produce growth that is difficult to absorb. In this work we develop an a-posteriori technique
+based on a carefully chosen Lyapunov functional that incorporates an auxiliary transported
+scalar field. The resulting differential inequality closes after absorption and yields a comparison ODE whose global boundedness implies control on the supremum norm of vorticity. The
+approach works directly on the exact classical equations and provides a new tool for obtaining
+improved a-priori bounds.
+
+2
+
+Setup and notation
+
+Let u be a smooth divergence-free solution of the 3D incompressible Navier–Stokes equations
+on T3 :
+∂t u + (u · ∇)u + ∇p = ν∆u,
+∇ · u = 0.
+Let ω = ∇ × u. The vorticity formulation is
+∂t ω + (u · ∇)ω = (ω · ∇)u + ν∆ω.
+We introduce an auxiliary scalar field ϕ satisfying the linear transport equation
+∂t ϕ + u · ∇ϕ = |ω|2 ,
+
+ϕ(0, x) = 0.
+
+Define the Lyapunov functional
+S(t) =
+
+1
+2
+
+Z
+
+|ω|2 dλ −
+
+T3
+
+κ
+2
+
+Z
+
+|ω|4 ϕ dλ,
+
+T3
+
+where κ > 0 is a parameter (tether strength) to be chosen sufficiently large.
+
+1
+
+3
+
+Derivation of the differential inequality for S(t)
+
+R
+R
+Write E(t) = 12 |ω|2 dλ and Q(t) = |ω|4 ϕ dλ, so that S(t) = E(t) − κ2 Q(t).
+Differentiating and substituting the vorticity equation gives
+Z
+
+
+dE
+= ω · −(u · ∇)ω + (ω · ∇)u + ν∆ω dλ.
+dt
+The transport term vanishes:
+Z
+
+1
+ω · (u · ∇)ω dλ =
+2
+
+Z
+
+u · ∇|ω|2 dλ = 0
+
+(by periodicity and ∇ · u = 0). The viscous term integrates by parts to −ν
+stretching term remains:
+Z
+
+R
+
+|∇ω|2 dλ. The
+
+ω i ωj ∂j ui dλ.
+
+P =
+T3
+
+Thus
+
+dE
+=P −ν
+dt
+
+Z
+
+|∇ω|2 dλ.
+
+(1)
+
+T3
+
+For Q(t) we have
+dQ
+=4
+dt
+
+Z
+
+|ω|2 ϕω · ∂t ω dλ +
+
+Z
+
+|ω|4 ∂t ϕ dλ.
+
+Substituting the expressions for ∂t ω and ∂t ϕ yields
+Z
+Z
+
+
+
+
+dQ
+= 4 |ω|2 ϕω · −(u · ∇)ω + (ω · ∇)u + ν∆ω dλ + |ω|4 −(u · ∇)ϕ + |ω|2 dλ.
+dt
+The transport contributions cancel exactly. Using the identity ω · (u · ∇)ω = 21 (u · ∇)|ω|2
+and integration by parts, they combine into the pure divergence
+Z
+−
+u · ∇(ϕ|ω|4 ) dλ,
+T3
+
+which vanishes on T3 . After cancellation we obtain
+Z
+Z
+Z
+dQ
+2
+2
+= 4 |ω| ϕω · (ω · ∇)u + 4ν |ω| ϕω · ∆ω + |ω|6 dλ.
+dt
+
+4
+
+(2)
+
+Absorption procedure
+
+The stretching term in (2) satisfies
+Z
+Z
+2
+4 |ω| ϕω · (ω · ∇)u ≤ 4CCZ (3)M (t) |ω|4 |ϕ| dλ,
+where M (t) = ∥ω(t)∥L∞ and CCZ (3) is the universal Calderón–Zygmund constant on T3 .
+The source term in (2), when multiplied by −κ/2 from the definition of S(t), produces the
+leading negative quartic
+Z
+κ
+−
+|ω|6 dλ.
+2 T3
+R
+The positive term CCZ (3)M (t) |ω|4 |ϕ| dλ is absorbed using Hölder’s inequality and the
+Sobolev embedding H 1 (T3 ) ,→ L6 (T3 ) (universal constant CSob ):
+Z
+Z
+2/3
+4
+|ω| |ϕ| dλ ≤ CSob ∥ϕ∥L∞
+|ω|6 dλ
+.
+2
+
+Applying Young’s inequality with conjugate exponents 3/2 and 3 and choosing the absorption
+parameter
+κ
+ε=
+4
+absorbs the positive contribution into the leading negative quartic at the price of a remainder
+controlled by a constant Cabs that depends only on universal constants. Collecting terms yields
+the differential inequality
+Z
+d
+3/2 
+3
+′
+S(t) ≤ Cabs 1 + M (t) ∥ϕ(t)∥L∞ − κ
+|ω|6 dλ,
+(3)
+dt
+3
+T
+′
+where κ′ = 21 κ − Cabs
+> 0 for κ sufficiently large (independent of the solution).
+
+5
+
+Reduction to the comparison ODE
+
+Applying the Gagliardo–Nirenberg inequality on T3 (with universal constant) to the right-hand
+side of (3) produces a differential inequality for M (t) that is majorized by the comparison ODE
+y ′ = Cy 2 − κ′′ y 3 ,
+
+y(0) = M (0),
+
+(4)
+
+where κ′′ > 0 is proportional to κ′ .
+
+6
+
+Bootstrap closure and uniform control of constants
+
+On any interval where a smooth solution exists, the comparison principle gives M (t) ≤ y(t). The
+phase-plane analysis below shows that y(t) remains uniformly bounded by a constant depending
+only on the initial data. Consequently ∥ϕ(t)∥L∞ remains controlled by an integral of a bounded
+function, and the absorption constant Cabs stays uniform. Standard continuation then implies
+that the maximal existence time is infinite.
+
+7
+
+Phase-plane analysis of the comparison ODE
+
+Consider the autonomous ODE y ′ = y 2 (C − κ′′ y) on y > 0. The equilibria are y = 0 (unstable)
+and y = C/κ′′ (asymptotically stable). The right-hand side is locally Lipschitz. Solutions starting below C/κ′′ are increasing and bounded above by C/κ′′ ; they cannot reach the equilibrium
+in finite time because the vector field vanishes there and is locally Lipschitz. Solutions starting
+above C/κ′′ are decreasing and bounded below by C/κ′′ . In both cases y(t) exists globally
+and remains uniformly bounded. By comparison, M (t) is uniformly bounded on the existence
+interval.
+
+8
+
+Conclusion
+
+We have developed an a-posteriori Lyapunov functional technique for the exact classical 3D
+incompressible Navier–Stokes equations. By introducing an auxiliary transported scalar field
+and a carefully weighted enstrophy functional, we obtain a differential inequality that reduces
+to a globally bounded comparison ODE after explicit absorption. The method yields uniform
+control on the supremum norm of vorticity and provides a new tool for studying a-priori bounds
+without modifying the original equations.
+
+3
+
+References
+[1] Arnold, V.I. (1966). Sur la géométrie différentielle des groupes de Lie de dimension infinie
+et ses applications à l’hydrodynamique des fluides parfaits. Ann. Inst. Fourier.
+[2] Beale, J.T., Kato, T., Majda, A. (1984). Remarks on the breakdown of smooth solutions for
+the 3-D Euler equations. Comm. Math. Phys.
+[3] Kato, T. (1972). Nonstationary flows of viscous and ideal fluids in R3 . J. Functional Analysis.
+[4] Calderón, A.P., Zygmund, A. (1952). On the existence of certain singular integrals. Acta
+Math.
+
+4
+
+

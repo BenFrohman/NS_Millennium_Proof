@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.SymplecticTether
+#print axioms FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy

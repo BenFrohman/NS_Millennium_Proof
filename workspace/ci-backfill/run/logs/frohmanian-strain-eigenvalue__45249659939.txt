@@ -1,0 +1,1021 @@
+
+===== 0_truth-gate.txt
+﻿2026-11-23T19:30:36.4937698Z Current runner version: '2.338.2'
+2026-11-23T19:30:36.4962389Z ##[group]Runner Image Provisioner
+2026-11-23T19:30:36.4963363Z Hosted Compute Agent
+2026-11-23T19:30:36.4963940Z Version: 20261111.635
+2026-11-23T19:30:36.4964900Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:30:36.4965657Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:30:36.4966322Z Worker ID: {e61742d2-556d-49be-bdc9-44bac7916627}
+2026-11-23T19:30:36.4966983Z Region: eastus3
+2026-11-23T19:30:36.4967547Z Cloud: Azure
+2026-11-23T19:30:36.4968083Z ##[endgroup]
+2026-11-23T19:30:36.4969840Z ##[group]Operating System
+2026-11-23T19:30:36.4970458Z Ubuntu
+2026-11-23T19:30:36.4970974Z 26.04.1
+2026-11-23T19:30:36.4971498Z LTS
+2026-11-23T19:30:36.4972009Z ##[endgroup]
+2026-11-23T19:30:36.4972536Z ##[group]Runner Image
+2026-11-23T19:30:36.4973118Z Image: ubuntu-26.04
+2026-11-23T19:30:36.4973649Z Version: 20261116.202.1
+2026-11-23T19:30:36.4975212Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:30:36.4976666Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:30:36.4977651Z ##[endgroup]
+2026-11-23T19:30:36.4978739Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:30:36.4980897Z Contents: read
+2026-11-23T19:30:36.4981459Z Metadata: read
+2026-11-23T19:30:36.4982019Z ##[endgroup]
+2026-11-23T19:30:36.4984284Z Secret source: Actions
+2026-11-23T19:30:36.4985712Z Cache mode: write
+2026-11-23T19:30:36.4986568Z Prepare workflow directory
+2026-11-23T19:30:36.5325062Z Prepare all required actions
+2026-11-23T19:30:36.5376202Z Getting action download info
+2026-11-23T19:30:36.7383057Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:30:36.8438431Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:30:37.0613745Z Complete job name: truth-gate
+2026-11-23T19:30:37.1429008Z ##[group]Run actions/checkout@v4
+2026-11-23T19:30:37.1429891Z with:
+2026-11-23T19:30:37.1430392Z   fetch-depth: 0
+2026-11-23T19:30:37.1430988Z   repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.1435451Z   token: ***
+2026-11-23T19:30:37.1435954Z   ssh-strict: true
+2026-11-23T19:30:37.1436547Z   ssh-user: git
+2026-11-23T19:30:37.1437060Z   persist-credentials: true
+2026-11-23T19:30:37.1437598Z   clean: true
+2026-11-23T19:30:37.1438155Z   sparse-checkout-cone-mode: true
+2026-11-23T19:30:37.1438730Z   fetch-tags: false
+2026-11-23T19:30:37.1439271Z   show-progress: true
+2026-11-23T19:30:37.1439791Z   lfs: false
+2026-11-23T19:30:37.1440264Z   submodules: false
+2026-11-23T19:30:37.1440808Z   set-safe-directory: true
+2026-11-23T19:30:37.1441365Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:30:37.1442132Z ##[endgroup]
+2026-11-23T19:30:37.4088577Z Syncing repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4092448Z ##[group]Getting Git version info
+2026-11-23T19:30:37.4094434Z Working directory is '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:37.4096730Z [command]/usr/bin/git version
+2026-11-23T19:30:37.4098065Z git version 2.56.1
+2026-11-23T19:30:37.4118372Z ##[endgroup]
+2026-11-23T19:30:37.4133687Z Temporarily overriding HOME='/home/runner/work/_temp/cf90cf7a-9073-4765-8910-ec1c2bd948a8' before making global git config changes
+2026-11-23T19:30:37.4136342Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:30:37.4138838Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4206951Z Deleting the contents of '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:37.4215897Z ##[group]Initializing the repository
+2026-11-23T19:30:37.4226499Z [command]/usr/bin/git init /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4321873Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:30:37.4323708Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:30:37.4325746Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:30:37.4327043Z hint: call:
+2026-11-23T19:30:37.4327918Z hint:
+2026-11-23T19:30:37.4328939Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:30:37.4329970Z hint:
+2026-11-23T19:30:37.4330981Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:30:37.4332577Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:30:37.4333790Z hint:
+2026-11-23T19:30:37.4334730Z hint: 	git branch -m <name>
+2026-11-23T19:30:37.4335615Z hint:
+2026-11-23T19:30:37.4336742Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:30:37.4338895Z Initialized empty Git repository in /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue/.git/
+2026-11-23T19:30:37.4343189Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4401145Z ##[endgroup]
+2026-11-23T19:30:37.4402836Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:30:37.4406735Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:30:37.4661705Z ##[endgroup]
+2026-11-23T19:30:37.4663894Z ##[group]Setting up auth
+2026-11-23T19:30:37.4666588Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:30:37.4710502Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:30:37.5151779Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:30:37.5187009Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:30:37.5437449Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:30:37.5474826Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:30:37.5720813Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:30:37.5761651Z ##[endgroup]
+2026-11-23T19:30:37.5762855Z ##[group]Fetching the repository
+2026-11-23T19:30:37.5773775Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T19:30:37.9995401Z From https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.9997156Z  * [new branch]      ci-backfill/0a7dad4  -> origin/ci-backfill/0a7dad4
+2026-11-23T19:30:37.9998733Z  * [new branch]      ci/catchup-provenance-scan -> origin/ci/catchup-provenance-scan
+2026-11-23T19:30:38.0000923Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T19:30:38.0003403Z  * [new branch]      encode-ordered-eigenvalues -> origin/encode-ordered-eigenvalues
+2026-11-23T19:30:38.0006100Z  * [new branch]      fix-stretching-unit-hypothesis -> origin/fix-stretching-unit-hypothesis
+2026-11-23T19:30:38.0008006Z  * [new branch]      main                 -> origin/main
+2026-11-23T19:30:38.0010326Z  * [new branch]      prove-intermediate-representation -> origin/prove-intermediate-representation
+2026-11-23T19:30:38.0013190Z  * [new branch]      truth-gate/full-lock -> origin/truth-gate/full-lock
+2026-11-23T19:30:38.0015078Z  * [new branch]      truth-gate/lock      -> origin/truth-gate/lock
+2026-11-23T19:30:38.0017004Z  * [new branch]      truth-gate/reaudit   -> origin/truth-gate/reaudit
+2026-11-23T19:30:38.0020314Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0035599Z   origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0046254Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0067944Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+2026-11-23T19:30:38.0072060Z ##[endgroup]
+2026-11-23T19:30:38.0073553Z ##[group]Determining the checkout info
+2026-11-23T19:30:38.0075585Z ##[endgroup]
+2026-11-23T19:30:38.0080303Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:30:38.0141629Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:30:38.0175962Z ##[group]Checking out the ref
+2026-11-23T19:30:38.0182631Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/0a7dad4 refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0265072Z Switched to a new branch 'ci-backfill/0a7dad4'
+2026-11-23T19:30:38.0269880Z branch 'ci-backfill/0a7dad4' set up to track 'origin/ci-backfill/0a7dad4'.
+2026-11-23T19:30:38.0275798Z ##[endgroup]
+2026-11-23T19:30:38.0318673Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:30:38.0342161Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+2026-11-23T19:30:38.0632404Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T19:30:38.0636208Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:30:38.0638508Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:30:38.0665454Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:38.0666462Z ##[endgroup]
+2026-11-23T19:30:38.1202486Z info: downloading installer
+2026-11-23T19:30:38.3336057Z ##[group]Run lake exe cache get
+2026-11-23T19:30:38.3337034Z [36;1mlake exe cache get[0m
+2026-11-23T19:30:38.3363725Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:38.3364885Z ##[endgroup]
+2026-11-23T19:30:38.6965726Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:30:43.5601012Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:30:49.2879675Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:31:25.8935505Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:31:28.0404770Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:31:28.3633436Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:31:28.3747831Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:31:28.5964478Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:31:28.6061780Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:31:28.9003374Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:31:28.9155363Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:31:29.4497256Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:31:30.2113325Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:31:30.7198509Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:31:30.7415238Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:31:31.0414934Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:31:31.0525920Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:31:33.5780432Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:31:33.6077751Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:31:33.8652448Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:31:34.1786298Z ✔ [4/22] Built Cache.Init (273ms)
+2026-11-23T19:31:34.2778721Z ✔ [5/22] Built Cache.Init:c.o (110ms)
+2026-11-23T19:31:34.3795933Z ✔ [6/22] Built Cache.Lean (410ms)
+2026-11-23T19:31:34.5816239Z ✔ [7/22] Built Batteries.Data.String.Basic (435ms)
+2026-11-23T19:31:34.5817369Z ✔ [8/22] Built Cache.Lean:c.o (199ms)
+2026-11-23T19:31:34.6823820Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (124ms)
+2026-11-23T19:31:34.9826373Z ✔ [10/22] Built Batteries.Data.Array.Match (825ms)
+2026-11-23T19:31:35.2821899Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (301ms)
+2026-11-23T19:31:35.3823912Z ✔ [12/22] Built Batteries.Data.String.Matcher (362ms)
+2026-11-23T19:31:35.5821100Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (238ms)
+2026-11-23T19:31:35.7823069Z ✔ [14/22] Built Cache.IO (1.4s)
+2026-11-23T19:31:36.3836941Z ✔ [15/22] Built Cache.Hashing (663ms)
+2026-11-23T19:31:36.9833805Z ✔ [16/22] Built Cache.Hashing:c.o (562ms)
+2026-11-23T19:31:37.2839376Z ✔ [17/22] Built Cache.IO:c.o (1.5s)
+2026-11-23T19:31:38.1850967Z ✔ [18/22] Built Cache.Requests (1.8s)
+2026-11-23T19:31:38.9859709Z ✔ [19/22] Built Cache.Main (743ms)
+2026-11-23T19:31:39.4866192Z ✔ [20/22] Built Cache.Main:c.o (547ms)
+2026-11-23T19:31:40.1874207Z ✔ [21/22] Built Cache.Requests:c.o (1.9s)
+2026-11-23T19:31:40.6889513Z ✔ [22/22] Built cache:exe (580ms)
+2026-11-23T19:31:42.5596822Z Current branch: HEAD
+2026-11-23T19:31:42.5597792Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:31:42.5598978Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:31:43.0471179Z 
+2026-11-23T19:31:43.1504895Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 86 KB/s], Decompressed: 0
+2026-11-23T19:31:43.2490639Z Downloaded: 41 file(s) [attempted 41/8248 = 0%, 65 KB/s], Decompressed: 11
+2026-11-23T19:31:43.3537467Z Downloaded: 135 file(s) [attempted 135/8248 = 1%, 273 KB/s], Decompressed: 36
+2026-11-23T19:31:43.4595835Z Downloaded: 259 file(s) [attempted 259/8248 = 3%, 531 KB/s], Decompressed: 36
+2026-11-23T19:31:43.5653075Z Downloaded: 377 file(s) [attempted 377/8248 = 4%, 471 KB/s], Decompressed: 36
+2026-11-23T19:31:43.6922869Z Downloaded: 496 file(s) [attempted 496/8248 = 6%, 938 KB/s], Decompressed: 105
+2026-11-23T19:31:43.7829799Z Downloaded: 600 file(s) [attempted 600/8248 = 7%, 609 KB/s], Decompressed: 105
+2026-11-23T19:31:43.8926468Z Downloaded: 690 file(s) [attempted 690/8248 = 8%, 3385 KB/s], Decompressed: 105
+2026-11-23T19:31:44.0011899Z Downloaded: 754 file(s) [attempted 754/8248 = 9%, 1139 KB/s], Decompressed: 105
+2026-11-23T19:31:44.1055567Z Downloaded: 893 file(s) [attempted 893/8248 = 10%, 422 KB/s], Decompressed: 105
+2026-11-23T19:31:44.2105792Z Downloaded: 1006 file(s) [attempted 1006/8248 = 12%, 1024 KB/s], Decompressed: 105
+2026-11-23T19:31:44.3099003Z Downloaded: 1123 file(s) [attempted 1123/8248 = 13%, 707 KB/s], Decompressed: 105
+2026-11-23T19:31:44.4097440Z Downloaded: 1245 file(s) [attempted 1245/8248 = 15%, 1014 KB/s], Decompressed: 105
+2026-11-23T19:31:44.5119669Z Downloaded: 1367 file(s) [attempted 1367/8248 = 16%, 379 KB/s], Decompressed: 105
+2026-11-23T19:31:44.6145706Z Downloaded: 1486 file(s) [attempted 1486/8248 = 18%, 1156 KB/s], Decompressed: 105
+2026-11-23T19:31:44.7195895Z Downloaded: 1615 file(s) [attempted 1615/8248 = 19%, 1835 KB/s], Decompressed: 105
+2026-11-23T19:31:44.8150392Z Downloaded: 1741 file(s) [attempted 1741/8248 = 21%, 769 KB/s], Decompressed: 105
+2026-11-23T19:31:44.9155323Z Downloaded: 1872 file(s) [attempted 1872/8248 = 22%, 916 KB/s], Decompressed: 105
+2026-11-23T19:31:45.0175926Z Downloaded: 1991 file(s) [attempted 1991/8248 = 24%, 2340 KB/s], Decompressed: 429
+2026-11-23T19:31:45.1186427Z Downloaded: 2116 file(s) [attempted 2116/8248 = 25%, 1128 KB/s], Decompressed: 429
+2026-11-23T19:31:45.2215585Z Downloaded: 2224 file(s) [attempted 2224/8248 = 26%, 1219 KB/s], Decompressed: 429
+2026-11-23T19:31:45.3211458Z Downloaded: 2370 file(s) [attempted 2370/8248 = 28%, 769 KB/s], Decompressed: 429
+2026-11-23T19:31:45.4229165Z Downloaded: 2483 file(s) [attempted 2483/8248 = 30%, 620 KB/s], Decompressed: 429
+2026-11-23T19:31:45.5237991Z Downloaded: 2593 file(s) [attempted 2593/8248 = 31%, 2258 KB/s], Decompressed: 429
+2026-11-23T19:31:45.6264563Z Downloaded: 2715 file(s) [attempted 2715/8248 = 32%, 399 KB/s], Decompressed: 429
+2026-11-23T19:31:45.7238337Z Downloaded: 2828 file(s) [attempted 2828/8248 = 34%, 447 KB/s], Decompressed: 429
+2026-11-23T19:31:45.8260279Z Downloaded: 2952 file(s) [attempted 2952/8248 = 35%, 858 KB/s], Decompressed: 429
+2026-11-23T19:31:45.9273125Z Downloaded: 3079 file(s) [attempted 3079/8248 = 37%, 3129 KB/s], Decompressed: 429
+2026-11-23T19:31:46.0268461Z Downloaded: 3205 file(s) [attempted 3205/8248 = 38%, 1516 KB/s], Decompressed: 429
+2026-11-23T19:31:46.1285613Z Downloaded: 3322 file(s) [attempted 3322/8248 = 40%, 205 KB/s], Decompressed: 429
+2026-11-23T19:31:46.2349785Z Downloaded: 3462 file(s) [attempted 3462/8248 = 41%, 1689 KB/s], Decompressed: 429
+2026-11-23T19:31:46.3406087Z Downloaded: 3602 file(s) [attempted 3602/8248 = 43%, 207 KB/s], Decompressed: 429
+2026-11-23T19:31:46.4435544Z Downloaded: 3726 file(s) [attempted 3726/8248 = 45%, 3670 KB/s], Decompressed: 429
+2026-11-23T19:31:46.5495397Z Downloaded: 3872 file(s) [attempted 3872/8248 = 46%, 111 KB/s], Decompressed: 429
+2026-11-23T19:31:46.6492936Z Downloaded: 3974 file(s) [attempted 3974/8248 = 48%, 716 KB/s], Decompressed: 429
+2026-11-23T19:31:46.7525903Z Downloaded: 4093 file(s) [attempted 4093/8248 = 49%, 1235 KB/s], Decompressed: 429
+2026-11-23T19:31:46.8507755Z Downloaded: 4220 file(s) [attempted 4220/8248 = 51%, 3058 KB/s], Decompressed: 429
+2026-11-23T19:31:46.9516265Z Downloaded: 4333 file(s) [attempted 4333/8248 = 52%, 253 KB/s], Decompressed: 429
+2026-11-23T19:31:47.0545800Z Downloaded: 4446 file(s) [attempted 4446/8248 = 53%, 1098 KB/s], Decompressed: 429
+2026-11-23T19:31:47.1565422Z Downloaded: 4578 file(s) [attempted 4578/8248 = 55%, 217 KB/s], Decompressed: 429
+2026-11-23T19:31:47.2575851Z Downloaded: 4686 file(s) [attempted 4686/8248 = 56%, 1395 KB/s], Decompressed: 429
+2026-11-23T19:31:47.3566538Z Downloaded: 4808 file(s) [attempted 4808/8248 = 58%, 199 KB/s], Decompressed: 429
+2026-11-23T19:31:47.4675520Z Downloaded: 4945 file(s) [attempted 4945/8248 = 59%, 1403 KB/s], Decompressed: 429
+2026-11-23T19:31:47.5680498Z Downloaded: 5068 file(s) [attempted 5068/8248 = 61%, 1857 KB/s], Decompressed: 429
+2026-11-23T19:31:47.6712381Z Downloaded: 5185 file(s) [attempted 5185/8248 = 62%, 1299 KB/s], Decompressed: 429
+2026-11-23T19:31:47.8270581Z Downloaded: 5295 file(s) [attempted 5295/8248 = 64%, 410 KB/s], Decompressed: 429
+2026-11-23T19:31:47.9655655Z Downloaded: 5397 file(s) [attempted 5397/8248 = 65%, 823 KB/s], Decompressed: 429
+2026-11-23T19:31:48.0625937Z Downloaded: 5492 file(s) [attempted 5492/8248 = 66%, 2232 KB/s], Decompressed: 429
+2026-11-23T19:31:48.1644819Z Downloaded: 5598 file(s) [attempted 5598/8248 = 67%, 207 KB/s], Decompressed: 429
+2026-11-23T19:31:48.2713096Z Downloaded: 5734 file(s) [attempted 5734/8248 = 69%, 707 KB/s], Decompressed: 429
+2026-11-23T19:31:48.3715668Z Downloaded: 5850 file(s) [attempted 5850/8248 = 70%, 706 KB/s], Decompressed: 429
+2026-11-23T19:31:48.4726182Z Downloaded: 5989 file(s) [attempted 5989/8248 = 72%, 2545 KB/s], Decompressed: 429
+2026-11-23T19:31:48.5746023Z Downloaded: 6107 file(s) [attempted 6107/8248 = 74%, 2477 KB/s], Decompressed: 429
+2026-11-23T19:31:48.6746384Z Downloaded: 6228 file(s) [attempted 6228/8248 = 75%, 582 KB/s], Decompressed: 429
+2026-11-23T19:31:48.7785579Z Downloaded: 6354 file(s) [attempted 6354/8248 = 77%, 154 KB/s], Decompressed: 429
+2026-11-23T19:31:48.8888504Z Downloaded: 6465 file(s) [attempted 6465/8248 = 78%, 788 KB/s], Decompressed: 429
+2026-11-23T19:31:48.9952050Z Downloaded: 6578 file(s) [attempted 6578/8248 = 79%, 1113 KB/s], Decompressed: 429
+2026-11-23T19:31:49.0977964Z Downloaded: 6693 file(s) [attempted 6693/8248 = 81%, 960 KB/s], Decompressed: 429
+2026-11-23T19:31:49.1995639Z Downloaded: 6801 file(s) [attempted 6801/8248 = 82%, 202 KB/s], Decompressed: 429
+2026-11-23T19:31:49.3045775Z Downloaded: 6936 file(s) [attempted 6936/8248 = 84%, 2284 KB/s], Decompressed: 429
+2026-11-23T19:31:49.4235630Z Downloaded: 7054 file(s) [attempted 7054/8248 = 85%, 1524 KB/s], Decompressed: 429
+2026-11-23T19:31:49.5329897Z Downloaded: 7124 file(s) [attempted 7124/8248 = 86%, 2032 KB/s], Decompressed: 429
+2026-11-23T19:31:49.6353117Z Downloaded: 7273 file(s) [attempted 7273/8248 = 88%, 9169 KB/s], Decompressed: 1895
+2026-11-23T19:31:49.7426380Z Downloaded: 7390 file(s) [attempted 7390/8248 = 89%, 420 KB/s], Decompressed: 1895
+2026-11-23T19:31:49.8435452Z Downloaded: 7521 file(s) [attempted 7521/8248 = 91%, 262 KB/s], Decompressed: 1895
+2026-11-23T19:31:49.9445927Z Downloaded: 7656 file(s) [attempted 7656/8248 = 92%, 1121 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.0430315Z Downloaded: 7789 file(s) [attempted 7789/8248 = 94%, 255 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.1441626Z Downloaded: 7920 file(s) [attempted 7920/8248 = 96%, 2145 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.2428022Z Downloaded: 8057 file(s) [attempted 8057/8248 = 97%, 271 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.3437057Z Downloaded: 8188 file(s) [attempted 8188/8248 = 99%, 472 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.3438323Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 472 KB/s], Decompressed: 1895
+2026-11-23T19:32:15.8805000Z Decompressed 8248 file(s)
+2026-11-23T19:32:15.8807609Z Already decompressed 8248 file(s)
+2026-11-23T19:32:16.0344919Z ##[group]Run bash scripts/verify-lock.sh
+2026-11-23T19:32:16.0345361Z [36;1mbash scripts/verify-lock.sh[0m
+2026-11-23T19:32:16.0368978Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:32:16.0369342Z ##[endgroup]
+2026-11-23T19:32:16.0845116Z == 1/6 static lock checks (lock form, paper hash, forbidden tokens)
+2026-11-23T19:32:16.1222563Z TRUTH GATE STATIC: scanned roots ['StrainEigenvalue', 'StrainEigenvalue.lean'] (draft dirs exempt: ['StrainEigenvalue/Draft']); 0 forbidden tokens
+2026-11-23T19:32:16.1223985Z TRUTH GATE STATIC PASS
+2026-11-23T19:32:16.1225222Z == 2/6 lock-form lint (paper_claim must not reuse repository Props)
+2026-11-23T19:32:16.1913655Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+2026-11-23T19:32:16.2207090Z == 3/6 lake build (default targets)
+2026-11-23T19:32:21.1023383Z ✔ [2564/2565] Built StrainEigenvalue (3.4s)
+2026-11-23T19:32:21.1103785Z Build completed successfully (2565 jobs).
+2026-11-23T19:32:21.1310084Z == 4/6 lake build StrainEigenvalue.Semantics
+2026-11-23T19:32:24.1956184Z ✔ [2565/2566] Built StrainEigenvalue.Eigenbasis (1.0s)
+2026-11-23T19:32:28.1984838Z ⚠ [2566/2566] Built StrainEigenvalue.Semantics (3.0s)
+2026-11-23T19:32:28.1985823Z warning: StrainEigenvalue/Semantics.lean:123:63: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T19:32:28.1986261Z 
+2026-11-23T19:32:28.1986813Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T19:32:28.2058314Z Build completed successfully (2566 jobs).
+2026-11-23T19:32:28.2496886Z build: no sorry outside draft dirs
+2026-11-23T19:32:28.2497776Z == 5/6 kernel audit of the lock (axioms, non-vacuity, transport)
+2026-11-23T19:32:30.9202406Z AXIOMS TruthGate.formal_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9203476Z AXIOMS TruthGate.paper_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9204511Z AXIOMS TruthGate.intended_correspondence: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9205685Z AXIOMS TruthGate.formal_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9206344Z AXIOMS TruthGate.paper_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9207156Z AXIOMS StrainEigenvalue.quadratic_form_intermediate_of_eigenbasis: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9208353Z TRUTH GATE AUDIT PASS: main theorems [StrainEigenvalue.quadratic_form_intermediate_of_eigenbasis]; formal_claim ↔ paper_claim locked, standard axioms only
+2026-11-23T19:32:30.9209495Z 'TruthGate.intended_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9210171Z 'TruthGate.paper_claim_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9234855Z == 6/6 additional locks (build, sorry scan, kernel audit)
+2026-11-23T19:32:30.9440557Z (none)
+2026-11-23T19:32:31.0224531Z ========================================================================
+2026-11-23T19:32:31.0225687Z TRUTH GATE VERDICT
+2026-11-23T19:32:31.0227366Z Kernel/proof checks: PASS (lake build, no sorry outside draft dirs, kernel audit: standard axioms only).
+2026-11-23T19:32:31.0228637Z 
+2026-11-23T19:32:31.0228979Z VERDICT: PASS
+2026-11-23T19:32:31.0229706Z ========================================================================
+2026-11-23T19:32:31.0329249Z TRUTH GATE PASS at 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+2026-11-23T19:32:31.0497505Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:32:31.0497876Z with:
+2026-11-23T19:32:31.0498178Z   name: truth-gate-report
+2026-11-23T19:32:31.0498549Z   path: truth-gate-report/
+2026-11-23T19:32:31.0498895Z   if-no-files-found: warn
+2026-11-23T19:32:31.0499212Z   compression-level: 6
+2026-11-23T19:32:31.0499521Z   overwrite: false
+2026-11-23T19:32:31.0499832Z   include-hidden-files: false
+2026-11-23T19:32:31.0500204Z ##[endgroup]
+2026-11-23T19:32:31.2200493Z (node:3027) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:32:31.2201330Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:32:31.2272637Z With the provided path, there will be 11 files uploaded
+2026-11-23T19:32:31.2278212Z Artifact name is valid!
+2026-11-23T19:32:31.2281319Z Root directory input is valid!
+2026-11-23T19:32:31.5032076Z Beginning upload of artifact content to blob storage
+2026-11-23T19:32:31.5393938Z (node:3027) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:32:31.6489266Z Uploaded bytes 2546
+2026-11-23T19:32:31.6795793Z Finished uploading artifact content to blob storage!
+2026-11-23T19:32:31.6815718Z SHA256 digest of uploaded artifact zip is 3c015ed57d2c6df261e7993c09ac80d8ebbefd097eae32e8b1f8f4b126d25be8
+2026-11-23T19:32:31.6825353Z Finalizing artifact upload
+2026-11-23T19:32:32.0458063Z Artifact truth-gate-report.zip successfully finalized. Artifact ID 14856076643
+2026-11-23T19:32:32.0459395Z Artifact truth-gate-report has been successfully uploaded! Final size is 2546 bytes. Artifact ID is 14856076643
+2026-11-23T19:32:32.0465803Z Artifact download URL: https://github.com/BenFrohman/frohmanian-strain-eigenvalue/actions/runs/45249659939/artifacts/14856076643
+2026-11-23T19:32:32.0699205Z Post job cleanup.
+2026-11-23T19:32:32.1564998Z [command]/usr/bin/git version
+2026-11-23T19:32:32.1617789Z git version 2.56.1
+2026-11-23T19:32:32.1660983Z Temporarily overriding HOME='/home/runner/work/_temp/40170119-fd20-4b85-babb-3f1f8be1065e' before making global git config changes
+2026-11-23T19:32:32.1662376Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:32:32.1667815Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:32:32.2120345Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:32:32.2155035Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:32:32.2432254Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:32:32.2448784Z http.https://github.com/.extraheader
+2026-11-23T19:32:32.2459924Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:32:32.2607371Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:32:32.2852068Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:32:32.2887076Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:32:32.3304810Z Cleaning up orphan processes
+2026-11-23T19:32:32.3603549Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== 1_lock-form-lint.txt
+﻿2026-11-23T19:30:36.9643984Z Current runner version: '2.338.2'
+2026-11-23T19:30:36.9662085Z ##[group]Runner Image Provisioner
+2026-11-23T19:30:36.9662833Z Hosted Compute Agent
+2026-11-23T19:30:36.9663229Z Version: 20261111.635
+2026-11-23T19:30:36.9663713Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:30:36.9664278Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:30:36.9664796Z Worker ID: {48318c42-141f-4cba-bf58-dff625897343}
+2026-11-23T19:30:36.9665310Z Region: us-west-2
+2026-11-23T19:30:36.9665701Z Cloud: AWS
+2026-11-23T19:30:36.9666084Z ##[endgroup]
+2026-11-23T19:30:36.9666963Z ##[group]Operating System
+2026-11-23T19:30:36.9667382Z Ubuntu
+2026-11-23T19:30:36.9667816Z 26.04.1
+2026-11-23T19:30:36.9668178Z LTS
+2026-11-23T19:30:36.9668553Z ##[endgroup]
+2026-11-23T19:30:36.9669177Z ##[group]Runner Image
+2026-11-23T19:30:36.9669632Z Image: ubuntu-26.04
+2026-11-23T19:30:36.9670062Z Version: 20261116.88.1
+2026-11-23T19:30:36.9670969Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:30:36.9672066Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+2026-11-23T19:30:36.9672797Z ##[endgroup]
+2026-11-23T19:30:36.9673623Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:30:36.9675146Z Contents: read
+2026-11-23T19:30:36.9675582Z Metadata: read
+2026-11-23T19:30:36.9676027Z ##[endgroup]
+2026-11-23T19:30:36.9677516Z Secret source: Actions
+2026-11-23T19:30:36.9678172Z Cache mode: write
+2026-11-23T19:30:36.9678650Z Prepare workflow directory
+2026-11-23T19:30:36.9905876Z Prepare all required actions
+2026-11-23T19:30:36.9942012Z Getting action download info
+2026-11-23T19:30:37.3467107Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:30:38.5868098Z Complete job name: lock-form-lint
+2026-11-23T19:30:38.6584683Z ##[group]Run actions/checkout@v4
+2026-11-23T19:30:38.6585827Z with:
+2026-11-23T19:30:38.6586654Z   fetch-depth: 0
+2026-11-23T19:30:38.6587610Z   repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:38.6594682Z   token: ***
+2026-11-23T19:30:38.6595497Z   ssh-strict: true
+2026-11-23T19:30:38.6596290Z   ssh-user: git
+2026-11-23T19:30:38.6597115Z   persist-credentials: true
+2026-11-23T19:30:38.6597976Z   clean: true
+2026-11-23T19:30:38.6598803Z   sparse-checkout-cone-mode: true
+2026-11-23T19:30:38.6599916Z   fetch-tags: false
+2026-11-23T19:30:38.6600713Z   show-progress: true
+2026-11-23T19:30:38.6601532Z   lfs: false
+2026-11-23T19:30:38.6602286Z   submodules: false
+2026-11-23T19:30:38.6603100Z   set-safe-directory: true
+2026-11-23T19:30:38.6604015Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:30:38.6605191Z ##[endgroup]
+2026-11-23T19:30:40.1007169Z Syncing repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.1009697Z ##[group]Getting Git version info
+2026-11-23T19:30:40.1010285Z Working directory is '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:40.1011223Z [command]/usr/bin/git version
+2026-11-23T19:30:40.1011636Z git version 2.56.1
+2026-11-23T19:30:40.1013143Z ##[endgroup]
+2026-11-23T19:30:40.1017979Z Temporarily overriding HOME='/home/runner/work/_temp/7483a054-76a5-437b-8f42-8b6508934654' before making global git config changes
+2026-11-23T19:30:40.1019099Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:30:40.1019847Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.1544444Z Deleting the contents of '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:40.1547052Z ##[group]Initializing the repository
+2026-11-23T19:30:40.1549857Z [command]/usr/bin/git init /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.1932860Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:30:40.1933435Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:30:40.1934406Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:30:40.1934903Z hint: call:
+2026-11-23T19:30:40.1935150Z hint:
+2026-11-23T19:30:40.1935537Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:30:40.1935870Z hint:
+2026-11-23T19:30:40.1936360Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:30:40.1936931Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:30:40.1937352Z hint:
+2026-11-23T19:30:40.1937699Z hint: 	git branch -m <name>
+2026-11-23T19:30:40.1938029Z hint:
+2026-11-23T19:30:40.1938397Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:30:40.1951226Z Initialized empty Git repository in /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue/.git/
+2026-11-23T19:30:40.1958109Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.2006686Z ##[endgroup]
+2026-11-23T19:30:40.2007337Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:30:40.2009136Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:30:40.2031400Z ##[endgroup]
+2026-11-23T19:30:40.2032202Z ##[group]Setting up auth
+2026-11-23T19:30:40.2036381Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:30:40.2057857Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:30:40.4430463Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:30:40.4454692Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:30:40.4626310Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:30:40.4647677Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:30:40.4817292Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:30:40.4846350Z ##[endgroup]
+2026-11-23T19:30:40.4847123Z ##[group]Fetching the repository
+2026-11-23T19:30:40.4854115Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T19:30:41.1226039Z From https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:41.1226597Z  * [new branch]      ci-backfill/0a7dad4  -> origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1227012Z  * [new branch]      ci/catchup-provenance-scan -> origin/ci/catchup-provenance-scan
+2026-11-23T19:30:41.1227692Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T19:30:41.1228334Z  * [new branch]      encode-ordered-eigenvalues -> origin/encode-ordered-eigenvalues
+2026-11-23T19:30:41.1229129Z  * [new branch]      fix-stretching-unit-hypothesis -> origin/fix-stretching-unit-hypothesis
+2026-11-23T19:30:41.1229658Z  * [new branch]      main                 -> origin/main
+2026-11-23T19:30:41.1230270Z  * [new branch]      prove-intermediate-representation -> origin/prove-intermediate-representation
+2026-11-23T19:30:41.1230800Z  * [new branch]      truth-gate/full-lock -> origin/truth-gate/full-lock
+2026-11-23T19:30:41.1231205Z  * [new branch]      truth-gate/lock      -> origin/truth-gate/lock
+2026-11-23T19:30:41.1231644Z  * [new branch]      truth-gate/reaudit   -> origin/truth-gate/reaudit
+2026-11-23T19:30:41.1238400Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1256861Z   origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1262576Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1280394Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+2026-11-23T19:30:41.1282420Z ##[endgroup]
+2026-11-23T19:30:41.1283160Z ##[group]Determining the checkout info
+2026-11-23T19:30:41.1283820Z ##[endgroup]
+2026-11-23T19:30:41.1286449Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:30:41.1329762Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:30:41.1349214Z ##[group]Checking out the ref
+2026-11-23T19:30:41.1352569Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/0a7dad4 refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1428475Z Switched to a new branch 'ci-backfill/0a7dad4'
+2026-11-23T19:30:41.1435859Z branch 'ci-backfill/0a7dad4' set up to track 'origin/ci-backfill/0a7dad4'.
+2026-11-23T19:30:41.1439161Z ##[endgroup]
+2026-11-23T19:30:41.1473481Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:30:41.1490139Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+2026-11-23T19:30:41.1645270Z ##[group]Run python3 scripts/truth_gate_classify.py lint --fetch-deps
+2026-11-23T19:30:41.1645821Z [36;1mpython3 scripts/truth_gate_classify.py lint --fetch-deps[0m
+2026-11-23T19:30:41.1668669Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:41.1669106Z ##[endgroup]
+2026-11-23T19:30:41.2548029Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+2026-11-23T19:30:41.2645314Z ##[group]Run python3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v
+2026-11-23T19:30:41.2645827Z [36;1mpython3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v[0m
+2026-11-23T19:30:41.2664361Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:41.2664690Z ##[endgroup]
+2026-11-23T19:30:41.4121574Z test_alias_of_formal_claim_is_rejected (test_truth_gate_classify.LockFormLint.test_alias_of_formal_claim_is_rejected) ... ok
+2026-11-23T19:30:41.4580165Z test_independent_transcription_passes (test_truth_gate_classify.LockFormLint.test_independent_transcription_passes) ... ok
+2026-11-23T19:30:41.5039626Z test_named_hypothesis_is_rejected_with_file_and_line (test_truth_gate_classify.LockFormLint.test_named_hypothesis_is_rejected_with_file_and_line) ... ok
+2026-11-23T19:30:41.5495943Z test_unlisted_repository_name_is_rejected (test_truth_gate_classify.LockFormLint.test_unlisted_repository_name_is_rejected) ... ok
+2026-11-23T19:30:41.6423766Z test_vocabulary_file_lists_basic_notions (test_truth_gate_classify.LockFormLint.test_vocabulary_file_lists_basic_notions) ... ok
+2026-11-23T19:30:41.6900886Z test_kernel_failure_is_the_only_proof_failure (test_truth_gate_classify.Report.test_kernel_failure_is_the_only_proof_failure) ... ok
+2026-11-23T19:30:41.7833729Z test_lock_form_failure_never_reads_as_math (test_truth_gate_classify.Report.test_lock_form_failure_never_reads_as_math) ... ok
+2026-11-23T19:30:41.8454212Z test_paper_hash_drift_shows_copyright_only_diff (test_truth_gate_classify.Report.test_paper_hash_drift_shows_copyright_only_diff) ... ok
+2026-11-23T19:30:41.9043483Z test_paper_hash_drift_that_edits_the_quote_needs_sign_off (test_truth_gate_classify.Report.test_paper_hash_drift_that_edits_the_quote_needs_sign_off) ... ok
+2026-11-23T19:30:41.9986564Z test_partial_and_vacuous_locks_are_named (test_truth_gate_classify.Report.test_partial_and_vacuous_locks_are_named) ... ok
+2026-11-23T19:30:42.0456408Z test_sorry_and_nonstandard_axioms_are_kernel_failures (test_truth_gate_classify.Report.test_sorry_and_nonstandard_axioms_are_kernel_failures) ... ok
+2026-11-23T19:30:42.2209715Z test_inherited_failure_is_labelled (test_truth_gate_classify.StaleBase.test_inherited_failure_is_labelled) ... ok
+2026-11-23T19:30:42.3155216Z test_stale_branch_with_conflict_says_update_branch (test_truth_gate_classify.StaleBase.test_stale_branch_with_conflict_says_update_branch) ... ok
+2026-11-23T19:30:42.4512439Z test_stale_merge_ref_is_remerged_on_current_main (test_truth_gate_classify.StaleBase.test_stale_merge_ref_is_remerged_on_current_main) ... ok
+2026-11-23T19:30:42.4513116Z 
+2026-11-23T19:30:42.4513254Z ----------------------------------------------------------------------
+2026-11-23T19:30:42.4513582Z Ran 14 tests in 1.087s
+2026-11-23T19:30:42.4513759Z 
+2026-11-23T19:30:42.4513834Z OK
+2026-11-23T19:30:42.4695446Z Post job cleanup.
+2026-11-23T19:30:42.5366058Z [command]/usr/bin/git version
+2026-11-23T19:30:42.5399701Z git version 2.56.1
+2026-11-23T19:30:42.5425378Z Temporarily overriding HOME='/home/runner/work/_temp/ee190e40-ff03-4638-8b78-ca4295481ded' before making global git config changes
+2026-11-23T19:30:42.5426368Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:30:42.5429431Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:42.5458400Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:30:42.5481930Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:30:42.5664593Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:30:42.5680509Z http.https://github.com/.extraheader
+2026-11-23T19:30:42.5688067Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:30:42.5711827Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:30:42.5910513Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:30:42.5933548Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:30:42.6210712Z Cleaning up orphan processes
+2026-11-23T19:30:42.6467596Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== lock-form-lint/1_Set up job.txt
+﻿2026-11-23T19:30:36.9643485Z Current runner version: '2.338.2'
+2026-11-23T19:30:36.9662047Z ##[group]Runner Image Provisioner
+2026-11-23T19:30:36.9662830Z Hosted Compute Agent
+2026-11-23T19:30:36.9663227Z Version: 20261111.635
+2026-11-23T19:30:36.9663711Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:30:36.9664275Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:30:36.9664793Z Worker ID: {48318c42-141f-4cba-bf58-dff625897343}
+2026-11-23T19:30:36.9665307Z Region: us-west-2
+2026-11-23T19:30:36.9665698Z Cloud: AWS
+2026-11-23T19:30:36.9666082Z ##[endgroup]
+2026-11-23T19:30:36.9666960Z ##[group]Operating System
+2026-11-23T19:30:36.9667380Z Ubuntu
+2026-11-23T19:30:36.9667813Z 26.04.1
+2026-11-23T19:30:36.9668176Z LTS
+2026-11-23T19:30:36.9668551Z ##[endgroup]
+2026-11-23T19:30:36.9669169Z ##[group]Runner Image
+2026-11-23T19:30:36.9669630Z Image: ubuntu-26.04
+2026-11-23T19:30:36.9670059Z Version: 20261116.88.1
+2026-11-23T19:30:36.9670806Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:30:36.9672063Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+2026-11-23T19:30:36.9672794Z ##[endgroup]
+2026-11-23T19:30:36.9673619Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:30:36.9675141Z Contents: read
+2026-11-23T19:30:36.9675580Z Metadata: read
+2026-11-23T19:30:36.9676025Z ##[endgroup]
+2026-11-23T19:30:36.9677512Z Secret source: Actions
+2026-11-23T19:30:36.9678169Z Cache mode: write
+2026-11-23T19:30:36.9678647Z Prepare workflow directory
+2026-11-23T19:30:36.9905850Z Prepare all required actions
+2026-11-23T19:30:36.9941975Z Getting action download info
+2026-11-23T19:30:37.3467069Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:30:38.5868065Z Complete job name: lock-form-lint
+
+===== lock-form-lint/2_Run actions_checkout@v4.txt
+﻿2026-11-23T19:30:38.6584614Z ##[group]Run actions/checkout@v4
+2026-11-23T19:30:38.6585822Z with:
+2026-11-23T19:30:38.6586650Z   fetch-depth: 0
+2026-11-23T19:30:38.6587605Z   repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:38.6594671Z   token: ***
+2026-11-23T19:30:38.6595494Z   ssh-strict: true
+2026-11-23T19:30:38.6596271Z   ssh-user: git
+2026-11-23T19:30:38.6597112Z   persist-credentials: true
+2026-11-23T19:30:38.6597973Z   clean: true
+2026-11-23T19:30:38.6598799Z   sparse-checkout-cone-mode: true
+2026-11-23T19:30:38.6599907Z   fetch-tags: false
+2026-11-23T19:30:38.6600710Z   show-progress: true
+2026-11-23T19:30:38.6601529Z   lfs: false
+2026-11-23T19:30:38.6602271Z   submodules: false
+2026-11-23T19:30:38.6603097Z   set-safe-directory: true
+2026-11-23T19:30:38.6604013Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:30:38.6605187Z ##[endgroup]
+2026-11-23T19:30:40.1007110Z Syncing repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.1009525Z ##[group]Getting Git version info
+2026-11-23T19:30:40.1010209Z Working directory is '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:40.1011212Z [command]/usr/bin/git version
+2026-11-23T19:30:40.1011630Z git version 2.56.1
+2026-11-23T19:30:40.1013137Z ##[endgroup]
+2026-11-23T19:30:40.1017957Z Temporarily overriding HOME='/home/runner/work/_temp/7483a054-76a5-437b-8f42-8b6508934654' before making global git config changes
+2026-11-23T19:30:40.1018929Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:30:40.1019839Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.1544353Z Deleting the contents of '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:40.1547032Z ##[group]Initializing the repository
+2026-11-23T19:30:40.1549748Z [command]/usr/bin/git init /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.1932791Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:30:40.1933432Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:30:40.1934362Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:30:40.1934899Z hint: call:
+2026-11-23T19:30:40.1935148Z hint:
+2026-11-23T19:30:40.1935534Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:30:40.1935867Z hint:
+2026-11-23T19:30:40.1936357Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:30:40.1936929Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:30:40.1937349Z hint:
+2026-11-23T19:30:40.1937696Z hint: 	git branch -m <name>
+2026-11-23T19:30:40.1938026Z hint:
+2026-11-23T19:30:40.1938395Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:30:40.1951193Z Initialized empty Git repository in /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue/.git/
+2026-11-23T19:30:40.1958096Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:40.2006656Z ##[endgroup]
+2026-11-23T19:30:40.2007327Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:30:40.2009123Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:30:40.2031370Z ##[endgroup]
+2026-11-23T19:30:40.2032194Z ##[group]Setting up auth
+2026-11-23T19:30:40.2036356Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:30:40.2057824Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:30:40.4430419Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:30:40.4454191Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:30:40.4626272Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:30:40.4647642Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:30:40.4817256Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:30:40.4846324Z ##[endgroup]
+2026-11-23T19:30:40.4847117Z ##[group]Fetching the repository
+2026-11-23T19:30:40.4854090Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T19:30:41.1225996Z From https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:41.1226527Z  * [new branch]      ci-backfill/0a7dad4  -> origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1227010Z  * [new branch]      ci/catchup-provenance-scan -> origin/ci/catchup-provenance-scan
+2026-11-23T19:30:41.1227688Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T19:30:41.1228330Z  * [new branch]      encode-ordered-eigenvalues -> origin/encode-ordered-eigenvalues
+2026-11-23T19:30:41.1229113Z  * [new branch]      fix-stretching-unit-hypothesis -> origin/fix-stretching-unit-hypothesis
+2026-11-23T19:30:41.1229655Z  * [new branch]      main                 -> origin/main
+2026-11-23T19:30:41.1230265Z  * [new branch]      prove-intermediate-representation -> origin/prove-intermediate-representation
+2026-11-23T19:30:41.1230796Z  * [new branch]      truth-gate/full-lock -> origin/truth-gate/full-lock
+2026-11-23T19:30:41.1231203Z  * [new branch]      truth-gate/lock      -> origin/truth-gate/lock
+2026-11-23T19:30:41.1231600Z  * [new branch]      truth-gate/reaudit   -> origin/truth-gate/reaudit
+2026-11-23T19:30:41.1238366Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1256830Z   origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1262558Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1280367Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+2026-11-23T19:30:41.1282413Z ##[endgroup]
+2026-11-23T19:30:41.1283116Z ##[group]Determining the checkout info
+2026-11-23T19:30:41.1283816Z ##[endgroup]
+2026-11-23T19:30:41.1286421Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:30:41.1329742Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:30:41.1349195Z ##[group]Checking out the ref
+2026-11-23T19:30:41.1352551Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/0a7dad4 refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:41.1428458Z Switched to a new branch 'ci-backfill/0a7dad4'
+2026-11-23T19:30:41.1435822Z branch 'ci-backfill/0a7dad4' set up to track 'origin/ci-backfill/0a7dad4'.
+2026-11-23T19:30:41.1438923Z ##[endgroup]
+2026-11-23T19:30:41.1473466Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:30:41.1490115Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+
+===== lock-form-lint/3_Lock-form lint (paper_claim must not reuse repository Props).txt
+﻿2026-11-23T19:30:41.1645255Z ##[group]Run python3 scripts/truth_gate_classify.py lint --fetch-deps
+2026-11-23T19:30:41.1645819Z [36;1mpython3 scripts/truth_gate_classify.py lint --fetch-deps[0m
+2026-11-23T19:30:41.1668657Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:41.1669101Z ##[endgroup]
+2026-11-23T19:30:41.2547996Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+
+===== lock-form-lint/4_Classifier fixtures (one per failure class).txt
+﻿2026-11-23T19:30:41.2645302Z ##[group]Run python3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v
+2026-11-23T19:30:41.2645825Z [36;1mpython3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v[0m
+2026-11-23T19:30:41.2664354Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:41.2664688Z ##[endgroup]
+2026-11-23T19:30:41.4121523Z test_alias_of_formal_claim_is_rejected (test_truth_gate_classify.LockFormLint.test_alias_of_formal_claim_is_rejected) ... ok
+2026-11-23T19:30:41.4580121Z test_independent_transcription_passes (test_truth_gate_classify.LockFormLint.test_independent_transcription_passes) ... ok
+2026-11-23T19:30:41.5039593Z test_named_hypothesis_is_rejected_with_file_and_line (test_truth_gate_classify.LockFormLint.test_named_hypothesis_is_rejected_with_file_and_line) ... ok
+2026-11-23T19:30:41.5495917Z test_unlisted_repository_name_is_rejected (test_truth_gate_classify.LockFormLint.test_unlisted_repository_name_is_rejected) ... ok
+2026-11-23T19:30:41.6423434Z test_vocabulary_file_lists_basic_notions (test_truth_gate_classify.LockFormLint.test_vocabulary_file_lists_basic_notions) ... ok
+2026-11-23T19:30:41.6900846Z test_kernel_failure_is_the_only_proof_failure (test_truth_gate_classify.Report.test_kernel_failure_is_the_only_proof_failure) ... ok
+2026-11-23T19:30:41.7833689Z test_lock_form_failure_never_reads_as_math (test_truth_gate_classify.Report.test_lock_form_failure_never_reads_as_math) ... ok
+2026-11-23T19:30:41.8454171Z test_paper_hash_drift_shows_copyright_only_diff (test_truth_gate_classify.Report.test_paper_hash_drift_shows_copyright_only_diff) ... ok
+2026-11-23T19:30:41.9043435Z test_paper_hash_drift_that_edits_the_quote_needs_sign_off (test_truth_gate_classify.Report.test_paper_hash_drift_that_edits_the_quote_needs_sign_off) ... ok
+2026-11-23T19:30:41.9986525Z test_partial_and_vacuous_locks_are_named (test_truth_gate_classify.Report.test_partial_and_vacuous_locks_are_named) ... ok
+2026-11-23T19:30:42.0456324Z test_sorry_and_nonstandard_axioms_are_kernel_failures (test_truth_gate_classify.Report.test_sorry_and_nonstandard_axioms_are_kernel_failures) ... ok
+2026-11-23T19:30:42.2209647Z test_inherited_failure_is_labelled (test_truth_gate_classify.StaleBase.test_inherited_failure_is_labelled) ... ok
+2026-11-23T19:30:42.3155151Z test_stale_branch_with_conflict_says_update_branch (test_truth_gate_classify.StaleBase.test_stale_branch_with_conflict_says_update_branch) ... ok
+2026-11-23T19:30:42.4512386Z test_stale_merge_ref_is_remerged_on_current_main (test_truth_gate_classify.StaleBase.test_stale_merge_ref_is_remerged_on_current_main) ... ok
+2026-11-23T19:30:42.4513111Z 
+2026-11-23T19:30:42.4513252Z ----------------------------------------------------------------------
+2026-11-23T19:30:42.4513580Z Ran 14 tests in 1.087s
+2026-11-23T19:30:42.4513757Z 
+2026-11-23T19:30:42.4513831Z OK
+
+===== lock-form-lint/8_Post Run actions_checkout@v4.txt
+﻿2026-11-23T19:30:42.4695431Z Post job cleanup.
+2026-11-23T19:30:42.5365977Z [command]/usr/bin/git version
+2026-11-23T19:30:42.5399667Z git version 2.56.1
+2026-11-23T19:30:42.5425345Z Temporarily overriding HOME='/home/runner/work/_temp/ee190e40-ff03-4638-8b78-ca4295481ded' before making global git config changes
+2026-11-23T19:30:42.5426363Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:30:42.5429416Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:42.5458235Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:30:42.5481910Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:30:42.5664333Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:30:42.5680491Z http.https://github.com/.extraheader
+2026-11-23T19:30:42.5688044Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:30:42.5711802Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:30:42.5910494Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:30:42.5933529Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== lock-form-lint/9_Complete job.txt
+﻿2026-11-23T19:30:42.6210703Z Cleaning up orphan processes
+2026-11-23T19:30:42.6467573Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== lock-form-lint/system.txt
+2026-11-23T19:30:34.5900000Z Requested labels: ubuntu-latest
+2026-11-23T19:30:34.5900000Z Job defined at: BenFrohman/frohmanian-strain-eigenvalue/.github/workflows/truth-gate.yml@refs/heads/ci-backfill/0a7dad4
+2026-11-23T19:30:34.5900000Z Waiting for a runner to pick up this job...
+2026-11-23T19:30:34.6300000Z Job is about to start running on the hosted runner: GitHub Actions 1000006422
+2026-11-23T19:30:34.5830000Z Evaluating lock-form-lint.if
+2026-11-23T19:30:34.5830000Z Evaluating: success()
+2026-11-23T19:30:34.5830000Z Result: true
+2026-11-23T19:30:34.6290000Z Job is waiting for a hosted runner to come online.
+===== truth-gate/14_Post Run actions_checkout@v4.txt
+﻿2026-11-23T19:32:32.0699186Z Post job cleanup.
+2026-11-23T19:32:32.1564943Z [command]/usr/bin/git version
+2026-11-23T19:32:32.1617695Z git version 2.56.1
+2026-11-23T19:32:32.1660959Z Temporarily overriding HOME='/home/runner/work/_temp/40170119-fd20-4b85-babb-3f1f8be1065e' before making global git config changes
+2026-11-23T19:32:32.1662372Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:32:32.1667803Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:32:32.2120301Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:32:32.2154988Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:32:32.2431912Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:32:32.2448743Z http.https://github.com/.extraheader
+2026-11-23T19:32:32.2459894Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:32:32.2607326Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:32:32.2852012Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:32:32.2887019Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== truth-gate/15_Complete job.txt
+﻿2026-11-23T19:32:32.3304787Z Cleaning up orphan processes
+2026-11-23T19:32:32.3603517Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== truth-gate/1_Set up job.txt
+﻿2026-11-23T19:30:36.4937117Z Current runner version: '2.338.2'
+2026-11-23T19:30:36.4962343Z ##[group]Runner Image Provisioner
+2026-11-23T19:30:36.4963358Z Hosted Compute Agent
+2026-11-23T19:30:36.4963937Z Version: 20261111.635
+2026-11-23T19:30:36.4964888Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:30:36.4965653Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:30:36.4966318Z Worker ID: {e61742d2-556d-49be-bdc9-44bac7916627}
+2026-11-23T19:30:36.4966980Z Region: eastus3
+2026-11-23T19:30:36.4967544Z Cloud: Azure
+2026-11-23T19:30:36.4968080Z ##[endgroup]
+2026-11-23T19:30:36.4969824Z ##[group]Operating System
+2026-11-23T19:30:36.4970454Z Ubuntu
+2026-11-23T19:30:36.4970949Z 26.04.1
+2026-11-23T19:30:36.4971495Z LTS
+2026-11-23T19:30:36.4972006Z ##[endgroup]
+2026-11-23T19:30:36.4972532Z ##[group]Runner Image
+2026-11-23T19:30:36.4973114Z Image: ubuntu-26.04
+2026-11-23T19:30:36.4973646Z Version: 20261116.202.1
+2026-11-23T19:30:36.4974945Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:30:36.4976662Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:30:36.4977641Z ##[endgroup]
+2026-11-23T19:30:36.4978735Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:30:36.4980890Z Contents: read
+2026-11-23T19:30:36.4981455Z Metadata: read
+2026-11-23T19:30:36.4982016Z ##[endgroup]
+2026-11-23T19:30:36.4984268Z Secret source: Actions
+2026-11-23T19:30:36.4985702Z Cache mode: write
+2026-11-23T19:30:36.4986559Z Prepare workflow directory
+2026-11-23T19:30:36.5325017Z Prepare all required actions
+2026-11-23T19:30:36.5376142Z Getting action download info
+2026-11-23T19:30:36.7382978Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:30:36.8438396Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:30:37.0613712Z Complete job name: truth-gate
+
+===== truth-gate/2_Run actions_checkout@v4.txt
+﻿2026-11-23T19:30:37.1428968Z ##[group]Run actions/checkout@v4
+2026-11-23T19:30:37.1429886Z with:
+2026-11-23T19:30:37.1430388Z   fetch-depth: 0
+2026-11-23T19:30:37.1430983Z   repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.1435442Z   token: ***
+2026-11-23T19:30:37.1435950Z   ssh-strict: true
+2026-11-23T19:30:37.1436538Z   ssh-user: git
+2026-11-23T19:30:37.1437057Z   persist-credentials: true
+2026-11-23T19:30:37.1437595Z   clean: true
+2026-11-23T19:30:37.1438152Z   sparse-checkout-cone-mode: true
+2026-11-23T19:30:37.1438727Z   fetch-tags: false
+2026-11-23T19:30:37.1439267Z   show-progress: true
+2026-11-23T19:30:37.1439786Z   lfs: false
+2026-11-23T19:30:37.1440261Z   submodules: false
+2026-11-23T19:30:37.1440806Z   set-safe-directory: true
+2026-11-23T19:30:37.1441362Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:30:37.1442128Z ##[endgroup]
+2026-11-23T19:30:37.4088469Z Syncing repository: BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4092237Z ##[group]Getting Git version info
+2026-11-23T19:30:37.4094412Z Working directory is '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:37.4096720Z [command]/usr/bin/git version
+2026-11-23T19:30:37.4098054Z git version 2.56.1
+2026-11-23T19:30:37.4118307Z ##[endgroup]
+2026-11-23T19:30:37.4133624Z Temporarily overriding HOME='/home/runner/work/_temp/cf90cf7a-9073-4765-8910-ec1c2bd948a8' before making global git config changes
+2026-11-23T19:30:37.4136311Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:30:37.4138822Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4206856Z Deleting the contents of '/home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue'
+2026-11-23T19:30:37.4215844Z ##[group]Initializing the repository
+2026-11-23T19:30:37.4226386Z [command]/usr/bin/git init /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4321767Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:30:37.4323693Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:30:37.4325653Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:30:37.4327035Z hint: call:
+2026-11-23T19:30:37.4327904Z hint:
+2026-11-23T19:30:37.4328932Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:30:37.4329965Z hint:
+2026-11-23T19:30:37.4330974Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:30:37.4332571Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:30:37.4333785Z hint:
+2026-11-23T19:30:37.4334715Z hint: 	git branch -m <name>
+2026-11-23T19:30:37.4335608Z hint:
+2026-11-23T19:30:37.4336736Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:30:37.4338816Z Initialized empty Git repository in /home/runner/work/frohmanian-strain-eigenvalue/frohmanian-strain-eigenvalue/.git/
+2026-11-23T19:30:37.4343135Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.4401074Z ##[endgroup]
+2026-11-23T19:30:37.4402817Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:30:37.4406712Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:30:37.4661627Z ##[endgroup]
+2026-11-23T19:30:37.4663856Z ##[group]Setting up auth
+2026-11-23T19:30:37.4666563Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:30:37.4710430Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:30:37.5151630Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:30:37.5186529Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:30:37.5437327Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:30:37.5474729Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:30:37.5720736Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:30:37.5761581Z ##[endgroup]
+2026-11-23T19:30:37.5762838Z ##[group]Fetching the repository
+2026-11-23T19:30:37.5773696Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T19:30:37.9995167Z From https://github.com/BenFrohman/frohmanian-strain-eigenvalue
+2026-11-23T19:30:37.9997072Z  * [new branch]      ci-backfill/0a7dad4  -> origin/ci-backfill/0a7dad4
+2026-11-23T19:30:37.9998724Z  * [new branch]      ci/catchup-provenance-scan -> origin/ci/catchup-provenance-scan
+2026-11-23T19:30:38.0000903Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T19:30:38.0003386Z  * [new branch]      encode-ordered-eigenvalues -> origin/encode-ordered-eigenvalues
+2026-11-23T19:30:38.0006082Z  * [new branch]      fix-stretching-unit-hypothesis -> origin/fix-stretching-unit-hypothesis
+2026-11-23T19:30:38.0007985Z  * [new branch]      main                 -> origin/main
+2026-11-23T19:30:38.0010252Z  * [new branch]      prove-intermediate-representation -> origin/prove-intermediate-representation
+2026-11-23T19:30:38.0013175Z  * [new branch]      truth-gate/full-lock -> origin/truth-gate/full-lock
+2026-11-23T19:30:38.0015067Z  * [new branch]      truth-gate/lock      -> origin/truth-gate/lock
+2026-11-23T19:30:38.0016893Z  * [new branch]      truth-gate/reaudit   -> origin/truth-gate/reaudit
+2026-11-23T19:30:38.0020306Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0035552Z   origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0046199Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0067897Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+2026-11-23T19:30:38.0072046Z ##[endgroup]
+2026-11-23T19:30:38.0073541Z ##[group]Determining the checkout info
+2026-11-23T19:30:38.0075574Z ##[endgroup]
+2026-11-23T19:30:38.0080290Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:30:38.0141575Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:30:38.0175917Z ##[group]Checking out the ref
+2026-11-23T19:30:38.0182587Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/0a7dad4 refs/remotes/origin/ci-backfill/0a7dad4
+2026-11-23T19:30:38.0265019Z Switched to a new branch 'ci-backfill/0a7dad4'
+2026-11-23T19:30:38.0269797Z branch 'ci-backfill/0a7dad4' set up to track 'origin/ci-backfill/0a7dad4'.
+2026-11-23T19:30:38.0275764Z ##[endgroup]
+2026-11-23T19:30:38.0318634Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:30:38.0342108Z 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+
+===== truth-gate/4_Install elan (toolchain from lean-toolchain).txt
+﻿2026-11-23T19:30:38.0632362Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T19:30:38.0636198Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:30:38.0638505Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:30:38.0665421Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:38.0666458Z ##[endgroup]
+2026-11-23T19:30:38.1202379Z info: downloading installer
+
+===== truth-gate/5_Mathlib cache (Mathlib is never rebuilt here).txt
+﻿2026-11-23T19:30:38.3336017Z ##[group]Run lake exe cache get
+2026-11-23T19:30:38.3337030Z [36;1mlake exe cache get[0m
+2026-11-23T19:30:38.3363696Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:30:38.3364873Z ##[endgroup]
+2026-11-23T19:30:38.6965514Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:30:43.5600948Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:30:49.2879479Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:31:25.8935425Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:31:28.0404622Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:31:28.3633367Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:31:28.3747767Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:31:28.5963955Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:31:28.6061722Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:31:28.9003306Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:31:28.9155244Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:31:29.4497191Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:31:30.2113264Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:31:30.7198444Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:31:30.7415166Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:31:31.0414887Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:31:31.0525833Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:31:33.5780382Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:31:33.6077711Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:31:33.8652397Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:31:34.1786130Z ✔ [4/22] Built Cache.Init (273ms)
+2026-11-23T19:31:34.2778678Z ✔ [5/22] Built Cache.Init:c.o (110ms)
+2026-11-23T19:31:34.3795879Z ✔ [6/22] Built Cache.Lean (410ms)
+2026-11-23T19:31:34.5816190Z ✔ [7/22] Built Batteries.Data.String.Basic (435ms)
+2026-11-23T19:31:34.5817360Z ✔ [8/22] Built Cache.Lean:c.o (199ms)
+2026-11-23T19:31:34.6823765Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (124ms)
+2026-11-23T19:31:34.9826309Z ✔ [10/22] Built Batteries.Data.Array.Match (825ms)
+2026-11-23T19:31:35.2821849Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (301ms)
+2026-11-23T19:31:35.3823857Z ✔ [12/22] Built Batteries.Data.String.Matcher (362ms)
+2026-11-23T19:31:35.5820980Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (238ms)
+2026-11-23T19:31:35.7823019Z ✔ [14/22] Built Cache.IO (1.4s)
+2026-11-23T19:31:36.3836878Z ✔ [15/22] Built Cache.Hashing (663ms)
+2026-11-23T19:31:36.9833751Z ✔ [16/22] Built Cache.Hashing:c.o (562ms)
+2026-11-23T19:31:37.2839321Z ✔ [17/22] Built Cache.IO:c.o (1.5s)
+2026-11-23T19:31:38.1850913Z ✔ [18/22] Built Cache.Requests (1.8s)
+2026-11-23T19:31:38.9859658Z ✔ [19/22] Built Cache.Main (743ms)
+2026-11-23T19:31:39.4866141Z ✔ [20/22] Built Cache.Main:c.o (547ms)
+2026-11-23T19:31:40.1873996Z ✔ [21/22] Built Cache.Requests:c.o (1.9s)
+2026-11-23T19:31:40.6889463Z ✔ [22/22] Built cache:exe (580ms)
+2026-11-23T19:31:42.5596764Z Current branch: HEAD
+2026-11-23T19:31:42.5597784Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:31:42.5598970Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:31:43.0471130Z 
+2026-11-23T19:31:43.1504563Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 86 KB/s], Decompressed: 0
+2026-11-23T19:31:43.2490584Z Downloaded: 41 file(s) [attempted 41/8248 = 0%, 65 KB/s], Decompressed: 11
+2026-11-23T19:31:43.3537414Z Downloaded: 135 file(s) [attempted 135/8248 = 1%, 273 KB/s], Decompressed: 36
+2026-11-23T19:31:43.4595779Z Downloaded: 259 file(s) [attempted 259/8248 = 3%, 531 KB/s], Decompressed: 36
+2026-11-23T19:31:43.5653024Z Downloaded: 377 file(s) [attempted 377/8248 = 4%, 471 KB/s], Decompressed: 36
+2026-11-23T19:31:43.6922597Z Downloaded: 496 file(s) [attempted 496/8248 = 6%, 938 KB/s], Decompressed: 105
+2026-11-23T19:31:43.7829739Z Downloaded: 600 file(s) [attempted 600/8248 = 7%, 609 KB/s], Decompressed: 105
+2026-11-23T19:31:43.8926411Z Downloaded: 690 file(s) [attempted 690/8248 = 8%, 3385 KB/s], Decompressed: 105
+2026-11-23T19:31:44.0011847Z Downloaded: 754 file(s) [attempted 754/8248 = 9%, 1139 KB/s], Decompressed: 105
+2026-11-23T19:31:44.1055512Z Downloaded: 893 file(s) [attempted 893/8248 = 10%, 422 KB/s], Decompressed: 105
+2026-11-23T19:31:44.2105690Z Downloaded: 1006 file(s) [attempted 1006/8248 = 12%, 1024 KB/s], Decompressed: 105
+2026-11-23T19:31:44.3098928Z Downloaded: 1123 file(s) [attempted 1123/8248 = 13%, 707 KB/s], Decompressed: 105
+2026-11-23T19:31:44.4097388Z Downloaded: 1245 file(s) [attempted 1245/8248 = 15%, 1014 KB/s], Decompressed: 105
+2026-11-23T19:31:44.5119618Z Downloaded: 1367 file(s) [attempted 1367/8248 = 16%, 379 KB/s], Decompressed: 105
+2026-11-23T19:31:44.6145647Z Downloaded: 1486 file(s) [attempted 1486/8248 = 18%, 1156 KB/s], Decompressed: 105
+2026-11-23T19:31:44.7195836Z Downloaded: 1615 file(s) [attempted 1615/8248 = 19%, 1835 KB/s], Decompressed: 105
+2026-11-23T19:31:44.8150327Z Downloaded: 1741 file(s) [attempted 1741/8248 = 21%, 769 KB/s], Decompressed: 105
+2026-11-23T19:31:44.9155271Z Downloaded: 1872 file(s) [attempted 1872/8248 = 22%, 916 KB/s], Decompressed: 105
+2026-11-23T19:31:45.0175866Z Downloaded: 1991 file(s) [attempted 1991/8248 = 24%, 2340 KB/s], Decompressed: 429
+2026-11-23T19:31:45.1186348Z Downloaded: 2116 file(s) [attempted 2116/8248 = 25%, 1128 KB/s], Decompressed: 429
+2026-11-23T19:31:45.2215535Z Downloaded: 2224 file(s) [attempted 2224/8248 = 26%, 1219 KB/s], Decompressed: 429
+2026-11-23T19:31:45.3211398Z Downloaded: 2370 file(s) [attempted 2370/8248 = 28%, 769 KB/s], Decompressed: 429
+2026-11-23T19:31:45.4229103Z Downloaded: 2483 file(s) [attempted 2483/8248 = 30%, 620 KB/s], Decompressed: 429
+2026-11-23T19:31:45.5237927Z Downloaded: 2593 file(s) [attempted 2593/8248 = 31%, 2258 KB/s], Decompressed: 429
+2026-11-23T19:31:45.6264509Z Downloaded: 2715 file(s) [attempted 2715/8248 = 32%, 399 KB/s], Decompressed: 429
+2026-11-23T19:31:45.7238283Z Downloaded: 2828 file(s) [attempted 2828/8248 = 34%, 447 KB/s], Decompressed: 429
+2026-11-23T19:31:45.8260221Z Downloaded: 2952 file(s) [attempted 2952/8248 = 35%, 858 KB/s], Decompressed: 429
+2026-11-23T19:31:45.9273074Z Downloaded: 3079 file(s) [attempted 3079/8248 = 37%, 3129 KB/s], Decompressed: 429
+2026-11-23T19:31:46.0268376Z Downloaded: 3205 file(s) [attempted 3205/8248 = 38%, 1516 KB/s], Decompressed: 429
+2026-11-23T19:31:46.1285551Z Downloaded: 3322 file(s) [attempted 3322/8248 = 40%, 205 KB/s], Decompressed: 429
+2026-11-23T19:31:46.2349732Z Downloaded: 3462 file(s) [attempted 3462/8248 = 41%, 1689 KB/s], Decompressed: 429
+2026-11-23T19:31:46.3406030Z Downloaded: 3602 file(s) [attempted 3602/8248 = 43%, 207 KB/s], Decompressed: 429
+2026-11-23T19:31:46.4435487Z Downloaded: 3726 file(s) [attempted 3726/8248 = 45%, 3670 KB/s], Decompressed: 429
+2026-11-23T19:31:46.5495349Z Downloaded: 3872 file(s) [attempted 3872/8248 = 46%, 111 KB/s], Decompressed: 429
+2026-11-23T19:31:46.6492887Z Downloaded: 3974 file(s) [attempted 3974/8248 = 48%, 716 KB/s], Decompressed: 429
+2026-11-23T19:31:46.7525845Z Downloaded: 4093 file(s) [attempted 4093/8248 = 49%, 1235 KB/s], Decompressed: 429
+2026-11-23T19:31:46.8507699Z Downloaded: 4220 file(s) [attempted 4220/8248 = 51%, 3058 KB/s], Decompressed: 429
+2026-11-23T19:31:46.9515919Z Downloaded: 4333 file(s) [attempted 4333/8248 = 52%, 253 KB/s], Decompressed: 429
+2026-11-23T19:31:47.0545746Z Downloaded: 4446 file(s) [attempted 4446/8248 = 53%, 1098 KB/s], Decompressed: 429
+2026-11-23T19:31:47.1565369Z Downloaded: 4578 file(s) [attempted 4578/8248 = 55%, 217 KB/s], Decompressed: 429
+2026-11-23T19:31:47.2575800Z Downloaded: 4686 file(s) [attempted 4686/8248 = 56%, 1395 KB/s], Decompressed: 429
+2026-11-23T19:31:47.3566485Z Downloaded: 4808 file(s) [attempted 4808/8248 = 58%, 199 KB/s], Decompressed: 429
+2026-11-23T19:31:47.4675462Z Downloaded: 4945 file(s) [attempted 4945/8248 = 59%, 1403 KB/s], Decompressed: 429
+2026-11-23T19:31:47.5680439Z Downloaded: 5068 file(s) [attempted 5068/8248 = 61%, 1857 KB/s], Decompressed: 429
+2026-11-23T19:31:47.6712321Z Downloaded: 5185 file(s) [attempted 5185/8248 = 62%, 1299 KB/s], Decompressed: 429
+2026-11-23T19:31:47.8270533Z Downloaded: 5295 file(s) [attempted 5295/8248 = 64%, 410 KB/s], Decompressed: 429
+2026-11-23T19:31:47.9655600Z Downloaded: 5397 file(s) [attempted 5397/8248 = 65%, 823 KB/s], Decompressed: 429
+2026-11-23T19:31:48.0625815Z Downloaded: 5492 file(s) [attempted 5492/8248 = 66%, 2232 KB/s], Decompressed: 429
+2026-11-23T19:31:48.1644763Z Downloaded: 5598 file(s) [attempted 5598/8248 = 67%, 207 KB/s], Decompressed: 429
+2026-11-23T19:31:48.2712989Z Downloaded: 5734 file(s) [attempted 5734/8248 = 69%, 707 KB/s], Decompressed: 429
+2026-11-23T19:31:48.3715512Z Downloaded: 5850 file(s) [attempted 5850/8248 = 70%, 706 KB/s], Decompressed: 429
+2026-11-23T19:31:48.4726129Z Downloaded: 5989 file(s) [attempted 5989/8248 = 72%, 2545 KB/s], Decompressed: 429
+2026-11-23T19:31:48.5745964Z Downloaded: 6107 file(s) [attempted 6107/8248 = 74%, 2477 KB/s], Decompressed: 429
+2026-11-23T19:31:48.6746254Z Downloaded: 6228 file(s) [attempted 6228/8248 = 75%, 582 KB/s], Decompressed: 429
+2026-11-23T19:31:48.7785527Z Downloaded: 6354 file(s) [attempted 6354/8248 = 77%, 154 KB/s], Decompressed: 429
+2026-11-23T19:31:48.8888443Z Downloaded: 6465 file(s) [attempted 6465/8248 = 78%, 788 KB/s], Decompressed: 429
+2026-11-23T19:31:48.9951966Z Downloaded: 6578 file(s) [attempted 6578/8248 = 79%, 1113 KB/s], Decompressed: 429
+2026-11-23T19:31:49.0977911Z Downloaded: 6693 file(s) [attempted 6693/8248 = 81%, 960 KB/s], Decompressed: 429
+2026-11-23T19:31:49.1995584Z Downloaded: 6801 file(s) [attempted 6801/8248 = 82%, 202 KB/s], Decompressed: 429
+2026-11-23T19:31:49.3045717Z Downloaded: 6936 file(s) [attempted 6936/8248 = 84%, 2284 KB/s], Decompressed: 429
+2026-11-23T19:31:49.4235574Z Downloaded: 7054 file(s) [attempted 7054/8248 = 85%, 1524 KB/s], Decompressed: 429
+2026-11-23T19:31:49.5329843Z Downloaded: 7124 file(s) [attempted 7124/8248 = 86%, 2032 KB/s], Decompressed: 429
+2026-11-23T19:31:49.6353062Z Downloaded: 7273 file(s) [attempted 7273/8248 = 88%, 9169 KB/s], Decompressed: 1895
+2026-11-23T19:31:49.7426323Z Downloaded: 7390 file(s) [attempted 7390/8248 = 89%, 420 KB/s], Decompressed: 1895
+2026-11-23T19:31:49.8435401Z Downloaded: 7521 file(s) [attempted 7521/8248 = 91%, 262 KB/s], Decompressed: 1895
+2026-11-23T19:31:49.9445804Z Downloaded: 7656 file(s) [attempted 7656/8248 = 92%, 1121 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.0430250Z Downloaded: 7789 file(s) [attempted 7789/8248 = 94%, 255 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.1441571Z Downloaded: 7920 file(s) [attempted 7920/8248 = 96%, 2145 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.2427972Z Downloaded: 8057 file(s) [attempted 8057/8248 = 97%, 271 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.3437006Z Downloaded: 8188 file(s) [attempted 8188/8248 = 99%, 472 KB/s], Decompressed: 1895
+2026-11-23T19:31:50.3438316Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 472 KB/s], Decompressed: 1895
+2026-11-23T19:32:15.8804945Z Decompressed 8248 file(s)
+2026-11-23T19:32:15.8807598Z Already decompressed 8248 file(s)
+
+===== truth-gate/6_verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end).txt
+﻿2026-11-23T19:32:16.0344902Z ##[group]Run bash scripts/verify-lock.sh
+2026-11-23T19:32:16.0345359Z [36;1mbash scripts/verify-lock.sh[0m
+2026-11-23T19:32:16.0368970Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:32:16.0369339Z ##[endgroup]
+2026-11-23T19:32:16.0845062Z == 1/6 static lock checks (lock form, paper hash, forbidden tokens)
+2026-11-23T19:32:16.1222499Z TRUTH GATE STATIC: scanned roots ['StrainEigenvalue', 'StrainEigenvalue.lean'] (draft dirs exempt: ['StrainEigenvalue/Draft']); 0 forbidden tokens
+2026-11-23T19:32:16.1223981Z TRUTH GATE STATIC PASS
+2026-11-23T19:32:16.1225208Z == 2/6 lock-form lint (paper_claim must not reuse repository Props)
+2026-11-23T19:32:16.1913594Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+2026-11-23T19:32:16.2207011Z == 3/6 lake build (default targets)
+2026-11-23T19:32:21.1023335Z ✔ [2564/2565] Built StrainEigenvalue (3.4s)
+2026-11-23T19:32:21.1103545Z Build completed successfully (2565 jobs).
+2026-11-23T19:32:21.1310037Z == 4/6 lake build StrainEigenvalue.Semantics
+2026-11-23T19:32:24.1956143Z ✔ [2565/2566] Built StrainEigenvalue.Eigenbasis (1.0s)
+2026-11-23T19:32:28.1984794Z ⚠ [2566/2566] Built StrainEigenvalue.Semantics (3.0s)
+2026-11-23T19:32:28.1985813Z warning: StrainEigenvalue/Semantics.lean:123:63: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T19:32:28.1986256Z 
+2026-11-23T19:32:28.1986809Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T19:32:28.2058274Z Build completed successfully (2566 jobs).
+2026-11-23T19:32:28.2496837Z build: no sorry outside draft dirs
+2026-11-23T19:32:28.2497765Z == 5/6 kernel audit of the lock (axioms, non-vacuity, transport)
+2026-11-23T19:32:30.9202345Z AXIOMS TruthGate.formal_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9203471Z AXIOMS TruthGate.paper_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9204451Z AXIOMS TruthGate.intended_correspondence: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9205678Z AXIOMS TruthGate.formal_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9206342Z AXIOMS TruthGate.paper_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9207150Z AXIOMS StrainEigenvalue.quadratic_form_intermediate_of_eigenbasis: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9208347Z TRUTH GATE AUDIT PASS: main theorems [StrainEigenvalue.quadratic_form_intermediate_of_eigenbasis]; formal_claim ↔ paper_claim locked, standard axioms only
+2026-11-23T19:32:30.9209492Z 'TruthGate.intended_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9210168Z 'TruthGate.paper_claim_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:32:30.9234819Z == 6/6 additional locks (build, sorry scan, kernel audit)
+2026-11-23T19:32:30.9440508Z (none)
+2026-11-23T19:32:31.0224431Z ========================================================================
+2026-11-23T19:32:31.0225681Z TRUTH GATE VERDICT
+2026-11-23T19:32:31.0227359Z Kernel/proof checks: PASS (lake build, no sorry outside draft dirs, kernel audit: standard axioms only).
+2026-11-23T19:32:31.0228631Z 
+2026-11-23T19:32:31.0228972Z VERDICT: PASS
+2026-11-23T19:32:31.0229701Z ========================================================================
+2026-11-23T19:32:31.0329203Z TRUTH GATE PASS at 0a7dad4d5bcf84e824061076b69d1d6acbbe5981
+
+===== truth-gate/7_Run actions_upload-artifact@v4.txt
+﻿2026-11-23T19:32:31.0497485Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:32:31.0497874Z with:
+2026-11-23T19:32:31.0498174Z   name: truth-gate-report
+2026-11-23T19:32:31.0498547Z   path: truth-gate-report/
+2026-11-23T19:32:31.0498893Z   if-no-files-found: warn
+2026-11-23T19:32:31.0499210Z   compression-level: 6
+2026-11-23T19:32:31.0499519Z   overwrite: false
+2026-11-23T19:32:31.0499830Z   include-hidden-files: false
+2026-11-23T19:32:31.0500202Z ##[endgroup]
+2026-11-23T19:32:31.2200455Z (node:3027) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:32:31.2201327Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:32:31.2272599Z With the provided path, there will be 11 files uploaded
+2026-11-23T19:32:31.2278168Z Artifact name is valid!
+2026-11-23T19:32:31.2281301Z Root directory input is valid!
+2026-11-23T19:32:31.5032042Z Beginning upload of artifact content to blob storage
+2026-11-23T19:32:31.5393682Z (node:3027) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:32:31.6489221Z Uploaded bytes 2546
+2026-11-23T19:32:31.6795631Z Finished uploading artifact content to blob storage!
+2026-11-23T19:32:31.6815673Z SHA256 digest of uploaded artifact zip is 3c015ed57d2c6df261e7993c09ac80d8ebbefd097eae32e8b1f8f4b126d25be8
+2026-11-23T19:32:31.6825327Z Finalizing artifact upload
+2026-11-23T19:32:32.0458019Z Artifact truth-gate-report.zip successfully finalized. Artifact ID 14856076643
+2026-11-23T19:32:32.0459390Z Artifact truth-gate-report has been successfully uploaded! Final size is 2546 bytes. Artifact ID is 14856076643
+2026-11-23T19:32:32.0465763Z Artifact download URL: https://github.com/BenFrohman/frohmanian-strain-eigenvalue/actions/runs/45249659939/artifacts/14856076643
+
+===== truth-gate/system.txt
+2026-11-23T19:30:34.6370000Z Requested labels: ubuntu-latest
+2026-11-23T19:30:34.6370000Z Job defined at: BenFrohman/frohmanian-strain-eigenvalue/.github/workflows/truth-gate.yml@refs/heads/ci-backfill/0a7dad4
+2026-11-23T19:30:34.6370000Z Waiting for a runner to pick up this job...
+2026-11-23T19:30:34.6270000Z Evaluating truth-gate.if
+2026-11-23T19:30:34.6270000Z Evaluating: success()
+2026-11-23T19:30:34.6270000Z Result: true
+2026-11-23T19:30:34.8080000Z Job is waiting for a hosted runner to come online.
+2026-11-23T19:30:34.8080000Z Job is about to start running on the hosted runner: GitHub Actions 1000006423

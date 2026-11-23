@@ -1,0 +1,4 @@
+import NS_Millennium_Proof.Modules.Uniqueness
+#print axioms FrohmanianTether.step2_quadratic_and_locality
+#print axioms FrohmanianTether.uniqueness_of_minimal_tether_core
+#print axioms FrohmanianTether.uniqueness_of_minimal_tether

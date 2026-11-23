@@ -1,0 +1,58 @@
+ClassicalNSOpenTarget scan-exclusion provenance
+All times are America/Chicago (CT). History is not rewritten.
+
+The skip was not an unwritten bot rule. It was committed into this repo, in
+Benjamin Stanley Frohman's name <frohmanbenjamin@gmail.com>, with no trailers.
+
+1) The skip rule first appeared one day earlier, on a different file.
+   Commit:     1f71d7f0e7f458d1cf2a344f008f94b6950d1691
+   Author:     Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>
+   Date:       Monday, Nov 9, 2026, 6:54:10 AM CT
+   Subject:    Add AnalyticBridgeTarget.lean as open Clay Statement (B) target
+   The commit message says, in so many words, why: "kernel_check excludes it so
+   the zero-sorry CI stays green."
+   File/line:  scripts/kernel_check.sh added
+                 | grep -v 'AnalyticBridgeTarget\.lean'
+   so a sorry in that file would not fail the scan.
+
+2) That skip was moved onto ClassicalNSOpenTarget when the open target was rewritten.
+   Commit:     cb927bd302b144982bc2b277423e1aeb9a8b7527
+   Author:     Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>
+   Date:       Tuesday, Nov 10, 2026, 3:00:58 AM CT
+   Subject:    Genuine classical NS encoding, maximal lifespan, and non-vacuous fixes
+   The commit message says: "ClassicalNSOpenTarget.lean: the single OPEN target
+   (Clay B), one marked placeholder, excluded from scan and audits."
+   Exact sites still on main today (blame matches this commit):
+     scripts/kernel_check.sh:19
+       | grep -v 'ClassicalNSOpenTarget\.lean'
+     scripts/kernel_check.sh:13-14, 22, 69
+       comments that the file is excluded from the scan and axiom audits
+     scripts/PrintAxiomsBridge.lean:11
+       "The OPEN target `ClassicalNS.analytic_bridge_unconditional` is intentionally NOT listed."
+     lakefile.toml:26
+       "it carries one marked placeholder proof and is excluded from the
+        forbidden-token scan and from every axiom audit"
+
+3) The same exclusion was copied into the later "whole-library" checks, so those
+   new scans still skipped the sorry file.
+   Commit:     565cd79c0d47163323f3ce7b2b46a680652e5813
+   Author:     Benjamin Stanley Frohman <frohmanbenjamin@gmail.com>
+   Date:       Monday, Nov 16, 2026, 12:25:12 PM CT
+   Subject:    CI: strict whole-library axiom audit and comment-aware token scan
+   The commit message says the file "stays excluded, exactly as in
+   scripts/kernel_check.sh".
+   Exact sites (blame matches this commit):
+     .github/workflows/lean.yml:67
+       --exclude FrohmanianTetherConditional/ClassicalNSOpenTarget.lean
+     scripts/StrictAxiomAudit.lean:34
+       let excluded : List Name := [`FrohmanianTetherConditional.ClassicalNSOpenTarget]
+       (used at lines 43 and 57-58)
+     scripts/StrictAxiomAuditBridge.lean:36
+       the same excluded list (used at lines 45 and 59-60)
+
+The PR removes every one of these exclusions. It does not delete the commits
+or any other history. The open target is rewritten as a `def …Statement : Prop`
+with no proof and no sorry, and CI will fail on any `declaration uses sorry`
+or sorryAx in the full official build log, with the file list taken from
+`git ls-files '*.lean'` (excluding only .lake/), plus a coverage step that
+names any .lean file that was not built and scanned.

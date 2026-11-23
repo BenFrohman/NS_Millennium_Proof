@@ -1,0 +1,35 @@
+FrohmanianTetherComplete.lean:62:45: error: unknown identifier 'continuousOn_integral_of_intervalIntegrable'
+FrohmanianTetherComplete.lean:68:39: error: unknown identifier 'hasDerivAt_integral_of_continuousAt'
+FrohmanianTetherComplete.lean:73:8: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  deriv (M * fun u => rexp (-I u)) s
+T : ℝ
+hT : 0 ≤ T
+M S : ℝ → ℝ
+hDiff : ∀ t ∈ Icc 0 T, DifferentiableAt ℝ M t
+hInt : IntervalIntegrable S volume 0 T
+hRiccati : ∀ t ∈ Icc 0 T, deriv M t ≤ S t * M t
+hMnonneg : ∀ t ≥ 0, 0 ≤ M t
+t : ℝ
+ht : t ∈ Icc 0 T
+I : ℝ → ℝ := fun s => ∫ (τ : ℝ) in 0..s, S τ
+hI0 : I 0 = 0
+hI_cont : ContinuousOn I (Icc 0 T)
+φ : ℝ → ℝ := fun s => M s * rexp (-I s)
+s : ℝ
+hs : s ∈ Ioo 0 T
+hs' : s ∈ Icc 0 T
+hMd : HasDerivAt M (deriv M s) s
+hId : HasDerivAt I (S s) s
+hexp : HasDerivAt (fun u => rexp (-I u)) (rexp (-I s) * -S s) s
+hprod : HasDerivAt (M * fun u => rexp (-I u)) (deriv M s * rexp (-I s) + M s * (rexp (-I s) * -S s)) s
+⊢ deriv φ s ≤ 0
+FrohmanianTetherComplete.lean:81:10: error: unknown identifier 'antitoneOn_of_deriv_nonpos'
+FrohmanianTetherComplete.lean:82:4: error: no goals to be solved
+FrohmanianTetherComplete.lean:123:20: error: Application type mismatch: In the application
+  IntervalIntegrable.mono_set hInt (Icc_subset_Icc_right ht.right)
+the argument
+  Icc_subset_Icc_right ht.right
+has type
+  Icc ?m.8357 t ⊆ Icc ?m.8357 T : Prop
+but is expected to have type
+  uIcc 0 t ⊆ uIcc 0 T : Prop

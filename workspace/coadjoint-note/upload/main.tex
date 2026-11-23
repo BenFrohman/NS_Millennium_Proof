@@ -1,0 +1,582 @@
+% The Frohmanian Tether on the Coadjoint Orbit: A Lean-Synchronized Statement
+% Copyright (c) 2026 Benjamin Stanley Frohman. Licensed under Apache-2.0.
+% Engine: XeLaTeX (tectonic). Build: tectonic main.tex
+\documentclass[11pt]{article}
+\usepackage{frohman-paper}
+\usepackage{fancyvrb}
+\fvset{fontsize=\small,frame=single,framesep=4pt,rulecolor=\color{black!40}}
+\renewcommand{\paperdoi}{10.5281/zenodo.23940666}
+\renewcommand{\shorttitle}{The Frohmanian Tether on the Coadjoint Orbit}
+\newcommand{\pin}{4aba751d2d365faf0cc48c5b46e9aa0113519273}
+\newcommand{\pinshort}{4aba751}
+\newcommand{\repo}{https://github.com/BenFrohman/frohmanian-tether-sdiff}
+\newcommand{\src}[2]{\href{\repo/blob/\pin/#1\#L#2}{\file{#1:#2}}}
+\newcommand{\tagbox}[2]{\textcolor{#1}{\textbf{\textsc{#2}}}}
+\newcommand{\PROVED}{\tagbox{green!45!black}{proved}}
+\newcommand{\COND}{\tagbox{orange!75!black}{conditional}}
+\newcommand{\OPEN}{\tagbox{blue!60!black}{open}}
+\newcommand{\REFUTED}{\tagbox{red!65!black}{refuted}}
+\newcommand{\NF}{\tagbox{gray!80!black}{not formalized}}
+\newtcolorbox{authortext}{enhanced,breakable,colback=yellow!4,colframe=black!45,boxrule=0.5pt,arc=1pt,left=6pt,right=6pt,top=4pt,bottom=4pt,title={\small Author's text, 4 November 2026 (verbatim)},fonttitle=\bfseries\small,coltitle=black,colbacktitle=yellow!18}
+\newtcolorbox{leancorr}{enhanced,breakable,colback=red!3,colframe=red!55!black,boxrule=0.6pt,arc=1pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fontupper=\small,title={\small [Lean correction --- the Lean development at \pinshort\ wins]},fonttitle=\bfseries\small}
+\newtcolorbox{leanstatus}{enhanced,breakable,colback=green!2,colframe=green!35!black,boxrule=0.5pt,arc=1pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fontupper=\small,title={\small Lean status at commit \pinshort},fonttitle=\bfseries\small}
+\begin{document}
+\thispagestyle{plain}
+\begin{center}
+{\small\scshape\color{red!60!black} Preprint --- not peer reviewed\par}\vspace{10pt}
+{\LARGE\bfseries The Frohmanian Tether on the Coadjoint Orbit:\\[2pt] A Lean-Synchronized Statement\par}\vspace{10pt}
+{\large\scshape Benjamin Stanley Frohman\par}\vspace{1pt}
+{\small (B.\,S.~Frohman)\par}\vspace{3pt}
+{\small Independent Researcher, Texas, United States\par}\vspace{2pt}
+{\small ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\quad$\cdot$\quad\href{mailto:frohmanbenjamin@gmail.com}{\nolinkurl{frohmanbenjamin@gmail.com}}\par}\vspace{2pt}
+{\small Version 1.0.0 $\cdot$ 11 November 2026 $\cdot$ DOI \doi{10.5281/zenodo.23940666}\par}
+\end{center}
+\vspace{4pt}
+
+\begin{scopebox}
+\textbf{Scope.} This is \emph{not} a Clay Millennium claim. Nothing here proves existence,
+smoothness or global regularity of solutions of the 3D Navier--Stokes equations. It is a
+statement of definitions and of what the Lean~4 development
+\href{\repo}{\nolinkurl{BenFrohman/frohmanian-tether-sdiff}} proves at commit
+\href{\repo/tree/\pin}{\texttt{\pinshort}}, item by item, with each item labelled
+\PROVED, \COND\ (proved from explicitly named hypotheses), \OPEN, \REFUTED\ (its negation is
+kernel-checked) or \NF. All Lean results depend only on the standard axioms
+\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}.
+\end{scopebox}
+
+\begin{abstract}
+\noindent
+On 4 November 2026 the author wrote a short draft, ``The Frohmanian Tether on the Coadjoint
+Orbit'', synchronized by name with the Lean categories of the tether development:
+\lean{CoadjointOrbit}, \lean{SDiffActionHyp}, \lean{TetherKernel}, \lean{TetheredBracket},
+\lean{FunctionalDerivative}. This note reproduces that draft verbatim, section by section, and
+places after each section the status of every claim in the current Lean development (commit
+\texttt{\pinshort}, Lean \texttt{v4.30.0-rc1}, Mathlib \texttt{0c154d67}), with the exact Lean name
+and \file{file:line}. Where the draft and the Lean disagree, the Lean wins, and the disagreement
+is shown in a marked ``Lean correction'' box rather than silently rewritten. The main
+corrections are: the field \lean{transitive_on_casimir_levels} was refuted and removed; the
+identification $\delta H/\delta\omega = u$ is false for the formal derivative; fixed-functional
+coadjoint invariance of the kernel is refuted for the concrete action (only a transported,
+equivariant form is proved); $\Pi_u$ is an $L^2$ Gram--Schmidt projector, not a pointwise
+one; the degeneracy condition C2 for \lean{TetherKernel} is not proved; and the tether rate, as
+written, is refuted. The kernel definition with the global enstrophy weight, its symmetry,
+its C3 quadratic form, its nondegeneracy and the restricted canonicity theorem are proved.
+Periodic Beale--Kato--Majda continuation is now proved, so the main periodic theorem needs only the
+open closing bound. A repaired rate \lean{FrohmanianTetherRateSmooth} yields a conditional reduction
+of Fefferman's Problem~(A); both of its hypotheses remain open for general data.
+\end{abstract}
+
+\section*{How to read this note}
+Each section opens with the author's text in a yellow box, unedited (inline code is set as
+\lean{Lean} identifiers and the displayed Lean is reproduced exactly as written). The green box
+that follows gives the Lean status. Red boxes mark places where the draft disagrees with the
+Lean at \texttt{\pinshort}; the Lean statement is authoritative. File references link to
+\href{\repo/tree/\pin}{the pinned commit}. Throughout, \lean{T3} is
+\lean{EuclideanSpace ℝ (Fin 3)}, i.e.\ $\R^3$ with Lebesgue measure; it is \emph{not} the torus
+(see \cref{rem:R3}). At this pin, periodic Beale--Kato--Majda continuation is \PROVED\
+(\lean{periodicBKMContinuation_of_classical}, \file{Pillars/BKMContinuation.lean}); the only remaining
+open hypothesis of the main periodic theorem is \lean{PeriodicTetherClosingBound} (as hard as Clay~(B)).
+
+%=====================================================================
+\section{Categories and basic objects}
+\begin{authortext}
+\begin{itemize}
+\item \lean{T3} = \lean{EuclideanSpace ℝ (Fin 3)} (model space).
+\item \lean{CoadjointOrbit} : structure with fields\\
+  \lean{val : T3 → EuclideanSpace ℝ (Fin 3)}\\
+  \lean{property : ∀ x, NavierStokes3D.div val x = 0}.
+\item \lean{SDiff} : an abstract group equipped with a \lean{MulAction SDiff CoadjointOrbit}.
+\item \lean{SDiffActionHyp SDiff} : hypothesis structure whose fields are\\
+  \lean{enstrophy_invariant}, \lean{casimir_invariant}, \lean{transitive_on_casimir_levels}.\\
+  (No global axioms; every theorem that needs them takes the structure as an argument.)
+\item \lean{CoadjointAction g ω := g • ω} (the \lean{MulAction}).
+\item \lean{FunctionalDerivative} : Gâteaux representative on the orbit (or 0 if none exists).
+\item \lean{velocity_from_vorticity} : Biot–Savart recovery of the velocity (Fourier-side
+  inversion proved mode-by-mode; real-space kernel still open).
+\end{itemize}
+\end{authortext}
+
+\begin{leanstatus}
+\begin{itemize}
+\item \lean{NavierStokes3D.T3} is \lean{EuclideanSpace ℝ (Fin 3)}: \src{FrohmanianTether/NS_Equations.lean}{64}. \textbf{Matches.}
+\item \lean{ArnoldGeometric.CoadjointOrbit} is a structure with exactly the fields \lean{val} and \lean{property} as written: \src{FrohmanianTether/ArnoldGeometric.lean}{167}. \textbf{Matches.}
+\item The abstract group with \lean{[Group SDiff] [MulAction SDiff CoadjointOrbit]} and \lean{CoadjointAction g ω := g • ω} (an \lean{abbrev}): \src{FrohmanianTether/ArnoldGeometric.lean}{177}. Naturality \lean{CoadjointAction_one}, \lean{CoadjointAction_mul} \PROVED\ (lines 185, 189). \textbf{Matches.}
+\item No \lean{axiom} declarations anywhere; the strict audit passes (\cref{sec:repro}). \textbf{Matches.}
+\item \lean{ArnoldGeometric.FunctionalDerivative} (\src{FrohmanianTether/ArnoldGeometric.lean}{367}): the \emph{unique} functional gradient (\lean{isFunctionalGradient_unique}, line 353, \PROVED) when one exists, else $0$. A functional gradient (\lean{IsFunctionalGradient}, line 337) is an element of the divergence-free $L^2$ closure \lean{DivFreeL2} at a regular vorticity whose pairing with every compactly supported smooth test direction $\varepsilon$ equals $\tfrac{d}{dt}\big|_0 F(\omega+t\varepsilon)$. \textbf{Matches in substance}; see the note below.
+\item \lean{ArnoldGeometric.velocity_from_vorticity} (line 1017) is the real-space Biot--Savart integral on $\R^3$ (\lean{velocity_from_vorticity_eq_BiotSavart}, line 1022). Fourier side: the symbol identities \lean{PlanSteps.bsSymbol_div} and \lean{PlanSteps.bsSymbol_curl} (\src{FrohmanianTether/PlanSteps.lean}{41}, 45) are \PROVED\ for each wavevector $k\neq 0$. Real-space $\curl\circ\BS=\mathrm{id}$ is \OPEN; $\Div \BS\omega = 0$ is \COND\ on an interchange hypothesis (\lean{FrohmanianTether.div_biot_savart_velocity_of_interchange}, \src{FrohmanianTether/SymplecticTether.lean}{492}).
+\end{itemize}
+\end{leanstatus}
+
+\begin{leancorr}
+\textbf{(1a) \lean{SDiffActionHyp} has one field, not three.} At \texttt{\pinshort} the structure
+(\src{FrohmanianTether/ArnoldGeometric.lean}{219}) has the single field \lean{casimir_invariant}.
+\lean{enstrophy_invariant} is a \emph{theorem} derived from it
+(\lean{SDiffActionHyp.enstrophy_invariant}, line 225, \PROVED). The field
+\lean{transitive_on_casimir_levels} was \emph{removed} because it is false for the concrete
+measure-preserving action: \lean{ConcreteSDiff.not_transitive_on_casimir_levels}
+(\src{FrohmanianTether/ConcreteSDiff.lean}{112}, \REFUTED; two constant fields have equal
+Casimirs but no group element moves one to the other). The remaining hypothesis is satisfiable:
+\lean{ConcreteSDiff.sdiffActionHyp} (line 98, \PROVED).
+
+\textbf{(1b) ``Fourier-side inversion proved mode-by-mode''} is accurate only at the level of the
+algebraic symbol, for each fixed $k\neq0$ with $k\cdot w=0$. No Fourier transform or Fourier
+series inversion theorem is formalized.
+
+\textbf{(1c) Gâteaux representative.} Gâteaux representatives are not unique in general
+(\lean{KineticEnergyDerivative.not_unique_isGateauxRepresentative},
+\src{FrohmanianTether/KineticEnergyDerivative.lean}{303}); \lean{FunctionalDerivative} is the
+unique one in the divergence-free $L^2$ closure, which is what makes it well defined.
+\end{leancorr}
+
+%=====================================================================
+\section{The tether kernel}
+\begin{authortext}
+\begin{Verbatim}
+TetherKernel (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
+  -κ * (∫ x, ‖ω.val x‖ ^ 2) *
+    ∫ x, ⟪Π_u (FunctionalDerivative F ω) x,
+            Π_u (FunctionalDerivative G ω) x⟫
+\end{Verbatim}
+\begin{itemize}
+\item Sign: \(-\kappa\) with \(\kappa>0\).
+\item Weight: the global scalar \(\|\omega\|_{L^2}^2\) (overall enstrophy), not a pointwise density.
+\item \(\Pi_u\) = pointwise projection orthogonal to \lean{velocity_from_vorticity ω}.
+\end{itemize}
+\end{authortext}
+
+\begin{leanstatus}
+\lean{FrohmanianTether.TetherKernel} (\src{FrohmanianTether/SymplecticTether.lean}{198}):
+\begin{Verbatim}
+TetherKernel (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
+  -kappa * Enstrophy ω * ∫ x,
+      inner ℝ
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+        (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+    ∂volume
+\end{Verbatim}
+\begin{itemize}
+\item Sign and weight \textbf{match}: \lean{Enstrophy ω} $=\int|\omega|^2$ is the global scalar
+(\src{FrohmanianTether/ArnoldGeometric.lean}{207}; author decision of 3 November 2026 recorded in
+the source). $\kappa$ is concrete: \lean{kappa_eq_three_halves} ($\kappa = C_{CZ}(3) = 3/2$) and
+\lean{kappa_pos} (\src{FrohmanianTether/SymplecticTether.lean}{154}, 160), \PROVED.
+\item \lean{Functional} is \lean{CoadjointOrbit → ℝ} (\src{FrohmanianTether/SymplecticTether.lean}{74}).
+\end{itemize}
+\end{leanstatus}
+
+\begin{leancorr}
+\textbf{(2a) $\Pi_u$ is not a pointwise projection.} \lean{ForMathlib.Pi_u}
+(\src{FrohmanianTether/ForMathlib/Projection.lean}{35}) is the $L^2$ Gram--Schmidt projector onto
+the complement of $\spn\{u\}$:
+\[
+  \Pi_u v \;=\; v - \frac{\int \langle v,u\rangle}{\int |u|^2}\,u ,
+\]
+with one global coefficient. It removes the $L^2$ component of $v$ along $u$; it does not make
+$v(x)\perp u(x)$ at each point.
+\end{leancorr}
+
+\begin{remark}[\lean{T3} is $\R^3$]\label{rem:R3}
+Because \lean{T3} is $\R^3$ with Lebesgue measure, a continuous, $\Z^3$-periodic, nonzero field
+has non-integrable $|u|^2$ (\lean{ExplicitFlows.not_integrable_sq_of_periodic},
+\src{FrohmanianTether/ExplicitFlows.lean}{664}, \PROVED). By Mathlib's convention a
+non-integrable Bochner integral is $0$, so \lean{Enstrophy ω} $=0$ for every continuous periodic
+nonzero vorticity, and hence \lean{TetherKernel ω F G} $=0$ there for all $F,G$. This is a
+one-line consequence of the cited lemma and \lean{MeasureTheory.integral_undef}; it is not a
+separately named Lean theorem. The kernel therefore carries no information about periodic
+flows in the present formalization.
+\end{remark}
+
+%=====================================================================
+\section{The tethered bracket}
+\begin{authortext}
+\begin{Verbatim}
+TetheredBracket ω F G :=
+  ClassicalLiePoissonBracket ω F G + TetherKernel ω F G
+\end{Verbatim}
+This is a \textbf{metriplectic} bracket:
+\begin{itemize}
+\item the classical summand is antisymmetric and satisfies Jacobi;
+\item \lean{TetherKernel} is symmetric and negative-semidefinite;
+\item the sum is neither antisymmetric nor Jacobi.
+\end{itemize}
+In particular \lean{TetheredBracket ω F F ≠ 0} in general.
+\end{authortext}
+
+\begin{leanstatus}
+\lean{FrohmanianTether.TetheredBracket} (\src{FrohmanianTether/SymplecticTether.lean}{205}) is
+\lean{ClassicalBracket F G ω + TetherKernel ω F G}.
+\begin{itemize}
+\item Classical summand antisymmetric: \lean{ArnoldGeometric.classicalBracket_antisymm}
+(\src{FrohmanianTether/ArnoldGeometric.lean}{1211}) and \lean{classicalBracket_self} (line 1224), \PROVED.
+\item \lean{TetherKernel} symmetric: \lean{FrohmanianTether.tetherKernel_comm}
+(\src{FrohmanianTether/SymplecticTether.lean}{261}), \PROVED.
+\item C3 as an equality, $\mathfrak T(F,F) = -\kappa\,\|\omega\|^2\int\|\Pi_u\delta F\|^2$:
+\lean{tetherKernel_quadratic_form} and \lean{tetherKernel_C3} (lines 247, 292), \PROVED.
+Negative semidefiniteness follows in one line from this, \lean{kappa_pos} and nonnegativity of
+the integrals; there is no separately named lemma \lean{TetherKernel ω F F ≤ 0}.
+\item Nondegeneracy: \lean{TetherNondegeneracy.tetherKernel_nondegenerate}
+(\src{FrohmanianTether/TetherNondegeneracy.lean}{320}), \PROVED: there are a regular $\omega$ and a
+test functional $F$ with \lean{TetherKernel ω F F ≠ 0}. With \lean{classicalBracket_self} this
+gives \lean{TetheredBracket F F ω ≠ 0} for that pair, so the sum is not antisymmetric
+(combination of two proved lemmas; not a separately named theorem).
+\end{itemize}
+\end{leanstatus}
+
+\begin{leancorr}
+\textbf{(3a) Name and argument order.} The Lean name is \lean{ClassicalBracket}
+(\src{FrohmanianTether/ArnoldGeometric.lean}{1010}), not \lean{ClassicalLiePoissonBracket}, and
+both brackets take $\omega$ last: \lean{ClassicalBracket F G ω}, \lean{TetheredBracket F G ω}.
+(\lean{TetherKernel ω F G} takes $\omega$ first, as written.)
+
+\textbf{(3b) Jacobi for the classical bracket is not proved.} Only the pointwise algebraic core is
+proved: \lean{Symplectori.SymplecticConstraint.cross_jacobi_identity} and
+\lean{kksPointwise_cyclic_jacobi_identity} (\src{FrohmanianTether/SymplecticConstraint.lean}{161},
+183). The functional Jacobi identity for \lean{ClassicalBracket} is \OPEN. A former theorem
+claiming Jacobi for the tethered bracket was circular and was deleted (source comment at
+\src{FrohmanianTether/SymplecticTether.lean}{653}).
+
+\textbf{(3c) ``Neither \dots\ Jacobi''} for the sum is \NF: no Lean counterexample to the Jacobi
+identity of \lean{TetheredBracket} exists (\lean{jacobiator}, line 665, is only defined).
+
+\textbf{(3d) ``Metriplectic''} is \COND. The usual metriplectic requirements include degeneracy of
+the symmetric part on the Hamiltonian (C2), which is not proved for \lean{TetherKernel}
+(see (4a)). The structural facts proved are: antisymmetric $+$ symmetric, with the symmetric part
+satisfying C3.
+\end{leancorr}
+
+%=====================================================================
+\section{Properties that hold (under the named hypotheses)}
+\begin{authortext}
+\begin{itemize}
+\item Energy conservation: \lean{TetherKernel ω KineticEnergyHamiltonian _ = 0} (C2) implies the
+tethered flow still conserves \(H\).
+\item Route-2 canonicity: any bilinear form that saturates the quadratic bound and polarizes to a
+symmetric \(Q\) depending on the derivatives only through \(\Pi_u\) coincides with
+\lean{TetherKernel}. Locality is the one-line corollary of that representation. The proof uses
+only saturation + polarization.
+\item Coadjoint invariance of the kernel is conditional on \lean{SDiffActionHyp} (enstrophy
+invariance + density equivariance).
+\end{itemize}
+\end{authortext}
+
+\begin{leanstatus}
+\begin{itemize}
+\item C2 is the predicate \lean{DegenerateWRTKineticEnergy}
+(\src{FrohmanianTether/SymplecticTether.lean}{230}): \lean{∀ F ω, B ω F KineticEnergyHamiltonian = 0}.
+For \lean{TetherKernel} only the trivial case is proved:
+\lean{tetherKernel_C2_of_no_gateaux} (line 635, \PROVED) --- if $H$ has no functional gradient
+at $\omega$, the pairing vanishes. The classical part conserves $H$:
+\lean{ArnoldGeometric.classicalBracket_H_H} (\src{FrohmanianTether/ArnoldGeometric.lean}{1230}),
+\PROVED.
+\item Route-2 canonicity:
+\lean{FrohmanianTether.uniqueness_of_minimal_symmetric_tether}
+(\src{FrohmanianTether/Uniqueness.lean}{273}), \COND\ and \PROVED\ as an implication: if $B$
+is symmetric, satisfies \lean{SaturatesTetherQuadratic} (line 226) and
+\lean{PolarizesOnDifferentiable} (line 241), then $B\,\omega\,F\,G = $ \lean{TetherKernel ω F G}
+for all $F,G$ that have functional gradients at $\omega$. The proof uses only saturation and
+polarization of $B$ and of the tether (\lean{tetherKernel_polarizesOnDifferentiable}, line 250,
+\PROVED); its C1--C3 binders are carried but unused. \textbf{Matches} the draft's ``uses only
+saturation + polarization''.
+\item Factorization through $\Pi_u$: \lean{step2_quadratic} (line 411) proves
+\lean{FactorsThroughProjection B} (one symmetric $Q$ per $\omega$) from symmetry and the named
+hypothesis \lean{h_proj} ($B$ sees $\delta F$ only through $\Pi_u\delta F$, \OPEN\ for a general
+$B$). Locality is the corollary \lean{step1_of_factorization} (line 445), packaged as
+\lean{step2_quadratic_and_locality} (line 458), \PROVED. \textbf{Matches} ``locality is the
+one-line corollary''.
+\end{itemize}
+\end{leanstatus}
+
+\begin{leancorr}
+\textbf{(4a) Energy conservation is conditional on C2, and C2 is open.} The former route to C2,
+via \lean{FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω}, is false
+with these definitions
+(\lean{KineticEnergyDerivative.not_forall_functionalDerivative_kineticEnergy_eq_velocity},
+\src{FrohmanianTether/KineticEnergyDerivative.lean}{286}, \REFUTED, by a rough indicator field),
+and the lemmas that assumed it were deleted. No tethered flow (time evolution generated by
+\lean{TetheredBracket}) is defined in Lean, so the conservation statement itself is \NF; it is a
+one-line consequence of C2 and \lean{classicalBracket_H_H} once such a flow is defined.
+
+\textbf{(4b) Canonicity holds only on differentiable functionals.} Unrestricted polarization of the
+tether is false: \lean{FrohmanianTether.not_polarizes_tetherKernel}
+(\src{FrohmanianTether/Uniqueness.lean}{258}, \REFUTED). The conclusion is stated for $F,G$ with
+functional gradients at $\omega$, which are the only ones a derivative-based kernel can see.
+
+\textbf{(4c) Coadjoint invariance is not ``conditional on \lean{SDiffActionHyp}''.} With fixed test
+functionals, C1 for \lean{TetherKernel} is \emph{false} for the concrete action:
+\lean{FrohmanianTether.not_tetherKernel_invariant_concrete}
+(\src{FrohmanianTether/TetherC1.lean}{191}, \REFUTED), although \lean{SDiffActionHyp} holds for
+that action. What is proved is the \emph{transported} (equivariant) form, in which $F,G$ are
+pulled back along $g$, for the translation subgroup:
+\lean{FrohmanianTether.tetherKernel_transported_invariant}
+(\src{FrohmanianTether/TetherEquivariantC1.lean}{272}, \PROVED; it uses enstrophy invariance and
+the transformation law of the functional derivative). For a general abstract action, C1 is the
+named open Prop \lean{TetherKernelInvariant} (\src{FrohmanianTether/SymplecticTether.lean}{626},
+\OPEN).
+\end{leancorr}
+
+%=====================================================================
+\section{The C2/C3 obstruction (open, recorded)}
+\begin{authortext}
+Symmetry of \lean{TetherKernel} together with C2 forces
+\begin{Verbatim}
+TetherKernel ω M KineticEnergyHamiltonian = 0
+\end{Verbatim}
+for every functional \lean{M}. Hence
+\begin{Verbatim}
+deriv (fun t => M (ω t)) = ClassicalLiePoissonBracket ω M KineticEnergyHamiltonian
+\end{Verbatim}
+The tether contributes nothing. The formal cubic damping term is absent.\\
+(The projection gap remains as a secondary obstruction: only an upper bound on
+\(\int|\Pi_u\omega|^2\) is available.)
+\end{authortext}
+
+\begin{leanstatus}
+\begin{itemize}
+\item The first display is C2 itself (\lean{DegenerateWRTKineticEnergy}, read in the right slot);
+by \lean{tetherKernel_comm} the left slot vanishes too. This is a one-line consequence of a proved
+lemma and the C2 hypothesis; it is not a separately named theorem. As a statement it is
+\COND\ on C2, which is \OPEN\ for \lean{TetherKernel} (see (4a)).
+\item The vanishing of the damping contribution of energy-null symmetric corrections is the subject
+of the related record ``A Tether That Holds Nothing'' (\doi{10.5281/zenodo.23971661}).
+\end{itemize}
+\end{leanstatus}
+
+\begin{leancorr}
+\textbf{(5a)} The time-derivative identity is \NF: there is no Lean definition of the tethered
+evolution $t\mapsto\omega(t)$, and the classical bracket is \lean{ClassicalBracket M H ω}
+($\omega$ last). \textbf{(5b)} The ``projection gap'' remark is \NF\ in the repository; it is
+recorded here as the author's mathematical observation only.
+\end{leancorr}
+
+%=====================================================================
+\section{Analytic status}
+\begin{authortext}
+The differential inequality that would feed the Riccati comparison, the tether rate, and the
+tether closing bound are \textbf{named open assumptions}. Any conditional regularity statement is
+explicitly conditional on a resolution of the C2/C3 incompatibility. No Navier–Stokes existence,
+uniqueness or regularity theorem is claimed.
+\end{authortext}
+
+\begin{leanstatus}
+\begin{itemize}
+\item Periodic BKM continuation is \PROVED:
+\lean{FrohmanianTether.Pillars.periodicBKMContinuation_of_classical}
+(\src{FrohmanianTether/Pillars/BKMContinuation.lean}{144}): $0<\nu$ implies
+\lean{PeriodicBKMContinuation ν}.
+\item Main theorem with BKM discharged:
+\lean{FrohmanianTether.Pillars.clay_B_exact_of_periodic_tether_closing_bound}
+(\src{FrohmanianTether/Pillars/BKMContinuation.lean}{170}) and
+\lean{clay_B_exact_unique_of_periodic_tether_closing_bound} (line 177), \COND\ on the single named
+hypothesis \lean{PeriodicTetherClosingBound} (\src{FrohmanianTether/ClayStatements.lean}{575}, \OPEN;
+a time-uniform $\|\omega\|_\infty$ ceiling, by BKM as hard as Clay~(B) itself). This is not a proof
+of Clay~(B). The two-hypothesis form
+\lean{ClayStatements.clay_B_exact_of_periodic_tether_bound} (line 599) remains, and the discharged
+form supplies \lean{hBKM} from the pillar.
+\item PR~\#4 (merge commit \texttt{0698d08}, included in this pin) added the repaired rate
+\lean{FeffermanClayA.FrohmanianTetherRateSmooth}
+(\src{FrohmanianTether/FeffermanClayA.lean}{81}, \OPEN\ for general data) and the conditional theorem
+\lean{FeffermanClayA.clay_A_fefferman_of_frohmanianTetherRateSmooth} (line 121):
+if \lean{FrohmanianTetherRateSmooth} $u_0\,\nu$ holds for every $\nu>0$ and every Fefferman
+datum $u_0$, and \lean{R3BKMContinuation} $\nu$ holds for every $\nu>0$, then
+\lean{Clay_A_Fefferman}.
+Both hypotheses remain open for general data and are only shown satisfiable at $u_0=0$
+(\lean{frohmanianTetherRateSmooth_zero}, line 176; \lean{r3BKMContinuationAt_zero}, line 146).
+This is not a proof of Clay~(A). The unrestricted \lean{FrohmanianTetherRate} remains \REFUTED\
+(see (6a)).
+\item \lean{FrohmanianTether.ClayStatements.FrohmanianTetherClosingBound} (line 48) is \OPEN.
+\item The scalar ODE comparison machinery (\lean{TetheredLyapunov.comparison_ode_exists} and
+neighbours, \file{FrohmanianTether/TetheredLyapunov.lean}) is \PROVED; the differential
+inequality that would feed it for Navier--Stokes is not.
+\end{itemize}
+\end{leanstatus}
+
+\begin{leancorr}
+\textbf{(6a) The tether rate, as written, is false.}
+\lean{TetherRateCounterexample.not_forall_frohmanianTetherRate}
+(\src{FrohmanianTether/TetherRateCounterexample.lean}{428}, \REFUTED): a steady finite-energy
+field with a nowhere-differentiable Takagi component satisfies the formal PDE through Mathlib's
+zero junk derivative while its vorticity is unbounded. On periodic data it holds only vacuously
+(\lean{TetherRatePeriodicVacuity.frohmanianTetherRate_of_periodic},
+\src{FrohmanianTether/TetherRatePeriodicVacuity.lean}{29}). It is therefore not a usable open
+assumption in its written form.
+
+\textbf{(6b) Uniqueness is now proved.} Since the draft, uniqueness of classical $\Z^3$-periodic
+smooth solutions has been formalized and imported as a pillar:
+\lean{FrohmanianTether.Pillars.periodicSmoothSolutionOn_unique}
+(\src{FrohmanianTether/Pillars/Uniqueness.lean}{65}, \PROVED, from
+\href{https://github.com/BenFrohman/periodic-navier-stokes-smooth-uniqueness}{\nolinkurl{periodic-navier-stokes-smooth-uniqueness}}
+at \texttt{de92662}). This is a classical result. No existence or regularity theorem is claimed.
+
+\textbf{(6c)} The main conditional theorem above does not take a C2/C3 hypothesis; its only
+remaining hypothesis is the closing bound (BKM continuation is now \PROVED). ``Conditional on a
+resolution of the C2/C3 incompatibility'' applies to any \emph{damping} reading of the tether, not
+to that theorem.
+\end{leancorr}
+
+%=====================================================================
+\section{Open assumptions (all named, none axiomatic)}
+\begin{authortext}
+\begin{itemize}
+\item \lean{SDiffActionHyp.transitive_on_casimir_levels}
+\item \lean{FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω}
+\item Euler equations realized as coadjoint motion (\lean{IsCoadjointMotion})
+\item the tether rate and the tether closing bound
+\item resolution of the C2/C3 obstruction (if a damping reading is wanted)
+\end{itemize}
+\end{authortext}
+
+\begin{leanstatus}
+\begin{itemize}
+\item \lean{PlanSteps.IsCoadjointMotion} (\src{FrohmanianTether/PlanSteps.lean}{61}) is a named
+open Prop, \OPEN. Under it and \lean{SDiffActionHyp}, every Casimir is conserved:
+\lean{PlanSteps.casimir_conserved} (line 67), \COND.
+\item Tether closing bound: \lean{PeriodicTetherClosingBound}, \OPEN\ (the only remaining open
+hypothesis of the main periodic theorem). Periodic BKM continuation is \PROVED\ (see the analytic
+status box).
+\item C2 for \lean{TetherKernel}: \OPEN. C1 for an abstract action: \lean{TetherKernelInvariant}, \OPEN.
+\item None is an \lean{axiom}; the audit reports zero axiom declarations.
+\end{itemize}
+\end{leanstatus}
+
+\begin{leancorr}
+\textbf{(7a)} \lean{transitive_on_casimir_levels} is no longer an open assumption: it is
+\REFUTED\ for the concrete action and removed (see (1a)).
+\textbf{(7b)} \lean{FunctionalDerivative KineticEnergyHamiltonian ω = velocity_from_vorticity ω}
+is \REFUTED\ as a universal statement (see (4a)); the smooth-field identity is not decided.
+\textbf{(7c)} The tether rate is \REFUTED\ as written (see (6a)); only the closing bound remains open.
+\end{leancorr}
+
+\begin{authortext}
+All terminology, variable names and categories above match the current Lean development
+(\lean{CoadjointOrbit}, \lean{SDiffActionHyp}, \lean{MulAction}, \lean{TetherKernel},
+\lean{TetheredBracket}, \lean{FunctionalDerivative}, etc.). The geometric layer builds; the
+dissipative bridge does not.
+\end{authortext}
+
+\begin{leancorr}
+\textbf{(8a)} Names match except \lean{ClassicalLiePoissonBracket} (Lean: \lean{ClassicalBracket})
+and the fields of \lean{SDiffActionHyp} (see (1a), (3a)). \textbf{(8b)} At \texttt{\pinshort} the whole
+library builds and passes the strict axiom audit in CI (\cref{sec:repro}); the dissipative
+content and the remaining analytic hypothesis \lean{PeriodicTetherClosingBound} enter only as named
+open Props. Periodic BKM continuation is now proved.
+\end{leancorr}
+
+%=====================================================================
+\section{Status table}
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}@{}}
+\toprule
+\textbf{Item} & \textbf{Lean name (\file{file:line})} & \textbf{Status}\\\midrule\endhead
+Model space $\R^3$ & \lean{NavierStokes3D.T3} (NS\_Equations:64) & definition\\
+Orbit structure & \lean{ArnoldGeometric.CoadjointOrbit} (ArnoldGeometric:167) & definition\\
+Action naturality & \lean{CoadjointAction_one}, \lean{CoadjointAction_mul} (185, 189) & \PROVED\\
+Enstrophy invariance from Casimirs & \lean{SDiffActionHyp.enstrophy_invariant} (225) & \COND\\
+Concrete action satisfies hyp. & \lean{ConcreteSDiff.sdiffActionHyp} (ConcreteSDiff:98) & \PROVED\\
+Transitivity on Casimir levels & \lean{ConcreteSDiff.not_transitive_on_casimir_levels} (112) & \REFUTED\\
+Uniqueness of functional gradient & \lean{isFunctionalGradient_unique} (ArnoldGeometric:353) & \PROVED\\
+BS symbol: div-free, curl inverse & \lean{PlanSteps.bsSymbol_div}, \lean{bsSymbol_curl} (41, 45) & \PROVED\\
+Real-space $\curl\circ\BS=\mathrm{id}$ & --- & \OPEN\\
+Kernel definition, global weight & \lean{FrohmanianTether.TetherKernel} (SymplecticTether:198) & definition\\
+$\kappa = 3/2 > 0$ & \lean{kappa_eq_three_halves}, \lean{kappa_pos} (154, 160) & \PROVED\\
+Kernel symmetric & \lean{tetherKernel_comm} (261) & \PROVED\\
+C3 quadratic form (equality) & \lean{tetherKernel_quadratic_form}, \lean{tetherKernel_C3} (247, 292) & \PROVED\\
+Kernel nondegenerate & \lean{TetherNondegeneracy.tetherKernel_nondegenerate} (TetherNondegeneracy:320) & \PROVED\\
+Classical bracket antisymmetric & \lean{ArnoldGeometric.classicalBracket_antisymm} (1211) & \PROVED\\
+$\{H,H\}_{\mathrm{cl}}=0$ & \lean{classicalBracket_H_H} (1230) & \PROVED\\
+Classical functional Jacobi & (pointwise only: \lean{cross_jacobi_identity}, SymplecticConstraint:161) & \OPEN\\
+Tethered bracket not Jacobi & \lean{jacobiator} (665), defined only & \NF\\
+C2 for the kernel & \lean{DegenerateWRTKineticEnergy} (230); trivial case \lean{tetherKernel_C2_of_no_gateaux} (635) & \OPEN\\
+$\delta H/\delta\omega = u$ for all $\omega$ & \lean{not_forall_functionalDerivative_kineticEnergy_eq_velocity} (KineticEnergyDerivative:286) & \REFUTED\\
+Energy conservation of tethered flow & --- (flow not defined) & \NF; \COND\ on C2\\
+Restricted canonicity & \lean{uniqueness_of_minimal_symmetric_tether} (Uniqueness:273) & \COND\\
+Tether polarizes on differentiable $F,G$ & \lean{tetherKernel_polarizesOnDifferentiable} (250) & \PROVED\\
+Unrestricted polarization & \lean{not_polarizes_tetherKernel} (258) & \REFUTED\\
+Factorization through $\Pi_u$ & \lean{step2_quadratic} (411) & \COND\ (on \lean{h_proj})\\
+Locality corollary & \lean{step1_of_factorization}, \lean{step2_quadratic_and_locality} (445, 458) & \PROVED\\
+C1, fixed functionals, concrete action & \lean{not_tetherKernel_invariant_concrete} (TetherC1:191) & \REFUTED\\
+C1, transported, translations & \lean{tetherKernel_transported_invariant} (TetherEquivariantC1:272) & \PROVED\\
+C1, abstract action & \lean{TetherKernelInvariant} (SymplecticTether:626) & \OPEN\\
+C2/C3 obstruction (first display) & one line from \lean{tetherKernel_comm} $+$ C2 & \COND\ on C2\\
+Tethered time-derivative identity & --- & \NF\\
+Euler as coadjoint motion & \lean{PlanSteps.IsCoadjointMotion} (PlanSteps:61) & \OPEN\\
+Casimir conservation & \lean{PlanSteps.casimir_conserved} (67) & \COND\\
+Tether rate as written & \lean{not_forall_frohmanianTetherRate} (TetherRateCounterexample:428) & \REFUTED\\
+Tether closing bound & \lean{PeriodicTetherClosingBound} (ClayStatements:575) & \OPEN\\
+Periodic BKM continuation & \lean{periodicBKMContinuation_of_classical} (Pillars/BKMContinuation:144) & \PROVED\\
+Clay (B) from bound (BKM discharged) & \lean{clay_B_exact_of_periodic_tether_closing_bound} (Pillars/BKMContinuation:170) & \COND\ (only \lean{hclose})\\
+Clay (B) unique, same hypothesis & \lean{clay_B_exact_unique_of_periodic_tether_closing_bound} (177) & \COND\ (only \lean{hclose})\\
+Two-hypothesis form (BKM as hyp.) & \lean{clay_B_exact_of_periodic_tether_bound} (ClayStatements:599) & \COND\\
+Repaired rate (smooth class) & \lean{FrohmanianTetherRateSmooth} (FeffermanClayA:81) & \OPEN\\
+Clay (A) from repaired rate $+$ $\R^3$ BKM & \lean{clay_A_fefferman_of_frohmanianTetherRateSmooth} (FeffermanClayA:121) & \COND\ (both hyps.\ open; shown at $u_0=0$)\\
+Periodic uniqueness (classical) & \lean{Pillars.periodicSmoothSolutionOn_unique} (Pillars/Uniqueness:65) & \PROVED\\
+Periodic fields not in $L^2(\R^3)$ & \lean{ExplicitFlows.not_integrable_sq_of_periodic} (ExplicitFlows:664) & \PROVED\\
+\bottomrule
+\end{longtable}
+\normalsize
+All file paths are under \file{FrohmanianTether/} at commit \texttt{\pinshort}.
+
+%=====================================================================
+\section{Related works}
+This note is a standalone statement of the author's 4 November draft. It is \emph{not} a
+re-release of any of the following records, which it cross-references:
+\begin{itemize}
+\item B.\,S.~Frohman, \emph{The Frohmanian Tether Bound Implies Global Smoothness on $\T^3$ under
+Beale--Kato--Majda Continuation, and Implies BKM Integrability: Kernel-Checked Conditional Theorems
+in Lean~4}, concept DOI \doi{10.5281/zenodo.24081999} (latest published version v0.1.5,
+\doi{10.5281/zenodo.24122596}). The Lean development pinned here is commit \texttt{\pinshort}, which
+includes the BKM continuation pillar.
+\item B.\,S.~Frohman, \emph{The Frohmanian Tether on $\mathrm{SDiff}(\T^3)$: A Metriplectic
+Correction, Its Conditional Canonicity, and an Obstruction to Damping}, Zenodo, 2026,
+\doi{10.5281/zenodo.23956935}.
+\item B.\,S.~Frohman, \emph{The Frohmanian Symplectic Tether $\mathfrak T$: Written Proofs Companion
+to the Lean~4 Formalization}, v1.1.0, Zenodo, 2026, \doi{10.5281/zenodo.23942463}.
+\item B.\,S.~Frohman, \emph{A Tether That Holds Nothing: Energy-Null Metriplectic Corrections and
+the Vanishing Enstrophy Contribution on $\T^3$}, Zenodo, 2026, \doi{10.5281/zenodo.23971661}.
+\end{itemize}
+
+%=====================================================================
+\section{Reproducibility}\label{sec:repro}
+\begin{itemize}
+\item Repository: \href{\repo}{\nolinkurl{https://github.com/BenFrohman/frohmanian-tether-sdiff}},
+commit\\ \href{\repo/tree/\pin}{\texttt{\pin}} (\texttt{main}, 11 November 2026).
+A source archive of this commit (\file{frohmanian-tether-sdiff-4aba751.zip}) is attached to this record.
+\item Toolchain: \texttt{leanprover/lean4:v4.30.0-rc1}.
+\item Mathlib: \texttt{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7} (from \file{lake-manifest.json}).
+\item CI for this commit: workflow ``Lean certificate'', run
+\href{https://github.com/BenFrohman/frohmanian-tether-sdiff/actions/runs/43107567565}{43107567565}
+(success; ends with \texttt{VERIFY OK}), and workflow ``Lean 4'', run
+\href{https://github.com/BenFrohman/frohmanian-tether-sdiff/actions/runs/43107567433}{43107567433}
+(success). The pull-request certificate for the same tree is run
+\href{https://github.com/BenFrohman/frohmanian-tether-sdiff/actions/runs/43105941627}{43105941627}
+(identical axiom artifact).
+\item Axiom output (CI artifact \texttt{axioms-push-43107567565}, attached as
+\file{axioms.txt} and \file{print_axioms.txt}):
+\begin{Verbatim}
+AUDIT SUMMARY: theorems audited: 1886 (1674 stated in the sources,
+  212 auto-generated equation/congruence/injectivity lemmas);
+  declarations audited: 2546; violations: 0
+AUDIT PASS: only propext, Classical.choice, Quot.sound;
+  no sorryAx; no axiom declarations
+\end{Verbatim}
+Every Lean theorem cited in this note appears in \file{axioms.txt} with
+\texttt{[propext, Classical.choice, Quot.sound]}.
+\item Rebuild (one command, from a clone at the pinned commit):
+\begin{Verbatim}
+git clone https://github.com/BenFrohman/frohmanian-tether-sdiff \
+  && cd frohmanian-tether-sdiff \
+  && git checkout 4aba751d2d365faf0cc48c5b46e9aa0113519273 \
+  && bash scripts/verify.sh
+\end{Verbatim}
+\file{scripts/verify.sh} fetches the Mathlib cache for the pinned revision, runs \texttt{lake build},
+the no-\texttt{sorry} check, the strict axiom audit and \texttt{\#print axioms}, and prints
+\texttt{VERIFY OK}.
+\end{itemize}
+
+\section*{Provenance}
+The author's text in the yellow boxes was written on 4 November 2026 and is reproduced without
+change; the raw copy is attached as \file{original_draft.md}. Status boxes, corrections and the
+table were checked against the Lean sources at \texttt{\pinshort} on 11 November 2026.
+
+\vspace{1em}
+\noindent\small\copyright\ 2026 Benjamin Stanley Frohman. Licensed under the Apache License,
+Version 2.0. This document reflects the Lean development at the stated commit; it is not peer reviewed.
+\end{document}

@@ -1,0 +1,34 @@
+== (a) generic pointwise IBP identity for d/dt 1/2|w|^2 along NS vorticity eq ==
+w.(wt) - [w.Sw - u.grad(|w|^2/2) + nu(Lap(|w|^2/2) - |grad w|^2)] = 0
+  and -u.grad(|w|^2/2) = -div(u|w|^2/2) + div(u)|w|^2/2 : 0
+  => on T^3 with div u = 0:  d/dt 1/2||w||^2 = INT w.Sw - nu||grad w||^2  (no other term).
+
+== AU (Nov 9) ==
+ enstrophy E=1/2||w||^2 = 40*pi**3*A**2 ; INT w.Sw = 0 ; ||grad w||^2 = 88*pi**3*A**2 ; E'(0) NS = -88*pi**3*A**2*nu
+ [momentum reading] Pi_u(dH/du) = Pi_u(u) = [0, 0, 0]   => B_F(F,H)=0 for every F
+ [vorticity reading] <A,u> = 0 ; Pi_u(A)==0? False ; B_F(E,H) = -k INT|w|^2 Pi_u w . Pi_u A = -1548*pi**3*A**4*kappa
+ NS minus (Lie-Poisson + B_F with generator H) vector field = nu*Lap u = [A*nu*(2*sin(x)*cos(z) + 3*sin(y)), -3*A*nu*sin(x), -2*A*nu*sin(z)*cos(x)]
+ d/dt (k/4)INT|w|^4 phi at t=0 = (k/4) INT|w|^6 = 19627*pi**3*A**6*kappa/2
+
+== Taylor-Green ==
+ enstrophy E=1/2||w||^2 = 3*pi**3*A**2 ; INT w.Sw = 0 ; ||grad w||^2 = 18*pi**3*A**2 ; E'(0) NS = -18*pi**3*A**2*nu
+ [momentum reading] Pi_u(dH/du) = Pi_u(u) = [0, 0, 0]   => B_F(F,H)=0 for every F
+ [vorticity reading] <A,u> = 0 ; Pi_u(A)==0? False ; B_F(E,H) = -k INT|w|^2 Pi_u w . Pi_u A = -45*pi**3*A**4*kappa/16
+ NS minus (Lie-Poisson + B_F with generator H) vector field = nu*Lap u = [-3*A*nu*sin(x)*cos(y)*cos(z), 3*A*nu*sin(y)*cos(x)*cos(z), 0]
+ d/dt (k/4)INT|w|^4 phi at t=0 = (k/4) INT|w|^6 = 1113*pi**3*A**6*kappa/256
+
+== ABC(1,1,1) ==
+ enstrophy E=1/2||w||^2 = 12*pi**3*A**2 ; INT w.Sw = 0 ; ||grad w||^2 = 24*pi**3*A**2 ; E'(0) NS = -24*pi**3*A**2*nu
+ [momentum reading] Pi_u(dH/du) = Pi_u(u) = [0, 0, 0]   => B_F(F,H)=0 for every F
+ [vorticity reading] <A,u> = 24*pi**3*A**2 ; Pi_u(A)==0? True ; B_F(E,H) = -k INT|w|^2 Pi_u w . Pi_u A = 0
+ NS minus (Lie-Poisson + B_F with generator H) vector field = nu*Lap u = [-A*nu*(sin(z) + cos(y)), -A*nu*(sin(x) + cos(z)), -A*nu*(sin(y) + cos(x))]
+ d/dt (k/4)INT|w|^4 phi at t=0 = (k/4) INT|w|^6 = 108*pi**3*A**6*kappa
+
+== shear (sin y,0,0) ==
+ enstrophy E=1/2||w||^2 = 2*pi**3*A**2 ; INT w.Sw = 0 ; ||grad w||^2 = 4*pi**3*A**2 ; E'(0) NS = -4*pi**3*A**2*nu
+ [momentum reading] Pi_u(dH/du) = Pi_u(u) = [0, 0, 0]   => B_F(F,H)=0 for every F
+ [vorticity reading] <A,u> = 0 ; Pi_u(A)==0? False ; B_F(E,H) = -k INT|w|^2 Pi_u w . Pi_u A = -3*pi**3*A**4*kappa
+ NS minus (Lie-Poisson + B_F with generator H) vector field = nu*Lap u = [-A*nu*sin(y), 0, 0]
+ d/dt (k/4)INT|w|^4 phi at t=0 = (k/4) INT|w|^6 = 5*pi**3*A**6*kappa/8
+
+== enstrophy, AU: E'(0) - (C E^2 - k'' E^3) = 64000*pi**9*A**6*kappa2 - 1600*pi**6*A**4*C - 88*pi**3*A**2*nu

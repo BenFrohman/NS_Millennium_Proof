@@ -1,0 +1,61 @@
+pd_pd_comm : ∀ (f : E3 → ℝ), ContDiff ℝ 2 f → ∀ (i j : Fin 3) (x : E3), pd (pd f j) i x = pd (pd f i) j x
+div_curl_eq_zero : ∀ (v : E3 → E3), (∀ (a : Fin 3), ContDiff ℝ 2 fun y => v y a) → DivFree (curl v)
+curl_differentiable_of_C2 : ∀ (v : E3 → E3), (∀ (a : Fin 3), ContDiff ℝ 2 fun y => v y a) → Differentiable ℝ (curl v)
+@spatialC2_of_NSOn : ∀ {ν : ℝ} {S : Set ℝ} {u0 : E3 → E3} {u : ℝ → E3 → E3} {p : ℝ → E3 → ℝ},
+  NSOn ν S u0 u p → ∀ {t : ℝ}, t ∈ S → ∀ (a : Fin 3), ContDiff ℝ 2 fun y => u t y a
+norm_direction_derivative : ∀ (v : E3 → E3) (x : E3),
+  DifferentiableAt ℝ (curl v) x →
+    curl v x ≠ 0 →
+      ∑ i : Fin 3, pd (fun y => curl v y i) i x = 0 →
+        (fderiv ℝ (fun y => ‖curl v y‖) x) (direction v x) = -‖curl v x‖ * directionDivergence v x
+@logDerivativeAlong_of_spatialC2 : ∀ {u : ℝ → E3 → E3} {T : ENNReal} (P : Packet u T),
+  (∀ t ∈ lifespanSet T, ∀ (a : Fin 3), ContDiff ℝ 2 fun y => u t y a) → LogDerivativeAlong P
+@spatialComparison_of_logDerivativeAlong : ∀ {u : ℝ → E3 → E3} {T : ENNReal} (P : Packet u T),
+  LogDerivativeAlong P → SpatialComparison P
+@spatialComparison_of_NSOn : ∀ {ν : ℝ} {u0 : E3 → E3} {u : ℝ → E3 → E3} {p : ℝ → E3 → ℝ} {T : ENNReal},
+  NSOn ν (lifespanSet T) u0 u p → ∀ (P : Packet u T), SpatialComparison P
+spatialBridgeObligation_proved : SpatialBridgeObligation
+@bkmIntegralFinite_of_NSOn_and_endpoint : ∀ {ν : ℝ} {u0 : E3 → E3} {u : ℝ → E3 → E3} {p : ℝ → E3 → ℝ} {T : ENNReal},
+  NSOn ν (lifespanSet T) u0 u p → ∀ (P : Packet u T), EndpointIntegralFinite P → BKMIntegralFinite u T
+@bkmIntegralFinite_of_spatialComparison_and_endpoint : ∀ {u : ℝ → E3 → E3} {T : ENNReal} (P : Packet u T),
+  SpatialComparison P → EndpointIntegralFinite P → BKMIntegralFinite u T
+'Clay.Depletion.SolutionLinkedVortexLines.pd_pd_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.div_curl_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.curl_differentiable_of_C2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.spatialC2_of_NSOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.norm_direction_derivative' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.logDerivativeAlong_of_spatialC2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.spatialComparison_of_logDerivativeAlong' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.spatialComparison_of_NSOn' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.spatialBridgeObligation_proved' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.bkmIntegralFinite_of_NSOn_and_endpoint' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.Depletion.SolutionLinkedVortexLines.bkmIntegralFinite_of_spatialComparison_and_endpoint' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.PaperChecks.SpatialBridge.NSOn_velocity_analyticOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Clay.PaperChecks.SpatialBridge.smoothPeriodicData_analyticOn' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.PaperChecks.SpatialBridge.spatialComparison_of_spatialC2' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.PaperChecks.SpatialBridge.endpointIntegralFinite_of_bkm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Clay.PaperChecks.SpatialBridge.endpointIntegralFinite_iff_bkm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

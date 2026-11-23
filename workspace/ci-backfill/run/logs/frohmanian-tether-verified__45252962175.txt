@@ -1,0 +1,1708 @@
+
+===== 0_build.txt
+﻿2026-11-23T19:49:47.0857073Z Current runner version: '2.338.2'
+2026-11-23T19:49:47.0880521Z ##[group]Runner Image Provisioner
+2026-11-23T19:49:47.0881289Z Hosted Compute Agent
+2026-11-23T19:49:47.0881807Z Version: 20261111.635
+2026-11-23T19:49:47.0882465Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:49:47.0883123Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:49:47.0883792Z Worker ID: {cc9de107-8efe-4365-9465-a7bcfc2c1405}
+2026-11-23T19:49:47.0884391Z Region: centralus
+2026-11-23T19:49:47.0884885Z Cloud: Azure
+2026-11-23T19:49:47.0885377Z ##[endgroup]
+2026-11-23T19:49:47.0886623Z ##[group]Operating System
+2026-11-23T19:49:47.0887195Z Ubuntu
+2026-11-23T19:49:47.0887640Z 26.04.1
+2026-11-23T19:49:47.0888377Z LTS
+2026-11-23T19:49:47.0888857Z ##[endgroup]
+2026-11-23T19:49:47.0889319Z ##[group]Runner Image
+2026-11-23T19:49:47.0889808Z Image: ubuntu-26.04
+2026-11-23T19:49:47.0890334Z Version: 20261116.202.1
+2026-11-23T19:49:47.0891413Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:49:47.0892702Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:49:47.0893467Z ##[endgroup]
+2026-11-23T19:49:47.0894473Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:49:47.0896221Z Contents: read
+2026-11-23T19:49:47.0896803Z Metadata: read
+2026-11-23T19:49:47.0897276Z ##[endgroup]
+2026-11-23T19:49:47.0899832Z Secret source: Actions
+2026-11-23T19:49:47.0900656Z Cache mode: write
+2026-11-23T19:49:47.0901430Z Prepare workflow directory
+2026-11-23T19:49:47.1173290Z Prepare all required actions
+2026-11-23T19:49:47.1214386Z Getting action download info
+2026-11-23T19:49:47.3330545Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:49:47.4481554Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:49:47.6609160Z Complete job name: build
+2026-11-23T19:49:47.7349368Z ##[group]Run actions/checkout@v4
+2026-11-23T19:49:47.7350064Z with:
+2026-11-23T19:49:47.7350474Z   repository: BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:47.7353615Z   token: ***
+2026-11-23T19:49:47.7353967Z   ssh-strict: true
+2026-11-23T19:49:47.7354324Z   ssh-user: git
+2026-11-23T19:49:47.7354685Z   persist-credentials: true
+2026-11-23T19:49:47.7355076Z   clean: true
+2026-11-23T19:49:47.7355432Z   sparse-checkout-cone-mode: true
+2026-11-23T19:49:47.7355847Z   fetch-depth: 1
+2026-11-23T19:49:47.7356194Z   fetch-tags: false
+2026-11-23T19:49:47.7356546Z   show-progress: true
+2026-11-23T19:49:47.7356903Z   lfs: false
+2026-11-23T19:49:47.7357230Z   submodules: false
+2026-11-23T19:49:47.7357586Z   set-safe-directory: true
+2026-11-23T19:49:47.7358124Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:49:47.7358713Z ##[endgroup]
+2026-11-23T19:49:47.9523257Z Syncing repository: BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:47.9525145Z ##[group]Getting Git version info
+2026-11-23T19:49:47.9526047Z Working directory is '/home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified'
+2026-11-23T19:49:47.9527141Z [command]/usr/bin/git version
+2026-11-23T19:49:47.9527637Z git version 2.56.1
+2026-11-23T19:49:47.9538014Z ##[endgroup]
+2026-11-23T19:49:47.9550431Z Temporarily overriding HOME='/home/runner/work/_temp/603186c7-bc53-495f-84a3-19bd0b7c597c' before making global git config changes
+2026-11-23T19:49:47.9552653Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:49:47.9554798Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified
+2026-11-23T19:49:47.9608817Z Deleting the contents of '/home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified'
+2026-11-23T19:49:47.9611020Z ##[group]Initializing the repository
+2026-11-23T19:49:47.9615909Z [command]/usr/bin/git init /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified
+2026-11-23T19:49:47.9707612Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:49:47.9709821Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:49:47.9711202Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:49:47.9712361Z hint: call:
+2026-11-23T19:49:47.9712971Z hint:
+2026-11-23T19:49:47.9713788Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:49:47.9714784Z hint:
+2026-11-23T19:49:47.9715712Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:49:47.9717195Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:49:47.9718465Z hint:
+2026-11-23T19:49:47.9719146Z hint: 	git branch -m <name>
+2026-11-23T19:49:47.9719910Z hint:
+2026-11-23T19:49:47.9720908Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:49:47.9723006Z Initialized empty Git repository in /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified/.git/
+2026-11-23T19:49:47.9726186Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:47.9771031Z ##[endgroup]
+2026-11-23T19:49:47.9772162Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:49:47.9773282Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:49:47.9804995Z ##[endgroup]
+2026-11-23T19:49:47.9806020Z ##[group]Setting up auth
+2026-11-23T19:49:47.9809857Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:49:47.9841747Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:49:48.0206078Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:49:48.0252922Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:49:48.0494991Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:49:48.0527385Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:49:48.0780194Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:49:48.0819192Z ##[endgroup]
+2026-11-23T19:49:48.0819906Z ##[group]Fetching the repository
+2026-11-23T19:49:48.0828926Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +fb6d57fde73cf10acd31942cb5531f3874c8baaf:refs/remotes/origin/ci-backfill/fb6d57f
+2026-11-23T19:49:48.7315049Z From https://github.com/BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:48.7317402Z  * [new ref]         fb6d57fde73cf10acd31942cb5531f3874c8baaf -> origin/ci-backfill/fb6d57f
+2026-11-23T19:49:48.7321171Z ##[endgroup]
+2026-11-23T19:49:48.7322624Z ##[group]Determining the checkout info
+2026-11-23T19:49:48.7324190Z ##[endgroup]
+2026-11-23T19:49:48.7328226Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:49:48.7376935Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:49:48.7407019Z ##[group]Checking out the ref
+2026-11-23T19:49:48.7411235Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/fb6d57f refs/remotes/origin/ci-backfill/fb6d57f
+2026-11-23T19:49:48.7598932Z Switched to a new branch 'ci-backfill/fb6d57f'
+2026-11-23T19:49:48.7601817Z branch 'ci-backfill/fb6d57f' set up to track 'origin/ci-backfill/fb6d57f'.
+2026-11-23T19:49:48.7609479Z ##[endgroup]
+2026-11-23T19:49:48.7649828Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:49:48.7672688Z fb6d57fde73cf10acd31942cb5531f3874c8baaf
+2026-11-23T19:49:48.7915189Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T19:49:48.7918918Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:49:48.7921190Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:49:48.7956219Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:48.7957213Z ##[endgroup]
+2026-11-23T19:49:48.8699583Z info: downloading installer
+2026-11-23T19:49:49.2313279Z ##[group]Run cat lean-toolchain
+2026-11-23T19:49:49.2313577Z [36;1mcat lean-toolchain[0m
+2026-11-23T19:49:49.2313812Z [36;1mlean --version[0m
+2026-11-23T19:49:49.2314008Z [36;1mlake --version[0m
+2026-11-23T19:49:49.2314472Z [36;1mpython3 -c "import json;d=json.load(open('lake-manifest.json'));print([(p['name'],p['rev']) for p in d['packages'] if p['name']=='mathlib'])"[0m
+2026-11-23T19:49:49.2347288Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:49.2347538Z ##[endgroup]
+2026-11-23T19:49:49.2460579Z leanprover/lean4:v4.30.0-rc1
+2026-11-23T19:49:49.6459110Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:49:54.6190144Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:50:00.7803062Z Lean (version 4.30.0-rc1, x86_64-unknown-linux-gnu, commit 714601baf118066cbf3f282361339c6d06665b2a, Release)
+2026-11-23T19:50:00.8142836Z Lake version 5.0.0-src+714601b (Lean version 4.30.0-rc1)
+2026-11-23T19:50:00.8294141Z [('mathlib', '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7')]
+2026-11-23T19:50:00.8689344Z ##[group]Run python3 scripts/check_no_sorry.py FTVerified
+2026-11-23T19:50:00.8689716Z [36;1mpython3 scripts/check_no_sorry.py FTVerified[0m
+2026-11-23T19:50:00.8720516Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:50:00.8720730Z ##[endgroup]
+2026-11-23T19:50:00.9796784Z scanned 32 project modules: FTVerified, FTVerified.Companion.JacobiCompanion, FTVerified.Companion.LiePoissonJacobiCore, FTVerified.May.Basic, FTVerified.May.BiotSavart, FTVerified.May.ChevalleyEilenberg, FTVerified.May.CurlNS, FTVerified.May.Enstrophy, FTVerified.May.EnstrophyL2, FTVerified.May.FieldJacobi, FTVerified.May.FieldMetriplectic, FTVerified.May.Final, FTVerified.May.GlobalRegularity, FTVerified.May.Jacobi, FTVerified.May.JacobiWitness, FTVerified.May.Layer2, FTVerified.May.LogLoss, FTVerified.May.Main, FTVerified.May.Metriplectic, FTVerified.May.PalinstrophyH1, FTVerified.May.RiccatiComparison, FTVerified.May.RouteA, FTVerified.May.TetheredLyapunov, FTVerified.May.Torus, FTVerified.May.VorticityTether, FTVerified.Paper, FTVerified.Sdiff.ArnoldGeometric, FTVerified.Sdiff.ForMathlib.Projection, FTVerified.Sdiff.NS_Equations, FTVerified.Sdiff.ObstructionAudit, FTVerified.Sdiff.SymplecticTether, FTVerified.Semantics
+2026-11-23T19:50:00.9801927Z PASS: no sorry / admit / native_decide / axiom declarations (comments excluded)
+2026-11-23T19:50:01.0092672Z ##[group]Run lake exe cache get
+2026-11-23T19:50:01.0092931Z [36;1mlake exe cache get[0m
+2026-11-23T19:50:01.0126033Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:50:01.0126266Z ##[endgroup]
+2026-11-23T19:50:01.4143500Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:50:28.8621648Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:50:30.6087402Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:50:31.0642647Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:50:31.0775326Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:50:31.4197195Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:50:31.4308448Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:50:31.9059194Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:50:31.9236468Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:50:33.1714269Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:50:33.8330055Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:50:34.5639377Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:50:34.5885018Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:50:34.9910654Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:50:35.0041271Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:50:37.4519072Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:50:37.4843072Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:50:37.8870743Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:50:38.2028846Z ✔ [4/22] Built Cache.Init (289ms)
+2026-11-23T19:50:38.3010347Z ✔ [5/22] Built Cache.Init:c.o (98ms)
+2026-11-23T19:50:38.4039018Z ✔ [6/22] Built Cache.Lean (403ms)
+2026-11-23T19:50:38.5019312Z ✔ [7/22] Built Cache.Lean:c.o (148ms)
+2026-11-23T19:50:38.6021428Z ✔ [8/22] Built Batteries.Data.String.Basic (460ms)
+2026-11-23T19:50:38.8021873Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (121ms)
+2026-11-23T19:50:38.9026650Z ✔ [10/22] Built Batteries.Data.Array.Match (770ms)
+2026-11-23T19:50:39.2039893Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (256ms)
+2026-11-23T19:50:39.3039780Z ✔ [12/22] Built Batteries.Data.String.Matcher (360ms)
+2026-11-23T19:50:39.5035039Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (172ms)
+2026-11-23T19:50:39.6036489Z ✔ [14/22] Built Cache.IO (1.2s)
+2026-11-23T19:50:40.3045500Z ✔ [15/22] Built Cache.Hashing (677ms)
+2026-11-23T19:50:40.7051597Z ✔ [16/22] Built Cache.Hashing:c.o (437ms)
+2026-11-23T19:50:40.8052120Z ✔ [17/22] Built Cache.IO:c.o (1.2s)
+2026-11-23T19:50:42.0064403Z ✔ [18/22] Built Cache.Requests (1.7s)
+2026-11-23T19:50:42.7073223Z ✔ [19/22] Built Cache.Main (683ms)
+2026-11-23T19:50:43.1078308Z ✔ [20/22] Built Cache.Main:c.o (480ms)
+2026-11-23T19:50:43.6084052Z ✔ [21/22] Built Cache.Requests:c.o (1.7s)
+2026-11-23T19:50:44.3105737Z ✔ [22/22] Built cache:exe (622ms)
+2026-11-23T19:50:46.7147127Z Current branch: HEAD
+2026-11-23T19:50:46.7147997Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:50:46.7148756Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:50:47.0617932Z 
+2026-11-23T19:50:47.1618496Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 497 KB/s], Decompressed: 0
+2026-11-23T19:50:47.2649141Z Downloaded: 194 file(s) [attempted 194/8248 = 2%, 2286 KB/s], Decompressed: 12
+2026-11-23T19:50:47.3639028Z Downloaded: 379 file(s) [attempted 379/8248 = 4%, 1527 KB/s], Decompressed: 12
+2026-11-23T19:50:47.4799468Z Downloaded: 524 file(s) [attempted 524/8248 = 6%, 3552 KB/s], Decompressed: 12
+2026-11-23T19:50:47.5771874Z Downloaded: 722 file(s) [attempted 722/8248 = 8%, 1484 KB/s], Decompressed: 76
+2026-11-23T19:50:47.6795501Z Downloaded: 883 file(s) [attempted 883/8248 = 10%, 1045 KB/s], Decompressed: 76
+2026-11-23T19:50:47.7789277Z Downloaded: 1110 file(s) [attempted 1110/8248 = 13%, 11961 KB/s], Decompressed: 76
+2026-11-23T19:50:47.8780754Z Downloaded: 1385 file(s) [attempted 1385/8248 = 16%, 6244 KB/s], Decompressed: 76
+2026-11-23T19:50:47.9864810Z Downloaded: 1663 file(s) [attempted 1663/8248 = 20%, 3173 KB/s], Decompressed: 76
+2026-11-23T19:50:48.0869509Z Downloaded: 1838 file(s) [attempted 1838/8248 = 22%, 727 KB/s], Decompressed: 76
+2026-11-23T19:50:48.1970001Z Downloaded: 2082 file(s) [attempted 2082/8248 = 25%, 24087 KB/s], Decompressed: 76
+2026-11-23T19:50:48.3021157Z Downloaded: 2317 file(s) [attempted 2317/8248 = 28%, 18185 KB/s], Decompressed: 76
+2026-11-23T19:50:48.4039286Z Downloaded: 2451 file(s) [attempted 2451/8248 = 29%, 3012 KB/s], Decompressed: 76
+2026-11-23T19:50:48.5020156Z Downloaded: 2647 file(s) [attempted 2647/8248 = 32%, 13703 KB/s], Decompressed: 76
+2026-11-23T19:50:48.6173309Z Downloaded: 2771 file(s) [attempted 2771/8248 = 33%, 1514 KB/s], Decompressed: 76
+2026-11-23T19:50:48.7165635Z Downloaded: 2977 file(s) [attempted 2977/8248 = 36%, 2868 KB/s], Decompressed: 76
+2026-11-23T19:50:48.8182799Z Downloaded: 3131 file(s) [attempted 3131/8248 = 37%, 13382 KB/s], Decompressed: 76
+2026-11-23T19:50:48.9231603Z Downloaded: 3231 file(s) [attempted 3231/8248 = 39%, 5000 KB/s], Decompressed: 76
+2026-11-23T19:50:49.0279310Z Downloaded: 3390 file(s) [attempted 3390/8248 = 41%, 1778 KB/s], Decompressed: 76
+2026-11-23T19:50:49.1239979Z Downloaded: 3619 file(s) [attempted 3619/8248 = 43%, 3707 KB/s], Decompressed: 564
+2026-11-23T19:50:49.2339083Z Downloaded: 3887 file(s) [attempted 3887/8248 = 47%, 2513 KB/s], Decompressed: 564
+2026-11-23T19:50:49.3483743Z Downloaded: 3987 file(s) [attempted 3987/8248 = 48%, 2055 KB/s], Decompressed: 564
+2026-11-23T19:50:49.4679052Z Downloaded: 4079 file(s) [attempted 4079/8248 = 49%, 889 KB/s], Decompressed: 564
+2026-11-23T19:50:49.5818419Z Downloaded: 4223 file(s) [attempted 4223/8248 = 51%, 2075 KB/s], Decompressed: 564
+2026-11-23T19:50:49.6819785Z Downloaded: 4365 file(s) [attempted 4365/8248 = 52%, 6745 KB/s], Decompressed: 564
+2026-11-23T19:50:49.8195426Z Downloaded: 4526 file(s) [attempted 4526/8248 = 54%, 568 KB/s], Decompressed: 564
+2026-11-23T19:50:49.9225104Z Downloaded: 4702 file(s) [attempted 4702/8248 = 57%, 2005 KB/s], Decompressed: 564
+2026-11-23T19:50:50.0236929Z Downloaded: 4888 file(s) [attempted 4888/8248 = 59%, 3546 KB/s], Decompressed: 564
+2026-11-23T19:50:50.1239163Z Downloaded: 5134 file(s) [attempted 5134/8248 = 62%, 19404 KB/s], Decompressed: 564
+2026-11-23T19:50:50.2449320Z Downloaded: 5241 file(s) [attempted 5241/8248 = 63%, 3538 KB/s], Decompressed: 564
+2026-11-23T19:50:50.3453188Z Downloaded: 5374 file(s) [attempted 5374/8248 = 65%, 1165 KB/s], Decompressed: 564
+2026-11-23T19:50:50.4461485Z Downloaded: 5550 file(s) [attempted 5550/8248 = 67%, 1373 KB/s], Decompressed: 564
+2026-11-23T19:50:50.5467236Z Downloaded: 5783 file(s) [attempted 5783/8248 = 70%, 1145 KB/s], Decompressed: 564
+2026-11-23T19:50:50.6468884Z Downloaded: 6022 file(s) [attempted 6022/8248 = 73%, 14431 KB/s], Decompressed: 564
+2026-11-23T19:50:50.7480074Z Downloaded: 6097 file(s) [attempted 6097/8248 = 73%, 1616 KB/s], Decompressed: 564
+2026-11-23T19:50:50.8498195Z Downloaded: 6310 file(s) [attempted 6310/8248 = 76%, 3992 KB/s], Decompressed: 564
+2026-11-23T19:50:50.9576993Z Downloaded: 6399 file(s) [attempted 6399/8248 = 77%, 5295 KB/s], Decompressed: 564
+2026-11-23T19:50:51.0744262Z Downloaded: 6458 file(s) [attempted 6458/8248 = 78%, 6514 KB/s], Decompressed: 564
+2026-11-23T19:50:51.1806347Z Downloaded: 6552 file(s) [attempted 6552/8248 = 79%, 1091 KB/s], Decompressed: 564
+2026-11-23T19:50:51.2793357Z Downloaded: 6796 file(s) [attempted 6796/8248 = 82%, 1774 KB/s], Decompressed: 564
+2026-11-23T19:50:51.3999203Z Downloaded: 6984 file(s) [attempted 6984/8248 = 84%, 1746 KB/s], Decompressed: 564
+2026-11-23T19:50:51.5062061Z Downloaded: 7119 file(s) [attempted 7119/8248 = 86%, 5785 KB/s], Decompressed: 564
+2026-11-23T19:50:51.6094692Z Downloaded: 7342 file(s) [attempted 7342/8248 = 89%, 1812 KB/s], Decompressed: 564
+2026-11-23T19:50:51.7109233Z Downloaded: 7543 file(s) [attempted 7543/8248 = 91%, 4091 KB/s], Decompressed: 564
+2026-11-23T19:50:51.8239175Z Downloaded: 7662 file(s) [attempted 7662/8248 = 92%, 3217 KB/s], Decompressed: 564
+2026-11-23T19:50:51.9199664Z Downloaded: 7785 file(s) [attempted 7785/8248 = 94%, 2843 KB/s], Decompressed: 564
+2026-11-23T19:50:52.0985566Z Downloaded: 8094 file(s) [attempted 8094/8248 = 98%, 598 KB/s], Decompressed: 564
+2026-11-23T19:50:52.1097103Z Downloaded: 8247 file(s) [attempted 8247/8248 = 99%, 3348 KB/s], Decompressed: 564
+2026-11-23T19:50:52.1099017Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 3348 KB/s], Decompressed: 564
+2026-11-23T19:51:21.4877108Z Decompressed 8248 file(s)
+2026-11-23T19:51:21.4877428Z Already decompressed 8248 file(s)
+2026-11-23T19:51:21.5678166Z ##[group]Run set -o pipefail
+2026-11-23T19:51:21.5678542Z [36;1mset -o pipefail[0m
+2026-11-23T19:51:21.5678764Z [36;1mlake build 2>&1 | tee build.log[0m
+2026-11-23T19:51:21.5679134Z [36;1mif grep -n "declaration uses 'sorry'" build.log; then echo "sorry in build"; exit 1; fi[0m
+2026-11-23T19:51:21.5708850Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:51:21.5709075Z ##[endgroup]
+2026-11-23T19:51:26.6104883Z ✔ [2641/2663] Built FTVerified.May.Layer2 (3.9s)
+2026-11-23T19:51:29.1109201Z ✔ [2642/2683] Built FTVerified.May.EnstrophyL2 (6.4s)
+2026-11-23T19:51:31.3221526Z ✔ [4607/4795] Built FTVerified.May.RiccatiComparison (4.8s)
+2026-11-23T19:51:33.0309342Z ⚠ [6749/6861] Built FTVerified.May.Basic (10s)
+2026-11-23T19:51:33.0381132Z warning: FTVerified/May/Basic.lean:234:45: unused variable `hu`
+2026-11-23T19:51:33.0418582Z 
+2026-11-23T19:51:33.0499281Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:51:38.9479264Z ⚠ [8268/8296] Built FTVerified.May.Jacobi (5.9s)
+2026-11-23T19:51:38.9539197Z warning: FTVerified/May/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+2026-11-23T19:51:38.9598951Z   [InnerProductSpace ℝ H]
+2026-11-23T19:51:38.9659157Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-11-23T19:51:38.9719203Z   omit [InnerProductSpace ℝ H] in theorem ...
+2026-11-23T19:51:38.9778366Z 
+2026-11-23T19:51:38.9849104Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-11-23T19:51:41.0569248Z ✔ [8269/8296] Built FTVerified.May.Metriplectic (7.0s)
+2026-11-23T19:51:47.2770978Z ✔ [8270/8296] Built FTVerified.Companion.LiePoissonJacobiCore (11s)
+2026-11-23T19:51:47.3759121Z ✔ [8271/8296] Built FTVerified.May.RouteA (6.3s)
+2026-11-23T19:51:48.6759320Z ✔ [8272/8296] Built FTVerified.May.JacobiWitness (9.7s)
+2026-11-23T19:51:50.7767118Z ✔ [8273/8296] Built FTVerified.May.Main (3.4s)
+2026-11-23T19:51:53.0923127Z ✔ [8274/8296] Built FTVerified.May.TetheredLyapunov (2.3s)
+2026-11-23T19:51:57.6129470Z ✔ [8275/8296] Built FTVerified.May.GlobalRegularity (4.5s)
+2026-11-23T19:51:57.7049044Z ⚠ [8276/8296] Built FTVerified.May.Enstrophy (4.6s)
+2026-11-23T19:51:57.7088900Z warning: FTVerified/May/Enstrophy.lean:99:50: unused variable `hC`
+2026-11-23T19:51:57.7138150Z 
+2026-11-23T19:51:57.7168869Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:51:57.7198811Z warning: FTVerified/May/Enstrophy.lean:99:63: unused variable `hκ`
+2026-11-23T19:51:57.7228085Z 
+2026-11-23T19:51:57.7258732Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:51:57.7288758Z ✔ [8277/8296] Built FTVerified.May.Torus (4.6s)
+2026-11-23T19:52:01.1125988Z ⚠ [8278/8296] Built FTVerified.Sdiff.NS_Equations (38s)
+2026-11-23T19:52:01.1126795Z info: FTVerified/Sdiff/NS_Equations.lean:2527:2: Try this:
+2026-11-23T19:52:01.1127468Z   [apply] abel_nf
+2026-11-23T19:52:01.1128152Z warning: FTVerified/Sdiff/NS_Equations.lean:3676:9: unused variable `T`
+2026-11-23T19:52:01.1128720Z 
+2026-11-23T19:52:01.1129130Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:52:01.1130253Z info: FTVerified/Sdiff/NS_Equations.lean:3678:0: 'NavierStokes3D.curl_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1131630Z info: FTVerified/Sdiff/NS_Equations.lean:3679:0: 'NavierStokes3D.local_existence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1133090Z info: FTVerified/Sdiff/NS_Equations.lean:3680:0: 'NavierStokes3D.smoothness_of_Tstar_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1134482Z info: FTVerified/Sdiff/NS_Equations.lean:3681:0: 'NavierStokes3D.beale_kato_majda' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1136150Z info: FTVerified/Sdiff/NS_Equations.lean:3682:0: 'NavierStokes3D.beale_kato_majda_scaffold_integrability_unused' depends on axioms: [propext,
+2026-11-23T19:52:01.1137277Z  Classical.choice,
+2026-11-23T19:52:01.1137670Z  Quot.sound]
+2026-11-23T19:52:01.1138765Z info: FTVerified/Sdiff/NS_Equations.lean:3683:0: 'NavierStokes3D.bkm_criterion_without_integrability_not_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1140272Z info: FTVerified/Sdiff/NS_Equations.lean:3684:0: 'NavierStokes3D.Tstar_eq_top_of_bkm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1141670Z info: FTVerified/Sdiff/NS_Equations.lean:3685:0: 'NavierStokes3D.energy_zero_of_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1143190Z info: FTVerified/Sdiff/NS_Equations.lean:3686:0: 'NavierStokes3D.Tstar_eq_top_of_unbounded_existenceTimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1144749Z info: FTVerified/Sdiff/NS_Equations.lean:3687:0: 'NavierStokes3D.Tstar_eq_top_of_uniform_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1146250Z info: FTVerified/Sdiff/NS_Equations.lean:3688:0: 'NavierStokes3D.Tstar_eq_top_of_katoRestartTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1147703Z info: FTVerified/Sdiff/NS_Equations.lean:3689:0: 'NavierStokes3D.katoRestartTime_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1149236Z info: FTVerified/Sdiff/NS_Equations.lean:3690:0: 'NavierStokes3D.katoSobolevIndex_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1150635Z info: FTVerified/Sdiff/NS_Equations.lean:3691:0: 'NavierStokes3D.strain_sup_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1152019Z info: FTVerified/Sdiff/NS_Equations.lean:3692:0: 'NavierStokes3D.one_add_log_le_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1153443Z info: FTVerified/Sdiff/NS_Equations.lean:3693:0: 'NavierStokes3D.kato_ponce_implies_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1154934Z info: FTVerified/Sdiff/NS_Equations.lean:3694:0: 'NavierStokes3D.kato_ponce_of_uniform_vorticity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1156427Z info: FTVerified/Sdiff/NS_Equations.lean:3695:0: 'NavierStokes3D.kato_Hs_bound_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1158098Z info: FTVerified/Sdiff/NS_Equations.lean:3696:0: 'NavierStokes3D.exists_mem_existenceTimes_gt_of_lt_Tstar' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1159599Z info: FTVerified/Sdiff/NS_Equations.lean:3697:0: 'NavierStokes3D.navier_stokes_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1161010Z info: FTVerified/Sdiff/NS_Equations.lean:3698:0: 'NavierStokes3D.kato_witness_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1162468Z info: FTVerified/Sdiff/NS_Equations.lean:3699:0: 'NavierStokes3D.local_existence_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1163879Z info: FTVerified/Sdiff/NS_Equations.lean:3700:0: 'NavierStokes3D.Tstar_pos_of_kato_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1165282Z info: FTVerified/Sdiff/NS_Equations.lean:3701:0: 'NavierStokes3D.eq_of_l2_energy_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1166679Z info: FTVerified/Sdiff/NS_Equations.lean:3702:0: 'NavierStokes3D.ns_cauchy_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1168382Z info: FTVerified/Sdiff/NS_Equations.lean:3703:0: 'NavierStokes3D.ns_cauchy_eq_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1170098Z info: FTVerified/Sdiff/NS_Equations.lean:3704:0: 'NavierStokes3D.energy_zero_of_gronwall_Icc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1171721Z info: FTVerified/Sdiff/NS_Equations.lean:3705:0: 'NavierStokes3D.ns_cauchy_on_Icc_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1173168Z info: FTVerified/Sdiff/NS_Equations.lean:3706:0: 'NavierStokes3D.uniqueness_of_existence_times_of_energy_gronwall' depends on axioms: [propext,
+2026-11-23T19:52:01.1174127Z  Classical.choice,
+2026-11-23T19:52:01.1174516Z  Quot.sound]
+2026-11-23T19:52:01.1175311Z info: FTVerified/Sdiff/NS_Equations.lean:3707:0: 'NavierStokes3D.time_deriv_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1176620Z info: FTVerified/Sdiff/NS_Equations.lean:3708:0: 'NavierStokes3D.ns_pde_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1178127Z info: FTVerified/Sdiff/NS_Equations.lean:3709:0: 'NavierStokes3D.smoothness_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1179670Z info: FTVerified/Sdiff/NS_Equations.lean:3710:0: 'NavierStokes3D.mem_existenceTimes_add_of_kato_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1181155Z info: FTVerified/Sdiff/NS_Equations.lean:3711:0: 'NavierStokes3D.restart_of_kato_quantitative' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1182667Z info: FTVerified/Sdiff/NS_Equations.lean:3712:0: 'NavierStokes3D.smoothness_below_Tstar_of_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1184037Z info: FTVerified/Sdiff/NS_Equations.lean:3713:0: 'NavierStokes3D.curl_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1185409Z info: FTVerified/Sdiff/NS_Equations.lean:3714:0: 'NavierStokes3D.mem_existenceTimes_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1186810Z info: FTVerified/Sdiff/NS_Equations.lean:3715:0: 'NavierStokes3D.Tstar_zero_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1188288Z info: FTVerified/Sdiff/NS_Equations.lean:3716:0: 'NavierStokes3D.div_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1189590Z info: FTVerified/Sdiff/NS_Equations.lean:3717:0: 'NavierStokes3D.div_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1190895Z info: FTVerified/Sdiff/NS_Equations.lean:3718:0: 'NavierStokes3D.div_smul_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1192200Z info: FTVerified/Sdiff/NS_Equations.lean:3719:0: 'NavierStokes3D.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1193536Z info: FTVerified/Sdiff/NS_Equations.lean:3720:0: 'NavierStokes3D.convective_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1194999Z info: FTVerified/Sdiff/NS_Equations.lean:3721:0: 'NavierStokes3D.inner_convective_product_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1196509Z info: FTVerified/Sdiff/NS_Equations.lean:3722:0: 'NavierStokes3D.cyclicLiePairing_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1198059Z info: FTVerified/Sdiff/NS_Equations.lean:3723:0: 'NavierStokes3D.convective_norm_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1199502Z info: FTVerified/Sdiff/NS_Equations.lean:3724:0: 'NavierStokes3D.stretching_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1200808Z info: FTVerified/Sdiff/NS_Equations.lean:3725:0: 'NavierStokes3D.stretching_inner_le_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1202119Z info: FTVerified/Sdiff/NS_Equations.lean:3726:0: 'NavierStokes3D.stretching_quartic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1203843Z info: FTVerified/Sdiff/NS_Equations.lean:3727:0: 'NavierStokes3D.transport_inner_vanishes_of_grad_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1205611Z info: FTVerified/Sdiff/NS_Equations.lean:3728:0: 'NavierStokes3D.vorticity_transport_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1207028Z info: FTVerified/Sdiff/NS_Equations.lean:3729:0: 'NavierStokes3D.stretching_pairing_le_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1208747Z info: FTVerified/Sdiff/NS_Equations.lean:3730:0: 'NavierStokes3D.stretching_enstrophy_di_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1210206Z info: FTVerified/Sdiff/NS_Equations.lean:3731:0: 'NavierStokes3D.pressureGradient_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1211577Z info: FTVerified/Sdiff/NS_Equations.lean:3732:0: 'NavierStokes3D.ns_momentum_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1213085Z info: FTVerified/Sdiff/NS_Equations.lean:3733:0: 'NavierStokes3D.inner_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1214664Z info: FTVerified/Sdiff/NS_Equations.lean:3734:0: 'NavierStokes3D.transported_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1216245Z info: FTVerified/Sdiff/NS_Equations.lean:3735:0: 'NavierStokes3D.convective_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1217659Z info: FTVerified/Sdiff/NS_Equations.lean:3736:0: 'NavierStokes3D.inner_convective_le_strain' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1219661Z info: FTVerified/Sdiff/NS_Equations.lean:3737:0: 'NavierStokes3D.time_deriv_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1221048Z info: FTVerified/Sdiff/NS_Equations.lean:3738:0: 'NavierStokes3D.transported_scalar_along_characteristic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1222548Z info: FTVerified/Sdiff/NS_Equations.lean:3739:0: 'NavierStokes3D.transported_scalar_maximum_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1224011Z info: FTVerified/Sdiff/NS_Equations.lean:3740:0: 'NavierStokes3D.reciprocal_of_quadratic_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1225412Z info: FTVerified/Sdiff/NS_Equations.lean:3741:0: 'NavierStokes3D.le_vorticity_sup_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1226724Z info: FTVerified/Sdiff/NS_Equations.lean:3742:0: 'NavierStokes3D.convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1228246Z info: FTVerified/Sdiff/NS_Equations.lean:3743:0: 'NavierStokes3D.convective_eq_sum_directional' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1229753Z info: FTVerified/Sdiff/NS_Equations.lean:3744:0: 'NavierStokes3D.directionalCoord_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1231169Z info: FTVerified/Sdiff/NS_Equations.lean:3745:0: 'NavierStokes3D.curl_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1232547Z info: FTVerified/Sdiff/NS_Equations.lean:3746:0: 'NavierStokes3D.curl_convective_div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1233882Z info: FTVerified/Sdiff/NS_Equations.lean:3747:0: 'NavierStokes3D.curl_add3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1235259Z info: FTVerified/Sdiff/NS_Equations.lean:3748:0: 'NavierStokes3D.fderiv_prod_snd_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1237245Z info: FTVerified/Sdiff/NS_Equations.lean:3749:0: 'NavierStokes3D.deriv_prod_fst_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1239048Z info: FTVerified/Sdiff/NS_Equations.lean:3750:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1240440Z info: FTVerified/Sdiff/NS_Equations.lean:3751:0: 'NavierStokes3D.deriv_euclidean_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1241818Z info: FTVerified/Sdiff/NS_Equations.lean:3752:0: 'NavierStokes3D.curl_time_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1243148Z info: FTVerified/Sdiff/NS_Equations.lean:3753:0: 'NavierStokes3D.fderiv_field_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1244494Z info: FTVerified/Sdiff/NS_Equations.lean:3754:0: 'NavierStokes3D.laplacian_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1245868Z info: FTVerified/Sdiff/NS_Equations.lean:3755:0: 'NavierStokes3D.fderiv_apply_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1247309Z info: FTVerified/Sdiff/NS_Equations.lean:3756:0: 'NavierStokes3D.contDiffAt_directionalCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1249035Z info: FTVerified/Sdiff/NS_Equations.lean:3757:0: 'NavierStokes3D.directionalCoord_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1250428Z info: FTVerified/Sdiff/NS_Equations.lean:3758:0: 'NavierStokes3D.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1251850Z info: FTVerified/Sdiff/NS_Equations.lean:3759:0: 'NavierStokes3D.differentiableAt_time_deriv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1253394Z info: FTVerified/Sdiff/NS_Equations.lean:3760:0: 'NavierStokes3D.differentiableAt_convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1254979Z info: FTVerified/Sdiff/NS_Equations.lean:3761:0: 'NavierStokes3D.differentiableAt_pressureGradient_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1256507Z info: FTVerified/Sdiff/NS_Equations.lean:3762:0: 'NavierStokes3D.vorticity_transport_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1257955Z info: FTVerified/Sdiff/NS_Equations.lean:3763:0: 'NavierStokes3D.vorticity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1259300Z info: FTVerified/Sdiff/NS_Equations.lean:3764:0: 'NavierStokes3D.vorticity_transport_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1260705Z info: FTVerified/Sdiff/NS_Equations.lean:3765:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1261992Z info: FTVerified/Sdiff/NS_Equations.lean:3766:0: 'NavierStokes3D.differentiableAt_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1263329Z info: FTVerified/Sdiff/NS_Equations.lean:3767:0: 'NavierStokes3D.fderiv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1264679Z info: FTVerified/Sdiff/NS_Equations.lean:3768:0: 'NavierStokes3D.integration_by_parts_of_vanishing_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1266204Z info: FTVerified/Sdiff/NS_Equations.lean:3769:0: 'NavierStokes3D.inner_self_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext,
+2026-11-23T19:52:01.1267051Z  Classical.choice,
+2026-11-23T19:52:01.1267435Z  Quot.sound]
+2026-11-23T19:52:01.1268424Z info: FTVerified/Sdiff/NS_Equations.lean:3770:0: 'NavierStokes3D.differentiableAt_coord_of_differentiableAt_field' depends on axioms: [propext,
+2026-11-23T19:52:01.1269352Z  Classical.choice,
+2026-11-23T19:52:01.1269727Z  Quot.sound]
+2026-11-23T19:52:01.1270916Z info: FTVerified/Sdiff/NS_Equations.lean:3771:0: 'NavierStokes3D.differentiableAt_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1272507Z info: FTVerified/Sdiff/NS_Equations.lean:3772:0: 'NavierStokes3D.convective_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1274065Z info: FTVerified/Sdiff/NS_Equations.lean:3773:0: 'NavierStokes3D.pressure_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.3161862Z ⚠ [8279/8296] Built FTVerified.May.Final (3.6s)
+2026-11-23T19:52:01.3165086Z warning: FTVerified/May/Final.lean:59:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+2026-11-23T19:52:01.3166039Z If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+2026-11-23T19:52:01.3166665Z ```
+2026-11-23T19:52:01.3167035Z open Lean.Parser.Tactic in
+2026-11-23T19:52:01.3167539Z macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+2026-11-23T19:52:01.3168251Z   `(tactic| push $cfg:optConfig Not $[$loc]?)
+2026-11-23T19:52:01.3168747Z ```
+2026-11-23T19:52:07.2349728Z ⚠ [8280/8296] Built FTVerified.May.LogLoss (5.9s)
+2026-11-23T19:52:07.2350521Z warning: FTVerified/May/LogLoss.lean:95:50: unused variable `hy0`
+2026-11-23T19:52:07.2350947Z 
+2026-11-23T19:52:07.2351507Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:52:09.0373623Z ⚠ [8281/8296] Built FTVerified.Sdiff.ArnoldGeometric (7.0s)
+2026-11-23T19:52:09.0374315Z warning: FTVerified/Sdiff/ArnoldGeometric.lean:437:6: This simp argument is unused:
+2026-11-23T19:52:09.0374808Z   PiLp.single_apply
+2026-11-23T19:52:09.0374953Z 
+2026-11-23T19:52:09.0375089Z Hint: Omit it from the simp argument list.
+2026-11-23T19:52:09.0375595Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 2), fderiv_const_mul (hd 1),
+2026-11-23T19:52:09.0376550Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:52:09.0377160Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:52:09.0377592Z 
+2026-11-23T19:52:09.0377992Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:52:09.0378633Z warning: FTVerified/Sdiff/ArnoldGeometric.lean:443:6: This simp argument is unused:
+2026-11-23T19:52:09.0379115Z   PiLp.single_apply
+2026-11-23T19:52:09.0379266Z 
+2026-11-23T19:52:09.0379389Z Hint: Omit it from the simp argument list.
+2026-11-23T19:52:09.0379891Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 0), fderiv_const_mul (hd 2),
+2026-11-23T19:52:09.0380550Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:52:09.0381144Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:52:09.0381490Z 
+2026-11-23T19:52:09.0381730Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:52:09.0382361Z warning: FTVerified/Sdiff/ArnoldGeometric.lean:449:6: This simp argument is unused:
+2026-11-23T19:52:09.0382866Z   PiLp.single_apply
+2026-11-23T19:52:09.0383021Z 
+2026-11-23T19:52:09.0383145Z Hint: Omit it from the simp argument list.
+2026-11-23T19:52:09.0383630Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 1), fderiv_const_mul (hd 0),
+2026-11-23T19:52:09.0384248Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:52:09.0384823Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:52:09.0385167Z 
+2026-11-23T19:52:09.0385396Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:52:09.0386299Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1097:0: 'ArnoldGeometric.velocity_from_vorticity_eq_BiotSavart' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0387524Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1098:0: 'ArnoldGeometric.classical_bracket_reproduces_Euler' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0389083Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1099:0: 'ArnoldGeometric.BiotSavart_zero' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0390277Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1100:0: 'ArnoldGeometric.BiotSavart_smul' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0391297Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1101:0: 'ArnoldGeometric.BiotSavart_add' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0392340Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1102:0: 'ArnoldGeometric.BiotSavart_affine' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0393397Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1103:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0394491Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1104:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0395636Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1105:0: 'ArnoldGeometric.pairing_cross_self_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0396715Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1106:0: 'ArnoldGeometric.cross_smul_left' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0397984Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1107:0: 'ArnoldGeometric.FunctionalDerivative_eq_zero_of_not' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0399161Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1108:0: 'ArnoldGeometric.FunctionalDerivative_eq_choose' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0400360Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1109:0: 'ArnoldGeometric.kineticEnergy_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0401544Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1110:0: 'ArnoldGeometric.biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0402586Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1111:0: 'ArnoldGeometric.cross_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0403583Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1112:0: 'ArnoldGeometric.div_cross_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0404617Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1113:0: 'ArnoldGeometric.div_cross_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0405749Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1114:0: 'ArnoldGeometric.differentiableAt_cross_offset_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0406911Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1115:0: 'ArnoldGeometric.hasFDerivAt_norm_sq_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0408209Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1116:0: 'ArnoldGeometric.hasFDerivAt_biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0409472Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1117:0: 'ArnoldGeometric.differentiableAt_biotSavartKernel_off_diag' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0410659Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1118:0: 'ArnoldGeometric.div_biotSavart_integrand' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0411765Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1119:0: 'ArnoldGeometric.div_biotSavart_integrand_ae' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0412893Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1120:0: 'ArnoldGeometric.div_BiotSavart_of_interchange' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0414110Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1121:0: 'ArnoldGeometric.functional_derivative_eq_velocity_of_unique_repr' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0415530Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1122:0: 'ArnoldGeometric.gateaux_representative_unique' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0417059Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1123:0: 'ArnoldGeometric.kineticEnergyHamiltonian_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0418565Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1124:0: 'ArnoldGeometric.isVelocityGateauxRepresentative_kineticEnergy_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0419856Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1150:0: 'ArnoldGeometric.classicalBracket_antisymm' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0442512Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1151:0: 'ArnoldGeometric.classicalBracket_self' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0443740Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1152:0: 'ArnoldGeometric.classicalBracket_H_H' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:10.3393135Z ✔ [8282/8296] Built FTVerified.May.PalinstrophyH1 (3.1s)
+2026-11-23T19:52:11.3419803Z ✔ [8283/8296] Built FTVerified.Sdiff.ForMathlib.Projection (2.2s)
+2026-11-23T19:52:12.7428439Z ✔ [8284/8296] Built FTVerified.May.VorticityTether (2.4s)
+2026-11-23T19:52:16.2539414Z ℹ [8285/8296] Built FTVerified.Sdiff.SymplecticTether (4.9s)
+2026-11-23T19:52:16.2569316Z info: FTVerified/Sdiff/SymplecticTether.lean:1305:0: 'FrohmanianTether.tethered_jacobi_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2571130Z info: FTVerified/Sdiff/SymplecticTether.lean:1306:0: 'FrohmanianTether.tetherKernel_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2599111Z info: FTVerified/Sdiff/SymplecticTether.lean:1307:0: 'FrohmanianTether.antisymmetric_correction_diagonal_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2629145Z info: FTVerified/Sdiff/SymplecticTether.lean:1308:0: 'FrohmanianTether.tetherKernel_C2_of_no_gateaux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2659058Z info: FTVerified/Sdiff/SymplecticTether.lean:1309:0: 'FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2669182Z info: FTVerified/Sdiff/SymplecticTether.lean:1310:0: 'FrohmanianTether.tetherKernel_C2_of_identifications' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2688945Z info: FTVerified/Sdiff/SymplecticTether.lean:1311:0: 'FrohmanianTether.functional_derivative_of_kinetic_energy_of_unique_repr' depends on axioms: [propext,
+2026-11-23T19:52:16.2718475Z  Classical.choice,
+2026-11-23T19:52:16.2748429Z  Quot.sound]
+2026-11-23T19:52:16.2749476Z info: FTVerified/Sdiff/SymplecticTether.lean:1312:0: 'FrohmanianTether.div_biot_savart_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2779122Z info: FTVerified/Sdiff/SymplecticTether.lean:1313:0: 'FrohmanianTether.div_biot_savart_velocity_of_interchange' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2809152Z info: FTVerified/Sdiff/SymplecticTether.lean:1314:0: '_private.FTVerified.Sdiff.SymplecticTether.0.FrohmanianTether.degeneracy_for_mollified_sup_norm_proxy' depends on axioms: [propext,
+2026-11-23T19:52:16.2838430Z  Classical.choice,
+2026-11-23T19:52:16.2838962Z  Quot.sound]
+2026-11-23T19:52:16.2869004Z info: FTVerified/Sdiff/SymplecticTether.lean:1352:0: 'FrohmanianTether.tetherKernel_self_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:18.8570597Z ℹ [8286/8296] Built FTVerified.Sdiff.ObstructionAudit (2.7s)
+2026-11-23T19:52:18.8571541Z info: FTVerified/Sdiff/ObstructionAudit.lean:80:0: 'FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2' depends on axioms: [propext,
+2026-11-23T19:52:18.8572291Z  Classical.choice,
+2026-11-23T19:52:18.8572530Z  Quot.sound]
+2026-11-23T19:52:18.8573836Z info: FTVerified/Sdiff/ObstructionAudit.lean:81:0: 'FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero' depends on axioms: [propext,
+2026-11-23T19:52:18.8574827Z  Classical.choice,
+2026-11-23T19:52:18.8575060Z  Quot.sound]
+2026-11-23T19:52:18.8575701Z info: FTVerified/Sdiff/ObstructionAudit.lean:82:0: 'FrohmanianTether.ObstructionAudit.energy_conservation_not_C2' depends on axioms: [propext,
+2026-11-23T19:52:18.8576432Z  Classical.choice,
+2026-11-23T19:52:18.8576815Z  Quot.sound]
+2026-11-23T19:52:19.0573149Z ✔ [8287/8296] Built FTVerified.May.CurlNS (6.3s)
+2026-11-23T19:52:20.8601215Z ✔ [8288/8296] Built FTVerified.Semantics (1.0s)
+2026-11-23T19:52:22.3618476Z ✔ [8289/8296] Built FTVerified.May.BiotSavart (3.3s)
+2026-11-23T19:52:25.0717906Z ✔ [8290/8296] Built FTVerified.May.ChevalleyEilenberg (2.7s)
+2026-11-23T19:52:27.6728566Z ⚠ [8291/8296] Built FTVerified.May.FieldJacobi (5.3s)
+2026-11-23T19:52:27.6729333Z warning: FTVerified/May/FieldJacobi.lean:171:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T19:52:27.6729842Z 
+2026-11-23T19:52:27.6730183Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T19:52:30.5817190Z ✔ [8292/8296] Built FTVerified.May.FieldMetriplectic (2.9s)
+2026-11-23T19:52:30.5818066Z ✔ [8293/8296] Built FTVerified.Companion.JacobiCompanion (2.9s)
+2026-11-23T19:52:32.4868932Z ℹ [8294/8296] Built FTVerified.Paper (1.0s)
+2026-11-23T19:52:32.4869843Z info: FTVerified/Paper.lean:27:0: @Frohman.Tether.frohmanianTether_self_nonpos : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4870591Z   [inst_1 : InnerProductSpace ℝ H] {κ w : ℝ},
+2026-11-23T19:52:32.4871115Z   0 ≤ κ → 0 ≤ w → ∀ (u F : H), ((Frohman.Tether.frohmanianTether κ w u) F) F ≤ 0
+2026-11-23T19:52:32.4872108Z info: FTVerified/Paper.lean:28:0: FrohmanianTether.tetherKernel_self_nonpos : ∀ (F : FrohmanianTether.Functional) (ω : ArnoldGeometric.CoadjointOrbit),
+2026-11-23T19:52:32.4872935Z   FrohmanianTether.TetherKernel ω F F ≤ 0
+2026-11-23T19:52:32.4873733Z info: FTVerified/Paper.lean:32:0: @Frohman.Tether.frohmanianTether_degenerate : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4874491Z   [inst_1 : InnerProductSpace ℝ H] (κ w : ℝ) (u : H),
+2026-11-23T19:52:32.4875097Z   Frohman.Tether.DegenerateWRTKineticEnergy u (Frohman.Tether.frohmanianTether κ w u)
+2026-11-23T19:52:32.4876074Z info: FTVerified/Paper.lean:33:0: FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy : ∀ (F : FrohmanianTether.Functional)
+2026-11-23T19:52:32.4876839Z   (ω : ArnoldGeometric.CoadjointOrbit),
+2026-11-23T19:52:32.4877482Z   δ ArnoldGeometric.KineticEnergyHamiltonian/δω ω = ArnoldGeometric.velocity_from_vorticity ω →
+2026-11-23T19:52:32.4878642Z     (∀ (x : NavierStokes3D.T3), NavierStokes3D.div (ArnoldGeometric.velocity_from_vorticity ω) x = 0) →
+2026-11-23T19:52:32.4879581Z       MeasureTheory.Integrable (fun y => ‖ArnoldGeometric.velocity_from_vorticity ω y‖ ^ 2) MeasureTheory.volume →
+2026-11-23T19:52:32.4880436Z         FrohmanianTether.TetherKernel ω F ArnoldGeometric.KineticEnergyHamiltonian = 0
+2026-11-23T19:52:32.4881395Z info: FTVerified/Paper.lean:37:0: @Frohman.Tether.frohmanianTether_feedback : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4882162Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4882562Z   2 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4882835Z     ∀ {κ w : ℝ},
+2026-11-23T19:52:32.4883073Z       0 ≤ κ →
+2026-11-23T19:52:32.4883299Z         0 ≤ w →
+2026-11-23T19:52:32.4883971Z           ∀ (u : H), Frohman.Tether.ProducesControllableNegativeFeedback κ w u (Frohman.Tether.frohmanianTether κ w u)
+2026-11-23T19:52:32.4885014Z info: FTVerified/Paper.lean:38:0: @Frohman.Tether.feedback_fixes_coefficient : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4885744Z   [inst_1 : InnerProductSpace ℝ H] {κ w : ℝ} {u : H} (c : ℝ),
+2026-11-23T19:52:32.4886506Z   Frohman.Tether.ProducesControllableNegativeFeedback κ w u (Frohman.Tether.frohmanianTether c 1 u) → c = κ * w
+2026-11-23T19:52:32.4887972Z info: FTVerified/Paper.lean:39:0: @Frohman.Tether.routeA_determines_kappa : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4888972Z   [inst_1 : InnerProductSpace ℝ H] {S w κ : ℝ},
+2026-11-23T19:52:32.4889623Z   w ≠ 0 → ∀ {u ω : H}, Frohman.Tether.RouteAFeedback S w u ω (Frohman.Tether.frohmanianTether κ w u) → κ = S
+2026-11-23T19:52:32.4890607Z info: FTVerified/Paper.lean:43:0: @Frohman.Tether.uniqueness_of_minimal_metric_tether : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4891373Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4891778Z   3 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4892063Z     ∀ (κ w : ℝ) (u : H),
+2026-11-23T19:52:32.4892326Z       u ≠ 0 →
+2026-11-23T19:52:32.4892620Z         ∀ (C3 : LinearMap.BilinForm ℝ H → Prop),
+2026-11-23T19:52:32.4893115Z           (∀ (c : ℝ), C3 (Frohman.Tether.frohmanianTether c 1 u) → c = κ * w) →
+2026-11-23T19:52:32.4893575Z             ∀ (B : LinearMap.BilinForm ℝ H),
+2026-11-23T19:52:32.4894207Z               Frohman.Tether.IsAdmissibleCorrection u C3 B → B = Frohman.Tether.frohmanianTether κ w u
+2026-11-23T19:52:32.4895033Z info: FTVerified/Paper.lean:47:0: FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2 : ∀
+2026-11-23T19:52:32.4895913Z   (B : ArnoldGeometric.CoadjointOrbit → FrohmanianTether.Functional → FrohmanianTether.Functional → ℝ),
+2026-11-23T19:52:32.4896561Z   FrohmanianTether.DegenerateWRTKineticEnergy B →
+2026-11-23T19:52:32.4897121Z     ∀ (ω : ArnoldGeometric.CoadjointOrbit) (M : FrohmanianTether.Functional),
+2026-11-23T19:52:32.4897681Z       B ω M ArnoldGeometric.KineticEnergyHamiltonian = 0
+2026-11-23T19:52:32.4898722Z info: FTVerified/Paper.lean:48:0: @FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero : ∀ {V : Type u_1} [inst : AddCommGroup V]
+2026-11-23T19:52:32.4899536Z   [inst_1 : Module ℝ V] (B : LinearMap.BilinForm ℝ V),
+2026-11-23T19:52:32.4900091Z   (∀ (x y : V), (B x) y = (B y) x) → (∀ (x : V), (B x) x ≤ 0) → ∀ (h : V), (B h) h = 0 → ∀ (m : V), (B m) h = 0
+2026-11-23T19:52:32.4900882Z info: FTVerified/Paper.lean:49:0: FrohmanianTether.ObstructionAudit.energy_conservation_not_C2 : ∃ B h m,
+2026-11-23T19:52:32.4901540Z   B h h = 0 ∧ B m h ≠ 0 ∧ ∀ (x : Fin 2 → ℝ), B x x = 0
+2026-11-23T19:52:32.4902277Z info: FTVerified/Paper.lean:53:0: @Frohman.Tether.CE.d2_d1 : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [inst_1 : LieRing L]
+2026-11-23T19:52:32.4903159Z   [inst_2 : LieAlgebra R L] (f : L →ₗ[R] R) (x y z : L), Frohman.Tether.CE.d2 (Frohman.Tether.CE.d1 f) x y z = 0
+2026-11-23T19:52:32.4904138Z info: FTVerified/Paper.lean:54:0: @Frohman.Tether.CE.cocycle_of_coboundary : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [inst_1 : LieRing L]
+2026-11-23T19:52:32.4904900Z   [inst_2 : LieAlgebra R L] (β : L → L → R) (f : L →ₗ[R] R),
+2026-11-23T19:52:32.4905443Z   (∀ (x y : L), Frohman.Tether.CE.antiCorr β x y = Frohman.Tether.CE.d1 f x y) →
+2026-11-23T19:52:32.4906057Z     Frohman.Tether.CE.IsCocycle (Frohman.Tether.CE.antiCorr β)
+2026-11-23T19:52:32.4906922Z info: FTVerified/Paper.lean:55:0: @Frohman.Tether.CE.symPart_not_cochain : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [Invertible 2]
+2026-11-23T19:52:32.4908007Z   (β : L → L → R), Frohman.Tether.CE.IsAlt (Frohman.Tether.CE.symPart β) → Frohman.Tether.CE.symPart β = 0
+2026-11-23T19:52:32.4909055Z info: FTVerified/Paper.lean:59:0: @Frohman.Tether.jacobiator_nine_terms : ∀ {H : Type u_1} [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℝ H]
+2026-11-23T19:52:32.4909773Z   {P : H → H → H},
+2026-11-23T19:52:32.4910058Z   Frohman.Tether.IsClassicalBracket P →
+2026-11-23T19:52:32.4910410Z     ∀ (κ w : ℝ) (u a b c : H),
+2026-11-23T19:52:32.4910906Z       Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c =
+2026-11-23T19:52:32.4911406Z         P (P a b) c + P (P b c) a + P (P c a) b +
+2026-11-23T19:52:32.4911975Z             (Frohman.Tether.mixedTerm P κ w u a b c + Frohman.Tether.mixedTerm P κ w u b c a +
+2026-11-23T19:52:32.4912531Z               Frohman.Tether.mixedTerm P κ w u c a b) +
+2026-11-23T19:52:32.4913252Z           (Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u a b) c +
+2026-11-23T19:52:32.4914042Z               Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u b c) a +
+2026-11-23T19:52:32.4914686Z             Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u c a) b)
+2026-11-23T19:52:32.4915512Z info: FTVerified/Paper.lean:60:0: @Frohman.Tether.jacobi_iff_mixed_cancel : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4916204Z   [inst_1 : InnerProductSpace ℝ H] {P : H → H → H},
+2026-11-23T19:52:32.4916587Z   Frohman.Tether.IsClassicalBracket P →
+2026-11-23T19:52:32.4916936Z     ∀ (κ w : ℝ) (u : H) (R : Set H),
+2026-11-23T19:52:32.4917552Z       (∀ a ∈ R, ∀ b ∈ R, ∀ c ∈ R, Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c = 0) ↔
+2026-11-23T19:52:32.4918272Z         ∀ a ∈ R,
+2026-11-23T19:52:32.4918517Z           ∀ b ∈ R,
+2026-11-23T19:52:32.4918765Z             ∀ c ∈ R,
+2026-11-23T19:52:32.4919274Z               Frohman.Tether.mixedTerm P κ w u a b c + Frohman.Tether.mixedTerm P κ w u b c a +
+2026-11-23T19:52:32.4919854Z                   Frohman.Tether.mixedTerm P κ w u c a b =
+2026-11-23T19:52:32.4920172Z                 0
+2026-11-23T19:52:32.4920798Z info: FTVerified/Paper.lean:61:0: @Frohman.Tether.FieldJacobi.jacT_eq_mixedSum : ∀ {u : Frohman.Tether.FieldJacobi.Fld},
+2026-11-23T19:52:32.4921473Z   Frohman.Tether.FieldJacobi.pr u u ≠ 0 →
+2026-11-23T19:52:32.4921887Z     ∀ (κ w : ℂ) (a b c : Frohman.Tether.FieldJacobi.Fld),
+2026-11-23T19:52:32.4922533Z       Frohman.Tether.FieldJacobi.jacT κ w u a b c = Frohman.Tether.FieldJacobi.mixedSumF κ w u a b c
+2026-11-23T19:52:32.4923447Z info: FTVerified/Paper.lean:62:0: Frohman.Tether.FieldJacobi.jacF_eq_zero : ∀ (a b c : Frohman.Tether.FieldJacobi.Fld),
+2026-11-23T19:52:32.4924095Z   Frohman.Tether.FieldJacobi.jacF a b c = 0
+2026-11-23T19:52:32.4924761Z info: FTVerified/Paper.lean:66:0: @Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero : ∀ {κ w : ℝ},
+2026-11-23T19:52:32.4925332Z   κ * w ≠ 0 →
+2026-11-23T19:52:32.4925583Z     Frohman.Tether.jacobiator
+2026-11-23T19:52:32.4926275Z         (Frohman.Tether.tetheredBracketVec Frohman.Tether.JacobiWitness.crossBr κ w Frohman.Tether.JacobiWitness.e1)
+2026-11-23T19:52:32.4927190Z         Frohman.Tether.JacobiWitness.e2 Frohman.Tether.JacobiWitness.e2 Frohman.Tether.JacobiWitness.e3 ≠
+2026-11-23T19:52:32.4927856Z       0
+2026-11-23T19:52:32.4928407Z info: FTVerified/Paper.lean:67:0: @Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse : ∀ {κ w : ℂ},
+2026-11-23T19:52:32.4928986Z   κ * w ≠ 0 →
+2026-11-23T19:52:32.4929529Z     Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uY Frohman.Tether.FieldJacobi.aZ
+2026-11-23T19:52:32.4930219Z         Frohman.Tether.FieldJacobi.aZ Frohman.Tether.FieldJacobi.aZ ≠
+2026-11-23T19:52:32.4930618Z       0
+2026-11-23T19:52:32.4931263Z info: FTVerified/Paper.lean:68:0: Frohman.Tether.FieldJacobi.divFree_aZ : Frohman.Tether.FieldJacobi.DivergenceFree Frohman.Tether.FieldJacobi.aZ
+2026-11-23T19:52:32.4932444Z info: FTVerified/Paper.lean:69:0: @Frohman.Tether.FieldMetriplectic.dissF_nonpos : ∀ {u a : Frohman.Tether.FieldJacobi.Fld},
+2026-11-23T19:52:32.4933154Z   Frohman.Tether.FieldMetriplectic.IsRealF u →
+2026-11-23T19:52:32.4933567Z     Frohman.Tether.FieldMetriplectic.IsRealF a →
+2026-11-23T19:52:32.4933921Z       ∀ {κ w : ℝ},
+2026-11-23T19:52:32.4934177Z         0 ≤ κ * w →
+2026-11-23T19:52:32.4934579Z           (Frohman.Tether.FieldMetriplectic.dissF (↑κ) (↑w) u a).re ≤ 0 ∧
+2026-11-23T19:52:32.4935148Z             (Frohman.Tether.FieldMetriplectic.dissF (↑κ) (↑w) u a).im = 0
+2026-11-23T19:52:32.4935960Z info: FTVerified/Paper.lean:73:0: @Frohman.Tether.jacobiator_eq_zero_of_central : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4936692Z   [inst_1 : InnerProductSpace ℝ H] {u : H} {P : H → H → H},
+2026-11-23T19:52:32.4937097Z   Frohman.Tether.IsClassicalBracket P →
+2026-11-23T19:52:32.4937443Z     (∀ (c : H), P u c = 0) →
+2026-11-23T19:52:32.4938119Z       (∀ (r : ℝ) (x z : H), P (r • x) z = r • P x z) →
+2026-11-23T19:52:32.4938673Z         (∀ (a b : H), (Frohman.Tether.piU u) (P a b) = 0) →
+2026-11-23T19:52:32.4939332Z           ∀ (κ w : ℝ) (a b c : H), Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c = 0
+2026-11-23T19:52:32.4940338Z info: FTVerified/Paper.lean:74:0: @Frohman.Tether.FieldJacobi.shearY_jacobi_holds : ∀ {κ w : ℂ} {a b c : Frohman.Tether.FieldJacobi.Fld},
+2026-11-23T19:52:32.4941043Z   Frohman.Tether.FieldJacobi.XOnly a →
+2026-11-23T19:52:32.4941429Z     Frohman.Tether.FieldJacobi.DivergenceFree a →
+2026-11-23T19:52:32.4941821Z       Frohman.Tether.FieldJacobi.XOnly b →
+2026-11-23T19:52:32.4942218Z         Frohman.Tether.FieldJacobi.DivergenceFree b →
+2026-11-23T19:52:32.4942621Z           Frohman.Tether.FieldJacobi.XOnly c →
+2026-11-23T19:52:32.4943033Z             Frohman.Tether.FieldJacobi.DivergenceFree c →
+2026-11-23T19:52:32.4943646Z               Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uY a b c = 0
+2026-11-23T19:52:32.4944696Z info: FTVerified/Paper.lean:75:0: FrohmanianTether.tethered_jacobi_identity : ∀ (F G H : FrohmanianTether.Functional) (ω : ArnoldGeometric.CoadjointOrbit)
+2026-11-23T19:52:32.4945454Z   (X Y Z : NavierStokes3D.VelocityField),
+2026-11-23T19:52:32.4945779Z   δ F/δω ω = X →
+2026-11-23T19:52:32.4946017Z     δ G/δω ω = Y →
+2026-11-23T19:52:32.4946262Z       δ H/δω ω = Z →
+2026-11-23T19:52:32.4946568Z         FrohmanianTether.jacobiator F G H ω =
+2026-11-23T19:52:32.4947190Z             ∫ (x : NavierStokes3D.T3), NavierStokes3D.cyclicLiePairing X Y Z x ∂NavierStokes3D.volume →
+2026-11-23T19:52:32.4948165Z           ∫ (x : NavierStokes3D.T3), NavierStokes3D.cyclicLiePairing X Y Z x ∂NavierStokes3D.volume = 0 →
+2026-11-23T19:52:32.4948791Z             FrohmanianTether.jacobiator F G H ω = 0
+2026-11-23T19:52:32.4949414Z info: FTVerified/Paper.lean:79:0: @Frohman.Tether.FieldJacobi.shearX_jacobi_fails : ∀ {κ w : ℂ},
+2026-11-23T19:52:32.4949949Z   κ * w ≠ 0 →
+2026-11-23T19:52:32.4950500Z     Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uX Frohman.Tether.FieldJacobi.eX
+2026-11-23T19:52:32.4951239Z         Frohman.Tether.FieldJacobi.eX Frohman.Tether.FieldJacobi.eX ≠
+2026-11-23T19:52:32.4951634Z       0
+2026-11-23T19:52:32.4952409Z info: FTVerified/Paper.lean:80:0: Frohman.Tether.FieldJacobi.not_divFree_uX : ¬Frohman.Tether.FieldJacobi.DivergenceFree Frohman.Tether.FieldJacobi.uX
+2026-11-23T19:52:32.4953462Z info: FTVerified/Paper.lean:81:0: Frohman.Tether.Shear.shear_divFree : ∀ (x : Frohman.Tether.Torus.R3),
+2026-11-23T19:52:32.4954101Z   Frohman.Tether.Torus.divergence Frohman.Tether.Shear.shear x = 0
+2026-11-23T19:52:32.4955031Z info: FTVerified/Paper.lean:82:0: Frohman.Tether.Shear.shearBad_not_divFree : Frohman.Tether.Torus.divergence Frohman.Tether.Shear.shearBad 0 ≠ 0
+2026-11-23T19:52:32.4956027Z info: FTVerified/Paper.lean:86:0: @Frohman.Tether.comparison_bound : ∀ {y y' : ℝ → ℝ} {C κ'' T : ℝ},
+2026-11-23T19:52:32.4956556Z   0 < κ'' →
+2026-11-23T19:52:32.4956795Z     0 ≤ y 0 →
+2026-11-23T19:52:32.4957050Z       ContinuousOn y (Set.Icc 0 T) →
+2026-11-23T19:52:32.4957479Z         (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+2026-11-23T19:52:32.4958147Z           (∀ x ∈ Set.Ico 0 T, y' x ≤ Frohman.Tether.comparisonField C κ'' (y x)) →
+2026-11-23T19:52:32.4958634Z             ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / κ'')
+2026-11-23T19:52:32.4959231Z info: FTVerified/Paper.lean:87:0: @Frohman.Tether.layer2_bound : ∀ {y y' : ℝ → ℝ} {C κ Cabs T : ℝ},
+2026-11-23T19:52:32.4959793Z   0 < Frohman.Tether.kappaDD κ Cabs →
+2026-11-23T19:52:32.4960107Z     0 ≤ y 0 →
+2026-11-23T19:52:32.4960352Z       ContinuousOn y (Set.Icc 0 T) →
+2026-11-23T19:52:32.4960778Z         (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+2026-11-23T19:52:32.4961376Z           (∀ x ∈ Set.Ico 0 T, y' x ≤ C * y x ^ 2 - Frohman.Tether.kappaDD κ Cabs * y x ^ 3) →
+2026-11-23T19:52:32.4961968Z             ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / Frohman.Tether.kappaDD κ Cabs)
+2026-11-23T19:52:32.4963049Z info: FTVerified/Paper.lean:88:0: @Frohman.Tether.Riccati.tethered_ceiling : ∀ {y y' : ℝ → ℝ} {C κ'' T : ℝ},
+2026-11-23T19:52:32.4963610Z   0 < κ'' →
+2026-11-23T19:52:32.4963831Z     0 ≤ y 0 →
+2026-11-23T19:52:32.4964070Z       ContinuousOn y (Set.Icc 0 T) →
+2026-11-23T19:52:32.4964476Z         (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+2026-11-23T19:52:32.4965004Z           (∀ x ∈ Set.Ico 0 T, y' x ≤ Frohman.Tether.comparisonField C κ'' (y x)) →
+2026-11-23T19:52:32.4965520Z             ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / κ'')
+2026-11-23T19:52:32.4966091Z info: FTVerified/Paper.lean:89:0: @Frohman.Tether.Riccati.riccati_blowup : ∀ {C y₀ : ℝ},
+2026-11-23T19:52:32.4967317Z   0 < C → 0 < y₀ → ∀ (M : ℝ), ∃ t, 0 ≤ t ∧ t < 1 / (C * y₀) ∧ M < Frohman.Tether.Riccati.ricSol C y₀ t
+2026-11-23T19:52:32.4968359Z info: FTVerified/Paper.lean:93:0: @Frohman.Tether.viscous_nonpos_at_max : ∀ {ω : Frohman.Tether.Torus.R3 → Frohman.Tether.Torus.R3}
+2026-11-23T19:52:32.4969084Z   {x : Frohman.Tether.Torus.R3} {ν : ℝ},
+2026-11-23T19:52:32.4969412Z   0 ≤ ν →
+2026-11-23T19:52:32.4969816Z     (∀ (i : Fin 3), Differentiable ℝ fun t => ω (x + t • Frohman.Tether.Torus.e i)) →
+2026-11-23T19:52:32.4970469Z       (∀ (i : Fin 3), Differentiable ℝ (deriv fun t => ω (x + t • Frohman.Tether.Torus.e i))) →
+2026-11-23T19:52:32.4971039Z         (∀ (z : Frohman.Tether.Torus.R3), ‖ω z‖ ≤ ‖ω x‖) →
+2026-11-23T19:52:32.4971605Z           ν * ∑ i, inner ℝ (ω x) (deriv (deriv fun t => ω (x + t • Frohman.Tether.Torus.e i)) 0) ≤ 0
+2026-11-23T19:52:32.4972421Z info: FTVerified/Paper.lean:94:0: @Frohman.Tether.periodic_exists_max : ∀ {g : Frohman.Tether.Torus.R3 → ℝ},
+2026-11-23T19:52:32.4973264Z   Continuous g → Frohman.Tether.Torus.IsPeriodic g → ∃ x, ∀ (z : Frohman.Tether.Torus.R3), g z ≤ g x
+2026-11-23T19:52:32.4974249Z info: FTVerified/Paper.lean:98:0: @Frohman.Tether.frohmanian_symplectic_tether_theorem : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4975039Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4975454Z   3 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4975740Z     ∀ {S w : ℝ},
+2026-11-23T19:52:32.4975972Z       0 ≤ S →
+2026-11-23T19:52:32.4976185Z         0 < w →
+2026-11-23T19:52:32.4976428Z           ∀ (u ω : H),
+2026-11-23T19:52:32.4976684Z             u ≠ 0 →
+2026-11-23T19:52:32.4976937Z               inner ℝ u ω = 0 →
+2026-11-23T19:52:32.4977224Z                 ‖ω‖ = 1 →
+2026-11-23T19:52:32.4977541Z                   ∀ (B : LinearMap.BilinForm ℝ H),
+2026-11-23T19:52:32.4978332Z                     Frohman.Tether.IsAdmissibleCorrection u (Frohman.Tether.RouteAFeedback S w u ω) B ↔
+2026-11-23T19:52:32.4978995Z                       ∃ κ, κ = S ∧ B = Frohman.Tether.frohmanianTether κ w u
+2026-11-23T19:52:32.4979874Z info: FTVerified/Paper.lean:99:0: @Frohman.Tether.frohmanian_symplectic_tether_theorem_global : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4980704Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4981430Z   3 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4981719Z     ∀ {S w Cabs C : ℝ},
+2026-11-23T19:52:32.4981977Z       0 ≤ S →
+2026-11-23T19:52:32.4982190Z         0 < w →
+2026-11-23T19:52:32.4982431Z           ∀ (u ω : H),
+2026-11-23T19:52:32.4982695Z             u ≠ 0 →
+2026-11-23T19:52:32.4982956Z               inner ℝ u ω = 0 →
+2026-11-23T19:52:32.4983237Z                 ‖ω‖ = 1 →
+2026-11-23T19:52:32.4983508Z                   (∀ (F : H),
+2026-11-23T19:52:32.4984061Z                       ((Frohman.Tether.frohmanianTether S w u) F) (Frohman.Tether.kineticEnergyGradient u) = 0) ∧
+2026-11-23T19:52:32.4984681Z                     (∀ (B : LinearMap.BilinForm ℝ H),
+2026-11-23T19:52:32.4985311Z                         Frohman.Tether.IsAdmissibleCorrection u (Frohman.Tether.RouteAFeedback S w u ω) B ↔
+2026-11-23T19:52:32.4985995Z                           ∃ κ, κ = S ∧ B = Frohman.Tether.frohmanianTether κ w u) ∧
+2026-11-23T19:52:32.4986465Z                       (0 < Frohman.Tether.kappaDD S Cabs →
+2026-11-23T19:52:32.4986913Z                         ∀ (s : Frohman.Tether.NSTetherSolution),
+2026-11-23T19:52:32.4987522Z                           Frohman.Tether.NSTetherEnstrophyInequality s C (Frohman.Tether.kappaDD S Cabs) →
+2026-11-23T19:52:32.4988254Z                             Frohman.Tether.BKMContinuation s →
+2026-11-23T19:52:32.4988848Z                               Frohman.Tether.LocalContinuation s → Frohman.Tether.GloballySmooth s)
+2026-11-23T19:52:36.0912200Z ✔ [8295/8296] Built FTVerified (3.4s)
+2026-11-23T19:52:36.1397221Z Build completed successfully (8296 jobs).
+2026-11-23T19:52:36.1821666Z ##[group]Run set -o pipefail
+2026-11-23T19:52:36.1821934Z [36;1mset -o pipefail[0m
+2026-11-23T19:52:36.1822194Z [36;1mpython3 scripts/check_jacobi_axioms.py | tee axioms.txt[0m
+2026-11-23T19:52:36.1853994Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:52:36.1854227Z ##[endgroup]
+2026-11-23T19:52:40.7235393Z 'Frohman.Tether.FieldJacobi.jacF_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7236351Z 'Frohman.Tether.FieldJacobi.br_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7237202Z 'Frohman.Tether.FieldJacobi.jacT_eq_mixedSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7238176Z 'Frohman.Tether.FieldJacobi.pr_uY_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7239069Z 'Frohman.Tether.FieldJacobi.br_eq_zero_of_xOnly_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7240018Z 'Frohman.Tether.FieldJacobi.mixedF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7240591Z 'Frohman.Tether.FieldJacobi.mixedSumF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7241153Z 'Frohman.Tether.FieldJacobi.shearY_mixed_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7241730Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7242275Z 'Frohman.Tether.FieldJacobi.mixedSumF_diag' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7242793Z 'Frohman.Tether.FieldJacobi.pr_uY_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7243265Z 'Frohman.Tether.FieldJacobi.pr_aZ_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7243748Z 'Frohman.Tether.FieldJacobi.br_uY_aZ_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7244245Z 'Frohman.Tether.FieldJacobi.divFree_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7244753Z 'Frohman.Tether.FieldJacobi.divFree_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7245252Z 'Frohman.Tether.FieldJacobi.xOnly_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7245748Z 'Frohman.Tether.FieldJacobi.xOnly_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7246471Z 'Frohman.Tether.FieldJacobi.divFree_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7247005Z 'Frohman.Tether.FieldJacobi.shearY_transverse_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7247578Z 'Frohman.Tether.FieldJacobi.shearY_transverse_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7248384Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7248972Z 'Frohman.Tether.JacobiWitness.crossBr_isClassical' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7249515Z 'Frohman.Tether.JacobiWitness.mixed_sum_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7250048Z 'Frohman.Tether.JacobiWitness.mixed_sum_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7250618Z 'Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7251226Z 'Frohman.Tether.JacobiCompanion.shear_jacobi_holds_of_pr_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7251856Z 'Frohman.Tether.JacobiCompanion.shearY_jacobi_holds_eq_special_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7252592Z 'Frohman.Tether.JacobiCompanion.pr_uY_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7253110Z 'Frohman.Tether.JacobiCompanion.uY_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7253698Z 'Frohman.Tether.JacobiCompanion.brT_uY_eX_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7254262Z 'Frohman.Tether.JacobiCompanion.brT_uY_eX_eX_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7254835Z 'Frohman.Tether.JacobiCompanion.paperI_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7255378Z 'Frohman.Tether.JacobiCompanion.xOnly_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7255905Z 'Frohman.Tether.JacobiCompanion.divFree_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7256423Z 'Frohman.Tether.JacobiCompanion.xOnly_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7256933Z 'Frohman.Tether.JacobiCompanion.divFree_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7257447Z 'Frohman.Tether.JacobiCompanion.uIso_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7258166Z 'Frohman.Tether.JacobiCompanion.pr_uIso_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7258673Z 'Frohman.Tether.JacobiCompanion.pr_uIso_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7259173Z 'Frohman.Tether.JacobiCompanion.pr_cY_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7259673Z 'Frohman.Tether.JacobiCompanion.pr_smul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7260176Z 'Frohman.Tether.JacobiCompanion.piF_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7260680Z 'Frohman.Tether.JacobiCompanion.jacT_uIso_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7261253Z 'Frohman.Tether.JacobiCompanion.shear_jacobi_fails_isotropic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7261826Z 'Frohman.Tether.JacobiCompanion.brT_uY_aZ_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7262353Z 'Frohman.Tether.JacobiCompanion.brT_not_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7262912Z 'Frohman.Tether.JacobiCompanion.paperII_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7263661Z 'LiePoissonCore.six_terms_cancel' depends on axioms: [propext, Quot.sound]
+2026-11-23T19:52:40.7264063Z 'LiePoissonCore.lie_poisson_jacobi_core' depends on axioms: [propext, Quot.sound]
+2026-11-23T19:52:40.7264533Z 'LiePoissonCore.six_terms_cancel_needs_symmetry' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7265043Z 'LiePoissonCore.six_terms_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7265511Z 'LiePoissonCore.entry01' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7265999Z 'LiePoissonCore.lie_poisson_jacobi_core_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7266404Z PASS: 53 declarations, standard axioms only
+2026-11-23T19:52:40.7338647Z ##[group]Run python3 scripts/check_forbidden_tokens.py --require-imported-by scripts/StrictAxiomAudit.lean FTVerified.lean FTVerified
+2026-11-23T19:52:40.7339464Z [36;1mpython3 scripts/check_forbidden_tokens.py --require-imported-by scripts/StrictAxiomAudit.lean FTVerified.lean FTVerified[0m
+2026-11-23T19:52:40.7368925Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:52:40.7369157Z ##[endgroup]
+2026-11-23T19:52:40.8980999Z scanned 32 Lean files under: FTVerified.lean FTVerified
+2026-11-23T19:52:40.8981890Z coverage: every scanned module is imported (transitively) by scripts/StrictAxiomAudit.lean
+2026-11-23T19:52:40.8982356Z PASS: no sorry / admit / native_decide / axiom declarations (comments excluded)
+2026-11-23T19:52:40.9053659Z ##[group]Run set -o pipefail
+2026-11-23T19:52:40.9053919Z [36;1mset -o pipefail[0m
+2026-11-23T19:52:40.9054248Z [36;1mlake env lean scripts/StrictAxiomAudit.lean 2>&1 | tee strict-axiom-audit.txt[0m
+2026-11-23T19:52:40.9054642Z [36;1mgrep -q '^STRICT AUDIT PASS' strict-axiom-audit.txt[0m
+2026-11-23T19:52:40.9055138Z [36;1mif grep -v '^STRICT AUDIT PASS' strict-axiom-audit.txt | grep -qE 'STRICT AUDIT FAIL|sorryAx|ofReduceBool|error:'; then exit 1; fi[0m
+2026-11-23T19:52:40.9055645Z [36;1mgrep '^STRICT AUDIT SUMMARY' strict-axiom-audit.txt[0m
+2026-11-23T19:52:40.9084425Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:52:40.9084647Z ##[endgroup]
+2026-11-23T19:54:58.5579559Z STRICT AUDIT MODULE: FTVerified.Companion.JacobiCompanion
+2026-11-23T19:54:58.5588531Z STRICT AUDIT MODULE: FTVerified.Companion.LiePoissonJacobiCore
+2026-11-23T19:54:58.5588879Z STRICT AUDIT MODULE: FTVerified.May.Basic
+2026-11-23T19:54:58.5589134Z STRICT AUDIT MODULE: FTVerified.May.BiotSavart
+2026-11-23T19:54:58.5589513Z STRICT AUDIT MODULE: FTVerified.May.ChevalleyEilenberg
+2026-11-23T19:54:58.5589787Z STRICT AUDIT MODULE: FTVerified.May.CurlNS
+2026-11-23T19:54:58.5590041Z STRICT AUDIT MODULE: FTVerified.May.Enstrophy
+2026-11-23T19:54:58.5590300Z STRICT AUDIT MODULE: FTVerified.May.EnstrophyL2
+2026-11-23T19:54:58.5590553Z STRICT AUDIT MODULE: FTVerified.May.FieldJacobi
+2026-11-23T19:54:58.5590820Z STRICT AUDIT MODULE: FTVerified.May.FieldMetriplectic
+2026-11-23T19:54:58.5591103Z STRICT AUDIT MODULE: FTVerified.May.Final
+2026-11-23T19:54:58.5591360Z STRICT AUDIT MODULE: FTVerified.May.GlobalRegularity
+2026-11-23T19:54:58.5591611Z STRICT AUDIT MODULE: FTVerified.May.Jacobi
+2026-11-23T19:54:58.5591852Z STRICT AUDIT MODULE: FTVerified.May.JacobiWitness
+2026-11-23T19:54:58.5592099Z STRICT AUDIT MODULE: FTVerified.May.Layer2
+2026-11-23T19:54:58.5592331Z STRICT AUDIT MODULE: FTVerified.May.LogLoss
+2026-11-23T19:54:58.5592576Z STRICT AUDIT MODULE: FTVerified.May.Main
+2026-11-23T19:54:58.5592827Z STRICT AUDIT MODULE: FTVerified.May.Metriplectic
+2026-11-23T19:54:58.5593094Z STRICT AUDIT MODULE: FTVerified.May.PalinstrophyH1
+2026-11-23T19:54:58.5593372Z STRICT AUDIT MODULE: FTVerified.May.RiccatiComparison
+2026-11-23T19:54:58.5593636Z STRICT AUDIT MODULE: FTVerified.May.RouteA
+2026-11-23T19:54:58.5593883Z STRICT AUDIT MODULE: FTVerified.May.TetheredLyapunov
+2026-11-23T19:54:58.5594131Z STRICT AUDIT MODULE: FTVerified.May.Torus
+2026-11-23T19:54:58.5594630Z STRICT AUDIT MODULE: FTVerified.May.VorticityTether
+2026-11-23T19:54:58.5594913Z STRICT AUDIT MODULE: FTVerified.Sdiff.ArnoldGeometric
+2026-11-23T19:54:58.5595214Z STRICT AUDIT MODULE: FTVerified.Sdiff.ForMathlib.Projection
+2026-11-23T19:54:58.5595510Z STRICT AUDIT MODULE: FTVerified.Sdiff.NS_Equations
+2026-11-23T19:54:58.5595817Z STRICT AUDIT MODULE: FTVerified.Sdiff.ObstructionAudit
+2026-11-23T19:54:58.5596124Z STRICT AUDIT MODULE: FTVerified.Sdiff.SymplecticTether
+2026-11-23T19:54:58.5596554Z STRICT AUDIT MODULE: FTVerified.Semantics
+2026-11-23T19:54:58.5596963Z STRICT AUDIT SUMMARY: modules: 30; declarations: 997; theorems: 662; violations: 0
+2026-11-23T19:54:58.5597697Z STRICT AUDIT PASS: only propext, Classical.choice, Quot.sound; no sorryAx; no axiom declarations
+2026-11-23T19:54:58.8050064Z STRICT AUDIT SUMMARY: modules: 30; declarations: 997; theorems: 662; violations: 0
+2026-11-23T19:54:58.8118431Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:54:58.8118689Z with:
+2026-11-23T19:54:58.8118888Z   name: lean-logs
+2026-11-23T19:54:58.8119110Z   path: build.log
+axioms.txt
+strict-axiom-audit.txt
+
+2026-11-23T19:54:58.8119376Z   if-no-files-found: warn
+2026-11-23T19:54:58.8119579Z   compression-level: 6
+2026-11-23T19:54:58.8119764Z   overwrite: false
+2026-11-23T19:54:58.8119948Z   include-hidden-files: false
+2026-11-23T19:54:58.8120357Z ##[endgroup]
+2026-11-23T19:54:59.0078461Z (node:3136) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:54:59.0079406Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:54:59.0147707Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-23T19:54:59.0151264Z The least common ancestor is /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified. This will be the root directory of the artifact
+2026-11-23T19:54:59.0152382Z With the provided path, there will be 3 files uploaded
+2026-11-23T19:54:59.0154603Z Artifact name is valid!
+2026-11-23T19:54:59.0155939Z Root directory input is valid!
+2026-11-23T19:54:59.3062478Z Beginning upload of artifact content to blob storage
+2026-11-23T19:54:59.3328926Z (node:3136) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:54:59.4461439Z Uploaded bytes 7937
+2026-11-23T19:54:59.4836195Z Finished uploading artifact content to blob storage!
+2026-11-23T19:54:59.4837277Z SHA256 digest of uploaded artifact zip is 6ae45bd1aff197eecdc737ae37ef5882c045124c0ab0451617d300716ffe8337
+2026-11-23T19:54:59.4838961Z Finalizing artifact upload
+2026-11-23T19:54:59.8301389Z Artifact lean-logs.zip successfully finalized. Artifact ID 14857680192
+2026-11-23T19:54:59.8302202Z Artifact lean-logs has been successfully uploaded! Final size is 7937 bytes. Artifact ID is 14857680192
+2026-11-23T19:54:59.8307139Z Artifact download URL: https://github.com/BenFrohman/frohmanian-tether-verified/actions/runs/45252962175/artifacts/14857680192
+2026-11-23T19:54:59.8515047Z Post job cleanup.
+2026-11-23T19:54:59.9211379Z [command]/usr/bin/git version
+2026-11-23T19:54:59.9268524Z git version 2.56.1
+2026-11-23T19:54:59.9285765Z Temporarily overriding HOME='/home/runner/work/_temp/0ad7c6e7-cf3a-466c-8c6b-42690684bec6' before making global git config changes
+2026-11-23T19:54:59.9287050Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:54:59.9290650Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified
+2026-11-23T19:54:59.9330053Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:54:59.9360366Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:54:59.9615103Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:54:59.9648334Z http.https://github.com/.extraheader
+2026-11-23T19:54:59.9665951Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:54:59.9682907Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:54:59.9946388Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:54:59.9980019Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:55:00.0348632Z Cleaning up orphan processes
+2026-11-23T19:55:00.0678247Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/10_Strict whole-library axiom audit (every declaration in FTVerified).txt
+﻿2026-11-23T19:52:40.9053647Z ##[group]Run set -o pipefail
+2026-11-23T19:52:40.9053916Z [36;1mset -o pipefail[0m
+2026-11-23T19:52:40.9054245Z [36;1mlake env lean scripts/StrictAxiomAudit.lean 2>&1 | tee strict-axiom-audit.txt[0m
+2026-11-23T19:52:40.9054641Z [36;1mgrep -q '^STRICT AUDIT PASS' strict-axiom-audit.txt[0m
+2026-11-23T19:52:40.9055135Z [36;1mif grep -v '^STRICT AUDIT PASS' strict-axiom-audit.txt | grep -qE 'STRICT AUDIT FAIL|sorryAx|ofReduceBool|error:'; then exit 1; fi[0m
+2026-11-23T19:52:40.9055642Z [36;1mgrep '^STRICT AUDIT SUMMARY' strict-axiom-audit.txt[0m
+2026-11-23T19:52:40.9084416Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:52:40.9084644Z ##[endgroup]
+2026-11-23T19:54:58.5579511Z STRICT AUDIT MODULE: FTVerified.Companion.JacobiCompanion
+2026-11-23T19:54:58.5588521Z STRICT AUDIT MODULE: FTVerified.Companion.LiePoissonJacobiCore
+2026-11-23T19:54:58.5588876Z STRICT AUDIT MODULE: FTVerified.May.Basic
+2026-11-23T19:54:58.5589132Z STRICT AUDIT MODULE: FTVerified.May.BiotSavart
+2026-11-23T19:54:58.5589430Z STRICT AUDIT MODULE: FTVerified.May.ChevalleyEilenberg
+2026-11-23T19:54:58.5589785Z STRICT AUDIT MODULE: FTVerified.May.CurlNS
+2026-11-23T19:54:58.5590039Z STRICT AUDIT MODULE: FTVerified.May.Enstrophy
+2026-11-23T19:54:58.5590298Z STRICT AUDIT MODULE: FTVerified.May.EnstrophyL2
+2026-11-23T19:54:58.5590552Z STRICT AUDIT MODULE: FTVerified.May.FieldJacobi
+2026-11-23T19:54:58.5590818Z STRICT AUDIT MODULE: FTVerified.May.FieldMetriplectic
+2026-11-23T19:54:58.5591095Z STRICT AUDIT MODULE: FTVerified.May.Final
+2026-11-23T19:54:58.5591358Z STRICT AUDIT MODULE: FTVerified.May.GlobalRegularity
+2026-11-23T19:54:58.5591609Z STRICT AUDIT MODULE: FTVerified.May.Jacobi
+2026-11-23T19:54:58.5591851Z STRICT AUDIT MODULE: FTVerified.May.JacobiWitness
+2026-11-23T19:54:58.5592098Z STRICT AUDIT MODULE: FTVerified.May.Layer2
+2026-11-23T19:54:58.5592329Z STRICT AUDIT MODULE: FTVerified.May.LogLoss
+2026-11-23T19:54:58.5592575Z STRICT AUDIT MODULE: FTVerified.May.Main
+2026-11-23T19:54:58.5592821Z STRICT AUDIT MODULE: FTVerified.May.Metriplectic
+2026-11-23T19:54:58.5593093Z STRICT AUDIT MODULE: FTVerified.May.PalinstrophyH1
+2026-11-23T19:54:58.5593370Z STRICT AUDIT MODULE: FTVerified.May.RiccatiComparison
+2026-11-23T19:54:58.5593635Z STRICT AUDIT MODULE: FTVerified.May.RouteA
+2026-11-23T19:54:58.5593882Z STRICT AUDIT MODULE: FTVerified.May.TetheredLyapunov
+2026-11-23T19:54:58.5594129Z STRICT AUDIT MODULE: FTVerified.May.Torus
+2026-11-23T19:54:58.5594627Z STRICT AUDIT MODULE: FTVerified.May.VorticityTether
+2026-11-23T19:54:58.5594911Z STRICT AUDIT MODULE: FTVerified.Sdiff.ArnoldGeometric
+2026-11-23T19:54:58.5595213Z STRICT AUDIT MODULE: FTVerified.Sdiff.ForMathlib.Projection
+2026-11-23T19:54:58.5595508Z STRICT AUDIT MODULE: FTVerified.Sdiff.NS_Equations
+2026-11-23T19:54:58.5595815Z STRICT AUDIT MODULE: FTVerified.Sdiff.ObstructionAudit
+2026-11-23T19:54:58.5596122Z STRICT AUDIT MODULE: FTVerified.Sdiff.SymplecticTether
+2026-11-23T19:54:58.5596552Z STRICT AUDIT MODULE: FTVerified.Semantics
+2026-11-23T19:54:58.5596954Z STRICT AUDIT SUMMARY: modules: 30; declarations: 997; theorems: 662; violations: 0
+2026-11-23T19:54:58.5597694Z STRICT AUDIT PASS: only propext, Classical.choice, Quot.sound; no sorryAx; no axiom declarations
+2026-11-23T19:54:58.8050008Z STRICT AUDIT SUMMARY: modules: 30; declarations: 997; theorems: 662; violations: 0
+
+===== build/11_Run actions_upload-artifact@v4.txt
+﻿2026-11-23T19:54:58.8118421Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:54:58.8118686Z with:
+2026-11-23T19:54:58.8118886Z   name: lean-logs
+2026-11-23T19:54:58.8119106Z   path: build.log
+axioms.txt
+strict-axiom-audit.txt
+
+2026-11-23T19:54:58.8119373Z   if-no-files-found: warn
+2026-11-23T19:54:58.8119578Z   compression-level: 6
+2026-11-23T19:54:58.8119763Z   overwrite: false
+2026-11-23T19:54:58.8119946Z   include-hidden-files: false
+2026-11-23T19:54:58.8120355Z ##[endgroup]
+2026-11-23T19:54:59.0078414Z (node:3136) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:54:59.0079400Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:54:59.0147669Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-23T19:54:59.0151161Z The least common ancestor is /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified. This will be the root directory of the artifact
+2026-11-23T19:54:59.0152375Z With the provided path, there will be 3 files uploaded
+2026-11-23T19:54:59.0154597Z Artifact name is valid!
+2026-11-23T19:54:59.0155929Z Root directory input is valid!
+2026-11-23T19:54:59.3062446Z Beginning upload of artifact content to blob storage
+2026-11-23T19:54:59.3328906Z (node:3136) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:54:59.4461407Z Uploaded bytes 7937
+2026-11-23T19:54:59.4836163Z Finished uploading artifact content to blob storage!
+2026-11-23T19:54:59.4837264Z SHA256 digest of uploaded artifact zip is 6ae45bd1aff197eecdc737ae37ef5882c045124c0ab0451617d300716ffe8337
+2026-11-23T19:54:59.4838954Z Finalizing artifact upload
+2026-11-23T19:54:59.8301351Z Artifact lean-logs.zip successfully finalized. Artifact ID 14857680192
+2026-11-23T19:54:59.8302156Z Artifact lean-logs has been successfully uploaded! Final size is 7937 bytes. Artifact ID is 14857680192
+2026-11-23T19:54:59.8307130Z Artifact download URL: https://github.com/BenFrohman/frohmanian-tether-verified/actions/runs/45252962175/artifacts/14857680192
+
+===== build/1_Set up job.txt
+﻿2026-11-23T19:49:47.0856389Z Current runner version: '2.338.2'
+2026-11-23T19:49:47.0880492Z ##[group]Runner Image Provisioner
+2026-11-23T19:49:47.0881285Z Hosted Compute Agent
+2026-11-23T19:49:47.0881802Z Version: 20261111.635
+2026-11-23T19:49:47.0882462Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:49:47.0883119Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:49:47.0883788Z Worker ID: {cc9de107-8efe-4365-9465-a7bcfc2c1405}
+2026-11-23T19:49:47.0884388Z Region: centralus
+2026-11-23T19:49:47.0884880Z Cloud: Azure
+2026-11-23T19:49:47.0885372Z ##[endgroup]
+2026-11-23T19:49:47.0886580Z ##[group]Operating System
+2026-11-23T19:49:47.0887191Z Ubuntu
+2026-11-23T19:49:47.0887635Z 26.04.1
+2026-11-23T19:49:47.0888370Z LTS
+2026-11-23T19:49:47.0888853Z ##[endgroup]
+2026-11-23T19:49:47.0889314Z ##[group]Runner Image
+2026-11-23T19:49:47.0889805Z Image: ubuntu-26.04
+2026-11-23T19:49:47.0890331Z Version: 20261116.202.1
+2026-11-23T19:49:47.0891241Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:49:47.0892697Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:49:47.0893462Z ##[endgroup]
+2026-11-23T19:49:47.0894470Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:49:47.0896205Z Contents: read
+2026-11-23T19:49:47.0896797Z Metadata: read
+2026-11-23T19:49:47.0897273Z ##[endgroup]
+2026-11-23T19:49:47.0899814Z Secret source: Actions
+2026-11-23T19:49:47.0900653Z Cache mode: write
+2026-11-23T19:49:47.0901426Z Prepare workflow directory
+2026-11-23T19:49:47.1173252Z Prepare all required actions
+2026-11-23T19:49:47.1214348Z Getting action download info
+2026-11-23T19:49:47.3330507Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:49:47.4481523Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:49:47.6609129Z Complete job name: build
+
+===== build/22_Post Run actions_checkout@v4.txt
+﻿2026-11-23T19:54:59.8515033Z Post job cleanup.
+2026-11-23T19:54:59.9211336Z [command]/usr/bin/git version
+2026-11-23T19:54:59.9268503Z git version 2.56.1
+2026-11-23T19:54:59.9285742Z Temporarily overriding HOME='/home/runner/work/_temp/0ad7c6e7-cf3a-466c-8c6b-42690684bec6' before making global git config changes
+2026-11-23T19:54:59.9287045Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:54:59.9290643Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified
+2026-11-23T19:54:59.9330042Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:54:59.9360355Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:54:59.9614991Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:54:59.9648301Z http.https://github.com/.extraheader
+2026-11-23T19:54:59.9665929Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:54:59.9682894Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:54:59.9946349Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:54:59.9980000Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== build/23_Complete job.txt
+﻿2026-11-23T19:55:00.0348618Z Cleaning up orphan processes
+2026-11-23T19:55:00.0678224Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/2_Run actions_checkout@v4.txt
+﻿2026-11-23T19:49:47.7349338Z ##[group]Run actions/checkout@v4
+2026-11-23T19:49:47.7350060Z with:
+2026-11-23T19:49:47.7350470Z   repository: BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:47.7353612Z   token: ***
+2026-11-23T19:49:47.7353965Z   ssh-strict: true
+2026-11-23T19:49:47.7354321Z   ssh-user: git
+2026-11-23T19:49:47.7354682Z   persist-credentials: true
+2026-11-23T19:49:47.7355074Z   clean: true
+2026-11-23T19:49:47.7355429Z   sparse-checkout-cone-mode: true
+2026-11-23T19:49:47.7355844Z   fetch-depth: 1
+2026-11-23T19:49:47.7356184Z   fetch-tags: false
+2026-11-23T19:49:47.7356543Z   show-progress: true
+2026-11-23T19:49:47.7356901Z   lfs: false
+2026-11-23T19:49:47.7357227Z   submodules: false
+2026-11-23T19:49:47.7357583Z   set-safe-directory: true
+2026-11-23T19:49:47.7358121Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:49:47.7358709Z ##[endgroup]
+2026-11-23T19:49:47.9523186Z Syncing repository: BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:47.9525133Z ##[group]Getting Git version info
+2026-11-23T19:49:47.9525938Z Working directory is '/home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified'
+2026-11-23T19:49:47.9527137Z [command]/usr/bin/git version
+2026-11-23T19:49:47.9527635Z git version 2.56.1
+2026-11-23T19:49:47.9537995Z ##[endgroup]
+2026-11-23T19:49:47.9550408Z Temporarily overriding HOME='/home/runner/work/_temp/603186c7-bc53-495f-84a3-19bd0b7c597c' before making global git config changes
+2026-11-23T19:49:47.9552634Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:49:47.9554788Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified
+2026-11-23T19:49:47.9608732Z Deleting the contents of '/home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified'
+2026-11-23T19:49:47.9611008Z ##[group]Initializing the repository
+2026-11-23T19:49:47.9615838Z [command]/usr/bin/git init /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified
+2026-11-23T19:49:47.9707505Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:49:47.9709750Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:49:47.9711176Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:49:47.9712350Z hint: call:
+2026-11-23T19:49:47.9712961Z hint:
+2026-11-23T19:49:47.9713778Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:49:47.9714773Z hint:
+2026-11-23T19:49:47.9715701Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:49:47.9717184Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:49:47.9718456Z hint:
+2026-11-23T19:49:47.9719135Z hint: 	git branch -m <name>
+2026-11-23T19:49:47.9719900Z hint:
+2026-11-23T19:49:47.9720896Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:49:47.9722972Z Initialized empty Git repository in /home/runner/work/frohmanian-tether-verified/frohmanian-tether-verified/.git/
+2026-11-23T19:49:47.9726176Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:47.9770993Z ##[endgroup]
+2026-11-23T19:49:47.9772153Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:49:47.9773275Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:49:47.9804966Z ##[endgroup]
+2026-11-23T19:49:47.9806008Z ##[group]Setting up auth
+2026-11-23T19:49:47.9809843Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:49:47.9841718Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:49:48.0205938Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:49:48.0252376Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:49:48.0494864Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:49:48.0527322Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:49:48.0780079Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:49:48.0819143Z ##[endgroup]
+2026-11-23T19:49:48.0819899Z ##[group]Fetching the repository
+2026-11-23T19:49:48.0828893Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +fb6d57fde73cf10acd31942cb5531f3874c8baaf:refs/remotes/origin/ci-backfill/fb6d57f
+2026-11-23T19:49:48.7314945Z From https://github.com/BenFrohman/frohmanian-tether-verified
+2026-11-23T19:49:48.7317319Z  * [new ref]         fb6d57fde73cf10acd31942cb5531f3874c8baaf -> origin/ci-backfill/fb6d57f
+2026-11-23T19:49:48.7321154Z ##[endgroup]
+2026-11-23T19:49:48.7322561Z ##[group]Determining the checkout info
+2026-11-23T19:49:48.7324183Z ##[endgroup]
+2026-11-23T19:49:48.7328206Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:49:48.7376903Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:49:48.7406980Z ##[group]Checking out the ref
+2026-11-23T19:49:48.7411215Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/fb6d57f refs/remotes/origin/ci-backfill/fb6d57f
+2026-11-23T19:49:48.7598860Z Switched to a new branch 'ci-backfill/fb6d57f'
+2026-11-23T19:49:48.7601772Z branch 'ci-backfill/fb6d57f' set up to track 'origin/ci-backfill/fb6d57f'.
+2026-11-23T19:49:48.7609466Z ##[endgroup]
+2026-11-23T19:49:48.7649803Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:49:48.7672653Z fb6d57fde73cf10acd31942cb5531f3874c8baaf
+
+===== build/3_Install elan (toolchain from lean-toolchain).txt
+﻿2026-11-23T19:49:48.7915159Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T19:49:48.7918909Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:49:48.7921184Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:49:48.7956200Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:48.7957208Z ##[endgroup]
+2026-11-23T19:49:48.8699521Z info: downloading installer
+
+===== build/4_Versions.txt
+﻿2026-11-23T19:49:49.2313260Z ##[group]Run cat lean-toolchain
+2026-11-23T19:49:49.2313575Z [36;1mcat lean-toolchain[0m
+2026-11-23T19:49:49.2313810Z [36;1mlean --version[0m
+2026-11-23T19:49:49.2314006Z [36;1mlake --version[0m
+2026-11-23T19:49:49.2314468Z [36;1mpython3 -c "import json;d=json.load(open('lake-manifest.json'));print([(p['name'],p['rev']) for p in d['packages'] if p['name']=='mathlib'])"[0m
+2026-11-23T19:49:49.2347275Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:49.2347534Z ##[endgroup]
+2026-11-23T19:49:49.2460551Z leanprover/lean4:v4.30.0-rc1
+2026-11-23T19:49:49.6459072Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:49:54.6190096Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:50:00.7803015Z Lean (version 4.30.0-rc1, x86_64-unknown-linux-gnu, commit 714601baf118066cbf3f282361339c6d06665b2a, Release)
+2026-11-23T19:50:00.8142697Z Lake version 5.0.0-src+714601b (Lean version 4.30.0-rc1)
+2026-11-23T19:50:00.8294111Z [('mathlib', '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7')]
+
+===== build/5_No sorry _ admit _ native_decide _ axiom (comments excluded).txt
+﻿2026-11-23T19:50:00.8689330Z ##[group]Run python3 scripts/check_no_sorry.py FTVerified
+2026-11-23T19:50:00.8689712Z [36;1mpython3 scripts/check_no_sorry.py FTVerified[0m
+2026-11-23T19:50:00.8720510Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:50:00.8720728Z ##[endgroup]
+2026-11-23T19:50:00.9796640Z scanned 32 project modules: FTVerified, FTVerified.Companion.JacobiCompanion, FTVerified.Companion.LiePoissonJacobiCore, FTVerified.May.Basic, FTVerified.May.BiotSavart, FTVerified.May.ChevalleyEilenberg, FTVerified.May.CurlNS, FTVerified.May.Enstrophy, FTVerified.May.EnstrophyL2, FTVerified.May.FieldJacobi, FTVerified.May.FieldMetriplectic, FTVerified.May.Final, FTVerified.May.GlobalRegularity, FTVerified.May.Jacobi, FTVerified.May.JacobiWitness, FTVerified.May.Layer2, FTVerified.May.LogLoss, FTVerified.May.Main, FTVerified.May.Metriplectic, FTVerified.May.PalinstrophyH1, FTVerified.May.RiccatiComparison, FTVerified.May.RouteA, FTVerified.May.TetheredLyapunov, FTVerified.May.Torus, FTVerified.May.VorticityTether, FTVerified.Paper, FTVerified.Sdiff.ArnoldGeometric, FTVerified.Sdiff.ForMathlib.Projection, FTVerified.Sdiff.NS_Equations, FTVerified.Sdiff.ObstructionAudit, FTVerified.Sdiff.SymplecticTether, FTVerified.Semantics
+2026-11-23T19:50:00.9801920Z PASS: no sorry / admit / native_decide / axiom declarations (comments excluded)
+
+===== build/6_Mathlib cache.txt
+﻿2026-11-23T19:50:01.0092659Z ##[group]Run lake exe cache get
+2026-11-23T19:50:01.0092929Z [36;1mlake exe cache get[0m
+2026-11-23T19:50:01.0126028Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:50:01.0126264Z ##[endgroup]
+2026-11-23T19:50:01.4143454Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:50:28.8621607Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:50:30.6087362Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:50:31.0642602Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:50:31.0775288Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:50:31.4197146Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:50:31.4308406Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:50:31.9059056Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:50:31.9236429Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:50:33.1714228Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:50:33.8330005Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:50:34.5639337Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:50:34.5884977Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:50:34.9910608Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:50:35.0041225Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:50:37.4519032Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:50:37.4843032Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:50:37.8870658Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:50:38.2028795Z ✔ [4/22] Built Cache.Init (289ms)
+2026-11-23T19:50:38.3010303Z ✔ [5/22] Built Cache.Init:c.o (98ms)
+2026-11-23T19:50:38.4038970Z ✔ [6/22] Built Cache.Lean (403ms)
+2026-11-23T19:50:38.5019266Z ✔ [7/22] Built Cache.Lean:c.o (148ms)
+2026-11-23T19:50:38.6021378Z ✔ [8/22] Built Batteries.Data.String.Basic (460ms)
+2026-11-23T19:50:38.8021827Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (121ms)
+2026-11-23T19:50:38.9026599Z ✔ [10/22] Built Batteries.Data.Array.Match (770ms)
+2026-11-23T19:50:39.2039842Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (256ms)
+2026-11-23T19:50:39.3039734Z ✔ [12/22] Built Batteries.Data.String.Matcher (360ms)
+2026-11-23T19:50:39.5034997Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (172ms)
+2026-11-23T19:50:39.6036445Z ✔ [14/22] Built Cache.IO (1.2s)
+2026-11-23T19:50:40.3045452Z ✔ [15/22] Built Cache.Hashing (677ms)
+2026-11-23T19:50:40.7051500Z ✔ [16/22] Built Cache.Hashing:c.o (437ms)
+2026-11-23T19:50:40.8052077Z ✔ [17/22] Built Cache.IO:c.o (1.2s)
+2026-11-23T19:50:42.0064355Z ✔ [18/22] Built Cache.Requests (1.7s)
+2026-11-23T19:50:42.7073174Z ✔ [19/22] Built Cache.Main (683ms)
+2026-11-23T19:50:43.1078257Z ✔ [20/22] Built Cache.Main:c.o (480ms)
+2026-11-23T19:50:43.6084008Z ✔ [21/22] Built Cache.Requests:c.o (1.7s)
+2026-11-23T19:50:44.3105689Z ✔ [22/22] Built cache:exe (622ms)
+2026-11-23T19:50:46.7147073Z Current branch: HEAD
+2026-11-23T19:50:46.7147986Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:50:46.7148751Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:50:47.0617872Z 
+2026-11-23T19:50:47.1618442Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 497 KB/s], Decompressed: 0
+2026-11-23T19:50:47.2649083Z Downloaded: 194 file(s) [attempted 194/8248 = 2%, 2286 KB/s], Decompressed: 12
+2026-11-23T19:50:47.3638958Z Downloaded: 379 file(s) [attempted 379/8248 = 4%, 1527 KB/s], Decompressed: 12
+2026-11-23T19:50:47.4799076Z Downloaded: 524 file(s) [attempted 524/8248 = 6%, 3552 KB/s], Decompressed: 12
+2026-11-23T19:50:47.5771825Z Downloaded: 722 file(s) [attempted 722/8248 = 8%, 1484 KB/s], Decompressed: 76
+2026-11-23T19:50:47.6795429Z Downloaded: 883 file(s) [attempted 883/8248 = 10%, 1045 KB/s], Decompressed: 76
+2026-11-23T19:50:47.7789225Z Downloaded: 1110 file(s) [attempted 1110/8248 = 13%, 11961 KB/s], Decompressed: 76
+2026-11-23T19:50:47.8780699Z Downloaded: 1385 file(s) [attempted 1385/8248 = 16%, 6244 KB/s], Decompressed: 76
+2026-11-23T19:50:47.9864754Z Downloaded: 1663 file(s) [attempted 1663/8248 = 20%, 3173 KB/s], Decompressed: 76
+2026-11-23T19:50:48.0869456Z Downloaded: 1838 file(s) [attempted 1838/8248 = 22%, 727 KB/s], Decompressed: 76
+2026-11-23T19:50:48.1969949Z Downloaded: 2082 file(s) [attempted 2082/8248 = 25%, 24087 KB/s], Decompressed: 76
+2026-11-23T19:50:48.3021107Z Downloaded: 2317 file(s) [attempted 2317/8248 = 28%, 18185 KB/s], Decompressed: 76
+2026-11-23T19:50:48.4039195Z Downloaded: 2451 file(s) [attempted 2451/8248 = 29%, 3012 KB/s], Decompressed: 76
+2026-11-23T19:50:48.5020110Z Downloaded: 2647 file(s) [attempted 2647/8248 = 32%, 13703 KB/s], Decompressed: 76
+2026-11-23T19:50:48.6173255Z Downloaded: 2771 file(s) [attempted 2771/8248 = 33%, 1514 KB/s], Decompressed: 76
+2026-11-23T19:50:48.7165584Z Downloaded: 2977 file(s) [attempted 2977/8248 = 36%, 2868 KB/s], Decompressed: 76
+2026-11-23T19:50:48.8182748Z Downloaded: 3131 file(s) [attempted 3131/8248 = 37%, 13382 KB/s], Decompressed: 76
+2026-11-23T19:50:48.9231547Z Downloaded: 3231 file(s) [attempted 3231/8248 = 39%, 5000 KB/s], Decompressed: 76
+2026-11-23T19:50:49.0279253Z Downloaded: 3390 file(s) [attempted 3390/8248 = 41%, 1778 KB/s], Decompressed: 76
+2026-11-23T19:50:49.1239925Z Downloaded: 3619 file(s) [attempted 3619/8248 = 43%, 3707 KB/s], Decompressed: 564
+2026-11-23T19:50:49.2339032Z Downloaded: 3887 file(s) [attempted 3887/8248 = 47%, 2513 KB/s], Decompressed: 564
+2026-11-23T19:50:49.3483636Z Downloaded: 3987 file(s) [attempted 3987/8248 = 48%, 2055 KB/s], Decompressed: 564
+2026-11-23T19:50:49.4679002Z Downloaded: 4079 file(s) [attempted 4079/8248 = 49%, 889 KB/s], Decompressed: 564
+2026-11-23T19:50:49.5818368Z Downloaded: 4223 file(s) [attempted 4223/8248 = 51%, 2075 KB/s], Decompressed: 564
+2026-11-23T19:50:49.6819735Z Downloaded: 4365 file(s) [attempted 4365/8248 = 52%, 6745 KB/s], Decompressed: 564
+2026-11-23T19:50:49.8195373Z Downloaded: 4526 file(s) [attempted 4526/8248 = 54%, 568 KB/s], Decompressed: 564
+2026-11-23T19:50:49.9225048Z Downloaded: 4702 file(s) [attempted 4702/8248 = 57%, 2005 KB/s], Decompressed: 564
+2026-11-23T19:50:50.0236884Z Downloaded: 4888 file(s) [attempted 4888/8248 = 59%, 3546 KB/s], Decompressed: 564
+2026-11-23T19:50:50.1239113Z Downloaded: 5134 file(s) [attempted 5134/8248 = 62%, 19404 KB/s], Decompressed: 564
+2026-11-23T19:50:50.2449268Z Downloaded: 5241 file(s) [attempted 5241/8248 = 63%, 3538 KB/s], Decompressed: 564
+2026-11-23T19:50:50.3453087Z Downloaded: 5374 file(s) [attempted 5374/8248 = 65%, 1165 KB/s], Decompressed: 564
+2026-11-23T19:50:50.4461418Z Downloaded: 5550 file(s) [attempted 5550/8248 = 67%, 1373 KB/s], Decompressed: 564
+2026-11-23T19:50:50.5467185Z Downloaded: 5783 file(s) [attempted 5783/8248 = 70%, 1145 KB/s], Decompressed: 564
+2026-11-23T19:50:50.6468846Z Downloaded: 6022 file(s) [attempted 6022/8248 = 73%, 14431 KB/s], Decompressed: 564
+2026-11-23T19:50:50.7480028Z Downloaded: 6097 file(s) [attempted 6097/8248 = 73%, 1616 KB/s], Decompressed: 564
+2026-11-23T19:50:50.8498142Z Downloaded: 6310 file(s) [attempted 6310/8248 = 76%, 3992 KB/s], Decompressed: 564
+2026-11-23T19:50:50.9576945Z Downloaded: 6399 file(s) [attempted 6399/8248 = 77%, 5295 KB/s], Decompressed: 564
+2026-11-23T19:50:51.0744223Z Downloaded: 6458 file(s) [attempted 6458/8248 = 78%, 6514 KB/s], Decompressed: 564
+2026-11-23T19:50:51.1806295Z Downloaded: 6552 file(s) [attempted 6552/8248 = 79%, 1091 KB/s], Decompressed: 564
+2026-11-23T19:50:51.2792963Z Downloaded: 6796 file(s) [attempted 6796/8248 = 82%, 1774 KB/s], Decompressed: 564
+2026-11-23T19:50:51.3999151Z Downloaded: 6984 file(s) [attempted 6984/8248 = 84%, 1746 KB/s], Decompressed: 564
+2026-11-23T19:50:51.5062014Z Downloaded: 7119 file(s) [attempted 7119/8248 = 86%, 5785 KB/s], Decompressed: 564
+2026-11-23T19:50:51.6094644Z Downloaded: 7342 file(s) [attempted 7342/8248 = 89%, 1812 KB/s], Decompressed: 564
+2026-11-23T19:50:51.7109173Z Downloaded: 7543 file(s) [attempted 7543/8248 = 91%, 4091 KB/s], Decompressed: 564
+2026-11-23T19:50:51.8239130Z Downloaded: 7662 file(s) [attempted 7662/8248 = 92%, 3217 KB/s], Decompressed: 564
+2026-11-23T19:50:51.9199610Z Downloaded: 7785 file(s) [attempted 7785/8248 = 94%, 2843 KB/s], Decompressed: 564
+2026-11-23T19:50:52.0985516Z Downloaded: 8094 file(s) [attempted 8094/8248 = 98%, 598 KB/s], Decompressed: 564
+2026-11-23T19:50:52.1097047Z Downloaded: 8247 file(s) [attempted 8247/8248 = 99%, 3348 KB/s], Decompressed: 564
+2026-11-23T19:50:52.1098965Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 3348 KB/s], Decompressed: 564
+2026-11-23T19:51:21.4877054Z Decompressed 8248 file(s)
+2026-11-23T19:51:21.4877426Z Already decompressed 8248 file(s)
+
+===== build/7_Build full library.txt
+﻿2026-11-23T19:51:21.5678146Z ##[group]Run set -o pipefail
+2026-11-23T19:51:21.5678539Z [36;1mset -o pipefail[0m
+2026-11-23T19:51:21.5678761Z [36;1mlake build 2>&1 | tee build.log[0m
+2026-11-23T19:51:21.5679132Z [36;1mif grep -n "declaration uses 'sorry'" build.log; then echo "sorry in build"; exit 1; fi[0m
+2026-11-23T19:51:21.5708841Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:51:21.5709072Z ##[endgroup]
+2026-11-23T19:51:26.6104825Z ✔ [2641/2663] Built FTVerified.May.Layer2 (3.9s)
+2026-11-23T19:51:29.1109152Z ✔ [2642/2683] Built FTVerified.May.EnstrophyL2 (6.4s)
+2026-11-23T19:51:31.3221474Z ✔ [4607/4795] Built FTVerified.May.RiccatiComparison (4.8s)
+2026-11-23T19:51:33.0309288Z ⚠ [6749/6861] Built FTVerified.May.Basic (10s)
+2026-11-23T19:51:33.0381062Z warning: FTVerified/May/Basic.lean:234:45: unused variable `hu`
+2026-11-23T19:51:33.0418539Z 
+2026-11-23T19:51:33.0499228Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:51:38.9479104Z ⚠ [8268/8296] Built FTVerified.May.Jacobi (5.9s)
+2026-11-23T19:51:38.9539120Z warning: FTVerified/May/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+2026-11-23T19:51:38.9598906Z   [InnerProductSpace ℝ H]
+2026-11-23T19:51:38.9659103Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-11-23T19:51:38.9719154Z   omit [InnerProductSpace ℝ H] in theorem ...
+2026-11-23T19:51:38.9778314Z 
+2026-11-23T19:51:38.9849038Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-11-23T19:51:41.0569196Z ✔ [8269/8296] Built FTVerified.May.Metriplectic (7.0s)
+2026-11-23T19:51:47.2770929Z ✔ [8270/8296] Built FTVerified.Companion.LiePoissonJacobiCore (11s)
+2026-11-23T19:51:47.3759069Z ✔ [8271/8296] Built FTVerified.May.RouteA (6.3s)
+2026-11-23T19:51:48.6759270Z ✔ [8272/8296] Built FTVerified.May.JacobiWitness (9.7s)
+2026-11-23T19:51:50.7767022Z ✔ [8273/8296] Built FTVerified.May.Main (3.4s)
+2026-11-23T19:51:53.0923044Z ✔ [8274/8296] Built FTVerified.May.TetheredLyapunov (2.3s)
+2026-11-23T19:51:57.6129412Z ✔ [8275/8296] Built FTVerified.May.GlobalRegularity (4.5s)
+2026-11-23T19:51:57.7048998Z ⚠ [8276/8296] Built FTVerified.May.Enstrophy (4.6s)
+2026-11-23T19:51:57.7088853Z warning: FTVerified/May/Enstrophy.lean:99:50: unused variable `hC`
+2026-11-23T19:51:57.7138110Z 
+2026-11-23T19:51:57.7168838Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:51:57.7198786Z warning: FTVerified/May/Enstrophy.lean:99:63: unused variable `hκ`
+2026-11-23T19:51:57.7228051Z 
+2026-11-23T19:51:57.7258707Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:51:57.7288733Z ✔ [8277/8296] Built FTVerified.May.Torus (4.6s)
+2026-11-23T19:52:01.1125941Z ⚠ [8278/8296] Built FTVerified.Sdiff.NS_Equations (38s)
+2026-11-23T19:52:01.1126790Z info: FTVerified/Sdiff/NS_Equations.lean:2527:2: Try this:
+2026-11-23T19:52:01.1127415Z   [apply] abel_nf
+2026-11-23T19:52:01.1128148Z warning: FTVerified/Sdiff/NS_Equations.lean:3676:9: unused variable `T`
+2026-11-23T19:52:01.1128716Z 
+2026-11-23T19:52:01.1129127Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:52:01.1130240Z info: FTVerified/Sdiff/NS_Equations.lean:3678:0: 'NavierStokes3D.curl_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1131626Z info: FTVerified/Sdiff/NS_Equations.lean:3679:0: 'NavierStokes3D.local_existence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1133084Z info: FTVerified/Sdiff/NS_Equations.lean:3680:0: 'NavierStokes3D.smoothness_of_Tstar_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1134479Z info: FTVerified/Sdiff/NS_Equations.lean:3681:0: 'NavierStokes3D.beale_kato_majda' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1135839Z info: FTVerified/Sdiff/NS_Equations.lean:3682:0: 'NavierStokes3D.beale_kato_majda_scaffold_integrability_unused' depends on axioms: [propext,
+2026-11-23T19:52:01.1137263Z  Classical.choice,
+2026-11-23T19:52:01.1137666Z  Quot.sound]
+2026-11-23T19:52:01.1138761Z info: FTVerified/Sdiff/NS_Equations.lean:3683:0: 'NavierStokes3D.bkm_criterion_without_integrability_not_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1140267Z info: FTVerified/Sdiff/NS_Equations.lean:3684:0: 'NavierStokes3D.Tstar_eq_top_of_bkm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1141666Z info: FTVerified/Sdiff/NS_Equations.lean:3685:0: 'NavierStokes3D.energy_zero_of_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1143185Z info: FTVerified/Sdiff/NS_Equations.lean:3686:0: 'NavierStokes3D.Tstar_eq_top_of_unbounded_existenceTimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1144736Z info: FTVerified/Sdiff/NS_Equations.lean:3687:0: 'NavierStokes3D.Tstar_eq_top_of_uniform_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1146246Z info: FTVerified/Sdiff/NS_Equations.lean:3688:0: 'NavierStokes3D.Tstar_eq_top_of_katoRestartTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1147700Z info: FTVerified/Sdiff/NS_Equations.lean:3689:0: 'NavierStokes3D.katoRestartTime_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1149232Z info: FTVerified/Sdiff/NS_Equations.lean:3690:0: 'NavierStokes3D.katoSobolevIndex_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1150623Z info: FTVerified/Sdiff/NS_Equations.lean:3691:0: 'NavierStokes3D.strain_sup_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1151983Z info: FTVerified/Sdiff/NS_Equations.lean:3692:0: 'NavierStokes3D.one_add_log_le_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1153433Z info: FTVerified/Sdiff/NS_Equations.lean:3693:0: 'NavierStokes3D.kato_ponce_implies_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1154930Z info: FTVerified/Sdiff/NS_Equations.lean:3694:0: 'NavierStokes3D.kato_ponce_of_uniform_vorticity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1156423Z info: FTVerified/Sdiff/NS_Equations.lean:3695:0: 'NavierStokes3D.kato_Hs_bound_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1158093Z info: FTVerified/Sdiff/NS_Equations.lean:3696:0: 'NavierStokes3D.exists_mem_existenceTimes_gt_of_lt_Tstar' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1159594Z info: FTVerified/Sdiff/NS_Equations.lean:3697:0: 'NavierStokes3D.navier_stokes_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1160998Z info: FTVerified/Sdiff/NS_Equations.lean:3698:0: 'NavierStokes3D.kato_witness_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1162464Z info: FTVerified/Sdiff/NS_Equations.lean:3699:0: 'NavierStokes3D.local_existence_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1163876Z info: FTVerified/Sdiff/NS_Equations.lean:3700:0: 'NavierStokes3D.Tstar_pos_of_kato_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1165278Z info: FTVerified/Sdiff/NS_Equations.lean:3701:0: 'NavierStokes3D.eq_of_l2_energy_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1166668Z info: FTVerified/Sdiff/NS_Equations.lean:3702:0: 'NavierStokes3D.ns_cauchy_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1168376Z info: FTVerified/Sdiff/NS_Equations.lean:3703:0: 'NavierStokes3D.ns_cauchy_eq_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1169785Z info: FTVerified/Sdiff/NS_Equations.lean:3704:0: 'NavierStokes3D.energy_zero_of_gronwall_Icc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1171716Z info: FTVerified/Sdiff/NS_Equations.lean:3705:0: 'NavierStokes3D.ns_cauchy_on_Icc_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1173165Z info: FTVerified/Sdiff/NS_Equations.lean:3706:0: 'NavierStokes3D.uniqueness_of_existence_times_of_energy_gronwall' depends on axioms: [propext,
+2026-11-23T19:52:01.1174123Z  Classical.choice,
+2026-11-23T19:52:01.1174513Z  Quot.sound]
+2026-11-23T19:52:01.1175308Z info: FTVerified/Sdiff/NS_Equations.lean:3707:0: 'NavierStokes3D.time_deriv_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1176616Z info: FTVerified/Sdiff/NS_Equations.lean:3708:0: 'NavierStokes3D.ns_pde_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1178114Z info: FTVerified/Sdiff/NS_Equations.lean:3709:0: 'NavierStokes3D.smoothness_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1179666Z info: FTVerified/Sdiff/NS_Equations.lean:3710:0: 'NavierStokes3D.mem_existenceTimes_add_of_kato_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1181151Z info: FTVerified/Sdiff/NS_Equations.lean:3711:0: 'NavierStokes3D.restart_of_kato_quantitative' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1182663Z info: FTVerified/Sdiff/NS_Equations.lean:3712:0: 'NavierStokes3D.smoothness_below_Tstar_of_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1184034Z info: FTVerified/Sdiff/NS_Equations.lean:3713:0: 'NavierStokes3D.curl_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1185393Z info: FTVerified/Sdiff/NS_Equations.lean:3714:0: 'NavierStokes3D.mem_existenceTimes_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1186800Z info: FTVerified/Sdiff/NS_Equations.lean:3715:0: 'NavierStokes3D.Tstar_zero_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1188281Z info: FTVerified/Sdiff/NS_Equations.lean:3716:0: 'NavierStokes3D.div_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1189586Z info: FTVerified/Sdiff/NS_Equations.lean:3717:0: 'NavierStokes3D.div_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1190892Z info: FTVerified/Sdiff/NS_Equations.lean:3718:0: 'NavierStokes3D.div_smul_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1192197Z info: FTVerified/Sdiff/NS_Equations.lean:3719:0: 'NavierStokes3D.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1193532Z info: FTVerified/Sdiff/NS_Equations.lean:3720:0: 'NavierStokes3D.convective_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1194984Z info: FTVerified/Sdiff/NS_Equations.lean:3721:0: 'NavierStokes3D.inner_convective_product_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1196504Z info: FTVerified/Sdiff/NS_Equations.lean:3722:0: 'NavierStokes3D.cyclicLiePairing_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1198054Z info: FTVerified/Sdiff/NS_Equations.lean:3723:0: 'NavierStokes3D.convective_norm_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1199496Z info: FTVerified/Sdiff/NS_Equations.lean:3724:0: 'NavierStokes3D.stretching_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1200803Z info: FTVerified/Sdiff/NS_Equations.lean:3725:0: 'NavierStokes3D.stretching_inner_le_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1202115Z info: FTVerified/Sdiff/NS_Equations.lean:3726:0: 'NavierStokes3D.stretching_quartic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1203484Z info: FTVerified/Sdiff/NS_Equations.lean:3727:0: 'NavierStokes3D.transport_inner_vanishes_of_grad_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1205592Z info: FTVerified/Sdiff/NS_Equations.lean:3728:0: 'NavierStokes3D.vorticity_transport_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1207024Z info: FTVerified/Sdiff/NS_Equations.lean:3729:0: 'NavierStokes3D.stretching_pairing_le_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1208741Z info: FTVerified/Sdiff/NS_Equations.lean:3730:0: 'NavierStokes3D.stretching_enstrophy_di_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1210202Z info: FTVerified/Sdiff/NS_Equations.lean:3731:0: 'NavierStokes3D.pressureGradient_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1211560Z info: FTVerified/Sdiff/NS_Equations.lean:3732:0: 'NavierStokes3D.ns_momentum_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1213080Z info: FTVerified/Sdiff/NS_Equations.lean:3733:0: 'NavierStokes3D.inner_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1214660Z info: FTVerified/Sdiff/NS_Equations.lean:3734:0: 'NavierStokes3D.transported_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1216240Z info: FTVerified/Sdiff/NS_Equations.lean:3735:0: 'NavierStokes3D.convective_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1217655Z info: FTVerified/Sdiff/NS_Equations.lean:3736:0: 'NavierStokes3D.inner_convective_le_strain' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1219655Z info: FTVerified/Sdiff/NS_Equations.lean:3737:0: 'NavierStokes3D.time_deriv_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1221035Z info: FTVerified/Sdiff/NS_Equations.lean:3738:0: 'NavierStokes3D.transported_scalar_along_characteristic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1222544Z info: FTVerified/Sdiff/NS_Equations.lean:3739:0: 'NavierStokes3D.transported_scalar_maximum_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1224007Z info: FTVerified/Sdiff/NS_Equations.lean:3740:0: 'NavierStokes3D.reciprocal_of_quadratic_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1225408Z info: FTVerified/Sdiff/NS_Equations.lean:3741:0: 'NavierStokes3D.le_vorticity_sup_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1226720Z info: FTVerified/Sdiff/NS_Equations.lean:3742:0: 'NavierStokes3D.convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1228242Z info: FTVerified/Sdiff/NS_Equations.lean:3743:0: 'NavierStokes3D.convective_eq_sum_directional' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1229744Z info: FTVerified/Sdiff/NS_Equations.lean:3744:0: 'NavierStokes3D.directionalCoord_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1231156Z info: FTVerified/Sdiff/NS_Equations.lean:3745:0: 'NavierStokes3D.curl_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1232544Z info: FTVerified/Sdiff/NS_Equations.lean:3746:0: 'NavierStokes3D.curl_convective_div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1233879Z info: FTVerified/Sdiff/NS_Equations.lean:3747:0: 'NavierStokes3D.curl_add3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1235256Z info: FTVerified/Sdiff/NS_Equations.lean:3748:0: 'NavierStokes3D.fderiv_prod_snd_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1236633Z info: FTVerified/Sdiff/NS_Equations.lean:3749:0: 'NavierStokes3D.deriv_prod_fst_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1239044Z info: FTVerified/Sdiff/NS_Equations.lean:3750:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1240437Z info: FTVerified/Sdiff/NS_Equations.lean:3751:0: 'NavierStokes3D.deriv_euclidean_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1241813Z info: FTVerified/Sdiff/NS_Equations.lean:3752:0: 'NavierStokes3D.curl_time_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1243145Z info: FTVerified/Sdiff/NS_Equations.lean:3753:0: 'NavierStokes3D.fderiv_field_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1244491Z info: FTVerified/Sdiff/NS_Equations.lean:3754:0: 'NavierStokes3D.laplacian_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1245856Z info: FTVerified/Sdiff/NS_Equations.lean:3755:0: 'NavierStokes3D.fderiv_apply_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1247306Z info: FTVerified/Sdiff/NS_Equations.lean:3756:0: 'NavierStokes3D.contDiffAt_directionalCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1249030Z info: FTVerified/Sdiff/NS_Equations.lean:3757:0: 'NavierStokes3D.directionalCoord_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1250425Z info: FTVerified/Sdiff/NS_Equations.lean:3758:0: 'NavierStokes3D.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1251847Z info: FTVerified/Sdiff/NS_Equations.lean:3759:0: 'NavierStokes3D.differentiableAt_time_deriv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1253390Z info: FTVerified/Sdiff/NS_Equations.lean:3760:0: 'NavierStokes3D.differentiableAt_convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1254971Z info: FTVerified/Sdiff/NS_Equations.lean:3761:0: 'NavierStokes3D.differentiableAt_pressureGradient_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1256504Z info: FTVerified/Sdiff/NS_Equations.lean:3762:0: 'NavierStokes3D.vorticity_transport_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1257950Z info: FTVerified/Sdiff/NS_Equations.lean:3763:0: 'NavierStokes3D.vorticity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1259296Z info: FTVerified/Sdiff/NS_Equations.lean:3764:0: 'NavierStokes3D.vorticity_transport_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1260701Z info: FTVerified/Sdiff/NS_Equations.lean:3765:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1261987Z info: FTVerified/Sdiff/NS_Equations.lean:3766:0: 'NavierStokes3D.differentiableAt_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1263314Z info: FTVerified/Sdiff/NS_Equations.lean:3767:0: 'NavierStokes3D.fderiv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1264674Z info: FTVerified/Sdiff/NS_Equations.lean:3768:0: 'NavierStokes3D.integration_by_parts_of_vanishing_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1266200Z info: FTVerified/Sdiff/NS_Equations.lean:3769:0: 'NavierStokes3D.inner_self_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext,
+2026-11-23T19:52:01.1267048Z  Classical.choice,
+2026-11-23T19:52:01.1267432Z  Quot.sound]
+2026-11-23T19:52:01.1268413Z info: FTVerified/Sdiff/NS_Equations.lean:3770:0: 'NavierStokes3D.differentiableAt_coord_of_differentiableAt_field' depends on axioms: [propext,
+2026-11-23T19:52:01.1269350Z  Classical.choice,
+2026-11-23T19:52:01.1269725Z  Quot.sound]
+2026-11-23T19:52:01.1270569Z info: FTVerified/Sdiff/NS_Equations.lean:3771:0: 'NavierStokes3D.differentiableAt_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1272501Z info: FTVerified/Sdiff/NS_Equations.lean:3772:0: 'NavierStokes3D.convective_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.1274061Z info: FTVerified/Sdiff/NS_Equations.lean:3773:0: 'NavierStokes3D.pressure_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:01.3161815Z ⚠ [8279/8296] Built FTVerified.May.Final (3.6s)
+2026-11-23T19:52:01.3165079Z warning: FTVerified/May/Final.lean:59:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+2026-11-23T19:52:01.3166035Z If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+2026-11-23T19:52:01.3166662Z ```
+2026-11-23T19:52:01.3167031Z open Lean.Parser.Tactic in
+2026-11-23T19:52:01.3167535Z macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+2026-11-23T19:52:01.3168247Z   `(tactic| push $cfg:optConfig Not $[$loc]?)
+2026-11-23T19:52:01.3168699Z ```
+2026-11-23T19:52:07.2349661Z ⚠ [8280/8296] Built FTVerified.May.LogLoss (5.9s)
+2026-11-23T19:52:07.2350516Z warning: FTVerified/May/LogLoss.lean:95:50: unused variable `hy0`
+2026-11-23T19:52:07.2350939Z 
+2026-11-23T19:52:07.2351504Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:52:09.0373576Z ⚠ [8281/8296] Built FTVerified.Sdiff.ArnoldGeometric (7.0s)
+2026-11-23T19:52:09.0374311Z warning: FTVerified/Sdiff/ArnoldGeometric.lean:437:6: This simp argument is unused:
+2026-11-23T19:52:09.0374805Z   PiLp.single_apply
+2026-11-23T19:52:09.0374949Z 
+2026-11-23T19:52:09.0375086Z Hint: Omit it from the simp argument list.
+2026-11-23T19:52:09.0375591Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 2), fderiv_const_mul (hd 1),
+2026-11-23T19:52:09.0376546Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:52:09.0377153Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:52:09.0377561Z 
+2026-11-23T19:52:09.0377987Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:52:09.0378620Z warning: FTVerified/Sdiff/ArnoldGeometric.lean:443:6: This simp argument is unused:
+2026-11-23T19:52:09.0379113Z   PiLp.single_apply
+2026-11-23T19:52:09.0379263Z 
+2026-11-23T19:52:09.0379386Z Hint: Omit it from the simp argument list.
+2026-11-23T19:52:09.0379888Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 0), fderiv_const_mul (hd 2),
+2026-11-23T19:52:09.0380547Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:52:09.0381140Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:52:09.0381487Z 
+2026-11-23T19:52:09.0381727Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:52:09.0382358Z warning: FTVerified/Sdiff/ArnoldGeometric.lean:449:6: This simp argument is unused:
+2026-11-23T19:52:09.0382844Z   PiLp.single_apply
+2026-11-23T19:52:09.0383018Z 
+2026-11-23T19:52:09.0383143Z Hint: Omit it from the simp argument list.
+2026-11-23T19:52:09.0383627Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 1), fderiv_const_mul (hd 0),
+2026-11-23T19:52:09.0384245Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:52:09.0384819Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:52:09.0385164Z 
+2026-11-23T19:52:09.0385393Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:52:09.0386296Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1097:0: 'ArnoldGeometric.velocity_from_vorticity_eq_BiotSavart' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0387511Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1098:0: 'ArnoldGeometric.classical_bracket_reproduces_Euler' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0388773Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1099:0: 'ArnoldGeometric.BiotSavart_zero' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0390273Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1100:0: 'ArnoldGeometric.BiotSavart_smul' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0391294Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1101:0: 'ArnoldGeometric.BiotSavart_add' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0392337Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1102:0: 'ArnoldGeometric.BiotSavart_affine' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0393395Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1103:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0394488Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1104:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0395623Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1105:0: 'ArnoldGeometric.pairing_cross_self_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0396712Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1106:0: 'ArnoldGeometric.cross_smul_left' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0397981Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1107:0: 'ArnoldGeometric.FunctionalDerivative_eq_zero_of_not' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0399158Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1108:0: 'ArnoldGeometric.FunctionalDerivative_eq_choose' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0400357Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1109:0: 'ArnoldGeometric.kineticEnergy_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0401541Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1110:0: 'ArnoldGeometric.biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0402578Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1111:0: 'ArnoldGeometric.cross_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0403580Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1112:0: 'ArnoldGeometric.div_cross_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0404614Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1113:0: 'ArnoldGeometric.div_cross_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0405745Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1114:0: 'ArnoldGeometric.differentiableAt_cross_offset_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0406908Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1115:0: 'ArnoldGeometric.hasFDerivAt_norm_sq_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0408205Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1116:0: 'ArnoldGeometric.hasFDerivAt_biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0409463Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1117:0: 'ArnoldGeometric.differentiableAt_biotSavartKernel_off_diag' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0410656Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1118:0: 'ArnoldGeometric.div_biotSavart_integrand' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0411760Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1119:0: 'ArnoldGeometric.div_biotSavart_integrand_ae' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0412889Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1120:0: 'ArnoldGeometric.div_BiotSavart_of_interchange' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0414097Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1121:0: 'ArnoldGeometric.functional_derivative_eq_velocity_of_unique_repr' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0415324Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1122:0: 'ArnoldGeometric.gateaux_representative_unique' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0417056Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1123:0: 'ArnoldGeometric.kineticEnergyHamiltonian_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0418560Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1124:0: 'ArnoldGeometric.isVelocityGateauxRepresentative_kineticEnergy_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0419852Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1150:0: 'ArnoldGeometric.classicalBracket_antisymm' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0442492Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1151:0: 'ArnoldGeometric.classicalBracket_self' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:09.0443735Z info: FTVerified/Sdiff/ArnoldGeometric.lean:1152:0: 'ArnoldGeometric.classicalBracket_H_H' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:52:10.3393046Z ✔ [8282/8296] Built FTVerified.May.PalinstrophyH1 (3.1s)
+2026-11-23T19:52:11.3419754Z ✔ [8283/8296] Built FTVerified.Sdiff.ForMathlib.Projection (2.2s)
+2026-11-23T19:52:12.7428390Z ✔ [8284/8296] Built FTVerified.May.VorticityTether (2.4s)
+2026-11-23T19:52:16.2539366Z ℹ [8285/8296] Built FTVerified.Sdiff.SymplecticTether (4.9s)
+2026-11-23T19:52:16.2569284Z info: FTVerified/Sdiff/SymplecticTether.lean:1305:0: 'FrohmanianTether.tethered_jacobi_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2571115Z info: FTVerified/Sdiff/SymplecticTether.lean:1306:0: 'FrohmanianTether.tetherKernel_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2599089Z info: FTVerified/Sdiff/SymplecticTether.lean:1307:0: 'FrohmanianTether.antisymmetric_correction_diagonal_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2629070Z info: FTVerified/Sdiff/SymplecticTether.lean:1308:0: 'FrohmanianTether.tetherKernel_C2_of_no_gateaux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2659039Z info: FTVerified/Sdiff/SymplecticTether.lean:1309:0: 'FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2669163Z info: FTVerified/Sdiff/SymplecticTether.lean:1310:0: 'FrohmanianTether.tetherKernel_C2_of_identifications' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2688928Z info: FTVerified/Sdiff/SymplecticTether.lean:1311:0: 'FrohmanianTether.functional_derivative_of_kinetic_energy_of_unique_repr' depends on axioms: [propext,
+2026-11-23T19:52:16.2718457Z  Classical.choice,
+2026-11-23T19:52:16.2748410Z  Quot.sound]
+2026-11-23T19:52:16.2749468Z info: FTVerified/Sdiff/SymplecticTether.lean:1312:0: 'FrohmanianTether.div_biot_savart_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2779063Z info: FTVerified/Sdiff/SymplecticTether.lean:1313:0: 'FrohmanianTether.div_biot_savart_velocity_of_interchange' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:16.2809132Z info: FTVerified/Sdiff/SymplecticTether.lean:1314:0: '_private.FTVerified.Sdiff.SymplecticTether.0.FrohmanianTether.degeneracy_for_mollified_sup_norm_proxy' depends on axioms: [propext,
+2026-11-23T19:52:16.2838409Z  Classical.choice,
+2026-11-23T19:52:16.2838957Z  Quot.sound]
+2026-11-23T19:52:16.2868988Z info: FTVerified/Sdiff/SymplecticTether.lean:1352:0: 'FrohmanianTether.tetherKernel_self_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:18.8570552Z ℹ [8286/8296] Built FTVerified.Sdiff.ObstructionAudit (2.7s)
+2026-11-23T19:52:18.8571536Z info: FTVerified/Sdiff/ObstructionAudit.lean:80:0: 'FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2' depends on axioms: [propext,
+2026-11-23T19:52:18.8572288Z  Classical.choice,
+2026-11-23T19:52:18.8572528Z  Quot.sound]
+2026-11-23T19:52:18.8573220Z info: FTVerified/Sdiff/ObstructionAudit.lean:81:0: 'FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero' depends on axioms: [propext,
+2026-11-23T19:52:18.8574822Z  Classical.choice,
+2026-11-23T19:52:18.8575058Z  Quot.sound]
+2026-11-23T19:52:18.8575698Z info: FTVerified/Sdiff/ObstructionAudit.lean:82:0: 'FrohmanianTether.ObstructionAudit.energy_conservation_not_C2' depends on axioms: [propext,
+2026-11-23T19:52:18.8576429Z  Classical.choice,
+2026-11-23T19:52:18.8576813Z  Quot.sound]
+2026-11-23T19:52:19.0573104Z ✔ [8287/8296] Built FTVerified.May.CurlNS (6.3s)
+2026-11-23T19:52:20.8601166Z ✔ [8288/8296] Built FTVerified.Semantics (1.0s)
+2026-11-23T19:52:22.3618430Z ✔ [8289/8296] Built FTVerified.May.BiotSavart (3.3s)
+2026-11-23T19:52:25.0717696Z ✔ [8290/8296] Built FTVerified.May.ChevalleyEilenberg (2.7s)
+2026-11-23T19:52:27.6728523Z ⚠ [8291/8296] Built FTVerified.May.FieldJacobi (5.3s)
+2026-11-23T19:52:27.6729328Z warning: FTVerified/May/FieldJacobi.lean:171:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T19:52:27.6729837Z 
+2026-11-23T19:52:27.6730129Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T19:52:30.5817145Z ✔ [8292/8296] Built FTVerified.May.FieldMetriplectic (2.9s)
+2026-11-23T19:52:30.5818061Z ✔ [8293/8296] Built FTVerified.Companion.JacobiCompanion (2.9s)
+2026-11-23T19:52:32.4868885Z ℹ [8294/8296] Built FTVerified.Paper (1.0s)
+2026-11-23T19:52:32.4869839Z info: FTVerified/Paper.lean:27:0: @Frohman.Tether.frohmanianTether_self_nonpos : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4870588Z   [inst_1 : InnerProductSpace ℝ H] {κ w : ℝ},
+2026-11-23T19:52:32.4871110Z   0 ≤ κ → 0 ≤ w → ∀ (u F : H), ((Frohman.Tether.frohmanianTether κ w u) F) F ≤ 0
+2026-11-23T19:52:32.4872103Z info: FTVerified/Paper.lean:28:0: FrohmanianTether.tetherKernel_self_nonpos : ∀ (F : FrohmanianTether.Functional) (ω : ArnoldGeometric.CoadjointOrbit),
+2026-11-23T19:52:32.4872932Z   FrohmanianTether.TetherKernel ω F F ≤ 0
+2026-11-23T19:52:32.4873673Z info: FTVerified/Paper.lean:32:0: @Frohman.Tether.frohmanianTether_degenerate : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4874487Z   [inst_1 : InnerProductSpace ℝ H] (κ w : ℝ) (u : H),
+2026-11-23T19:52:32.4875094Z   Frohman.Tether.DegenerateWRTKineticEnergy u (Frohman.Tether.frohmanianTether κ w u)
+2026-11-23T19:52:32.4876071Z info: FTVerified/Paper.lean:33:0: FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy : ∀ (F : FrohmanianTether.Functional)
+2026-11-23T19:52:32.4876837Z   (ω : ArnoldGeometric.CoadjointOrbit),
+2026-11-23T19:52:32.4877479Z   δ ArnoldGeometric.KineticEnergyHamiltonian/δω ω = ArnoldGeometric.velocity_from_vorticity ω →
+2026-11-23T19:52:32.4878637Z     (∀ (x : NavierStokes3D.T3), NavierStokes3D.div (ArnoldGeometric.velocity_from_vorticity ω) x = 0) →
+2026-11-23T19:52:32.4879576Z       MeasureTheory.Integrable (fun y => ‖ArnoldGeometric.velocity_from_vorticity ω y‖ ^ 2) MeasureTheory.volume →
+2026-11-23T19:52:32.4880433Z         FrohmanianTether.TetherKernel ω F ArnoldGeometric.KineticEnergyHamiltonian = 0
+2026-11-23T19:52:32.4881375Z info: FTVerified/Paper.lean:37:0: @Frohman.Tether.frohmanianTether_feedback : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4882159Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4882559Z   2 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4882832Z     ∀ {κ w : ℝ},
+2026-11-23T19:52:32.4883070Z       0 ≤ κ →
+2026-11-23T19:52:32.4883296Z         0 ≤ w →
+2026-11-23T19:52:32.4883967Z           ∀ (u : H), Frohman.Tether.ProducesControllableNegativeFeedback κ w u (Frohman.Tether.frohmanianTether κ w u)
+2026-11-23T19:52:32.4885010Z info: FTVerified/Paper.lean:38:0: @Frohman.Tether.feedback_fixes_coefficient : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4885741Z   [inst_1 : InnerProductSpace ℝ H] {κ w : ℝ} {u : H} (c : ℝ),
+2026-11-23T19:52:32.4886503Z   Frohman.Tether.ProducesControllableNegativeFeedback κ w u (Frohman.Tether.frohmanianTether c 1 u) → c = κ * w
+2026-11-23T19:52:32.4887532Z info: FTVerified/Paper.lean:39:0: @Frohman.Tether.routeA_determines_kappa : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4888969Z   [inst_1 : InnerProductSpace ℝ H] {S w κ : ℝ},
+2026-11-23T19:52:32.4889620Z   w ≠ 0 → ∀ {u ω : H}, Frohman.Tether.RouteAFeedback S w u ω (Frohman.Tether.frohmanianTether κ w u) → κ = S
+2026-11-23T19:52:32.4890604Z info: FTVerified/Paper.lean:43:0: @Frohman.Tether.uniqueness_of_minimal_metric_tether : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4891370Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4891776Z   3 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4892060Z     ∀ (κ w : ℝ) (u : H),
+2026-11-23T19:52:32.4892324Z       u ≠ 0 →
+2026-11-23T19:52:32.4892617Z         ∀ (C3 : LinearMap.BilinForm ℝ H → Prop),
+2026-11-23T19:52:32.4893112Z           (∀ (c : ℝ), C3 (Frohman.Tether.frohmanianTether c 1 u) → c = κ * w) →
+2026-11-23T19:52:32.4893573Z             ∀ (B : LinearMap.BilinForm ℝ H),
+2026-11-23T19:52:32.4894181Z               Frohman.Tether.IsAdmissibleCorrection u C3 B → B = Frohman.Tether.frohmanianTether κ w u
+2026-11-23T19:52:32.4895029Z info: FTVerified/Paper.lean:47:0: FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2 : ∀
+2026-11-23T19:52:32.4895910Z   (B : ArnoldGeometric.CoadjointOrbit → FrohmanianTether.Functional → FrohmanianTether.Functional → ℝ),
+2026-11-23T19:52:32.4896558Z   FrohmanianTether.DegenerateWRTKineticEnergy B →
+2026-11-23T19:52:32.4897118Z     ∀ (ω : ArnoldGeometric.CoadjointOrbit) (M : FrohmanianTether.Functional),
+2026-11-23T19:52:32.4897679Z       B ω M ArnoldGeometric.KineticEnergyHamiltonian = 0
+2026-11-23T19:52:32.4898717Z info: FTVerified/Paper.lean:48:0: @FrohmanianTether.ObstructionAudit.bilin_kernel_of_nonpos_of_self_zero : ∀ {V : Type u_1} [inst : AddCommGroup V]
+2026-11-23T19:52:32.4899533Z   [inst_1 : Module ℝ V] (B : LinearMap.BilinForm ℝ V),
+2026-11-23T19:52:32.4900088Z   (∀ (x y : V), (B x) y = (B y) x) → (∀ (x : V), (B x) x ≤ 0) → ∀ (h : V), (B h) h = 0 → ∀ (m : V), (B m) h = 0
+2026-11-23T19:52:32.4900861Z info: FTVerified/Paper.lean:49:0: FrohmanianTether.ObstructionAudit.energy_conservation_not_C2 : ∃ B h m,
+2026-11-23T19:52:32.4901537Z   B h h = 0 ∧ B m h ≠ 0 ∧ ∀ (x : Fin 2 → ℝ), B x x = 0
+2026-11-23T19:52:32.4902273Z info: FTVerified/Paper.lean:53:0: @Frohman.Tether.CE.d2_d1 : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [inst_1 : LieRing L]
+2026-11-23T19:52:32.4903156Z   [inst_2 : LieAlgebra R L] (f : L →ₗ[R] R) (x y z : L), Frohman.Tether.CE.d2 (Frohman.Tether.CE.d1 f) x y z = 0
+2026-11-23T19:52:32.4904134Z info: FTVerified/Paper.lean:54:0: @Frohman.Tether.CE.cocycle_of_coboundary : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [inst_1 : LieRing L]
+2026-11-23T19:52:32.4904897Z   [inst_2 : LieAlgebra R L] (β : L → L → R) (f : L →ₗ[R] R),
+2026-11-23T19:52:32.4905439Z   (∀ (x y : L), Frohman.Tether.CE.antiCorr β x y = Frohman.Tether.CE.d1 f x y) →
+2026-11-23T19:52:32.4906053Z     Frohman.Tether.CE.IsCocycle (Frohman.Tether.CE.antiCorr β)
+2026-11-23T19:52:32.4906902Z info: FTVerified/Paper.lean:55:0: @Frohman.Tether.CE.symPart_not_cochain : ∀ {R : Type u_1} {L : Type u_2} [inst : CommRing R] [Invertible 2]
+2026-11-23T19:52:32.4908003Z   (β : L → L → R), Frohman.Tether.CE.IsAlt (Frohman.Tether.CE.symPart β) → Frohman.Tether.CE.symPart β = 0
+2026-11-23T19:52:32.4909051Z info: FTVerified/Paper.lean:59:0: @Frohman.Tether.jacobiator_nine_terms : ∀ {H : Type u_1} [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℝ H]
+2026-11-23T19:52:32.4909771Z   {P : H → H → H},
+2026-11-23T19:52:32.4910055Z   Frohman.Tether.IsClassicalBracket P →
+2026-11-23T19:52:32.4910406Z     ∀ (κ w : ℝ) (u a b c : H),
+2026-11-23T19:52:32.4910902Z       Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c =
+2026-11-23T19:52:32.4911402Z         P (P a b) c + P (P b c) a + P (P c a) b +
+2026-11-23T19:52:32.4911972Z             (Frohman.Tether.mixedTerm P κ w u a b c + Frohman.Tether.mixedTerm P κ w u b c a +
+2026-11-23T19:52:32.4912529Z               Frohman.Tether.mixedTerm P κ w u c a b) +
+2026-11-23T19:52:32.4913056Z           (Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u a b) c +
+2026-11-23T19:52:32.4914038Z               Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u b c) a +
+2026-11-23T19:52:32.4914683Z             Frohman.Tether.tetherVec κ w u (Frohman.Tether.tetherVec κ w u c a) b)
+2026-11-23T19:52:32.4915508Z info: FTVerified/Paper.lean:60:0: @Frohman.Tether.jacobi_iff_mixed_cancel : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4916201Z   [inst_1 : InnerProductSpace ℝ H] {P : H → H → H},
+2026-11-23T19:52:32.4916584Z   Frohman.Tether.IsClassicalBracket P →
+2026-11-23T19:52:32.4916934Z     ∀ (κ w : ℝ) (u : H) (R : Set H),
+2026-11-23T19:52:32.4917549Z       (∀ a ∈ R, ∀ b ∈ R, ∀ c ∈ R, Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c = 0) ↔
+2026-11-23T19:52:32.4918269Z         ∀ a ∈ R,
+2026-11-23T19:52:32.4918514Z           ∀ b ∈ R,
+2026-11-23T19:52:32.4918763Z             ∀ c ∈ R,
+2026-11-23T19:52:32.4919250Z               Frohman.Tether.mixedTerm P κ w u a b c + Frohman.Tether.mixedTerm P κ w u b c a +
+2026-11-23T19:52:32.4919851Z                   Frohman.Tether.mixedTerm P κ w u c a b =
+2026-11-23T19:52:32.4920169Z                 0
+2026-11-23T19:52:32.4920794Z info: FTVerified/Paper.lean:61:0: @Frohman.Tether.FieldJacobi.jacT_eq_mixedSum : ∀ {u : Frohman.Tether.FieldJacobi.Fld},
+2026-11-23T19:52:32.4921470Z   Frohman.Tether.FieldJacobi.pr u u ≠ 0 →
+2026-11-23T19:52:32.4921884Z     ∀ (κ w : ℂ) (a b c : Frohman.Tether.FieldJacobi.Fld),
+2026-11-23T19:52:32.4922529Z       Frohman.Tether.FieldJacobi.jacT κ w u a b c = Frohman.Tether.FieldJacobi.mixedSumF κ w u a b c
+2026-11-23T19:52:32.4923444Z info: FTVerified/Paper.lean:62:0: Frohman.Tether.FieldJacobi.jacF_eq_zero : ∀ (a b c : Frohman.Tether.FieldJacobi.Fld),
+2026-11-23T19:52:32.4924092Z   Frohman.Tether.FieldJacobi.jacF a b c = 0
+2026-11-23T19:52:32.4924757Z info: FTVerified/Paper.lean:66:0: @Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero : ∀ {κ w : ℝ},
+2026-11-23T19:52:32.4925318Z   κ * w ≠ 0 →
+2026-11-23T19:52:32.4925581Z     Frohman.Tether.jacobiator
+2026-11-23T19:52:32.4926270Z         (Frohman.Tether.tetheredBracketVec Frohman.Tether.JacobiWitness.crossBr κ w Frohman.Tether.JacobiWitness.e1)
+2026-11-23T19:52:32.4927187Z         Frohman.Tether.JacobiWitness.e2 Frohman.Tether.JacobiWitness.e2 Frohman.Tether.JacobiWitness.e3 ≠
+2026-11-23T19:52:32.4927730Z       0
+2026-11-23T19:52:32.4928403Z info: FTVerified/Paper.lean:67:0: @Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse : ∀ {κ w : ℂ},
+2026-11-23T19:52:32.4928975Z   κ * w ≠ 0 →
+2026-11-23T19:52:32.4929525Z     Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uY Frohman.Tether.FieldJacobi.aZ
+2026-11-23T19:52:32.4930216Z         Frohman.Tether.FieldJacobi.aZ Frohman.Tether.FieldJacobi.aZ ≠
+2026-11-23T19:52:32.4930616Z       0
+2026-11-23T19:52:32.4931246Z info: FTVerified/Paper.lean:68:0: Frohman.Tether.FieldJacobi.divFree_aZ : Frohman.Tether.FieldJacobi.DivergenceFree Frohman.Tether.FieldJacobi.aZ
+2026-11-23T19:52:32.4932440Z info: FTVerified/Paper.lean:69:0: @Frohman.Tether.FieldMetriplectic.dissF_nonpos : ∀ {u a : Frohman.Tether.FieldJacobi.Fld},
+2026-11-23T19:52:32.4933151Z   Frohman.Tether.FieldMetriplectic.IsRealF u →
+2026-11-23T19:52:32.4933564Z     Frohman.Tether.FieldMetriplectic.IsRealF a →
+2026-11-23T19:52:32.4933918Z       ∀ {κ w : ℝ},
+2026-11-23T19:52:32.4934175Z         0 ≤ κ * w →
+2026-11-23T19:52:32.4934576Z           (Frohman.Tether.FieldMetriplectic.dissF (↑κ) (↑w) u a).re ≤ 0 ∧
+2026-11-23T19:52:32.4935145Z             (Frohman.Tether.FieldMetriplectic.dissF (↑κ) (↑w) u a).im = 0
+2026-11-23T19:52:32.4935957Z info: FTVerified/Paper.lean:73:0: @Frohman.Tether.jacobiator_eq_zero_of_central : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4936689Z   [inst_1 : InnerProductSpace ℝ H] {u : H} {P : H → H → H},
+2026-11-23T19:52:32.4937094Z   Frohman.Tether.IsClassicalBracket P →
+2026-11-23T19:52:32.4937440Z     (∀ (c : H), P u c = 0) →
+2026-11-23T19:52:32.4937944Z       (∀ (r : ℝ) (x z : H), P (r • x) z = r • P x z) →
+2026-11-23T19:52:32.4938670Z         (∀ (a b : H), (Frohman.Tether.piU u) (P a b) = 0) →
+2026-11-23T19:52:32.4939329Z           ∀ (κ w : ℝ) (a b c : H), Frohman.Tether.jacobiator (Frohman.Tether.tetheredBracketVec P κ w u) a b c = 0
+2026-11-23T19:52:32.4940334Z info: FTVerified/Paper.lean:74:0: @Frohman.Tether.FieldJacobi.shearY_jacobi_holds : ∀ {κ w : ℂ} {a b c : Frohman.Tether.FieldJacobi.Fld},
+2026-11-23T19:52:32.4941041Z   Frohman.Tether.FieldJacobi.XOnly a →
+2026-11-23T19:52:32.4941427Z     Frohman.Tether.FieldJacobi.DivergenceFree a →
+2026-11-23T19:52:32.4941819Z       Frohman.Tether.FieldJacobi.XOnly b →
+2026-11-23T19:52:32.4942215Z         Frohman.Tether.FieldJacobi.DivergenceFree b →
+2026-11-23T19:52:32.4942619Z           Frohman.Tether.FieldJacobi.XOnly c →
+2026-11-23T19:52:32.4943031Z             Frohman.Tether.FieldJacobi.DivergenceFree c →
+2026-11-23T19:52:32.4943618Z               Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uY a b c = 0
+2026-11-23T19:52:32.4944692Z info: FTVerified/Paper.lean:75:0: FrohmanianTether.tethered_jacobi_identity : ∀ (F G H : FrohmanianTether.Functional) (ω : ArnoldGeometric.CoadjointOrbit)
+2026-11-23T19:52:32.4945452Z   (X Y Z : NavierStokes3D.VelocityField),
+2026-11-23T19:52:32.4945776Z   δ F/δω ω = X →
+2026-11-23T19:52:32.4946014Z     δ G/δω ω = Y →
+2026-11-23T19:52:32.4946259Z       δ H/δω ω = Z →
+2026-11-23T19:52:32.4946564Z         FrohmanianTether.jacobiator F G H ω =
+2026-11-23T19:52:32.4947187Z             ∫ (x : NavierStokes3D.T3), NavierStokes3D.cyclicLiePairing X Y Z x ∂NavierStokes3D.volume →
+2026-11-23T19:52:32.4948161Z           ∫ (x : NavierStokes3D.T3), NavierStokes3D.cyclicLiePairing X Y Z x ∂NavierStokes3D.volume = 0 →
+2026-11-23T19:52:32.4948788Z             FrohmanianTether.jacobiator F G H ω = 0
+2026-11-23T19:52:32.4949411Z info: FTVerified/Paper.lean:79:0: @Frohman.Tether.FieldJacobi.shearX_jacobi_fails : ∀ {κ w : ℂ},
+2026-11-23T19:52:32.4949947Z   κ * w ≠ 0 →
+2026-11-23T19:52:32.4950479Z     Frohman.Tether.FieldJacobi.jacT κ w Frohman.Tether.FieldJacobi.uX Frohman.Tether.FieldJacobi.eX
+2026-11-23T19:52:32.4951236Z         Frohman.Tether.FieldJacobi.eX Frohman.Tether.FieldJacobi.eX ≠
+2026-11-23T19:52:32.4951632Z       0
+2026-11-23T19:52:32.4952405Z info: FTVerified/Paper.lean:80:0: Frohman.Tether.FieldJacobi.not_divFree_uX : ¬Frohman.Tether.FieldJacobi.DivergenceFree Frohman.Tether.FieldJacobi.uX
+2026-11-23T19:52:32.4953459Z info: FTVerified/Paper.lean:81:0: Frohman.Tether.Shear.shear_divFree : ∀ (x : Frohman.Tether.Torus.R3),
+2026-11-23T19:52:32.4954098Z   Frohman.Tether.Torus.divergence Frohman.Tether.Shear.shear x = 0
+2026-11-23T19:52:32.4955027Z info: FTVerified/Paper.lean:82:0: Frohman.Tether.Shear.shearBad_not_divFree : Frohman.Tether.Torus.divergence Frohman.Tether.Shear.shearBad 0 ≠ 0
+2026-11-23T19:52:32.4956024Z info: FTVerified/Paper.lean:86:0: @Frohman.Tether.comparison_bound : ∀ {y y' : ℝ → ℝ} {C κ'' T : ℝ},
+2026-11-23T19:52:32.4956545Z   0 < κ'' →
+2026-11-23T19:52:32.4956776Z     0 ≤ y 0 →
+2026-11-23T19:52:32.4957047Z       ContinuousOn y (Set.Icc 0 T) →
+2026-11-23T19:52:32.4957476Z         (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+2026-11-23T19:52:32.4958143Z           (∀ x ∈ Set.Ico 0 T, y' x ≤ Frohman.Tether.comparisonField C κ'' (y x)) →
+2026-11-23T19:52:32.4958631Z             ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / κ'')
+2026-11-23T19:52:32.4959227Z info: FTVerified/Paper.lean:87:0: @Frohman.Tether.layer2_bound : ∀ {y y' : ℝ → ℝ} {C κ Cabs T : ℝ},
+2026-11-23T19:52:32.4959791Z   0 < Frohman.Tether.kappaDD κ Cabs →
+2026-11-23T19:52:32.4960105Z     0 ≤ y 0 →
+2026-11-23T19:52:32.4960350Z       ContinuousOn y (Set.Icc 0 T) →
+2026-11-23T19:52:32.4960775Z         (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+2026-11-23T19:52:32.4961372Z           (∀ x ∈ Set.Ico 0 T, y' x ≤ C * y x ^ 2 - Frohman.Tether.kappaDD κ Cabs * y x ^ 3) →
+2026-11-23T19:52:32.4961965Z             ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / Frohman.Tether.kappaDD κ Cabs)
+2026-11-23T19:52:32.4962910Z info: FTVerified/Paper.lean:88:0: @Frohman.Tether.Riccati.tethered_ceiling : ∀ {y y' : ℝ → ℝ} {C κ'' T : ℝ},
+2026-11-23T19:52:32.4963607Z   0 < κ'' →
+2026-11-23T19:52:32.4963829Z     0 ≤ y 0 →
+2026-11-23T19:52:32.4964068Z       ContinuousOn y (Set.Icc 0 T) →
+2026-11-23T19:52:32.4964473Z         (∀ x ∈ Set.Ico 0 T, HasDerivWithinAt y (y' x) (Set.Ici x) x) →
+2026-11-23T19:52:32.4965000Z           (∀ x ∈ Set.Ico 0 T, y' x ≤ Frohman.Tether.comparisonField C κ'' (y x)) →
+2026-11-23T19:52:32.4965516Z             ∀ t ∈ Set.Icc 0 T, y t ≤ max (y 0) (C / κ'')
+2026-11-23T19:52:32.4966085Z info: FTVerified/Paper.lean:89:0: @Frohman.Tether.Riccati.riccati_blowup : ∀ {C y₀ : ℝ},
+2026-11-23T19:52:32.4967309Z   0 < C → 0 < y₀ → ∀ (M : ℝ), ∃ t, 0 ≤ t ∧ t < 1 / (C * y₀) ∧ M < Frohman.Tether.Riccati.ricSol C y₀ t
+2026-11-23T19:52:32.4968354Z info: FTVerified/Paper.lean:93:0: @Frohman.Tether.viscous_nonpos_at_max : ∀ {ω : Frohman.Tether.Torus.R3 → Frohman.Tether.Torus.R3}
+2026-11-23T19:52:32.4969059Z   {x : Frohman.Tether.Torus.R3} {ν : ℝ},
+2026-11-23T19:52:32.4969409Z   0 ≤ ν →
+2026-11-23T19:52:32.4969813Z     (∀ (i : Fin 3), Differentiable ℝ fun t => ω (x + t • Frohman.Tether.Torus.e i)) →
+2026-11-23T19:52:32.4970465Z       (∀ (i : Fin 3), Differentiable ℝ (deriv fun t => ω (x + t • Frohman.Tether.Torus.e i))) →
+2026-11-23T19:52:32.4971036Z         (∀ (z : Frohman.Tether.Torus.R3), ‖ω z‖ ≤ ‖ω x‖) →
+2026-11-23T19:52:32.4971601Z           ν * ∑ i, inner ℝ (ω x) (deriv (deriv fun t => ω (x + t • Frohman.Tether.Torus.e i)) 0) ≤ 0
+2026-11-23T19:52:32.4972416Z info: FTVerified/Paper.lean:94:0: @Frohman.Tether.periodic_exists_max : ∀ {g : Frohman.Tether.Torus.R3 → ℝ},
+2026-11-23T19:52:32.4973260Z   Continuous g → Frohman.Tether.Torus.IsPeriodic g → ∃ x, ∀ (z : Frohman.Tether.Torus.R3), g z ≤ g x
+2026-11-23T19:52:32.4974245Z info: FTVerified/Paper.lean:98:0: @Frohman.Tether.frohmanian_symplectic_tether_theorem : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4975013Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4975451Z   3 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4975737Z     ∀ {S w : ℝ},
+2026-11-23T19:52:32.4975969Z       0 ≤ S →
+2026-11-23T19:52:32.4976182Z         0 < w →
+2026-11-23T19:52:32.4976426Z           ∀ (u ω : H),
+2026-11-23T19:52:32.4976681Z             u ≠ 0 →
+2026-11-23T19:52:32.4976934Z               inner ℝ u ω = 0 →
+2026-11-23T19:52:32.4977221Z                 ‖ω‖ = 1 →
+2026-11-23T19:52:32.4977538Z                   ∀ (B : LinearMap.BilinForm ℝ H),
+2026-11-23T19:52:32.4978328Z                     Frohman.Tether.IsAdmissibleCorrection u (Frohman.Tether.RouteAFeedback S w u ω) B ↔
+2026-11-23T19:52:32.4978992Z                       ∃ κ, κ = S ∧ B = Frohman.Tether.frohmanianTether κ w u
+2026-11-23T19:52:32.4979858Z info: FTVerified/Paper.lean:99:0: @Frohman.Tether.frohmanian_symplectic_tether_theorem_global : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+2026-11-23T19:52:32.4980700Z   [inst_1 : InnerProductSpace ℝ H] [FiniteDimensional ℝ H],
+2026-11-23T19:52:32.4981300Z   3 ≤ Module.finrank ℝ H →
+2026-11-23T19:52:32.4981716Z     ∀ {S w Cabs C : ℝ},
+2026-11-23T19:52:32.4981974Z       0 ≤ S →
+2026-11-23T19:52:32.4982188Z         0 < w →
+2026-11-23T19:52:32.4982429Z           ∀ (u ω : H),
+2026-11-23T19:52:32.4982693Z             u ≠ 0 →
+2026-11-23T19:52:32.4982954Z               inner ℝ u ω = 0 →
+2026-11-23T19:52:32.4983235Z                 ‖ω‖ = 1 →
+2026-11-23T19:52:32.4983505Z                   (∀ (F : H),
+2026-11-23T19:52:32.4984058Z                       ((Frohman.Tether.frohmanianTether S w u) F) (Frohman.Tether.kineticEnergyGradient u) = 0) ∧
+2026-11-23T19:52:32.4984679Z                     (∀ (B : LinearMap.BilinForm ℝ H),
+2026-11-23T19:52:32.4985308Z                         Frohman.Tether.IsAdmissibleCorrection u (Frohman.Tether.RouteAFeedback S w u ω) B ↔
+2026-11-23T19:52:32.4985992Z                           ∃ κ, κ = S ∧ B = Frohman.Tether.frohmanianTether κ w u) ∧
+2026-11-23T19:52:32.4986443Z                       (0 < Frohman.Tether.kappaDD S Cabs →
+2026-11-23T19:52:32.4986910Z                         ∀ (s : Frohman.Tether.NSTetherSolution),
+2026-11-23T19:52:32.4987519Z                           Frohman.Tether.NSTetherEnstrophyInequality s C (Frohman.Tether.kappaDD S Cabs) →
+2026-11-23T19:52:32.4988251Z                             Frohman.Tether.BKMContinuation s →
+2026-11-23T19:52:32.4988844Z                               Frohman.Tether.LocalContinuation s → Frohman.Tether.GloballySmooth s)
+2026-11-23T19:52:36.0912157Z ✔ [8295/8296] Built FTVerified (3.4s)
+2026-11-23T19:52:36.1397163Z Build completed successfully (8296 jobs).
+
+===== build/8_Axiom audit (standard axioms only).txt
+﻿2026-11-23T19:52:36.1821652Z ##[group]Run set -o pipefail
+2026-11-23T19:52:36.1821932Z [36;1mset -o pipefail[0m
+2026-11-23T19:52:36.1822192Z [36;1mpython3 scripts/check_jacobi_axioms.py | tee axioms.txt[0m
+2026-11-23T19:52:36.1853981Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:52:36.1854225Z ##[endgroup]
+2026-11-23T19:52:40.7235351Z 'Frohman.Tether.FieldJacobi.jacF_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7236347Z 'Frohman.Tether.FieldJacobi.br_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7237198Z 'Frohman.Tether.FieldJacobi.jacT_eq_mixedSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7238171Z 'Frohman.Tether.FieldJacobi.pr_uY_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7239064Z 'Frohman.Tether.FieldJacobi.br_eq_zero_of_xOnly_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7239955Z 'Frohman.Tether.FieldJacobi.mixedF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7240589Z 'Frohman.Tether.FieldJacobi.mixedSumF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7241151Z 'Frohman.Tether.FieldJacobi.shearY_mixed_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7241727Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7242266Z 'Frohman.Tether.FieldJacobi.mixedSumF_diag' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7242791Z 'Frohman.Tether.FieldJacobi.pr_uY_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7243263Z 'Frohman.Tether.FieldJacobi.pr_aZ_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7243746Z 'Frohman.Tether.FieldJacobi.br_uY_aZ_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7244241Z 'Frohman.Tether.FieldJacobi.divFree_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7244751Z 'Frohman.Tether.FieldJacobi.divFree_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7245250Z 'Frohman.Tether.FieldJacobi.xOnly_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7245737Z 'Frohman.Tether.FieldJacobi.xOnly_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7246469Z 'Frohman.Tether.FieldJacobi.divFree_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7247004Z 'Frohman.Tether.FieldJacobi.shearY_transverse_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7247576Z 'Frohman.Tether.FieldJacobi.shearY_transverse_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7248373Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7248971Z 'Frohman.Tether.JacobiWitness.crossBr_isClassical' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7249514Z 'Frohman.Tether.JacobiWitness.mixed_sum_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7250040Z 'Frohman.Tether.JacobiWitness.mixed_sum_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7250616Z 'Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7251224Z 'Frohman.Tether.JacobiCompanion.shear_jacobi_holds_of_pr_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7251854Z 'Frohman.Tether.JacobiCompanion.shearY_jacobi_holds_eq_special_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7252423Z 'Frohman.Tether.JacobiCompanion.pr_uY_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7253107Z 'Frohman.Tether.JacobiCompanion.uY_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7253694Z 'Frohman.Tether.JacobiCompanion.brT_uY_eX_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7254261Z 'Frohman.Tether.JacobiCompanion.brT_uY_eX_eX_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7254833Z 'Frohman.Tether.JacobiCompanion.paperI_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7255376Z 'Frohman.Tether.JacobiCompanion.xOnly_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7255904Z 'Frohman.Tether.JacobiCompanion.divFree_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7256421Z 'Frohman.Tether.JacobiCompanion.xOnly_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7256927Z 'Frohman.Tether.JacobiCompanion.divFree_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7257445Z 'Frohman.Tether.JacobiCompanion.uIso_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7258164Z 'Frohman.Tether.JacobiCompanion.pr_uIso_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7258670Z 'Frohman.Tether.JacobiCompanion.pr_uIso_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7259171Z 'Frohman.Tether.JacobiCompanion.pr_cY_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7259671Z 'Frohman.Tether.JacobiCompanion.pr_smul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7260174Z 'Frohman.Tether.JacobiCompanion.piF_uIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7260679Z 'Frohman.Tether.JacobiCompanion.jacT_uIso_cY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7261244Z 'Frohman.Tether.JacobiCompanion.shear_jacobi_fails_isotropic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7261824Z 'Frohman.Tether.JacobiCompanion.brT_uY_aZ_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7262352Z 'Frohman.Tether.JacobiCompanion.brT_not_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7262911Z 'Frohman.Tether.JacobiCompanion.paperII_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7263658Z 'LiePoissonCore.six_terms_cancel' depends on axioms: [propext, Quot.sound]
+2026-11-23T19:52:40.7264061Z 'LiePoissonCore.lie_poisson_jacobi_core' depends on axioms: [propext, Quot.sound]
+2026-11-23T19:52:40.7264531Z 'LiePoissonCore.six_terms_cancel_needs_symmetry' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7265041Z 'LiePoissonCore.six_terms_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7265505Z 'LiePoissonCore.entry01' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7265997Z 'LiePoissonCore.lie_poisson_jacobi_core_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:52:40.7266402Z PASS: 53 declarations, standard axioms only
+
+===== build/9_Forbidden tokens over the whole FTVerified tree, with audit coverage check.txt
+﻿2026-11-23T19:52:40.7338634Z ##[group]Run python3 scripts/check_forbidden_tokens.py --require-imported-by scripts/StrictAxiomAudit.lean FTVerified.lean FTVerified
+2026-11-23T19:52:40.7339461Z [36;1mpython3 scripts/check_forbidden_tokens.py --require-imported-by scripts/StrictAxiomAudit.lean FTVerified.lean FTVerified[0m
+2026-11-23T19:52:40.7368918Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:52:40.7369155Z ##[endgroup]
+2026-11-23T19:52:40.8980954Z scanned 32 Lean files under: FTVerified.lean FTVerified
+2026-11-23T19:52:40.8981887Z coverage: every scanned module is imported (transitively) by scripts/StrictAxiomAudit.lean
+2026-11-23T19:52:40.8982343Z PASS: no sorry / admit / native_decide / axiom declarations (comments excluded)
+
+===== build/system.txt
+2026-11-23T19:49:45.0220000Z Requested labels: ubuntu-latest
+2026-11-23T19:49:45.0220000Z Job defined at: BenFrohman/frohmanian-tether-verified/.github/workflows/lean.yml@refs/heads/ci-backfill/fb6d57f
+2026-11-23T19:49:45.0220000Z Waiting for a runner to pick up this job...
+2026-11-23T19:49:45.0230000Z Evaluating build.if
+2026-11-23T19:49:45.0230000Z Evaluating: success()
+2026-11-23T19:49:45.0230000Z Result: true
+2026-11-23T19:49:45.2480000Z Job is about to start running on the hosted runner: GitHub Actions 1000006496
+2026-11-23T19:49:45.2480000Z Job is waiting for a hosted runner to come online.

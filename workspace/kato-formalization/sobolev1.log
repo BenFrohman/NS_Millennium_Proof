@@ -1,0 +1,108 @@
+warning: mathlib: repository '/workspace/kato-formalization/repo/.lake/packages/mathlib' has local changes
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:84:4: error: Type mismatch: After simplification, term
+  Memℓp.add hf hg
+ has type
+  Memℓp
+    ((fun n => ↑(sobolevWeight s n) * ↑(mFourierBasis.repr f) n) + fun n =>
+      ↑(sobolevWeight s n) * ↑(mFourierBasis.repr g) n)
+    2
+but is expected to have type
+  Memℓp (fun n => ↑(sobolevWeight s n) * (↑(mFourierBasis.repr f) + ↑(mFourierBasis.repr g)) n) 2
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:86:4: error: Type mismatch: After simplification, term
+  zero_memℓp
+ has type
+  Memℓp 0 2
+but is expected to have type
+  Memℓp (fun n => ↑(sobolevWeight s n) * 0 n) 2
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:81:4: error: (kernel) declaration has metavariables 'UnitAddTorus.sobolev'
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:90:6: error: (kernel) application type mismatch
+  Eq.mpr
+    (id
+      (congrArg (Iff (f ∈ @sobolev d inst✝ s))
+        (congrFun'
+          (congrArg Memℓp
+            (funext fun n =>
+              congrArg (HMul.hMul ↑(@sobolevWeight d inst✝ s n)) (@mem_sobolev_iff._simp_1_1 d inst✝ f n)))
+          2)))
+    Iff.rfl
+argument has type
+  f ∈ @sobolev d inst✝ s ↔ f ∈ @sobolev d inst✝ s
+but function has type
+  (f ∈ @sobolev d inst✝ s ↔ Memℓp (fun n => ↑(@sobolevWeight d inst✝ s n) * ↑(mFourierBasis.repr f) n) 2) →
+    (f ∈ @sobolev d inst✝ s ↔ Memℓp (fun n => ↑(@sobolevWeight d inst✝ s n) * mFourierCoeff (↑↑f) n) 2)
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:105:2: error: Type mismatch
+  sobolevWeight_le_sobolevWeight h n
+has type
+  sobolevWeight t n ≤ sobolevWeight s n
+but is expected to have type
+  0 ≤ sobolevWeight t n * ‖↑(mFourierBasis.repr f) n‖
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:112:2: error: Type mismatch: After simplification, term
+  (mFourierBasis.repr f).property
+ has type
+  True
+but is expected to have type
+  Memℓp (fun n => ↑(mFourierBasis.repr f) n) 2
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:119:8: error: (kernel) application type mismatch
+  @id (mFourierLp 2 n ∈ @sobolev d inst✝ s)
+    (have h :=
+      funext fun m =>
+        Eq.mpr
+          (id
+            (congrArg
+              (fun _a =>
+                ↑(@sobolevWeight d inst✝ s m) * ↑(mFourierBasis.repr (_a n)) m =
+                  ↑(lp.single 2 n ↑(@sobolevWeight d inst✝ s n)) m)
+              (Eq.symm coe_mFourierBasis)))
+          (Eq.mpr
+            (id
+              (congrArg
+                (fun _a => ↑(@sobolevWeight d inst✝ s m) * ↑_a m = ↑(lp.single 2 n ↑(@sobolevWeight d inst✝ s n)) m)
+                (HilbertBasis.repr_self mFourierBasis n)))
+            (Eq.mpr
+              (id
+                (congrArg
+                  (fun _a => ↑(@sobolevWeight d inst✝ s m) * _a = ↑(lp.single 2 n ↑(@sobolevWeight d inst✝ s n)) m)
+                  (lp.single_apply 2 n 1 m)))
+              (Eq.mpr
+                (id
+                  (congrArg (fun _a => ↑(@sobolevWeight d inst✝ s m) * Pi.single n 1 m = _a)
+                    (lp.single_apply 2 n (↑(@sobolevWeight d inst✝ s n)) m)))
+                (if hm : m = n then
+                  hm ▸
+                    of_eq_true
+                      (Eq.trans
+                        (congr
+                          (congrArg Eq
+                            (Eq.trans (congrArg (HMul.hMul ↑(@sobolevWeight d inst✝ s m)) (Pi.single_eq_same m 1))
+                              (mul_one ↑(@sobolevWeight d inst✝ s m))))
+                          (Pi.single_eq_same m ↑(@sobolevWeight d inst✝ s m)))
+                        (eq_self ↑(@sobolevWeight d inst✝ s m)))
+                else
+                  of_eq_true
+                    (Eq.trans
+                      (congr
+                        (congrArg Eq
+                          (Eq.trans
+                            (congrArg (HMul.hMul ↑(@sobolevWeight d inst✝ s m))
+                              (Pi.single_eq_of_ne (of_eq_true (Eq.trans (congrArg Not (eq_false hm)) not_false_eq_true))
+                                1))
+                            (mul_zero ↑(@sobolevWeight d inst✝ s m))))
+                        (Pi.single_eq_of_ne (of_eq_true (Eq.trans (congrArg Not (eq_false hm)) not_false_eq_true))
+                          ↑(@sobolevWeight d inst✝ s n)))
+                      (eq_self 0))))));
+    Eq.mpr (id (congrArg (fun _a => Memℓp _a 2) h)) (lp.single 2 n ↑(@sobolevWeight d inst✝ s n)).property)
+argument has type
+  Memℓp (fun n_1 => ↑(@sobolevWeight d inst✝ s n_1) * ↑(mFourierBasis.repr (mFourierLp 2 n)) n_1) 2
+but function has type
+  mFourierLp 2 n ∈ @sobolev d inst✝ s → mFourierLp 2 n ∈ @sobolev d inst✝ s
+ForMathlib/Analysis/Sobolev/Torus/Basic.lean:128:12: warning: This simp argument is unused:
+  Pi.single_apply
+
+Hint: Omit it from the simp argument list.
+  simp [P̵i̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵,̵ ̵hm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+real	2m43.545s
+user	0m6.689s
+sys	0m13.694s

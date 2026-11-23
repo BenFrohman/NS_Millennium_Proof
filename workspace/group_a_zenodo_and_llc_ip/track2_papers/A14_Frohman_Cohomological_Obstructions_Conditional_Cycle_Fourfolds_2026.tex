@@ -1,0 +1,65 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{Cohomological Obstructions, Atiyah-Hirzebruch Integral Torsion Differentials, and Conditional Mukai-Lattice Cycle Reductions on Smooth Projective Fourfolds}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/uniruled-fourfolds}}
+\date{\textbf{Origin Provenance:} 2026-09-24 19:22:10 CDT (UTC-5) (BenFrohman/uniruled-fourfolds, BenFrohman/AtiyahHirzebruch, BenFrohman/HODGE \& BenFrohman/HodgeDisproof)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632804}{10.5281/zenodo.23632804} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Proved Integral Torsion Obstruction \& Conditional Cycle Reduction in Lean 4 (Rational Clay Hodge Conjecture Explicitly Open)\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent Unifying BenFrohman/uniruled-fourfolds, BenFrohman/AtiyahHirzebruch, BenFrohman/HODGE, and BenFrohman/HodgeDisproof, we present a machine-checked Lean 4 separation between integral torsion obstructions and rational algebraic cycle reductions on smooth projective fourfolds. First, we formalize the Atiyah-Hirzebruch spectral sequence differential d\_3 = Sq\textasciicircum{}3\_Z : H\textasciicircum{}4(X, Z) -> H\textasciicircum{}7(X, Z) that obstructs the Integral Hodge Conjecture on torsion classes while vanishing identically after tensoring with Q. Second, on uniruled and special cubic/Mukai fourfolds, we prove conditional cycle-algebraicity reductions from Mukai-lattice correspondence surjectivity and specify the exact Lean 4 dependent record of a rational Hodge counterexample without claiming the rational Clay Hodge Conjecture is resolved.
+\end{abstract}
+
+
+\section{Integral Atiyah--Hirzebruch Torsion vs.\ Rational Hodge Classes in Lean 4}
+Let $X$ be a smooth projective complex fourfold. In the Atiyah--Hirzebruch spectral sequence $E_2^{p,q} = H^p(X, K^q(\mathrm{pt})) \Rightarrow K^{p+q}_{\mathrm{top}}(X)$, the first differential $d_3 : H^4(X,\mathbb{Z}) \to H^7(X,\mathbb{Z})$ coincides with the integral Steenrod operation $\beta \circ \mathrm{Sq}^2 = \mathrm{Sq}^3_{\mathbb{Z}}$, which satisfies $2\,d_3(\gamma) = 0$.
+
+\begin{theorem}[Rational Triviality of Torsion Differentials \& Conditional Mukai Reduction]
+Formalized across \texttt{BenFrohman/AtiyahHirzebruch}, \texttt{BenFrohman/uniruled-fourfolds}, and \texttt{BenFrohman/HodgeDisproof}:
+\begin{enumerate}[leftmargin=2em]
+  \item Every Atiyah--Hirzebruch torsion obstruction $\gamma \in \mathrm{Tor}(H^4(X,\mathbb{Z}))$ maps to $0 \in H^4(X,\mathbb{Q})$ under rationalization, and therefore never inhabits the rational Hodge counterexample type \texttt{RationalHodgeCounterexample} (\texttt{BenFrohman/HodgeDisproof}, 0 \texttt{sorry}).
+  \item On a smooth projective fourfold $X$ equipped with a uniruled cylinder correspondence or Mukai-lattice Fourier--Mukai kernel $\mathcal{E} \in \mathbf{D}^b(X \times S)$ over a surface $S$ satisfying the conditional Lefschetz/Mukai surjectivity hypothesis (\texttt{BenFrohman/uniruled-fourfolds}), every primitive class in the image of the correspondence map $v(\mathcal{E})_* : H^{1,1}(S,\mathbb{Q}) \to H^{2,2}(X,\mathbb{Q})$ is algebraic.
+\end{enumerate}
+\end{theorem}
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-09-24 19:22:10 CDT (UTC-5) (BenFrohman/uniruled-fourfolds, BenFrohman/AtiyahHirzebruch, BenFrohman/HODGE \& BenFrohman/HodgeDisproof).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/uniruled-fourfolds}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632804}{\texttt{10.5281/zenodo.23632804}} (Zenodo Record \texttt{23632804}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

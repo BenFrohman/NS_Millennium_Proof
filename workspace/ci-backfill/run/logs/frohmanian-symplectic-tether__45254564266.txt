@@ -1,0 +1,1343 @@
+
+===== 0_lock-form-lint.txt
+﻿2026-11-23T20:02:54.4390419Z Current runner version: '2.338.2'
+2026-11-23T20:02:54.4427316Z ##[group]Runner Image Provisioner
+2026-11-23T20:02:54.4429033Z Hosted Compute Agent
+2026-11-23T20:02:54.4430111Z Version: 20261111.635
+2026-11-23T20:02:54.4431958Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T20:02:54.4433610Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T20:02:54.4434761Z Worker ID: {c83e30e7-d792-4b3e-81f1-cbb5345a2161}
+2026-11-23T20:02:54.4435992Z Region: eastus
+2026-11-23T20:02:54.4436953Z Cloud: Azure
+2026-11-23T20:02:54.4438039Z ##[endgroup]
+2026-11-23T20:02:54.4440697Z ##[group]Operating System
+2026-11-23T20:02:54.4441887Z Ubuntu
+2026-11-23T20:02:54.4442959Z 26.04.1
+2026-11-23T20:02:54.4443884Z LTS
+2026-11-23T20:02:54.4444953Z ##[endgroup]
+2026-11-23T20:02:54.4445908Z ##[group]Runner Image
+2026-11-23T20:02:54.4447035Z Image: ubuntu-26.04
+2026-11-23T20:02:54.4448039Z Version: 20261116.202.1
+2026-11-23T20:02:54.4450468Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T20:02:54.4453720Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T20:02:54.4455622Z ##[endgroup]
+2026-11-23T20:02:54.4457856Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T20:02:54.4460789Z Contents: read
+2026-11-23T20:02:54.4462031Z Metadata: read
+2026-11-23T20:02:54.4463333Z ##[endgroup]
+2026-11-23T20:02:54.4466595Z Secret source: Actions
+2026-11-23T20:02:54.4468256Z Cache mode: write
+2026-11-23T20:02:54.4469756Z Prepare workflow directory
+2026-11-23T20:02:54.4973793Z Prepare all required actions
+2026-11-23T20:02:54.5046917Z Getting action download info
+2026-11-23T20:02:54.6406882Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T20:02:54.8234599Z Complete job name: lock-form-lint
+2026-11-23T20:02:54.9295540Z ##[group]Run actions/checkout@v4
+2026-11-23T20:02:54.9296483Z with:
+2026-11-23T20:02:54.9296943Z   fetch-depth: 0
+2026-11-23T20:02:54.9297520Z   repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:54.9301760Z   token: ***
+2026-11-23T20:02:54.9302228Z   ssh-strict: true
+2026-11-23T20:02:54.9302972Z   ssh-user: git
+2026-11-23T20:02:54.9303649Z   persist-credentials: true
+2026-11-23T20:02:54.9304556Z   clean: true
+2026-11-23T20:02:54.9305348Z   sparse-checkout-cone-mode: true
+2026-11-23T20:02:54.9306140Z   fetch-tags: false
+2026-11-23T20:02:54.9306623Z   show-progress: true
+2026-11-23T20:02:54.9307094Z   lfs: false
+2026-11-23T20:02:54.9307533Z   submodules: false
+2026-11-23T20:02:54.9308006Z   set-safe-directory: true
+2026-11-23T20:02:54.9308543Z   allow-unsafe-pr-checkout: false
+2026-11-23T20:02:54.9309498Z ##[endgroup]
+2026-11-23T20:02:55.2248715Z Syncing repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2252274Z ##[group]Getting Git version info
+2026-11-23T20:02:55.2254753Z Working directory is '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:02:55.2257263Z [command]/usr/bin/git version
+2026-11-23T20:02:55.2268771Z git version 2.56.1
+2026-11-23T20:02:55.2291437Z ##[endgroup]
+2026-11-23T20:02:55.2307251Z Temporarily overriding HOME='/home/runner/work/_temp/60752853-50a6-4f4c-bfd3-19aa5fcfa16d' before making global git config changes
+2026-11-23T20:02:55.2311567Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:02:55.2316081Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2393015Z Deleting the contents of '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:02:55.2397849Z ##[group]Initializing the repository
+2026-11-23T20:02:55.2402461Z [command]/usr/bin/git init /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2534025Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T20:02:55.2536945Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T20:02:55.2540012Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T20:02:55.2543010Z hint: call:
+2026-11-23T20:02:55.2544448Z hint:
+2026-11-23T20:02:55.2545992Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T20:02:55.2548061Z hint:
+2026-11-23T20:02:55.2549702Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T20:02:55.2553263Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T20:02:55.2555554Z hint:
+2026-11-23T20:02:55.2556833Z hint: 	git branch -m <name>
+2026-11-23T20:02:55.2558071Z hint:
+2026-11-23T20:02:55.2559674Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T20:02:55.2563678Z Initialized empty Git repository in /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether/.git/
+2026-11-23T20:02:55.2569249Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2628510Z ##[endgroup]
+2026-11-23T20:02:55.2630460Z ##[group]Disabling automatic garbage collection
+2026-11-23T20:02:55.2633056Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T20:02:55.2669320Z ##[endgroup]
+2026-11-23T20:02:55.2671309Z ##[group]Setting up auth
+2026-11-23T20:02:55.2676158Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:02:55.2713687Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:02:55.3189563Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:02:55.3235686Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:02:55.3505870Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:02:55.3542700Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:02:55.3811217Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T20:02:55.3851265Z ##[endgroup]
+2026-11-23T20:02:55.3854316Z ##[group]Fetching the repository
+2026-11-23T20:02:55.3865046Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T20:02:55.7073697Z From https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:55.7076373Z  * [new branch]      chore/kernel-certificate -> origin/chore/kernel-certificate
+2026-11-23T20:02:55.7078626Z  * [new branch]      ci-backfill/33b0df1 -> origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7081344Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T20:02:55.7084964Z  * [new branch]      latex-polish        -> origin/latex-polish
+2026-11-23T20:02:55.7087358Z  * [new branch]      main                -> origin/main
+2026-11-23T20:02:55.7089191Z  * [new branch]      truth-gate/lock     -> origin/truth-gate/lock
+2026-11-23T20:02:55.7091061Z  * [new branch]      truth-gate/reaudit  -> origin/truth-gate/reaudit
+2026-11-23T20:02:55.7093632Z  * [new branch]      truth-gate/routeA-full-20261123 -> origin/truth-gate/routeA-full-20261123
+2026-11-23T20:02:55.7095948Z  * [new tag]         v1.0.0              -> v1.0.0
+2026-11-23T20:02:55.7099382Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7115308Z   origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7125680Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7148554Z 33b0df104377491af708f67f5a1fa5a32e787c62
+2026-11-23T20:02:55.7156267Z ##[endgroup]
+2026-11-23T20:02:55.7159059Z ##[group]Determining the checkout info
+2026-11-23T20:02:55.7162443Z ##[endgroup]
+2026-11-23T20:02:55.7164538Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T20:02:55.7216429Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T20:02:55.7248916Z ##[group]Checking out the ref
+2026-11-23T20:02:55.7252780Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/33b0df1 refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7381383Z Switched to a new branch 'ci-backfill/33b0df1'
+2026-11-23T20:02:55.7387532Z branch 'ci-backfill/33b0df1' set up to track 'origin/ci-backfill/33b0df1'.
+2026-11-23T20:02:55.7435659Z ##[endgroup]
+2026-11-23T20:02:55.7439516Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T20:02:55.7464809Z 33b0df104377491af708f67f5a1fa5a32e787c62
+2026-11-23T20:02:55.7727588Z ##[group]Run python3 scripts/truth_gate_classify.py lint --fetch-deps
+2026-11-23T20:02:55.7729724Z [36;1mpython3 scripts/truth_gate_classify.py lint --fetch-deps[0m
+2026-11-23T20:02:55.7768159Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:02:55.7769207Z ##[endgroup]
+2026-11-23T20:02:55.8864759Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+2026-11-23T20:02:55.9019195Z ##[group]Run python3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v
+2026-11-23T20:02:55.9021852Z [36;1mpython3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v[0m
+2026-11-23T20:02:55.9057567Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:02:55.9058545Z ##[endgroup]
+2026-11-23T20:02:56.0619753Z test_alias_of_formal_claim_is_rejected (test_truth_gate_classify.LockFormLint.test_alias_of_formal_claim_is_rejected) ... ok
+2026-11-23T20:02:56.1261409Z test_independent_transcription_passes (test_truth_gate_classify.LockFormLint.test_independent_transcription_passes) ... ok
+2026-11-23T20:02:56.1911502Z test_named_hypothesis_is_rejected_with_file_and_line (test_truth_gate_classify.LockFormLint.test_named_hypothesis_is_rejected_with_file_and_line) ... ok
+2026-11-23T20:02:56.2551606Z test_unlisted_repository_name_is_rejected (test_truth_gate_classify.LockFormLint.test_unlisted_repository_name_is_rejected) ... ok
+2026-11-23T20:02:56.3814695Z test_vocabulary_file_lists_basic_notions (test_truth_gate_classify.LockFormLint.test_vocabulary_file_lists_basic_notions) ... ok
+2026-11-23T20:02:56.4453227Z test_kernel_failure_is_the_only_proof_failure (test_truth_gate_classify.Report.test_kernel_failure_is_the_only_proof_failure) ... ok
+2026-11-23T20:02:56.5718429Z test_lock_form_failure_never_reads_as_math (test_truth_gate_classify.Report.test_lock_form_failure_never_reads_as_math) ... ok
+2026-11-23T20:02:56.6617029Z test_paper_hash_drift_shows_copyright_only_diff (test_truth_gate_classify.Report.test_paper_hash_drift_shows_copyright_only_diff) ... ok
+2026-11-23T20:02:56.7474202Z test_paper_hash_drift_that_edits_the_quote_needs_sign_off (test_truth_gate_classify.Report.test_paper_hash_drift_that_edits_the_quote_needs_sign_off) ... ok
+2026-11-23T20:02:56.8737913Z test_partial_and_vacuous_locks_are_named (test_truth_gate_classify.Report.test_partial_and_vacuous_locks_are_named) ... ok
+2026-11-23T20:02:56.9383088Z test_sorry_and_nonstandard_axioms_are_kernel_failures (test_truth_gate_classify.Report.test_sorry_and_nonstandard_axioms_are_kernel_failures) ... ok
+2026-11-23T20:02:57.1895546Z test_inherited_failure_is_labelled (test_truth_gate_classify.StaleBase.test_inherited_failure_is_labelled) ... ok
+2026-11-23T20:02:57.3275853Z test_stale_branch_with_conflict_says_update_branch (test_truth_gate_classify.StaleBase.test_stale_branch_with_conflict_says_update_branch) ... ok
+2026-11-23T20:02:57.5284520Z test_stale_merge_ref_is_remerged_on_current_main (test_truth_gate_classify.StaleBase.test_stale_merge_ref_is_remerged_on_current_main) ... ok
+2026-11-23T20:02:57.5285799Z 
+2026-11-23T20:02:57.5286268Z ----------------------------------------------------------------------
+2026-11-23T20:02:57.5287324Z Ran 14 tests in 1.530s
+2026-11-23T20:02:57.5287761Z 
+2026-11-23T20:02:57.5288156Z OK
+2026-11-23T20:02:57.5578867Z Post job cleanup.
+2026-11-23T20:02:57.6450879Z [command]/usr/bin/git version
+2026-11-23T20:02:57.6498626Z git version 2.56.1
+2026-11-23T20:02:57.6543924Z Temporarily overriding HOME='/home/runner/work/_temp/c81310ee-fecb-4de8-866a-d2ac3a6deb3b' before making global git config changes
+2026-11-23T20:02:57.6545828Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:02:57.6551015Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:02:57.6597135Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:02:57.6646013Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:02:57.6974320Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:02:57.7002240Z http.https://github.com/.extraheader
+2026-11-23T20:02:57.7016065Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T20:02:57.7056841Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:02:57.7415678Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:02:57.7460266Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:02:57.7909180Z Cleaning up orphan processes
+2026-11-23T20:02:57.8289068Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== 1_truth-gate.txt
+﻿2026-11-23T20:01:15.0219487Z Current runner version: '2.338.2'
+2026-11-23T20:01:15.0244400Z ##[group]Runner Image Provisioner
+2026-11-23T20:01:15.0245233Z Hosted Compute Agent
+2026-11-23T20:01:15.0245904Z Version: 20261111.635
+2026-11-23T20:01:15.0246662Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T20:01:15.0247425Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T20:01:15.0248132Z Worker ID: {8c30e575-3ed6-4f33-b79a-478d27086b77}
+2026-11-23T20:01:15.0248852Z Region: us-east-1
+2026-11-23T20:01:15.0249460Z Cloud: AWS
+2026-11-23T20:01:15.0249987Z ##[endgroup]
+2026-11-23T20:01:15.0251610Z ##[group]Operating System
+2026-11-23T20:01:15.0252212Z Ubuntu
+2026-11-23T20:01:15.0253005Z 26.04.1
+2026-11-23T20:01:15.0253525Z LTS
+2026-11-23T20:01:15.0254020Z ##[endgroup]
+2026-11-23T20:01:15.0254531Z ##[group]Runner Image
+2026-11-23T20:01:15.0255127Z Image: ubuntu-26.04
+2026-11-23T20:01:15.0255761Z Version: 20261116.88.1
+2026-11-23T20:01:15.0257037Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T20:01:15.0258921Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+2026-11-23T20:01:15.0259977Z ##[endgroup]
+2026-11-23T20:01:15.0261077Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T20:01:15.0263859Z Contents: read
+2026-11-23T20:01:15.0264483Z Metadata: read
+2026-11-23T20:01:15.0265030Z ##[endgroup]
+2026-11-23T20:01:15.0267280Z Secret source: Actions
+2026-11-23T20:01:15.0268234Z Cache mode: write
+2026-11-23T20:01:15.0269062Z Prepare workflow directory
+2026-11-23T20:01:15.0602949Z Prepare all required actions
+2026-11-23T20:01:15.0655281Z Getting action download info
+2026-11-23T20:01:15.2205731Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T20:01:16.9562602Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T20:01:17.1737650Z Complete job name: truth-gate
+2026-11-23T20:01:17.2508009Z ##[group]Run actions/checkout@v4
+2026-11-23T20:01:17.2509178Z with:
+2026-11-23T20:01:17.2509900Z   fetch-depth: 0
+2026-11-23T20:01:17.2510848Z   repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:17.2517689Z   token: ***
+2026-11-23T20:01:17.2518455Z   ssh-strict: true
+2026-11-23T20:01:17.2519223Z   ssh-user: git
+2026-11-23T20:01:17.2520010Z   persist-credentials: true
+2026-11-23T20:01:17.2520898Z   clean: true
+2026-11-23T20:01:17.2521697Z   sparse-checkout-cone-mode: true
+2026-11-23T20:01:17.2522743Z   fetch-tags: false
+2026-11-23T20:01:17.2523586Z   show-progress: true
+2026-11-23T20:01:17.2524374Z   lfs: false
+2026-11-23T20:01:17.2525127Z   submodules: false
+2026-11-23T20:01:17.2526065Z   set-safe-directory: true
+2026-11-23T20:01:17.2526975Z   allow-unsafe-pr-checkout: false
+2026-11-23T20:01:17.2528061Z ##[endgroup]
+2026-11-23T20:01:20.4915187Z Syncing repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:20.4917403Z ##[group]Getting Git version info
+2026-11-23T20:01:20.4918144Z Working directory is '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:01:20.4919220Z [command]/usr/bin/git version
+2026-11-23T20:01:20.4921151Z git version 2.56.1
+2026-11-23T20:01:20.4935018Z ##[endgroup]
+2026-11-23T20:01:20.4944483Z Temporarily overriding HOME='/home/runner/work/_temp/eb2fae8a-0a63-4703-a2d7-05bae02173de' before making global git config changes
+2026-11-23T20:01:20.4945408Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:01:20.4947606Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:01:20.5041218Z Deleting the contents of '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:01:20.5045953Z ##[group]Initializing the repository
+2026-11-23T20:01:20.5049890Z [command]/usr/bin/git init /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:01:20.5640366Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T20:01:20.5641759Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T20:01:20.5642611Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T20:01:20.5643394Z hint: call:
+2026-11-23T20:01:20.5643912Z hint:
+2026-11-23T20:01:20.5644469Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T20:01:20.5644808Z hint:
+2026-11-23T20:01:20.5645136Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T20:01:20.5645600Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T20:01:20.5646123Z hint:
+2026-11-23T20:01:20.5646407Z hint: 	git branch -m <name>
+2026-11-23T20:01:20.5646686Z hint:
+2026-11-23T20:01:20.5647024Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T20:01:20.5679908Z Initialized empty Git repository in /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether/.git/
+2026-11-23T20:01:20.5689566Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:20.5761567Z ##[endgroup]
+2026-11-23T20:01:20.5762572Z ##[group]Disabling automatic garbage collection
+2026-11-23T20:01:20.5763615Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T20:01:20.5786733Z ##[endgroup]
+2026-11-23T20:01:20.5787186Z ##[group]Setting up auth
+2026-11-23T20:01:20.5791692Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:01:20.5814522Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:01:20.9355727Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:01:20.9381529Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:01:20.9563398Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:01:20.9585905Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:01:20.9761438Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T20:01:20.9787101Z ##[endgroup]
+2026-11-23T20:01:20.9787520Z ##[group]Fetching the repository
+2026-11-23T20:01:20.9792811Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T20:01:21.4614948Z From https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:21.4615505Z  * [new branch]      chore/kernel-certificate -> origin/chore/kernel-certificate
+2026-11-23T20:01:21.4615907Z  * [new branch]      ci-backfill/33b0df1 -> origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4616466Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T20:01:21.4617023Z  * [new branch]      latex-polish        -> origin/latex-polish
+2026-11-23T20:01:21.4617369Z  * [new branch]      main                -> origin/main
+2026-11-23T20:01:21.4617700Z  * [new branch]      truth-gate/lock     -> origin/truth-gate/lock
+2026-11-23T20:01:21.4618041Z  * [new branch]      truth-gate/reaudit  -> origin/truth-gate/reaudit
+2026-11-23T20:01:21.4618484Z  * [new branch]      truth-gate/routeA-full-20261123 -> origin/truth-gate/routeA-full-20261123
+2026-11-23T20:01:21.4618918Z  * [new tag]         v1.0.0              -> v1.0.0
+2026-11-23T20:01:21.4623973Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4645628Z   origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4650668Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4668700Z 33b0df104377491af708f67f5a1fa5a32e787c62
+2026-11-23T20:01:21.4669960Z ##[endgroup]
+2026-11-23T20:01:21.4670346Z ##[group]Determining the checkout info
+2026-11-23T20:01:21.4671167Z ##[endgroup]
+2026-11-23T20:01:21.4674580Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T20:01:21.4728239Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T20:01:21.4749342Z ##[group]Checking out the ref
+2026-11-23T20:01:21.4750645Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/33b0df1 refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4868496Z Switched to a new branch 'ci-backfill/33b0df1'
+2026-11-23T20:01:21.4876874Z branch 'ci-backfill/33b0df1' set up to track 'origin/ci-backfill/33b0df1'.
+2026-11-23T20:01:21.4880007Z ##[endgroup]
+2026-11-23T20:01:21.4923162Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T20:01:21.4940031Z 33b0df104377491af708f67f5a1fa5a32e787c62
+2026-11-23T20:01:21.5148830Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T20:01:21.5149671Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T20:01:21.5150185Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T20:01:21.5172921Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:01:21.5173292Z ##[endgroup]
+2026-11-23T20:01:21.5566699Z info: downloading installer
+2026-11-23T20:01:21.8190650Z ##[group]Run lake exe cache get
+2026-11-23T20:01:21.8190974Z [36;1mlake exe cache get[0m
+2026-11-23T20:01:21.8211594Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:01:21.8211989Z ##[endgroup]
+2026-11-23T20:01:22.0717858Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T20:01:25.8957146Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T20:01:30.2324299Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T20:01:56.5808998Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T20:01:57.9786578Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T20:01:58.1269753Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T20:01:58.1373990Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T20:01:58.2666612Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T20:01:58.2752766Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T20:01:58.4740860Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T20:01:58.4865513Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T20:01:58.7736207Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T20:01:59.3164734Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T20:01:59.6102861Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T20:01:59.6278983Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T20:01:59.7834458Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T20:01:59.7928563Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T20:02:01.6632702Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T20:02:01.6865155Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T20:02:01.8450681Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T20:02:02.1557214Z ✔ [4/22] Built Cache.Init (233ms)
+2026-11-23T20:02:02.2561319Z ✔ [5/22] Built Cache.Lean (340ms)
+2026-11-23T20:02:02.2583444Z ✔ [6/22] Built Cache.Init:c.o (98ms)
+2026-11-23T20:02:02.3584130Z ✔ [7/22] Built Batteries.Data.String.Basic (332ms)
+2026-11-23T20:02:02.4561601Z ✔ [8/22] Built Batteries.Data.String.Basic:c.o (93ms)
+2026-11-23T20:02:02.4562884Z ✔ [9/22] Built Cache.Lean:c.o (171ms)
+2026-11-23T20:02:02.6584214Z ✔ [10/22] Built Batteries.Data.Array.Match (622ms)
+2026-11-23T20:02:02.8557157Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (216ms)
+2026-11-23T20:02:02.9560202Z ✔ [12/22] Built Batteries.Data.String.Matcher (264ms)
+2026-11-23T20:02:03.0564119Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (128ms)
+2026-11-23T20:02:03.2563741Z ✔ [14/22] Built Cache.IO (1.0s)
+2026-11-23T20:02:03.7567946Z ✔ [15/22] Built Cache.Hashing (544ms)
+2026-11-23T20:02:04.1572937Z ✔ [16/22] Built Cache.Hashing:c.o (379ms)
+2026-11-23T20:02:04.3577090Z ✔ [17/22] Built Cache.IO:c.o (1.1s)
+2026-11-23T20:02:05.1583963Z ✔ [18/22] Built Cache.Requests (1.4s)
+2026-11-23T20:02:05.7589375Z ✔ [19/22] Built Cache.Main (565ms)
+2026-11-23T20:02:06.1596357Z ✔ [20/22] Built Cache.Main:c.o (421ms)
+2026-11-23T20:02:06.6603094Z ✔ [21/22] Built Cache.Requests:c.o (1.5s)
+2026-11-23T20:02:07.1617960Z ✔ [22/22] Built cache:exe (545ms)
+2026-11-23T20:02:08.5400269Z Current branch: HEAD
+2026-11-23T20:02:08.5401295Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T20:02:08.5402044Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T20:02:08.9699205Z 
+2026-11-23T20:02:09.0763694Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 100 KB/s], Decompressed: 0
+2026-11-23T20:02:09.1784017Z Downloaded: 75 file(s) [attempted 75/8248 = 0%, 207 KB/s], Decompressed: 42
+2026-11-23T20:02:09.2783633Z Downloaded: 184 file(s) [attempted 184/8248 = 2%, 807 KB/s], Decompressed: 70
+2026-11-23T20:02:09.3823726Z Downloaded: 297 file(s) [attempted 297/8248 = 3%, 2154 KB/s], Decompressed: 70
+2026-11-23T20:02:09.4843713Z Downloaded: 408 file(s) [attempted 408/8248 = 4%, 2283 KB/s], Decompressed: 132
+2026-11-23T20:02:09.5840679Z Downloaded: 514 file(s) [attempted 514/8248 = 6%, 2540 KB/s], Decompressed: 132
+2026-11-23T20:02:09.6833721Z Downloaded: 647 file(s) [attempted 647/8248 = 7%, 178 KB/s], Decompressed: 132
+2026-11-23T20:02:09.8506889Z Downloaded: 780 file(s) [attempted 780/8248 = 9%, 3240 KB/s], Decompressed: 132
+2026-11-23T20:02:09.9523996Z Downloaded: 895 file(s) [attempted 895/8248 = 10%, 627 KB/s], Decompressed: 311
+2026-11-23T20:02:10.0614069Z Downloaded: 991 file(s) [attempted 991/8248 = 12%, 2268 KB/s], Decompressed: 311
+2026-11-23T20:02:10.1613969Z Downloaded: 1120 file(s) [attempted 1120/8248 = 13%, 450 KB/s], Decompressed: 311
+2026-11-23T20:02:10.2613967Z Downloaded: 1259 file(s) [attempted 1259/8248 = 15%, 935 KB/s], Decompressed: 311
+2026-11-23T20:02:10.3620675Z Downloaded: 1388 file(s) [attempted 1388/8248 = 16%, 2653 KB/s], Decompressed: 311
+2026-11-23T20:02:10.4686815Z Downloaded: 1474 file(s) [attempted 1474/8248 = 17%, 782 KB/s], Decompressed: 311
+2026-11-23T20:02:10.5711568Z Downloaded: 1620 file(s) [attempted 1620/8248 = 19%, 3260 KB/s], Decompressed: 311
+2026-11-23T20:02:10.6716617Z Downloaded: 1749 file(s) [attempted 1749/8248 = 21%, 418 KB/s], Decompressed: 311
+2026-11-23T20:02:10.7763709Z Downloaded: 1884 file(s) [attempted 1884/8248 = 22%, 3048 KB/s], Decompressed: 311
+2026-11-23T20:02:10.8719615Z Downloaded: 2009 file(s) [attempted 2009/8248 = 24%, 536 KB/s], Decompressed: 311
+2026-11-23T20:02:11.0024001Z Downloaded: 2136 file(s) [attempted 2136/8248 = 25%, 3298 KB/s], Decompressed: 311
+2026-11-23T20:02:11.1099453Z Downloaded: 2211 file(s) [attempted 2211/8248 = 26%, 2269 KB/s], Decompressed: 311
+2026-11-23T20:02:11.2110267Z Downloaded: 2339 file(s) [attempted 2339/8248 = 28%, 271 KB/s], Decompressed: 311
+2026-11-23T20:02:11.3099313Z Downloaded: 2471 file(s) [attempted 2471/8248 = 29%, 2306 KB/s], Decompressed: 895
+2026-11-23T20:02:11.4103578Z Downloaded: 2602 file(s) [attempted 2602/8248 = 31%, 856 KB/s], Decompressed: 895
+2026-11-23T20:02:11.5493850Z Downloaded: 2740 file(s) [attempted 2740/8248 = 33%, 1957 KB/s], Decompressed: 895
+2026-11-23T20:02:11.6506118Z Downloaded: 2861 file(s) [attempted 2861/8248 = 34%, 1408 KB/s], Decompressed: 895
+2026-11-23T20:02:11.7553574Z Downloaded: 3008 file(s) [attempted 3008/8248 = 36%, 1144 KB/s], Decompressed: 895
+2026-11-23T20:02:11.8653928Z Downloaded: 3148 file(s) [attempted 3148/8248 = 38%, 443 KB/s], Decompressed: 895
+2026-11-23T20:02:11.9665636Z Downloaded: 3267 file(s) [attempted 3267/8248 = 39%, 818 KB/s], Decompressed: 895
+2026-11-23T20:02:12.0685726Z Downloaded: 3398 file(s) [attempted 3398/8248 = 41%, 6371 KB/s], Decompressed: 895
+2026-11-23T20:02:12.1684346Z Downloaded: 3539 file(s) [attempted 3539/8248 = 42%, 1383 KB/s], Decompressed: 895
+2026-11-23T20:02:12.3664245Z Downloaded: 3677 file(s) [attempted 3677/8248 = 44%, 387 KB/s], Decompressed: 895
+2026-11-23T20:02:12.4646507Z Downloaded: 3796 file(s) [attempted 3796/8248 = 46%, 2843 KB/s], Decompressed: 895
+2026-11-23T20:02:12.5665853Z Downloaded: 3914 file(s) [attempted 3914/8248 = 47%, 2790 KB/s], Decompressed: 895
+2026-11-23T20:02:12.6674094Z Downloaded: 4020 file(s) [attempted 4020/8248 = 48%, 1348 KB/s], Decompressed: 895
+2026-11-23T20:02:12.8220888Z Downloaded: 4156 file(s) [attempted 4156/8248 = 50%, 302 KB/s], Decompressed: 895
+2026-11-23T20:02:12.9246393Z Downloaded: 4229 file(s) [attempted 4229/8248 = 51%, 1500 KB/s], Decompressed: 895
+2026-11-23T20:02:13.0273740Z Downloaded: 4315 file(s) [attempted 4315/8248 = 52%, 29 KB/s], Decompressed: 895
+2026-11-23T20:02:13.1274542Z Downloaded: 4412 file(s) [attempted 4412/8248 = 53%, 255 KB/s], Decompressed: 895
+2026-11-23T20:02:13.2291311Z Downloaded: 4545 file(s) [attempted 4545/8248 = 55%, 3705 KB/s], Decompressed: 895
+2026-11-23T20:02:13.3314300Z Downloaded: 4669 file(s) [attempted 4669/8248 = 56%, 1614 KB/s], Decompressed: 895
+2026-11-23T20:02:13.4323540Z Downloaded: 4786 file(s) [attempted 4786/8248 = 58%, 1807 KB/s], Decompressed: 895
+2026-11-23T20:02:13.5307885Z Downloaded: 4928 file(s) [attempted 4928/8248 = 59%, 1786 KB/s], Decompressed: 895
+2026-11-23T20:02:13.6366297Z Downloaded: 5052 file(s) [attempted 5052/8248 = 61%, 1538 KB/s], Decompressed: 895
+2026-11-23T20:02:13.7370362Z Downloaded: 5133 file(s) [attempted 5133/8248 = 62%, 3511 KB/s], Decompressed: 895
+2026-11-23T20:02:13.8435844Z Downloaded: 5273 file(s) [attempted 5273/8248 = 63%, 1242 KB/s], Decompressed: 895
+2026-11-23T20:02:13.9423648Z Downloaded: 5410 file(s) [attempted 5410/8248 = 65%, 464 KB/s], Decompressed: 895
+2026-11-23T20:02:14.0414618Z Downloaded: 5555 file(s) [attempted 5555/8248 = 67%, 454 KB/s], Decompressed: 895
+2026-11-23T20:02:14.1755609Z Downloaded: 5687 file(s) [attempted 5687/8248 = 68%, 213 KB/s], Decompressed: 895
+2026-11-23T20:02:14.2979501Z Downloaded: 5816 file(s) [attempted 5816/8248 = 70%, 132 KB/s], Decompressed: 895
+2026-11-23T20:02:14.4010430Z Downloaded: 5910 file(s) [attempted 5910/8248 = 71%, 4329 KB/s], Decompressed: 895
+2026-11-23T20:02:14.5026707Z Downloaded: 6038 file(s) [attempted 6038/8248 = 73%, 1863 KB/s], Decompressed: 895
+2026-11-23T20:02:14.6014360Z Downloaded: 6159 file(s) [attempted 6159/8248 = 74%, 1308 KB/s], Decompressed: 895
+2026-11-23T20:02:14.7044074Z Downloaded: 6288 file(s) [attempted 6288/8248 = 76%, 352 KB/s], Decompressed: 895
+2026-11-23T20:02:14.8488203Z Downloaded: 6420 file(s) [attempted 6420/8248 = 77%, 1553 KB/s], Decompressed: 895
+2026-11-23T20:02:14.9507590Z Downloaded: 6517 file(s) [attempted 6517/8248 = 79%, 4954 KB/s], Decompressed: 895
+2026-11-23T20:02:15.0523687Z Downloaded: 6647 file(s) [attempted 6647/8248 = 80%, 130 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.1515310Z Downloaded: 6779 file(s) [attempted 6779/8248 = 82%, 1491 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.2555023Z Downloaded: 6914 file(s) [attempted 6914/8248 = 83%, 1194 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.3559844Z Downloaded: 7052 file(s) [attempted 7052/8248 = 85%, 482 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.5013999Z Downloaded: 7186 file(s) [attempted 7186/8248 = 87%, 260 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.6247097Z Downloaded: 7189 file(s) [attempted 7189/8248 = 87%, 260 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.7237856Z Downloaded: 7281 file(s) [attempted 7281/8248 = 88%, 253 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.8246224Z Downloaded: 7363 file(s) [attempted 7363/8248 = 89%, 5762 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.9264750Z Downloaded: 7506 file(s) [attempted 7506/8248 = 91%, 435 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.0306752Z Downloaded: 7635 file(s) [attempted 7635/8248 = 92%, 1072 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.1316587Z Downloaded: 7761 file(s) [attempted 7761/8248 = 94%, 294 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.2307491Z Downloaded: 7896 file(s) [attempted 7896/8248 = 95%, 2240 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.3334113Z Downloaded: 8038 file(s) [attempted 8038/8248 = 97%, 659 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.5117787Z Downloaded: 8160 file(s) [attempted 8160/8248 = 98%, 2992 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.5933199Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 1803 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.5954021Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 1803 KB/s], Decompressed: 2395
+2026-11-23T20:02:32.1811614Z Decompressed 8248 file(s)
+2026-11-23T20:02:32.1812091Z Already decompressed 8248 file(s)
+2026-11-23T20:02:32.2727583Z ##[group]Run bash scripts/verify-lock.sh
+2026-11-23T20:02:32.2728046Z [36;1mbash scripts/verify-lock.sh[0m
+2026-11-23T20:02:32.2747559Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:02:32.2747868Z ##[endgroup]
+2026-11-23T20:02:32.2923430Z == 1/6 static lock checks (lock form, paper hash, forbidden tokens)
+2026-11-23T20:02:32.3364190Z TRUTH GATE FAIL: this lock is NOT certifying (reopened by the re-audit of 2026-11-16): Partial lock. Only the first two sentences of Theorem thm:routeA are locked. Its third sentence ("Consequently, in dim ≥ 3 with S ≥ 0, w > 0, a correction is admissible for Route A iff B = T[κ,w,u] with κ = S.") is not.
+2026-11-23T20:02:32.3365655Z TRUTH GATE STATIC: scanned roots ['TetherMayForm', 'TetherMayForm.lean'] (draft dirs exempt: ['TetherMayForm/Draft']); 0 forbidden tokens
+2026-11-23T20:02:32.3366347Z TRUTH GATE STATIC FAIL (1 problems)
+2026-11-23T20:02:32.3366795Z == 2/6 lock-form lint (paper_claim must not reuse repository Props)
+2026-11-23T20:02:32.4371953Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+2026-11-23T20:02:32.4615963Z == 3/6 lake build (default targets)
+2026-11-23T20:02:36.0184803Z ✔ [2659/2683] Built TetherMayForm.Layer2 (2.5s)
+2026-11-23T20:02:37.7354683Z ✔ [2660/2683] Built TetherMayForm.EnstrophyL2 (4.2s)
+2026-11-23T20:02:38.4426335Z ✔ [2661/2683] Built TetherMayForm.RiccatiComparison (2.5s)
+2026-11-23T20:02:38.7435457Z ⚠ [2662/2683] Built TetherMayForm.Basic (5.3s)
+2026-11-23T20:02:38.7436396Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+2026-11-23T20:02:38.7437083Z 
+2026-11-23T20:02:38.7437470Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:39.7468362Z ✔ [2663/2683] Built TetherMayForm.CitedProps (2.0s)
+2026-11-23T20:02:40.9564618Z ⚠ [2664/2683] Built TetherMayForm.Jacobi (2.1s)
+2026-11-23T20:02:40.9624452Z warning: TetherMayForm/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+2026-11-23T20:02:40.9683897Z   [InnerProductSpace ℝ H]
+2026-11-23T20:02:40.9713816Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-11-23T20:02:40.9743315Z   omit [InnerProductSpace ℝ H] in theorem ...
+2026-11-23T20:02:40.9743613Z 
+2026-11-23T20:02:40.9743860Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-11-23T20:02:41.5553358Z ✔ [2665/2683] Built TetherMayForm.Metriplectic (2.8s)
+2026-11-23T20:02:43.3594891Z ✔ [2666/2683] Built TetherMayForm.RouteA (1.7s)
+2026-11-23T20:02:43.9591896Z ⚠ [2667/2683] Built TetherMayForm.JacobiWitness (3.1s)
+2026-11-23T20:02:43.9592920Z warning: TetherMayForm/JacobiWitness.lean:40:19: This simp argument is unused:
+2026-11-23T20:02:43.9593392Z   LinearMap.map_add₂
+2026-11-23T20:02:43.9593538Z 
+2026-11-23T20:02:43.9593665Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9594289Z   simp [crossBr,̵ ̵L̵i̵n̵e̵a̵r̵M̵a̵p̵.̵m̵a̵p̵_̵a̵d̵d̵₂̵]
+2026-11-23T20:02:43.9594503Z 
+2026-11-23T20:02:43.9594692Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9595172Z warning: TetherMayForm/JacobiWitness.lean:52:15: This simp argument is unused:
+2026-11-23T20:02:43.9595542Z   WithLp.ofLp_toLp
+2026-11-23T20:02:43.9595669Z 
+2026-11-23T20:02:43.9595795Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9596236Z   simp only [W̵i̵t̵h̵L̵p̵.̵o̵f̵L̵p̵_̵t̵o̵L̵p̵,̵ ̵e1, e2, e3, PiLp.add_apply, PiLp.zero_apply] at *
+2026-11-23T20:02:43.9596519Z 
+2026-11-23T20:02:43.9596698Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9597240Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9597610Z 
+2026-11-23T20:02:43.9597709Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9598395Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9598812Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9599098Z instead of
+2026-11-23T20:02:43.9599477Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9599869Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9600114Z 
+2026-11-23T20:02:43.9600444Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9601129Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9601510Z 
+2026-11-23T20:02:43.9601667Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9602126Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9603022Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9603344Z instead of
+2026-11-23T20:02:43.9603707Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9604112Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9604345Z 
+2026-11-23T20:02:43.9604674Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9605338Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9605699Z 
+2026-11-23T20:02:43.9605859Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9606312Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9606719Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9606996Z instead of
+2026-11-23T20:02:43.9607345Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9608267Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9608667Z 
+2026-11-23T20:02:43.9609001Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9609572Z warning: TetherMayForm/JacobiWitness.lean:68:17: This simp argument is unused:
+2026-11-23T20:02:43.9609931Z   EuclideanSpace.norm_eq
+2026-11-23T20:02:43.9610259Z 
+2026-11-23T20:02:43.9610379Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9610785Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T20:02:43.9611402Z   ̲  ̲ ̲ ̲E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵n̵o̵r̵m̵_̵e̵q̵,̵ ̵inner, Fin.sum_univ_three, EuclideanSpace.single_apply]
+2026-11-23T20:02:43.9611678Z 
+2026-11-23T20:02:43.9611880Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9612456Z warning: TetherMayForm/JacobiWitness.lean:68:48: This simp argument is unused:
+2026-11-23T20:02:43.9612820Z   Fin.sum_univ_three
+2026-11-23T20:02:43.9612967Z 
+2026-11-23T20:02:43.9613074Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9613425Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3,
+2026-11-23T20:02:43.9613825Z   ̵  ̵ ̵ ̵cross_apply,
+2026-11-23T20:02:43.9614249Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵EuclideanSpace.single_apply]
+2026-11-23T20:02:43.9614536Z 
+2026-11-23T20:02:43.9614741Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9615268Z warning: TetherMayForm/JacobiWitness.lean:68:68: This simp argument is unused:
+2026-11-23T20:02:43.9615625Z   EuclideanSpace.single_apply
+2026-11-23T20:02:43.9615792Z 
+2026-11-23T20:02:43.9615877Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9616285Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T20:02:43.9617011Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵F̲i̲n̲.̲s̲u̲m̲_̲u̲n̲i̲v̲_̲t̲h̲r̲e̲e̲]̲
+2026-11-23T20:02:43.9617375Z 
+2026-11-23T20:02:43.9617594Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9618122Z warning: TetherMayForm/JacobiWitness.lean:76:12: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9618518Z 
+2026-11-23T20:02:43.9618613Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9619088Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9619506Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9619776Z instead of
+2026-11-23T20:02:43.9620164Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9620542Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9620746Z 
+2026-11-23T20:02:43.9621092Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9621667Z warning: TetherMayForm/JacobiWitness.lean:76:12: This simp argument is unused:
+2026-11-23T20:02:43.9622024Z   EuclideanSpace.single_apply
+2026-11-23T20:02:43.9622202Z 
+2026-11-23T20:02:43.9622416Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9622802Z   simp [e2,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵] at this
+2026-11-23T20:02:43.9623045Z 
+2026-11-23T20:02:43.9623270Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:44.8613790Z ✔ [2668/2683] Built TetherMayForm.Main (1.5s)
+2026-11-23T20:02:46.2644584Z ✔ [2669/2683] Built TetherMayForm.TetheredLyapunov (1.4s)
+2026-11-23T20:02:48.0643387Z ⚠ [2670/2683] Built TetherMayForm.Enstrophy (1.8s)
+2026-11-23T20:02:48.0644202Z warning: TetherMayForm/Enstrophy.lean:116:50: unused variable `hC`
+2026-11-23T20:02:48.0644533Z 
+2026-11-23T20:02:48.0644816Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:48.0645499Z warning: TetherMayForm/Enstrophy.lean:116:63: unused variable `hκ`
+2026-11-23T20:02:48.0645775Z 
+2026-11-23T20:02:48.0646032Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:48.2663666Z ✔ [2671/2683] Built TetherMayForm.GlobalRegularity (1.0s)
+2026-11-23T20:02:48.5670564Z ✔ [2672/2683] Built TetherMayForm.Torus (2.3s)
+2026-11-23T20:02:50.5711960Z ⚠ [2673/2683] Built TetherMayForm.Final (2.0s)
+2026-11-23T20:02:50.5712864Z warning: TetherMayForm/Final.lean:69:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+2026-11-23T20:02:50.5713760Z If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+2026-11-23T20:02:50.5714218Z ```
+2026-11-23T20:02:50.5714536Z open Lean.Parser.Tactic in
+2026-11-23T20:02:50.5714895Z macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+2026-11-23T20:02:50.5715288Z   `(tactic| push $cfg:optConfig Not $[$loc]?)
+2026-11-23T20:02:50.5715659Z ```
+2026-11-23T20:02:50.5716213Z warning: TetherMayForm/Final.lean:180:35: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:50.5716741Z 
+2026-11-23T20:02:50.5716918Z Note: The updated constant has a different type:
+2026-11-23T20:02:50.5717665Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:50.5718479Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:50.5718894Z instead of
+2026-11-23T20:02:50.5719369Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:50.5719946Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:50.5720291Z 
+2026-11-23T20:02:50.5720781Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:50.5721599Z warning: TetherMayForm/Final.lean:180:35: This simp argument is unused:
+2026-11-23T20:02:50.5722086Z   EuclideanSpace.single_apply
+2026-11-23T20:02:50.5722587Z 
+2026-11-23T20:02:50.5722761Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:50.5723552Z   simp [y, Fin.sum_univ_three,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]
+2026-11-23T20:02:50.5723928Z 
+2026-11-23T20:02:50.5724193Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:53.3774206Z ⚠ [2674/2683] Built TetherMayForm.LogLoss (2.8s)
+2026-11-23T20:02:53.3774974Z warning: TetherMayForm/LogLoss.lean:95:50: unused variable `hy0`
+2026-11-23T20:02:53.3775560Z 
+2026-11-23T20:02:53.3776125Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:55.4813467Z ✔ [2675/2683] Built TetherMayForm.PalinstrophyH1 (2.1s)
+2026-11-23T20:02:57.1835876Z ✔ [2676/2683] Built TetherMayForm.VorticityTether (1.8s)
+2026-11-23T20:03:01.3881245Z ✔ [2677/2683] Built TetherMayForm.CurlNS (4.2s)
+2026-11-23T20:03:03.8917254Z ✔ [2678/2683] Built TetherMayForm.BiotSavart (2.6s)
+2026-11-23T20:03:05.8989726Z ✔ [2679/2683] Built TetherMayForm.ChevalleyEilenberg (1.0s)
+2026-11-23T20:03:08.0015166Z ⚠ [2680/2683] Built TetherMayForm.FieldJacobi (4.0s)
+2026-11-23T20:03:08.0016054Z warning: TetherMayForm/FieldJacobi.lean:195:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T20:03:08.0016596Z 
+2026-11-23T20:03:08.0016909Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T20:03:09.8032597Z ✔ [2681/2683] Built TetherMayForm.FieldMetriplectic (1.8s)
+2026-11-23T20:03:11.1043703Z ✔ [2682/2683] Built TetherMayForm (1.3s)
+2026-11-23T20:03:11.1093085Z Build completed successfully (2683 jobs).
+2026-11-23T20:03:11.1270354Z == 4/6 lake build TetherMayForm.Semantics
+2026-11-23T20:03:12.0248165Z ⚠ [2270/2338] Replayed TetherMayForm.Basic
+2026-11-23T20:03:12.0248947Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+2026-11-23T20:03:12.0249231Z 
+2026-11-23T20:03:12.0249407Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:03:13.4264881Z ✔ [2338/2338] Built TetherMayForm.Semantics (1.4s)
+2026-11-23T20:03:13.4303044Z Build completed successfully (2338 jobs).
+2026-11-23T20:03:13.4664251Z build: no sorry outside draft dirs
+2026-11-23T20:03:13.4664746Z == 5/6 kernel audit of the lock (axioms, non-vacuity, transport)
+2026-11-23T20:03:15.6224340Z scripts/TruthGateAudit.lean:116:75: warning: `Lean.levelZero` has been deprecated: Use `Lean.Level.zero` instead
+2026-11-23T20:03:15.6224827Z 
+2026-11-23T20:03:15.6225201Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.levelZero` to `Level.zero x`).
+2026-11-23T20:03:15.6225959Z AXIOMS TruthGate.formal_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6226568Z AXIOMS TruthGate.paper_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6227165Z AXIOMS TruthGate.intended_correspondence: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6227754Z AXIOMS TruthGate.formal_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6228320Z AXIOMS TruthGate.paper_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6228981Z AXIOMS Frohman.Tether.routeA_determines_kappa_of_matching: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6230249Z TRUTH GATE AUDIT PASS: main theorems [Frohman.Tether.routeA_determines_kappa_of_matching]; formal_claim ↔ paper_claim locked, standard axioms only
+2026-11-23T20:03:15.6230875Z 'TruthGate.intended_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6231417Z 'TruthGate.paper_claim_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6259065Z == 6/6 additional locks (build, sorry scan, kernel audit)
+2026-11-23T20:03:15.6414162Z (none)
+2026-11-23T20:03:15.6998445Z ========================================================================
+2026-11-23T20:03:15.6999349Z TRUTH GATE VERDICT
+2026-11-23T20:03:15.7000329Z Kernel/proof checks: PASS (lake build, no sorry outside draft dirs, kernel audit: standard axioms only).
+2026-11-23T20:03:15.7001153Z 
+2026-11-23T20:03:15.7001441Z [LOCK-FORM: lock wording/form problem, not a math failure]
+2026-11-23T20:03:15.7004732Z   - the lock is marked non-certifying (partial lock). The lock covers only part of the paper's stated theorem. The locked part may well be kernel-checked; the rest of the theorem has to be formalized and locked too (no partial locks). Recorded reason: Partial lock. Only the first two sentences of Theorem thm:routeA are locked. Its third sentence ("Consequently, in dim ≥ 3 with S ≥ 0, w > 0, a correction is admissible for Route A iff B = T[κ,w,u] with κ = S.") is not.
+2026-11-23T20:03:15.7006599Z 
+2026-11-23T20:03:15.7006879Z VERDICT: FAIL (LOCK-FORM). Kernel checks passed: no math was found false.
+2026-11-23T20:03:15.7007516Z ========================================================================
+2026-11-23T20:03:15.7033869Z ##[error]see the TRUTH GATE VERDICT block in this log
+2026-11-23T20:03:15.7076769Z ##[error]Process completed with exit code 1.
+2026-11-23T20:03:15.7142839Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T20:03:15.7143118Z with:
+2026-11-23T20:03:15.7143327Z   name: truth-gate-report
+2026-11-23T20:03:15.7143561Z   path: truth-gate-report/
+2026-11-23T20:03:15.7143824Z   if-no-files-found: warn
+2026-11-23T20:03:15.7144049Z   compression-level: 6
+2026-11-23T20:03:15.7144291Z   overwrite: false
+2026-11-23T20:03:15.7144554Z   include-hidden-files: false
+2026-11-23T20:03:15.7144783Z ##[endgroup]
+2026-11-23T20:03:15.8355280Z (node:3186) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T20:03:15.8355872Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T20:03:15.8443092Z With the provided path, there will be 11 files uploaded
+2026-11-23T20:03:15.8446239Z Artifact name is valid!
+2026-11-23T20:03:15.8446702Z Root directory input is valid!
+2026-11-23T20:03:16.1870159Z Beginning upload of artifact content to blob storage
+2026-11-23T20:03:16.3049688Z (node:3186) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T20:03:16.3402886Z Uploaded bytes 4798
+2026-11-23T20:03:16.3566997Z Finished uploading artifact content to blob storage!
+2026-11-23T20:03:16.3567653Z SHA256 digest of uploaded artifact zip is 047c705cfd5c12d1c51f8319efa0c713f7233cd5371a5f1820103e01b5bf87c4
+2026-11-23T20:03:16.3568616Z Finalizing artifact upload
+2026-11-23T20:03:16.7482017Z Artifact truth-gate-report.zip successfully finalized. Artifact ID 14855699694
+2026-11-23T20:03:16.7482891Z Artifact truth-gate-report has been successfully uploaded! Final size is 4798 bytes. Artifact ID is 14855699694
+2026-11-23T20:03:16.7488372Z Artifact download URL: https://github.com/BenFrohman/frohmanian-symplectic-tether/actions/runs/45254564266/artifacts/14855699694
+2026-11-23T20:03:16.7664993Z Post job cleanup.
+2026-11-23T20:03:16.8301845Z [command]/usr/bin/git version
+2026-11-23T20:03:16.8331589Z git version 2.56.1
+2026-11-23T20:03:16.8355405Z Temporarily overriding HOME='/home/runner/work/_temp/150b7d9d-d401-4106-abee-39e4a548971b' before making global git config changes
+2026-11-23T20:03:16.8356727Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:03:16.8359417Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:03:16.8386461Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:03:16.8409039Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:03:16.8639480Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:03:16.8656834Z http.https://github.com/.extraheader
+2026-11-23T20:03:16.8665344Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T20:03:16.8688334Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:03:16.8864684Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:03:16.8885862Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:03:16.9173024Z Cleaning up orphan processes
+2026-11-23T20:03:16.9430608Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== lock-form-lint/1_Set up job.txt
+﻿2026-11-23T20:02:54.4389258Z Current runner version: '2.338.2'
+2026-11-23T20:02:54.4427290Z ##[group]Runner Image Provisioner
+2026-11-23T20:02:54.4429004Z Hosted Compute Agent
+2026-11-23T20:02:54.4430091Z Version: 20261111.635
+2026-11-23T20:02:54.4431935Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T20:02:54.4433591Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T20:02:54.4434752Z Worker ID: {c83e30e7-d792-4b3e-81f1-cbb5345a2161}
+2026-11-23T20:02:54.4435978Z Region: eastus
+2026-11-23T20:02:54.4436935Z Cloud: Azure
+2026-11-23T20:02:54.4438022Z ##[endgroup]
+2026-11-23T20:02:54.4440671Z ##[group]Operating System
+2026-11-23T20:02:54.4441876Z Ubuntu
+2026-11-23T20:02:54.4442944Z 26.04.1
+2026-11-23T20:02:54.4443865Z LTS
+2026-11-23T20:02:54.4444940Z ##[endgroup]
+2026-11-23T20:02:54.4445900Z ##[group]Runner Image
+2026-11-23T20:02:54.4447023Z Image: ubuntu-26.04
+2026-11-23T20:02:54.4448021Z Version: 20261116.202.1
+2026-11-23T20:02:54.4450136Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T20:02:54.4453692Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T20:02:54.4455596Z ##[endgroup]
+2026-11-23T20:02:54.4457831Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T20:02:54.4460765Z Contents: read
+2026-11-23T20:02:54.4461966Z Metadata: read
+2026-11-23T20:02:54.4463274Z ##[endgroup]
+2026-11-23T20:02:54.4466568Z Secret source: Actions
+2026-11-23T20:02:54.4468235Z Cache mode: write
+2026-11-23T20:02:54.4469730Z Prepare workflow directory
+2026-11-23T20:02:54.4973752Z Prepare all required actions
+2026-11-23T20:02:54.5046886Z Getting action download info
+2026-11-23T20:02:54.6406844Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T20:02:54.8234566Z Complete job name: lock-form-lint
+
+===== lock-form-lint/2_Run actions_checkout@v4.txt
+﻿2026-11-23T20:02:54.9295515Z ##[group]Run actions/checkout@v4
+2026-11-23T20:02:54.9296474Z with:
+2026-11-23T20:02:54.9296940Z   fetch-depth: 0
+2026-11-23T20:02:54.9297516Z   repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:54.9301755Z   token: ***
+2026-11-23T20:02:54.9302225Z   ssh-strict: true
+2026-11-23T20:02:54.9302967Z   ssh-user: git
+2026-11-23T20:02:54.9303639Z   persist-credentials: true
+2026-11-23T20:02:54.9304543Z   clean: true
+2026-11-23T20:02:54.9305339Z   sparse-checkout-cone-mode: true
+2026-11-23T20:02:54.9306136Z   fetch-tags: false
+2026-11-23T20:02:54.9306620Z   show-progress: true
+2026-11-23T20:02:54.9307091Z   lfs: false
+2026-11-23T20:02:54.9307530Z   submodules: false
+2026-11-23T20:02:54.9308003Z   set-safe-directory: true
+2026-11-23T20:02:54.9308534Z   allow-unsafe-pr-checkout: false
+2026-11-23T20:02:54.9309490Z ##[endgroup]
+2026-11-23T20:02:55.2248649Z Syncing repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2252154Z ##[group]Getting Git version info
+2026-11-23T20:02:55.2254724Z Working directory is '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:02:55.2257253Z [command]/usr/bin/git version
+2026-11-23T20:02:55.2268735Z git version 2.56.1
+2026-11-23T20:02:55.2291412Z ##[endgroup]
+2026-11-23T20:02:55.2307215Z Temporarily overriding HOME='/home/runner/work/_temp/60752853-50a6-4f4c-bfd3-19aa5fcfa16d' before making global git config changes
+2026-11-23T20:02:55.2311556Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:02:55.2316070Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2392969Z Deleting the contents of '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:02:55.2397818Z ##[group]Initializing the repository
+2026-11-23T20:02:55.2402390Z [command]/usr/bin/git init /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2533926Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T20:02:55.2536918Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T20:02:55.2539987Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T20:02:55.2542982Z hint: call:
+2026-11-23T20:02:55.2544431Z hint:
+2026-11-23T20:02:55.2545978Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T20:02:55.2548039Z hint:
+2026-11-23T20:02:55.2549687Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T20:02:55.2553230Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T20:02:55.2555539Z hint:
+2026-11-23T20:02:55.2556823Z hint: 	git branch -m <name>
+2026-11-23T20:02:55.2558067Z hint:
+2026-11-23T20:02:55.2559668Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T20:02:55.2563612Z Initialized empty Git repository in /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether/.git/
+2026-11-23T20:02:55.2569242Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:55.2628459Z ##[endgroup]
+2026-11-23T20:02:55.2630442Z ##[group]Disabling automatic garbage collection
+2026-11-23T20:02:55.2633016Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T20:02:55.2669294Z ##[endgroup]
+2026-11-23T20:02:55.2671289Z ##[group]Setting up auth
+2026-11-23T20:02:55.2676134Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:02:55.2713651Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:02:55.3189469Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:02:55.3235126Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:02:55.3505815Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:02:55.3542655Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:02:55.3811163Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T20:02:55.3851229Z ##[endgroup]
+2026-11-23T20:02:55.3854284Z ##[group]Fetching the repository
+2026-11-23T20:02:55.3865009Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T20:02:55.7073603Z From https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:02:55.7076292Z  * [new branch]      chore/kernel-certificate -> origin/chore/kernel-certificate
+2026-11-23T20:02:55.7078620Z  * [new branch]      ci-backfill/33b0df1 -> origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7081338Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T20:02:55.7084941Z  * [new branch]      latex-polish        -> origin/latex-polish
+2026-11-23T20:02:55.7087341Z  * [new branch]      main                -> origin/main
+2026-11-23T20:02:55.7089186Z  * [new branch]      truth-gate/lock     -> origin/truth-gate/lock
+2026-11-23T20:02:55.7091056Z  * [new branch]      truth-gate/reaudit  -> origin/truth-gate/reaudit
+2026-11-23T20:02:55.7093623Z  * [new branch]      truth-gate/routeA-full-20261123 -> origin/truth-gate/routeA-full-20261123
+2026-11-23T20:02:55.7095940Z  * [new tag]         v1.0.0              -> v1.0.0
+2026-11-23T20:02:55.7099371Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7115264Z   origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7125639Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7148511Z 33b0df104377491af708f67f5a1fa5a32e787c62
+2026-11-23T20:02:55.7156212Z ##[endgroup]
+2026-11-23T20:02:55.7159041Z ##[group]Determining the checkout info
+2026-11-23T20:02:55.7162389Z ##[endgroup]
+2026-11-23T20:02:55.7164515Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T20:02:55.7216392Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T20:02:55.7248884Z ##[group]Checking out the ref
+2026-11-23T20:02:55.7252745Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/33b0df1 refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:02:55.7381349Z Switched to a new branch 'ci-backfill/33b0df1'
+2026-11-23T20:02:55.7387495Z branch 'ci-backfill/33b0df1' set up to track 'origin/ci-backfill/33b0df1'.
+2026-11-23T20:02:55.7435631Z ##[endgroup]
+2026-11-23T20:02:55.7439484Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T20:02:55.7464747Z 33b0df104377491af708f67f5a1fa5a32e787c62
+
+===== lock-form-lint/3_Lock-form lint (paper_claim must not reuse repository Props).txt
+﻿2026-11-23T20:02:55.7727555Z ##[group]Run python3 scripts/truth_gate_classify.py lint --fetch-deps
+2026-11-23T20:02:55.7729711Z [36;1mpython3 scripts/truth_gate_classify.py lint --fetch-deps[0m
+2026-11-23T20:02:55.7768133Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:02:55.7769202Z ##[endgroup]
+2026-11-23T20:02:55.8864678Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+
+===== lock-form-lint/4_Classifier fixtures (one per failure class).txt
+﻿2026-11-23T20:02:55.9019159Z ##[group]Run python3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v
+2026-11-23T20:02:55.9021846Z [36;1mpython3 -m unittest discover -s scripts/tests -p 'test_truth_gate_classify.py' -v[0m
+2026-11-23T20:02:55.9057552Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:02:55.9058540Z ##[endgroup]
+2026-11-23T20:02:56.0619684Z test_alias_of_formal_claim_is_rejected (test_truth_gate_classify.LockFormLint.test_alias_of_formal_claim_is_rejected) ... ok
+2026-11-23T20:02:56.1261331Z test_independent_transcription_passes (test_truth_gate_classify.LockFormLint.test_independent_transcription_passes) ... ok
+2026-11-23T20:02:56.1911437Z test_named_hypothesis_is_rejected_with_file_and_line (test_truth_gate_classify.LockFormLint.test_named_hypothesis_is_rejected_with_file_and_line) ... ok
+2026-11-23T20:02:56.2551504Z test_unlisted_repository_name_is_rejected (test_truth_gate_classify.LockFormLint.test_unlisted_repository_name_is_rejected) ... ok
+2026-11-23T20:02:56.3814512Z test_vocabulary_file_lists_basic_notions (test_truth_gate_classify.LockFormLint.test_vocabulary_file_lists_basic_notions) ... ok
+2026-11-23T20:02:56.4453135Z test_kernel_failure_is_the_only_proof_failure (test_truth_gate_classify.Report.test_kernel_failure_is_the_only_proof_failure) ... ok
+2026-11-23T20:02:56.5718385Z test_lock_form_failure_never_reads_as_math (test_truth_gate_classify.Report.test_lock_form_failure_never_reads_as_math) ... ok
+2026-11-23T20:02:56.6616993Z test_paper_hash_drift_shows_copyright_only_diff (test_truth_gate_classify.Report.test_paper_hash_drift_shows_copyright_only_diff) ... ok
+2026-11-23T20:02:56.7474145Z test_paper_hash_drift_that_edits_the_quote_needs_sign_off (test_truth_gate_classify.Report.test_paper_hash_drift_that_edits_the_quote_needs_sign_off) ... ok
+2026-11-23T20:02:56.8737860Z test_partial_and_vacuous_locks_are_named (test_truth_gate_classify.Report.test_partial_and_vacuous_locks_are_named) ... ok
+2026-11-23T20:02:56.9383001Z test_sorry_and_nonstandard_axioms_are_kernel_failures (test_truth_gate_classify.Report.test_sorry_and_nonstandard_axioms_are_kernel_failures) ... ok
+2026-11-23T20:02:57.1895485Z test_inherited_failure_is_labelled (test_truth_gate_classify.StaleBase.test_inherited_failure_is_labelled) ... ok
+2026-11-23T20:02:57.3275783Z test_stale_branch_with_conflict_says_update_branch (test_truth_gate_classify.StaleBase.test_stale_branch_with_conflict_says_update_branch) ... ok
+2026-11-23T20:02:57.5284446Z test_stale_merge_ref_is_remerged_on_current_main (test_truth_gate_classify.StaleBase.test_stale_merge_ref_is_remerged_on_current_main) ... ok
+2026-11-23T20:02:57.5285785Z 
+2026-11-23T20:02:57.5286259Z ----------------------------------------------------------------------
+2026-11-23T20:02:57.5287308Z Ran 14 tests in 1.530s
+2026-11-23T20:02:57.5287734Z 
+2026-11-23T20:02:57.5288146Z OK
+
+===== lock-form-lint/8_Post Run actions_checkout@v4.txt
+﻿2026-11-23T20:02:57.5578840Z Post job cleanup.
+2026-11-23T20:02:57.6450793Z [command]/usr/bin/git version
+2026-11-23T20:02:57.6498576Z git version 2.56.1
+2026-11-23T20:02:57.6543888Z Temporarily overriding HOME='/home/runner/work/_temp/c81310ee-fecb-4de8-866a-d2ac3a6deb3b' before making global git config changes
+2026-11-23T20:02:57.6545809Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:02:57.6550991Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:02:57.6597101Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:02:57.6645972Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:02:57.6974129Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:02:57.7002213Z http.https://github.com/.extraheader
+2026-11-23T20:02:57.7016039Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T20:02:57.7056817Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:02:57.7415629Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:02:57.7460234Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== lock-form-lint/9_Complete job.txt
+﻿2026-11-23T20:02:57.7909159Z Cleaning up orphan processes
+2026-11-23T20:02:57.8289046Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== lock-form-lint/system.txt
+2026-11-23T19:59:05.2160000Z Requested labels: ubuntu-latest
+2026-11-23T19:59:05.2160000Z Job defined at: BenFrohman/frohmanian-symplectic-tether/.github/workflows/truth-gate.yml@refs/heads/ci-backfill/33b0df1
+2026-11-23T19:59:05.2160000Z Waiting for a runner to pick up this job...
+2026-11-23T19:59:05.2120000Z Evaluating lock-form-lint.if
+2026-11-23T19:59:05.2120000Z Evaluating: success()
+2026-11-23T19:59:05.2120000Z Result: true
+2026-11-23T19:59:05.4320000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-23T20:02:52.7310000Z Job is about to start running on the hosted runner: GitHub Actions 1000006545
+2026-11-23T20:02:52.7300000Z Job is waiting for a hosted runner to come online.
+===== truth-gate/14_Post Run actions_checkout@v4.txt
+﻿2026-11-23T20:03:16.7664983Z Post job cleanup.
+2026-11-23T20:03:16.8301819Z [command]/usr/bin/git version
+2026-11-23T20:03:16.8331561Z git version 2.56.1
+2026-11-23T20:03:16.8355380Z Temporarily overriding HOME='/home/runner/work/_temp/150b7d9d-d401-4106-abee-39e4a548971b' before making global git config changes
+2026-11-23T20:03:16.8356702Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:03:16.8359409Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:03:16.8386437Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:03:16.8409021Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:03:16.8639379Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:03:16.8656815Z http.https://github.com/.extraheader
+2026-11-23T20:03:16.8665331Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T20:03:16.8688316Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:03:16.8864665Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:03:16.8885844Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== truth-gate/15_Complete job.txt
+﻿2026-11-23T20:03:16.9173014Z Cleaning up orphan processes
+2026-11-23T20:03:16.9430592Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== truth-gate/1_Set up job.txt
+﻿2026-11-23T20:01:15.0219109Z Current runner version: '2.338.2'
+2026-11-23T20:01:15.0244365Z ##[group]Runner Image Provisioner
+2026-11-23T20:01:15.0245228Z Hosted Compute Agent
+2026-11-23T20:01:15.0245900Z Version: 20261111.635
+2026-11-23T20:01:15.0246651Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T20:01:15.0247421Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T20:01:15.0248129Z Worker ID: {8c30e575-3ed6-4f33-b79a-478d27086b77}
+2026-11-23T20:01:15.0248848Z Region: us-east-1
+2026-11-23T20:01:15.0249457Z Cloud: AWS
+2026-11-23T20:01:15.0249984Z ##[endgroup]
+2026-11-23T20:01:15.0251601Z ##[group]Operating System
+2026-11-23T20:01:15.0252208Z Ubuntu
+2026-11-23T20:01:15.0252995Z 26.04.1
+2026-11-23T20:01:15.0253520Z LTS
+2026-11-23T20:01:15.0254017Z ##[endgroup]
+2026-11-23T20:01:15.0254527Z ##[group]Runner Image
+2026-11-23T20:01:15.0255123Z Image: ubuntu-26.04
+2026-11-23T20:01:15.0255754Z Version: 20261116.88.1
+2026-11-23T20:01:15.0256834Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T20:01:15.0258914Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+2026-11-23T20:01:15.0259941Z ##[endgroup]
+2026-11-23T20:01:15.0261072Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T20:01:15.0263838Z Contents: read
+2026-11-23T20:01:15.0264480Z Metadata: read
+2026-11-23T20:01:15.0265027Z ##[endgroup]
+2026-11-23T20:01:15.0267267Z Secret source: Actions
+2026-11-23T20:01:15.0268197Z Cache mode: write
+2026-11-23T20:01:15.0269056Z Prepare workflow directory
+2026-11-23T20:01:15.0602916Z Prepare all required actions
+2026-11-23T20:01:15.0655238Z Getting action download info
+2026-11-23T20:01:15.2205699Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T20:01:16.9562555Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T20:01:17.1737610Z Complete job name: truth-gate
+
+===== truth-gate/2_Run actions_checkout@v4.txt
+﻿2026-11-23T20:01:17.2507966Z ##[group]Run actions/checkout@v4
+2026-11-23T20:01:17.2509173Z with:
+2026-11-23T20:01:17.2509897Z   fetch-depth: 0
+2026-11-23T20:01:17.2510844Z   repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:17.2517679Z   token: ***
+2026-11-23T20:01:17.2518452Z   ssh-strict: true
+2026-11-23T20:01:17.2519220Z   ssh-user: git
+2026-11-23T20:01:17.2520008Z   persist-credentials: true
+2026-11-23T20:01:17.2520879Z   clean: true
+2026-11-23T20:01:17.2521694Z   sparse-checkout-cone-mode: true
+2026-11-23T20:01:17.2522734Z   fetch-tags: false
+2026-11-23T20:01:17.2523582Z   show-progress: true
+2026-11-23T20:01:17.2524365Z   lfs: false
+2026-11-23T20:01:17.2525124Z   submodules: false
+2026-11-23T20:01:17.2526054Z   set-safe-directory: true
+2026-11-23T20:01:17.2526972Z   allow-unsafe-pr-checkout: false
+2026-11-23T20:01:17.2528056Z ##[endgroup]
+2026-11-23T20:01:20.4915125Z Syncing repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:20.4917232Z ##[group]Getting Git version info
+2026-11-23T20:01:20.4918138Z Working directory is '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:01:20.4919213Z [command]/usr/bin/git version
+2026-11-23T20:01:20.4921132Z git version 2.56.1
+2026-11-23T20:01:20.4934982Z ##[endgroup]
+2026-11-23T20:01:20.4944438Z Temporarily overriding HOME='/home/runner/work/_temp/eb2fae8a-0a63-4703-a2d7-05bae02173de' before making global git config changes
+2026-11-23T20:01:20.4945404Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:01:20.4947601Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:01:20.5041190Z Deleting the contents of '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T20:01:20.5045940Z ##[group]Initializing the repository
+2026-11-23T20:01:20.5049843Z [command]/usr/bin/git init /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T20:01:20.5640288Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T20:01:20.5641754Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T20:01:20.5642575Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T20:01:20.5643388Z hint: call:
+2026-11-23T20:01:20.5643898Z hint:
+2026-11-23T20:01:20.5644465Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T20:01:20.5644805Z hint:
+2026-11-23T20:01:20.5645131Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T20:01:20.5645596Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T20:01:20.5646115Z hint:
+2026-11-23T20:01:20.5646403Z hint: 	git branch -m <name>
+2026-11-23T20:01:20.5646684Z hint:
+2026-11-23T20:01:20.5647021Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T20:01:20.5679785Z Initialized empty Git repository in /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether/.git/
+2026-11-23T20:01:20.5689542Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:20.5761535Z ##[endgroup]
+2026-11-23T20:01:20.5762560Z ##[group]Disabling automatic garbage collection
+2026-11-23T20:01:20.5763611Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T20:01:20.5786697Z ##[endgroup]
+2026-11-23T20:01:20.5787182Z ##[group]Setting up auth
+2026-11-23T20:01:20.5791609Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:01:20.5814492Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:01:20.9355679Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:01:20.9381037Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:01:20.9563367Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:01:20.9585878Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:01:20.9761415Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T20:01:20.9787084Z ##[endgroup]
+2026-11-23T20:01:20.9787518Z ##[group]Fetching the repository
+2026-11-23T20:01:20.9792805Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-23T20:01:21.4614901Z From https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T20:01:21.4615462Z  * [new branch]      chore/kernel-certificate -> origin/chore/kernel-certificate
+2026-11-23T20:01:21.4615905Z  * [new branch]      ci-backfill/33b0df1 -> origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4616463Z  * [new branch]      ci/truth-gate-failure-classes-20261117 -> origin/ci/truth-gate-failure-classes-20261117
+2026-11-23T20:01:21.4617020Z  * [new branch]      latex-polish        -> origin/latex-polish
+2026-11-23T20:01:21.4617367Z  * [new branch]      main                -> origin/main
+2026-11-23T20:01:21.4617698Z  * [new branch]      truth-gate/lock     -> origin/truth-gate/lock
+2026-11-23T20:01:21.4618039Z  * [new branch]      truth-gate/reaudit  -> origin/truth-gate/reaudit
+2026-11-23T20:01:21.4618482Z  * [new branch]      truth-gate/routeA-full-20261123 -> origin/truth-gate/routeA-full-20261123
+2026-11-23T20:01:21.4618916Z  * [new tag]         v1.0.0              -> v1.0.0
+2026-11-23T20:01:21.4623965Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4645551Z   origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4650646Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4668674Z 33b0df104377491af708f67f5a1fa5a32e787c62
+2026-11-23T20:01:21.4669919Z ##[endgroup]
+2026-11-23T20:01:21.4670343Z ##[group]Determining the checkout info
+2026-11-23T20:01:21.4671165Z ##[endgroup]
+2026-11-23T20:01:21.4674575Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T20:01:21.4728217Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T20:01:21.4749324Z ##[group]Checking out the ref
+2026-11-23T20:01:21.4750641Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/33b0df1 refs/remotes/origin/ci-backfill/33b0df1
+2026-11-23T20:01:21.4868477Z Switched to a new branch 'ci-backfill/33b0df1'
+2026-11-23T20:01:21.4876846Z branch 'ci-backfill/33b0df1' set up to track 'origin/ci-backfill/33b0df1'.
+2026-11-23T20:01:21.4879995Z ##[endgroup]
+2026-11-23T20:01:21.4923141Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T20:01:21.4939987Z 33b0df104377491af708f67f5a1fa5a32e787c62
+
+===== truth-gate/4_Install elan (toolchain from lean-toolchain).txt
+﻿2026-11-23T20:01:21.5148813Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T20:01:21.5149668Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T20:01:21.5150183Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T20:01:21.5172906Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:01:21.5173289Z ##[endgroup]
+2026-11-23T20:01:21.5566669Z info: downloading installer
+
+===== truth-gate/5_Mathlib cache (Mathlib is never rebuilt here).txt
+﻿2026-11-23T20:01:21.8190633Z ##[group]Run lake exe cache get
+2026-11-23T20:01:21.8190973Z [36;1mlake exe cache get[0m
+2026-11-23T20:01:21.8211576Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:01:21.8211986Z ##[endgroup]
+2026-11-23T20:01:22.0717800Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T20:01:25.8957046Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T20:01:30.2324251Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T20:01:56.5808946Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T20:01:57.9786512Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T20:01:58.1269692Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T20:01:58.1373948Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T20:01:58.2666435Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T20:01:58.2752725Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T20:01:58.4740807Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T20:01:58.4865474Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T20:01:58.7736134Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T20:01:59.3164683Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T20:01:59.6102784Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T20:01:59.6278926Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T20:01:59.7834394Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T20:01:59.7928467Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T20:02:01.6632640Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T20:02:01.6865107Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T20:02:01.8450621Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T20:02:02.1557155Z ✔ [4/22] Built Cache.Init (233ms)
+2026-11-23T20:02:02.2561258Z ✔ [5/22] Built Cache.Lean (340ms)
+2026-11-23T20:02:02.2583413Z ✔ [6/22] Built Cache.Init:c.o (98ms)
+2026-11-23T20:02:02.3584072Z ✔ [7/22] Built Batteries.Data.String.Basic (332ms)
+2026-11-23T20:02:02.4561543Z ✔ [8/22] Built Batteries.Data.String.Basic:c.o (93ms)
+2026-11-23T20:02:02.4562872Z ✔ [9/22] Built Cache.Lean:c.o (171ms)
+2026-11-23T20:02:02.6584149Z ✔ [10/22] Built Batteries.Data.Array.Match (622ms)
+2026-11-23T20:02:02.8557098Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (216ms)
+2026-11-23T20:02:02.9560135Z ✔ [12/22] Built Batteries.Data.String.Matcher (264ms)
+2026-11-23T20:02:03.0564023Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (128ms)
+2026-11-23T20:02:03.2563691Z ✔ [14/22] Built Cache.IO (1.0s)
+2026-11-23T20:02:03.7567887Z ✔ [15/22] Built Cache.Hashing (544ms)
+2026-11-23T20:02:04.1572879Z ✔ [16/22] Built Cache.Hashing:c.o (379ms)
+2026-11-23T20:02:04.3577040Z ✔ [17/22] Built Cache.IO:c.o (1.1s)
+2026-11-23T20:02:05.1583903Z ✔ [18/22] Built Cache.Requests (1.4s)
+2026-11-23T20:02:05.7589310Z ✔ [19/22] Built Cache.Main (565ms)
+2026-11-23T20:02:06.1596296Z ✔ [20/22] Built Cache.Main:c.o (421ms)
+2026-11-23T20:02:06.6603030Z ✔ [21/22] Built Cache.Requests:c.o (1.5s)
+2026-11-23T20:02:07.1617899Z ✔ [22/22] Built cache:exe (545ms)
+2026-11-23T20:02:08.5400206Z Current branch: HEAD
+2026-11-23T20:02:08.5401285Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T20:02:08.5402040Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T20:02:08.9699131Z 
+2026-11-23T20:02:09.0763354Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 100 KB/s], Decompressed: 0
+2026-11-23T20:02:09.1783948Z Downloaded: 75 file(s) [attempted 75/8248 = 0%, 207 KB/s], Decompressed: 42
+2026-11-23T20:02:09.2783567Z Downloaded: 184 file(s) [attempted 184/8248 = 2%, 807 KB/s], Decompressed: 70
+2026-11-23T20:02:09.3823669Z Downloaded: 297 file(s) [attempted 297/8248 = 3%, 2154 KB/s], Decompressed: 70
+2026-11-23T20:02:09.4843657Z Downloaded: 408 file(s) [attempted 408/8248 = 4%, 2283 KB/s], Decompressed: 132
+2026-11-23T20:02:09.5840627Z Downloaded: 514 file(s) [attempted 514/8248 = 6%, 2540 KB/s], Decompressed: 132
+2026-11-23T20:02:09.6833665Z Downloaded: 647 file(s) [attempted 647/8248 = 7%, 178 KB/s], Decompressed: 132
+2026-11-23T20:02:09.8506837Z Downloaded: 780 file(s) [attempted 780/8248 = 9%, 3240 KB/s], Decompressed: 132
+2026-11-23T20:02:09.9523850Z Downloaded: 895 file(s) [attempted 895/8248 = 10%, 627 KB/s], Decompressed: 311
+2026-11-23T20:02:10.0614003Z Downloaded: 991 file(s) [attempted 991/8248 = 12%, 2268 KB/s], Decompressed: 311
+2026-11-23T20:02:10.1613869Z Downloaded: 1120 file(s) [attempted 1120/8248 = 13%, 450 KB/s], Decompressed: 311
+2026-11-23T20:02:10.2613910Z Downloaded: 1259 file(s) [attempted 1259/8248 = 15%, 935 KB/s], Decompressed: 311
+2026-11-23T20:02:10.3620623Z Downloaded: 1388 file(s) [attempted 1388/8248 = 16%, 2653 KB/s], Decompressed: 311
+2026-11-23T20:02:10.4686752Z Downloaded: 1474 file(s) [attempted 1474/8248 = 17%, 782 KB/s], Decompressed: 311
+2026-11-23T20:02:10.5711520Z Downloaded: 1620 file(s) [attempted 1620/8248 = 19%, 3260 KB/s], Decompressed: 311
+2026-11-23T20:02:10.6716559Z Downloaded: 1749 file(s) [attempted 1749/8248 = 21%, 418 KB/s], Decompressed: 311
+2026-11-23T20:02:10.7763641Z Downloaded: 1884 file(s) [attempted 1884/8248 = 22%, 3048 KB/s], Decompressed: 311
+2026-11-23T20:02:10.8719551Z Downloaded: 2009 file(s) [attempted 2009/8248 = 24%, 536 KB/s], Decompressed: 311
+2026-11-23T20:02:11.0023938Z Downloaded: 2136 file(s) [attempted 2136/8248 = 25%, 3298 KB/s], Decompressed: 311
+2026-11-23T20:02:11.1099317Z Downloaded: 2211 file(s) [attempted 2211/8248 = 26%, 2269 KB/s], Decompressed: 311
+2026-11-23T20:02:11.2110203Z Downloaded: 2339 file(s) [attempted 2339/8248 = 28%, 271 KB/s], Decompressed: 311
+2026-11-23T20:02:11.3099249Z Downloaded: 2471 file(s) [attempted 2471/8248 = 29%, 2306 KB/s], Decompressed: 895
+2026-11-23T20:02:11.4103523Z Downloaded: 2602 file(s) [attempted 2602/8248 = 31%, 856 KB/s], Decompressed: 895
+2026-11-23T20:02:11.5493789Z Downloaded: 2740 file(s) [attempted 2740/8248 = 33%, 1957 KB/s], Decompressed: 895
+2026-11-23T20:02:11.6506056Z Downloaded: 2861 file(s) [attempted 2861/8248 = 34%, 1408 KB/s], Decompressed: 895
+2026-11-23T20:02:11.7553517Z Downloaded: 3008 file(s) [attempted 3008/8248 = 36%, 1144 KB/s], Decompressed: 895
+2026-11-23T20:02:11.8653869Z Downloaded: 3148 file(s) [attempted 3148/8248 = 38%, 443 KB/s], Decompressed: 895
+2026-11-23T20:02:11.9665573Z Downloaded: 3267 file(s) [attempted 3267/8248 = 39%, 818 KB/s], Decompressed: 895
+2026-11-23T20:02:12.0685613Z Downloaded: 3398 file(s) [attempted 3398/8248 = 41%, 6371 KB/s], Decompressed: 895
+2026-11-23T20:02:12.1684245Z Downloaded: 3539 file(s) [attempted 3539/8248 = 42%, 1383 KB/s], Decompressed: 895
+2026-11-23T20:02:12.3664192Z Downloaded: 3677 file(s) [attempted 3677/8248 = 44%, 387 KB/s], Decompressed: 895
+2026-11-23T20:02:12.4646450Z Downloaded: 3796 file(s) [attempted 3796/8248 = 46%, 2843 KB/s], Decompressed: 895
+2026-11-23T20:02:12.5665800Z Downloaded: 3914 file(s) [attempted 3914/8248 = 47%, 2790 KB/s], Decompressed: 895
+2026-11-23T20:02:12.6674033Z Downloaded: 4020 file(s) [attempted 4020/8248 = 48%, 1348 KB/s], Decompressed: 895
+2026-11-23T20:02:12.8220830Z Downloaded: 4156 file(s) [attempted 4156/8248 = 50%, 302 KB/s], Decompressed: 895
+2026-11-23T20:02:12.9246339Z Downloaded: 4229 file(s) [attempted 4229/8248 = 51%, 1500 KB/s], Decompressed: 895
+2026-11-23T20:02:13.0273680Z Downloaded: 4315 file(s) [attempted 4315/8248 = 52%, 29 KB/s], Decompressed: 895
+2026-11-23T20:02:13.1274269Z Downloaded: 4412 file(s) [attempted 4412/8248 = 53%, 255 KB/s], Decompressed: 895
+2026-11-23T20:02:13.2291253Z Downloaded: 4545 file(s) [attempted 4545/8248 = 55%, 3705 KB/s], Decompressed: 895
+2026-11-23T20:02:13.3314267Z Downloaded: 4669 file(s) [attempted 4669/8248 = 56%, 1614 KB/s], Decompressed: 895
+2026-11-23T20:02:13.4323478Z Downloaded: 4786 file(s) [attempted 4786/8248 = 58%, 1807 KB/s], Decompressed: 895
+2026-11-23T20:02:13.5307828Z Downloaded: 4928 file(s) [attempted 4928/8248 = 59%, 1786 KB/s], Decompressed: 895
+2026-11-23T20:02:13.6366243Z Downloaded: 5052 file(s) [attempted 5052/8248 = 61%, 1538 KB/s], Decompressed: 895
+2026-11-23T20:02:13.7370300Z Downloaded: 5133 file(s) [attempted 5133/8248 = 62%, 3511 KB/s], Decompressed: 895
+2026-11-23T20:02:13.8435778Z Downloaded: 5273 file(s) [attempted 5273/8248 = 63%, 1242 KB/s], Decompressed: 895
+2026-11-23T20:02:13.9423592Z Downloaded: 5410 file(s) [attempted 5410/8248 = 65%, 464 KB/s], Decompressed: 895
+2026-11-23T20:02:14.0414562Z Downloaded: 5555 file(s) [attempted 5555/8248 = 67%, 454 KB/s], Decompressed: 895
+2026-11-23T20:02:14.1755510Z Downloaded: 5687 file(s) [attempted 5687/8248 = 68%, 213 KB/s], Decompressed: 895
+2026-11-23T20:02:14.2979443Z Downloaded: 5816 file(s) [attempted 5816/8248 = 70%, 132 KB/s], Decompressed: 895
+2026-11-23T20:02:14.4010376Z Downloaded: 5910 file(s) [attempted 5910/8248 = 71%, 4329 KB/s], Decompressed: 895
+2026-11-23T20:02:14.5026509Z Downloaded: 6038 file(s) [attempted 6038/8248 = 73%, 1863 KB/s], Decompressed: 895
+2026-11-23T20:02:14.6014314Z Downloaded: 6159 file(s) [attempted 6159/8248 = 74%, 1308 KB/s], Decompressed: 895
+2026-11-23T20:02:14.7044010Z Downloaded: 6288 file(s) [attempted 6288/8248 = 76%, 352 KB/s], Decompressed: 895
+2026-11-23T20:02:14.8488158Z Downloaded: 6420 file(s) [attempted 6420/8248 = 77%, 1553 KB/s], Decompressed: 895
+2026-11-23T20:02:14.9507536Z Downloaded: 6517 file(s) [attempted 6517/8248 = 79%, 4954 KB/s], Decompressed: 895
+2026-11-23T20:02:15.0523632Z Downloaded: 6647 file(s) [attempted 6647/8248 = 80%, 130 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.1515208Z Downloaded: 6779 file(s) [attempted 6779/8248 = 82%, 1491 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.2554963Z Downloaded: 6914 file(s) [attempted 6914/8248 = 83%, 1194 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.3559787Z Downloaded: 7052 file(s) [attempted 7052/8248 = 85%, 482 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.5013936Z Downloaded: 7186 file(s) [attempted 7186/8248 = 87%, 260 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.6247042Z Downloaded: 7189 file(s) [attempted 7189/8248 = 87%, 260 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.7237794Z Downloaded: 7281 file(s) [attempted 7281/8248 = 88%, 253 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.8246154Z Downloaded: 7363 file(s) [attempted 7363/8248 = 89%, 5762 KB/s], Decompressed: 2395
+2026-11-23T20:02:15.9264685Z Downloaded: 7506 file(s) [attempted 7506/8248 = 91%, 435 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.0306705Z Downloaded: 7635 file(s) [attempted 7635/8248 = 92%, 1072 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.1316479Z Downloaded: 7761 file(s) [attempted 7761/8248 = 94%, 294 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.2307435Z Downloaded: 7896 file(s) [attempted 7896/8248 = 95%, 2240 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.3334052Z Downloaded: 8038 file(s) [attempted 8038/8248 = 97%, 659 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.5117730Z Downloaded: 8160 file(s) [attempted 8160/8248 = 98%, 2992 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.5933154Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 1803 KB/s], Decompressed: 2395
+2026-11-23T20:02:16.5953993Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 1803 KB/s], Decompressed: 2395
+2026-11-23T20:02:32.1811553Z Decompressed 8248 file(s)
+2026-11-23T20:02:32.1812088Z Already decompressed 8248 file(s)
+
+===== truth-gate/6_verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end).txt
+﻿2026-11-23T20:02:32.2727558Z ##[group]Run bash scripts/verify-lock.sh
+2026-11-23T20:02:32.2728043Z [36;1mbash scripts/verify-lock.sh[0m
+2026-11-23T20:02:32.2747550Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:02:32.2747865Z ##[endgroup]
+2026-11-23T20:02:32.2923399Z == 1/6 static lock checks (lock form, paper hash, forbidden tokens)
+2026-11-23T20:02:32.3364126Z TRUTH GATE FAIL: this lock is NOT certifying (reopened by the re-audit of 2026-11-16): Partial lock. Only the first two sentences of Theorem thm:routeA are locked. Its third sentence ("Consequently, in dim ≥ 3 with S ≥ 0, w > 0, a correction is admissible for Route A iff B = T[κ,w,u] with κ = S.") is not.
+2026-11-23T20:02:32.3365645Z TRUTH GATE STATIC: scanned roots ['TetherMayForm', 'TetherMayForm.lean'] (draft dirs exempt: ['TetherMayForm/Draft']); 0 forbidden tokens
+2026-11-23T20:02:32.3366344Z TRUTH GATE STATIC FAIL (1 problems)
+2026-11-23T20:02:32.3366792Z == 2/6 lock-form lint (paper_claim must not reuse repository Props)
+2026-11-23T20:02:32.4371748Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+2026-11-23T20:02:32.4615906Z == 3/6 lake build (default targets)
+2026-11-23T20:02:36.0184741Z ✔ [2659/2683] Built TetherMayForm.Layer2 (2.5s)
+2026-11-23T20:02:37.7354628Z ✔ [2660/2683] Built TetherMayForm.EnstrophyL2 (4.2s)
+2026-11-23T20:02:38.4426286Z ✔ [2661/2683] Built TetherMayForm.RiccatiComparison (2.5s)
+2026-11-23T20:02:38.7435401Z ⚠ [2662/2683] Built TetherMayForm.Basic (5.3s)
+2026-11-23T20:02:38.7436392Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+2026-11-23T20:02:38.7437074Z 
+2026-11-23T20:02:38.7437466Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:39.7468300Z ✔ [2663/2683] Built TetherMayForm.CitedProps (2.0s)
+2026-11-23T20:02:40.9564555Z ⚠ [2664/2683] Built TetherMayForm.Jacobi (2.1s)
+2026-11-23T20:02:40.9624351Z warning: TetherMayForm/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+2026-11-23T20:02:40.9683856Z   [InnerProductSpace ℝ H]
+2026-11-23T20:02:40.9713787Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-11-23T20:02:40.9743288Z   omit [InnerProductSpace ℝ H] in theorem ...
+2026-11-23T20:02:40.9743604Z 
+2026-11-23T20:02:40.9743857Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-11-23T20:02:41.5553300Z ✔ [2665/2683] Built TetherMayForm.Metriplectic (2.8s)
+2026-11-23T20:02:43.3594822Z ✔ [2666/2683] Built TetherMayForm.RouteA (1.7s)
+2026-11-23T20:02:43.9591847Z ⚠ [2667/2683] Built TetherMayForm.JacobiWitness (3.1s)
+2026-11-23T20:02:43.9592880Z warning: TetherMayForm/JacobiWitness.lean:40:19: This simp argument is unused:
+2026-11-23T20:02:43.9593389Z   LinearMap.map_add₂
+2026-11-23T20:02:43.9593530Z 
+2026-11-23T20:02:43.9593663Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9594270Z   simp [crossBr,̵ ̵L̵i̵n̵e̵a̵r̵M̵a̵p̵.̵m̵a̵p̵_̵a̵d̵d̵₂̵]
+2026-11-23T20:02:43.9594455Z 
+2026-11-23T20:02:43.9594690Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9595171Z warning: TetherMayForm/JacobiWitness.lean:52:15: This simp argument is unused:
+2026-11-23T20:02:43.9595540Z   WithLp.ofLp_toLp
+2026-11-23T20:02:43.9595667Z 
+2026-11-23T20:02:43.9595792Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9596233Z   simp only [W̵i̵t̵h̵L̵p̵.̵o̵f̵L̵p̵_̵t̵o̵L̵p̵,̵ ̵e1, e2, e3, PiLp.add_apply, PiLp.zero_apply] at *
+2026-11-23T20:02:43.9596517Z 
+2026-11-23T20:02:43.9596696Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9597238Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9597609Z 
+2026-11-23T20:02:43.9597707Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9598260Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9598809Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9599096Z instead of
+2026-11-23T20:02:43.9599474Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9599867Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9600113Z 
+2026-11-23T20:02:43.9600442Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9601128Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9601509Z 
+2026-11-23T20:02:43.9601665Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9602116Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9603015Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9603343Z instead of
+2026-11-23T20:02:43.9603705Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9604110Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9604343Z 
+2026-11-23T20:02:43.9604644Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9605336Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9605697Z 
+2026-11-23T20:02:43.9605857Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9606302Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9606717Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9606994Z instead of
+2026-11-23T20:02:43.9607343Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9608263Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9608662Z 
+2026-11-23T20:02:43.9608999Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9609570Z warning: TetherMayForm/JacobiWitness.lean:68:17: This simp argument is unused:
+2026-11-23T20:02:43.9609929Z   EuclideanSpace.norm_eq
+2026-11-23T20:02:43.9610257Z 
+2026-11-23T20:02:43.9610377Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9610782Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T20:02:43.9611393Z   ̲  ̲ ̲ ̲E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵n̵o̵r̵m̵_̵e̵q̵,̵ ̵inner, Fin.sum_univ_three, EuclideanSpace.single_apply]
+2026-11-23T20:02:43.9611676Z 
+2026-11-23T20:02:43.9611879Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9612451Z warning: TetherMayForm/JacobiWitness.lean:68:48: This simp argument is unused:
+2026-11-23T20:02:43.9612819Z   Fin.sum_univ_three
+2026-11-23T20:02:43.9612965Z 
+2026-11-23T20:02:43.9613073Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9613423Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3,
+2026-11-23T20:02:43.9613785Z   ̵  ̵ ̵ ̵cross_apply,
+2026-11-23T20:02:43.9614246Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵EuclideanSpace.single_apply]
+2026-11-23T20:02:43.9614535Z 
+2026-11-23T20:02:43.9614740Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9615189Z warning: TetherMayForm/JacobiWitness.lean:68:68: This simp argument is unused:
+2026-11-23T20:02:43.9615622Z   EuclideanSpace.single_apply
+2026-11-23T20:02:43.9615791Z 
+2026-11-23T20:02:43.9615875Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9616283Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T20:02:43.9616980Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵F̲i̲n̲.̲s̲u̲m̲_̲u̲n̲i̲v̲_̲t̲h̲r̲e̲e̲]̲
+2026-11-23T20:02:43.9617374Z 
+2026-11-23T20:02:43.9617592Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:43.9618120Z warning: TetherMayForm/JacobiWitness.lean:76:12: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:43.9618516Z 
+2026-11-23T20:02:43.9618611Z Note: The updated constant has a different type:
+2026-11-23T20:02:43.9619077Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9619504Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9619774Z instead of
+2026-11-23T20:02:43.9620162Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:43.9620540Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:43.9620745Z 
+2026-11-23T20:02:43.9621089Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:43.9621665Z warning: TetherMayForm/JacobiWitness.lean:76:12: This simp argument is unused:
+2026-11-23T20:02:43.9622020Z   EuclideanSpace.single_apply
+2026-11-23T20:02:43.9622201Z 
+2026-11-23T20:02:43.9622412Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:43.9622799Z   simp [e2,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵] at this
+2026-11-23T20:02:43.9623043Z 
+2026-11-23T20:02:43.9623260Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:44.8613729Z ✔ [2668/2683] Built TetherMayForm.Main (1.5s)
+2026-11-23T20:02:46.2644518Z ✔ [2669/2683] Built TetherMayForm.TetheredLyapunov (1.4s)
+2026-11-23T20:02:48.0643327Z ⚠ [2670/2683] Built TetherMayForm.Enstrophy (1.8s)
+2026-11-23T20:02:48.0644198Z warning: TetherMayForm/Enstrophy.lean:116:50: unused variable `hC`
+2026-11-23T20:02:48.0644524Z 
+2026-11-23T20:02:48.0644814Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:48.0645495Z warning: TetherMayForm/Enstrophy.lean:116:63: unused variable `hκ`
+2026-11-23T20:02:48.0645773Z 
+2026-11-23T20:02:48.0646030Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:48.2663605Z ✔ [2671/2683] Built TetherMayForm.GlobalRegularity (1.0s)
+2026-11-23T20:02:48.5670500Z ✔ [2672/2683] Built TetherMayForm.Torus (2.3s)
+2026-11-23T20:02:50.5711843Z ⚠ [2673/2683] Built TetherMayForm.Final (2.0s)
+2026-11-23T20:02:50.5712857Z warning: TetherMayForm/Final.lean:69:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+2026-11-23T20:02:50.5713756Z If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+2026-11-23T20:02:50.5714215Z ```
+2026-11-23T20:02:50.5714532Z open Lean.Parser.Tactic in
+2026-11-23T20:02:50.5714892Z macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+2026-11-23T20:02:50.5715285Z   `(tactic| push $cfg:optConfig Not $[$loc]?)
+2026-11-23T20:02:50.5715657Z ```
+2026-11-23T20:02:50.5716209Z warning: TetherMayForm/Final.lean:180:35: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T20:02:50.5716734Z 
+2026-11-23T20:02:50.5716915Z Note: The updated constant has a different type:
+2026-11-23T20:02:50.5717661Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:50.5718253Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:50.5718891Z instead of
+2026-11-23T20:02:50.5719365Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T20:02:50.5719943Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T20:02:50.5720287Z 
+2026-11-23T20:02:50.5720777Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T20:02:50.5721596Z warning: TetherMayForm/Final.lean:180:35: This simp argument is unused:
+2026-11-23T20:02:50.5722083Z   EuclideanSpace.single_apply
+2026-11-23T20:02:50.5722582Z 
+2026-11-23T20:02:50.5722725Z Hint: Omit it from the simp argument list.
+2026-11-23T20:02:50.5723546Z   simp [y, Fin.sum_univ_three,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]
+2026-11-23T20:02:50.5723926Z 
+2026-11-23T20:02:50.5724191Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:02:53.3774106Z ⚠ [2674/2683] Built TetherMayForm.LogLoss (2.8s)
+2026-11-23T20:02:53.3774971Z warning: TetherMayForm/LogLoss.lean:95:50: unused variable `hy0`
+2026-11-23T20:02:53.3775554Z 
+2026-11-23T20:02:53.3776122Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:02:55.4813414Z ✔ [2675/2683] Built TetherMayForm.PalinstrophyH1 (2.1s)
+2026-11-23T20:02:57.1835788Z ✔ [2676/2683] Built TetherMayForm.VorticityTether (1.8s)
+2026-11-23T20:03:01.3881189Z ✔ [2677/2683] Built TetherMayForm.CurlNS (4.2s)
+2026-11-23T20:03:03.8917201Z ✔ [2678/2683] Built TetherMayForm.BiotSavart (2.6s)
+2026-11-23T20:03:05.8989667Z ✔ [2679/2683] Built TetherMayForm.ChevalleyEilenberg (1.0s)
+2026-11-23T20:03:08.0015106Z ⚠ [2680/2683] Built TetherMayForm.FieldJacobi (4.0s)
+2026-11-23T20:03:08.0016050Z warning: TetherMayForm/FieldJacobi.lean:195:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T20:03:08.0016588Z 
+2026-11-23T20:03:08.0016857Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T20:03:09.8032538Z ✔ [2681/2683] Built TetherMayForm.FieldMetriplectic (1.8s)
+2026-11-23T20:03:11.1043643Z ✔ [2682/2683] Built TetherMayForm (1.3s)
+2026-11-23T20:03:11.1093046Z Build completed successfully (2683 jobs).
+2026-11-23T20:03:11.1270326Z == 4/6 lake build TetherMayForm.Semantics
+2026-11-23T20:03:12.0248113Z ⚠ [2270/2338] Replayed TetherMayForm.Basic
+2026-11-23T20:03:12.0248940Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+2026-11-23T20:03:12.0249223Z 
+2026-11-23T20:03:12.0249404Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T20:03:13.4264807Z ✔ [2338/2338] Built TetherMayForm.Semantics (1.4s)
+2026-11-23T20:03:13.4303005Z Build completed successfully (2338 jobs).
+2026-11-23T20:03:13.4664214Z build: no sorry outside draft dirs
+2026-11-23T20:03:13.4664743Z == 5/6 kernel audit of the lock (axioms, non-vacuity, transport)
+2026-11-23T20:03:15.6224228Z scripts/TruthGateAudit.lean:116:75: warning: `Lean.levelZero` has been deprecated: Use `Lean.Level.zero` instead
+2026-11-23T20:03:15.6224818Z 
+2026-11-23T20:03:15.6225198Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.levelZero` to `Level.zero x`).
+2026-11-23T20:03:15.6225957Z AXIOMS TruthGate.formal_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6226565Z AXIOMS TruthGate.paper_claim: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6227163Z AXIOMS TruthGate.intended_correspondence: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6227751Z AXIOMS TruthGate.formal_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6228317Z AXIOMS TruthGate.paper_claim_holds: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6228978Z AXIOMS Frohman.Tether.routeA_determines_kappa_of_matching: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6229953Z TRUTH GATE AUDIT PASS: main theorems [Frohman.Tether.routeA_determines_kappa_of_matching]; formal_claim ↔ paper_claim locked, standard axioms only
+2026-11-23T20:03:15.6230872Z 'TruthGate.intended_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6231415Z 'TruthGate.paper_claim_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:03:15.6259025Z == 6/6 additional locks (build, sorry scan, kernel audit)
+2026-11-23T20:03:15.6414120Z (none)
+2026-11-23T20:03:15.6998400Z ========================================================================
+2026-11-23T20:03:15.6999343Z TRUTH GATE VERDICT
+2026-11-23T20:03:15.7000324Z Kernel/proof checks: PASS (lake build, no sorry outside draft dirs, kernel audit: standard axioms only).
+2026-11-23T20:03:15.7001145Z 
+2026-11-23T20:03:15.7001436Z [LOCK-FORM: lock wording/form problem, not a math failure]
+2026-11-23T20:03:15.7004663Z   - the lock is marked non-certifying (partial lock). The lock covers only part of the paper's stated theorem. The locked part may well be kernel-checked; the rest of the theorem has to be formalized and locked too (no partial locks). Recorded reason: Partial lock. Only the first two sentences of Theorem thm:routeA are locked. Its third sentence ("Consequently, in dim ≥ 3 with S ≥ 0, w > 0, a correction is admissible for Route A iff B = T[κ,w,u] with κ = S.") is not.
+2026-11-23T20:03:15.7006591Z 
+2026-11-23T20:03:15.7006876Z VERDICT: FAIL (LOCK-FORM). Kernel checks passed: no math was found false.
+2026-11-23T20:03:15.7007478Z ========================================================================
+2026-11-23T20:03:15.7033839Z ##[error]see the TRUTH GATE VERDICT block in this log
+2026-11-23T20:03:15.7076755Z ##[error]Process completed with exit code 1.
+
+===== truth-gate/7_Run actions_upload-artifact@v4.txt
+﻿2026-11-23T20:03:15.7142827Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T20:03:15.7143116Z with:
+2026-11-23T20:03:15.7143326Z   name: truth-gate-report
+2026-11-23T20:03:15.7143559Z   path: truth-gate-report/
+2026-11-23T20:03:15.7143822Z   if-no-files-found: warn
+2026-11-23T20:03:15.7144047Z   compression-level: 6
+2026-11-23T20:03:15.7144289Z   overwrite: false
+2026-11-23T20:03:15.7144552Z   include-hidden-files: false
+2026-11-23T20:03:15.7144781Z ##[endgroup]
+2026-11-23T20:03:15.8355254Z (node:3186) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T20:03:15.8355869Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T20:03:15.8443061Z With the provided path, there will be 11 files uploaded
+2026-11-23T20:03:15.8446229Z Artifact name is valid!
+2026-11-23T20:03:15.8446699Z Root directory input is valid!
+2026-11-23T20:03:16.1870125Z Beginning upload of artifact content to blob storage
+2026-11-23T20:03:16.3049414Z (node:3186) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T20:03:16.3402851Z Uploaded bytes 4798
+2026-11-23T20:03:16.3566970Z Finished uploading artifact content to blob storage!
+2026-11-23T20:03:16.3567650Z SHA256 digest of uploaded artifact zip is 047c705cfd5c12d1c51f8319efa0c713f7233cd5371a5f1820103e01b5bf87c4
+2026-11-23T20:03:16.3568611Z Finalizing artifact upload
+2026-11-23T20:03:16.7481969Z Artifact truth-gate-report.zip successfully finalized. Artifact ID 14855699694
+2026-11-23T20:03:16.7482883Z Artifact truth-gate-report has been successfully uploaded! Final size is 4798 bytes. Artifact ID is 14855699694
+2026-11-23T20:03:16.7488349Z Artifact download URL: https://github.com/BenFrohman/frohmanian-symplectic-tether/actions/runs/45254564266/artifacts/14855699694
+
+===== truth-gate/system.txt
+2026-11-23T19:59:05.0770000Z Evaluating truth-gate.if
+2026-11-23T19:59:05.0770000Z Evaluating: success()
+2026-11-23T19:59:05.0770000Z Result: true
+2026-11-23T19:59:05.0880000Z Requested labels: ubuntu-latest
+2026-11-23T19:59:05.0880000Z Job defined at: BenFrohman/frohmanian-symplectic-tether/.github/workflows/truth-gate.yml@refs/heads/ci-backfill/33b0df1
+2026-11-23T19:59:05.0880000Z Waiting for a runner to pick up this job...
+2026-11-23T19:59:05.2100000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-23T20:01:13.2110000Z Job is waiting for a hosted runner to come online.
+2026-11-23T20:01:13.2110000Z Job is about to start running on the hosted runner: GitHub Actions 1000006538

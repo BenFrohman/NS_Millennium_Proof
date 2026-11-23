@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.ConditionalRegularity
+#print axioms ConditionalRegularity.frohmanian_tether_theorem

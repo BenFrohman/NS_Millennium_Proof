@@ -1,0 +1,16 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman. CC BY 4.0.
+% Build wrapper for the deposited PDF. It compiles the locked LaTeX source
+% Frohmanian_Tether_Unified.tex without editing it (that file is byte-identical to the one at
+% commit 86336a9e7d9a3da117b271d23ee7c05848d5de61, whose SHA-256 is recorded
+% in TRUTH_GATE.lock). It changes typesetting only: a monospace font that
+% contains the Unicode symbols used in the quoted Lean code, and permitted
+% line breaks after underscores in long Lean identifiers.
+% Build: tectonic Frohmanian_Tether_Unified_build.tex
+\AddToHook{package/hyperref/after}{%
+  \RequirePackage[no-math]{fontspec}%
+  \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]%
+  \RequirePackage{xurl}%
+  \AtBeginDocument{%
+    \DeclareRobustCommand{\_}{\textunderscore\allowbreak}%
+    \sloppy\emergencystretch=3em\relax}}
+\input{Frohmanian_Tether_Unified.tex}

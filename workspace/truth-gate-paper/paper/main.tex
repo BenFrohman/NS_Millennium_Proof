@@ -1,0 +1,511 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmonofont{DejaVu Sans Mono}[Scale=0.80]
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{fancyvrb}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt}
+\fvset{fontsize=\small,frame=single,framesep=6pt,rulecolor=\color{black!40}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\reserveddoi}{\href{https://doi.org/10.5281/zenodo.24296030}{10.5281/zenodo.24296030} (reserved)}
+\sloppy
+
+\title{The Truth Gate: Locking Lean Formalizations to\\ Their Papers' Exact Claims}
+\author{Benjamin Stanley Frohman (B.\,S.\ Frohman)\\
+\small ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\small Independent Researcher, Texas, United States\\
+\small \href{mailto:frohmanbenjamin@gmail.com}{frohmanbenjamin@gmail.com}}
+\date{16 November 2026\\[2pt]\small Version 1.0 (draft). DOI: \reserveddoi}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A green Lean build certifies that the kernel accepted proofs of the propositions written in the
+Lean files. It does not certify that those propositions are the ones a paper claims in English.
+The \emph{Truth Gate} is a mechanical check that closes part of this gap. Each formalization
+repository carries a file \code{Semantics.lean} with two propositions: \code{formal\_claim}, the
+statement of the repository's main theorem, and \code{paper\_claim}, an independent Lean
+transcription of a verbatim sentence of the paper, recorded with the paper's path, its SHA-256
+and its section. A theorem \code{intended\_correspondence : formal\_claim ↔ paper\_claim} must be
+proved by real reasoning, with no \code{rfl}/\code{Iff.rfl}, no \code{sorry}, \code{admit} or
+\code{native\_decide}, and only the axioms \code{propext}, \code{Classical.choice} and
+\code{Quot.sound}. The checker merged into \code{BenFrohman/PipelineHalt} at commit
+\code{56e29ec} rejects 15 of 15 locked-and-approved negative fixtures and behaves correctly on
+6 of 6 post-approval tamper cases (one passing demo, five rejections) in its own CI. This note
+describes the design, the author's rules on partial locks and on reporting solved problems, two
+mismatches the gate reports in \code{NS\_Millennium\_Proof}, and a re-audit on 16--17 November
+2026 that reopened 11 merged locks as draft pull requests. One of them, the lock in
+\code{frohmanian-tether-verified}, passed every mechanical check and was reopened because its
+formal claim restates its own hypothesis. A lock certifies that a Lean certificate inhabits the
+locked transcription of the paper's claim; whether that claim settles an open problem depends on
+what the claim states. This note reports no open problem as solved.
+\end{abstract}
+
+\noindent\small\textcopyright\ 2026 Benjamin Stanley Frohman. Licensed under Creative Commons
+Attribution 4.0 International (CC BY 4.0). Draft: not for citation until published.\normalsize
+
+\section{The problem: drift and the vacuity trap}
+
+A Lean development and the paper that describes it are two documents. The kernel checks the
+first; readers read the second. They can diverge in several ways, which this note calls
+\emph{drift}: the Lean theorem may be narrower than the paper's sentence, may carry a
+hypothesis the paper does not state, may be about a stand-in type, or may be vacuous because one
+of its hypotheses cannot be satisfied. In each case every Lean check is green and the paper's
+sentence is still unproved.
+
+The obvious repair is to write the paper's claim in Lean and prove it equivalent to the formal
+statement. This repair has a trap. If the Lean version of the paper's claim is \emph{defined}
+to be the formal statement, or unfolds to it, or is built from the same constants, then the
+equivalence is \code{Iff.rfl}. It proves nothing about the paper, and a gate built on it passes
+anything. The Truth Gate is designed around this trap.
+
+\section{Design}
+\label{sec:design}
+
+\subsection{The semantics lock}
+
+Every formalization repository contains a module \code{Semantics.lean} with:
+\begin{itemize}
+\item \code{formal\_claim : Prop}, the statement of the repository's main theorem;
+\item \code{paper\_claim : Prop}, an independent, literal Lean transcription of one verbatim
+  English claim from the paper. Its documentation records the quote, the paper's path, the
+  SHA-256 of that file and the page or section. It is written from the quote and never
+  references, unfolds to, or aliases \code{formal\_claim};
+\item \code{theorem intended\_correspondence : formal\_claim ↔ paper\_claim}, proved without
+  \code{rfl}, \code{Iff.rfl}, \code{⟨id, id⟩} or \code{Iff.of\_eq rfl}, with zero
+  \code{sorry}, \code{admit} or \code{native\_decide}, and with \code{\#print axioms} showing
+  only \code{propext}, \code{Classical.choice} and \code{Quot.sound};
+\item a public theorem of type \code{paper\_claim}, obtained as
+  \code{intended\_correspondence.mp} applied to the proof of \code{formal\_claim}.
+\end{itemize}
+Conditional results keep every hypothesis explicit on both sides, in the form
+$H_1\to\dots\to\text{Conclusion}$; a conditional result is never stated as its bare conclusion.
+A lock file fixes both statements by hash, together with the paper hash and, in the reusable
+harness, the toolchain and the approver. Changing a locked statement requires the author's
+explicit approval and a new lock (\code{TRUTH\_GATE.md} in PipelineHalt at \code{56e29ec},
+rules 1--6).
+
+\subsection{What the checker rejects}
+
+The reusable checker is \code{scripts/verify-lock.sh} in \code{BenFrohman/PipelineHalt},
+merged by PR~\#4 (head \code{bd11758}, merge commit
+\code{56e29ecaf9b1616eaa327543d7e357d8f5d86fd8}, merged 2026-11-17 01:06:59 UTC). It runs six
+stages and prints either \code{TRUTH GATE: PASS} or \code{TRUTH GATE: REJECT <reason>}:
+\begin{enumerate}[start=0]
+\item preflight: the lock, \code{Semantics.lean} and \code{intended\_correspondence} exist;
+\item compile only the locked Semantics module;
+\item an \emph{observation pass}, the first Lean step, which changes nothing:
+  \code{\#check intended\_correspondence}, \code{\#print paper\_claim},
+  \code{\#print formal\_claim}, \code{\#print axioms};
+\item a full \code{lake build}, which includes an in-build \code{\#eval} lock audit so that the
+  ordinary build fails when the lock is broken;
+\item \code{lake env lean scripts/SemanticsLock.lean};
+\item \code{pipelinehalt truth-gate check --require-observation}, which evaluates the lock
+  integrity checks (a.*), the correspondence checks (b.*) and the transport checks (c.*).
+\end{enumerate}
+Mathlib is never rebuilt; its compiled files are fetched with \code{lake exe cache get}.
+Table~\ref{tab:rejections} lists the rejections and the fixture that exercises each one.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Rejection & Negative fixture(s) in \code{test/fixtures/truth-gate-lean/}\\
+\midrule
+\code{paper\_claim} aliases \code{formal\_claim} & \code{negatives/alias}, \code{unfold-alias}, \code{shared-constant}\\
+correspondence by \code{rfl}/\code{Iff.rfl}/identity & \code{negatives/iff-rfl}, \code{by-rfl}, \code{id-intro}, \code{iff-of-eq}, \code{lambda-id}\\
+\code{sorry}, \code{admit}, \code{native\_decide} & \code{negatives/sorry}, \code{admit}, \code{native-decide}\\
+nonstandard axiom & \code{negatives/axiom}\\
+missing or wrong provenance & \code{negatives/missing-provenance}, \code{bad-quote}, \code{bad-sha}; \code{tamper/missing-quote}, \code{missing-sha256}\\
+missing \code{Semantics.lean} or correspondence & \code{tamper/missing-semantics}, \code{missing-correspondence}\\
+failed \code{lake build} & \code{tamper/lake-build-failed}\\
+\bottomrule
+\end{tabularx}
+\caption{Rejections of the reusable checker and their fixtures (\code{TRUTH\_GATE.md}, PipelineHalt \code{56e29ec}).}
+\label{tab:rejections}
+\end{table}
+
+The \code{negatives/*} fixtures are locked \emph{and approved} from the bad file, so the tests
+show that an approved lock cannot make a bad file pass. The \code{tamper/*} fixtures edit a
+repository after its lock was approved. In the CI run on the merge commit
+(\code{ci} workflow, run 43993050555, job \code{truth-gate-e2e}, conclusion success) the logs
+read \code{negatives: 15/15} and \code{tamper: 6/6}; the six tamper cases are the unmodified
+fixture, which prints \code{TRUTH GATE: PASS}, and five rejections
+(\code{lake-build-failed}, \code{missing-correspondence}, \code{missing-quote},
+\code{missing-semantics}, \code{missing-sha256}). The same counts appear in the PR run
+43963669923 on head \code{bd11758}. Representative log lines from that run:
+\begin{Verbatim}
+[alias] ok: lake build SemanticsLock failed: truth gate: Fixture.paper_claim
+  references or unfolds to Fixture.formal_claim: an alias, so
+  Fixture.intended_correspondence would be vacuous
+[iff-rfl] ok: lake build SemanticsLock failed: truth gate:
+  Fixture.intended_correspondence is vacuous: proof term is Iff.rfl
+[native-decide] ok: ... depends on non-standard axiom
+  Fixture.intended_correspondence._native.native_decide.ax_1_1
+[pass] ok: exit 0; TRUTH GATE: PASS (the formal certificate inhabits
+  the locked paper_claim; this says nothing more)
+\end{Verbatim}
+
+\subsection{Drift in CI and author approval}
+
+Each repository calls the gate on push and pull request to \code{main}, so a change that breaks
+the lock turns CI red. The lock carries an approval record: the check \code{a.approval}
+(\code{src/truthgate.ts} at \code{56e29ec}) passes only when the lock has been approved by the
+author and the approved digest equals the current digest of the lock fields; otherwise it
+reports that a new approval is required. In \code{NS\_Millennium\_Proof} PR~\#34 (open, head
+\code{5856fa9}) the workflow has a separate job, \emph{Lock approved by the author}, which runs
+\code{SKIP\_BUILD=1 REQUIRE\_APPROVAL=1 bash scripts/verify-lock.sh}; it is red on that PR
+because the transcriptions there have not been approved.
+
+\subsection{No partial locks}
+
+The author's rule, issued on 16 November 2026 for all agents and collaborators, is that a lock
+certifies only a step on the correct path that is kernel-proved as the true answer, so that the
+next step can build from it. Drift is rejected, and so are dummy or stand-in types and names.
+Connections across ontologies (for example, between a geometric and an analytic formulation)
+are allowed; they are judged only by the kernel check and by whether they help reach the full
+proof. In the commits cited here this rule is a written policy enforced by review; it is not a
+separate mechanical check of PipelineHalt. Section~\ref{sec:reaudit} reports the re-audit of the
+merged locks against it.
+
+\subsection{Reporting solved problems}
+\label{sec:solved}
+
+On 16 November 2026 at 7:49 PM (US Central Time) the author set the following rule for every
+agent working on his formalizations, quoted verbatim:
+\begin{quote}\small
+``Always tell user immediately when an OPEN problem is SOLVED regardless if it is the open
+problem i am working on or another that happens to be resolved by proxy of nearby findings or by
+direct aim or by side tangental work that brings about other findings.''
+\end{quote}
+With it:
+\begin{itemize}
+\item When a problem the author is working on is solved, in Lean or on paper, the agent stops at
+  that point and states honestly that the problem is closed.
+\item ``Solved'' means honestly proved: kernel-checked under every gate rule, that is, an
+  independent \code{paper\_claim}, no aliasing and no \code{rfl} correspondence, only the standard
+  axioms, no \code{sorry}, and no partial lock.
+\item A lock certifies that the Lean development matches the paper's locked claim. Whether that
+  claim settles an open problem depends on what the claim states. A conditional lock certifies
+  an implication and stays conditional.
+\end{itemize}
+No lock described in this note states that an open problem is solved.
+
+\section{Case study: a lock that passed the checker and was reopened}
+\label{sec:example}
+
+This section shows a complete lock as it was merged, and then why the re-audit reopened it. It is
+not an example of a sound lock.
+
+
+The lock was merged by PR~\#6 (merge commit
+\code{9acd434cd70a732c6b4c5f4616ac3f48eb640382}, 2026-11-16 20:25 UTC) and hardened by PR~\#7
+(merge commit \code{fa82d34a15a0c61d2ba24167517896ab5276c52d}, 2026-11-16 21:25 UTC). PR~\#7
+adds anti-alias and anti-\code{rfl} checks and a \code{PAPER\_SECTION} field; the lock file
+\code{TRUTH\_GATE.lock} is byte-identical at both commits. This repository uses the per-repository
+form of the gate (\code{TRUTH\_GATE.lock}, \code{scripts/truth\_gate\_check.py},
+\code{scripts/TruthGateAudit.lean}, \code{scripts/verify-lock.sh}), which predates the reusable
+PipelineHalt harness of Section~\ref{sec:design} and enforces the same core rules.
+
+The locked sentence is in \code{paper/frohmanian-tether-verified.tex}, whose SHA-256 is
+\code{93bde1b66ac8ee68e33935c77c95a7a76e7a1bd5badd9b66f6663f110886cef9} (recomputed for this
+note from the file at \code{fa82d34}), Section~5 ``Refuted claims'', first item:
+\begin{quote}\small
+The tether damps the energy budget. This is refuted. C2 forces $B(M,H)=0$, so the tether
+contributes nothing to $dH/dt$
+\end{quote}
+The lock region of \code{FTVerified/Semantics.lean} at \code{fa82d34}:
+\begin{Verbatim}
+def formal_claim : Prop :=
+  ∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
+    DegenerateWRTKineticEnergy B → ∀ (ω : CoadjointOrbit) (M : Functional),
+      B ω M KineticEnergyHamiltonian = 0
+
+def paper_claim : Prop :=
+  ∀ (B : CoadjointOrbit → Functional → Functional → ℝ),
+    DegenerateWRTKineticEnergy B → ∀ ω : CoadjointOrbit,
+      (∀ M : Functional, B ω M KineticEnergyHamiltonian = 0) ∧
+        B ω KineticEnergyHamiltonian KineticEnergyHamiltonian = 0
+
+theorem intended_correspondence : formal_claim ↔ paper_claim := by
+  constructor
+  · intro h B hB ω
+    exact ⟨fun M => h B hB ω M, h B hB ω KineticEnergyHamiltonian⟩
+  · intro h B hB ω M
+    exact (h B hB ω).1 M
+\end{Verbatim}
+followed, outside the lock region, by
+\begin{Verbatim}
+theorem formal_claim_holds : formal_claim :=
+  fun B hB ω M => ObstructionAudit.flow_contribution_zero_of_C2 B hB ω M
+
+theorem paper_claim_holds : paper_claim :=
+  intended_correspondence.mp formal_claim_holds
+\end{Verbatim}
+The two sides are not the same proposition: \code{paper\_claim} adds the clause that the tether
+term in $dH/dt$, namely $B(\omega,H,H)$, vanishes, which is how the documentation fixes the
+reading of ``contributes nothing to $dH/dt$''. The correspondence is a statement-level
+equivalence that does not use the main theorem. \code{TruthGateAudit.lean} checks this in the
+kernel environment: it fails if \code{paper\_claim} mentions \code{formal\_claim}, if the two
+bodies are syntactically equal or definitionally equal, if the correspondence reaches the main
+theorem or the \code{*\_holds} lemmas, if \code{formal\_claim\_holds} does not use the main
+theorem, or if \code{paper\_claim\_holds} does not go through the correspondence.
+
+The \code{truth-gate} workflow run 43959965556 on \code{fa82d34} (push, success) printed:
+\begin{Verbatim}
+TRUTH GATE STATIC: scanned roots ['FTVerified', 'FTVerified.lean']
+  (draft dirs exempt: ['FTVerified/Draft']); 0 forbidden tokens
+build: no sorry outside draft dirs
+AXIOMS TruthGate.formal_claim: [propext, Classical.choice, Quot.sound]
+AXIOMS TruthGate.paper_claim: [propext, Classical.choice, Quot.sound]
+AXIOMS TruthGate.intended_correspondence: [propext, Classical.choice, Quot.sound]
+AXIOMS TruthGate.formal_claim_holds: [propext, Classical.choice, Quot.sound]
+AXIOMS TruthGate.paper_claim_holds: [propext, Classical.choice, Quot.sound]
+TRUTH GATE AUDIT PASS: main theorems
+  [FrohmanianTether.ObstructionAudit.flow_contribution_zero_of_C2];
+  formal_claim ↔ paper_claim locked, standard axioms only
+TRUTH GATE PASS at fa82d34a15a0c61d2ba24167517896ab5276c52d
+\end{Verbatim}
+Run 43949622534 on \code{9acd434} printed the same audit lines and
+\code{TRUTH GATE PASS at 9acd434cd70a732c6b4c5f4616ac3f48eb640382}.
+
+\code{TRUTH\_GATE.lock} at \code{fa82d34} contains no approval field; the author's sign-off on
+this transcription is not recorded in the lock file.
+
+\paragraph{Why it was reopened.} Draft PR~\#8
+(\url{https://github.com/BenFrohman/frohmanian-tether-verified/pull/8}, head \code{8e06646},
+opened 2026-11-17 01:42 UTC, unmerged) sets \code{"certifying": false} in \code{TRUTH\_GATE.lock}
+and makes the gate red on purpose (truth-gate run 43997671203: failure). The hypothesis (C2) is
+defined in \code{FTVerified/Sdiff/SymplecticTether.lean} as
+\begin{Verbatim}
+def DegenerateWRTKineticEnergy (B : ...) : Prop :=
+  ∀ (F : Functional) (ω : CoadjointOrbit), B ω F KineticEnergyHamiltonian = 0
+\end{Verbatim}
+and the locked main theorem in \code{FTVerified/Sdiff/ObstructionAudit.lean} is
+\begin{Verbatim}
+theorem flow_contribution_zero_of_C2 (B : ...) (hC2 : DegenerateWRTKineticEnergy B)
+    (ω : CoadjointOrbit) (M : Functional) : B ω M KineticEnergyHamiltonian = 0 :=
+  hC2 M ω
+\end{Verbatim}
+The PR gives three reasons: the theorem restates its own hypothesis, so the lock certifies nothing
+beyond the definition (a tautology, not a step); the quoted sentence is one item of the paper's
+list of refuted claims, which prunes a path rather than giving a step the next step can build on;
+and \code{CoadjointOrbit} is the type of all divergence-free fields with an abstract
+\code{SDiff} action, a stand-in name. On \code{main} the lock is unchanged and its CI is still
+green, because PR~\#8 is a draft.
+
+\paragraph{What this shows about the checker.} The mechanical checks verify that
+\code{paper\_claim} is independent of \code{formal\_claim}, that the two are not definitionally
+equal, that the correspondence is proved without the main theorem, and that only standard axioms
+are used. All of these held here. They do not detect that \code{formal\_claim} is true by the
+definition of its own hypothesis, that the quoted sentence is not a step toward the paper's
+result, or that a type name overstates what the type is. Those judgements were made by review
+under the no-partial-locks rule.
+
+\section{Two further locks and their status}
+
+\paragraph{A conditional lock.} \code{frohmanian-tether-sdiff} PR~\#10 (merge commit
+\code{56b540c80c4c76f20646e51971390cd3367bae23}) locks Theorem \code{thm:mainA} of
+\code{manuscript/main.tex} (SHA-256 \code{b1e6a8e9\ldots880de9}, recomputed for this note).
+Both sides keep the two hypotheses:
+\begin{Verbatim}
+def formal_claim : Prop :=
+  (∀ ν > (0 : ℝ), PeriodicTetherClosingBound ν) →
+    (∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) → Clay_B_exact
+
+def paper_claim : Prop :=
+  (∀ ν : ℝ, 0 < ν → PeriodicTetherClosingBound ν ∧ PeriodicBKMContinuation ν) →
+    ∀ (ν : ℝ) (u₀ : VelocityField), 0 < ν →
+      ContDiff ℝ (⊤ : ℕ∞) u₀ → (∀ x, div u₀ x = 0) → IsZ3Periodic u₀ →
+      ∃ (u : TimeDependentVelocity) (p : TimeDependentPressure), ...
+\end{Verbatim}
+The \code{paper\_claim} spells out the conclusion clause by clause (joint smoothness on
+$[0,\infty)\times\mathbb{R}^3$, the Navier--Stokes equations with zero forcing, $u(0)=u_0$,
+periodicity) instead of using \code{Clay\_B\_exact}. The truth-gate run 43966157187 on
+\code{56b540c} passed with only the three standard axioms. The claim is an implication;
+hypothesis~(i), the periodic tether closing bound, is open and is as strong as Clay
+statement~(B) itself, so the lock does not state that the Navier--Stokes problem is solved.
+\emph{Status:} reopened by draft PR~\#11
+(\url{https://github.com/BenFrohman/frohmanian-tether-sdiff/pull/11}, head \code{91b381f}). The
+reasons given: the hypotheses \code{PeriodicTetherClosingBound} and
+\code{PeriodicBKMContinuation} are kept as repository-defined Props although the paper defines
+them in English, so the transcription leans on repository definitions where the difficulty lies;
+the ``Frohmanian tether bound'' is by its definition a plain uniform vorticity bound, a stand-in
+name; and no non-vacuity witness for the open hypothesis exists.
+
+\paragraph{A finite identity.} \code{eth-conflict-clause-lattice} PR~\#4 (merge commit
+\code{797f0296b6671bb71d724f10321464eff931f30e}, merged 2026-11-17 01:16 UTC) locks
+Theorem \code{thm:count}, a counting identity for CNF formulas over three variables.
+\code{formal\_claim} counts with lists over the repository's enumerations; \code{paper\_claim}
+counts with \code{Finset.card} over \code{Bool × Bool × Bool} using the paper's own definitions,
+and the correspondence proves that the two counting conventions agree. Two earlier truth-gate
+runs on that PR (43963033662 on \code{2d2f1f2} and 43963496348 on \code{7f01a7b}) failed with
+\code{unsolved goals} in \code{Semantics.lean}; the gate stayed red until the correspondence was
+fully proved (run 43964473991 on \code{cde8dec}, success; run 43994336796 on \code{797f029},
+success). \emph{Status:} no reopen PR exists for this repository. No published record of the
+re-audit's verdict on this lock was found, so this note does not present it as confirmed by the
+re-audit.
+
+\section{Case studies: mismatches the gate reports}
+
+\code{NS\_Millennium\_Proof} PR~\#34 (``Truth Gate: permanent semantics lock'', open, head
+\code{5856fa9e3aadd71d26781b9ca1395b1626d0d34e}) adds five locks to that repository and is
+intentionally red. Its \code{truth-gate} run 43983346003 (pull request, conclusion failure)
+printed:
+\begin{Verbatim}
+TRUTH GATE PASS EnvelopeReduction
+TRUTH GATE PASS DirectionCurvatureReduction
+TRUTH GATE PASS PeriodicTetherReduction
+TRUTH GATE RED ConditionalGlobalRegularity: 1 failure(s)
+TRUTH GATE RED TetherTheorem: 1 failure(s)
+TRUTH GATE SUMMARY locks=5 failures=2
+\end{Verbatim}
+
+\paragraph{Drift in Theorem 1.1.} The gate's \code{DRIFT} line for
+\code{ConditionalGlobalRegularity} reads: ``main.tex Theorem 1.1 is attributed to
+\code{global\_regularity\_for\_NS}, but Lean proves a different statement: it assumes the
+time-uniform bound \code{FrohmanianTetherBound} instead of the paper's cubic rate (R)
+\code{FrohmanianTetherRate}, one given Kato witness instead of (K) local existence from every
+datum, and its conclusion has no ceiling $M(t)\le\max(M(0),C/\kappa'')$. Theorem 1.1 as
+transcribed (\code{Semantics.PaperTheorem11}) is unsettled in Lean: not proved, not disproved.
+Needs the author's decision.'' Every other check was green on this item; only the
+comparison of the Lean statement with the transcribed paper sentence exposes the gap.
+
+\paragraph{A vacuous theorem.} Theorem 1.1 is also attributed to
+\code{frohmanian\_tether\_theorem}, whose hypothesis
+\code{hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν} cannot be satisfied. This was proved earlier as
+\code{TetherRateCounterexample.frohmanian\_tether\_theorem\_hDI\_unsatisfiable :
+¬ ∀ u₀ ν, FrohmanianTetherRate u₀ ν} in PR~\#30 (merge commit
+\code{c0cfb63fd799ab420af97de8c1a497101331965c}, 2026-11-11), using only the three standard
+axioms. The witness exploits the solution class: the predicates impose no spatial
+differentiability, and Mathlib's \code{fderiv} is zero at non-differentiable points, so a
+steady field carrying the Takagi function satisfies the encoded equations while its vorticity
+norm is unbounded. It is not a classical solution. The theorem therefore holds vacuously, and
+the gate reports the attribution as \code{DRIFT} rather than passing it.
+
+The three items that pass in this run are pending the author's approval and are not certifying
+while PR~\#34 is open. Neither drift item has been patched. Both stay red until the author decides how the paper or the
+formalization changes. Neither item says anything about whether the Navier--Stokes problem is
+true or false.
+
+\section{Re-audit under the no-partial-locks rule}
+\label{sec:reaudit}
+
+On 17 November 2026 between 01:42 and 01:44 UTC, eleven draft pull requests titled ``Truth Gate
+re-audit: lock reopened (not certifying), gate red on purpose'' were opened, one per repository
+(Table~\ref{tab:reaudit}). Each sets \code{"certifying": false} in the lock, makes the gate red on
+purpose, deletes nothing, and states what would re-certify the lock. All eleven are open and
+unmerged; each needs the author's review.
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Repository and draft PR & Locked claim; reason given in the PR\\
+\midrule
+frohmanian-tether-verified \#8 & \code{flow\_contribution\_zero\_of\_C2}; tautology (theorem restates its hypothesis); a refuted-claims item, not a step; stand-in type name\\
+frohmanian-tether-sdiff \#11 & \code{clay\_B\_exact\_of\_periodic\_tether\_bound}; hypotheses not independently transcribed; stand-in name; no non-vacuity witness\\
+frohmanian-strain-eigenvalue \#5 & \code{quadratic\_form\_intermediate}; \code{paper\_claim} reads key terms through repository definitions\\
+frohmanian-symplectic-tether \#6 & \code{routeA\_determines\_kappa\_of\_matching}; partial lock (two of three sentences); not a step toward the paper's goal\\
+frohmanian-symplectic-tether-may-form \#4 & \code{routeA\_determines\_kappa\_of\_matching}; same as above\\
+frohmanian-symplectic-tether-regularity \#4 & \code{comparison\_ode\_stability}; partial lock (conjunct P4 of P1--P5); not a step on the paper's path\\
+metriplectic-world-model \#4 & \code{uniform\_ceiling}; partial lock (first sentence only); inequality is a hypothesis\\
+weighted-enstrophy-identities \#4 & \code{Smooth.enstrophy\_identity\_smooth}; partial lock (identity (1) of (1)--(2))\\
+periodic-ns-classical-continuation \#5 & \code{clay\_B\_exact\_of\_integrability}; hypothesis not independently transcribed; no non-vacuity witness\\
+HODGE \#57 & \code{jacobianDeg12\_finrank\_eq}; partial lock (dimension clause; basis clause not locked)\\
+frohmanian-tether-manuscript-2026-06-01 \#6 & \code{riccati\_bound}; partial lock (one appendix row; Theorem thm:cond not locked)\\
+\bottomrule
+\end{tabularx}
+\caption{Locks reopened by the re-audit. All PRs are at \code{https://github.com/BenFrohman/<repository>/pull/<n>}.}
+\label{tab:reaudit}
+\end{table}
+
+Several reopened locks are about real objects and are kernel-checked; for example the
+weighted-enstrophy PR states that identity~(1) ``is real, true and kernel-checked'' and is reopened
+only because identity~(2) of the same theorem is not locked. The HODGE PR also notes that its
+definitional-equality check hit its heartbeat cap.
+
+\emph{No surviving positive example.} At the time of writing no lock has been confirmed by the
+re-audit as standing. Repositories with merged lock PRs and no reopen PR include
+\code{eth-conflict-clause-lattice} (\#4), \code{torus-fourier-ns-lemmas} (\#5) and \code{Clay-}
+(\#13); no published record of the re-audit's verdict on them was found. This note therefore
+gives no example of a sound lock confirmed by the re-audit.
+
+\section{Limitations}
+\begin{itemize}
+\item The gate certifies that the kernel accepted a proof of the locked \code{paper\_claim}.
+  Whether that settles an open problem depends on what the locked claim states; no lock in this
+  note states that an open problem is solved (Section~\ref{sec:solved}).
+\item The mechanical checks do not detect a formal claim that is true by the definition of its
+  hypothesis, a claim that is not a step toward the paper's result, or a stand-in name
+  (Section~\ref{sec:example}). These are caught by review.
+\item The fidelity of a transcription from English to Lean is not machine-checkable. It rests
+  on the author's approval or an independent reviewer. The gate checks that the quote occurs in
+  the hashed paper and that the transcription is independent of the formal side; it cannot
+  check that the transcription is the right reading.
+\item Conditional results stay conditional. A lock on $H\to C$ certifies the implication, not $C$.
+\item The definitional-equality test in the per-repository audit has a heartbeat cap; a timeout
+  is reported as inconclusive and the syntactic and transport checks still apply.
+\item Two implementations exist at the cited commits: the per-repository scripts used in the
+  three merged locks above and the reusable PipelineHalt harness. The rollout to the remaining
+  repositories uses the latter.
+\item The no-partial-locks rule is enforced by review, not by a separate mechanical check. The
+  re-audit reopened 11 locks (Section~\ref{sec:reaudit}); its verdict on the remaining merged
+  locks is not published.
+\end{itemize}
+
+\section{Reproducibility}
+The checker's behaviour is reproduced from PipelineHalt alone. Its fixture is core Lean without
+Mathlib.
+\begin{itemize}
+\item Repository: \url{https://github.com/BenFrohman/PipelineHalt}, commit
+  \code{56e29ecaf9b1616eaa327543d7e357d8f5d86fd8}.
+\item Fixture toolchain: \code{leanprover/lean4:v4.34.0}, from the file
+  \code{lean-toolchain} in \code{test/fixtures/truth-gate-lean/}. The fixture's
+  \code{lake-manifest.json} lists no packages, so no Mathlib revision applies. Node.js 22 builds the CLI.
+\item CI run 43993050555 on that commit: \code{negatives: 15/15} and \code{tamper: 6/6}; the
+  passing demo prints \code{TRUTH GATE: PASS}.
+\end{itemize}
+One command, following the repository's \code{ci} workflow:
+\begin{Verbatim}
+git clone https://github.com/BenFrohman/PipelineHalt && cd PipelineHalt && \
+  git checkout 56e29ecaf9b1616eaa327543d7e357d8f5d86fd8 && \
+  npm install && npx tsc -b && cd test/fixtures/truth-gate-lean && \
+  lake build && ./run-negatives.sh && ./run-tamper.sh
+\end{Verbatim}
+The case study of Section~\ref{sec:example} is at
+\url{https://github.com/BenFrohman/frohmanian-tether-verified}, commit
+\code{fa82d34a15a0c61d2ba24167517896ab5276c52d}, toolchain \code{leanprover/lean4:v4.30.0-rc1},
+Mathlib \code{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7} (\code{v4.30.0-rc1}); its CI axiom output
+for \code{intended\_correspondence} and \code{paper\_claim\_holds} is
+\code{[propext, Classical.choice, Quot.sound]} (run 43959965556). That lock is reopened and does
+not certify a step.
+
+\section*{Sources}
+\small
+\begin{itemize}
+\item BenFrohman/PipelineHalt PR~\#4, \url{https://github.com/BenFrohman/PipelineHalt/pull/4};
+  files \code{TRUTH\_GATE.md}, \code{docs/MANDATE.md}, \code{scripts/verify-lock.sh},
+  \code{.github/workflows/truth-gate.yml}, \code{test/fixtures/truth-gate-lean/run-negatives.sh},
+  \code{run-tamper.sh}, \code{src/truthgate.ts} at \code{56e29ec}.
+\item BenFrohman/frohmanian-tether-verified PRs \#6 and \#7,
+  \url{https://github.com/BenFrohman/frohmanian-tether-verified/pull/6},
+  \url{https://github.com/BenFrohman/frohmanian-tether-verified/pull/7}.
+\item BenFrohman/frohmanian-tether-sdiff PR~\#10,
+  \url{https://github.com/BenFrohman/frohmanian-tether-sdiff/pull/10}.
+\item BenFrohman/eth-conflict-clause-lattice PR~\#4,
+  \url{https://github.com/BenFrohman/eth-conflict-clause-lattice/pull/4}.
+\item The eleven re-audit draft PRs of Table~\ref{tab:reaudit}, e.g.
+  \url{https://github.com/BenFrohman/frohmanian-tether-verified/pull/8}.
+\item BenFrohman/NS\_Millennium\_Proof PRs \#30 and \#34,
+  \url{https://github.com/BenFrohman/NS_Millennium_Proof/pull/30},
+  \url{https://github.com/BenFrohman/NS_Millennium_Proof/pull/34}.
+\end{itemize}
+
+\end{document}

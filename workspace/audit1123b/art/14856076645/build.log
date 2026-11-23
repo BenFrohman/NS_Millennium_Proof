@@ -1,0 +1,11 @@
+⚠ [8276/8277] Replayed FrohmanianTetherConditional.SemanticsVacuity
+warning: FrohmanianTetherConditional/SemanticsVacuity.lean:131:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: FrohmanianTetherConditional/SemanticsVacuity.lean:143:4: Try this: intro ⟨N, ν, hν, s, hs, u0, hper, hu0, sol, hdisj⟩ hall
+Build completed successfully (8277 jobs).
+Build completed successfully (8265 jobs).

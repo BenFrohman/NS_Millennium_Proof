@@ -1,0 +1,416 @@
+  The Riccati Vorticity Estimate M ′ ≤ C − kM 2 Fails for 3D
+                      Navier–Stokes on T3:
+ An Explicit Counterexample and a Lean-Checked Audit of the
+                    Symplectic-Tether Draft
+                                      Benjamin Stanley Frohman∗
+                           Independent Researcher, Texas, United States
+                      ORCID 0009-0006-7068-3718 frohmanbenjamin@gmail.com
+
+                                 17 November 2026          (version 1.2.0)
+
+
+Copyright (c) 2026 Benjamin Stanley Frohman. Independent Researcher, Texas, United States.
+The paper is licensed CC BY 4.0. The Lean source and Lean kernel certificates are licensed
+Apache 2.0.
+                                                  Abstract
+           An earlier unpublished draft by the author claimed global regularity for the 3D incom-
+        pressible Navier–Stokes equations via a “symplectic tether”. Its central step was an a-priori
+        Riccati estimate M ′ (t) ≤ C − kM (t)2 for the vorticity sup-norm M (t) = ∥ω(·, t)∥L∞ . We
+        show that this estimate is false on T3 when C, k depend only on the viscosity ν. We do this
+        with an explicit trigonometric initial datum whose peak vorticity strictly increases at t = 0.
+        We also show it is false when C, k may depend in an arbitrary way on ν and the kinetic
+        energy, or on ν and ∥u0 ∥L3 , by a scaled localized vortex. If the constants may depend on
+        the initial datum in an arbitrary way, the estimate is equivalent to global regularity and
+        remains open. This note makes no claim about the Clay Millennium Problem.
+        A companion Lean 4 audit of the draft proves that its tether form is symmetric and not
+        antisymmetric (hence not symplectic), and that because the tether vanishes against the
+        energy, B(F, H) = 0, it cannot change the flow. Any vorticity control therefore cannot
+        come from the tether. The √ audit also proves that the draft’s tanh solution formula cannot
+        match initial data above C/k. It proves the conditional chain “Riccati estimate + BKM
+        ⇒ no finite-time blow-up”, with the estimate carried as an explicit hypothesis. Everything
+        machine-checked builds without sorry and uses only Lean’s standard axioms.
+
+
+1       Setting and the estimate
+Let T3 = (R/2πZ)3 , ν > 0, and let u be a smooth solution of ∂t u + (u · ∇)u + ∇p = ν∆u,
+∇ · u = 0, with vorticity ω = ∇ × u satisfying
+                                   ∂t ω = (ω · ∇)u − (u · ∇)ω + ν∆ω.                                      (1)
+Put M (t) = ∥ω(·, t)∥L∞ . The draft’s key estimate is
+                         M ′ (t) ≤ C − k M (t)2     on [0, T ),     C ≥ 0, k > 0.                         (2)
+    ∗
+    Copyright (c) 2026 Benjamin Stanley Frohman. The paper is licensed CC BY 4.0. The Lean source and
+Lean kernel certificates are licensed Apache 2.0. This version (1.2.0): 10.5281/zenodo.24302373, a new version
+of 10.5281/zenodo.24121364. All versions (concept DOI): 10.5281/zenodo.24102220. Version 1.2.0 keeps the
+mathematical claims of version 1.1.0 and labels the Arb/sympy maximum ∥ω1 ∥∞ = 12 as an outside check, not
+a Lean kernel certificate. Please cite this work and credit Benjamin Stanley Frohman (ORCID 0009-0006-7068-
+3718) as the author.
+
+
+                                                      1
+Since M is in general only Lipschitz, we refute both the differentiable form (DraftRiccati
+Estimate) and the weaker form with the upper right Dini derivative, D+ M ≤ C − kM 2
+(DiniRiccatiEstimate).
+√                         Any of these forms forces M to be non-increasing wherever M >
+  C/k.
+
+           Variant    C, k may depend on             Status
+           V1         ν only (the draft’s claim)     false (Theorem 3)
+           V2         ν and ∥u0 ∥L2 , arbitrarily    false (Theorem 4)
+           V2′        ν and ∥u0 ∥L3                  false (Remark 5)
+           V3         u0 arbitrarily                 equivalent to global regularity: open
+
+Lemma 1 (touching lemma). (Lean: rightDeriv_le_of_touch, draftRiccati_false_of_
+touch, diniRiccati_false_of_touch.) Let T > 0 and g ≤ M on [0, T ) with g(0) = M (0),
+and let g have right derivative r at 0. If r > C − kM (0)2 , then neither form of (2) holds on
+[0, T ).
+
+
+2     V1: an explicit counterexample
+Let
+
+      U (x, y, z) = 3(− sin y, sin x, 0) + (− sin x cos z, 0, cos x sin z),   u0 = A U, A > 0.
+
+Proposition 2. (Lean: div_free, w1_eq–w3_eq, omega_sq_le, omega_at_origin, omega_
+norm_bound, rhs_origin.)
+ (a) ∇ · U = 0 and Ω := ∇ × U = (0, 2 sin x sin z, 3(cos x + cos y)).
+
+ (b) |Ω|2 = 9(cos x + cos y)2 + 4 sin2 x sin2 z ≤ 36, with equality at the origin. So M (0) =
+     ∥AΩ∥∞ = 6A.
+
+ (c) At x = 0 the right-hand side of (1) for u = AU , ω = AΩ equals (0, 0, 6A(A − ν)).
+Proof sketch. (a) and (c) are direct differentiation; at the origin U (0) = 0, the strain is S(0) =
+diag(−1, 0, 1), Ω(0) = (0, 0, 6) and ∆Ω(0) = (0, 0, −6). Stretching contributes 6A2 , advection
+0 and diffusion −6νA. For (b), (cos x + cos y)2 ≤ 2 cos2 x + 2 and 4 sin2 x sin2 z ≤ 4(1 − cos2 x),
+so |Ω|2 ≤ 22 + 14 cos2 x ≤ 36.
+
+Theorem 3 (V1 is false). For every ν > 0, C ≥ 0 and k > 0 there is A > ν (explicitly
+A = ν + 1 + |C|/k) such that the smooth solution with u0 = AU violates (2), in either form,
+on every interval [0, T ) with T > 0.
+Proof. By classical local well-posedness [2, 3], the solution is smooth on [0, T ) × T3 up to
+t = 0. Hence g(t) := ω3 (0, t) is C 1 with g ′ (0) = 6A(A − ν) by Proposition 2(c) and (1). Also
+g ≤ |ω(0, t)| ≤ M (t) and g(0) = 6A = M (0). (Using the component ω3 avoids differentiating
+| · |.) The arithmetic lemma amplitude_exists gives 6A(A − ν) > C − k(6A)2 , and Lemma 1
+concludes.
+
+  Concretely, with ν = 1 and A = 3 we get M (0) = 18, and the lower right Dini derivative of
+M at 0 is at least 36.
+
+
+3     V2: constants depending on ν and the energy
+Amplitude scaling alone cannot refute V2, since an arbitrary C(E) can absorb the growth of
+the energy E. We use Navier–Stokes scaling of a localized field instead.
+
+                                                    2
+Base field. Let β(ρ) = exp(−3ρ/(1 − ρ)) for ρ < 1 and β = 0 for ρ ≥ 1, with ρ = |x|2 . Let
+Ψ = β ez + zβ (−y, x, 0) and u1 = ∇ × Ψ. This u1 is smooth, divergence-free and supported in
+the closed unit ball. Exact symbolic computation (scripts/v2_symbolic.py) gives ω1 (0) =
+(0, 0, 12), u1 (0) = 0, ∂3 u1,3 (0) = 2 and ∆ω1 (0) = (0, 0, −120). It also shows that |ω1 |2 is
+exactly invariant under rotations about the z-axis and even in x and in z. A rigorous ball-
+arithmetic certificate (scripts/v2_maxcert.py, python-flint/Arb [7]) is an outside numeric
+check, not a Lean kernel certificate. It reports maxR3 |ω1 |2 = 144, attained only at the origin,
+so ∥ω1 ∥∞ = 12. Lean does not certify this maximum. The certificate has three parts: (I)
+negative-definite interval Hessian on [− 81 , 18 ]2 (592 boxes); (II) interval upper bounds < 144 on
+all other boxes meeting ρ ≤ 20  19
+                                   (4,345 evaluations); (III) an explicit tail bound ≤ 2.8 · 10−35 for
+20 ≤ ρ < 1.
+19
+
+
+
+Family. Fix B = 10ν. For λ ≥ 1 put λB u1 (λx) in the ball of radius 1/λ about 0 ∈ T3 , and
+add a background µ u2 (x − p) with p = (π, π, π). Here u2 = ∇ × (β(|x|2 )ez ) is a fixed nonzero
+smooth divergence-free field supported in the unit ball, with finite M2 = ∥∇×u2 ∥∞ and energy
+E2 > 0. The two supports are disjoint. The energy is 21 ∥u0 ∥22 = λ−1 B 2 E1 + µ2 E2 . So for any
+                                                     √
+target E ∗ > 0 and λ > B 2 E1 /E ∗ , the choice µ = (E ∗ − λ−1 B 2 E1 )/E2 makes the energy
+exactly E ∗ . For λ large, M (0) = max(12Bλ2 , µM2 ) = 120νλ2 , attained at 0. At (x, t) = (0, 0)
+the background vanishes nearby, and
+
+        ∂t ω3 (0, 0) = (12λ2 B)(2λ2 B) − 0 + νλ4 B(−120) = 24B(B − 5ν)λ4 = 1200 ν 2 λ4 .
+
+Theorem 4 (V2 is false). For every ν > 0, E ∗ > 0 and every choice C = C(ν, E ∗ ) ≥ 0,
+k = k(ν, E ∗ ) > 0, some smooth divergence-free u0 on T3 with energy exactly E ∗ violates (2) at
+t = 0.
+
+Proof. As in Theorem 3, with g(t) = ω3 (0, t), g(0) = M (0) = 120νλ2 and g ′ (0) = 1200ν 2 λ4 .
+Choose λ with 1200ν 2 λ4 ≥ C. Then localized_family_violation gives C − k(120νλ2 )2 <
+1200ν 2 λ4 , and Lemma 1 applies.
+
+Remark 5 (V2′ ). Without the background (µ = 0), ∥λBu1 (λ·)∥L3 (T3 ) = B∥u1 ∥L3 (R3 ) does not
+depend on λ. So constants depending on ν and the scale-critical norm ∥u0 ∥L3 are refuted by
+the same computation. Constants that may grow with a norm that blows up along the family,
+such as ∥u0 ∥H s for s > 21 or ∥ω0 ∥∞ , fall under V3.
+
+
+4    V3 is equivalent to global regularity, and is open
+For a fixed smooth u0 on T3 , the following are equivalent: (a) the solution is global and smooth;
+(b) there are C ≥ 0 and k > 0 with D+ M ≤ C − kM 2 for all t ≥ 0.
+                                                    √             ∫T
+    (b)⇒(a): comparison gives M ≤ max(M (0), C/k), so 0 M < ∞ for every T , and the
+Beale–Kato–Majda criterion [1] excludes blow-up.
+    (a)⇒(b): the elementary Danskin-type bound D+ M (t) ≤ ∥∂t ω(t)∥∞ holds. For a global
+smooth solution, eventual smallness of ∥∇u∥2 , ∫small-data theory and decay of higher norms
+[3, 4] (after a Galilean reduction to mean zero if u0 ̸= 0) give supt ∥∂t ω∥∞ < ∞ and supt M <
+∞.
+    Hence V3 for all smooth data is equivalent to global regularity on T3 , Fefferman’s state-
+ment (B) [6] up to the choice of period. It is open, and nothing here proves or disproves
+it.
+    At a point where |ω| is maximal, ∂t |ω| = |ω| ξ · Sξ + ν ξ · ∆ω with ξ = ω/|ω|. The stretching
+term has size ∼ M 2 and can be positive (its value was +1 in V1 and +2 in V2 per unit
+amplitude) [5]. Nothing in (1) produces a −kM 2 term.
+
+
+                                                  3
+5    Lean-checked audit of the symplectic-tether draft
+In the draft, B(F, G) = −κW ⟨P ⊥ δF, P ⊥ δG⟩, where P ⊥ w = w − ⟨w,u⟩
+                                                                ∥u∥2
+                                                                      u and W =
+∫
+  |ω| .
+     2   The “tether 2-form” is T(a, b) = ω · (a × b) − κ|ω| (a · b).
+                                                              2           The file
+lean/FrohmanianTetherDraftAudit.lean proves the following.
+    • tetherB_symm, tetherB_degenerate_H: B is symmetric and B(F, H) = 0 for δH = u.
+
+    • tetherB_diag_ne_zero, tetherB_not_antisymm (and a concrete R2 witness): if
+      κ, W ̸= 0 and P ⊥ v ̸= 0 then B(v, v) ̸= 0, so B is not antisymmetric.
+
+    • arnold_part_antisymm, tether2Form_not_antisymm: the Arnold part is antisym-
+      metric, but T is not, so it is not a symplectic form, as the draft’s A1, Lemma 3 and
+      Theorem 4.1 had claimed.
+
+    • generator_indep_kappa, isTetherFlow_iff, observable_deriv_indep_kappa,
+      draftRiccati_tether_iff_classical: because B(F, H) = 0, the generated dynamics
+      do not depend on κ. The key estimate holds for the tethered flow if and only if it
+      holds for the classical flow, so the claimed feedback cannot come from the tether. (Here
+      IsTetherFlow is an abstract weak formulation of the draft’s bracket dynamics, not a
+      PDE solution concept.)
+
+    • tanh_solves_riccati,√     tanh_initial_lt,
+                                      √               tanh_cannot_match_large_data: the
+      draft’s
+      √       formula y =   C/k tanh(   Ck t + ϕ
+                                              √0 ) solves y ′ = C − ky 2 , but always has |y(0)| <
+        C/k. It can never match data above C/k.
+
+    • riccati_comparison, riccati_integral_bound, conditional_extension, condit
+      ional_no_finite_blowup: the conditional chain. If DraftRiccatiEstimate and the
+      BKM continuation property (BKMContinuation) hold, both as explicit hypotheses, then
+      the solution extends past every finite time. This is only conditional; by Theorems 3–4,
+      the hypothesis is false in the draft’s form.
+
+
+6    What is machine-checked and what is cited
+In Lean 4 [8] with Mathlib [9] (both files, 50 declarations, no sorry, no axiom declarations):
+    • the touching lemma, in both differentiable and Dini forms;
+
+    • for u0 = AU : the divergence, the curl, the global bound |Ω| ≤ 6 with equality at 0, and
+      the exact right-hand side of (1) at the origin (derivatives as deriv of coordinate slices);
+
+    • the amplitude choice; the scalar step of V2;
+
+    • all audit statements in Section 5.
+Cited or computed outside Lean:
+    • Local existence, uniqueness and smoothness up to t = 0 for smooth data on T3 [2, 3]. This
+      identifies g ′ (0) with the right-hand side of (1), the derivative step behind the touching
+      lemma.
+
+    • The Danskin-type bound D+ M ≤ ∥∂t ω∥∞ (used only in the V3 remark).
+
+    • The BKM criterion [1], which is an explicit hypothesis in Lean.
+
+    • The V2 symbolic values (sympy) and the Arb maximum certificate [7], plus the energy
+      and support bookkeeping of the family.
+
+                                                4
+    • The decay and eventual-smallness facts in Section 4 [3, 4].
+
+Numerics are supporting only. A pseudo-spectral simulation (scripts/ns_check.py, op-
+tional in verify.sh) is not part of any proof. With ν = 1, A = 3 on a 643 grid, it shows an
+initial slope of 35.80 against the exact 36. For the localized field with B = 10, λ = 1, the slope
+is 1162 at 1923 against the exact 1200. The 1283 run is under-resolved.
+
+
+7     Reproducibility
+Cite as: B. S. Frohman, The Riccati Vorticity Estimate M ′ ≤ C − kM 2 Fails for 3D Navier–
+Stokes on T3 : An Explicit Counterexample and a Lean-Checked Audit of the Symplectic-
+Tether Draft, version 1.2.0, Zenodo, 2026, doi:10.5281/zenodo.24302373. Previous version
+1.1.0: doi:10.5281/zenodo.24121364. Version 1.0.2: doi:10.5281/zenodo.24102417. All versions:
+doi:10.5281/zenodo.24102220.
+    Repository:
+
+            https://github.com/BenFrohman/ns-tether-key-estimate-refutation
+
+The Lean sources,          scripts and verify.sh are exactly those of commit
+8fef153a12234ac28a311861c20df40e8d45e223. That commit is included in tag v1.0.0
+(ea9bbc0) and in release v1.0.2. It is unchanged through current main except for the
+GitHub Actions workflow added in commit 715626e2de363edd674b458dbb492cfa004c5b03
+(merged as f504b3c). Tag v1.0.2 added only the version 1.0.2 PDF and DOI; ver-
+sion 1.1.0 adds the certificate artifacts documented in Section 8. Toolchain: Lean 4.22.0
+(commit ba2cbbf09d4978f416e0ebd1fceeebc2c4138c05); Mathlib v4.22.0, revision
+79e94a093aff4a60fb1b1f92d9681e407124c2ca; Python 3.13.5 with python-flint 0.9.0, sympy
+1.14.0, mpmath 1.3.0 and numpy 2.5.4. One command:
+
+git clone https://github.com/BenFrohman/ns-tether-key-estimate-refutation
+cd ns-tether-key-estimate-refutation
+./verify.sh               # add --numerics for the optional simulation
+Output of lake env lean PrintAxioms.lean, verbatim:
+'FrohmanianTetherDraftAudit.riccati_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.riccati_comparison_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.riccati_bound_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.riccati_integral_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.DraftRiccatiEstimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.BKMIntegralBounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.BKMContinuation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.draftRiccati_implies_BKMIntegralBounded' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FrohmanianTetherDraftAudit.conditional_extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.conditional_no_finite_blowup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.projPerp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tetherB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.projPerp_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tetherB_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tetherB_degenerate_H' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tetherB_diag_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tetherB_not_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tetherB_not_antisymm_R2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tether2Form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.arnold_part_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tether2Form_diag_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tether2Form_not_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tetherGenerator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.generator_eq_classical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.generator_indep_kappa' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.IsTetherFlow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.isTetherFlow_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.observable_deriv_indep_kappa' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.draftRiccati_tether_iff_classical' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FrohmanianTetherDraftAudit.hasDerivAt_tanh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.abs_tanh_lt_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+
+
+                                                                5
+'FrohmanianTetherDraftAudit.tanh_solves_riccati' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tanh_initial_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tanh_initial_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianTetherDraftAudit.tanh_cannot_match_large_data' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.DraftRiccatiEstimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.DiniRiccatiEstimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.rightDeriv_le_of_touch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.draftRiccati_false_of_touch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.diniRiccati_false_of_touch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.w1_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.w2_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.w3_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.omega_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.omega_at_origin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.omega_norm_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.rhs_origin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.amplitude_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'KeyEstimate.localized_family_violation' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+
+
+
+8      Artifacts and reproducibility
+This section records the certificate logs from the 10 November 2026 verification run. It does
+not change any mathematical claim of Sections 1–6.
+    The Lean axiom output axioms.log and the Lean lake build log in the verify-logs
+artifact, together with the full GitHub Actions job log of run 42916652258 (not the
+1.8 KB artifact tail alone), and the Arb certificate result v2_maxcert.log, and the com-
+panion sympy logs v1_trig_example.log, v2_symbolic.log are byte-identical across the
+local morning ./verify.sh runs and the GitHub Actions verify-logs artifacts of runs
+42916652258 (pull request #1) and 42916649801 (push of ci/rebuild-verify, commit
+715626e). The CI runs built that commit, which differs from the Lean sources only by adding
+.github/workflows/verify.yml. SHA-256 checksums:
+0f96cd25e33cd00a70e85307c5ee9befc626e4d8a6a81e2447cef11c7ce44825   axioms.log
+5d5505e300911a4e62291ef3c5b76f402ca575b8c1d04936c6844fece3c47ab3   lake_build.log
+659bbb570ac0bfab577ab1aa87c34ebbb96db3a505f1ffff1cadef38013b9727   v2_maxcert.log
+f8b6611fccc794382df28e8eae925f1f201c8e1ac038509bcc3bdd06eb38f1df   v1_trig_example.log
+9fb14bda19ba53e3635c93b2008219d47616f43c13a5eff119b81ada440df6be   v2_symbolic.log
+542bfc3b4c74bf37819885886213e78b944428678accb4afed14efbabf388b4c   v2_sym.pkl
+
+
+    The full ./verify.sh transcripts and the CI job logs are not byte-identical to one another
+(they record local output paths, and the CI logs include runner timestamps). Their SHA-256
+checksums are listed in artifacts/SHA256SUMS.
+    Lean build log (lake build). The deposited file lake_build.log begins with U+2714
+(CHECK MARK) and U+2139 (INFORMATION SOURCE) on the first two lines; those two
+characters are written [ok] and [i] below so they render in this PDF. The SHA-256 above is
+of the unmodified file.
+[ok] [7083/7085] Built FrohmanianTetherDraftAudit
+[i] [7084/7085] Built KeyEstimateRefutation
+info: KeyEstimateRefutation.lean:213:0: 'KeyEstimate.rightDeriv_le_of_touch' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:214:0: 'KeyEstimate.draftRiccati_false_of_touch' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:215:0: 'KeyEstimate.diniRiccati_false_of_touch' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:216:0: 'KeyEstimate.div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:217:0: 'KeyEstimate.w1_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:218:0: 'KeyEstimate.w2_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:219:0: 'KeyEstimate.w3_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:220:0: 'KeyEstimate.omega_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:221:0: 'KeyEstimate.omega_at_origin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:222:0: 'KeyEstimate.omega_norm_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:223:0: 'KeyEstimate.rhs_origin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:224:0: 'KeyEstimate.amplitude_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KeyEstimateRefutation.lean:225:0: 'KeyEstimate.localized_family_violation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully.
+
+   Outside-check result log (scripts/v2_maxcert.py / python-flint Arb, verbatim; this is not
+a Lean kernel certificate):
+grad G(0): 0 0
+Hessian(0): -1152 0 -576
+(I) concavity verified on [-1/8,1/8]^2 with 592 boxes
+(III) tail bound for rho>=1-eta (eta=1/20): G <= [2.77385892342058e-35 +/- 3.24e-50] (<144: True )
+(II) verified G<144 on all remaining boxes; 4345 interval evaluations
+CERTIFIED: max |omega1|^2 = 144 attained only at the origin; M_1 = ||omega1||_inf = 12
+
+    The closing lines of every successful ./verify.sh run (the output directory on the last line
+is run-dependent) were
+
+                                                                      6
+CERTIFIED: max |omega1|^2 = 144 attained only at the origin; M_1 = ||omega1||_inf = 12
+OK: V1 exact identities and V2 symbolic values reproduced; Arb maximum certificate passed.
+
+ALL CHECKS PASSED. Logs in <out-dir>
+
+
+
+
+References
+[1] J. T. Beale, T. Kato, A. Majda, Remarks on the breakdown of smooth solutions for the
+    3-D Euler equations, Comm. Math. Phys. 94 (1984) 61–66.
+
+[2] T. Kato, Nonstationary flows of viscous and ideal fluids in R3 , J. Funct. Anal. 9 (1972)
+    296–305.
+
+[3] J. C. Robinson, J. L. Rodrigo, W. Sadowski, The Three-Dimensional Navier–Stokes Equa-
+    tions: Classical Theory, Cambridge Stud. Adv. Math. 157, Cambridge Univ. Press, 2016.
+
+[4] C. Foias, R. Temam, Gevrey class regularity for the solutions of the Navier–Stokes equa-
+    tions, J. Funct. Anal. 87 (1989) 359–369.
+
+[5] A. J. Majda, A. L. Bertozzi, Vorticity and Incompressible Flow, Cambridge Univ. Press,
+    2002.
+
+[6] C. L. Fefferman, Existence and smoothness of the Navier–Stokes equation, oﬀicial problem
+    description, Clay Mathematics Institute (2000).
+
+[7] F. Johansson, Arb: eﬀicient arbitrary-precision midpoint-radius interval arithmetic, IEEE
+    Trans. Comput. 66 (2017) 1281–1292.
+
+[8] L. de Moura, S. Ullrich, The Lean 4 theorem prover and programming language, in CADE-
+    28, LNCS 12699, Springer, 2021, 625–635.
+
+[9] The mathlib Community, The Lean mathematical library, in CPP 2020, ACM, 2020, 367–
+    381.
+
+
+
+
+                                                                7
+

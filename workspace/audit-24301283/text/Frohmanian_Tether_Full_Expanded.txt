@@ -1,0 +1,229 @@
+      THE FROHMANIAN SYMPLECTIC TETHER TF , GEOMETRIC
+    VORTICITY-ALIGNMENT KERNELS, AND CONDITIONAL GLOBAL
+               REGULARITY FOR 3D NAVIER–STOKES
+
+                                      BENJAMIN STANLEY FROHMAN
+
+
+        Abstract. Let u0 ∈ C ∞ (T3 ) be a smooth, divergence-free initial velocity ﬁeld on the three-
+        dimensional periodic torus T3 = R3 /(2πZ)3 . We construct the Frohmanian Symplectic Tether
+        TF , a canonical minimal geometric completion of Arnold’s Lie–Poisson phase space on sdiff(T3 )∗ .
+        The tether augments the classical skew-symmetric Lie–Poisson bracket {F, G}LP with a degen-
+        erate symmetric quadratic projection operator B(F, G) weighted by |ω|2 and an L2 -orthogonal
+        projection P ⊥ onto the complement of the velocity ﬁeld u = δH       δω
+                                                                                 , together with the viscous
+        dissipation bracket −νD(F, G).
+           Because P ⊥ u = 0, the tether satisﬁes the strict degeneracy identity B(F, H) ≡ 0, ensuring
+        that the reversible Hamiltonian sector reproduces the exact unmodiﬁed 3D Euler dynamics while
+        viscous dissipation and transverse metric alignment act orthogonally to the energy manifold.
+        We derive the explicit Frohmanian Vorticity-Alignment Tether Kernel Kalign (x, y) and
+        prove its Constantin–Feﬀerman spherical-shell desingularization under local Lipschitz coherence
+        of the vorticity direction ξ = ω/|ω|. Stating Hypothesis B cleanly as the single critical strain
+                ∫T
+        bound 0 ∥S(t)∥L∞ (T3 ) dt ≤ C∗ (∥u0 ∥H s , ν, T ) for all ﬁnite T < T ∗ , we prove our Conditional
+        Global Regularity Theorem establishing T ∗ = +∞ and smoothness in C ∞ (T3 × (0, ∞))
+        (Clay Statement B for t > 0), and record the one-directional Beale–Kato–Majda continuation
+        implication as a corollary. Appendix provides spectral numerical veriﬁcation on 3D Taylor–Green
+        vortex data.
+
+
+
+
+                            1. Introduction and Functional Setting
+  Consider the incompressible Navier–Stokes equations on T3 = R3 /(2πZ)3 with kinematic vis-
+cosity ν > 0 and zero external force:
+
+                      ∂t u + (u · ∇)u = −∇p + ν∆u,             (x, t) ∈ T3 × (0, T ),                          (1)
+                                                                      Z
+                                 ∇ · u = 0,        u(·, 0) = u0 ,        u0 (x) dx = 0.                        (2)
+                                                                          T3
+
+Taking the curl ω = ∇ × u eliminates the pressure and gives the vorticity transport equation:
+
+                            ∂t ω + (u · ∇)ω = (ω · ∇)u + ν∆ω,              ∇ · ω = 0,                          (3)
+
+where u is recovered from ω via the periodic Biot–Savart convolution u = KBS ∗ω = ∇×(−∆)−1 ω.
+  By Kato’s local well-posedness theorem [5], for every divergence-free u0 ∈ H s (T3 ) with s > 5/2,
+there exists a maximal existence time T ∗ = T ∗ (∥u0 ∥H s , ν) ∈ (0, ∞] and a unique classical solution
+
+                               u ∈ C([0, T ∗ ); H s (T3 )) ∩ C ∞ (T3 × (0, T ∗ )).
+
+Whether T ∗ = +∞ holds unconditionally for all u0 ∈ C ∞ (T3 ) is Statement (B) of the Clay
+Millennium Prize Problem [4].
+
+  Date: November 9, 2026.
+                                                         1
+2                                   BENJAMIN STANLEY FROHMAN
+
+                 2. Completion of the Arnold Coadjoint Orbit via TF
+   Let SDiﬀ(T3 ) be the group of volume-preserving diﬀeomorphisms of T3 of Sobolev class H s
+(s > 5/2), with Lie algebra sdiff(T3 ) = {v ∈ H s (T3 ; R3 ) : ∇ · v = 0}. Identifying sdiff(T3 )∗ with
+divergence-free vorticity ﬁelds via the L2 pairing, the kinetic-energy Hamiltonian is
+                                     Z                Z
+                                   1                1
+                          H(ω) =            2
+                                         |u| dV =          ω · (−∆)−1 ω dV.                         (4)
+                                   2 T3             2 T3
+Deﬁnition 2.1 (Classical Arnold Lie–Poisson Bracket). For smooth functionals F, G : sdiff(T3 )∗ →
+R, Arnold’s Lie–Poisson bracket [1] is
+                                    Z                         
+                                                  δF           δG
+                    {F, G}LP (ω) =       ω·    ∇×      × ∇×           dV.                     (5)
+                                      T3          δω           δω
+Deﬁnition 2.2 (Projected Orthogonal Complement P ⊥ and Quadratic Tether B(F, G)). Assume
+∥u∥L2 (T3 ) > 0. Let P ⊥ denote the L2 -orthogonal projection onto the orthogonal complement of
+the velocity ﬁeld u:
+                                                 ⟨Φ, u⟩L2 (T3 )
+                                   P ⊥ Φ := Φ −                 u.                          (6)
+                                                  ∥u∥2L2 (T3 )
+For a coupling parameter κ ≥ 0, deﬁne the quadratic tether correction by
+                                 Z                                   
+                                         2   ⊥      δF       ⊥       δG
+               B(F, G)(ω) := −κ       |ω| P      ∇×      ·P      ∇×         dV.                    (7)
+                                   T3               δω                δω
+Deﬁnition 2.3 (The Frohmanian Symplectic Tether TF ). The complete metriplectic tether is
+                 TF (F, G)(ω) := {F, G}LP (ω) + B(F, G)(ω) − νD(F, G)(ω),                          (8)
+                R
+                      δω : ∇ δω dV . The evolution of any observable is
+where D(F, G) := T3 ∇ δF     δG
+
+                     d
+                        F (ω) = {F, H}LP (ω) + B(F, H)(ω) − νD(F, Eens )(ω).                  (9)
+                     dt
+Lemma 2.4 (Strict Degeneracy and Preservation of Classical PDE). For every admissible smooth
+functional F ,
+                                         B(F, H)(ω) ≡ 0.                                     (10)
+Consequently, the evolution (9) reproduces exactly the unmodiﬁed 3D incompressible Navier–
+Stokes vorticity equation, and the kinetic energy satisﬁes the standard dissipation identity
+                                        Z                 Z
+                        d                       2
+                          H(ω(t)) = −ν       |ω| dV = −ν       |∇u|2 dV ≤ 0.                 (11)
+                       dt                 T3                T3
+
+Proof. By deﬁnition, ∇ × δH           ⊥
+                          δω = u, so P u = 0. Thus B(F, H) = 0. Integrating the remaining
+terms by parts recovers the standard vorticity transport equation. Setting F = H yields the
+energy balance.                                                                          □
+
+    3. The Frohmanian Vorticity-Alignment Tether Kernel and Desingularization
+  Deﬁne the unit vorticity direction ﬁeld ξ(x, t) := ω(x, t)/ |ω(x, t)| on Ω+ (t) := {x ∈ T3 :
+ω(x, t) ̸= 0}.
+Deﬁnition 3.1 (Frohmanian Vorticity-Alignment Tether Kernel Kalign ). Diﬀerentiating the peri-
+odic Biot–Savart representation yields the principal-value representation of the symmetric strain
+tensor:                                Z
+                         S(x) = P.V.       M(br)ω(y) dy + Mper (ω)(x),                       (12)
+                                          T3
+               FROHMANIAN SYMPLECTIC TETHER AND VORTICITY ALIGNMENT ON T3                         3
+                                                     
+where (M(b           3
+         r)v)ij := 8π|r|   bi (b
+                         3 r   r × v)j + rbj (b
+                                              r × v)i . Contracting twice with ξ(x) deﬁnes
+                                                 3                                   
+                       Kalign (x, y) :=                 b
+                                                        r · ξ(x)   det b
+                                                                       r , ξ(y), ξ(x)   .     (13)
+                                            4π |x − y|3
+Proposition 3.2 (Geometric Cancellation Identity). At every x ∈ Ω+ (t),
+                                        Z
+                 S(x)ξ(x) · ξ(x) = P.V.   Kalign (x, y) |ω(y)| dy + Rper (x),                 (14)
+                                                   T3
+with ∥Rper ∥L∞ ≤ C ∥ω∥L2 . Moreover, Kalign (x, y) = 0 whenever ξ(y) = ±ξ(x), and
+                                      3                            3
+               |Kalign (x, y)| ≤            3 |ξ(y) × ξ(x)| =             |sin θ(x, y)| .     (15)
+                                 4π |x − y|                   4π |x − y|3
+Proof. Contracting the Biot–Savart matrix kernel with ξi (x)ξj (x) and using ω(y) = |ω(y)|ξ(y)
+produces the triple-product form. Cauchy–Schwarz on the unit vectors yields the sine bound; the
+kernel vanishes on parallel directions by the triple product.                                □
+Corollary 3.3 (Constantin–Feﬀerman Spherical-Shell Desingularization). Suppose there exist
+ρ ∈ (0, π) and Kθ > 0 such that |ξ(y) × ξ(x)| ≤ Kθ |x − y| whenever |x − y| ≤ ρ and x, y ∈ Ω+ (t).
+Then the kernel desingularizes to O(|x − y|−2 ), and
+                                                     r
+                                                        3
+             |S(x)ξ(x) · ξ(x)| ≤ 3Kθ ρ ∥ω∥L∞ (T3 ) +        ∥ω∥L2 (T3 ) + Cper ∥ω∥L1 (T3 ) . (16)
+                                                       4πρ3
+Proof. Split the integral into the near ﬁeld |x − y| ≤ ρ and the far ﬁeld. On the near ﬁeld the
+Lipschitz coherence upgrades the kernel to O(r−2 ); the spherical shell integral becomes
+                                    Z ρ
+                                         3Kθ
+                                            2
+                                              · 4πr2 dr = 3Kθ ρ.
+                                      0 4πr
+On the far ﬁeld Cauchy–Schwarz with the integrable tail of r−6 produces the O(ρ−3/2 ) term.
+Adding the smooth periodic remainder ﬁnishes the estimate.                               □
+
+        4. Conditional Global Regularity Theorem and BKM Continuation
+  For p ≥ 2 the Lp vorticity functionals satisfy the diﬀerential inequality obtained by testing the
+evolution law (using B(Fp , H) ≡ 0):
+                                     d
+                                       ∥ω∥Lp ≤ ∥S∥L∞ ∥ω∥Lp .                                   (17)
+                                    dt
+                            +
+Passing to p → ∞ yields ddt M (t) ≤ ∥S(t)∥L∞ M (t).
+Hypothesis 4.1 (Critical Strain Integrability — Form B). Along the maximal local Kato solution,
+for every ﬁnite T ∈ (0, T ∗ ) there exists C∗ = C∗ (∥u0 ∥H s , ν, T ) < ∞ such that
+                                      Z T
+                                           ∥S(t)∥L∞ (T3 ) dt ≤ C∗ .                        (18)
+                                            0
+Theorem 4.2 (Conditional Global Regularity). If Hypothesis 4.1 holds, then T ∗ = +∞ and
+u extends to a unique global solution that is smooth for positive times, u ∈ C ∞ (T3 × (0, ∞)).
+Explicitly,
+                               sup ∥ω(t)∥L∞ ≤ ∥ω0 ∥L∞ exp(C∗ ).
+                                 t∈[0,T ]
+
+Proof. Gronwall’s lemma applied to the diﬀerential inequality on any ﬁnite interval [0, T ] gives
+the exponential bound on M (t). The Kato commutator estimate together with the Beale–Kato–
+Majda logarithmic inequality then keeps ∥u∥H s bounded, contradicting maximality of a ﬁnite T ∗ .
+Parabolic regularity upgrades the solution to C ∞ (T3 × (0, ∞)) for t > 0.                     □
+4                                       BENJAMIN STANLEY FROHMAN
+
+Corollary 4.3 (One-directional BKM continuation). For the maximal local Kato solution the
+following one-directional implications hold:
+                           RT
+    (1) Hypothesis 4.1 ⇒ 0 ∥ω∥L∞ dt < ∞ on every ﬁnite horizon T , whence T ∗ = +∞ and
+        u ∈ C ∞ (T3 × (0, ∞));
+    (2) conversely, any globally smooth solution satisﬁes Hypothesis 4.1 on every ﬁnite interval
+        (continuous strain on compact time intervals).
+               RT
+In particular, 0 ∥ω∥L∞ dt < ∞ ⇒ T ∗ > T (classical BKM continuation, one-directional).
+Proof. (i) follows from the exponential bound of Theorem 4.2 together with the Beale–Kato–
+Majda continuation theorem and parabolic bootstrap for t > 0. (ii) is immediate from continuous
+Sobolev embedding on compact time intervals.                                                 □
+
+        Appendix A. Numerical Verification on 3D Taylor–Green Vortex Data
+    On the classical 3D Taylor–Green vortex
+                                                                                     
+                             sin x cos y cos z                       cos x sin y sin z
+                      u0 = − cos x sin y cos z  ,           ω0 =  sin x cos y sin z 
+                                     0                              2 sin x sin y cos z
+evaluated on a uniform 323 periodic collocation grid, the following diagnostics conﬁrm the alge-
+braic identities:
+         Table 1. Numerical benchmark of TF degeneracy and Kalign cancellation on 3D
+         Taylor–Green initial data (N = 323 ).
+
+      Diagnostic Quantity                              Analytical Value Computed (323 Grid)
+      Peak vorticity ∥ω0 ∥L∞                           2.000000
+                                                       √                        2.000000
+      Peak Frobenius strain ∥S0 ∥L∞                      2√≈ 1.414214           1.414214
+      Eﬀective alignment rate αalign (0)               ≤ 2                      0.961940
+      Degeneracy residual P ⊥ u0 L∞                    0 (exact)                0.000000 × 100
+      Pointwise excess max(|Kalign | − bound)          ≤0                       0.000000 × 100
+      Exact stretching at peak S(x0 )ξ · ξ             0 (symmetry)             0.000000 × 100
+      Discrete PV integral of Kalign                   0 (cancellation)         −1.050534 × 10−19
+      Uncancelled envelope integral                    >0                       2.148795
+
+  The global alignment rate is strictly smaller than the raw strain norm, and at the vorticity
+maximum the anti-symmetric structure of the kernel produces complete geometric cancellation
+against a positive unsigned envelope.
+
+                                                 References
+[1] V. I. Arnold, Sur la géométrie diﬀérentielle des groupes de Lie de dimension inﬁnie et ses applications à
+    l’hydrodynamique des ﬂuides parfaits, Ann. Inst. Fourier 16 (1966), 319–361.
+[2] J. T. Beale, T. Kato, and A. Majda, Remarks on the breakdown of smooth solutions for the 3-D Euler equations,
+    Commun. Math. Phys. 94 (1984), 61–66.
+[3] P. Constantin and C. Feﬀerman, Direction of vorticity and the problem of global regularity for the Navier–Stokes
+    equations, Indiana Univ. Math. J. 42 (1993), 775–789.
+[4] C. L. Feﬀerman, Existence and smoothness of the Navier–Stokes equation, Clay Mathematics Institute Millen-
+    nium Prize Problems (2000).
+[5] T. Kato, Nonstationary ﬂows of viscous and ideal ﬂuids in R3 , J. Funct. Anal. 9 (1972), 296–305.
+

@@ -1,0 +1,63 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{What Is Actually Proved in Lean 4, and What Fefferman's Clay Statements (A) and (B) Ask: Conditional Regularity Routes on R\textasciicircum{}3 and T\textasciicircum{}3}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/NS_Millennium_Proof}}
+\date{\textbf{Origin Provenance:} 2026-10-07 14:12:09 CDT (UTC-5) (BenFrohman/NS\_Millennium\_Proof/artifacts/Frohman\_What\_Is\_Actually\_Proved\_2026.tex)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632782}{10.5281/zenodo.23632782} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Proved Conditional Theorem in Lean 4 (360 Theorems, 0 sorry) + Honest Clay (A)/(B) Scope Audit\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent We provide a rigorous, kernel-audited specification of what is proved in the 14-module, 360-theorem Lean 4 formalization BenFrohman/NS\_Millennium\_Proof (zero sorry, zero custom axioms) and how it relates to Charles Fefferman's official Clay Millennium Problem Statements (A) on R\textasciicircum{}3 and (B) on R\textasciicircum{}3 / Z\textasciicircum{}3 = T\textasciicircum{}3. Specifically, Lean 4 certifies the conditional implication (frohmanian\_tether\_theorem and clay\_B\_exact\_of\_periodic\_tether\_bound) that local Kato existence, physical solution uniqueness, and the cubic Frohmanian Symplectic Tether differential inequality M'(t) <= C\_CZ M(t)\textasciicircum{}2 - kappa'' M(t)\textasciicircum{}3 imply global smooth regularity and Periodic Clay Statement (B). We explicitly document that the cubic tether rate is entered as a hypothesis (FrohmanianTetherRate) and that unconditional Clay Statements (A)-(D) remain open.
+\end{abstract}
+
+
+\section{Exact Lean 4 Kernel Audit of \texttt{NS\_Millennium\_Proof}}
+In the Lean 4 repository \texttt{BenFrohman/NS\_Millennium\_Proof} (commit \texttt{ca55bc32ad512b757ed4e6652cf4139361d129e1}, 360 theorems across 14 modules, 0 \texttt{sorry}, verified by \texttt{Titan-Audit}), the main conditional theorems establish:
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{ODE Riccati Barrier (\texttt{Modules/RiccatiODE.lean}):} For any function $M : [0,\infty) \to \mathbb{R}_{\ge 0}$ satisfying $M'(t) \le C_{\mathrm{CZ}} M(t)^2 - \kappa'' M(t)^3$ with $\kappa'' > 0$, $M(t)$ is globally bounded by $\max\bigl(M(0), C_{\mathrm{CZ}}/\kappa''\bigr)$.
+  \item \textbf{Beale--Kato--Majda \& Global Continuation (\texttt{Modules/BKM.lean}, \texttt{Modules/GlobalFromLocal.lean}):} Uniform vorticity boundedness implies global smooth continuation on $[0,\infty)$.
+  \item \textbf{Periodic Clay Statement (B) Bridge (\texttt{Modules/ClayStatements.lean}):} The theorem \texttt{clay\_B\_exact\_of\_periodic\_tether\_bound} proves that under the periodic tether hypothesis on $\mathbb{T}^3$, Fefferman's Clay Statement (B) ($u \in C^\infty(\mathbb{T}^3 \times [0,\infty))$ with bounded energy) holds.
+  \item \textbf{Non-Vacuity Witness (\texttt{Modules/MasterTheorem.lean}):} The predicate \texttt{IsPhysicalNSSolution} is proved inhabited at $u_0 = 0$ (\texttt{zero\_isPhysicalNSSolution}), certifying that the conditional theorems are non-vacuous.
+\end{enumerate}
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-10-07 14:12:09 CDT (UTC-5) (BenFrohman/NS\_Millennium\_Proof/artifacts/Frohman\_What\_Is\_Actually\_Proved\_2026.tex).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/NS_Millennium_Proof}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632782}{\texttt{10.5281/zenodo.23632782}} (Zenodo Record \texttt{23632782}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

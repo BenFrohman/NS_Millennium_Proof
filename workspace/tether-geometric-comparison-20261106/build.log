@@ -1,0 +1,35 @@
+== Basic
+== Metriplectic
+== RouteA
+== Layer2
+== Main
+== TetheredLyapunov
+== Enstrophy
+== Torus
+== Final
+== EnstrophyL2
+== LogLoss
+== PalinstrophyH1
+== VorticityTether
+== CurlNS
+== BiotSavart
+== FieldJacobi
+== Jacobi
+== JacobiWitness
+== AX
+@shearY_jacobi_holds : ∀ {κ w : ℂ} {a b c : Fld},
+  XOnly a → DivergenceFree a → XOnly b → DivergenceFree b → XOnly c → DivergenceFree c → jacT κ w uY a b c = 0
+@shearY_jacobi_fails_transverse : ∀ {κ w : ℂ}, κ * w ≠ 0 → jacT κ w uY aZ aZ aZ ≠ 0
+@jacT_eq_mixedSum : ∀ {u : Fld}, pr u u ≠ 0 → ∀ (κ w : ℂ) (a b c : Fld), jacT κ w u a b c = mixedSumF κ w u a b c
+'Frohman.Tether.FieldJacobi.shearY_jacobi_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.shearY_transverse_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.shearY_mixed_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.mixedSumF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.jacT_eq_mixedSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.jacF_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.divFree_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.divFree_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.mixedSumF_diag' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.FieldJacobi.shearX_jacobi_fails' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]

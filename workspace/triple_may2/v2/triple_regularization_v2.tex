@@ -1,0 +1,187 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Named hypothesis}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\TF}{\mathfrak{T}_F}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\R}{\mathbb{R}}
+
+\title[Frohman's Triple Regularization Framework]{Frohman's Triple Regularization Framework:\\ Symplectic Tether, Metriplectic Dissipation, and Holographic Gravity\\ as a Research Program for Navier--Stokes Regularity}
+\author{Benjamin Stanley Frohman}
+\address{Independent Researcher}
+\email{frohmanbenjamin@gmail.com}
+\urladdr{https://orcid.org/0009-0006-7068-3718}
+\date{Written up 4 November 2026 from the author's draft of 2 May 2026}
+\subjclass[2020]{35Q30, 76D05, 37K05, 37K65, 83C57}
+\keywords{Navier--Stokes regularity, Beale--Kato--Majda criterion, Lie--Poisson structure, metriplectic dynamics, Clebsch variables, fluid--gravity correspondence}
+
+\begin{document}
+\begin{abstract}
+This paper is the completed write-up of a research program the author first recorded in a draft dated 2 May 2026 (Section~\ref{sec:provenance}). The program has three parts. The first is a hypothesized symplectic-type structure $\TF$, the \emph{Frohmanian Symplectic Tether}, meant to counteract vortex stretching. The second is a metriplectic (Poisson plus symmetric dissipative bracket) description of the viscous dynamics. The third is a holographic leg resting on the fluid--gravity correspondence. We state each part as a precise named hypothesis or conjecture. We prove only what can be proved: a Riccati comparison lemma, a conditional regularity corollary obtained through the Beale--Kato--Majda criterion, and several structural remarks. Some of these remarks \emph{correct} the 2 May draft. In particular, the extended Clebsch velocity of the draft is divergence-free only when the gradient potential is harmonic. \textbf{Nothing in this paper resolves the Navier--Stokes existence and smoothness problem, and we do not claim that it does.} We also record later results from the author's own work bearing on the program, including a Lean~4 refutation of a uniform strain bound \cite{FrohmanStrain}.
+\end{abstract}
+\maketitle
+
+\section{Provenance and scope}\label{sec:provenance}
+The source of this paper is the author's \LaTeX{} draft \emph{``Frohman's Triple Regularization Framework: Symplectic Tether, Metriplectic Dissipation, and Holographic Gravity for the Navier--Stokes Millennium Problem''}, kept in the author's Google Drive as \texttt{main (3).tex}. Its last-modified timestamp is 2026-05-03 00:28:46\,UTC, which is 2 May 2026, 7:28\,PM US Central time. Its own date line reads ``April 2026''. That original is preserved unchanged, byte for byte, as \cite{FrohmanOriginal}. This paper, the current version, has DOI 10.5281/zenodo.23963618. That draft gave the three conjectures, a heuristic ``Tether Bounding Inequality'', an extended Clebsch representation, and a description of numerical experiments. Here we keep the draft's ideas and notation ($\TF$, $\kappa$, the tether potential $\varphi$). Every step is either proved, attributed to the literature, or labelled as a hypothesis, conjecture, or open problem. The figures and numerical data of the draft are not reproduced. Numerical statements quoted from it are marked as such and were not re-run for this paper.
+
+\section{Setting}
+Let $\Omega=\R^3$ or $\T^3=(\R/2\pi\mathbb{Z})^3$ and $\nu>0$. The incompressible Navier--Stokes equations are
+\begin{equation}\label{eq:NS}
+\partial_t u+(u\cdot\nabla)u=-\nabla p+\nu\Delta u,\qquad \nabla\cdot u=0,\qquad u(\cdot,0)=u_0 .
+\end{equation}
+The vorticity $\omega=\nabla\times u$ satisfies
+\begin{equation}\label{eq:vort}
+\partial_t\omega+(u\cdot\nabla)\omega=(\omega\cdot\nabla)u+\nu\Delta\omega=S\omega+\nu\Delta\omega,
+\end{equation}
+where $S=\tfrac12(\nabla u+\nabla u^{\top})$ is the strain. Global weak solutions exist by Leray \cite{Leray1934} (and Hopf). Their singular set has parabolic one-dimensional Hausdorff measure zero by Caffarelli--Kohn--Nirenberg \cite{CKN1982}. Whether smooth data always give global smooth solutions is the open problem posed in \cite{FeffermanClay}. The two classical criteria used below are these.
+
+\begin{theorem}[Beale--Kato--Majda \cite{BKM1984}; stated there for Euler, and valid for \eqref{eq:NS}]\label{thm:BKM}
+Let $u$ be a smooth solution of \eqref{eq:NS} on $[0,T^*)$ with $u_0\in H^s$, $s\ge3$. If $\int_0^{T^*}\|\omega(t)\|_{L^\infty}\,dt<\infty$, then $u$ extends smoothly beyond $T^*$.
+\end{theorem}
+
+\begin{theorem}[Constantin--Fefferman \cite{ConstantinFefferman1993}]
+If the direction $\xi=\omega/|\omega|$ is Lipschitz in $x$ in the region where $|\omega|$ exceeds some fixed level, uniformly in time, then the solution remains regular.
+\end{theorem}
+
+\section{Leg I: the Frohmanian Symplectic Tether}
+\subsection{Geometric background}
+Arnold \cite{Arnold1966} showed that the Euler equations ($\nu=0$) are geodesic equations on $\mathrm{SDiff}(\Omega)$. Equivalently, they form a Lie--Poisson system on the dual of the Lie algebra of divergence-free fields, with Hamiltonian $H(u)=\tfrac12\int|u|^2$ \cite{HMRW1985,ArnoldKhesin}. In vorticity form the Lie--Poisson bracket is
+\begin{equation}\label{eq:LP}
+\{F,G\}_{\mathrm{LP}}(\omega)=\int_\Omega \omega\cdot\Big(\nabla\times\frac{\delta F}{\delta\omega}\Big)\times\Big(\nabla\times\frac{\delta G}{\delta\omega}\Big)\,dx ,
+\end{equation}
+up to a sign convention. Its Casimirs include helicity on $\T^3$. The viscous term is \emph{not} Hamiltonian, which is why a dissipative leg is needed (Section~\ref{sec:metri}).
+
+\subsection{The tether as a named hypothesis}
+The 2 May draft posits a structure $\TF$, with induced bracket written $\{F,G\}_{\TF}=\{F,G\}_{\mathrm{LP}}+B(F,G)$, that supplies control of $\|\omega\|_{L^\infty}$. We isolate exactly what the draft's argument uses.
+
+\begin{hypothesis}[\textsc{TetherBoundingInequality}$(\kappa,C)$]\label{hyp:TBI}
+For a smooth solution $u$ of \eqref{eq:NS} on its maximal interval $[0,T^*)$, the function $M(t)=\|\omega(t)\|_{L^\infty}$ is locally Lipschitz and satisfies, for a.e.\ $t$,
+\begin{equation}\label{eq:TBI}
+M'(t)\le C-\kappa M(t)^2,\qquad \kappa>0,\ C\ge0 .
+\end{equation}
+\end{hypothesis}
+
+\begin{remark}[What is known without the tether]
+At a point where $|\omega|$ attains its maximum, \eqref{eq:vort} gives, in the sense of Dini derivatives, $M'\le\|S\|_{L^\infty}M$. If a uniform bound $\|S\|_{L^\infty}\le C\|\omega\|_{L^\infty}$ held, this would yield $M'\le CM^2$, the inequality quoted in the 2 May draft. That uniform bound is false. The Calder\'on--Zygmund operator $\omega\mapsto S$ is unbounded on $L^\infty$. The author has formalized the failure of exactly this statement on $\T^3$ in Lean~4 (\texttt{not\_periodicStrainLinfBound}, Zenodo \cite{FrohmanStrain}). What does hold is a logarithmically corrected bound \cite{BKM1984}, $\|S\|_\infty\lesssim \|\omega\|_\infty(1+\log^+\|u\|_{H^3})+\|\omega\|_{L^2}$. Its consequences for the continuation argument are analysed in \cite{FrohmanViscous,FrohmanCubic}.
+\end{remark}
+
+\begin{lemma}[Riccati comparison]\label{lem:riccati}
+Let $M:[0,T)\to[0,\infty)$ be locally absolutely continuous with $M'\le C-\kappa M^2$ a.e., where $\kappa>0$ and $C\ge0$. Then for all $t\in[0,T)$,
+\[
+M(t)\le \max\{M(0),\sqrt{C/\kappa}\}.
+\]
+\end{lemma}
+\begin{proof}
+Put $K=\max\{M(0),\sqrt{C/\kappa}\}$ and suppose $M(t_1)>K$ for some $t_1$. Let $t_0=\sup\{t\le t_1: M(t)\le K\}$. Then $t_0<t_1$, $M(t_0)=K$ by continuity, and $M>K\ge\sqrt{C/\kappa}$ on $(t_0,t_1]$. There $M'\le C-\kappa M^2<0$ a.e., so $M(t_1)=M(t_0)+\int_{t_0}^{t_1}M'<K$, a contradiction.
+\end{proof}
+
+\begin{corollary}[Conditional regularity]\label{cor:cond}
+If Hypothesis~\ref{hyp:TBI} holds for the solution issuing from $u_0\in H^s(\T^3)$, $s\ge3$, then that solution is global and smooth.
+\end{corollary}
+\begin{proof}
+By Lemma~\ref{lem:riccati}, $M$ is bounded on $[0,T^*)$. If $T^*<\infty$, then $\int_0^{T^*}M<\infty$, contradicting Theorem~\ref{thm:BKM}.
+\end{proof}
+
+\begin{remark}[Status]
+Corollary~\ref{cor:cond} is the whole of the ``Tether Bounding Inequality implies regularity'' step. It is correct, but all of its content lies in Hypothesis~\ref{hyp:TBI}, which is not proved for \eqref{eq:NS}. The 2 May draft does not derive \eqref{eq:TBI} from any bracket. The phrase ``the tether introduces a geometric counter-term'' is a hypothesis, not a derivation. Note also that $\|\omega\|_\infty$ is invariant under the Navier--Stokes scaling $u_\lambda(x,t)=\lambda u(\lambda x,\lambda^2t)$ only after multiplication by $\lambda^{-2}$, while $C$ in \eqref{eq:TBI} has dimension $[\text{time}]^{-2}$. Hence any proof of \eqref{eq:TBI} with $C$ independent of the data would have to break scaling through $\nu$, the domain, or a conserved quantity. Earlier formalizations of the tether have been retracted where they did not hold up: the $\psi$-slot version of condition C2 is false (replaced by a velocity-slot kernel), and a gauge-uniqueness claim from axioms (A1)--(A5) was never proved. See \cite{FrohmanTether,FrohmanCompanion}.
+\end{remark}
+
+\subsection{Proposed search avenues (from the 2 May draft)}
+The draft proposes searching for $\TF$ by data-driven discovery: sparse identification of nonlinear dynamics (SINDy) \cite{SINDy2016} and symbolic regression, symplectic and Hamiltonian neural networks, graph networks on vortex-filament skeletons, and direct optimization over candidate Poisson brackets. These are proposals. No result from them is claimed here.
+
+\section{Leg II: metriplectic dissipation}\label{sec:metri}
+A metriplectic system \cite{Morrison1986,Grmela1984,Kaufman1984,Morrison1984} evolves by
+\begin{equation}\label{eq:metri}
+\dot F=\{F,\mathcal{F}\}+(F,\mathcal{F}),\qquad \mathcal{F}=H-\lambda S_{\mathrm{ent}},
+\end{equation}
+where $\{\cdot,\cdot\}$ is Poisson, $(\cdot,\cdot)$ is symmetric and positive semidefinite, and the degeneracy conditions $\{F,S_{\mathrm{ent}}\}=0$ and $(F,H)=0$ hold for all $F$. These give energy conservation and monotone entropy production, the ``first and second laws''. The 2 May draft writes $\dot F=\{F,H\}+[F,H]$.
+
+\begin{remark}[Correction to the 2 May formulation]
+For \eqref{eq:NS} as a closed mechanical system, kinetic energy is \emph{not} conserved: $\frac{d}{dt}\tfrac12\|u\|_2^2=-\nu\|\nabla u\|_2^2$. So $H$ cannot be the conserved generator of a metriplectic flow on velocity alone. The two standard remedies are (i) to adjoin an internal-energy or entropy variable, so that total energy is conserved and viscous heating produces entropy, as in Morrison's and Grmela's formulations of dissipative fluids \cite{Morrison1984,Grmela1984}; or (ii) to use the symmetric bracket $(F,G)_\nu=\nu\int\nabla\frac{\delta F}{\delta u}:\nabla\frac{\delta G}{\delta u}$, which gives $\dot F=\{F,H\}_{\mathrm{LP}}-(F,H)_\nu$. Form (ii) is a ``double bracket'' or gradient-type splitting and is not metriplectic in the strict sense. Both reproduce \eqref{eq:NS} exactly, and both are standard. Neither by itself gives new a priori control beyond the energy inequality.
+\end{remark}
+
+\begin{conjecture}[Frohman Metriplectic Regularization Conjecture]
+There is a metriplectic extension of \eqref{eq:NS}, reducing to \eqref{eq:NS} on the physical variables, whose entropy functional (the draft suggests $S\approx\int|\omega|^2\log(1+|\omega|^2)$ or enstrophy) controls $\int_0^T\|\omega\|_\infty\,dt$ for every $T$. This is open.
+\end{conjecture}
+
+\section{The extended Clebsch model}
+The 2 May draft formalizes the tether through the representation
+\begin{equation}\label{eq:clebsch}
+u=\nabla\lambda\times\nabla\mu+\nabla\phi+\nabla\times(\psi\nabla\varphi),
+\end{equation}
+which extends Clebsch's representation \cite{Clebsch1859}. The tether potential $\varphi$ evolves by $\partial_t\varphi+u\cdot\nabla\varphi=-\kappa'|\omega|^2$. The vorticity equation acquires an added term $-\kappa(\omega\cdot\nabla\varphi)\omega$.
+
+\begin{proposition}[Divergence of \eqref{eq:clebsch}]\label{prop:div}
+For smooth potentials, $\nabla\cdot u=\Delta\phi$. Hence \eqref{eq:clebsch} is divergence-free if and only if $\phi$ is harmonic. On $\T^3$ this means $\phi$ is constant, so the $\nabla\phi$ term is absent.
+\end{proposition}
+\begin{proof}
+We have $\nabla\cdot(\nabla\lambda\times\nabla\mu)=\nabla\mu\cdot(\nabla\times\nabla\lambda)-\nabla\lambda\cdot(\nabla\times\nabla\mu)=0$ and $\nabla\cdot\nabla\times(\cdot)=0$. A harmonic function on a compact manifold is constant.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:div} corrects the draft's statement that \eqref{eq:clebsch} ``preserves $\nabla\cdot u=0$ by construction''. Moreover, once $\kappa\neq0$ the vorticity equation with the added term is a \emph{different} PDE from \eqref{eq:NS}. Global regularity for this modified model, even if proved, would not imply regularity for \eqref{eq:NS}. The draft's claim that the model reduces to \eqref{eq:NS} when $\kappa=0$ or $\varphi$ is constant is correct, and it is the only rigorous link between the two. Deriving $\varphi$ and its evolution from \eqref{eq:NS} itself, rather than adding them, is the central open problem of Leg~I.
+\end{remark}
+
+\begin{remark}[Numerics reported in the 2 May draft; not reproduced]
+The draft reports pseudo-spectral runs in 2D, axisymmetric, and $64^3$ periodic 3D settings (Taylor--Green with noise, orthogonal tubes, random fields), with an \emph{artificially inserted} damping term $-\kappa|\omega|^2$, $\kappa\approx2$. In these runs peak $\|\omega\|_\infty$ and enstrophy were reduced by 30--65\%, and no blow-up occurred within the simulated times. These are numerical observations of a modified system at modest resolution. They are not evidence about \eqref{eq:NS}. A damping term proportional to $|\omega|^2$ suppresses growth by design.
+\end{remark}
+
+\section{Leg III: holographic dual}
+Policastro--Son--Starinets \cite{PSS2001} computed the shear viscosity of strongly coupled $\mathcal{N}=4$ plasma from black-brane horizons. Bhattacharyya, Hubeny, Minwalla, and Rangamani \cite{BHMR2008} derived boundary relativistic hydrodynamics order by order from bulk Einstein equations. Bredberg, Keeler, Lysov, and Strominger \cite{BKLS2012} showed that every solution of incompressible Navier--Stokes in $p+1$ dimensions has an associated solution of the vacuum Einstein equations in $p+2$ dimensions. The association is through a near-horizon expansion, with the fluid stress tensor encoded in extrinsic curvature.
+
+\begin{conjecture}[Frohman Holographic Dual Regularization Conjecture]
+For data on $\T^3$ or $\R^3$, a finite-time Navier--Stokes singularity would correspond, under a duality of the type in \cite{BKLS2012}, to a bulk curvature singularity that is not hidden behind a horizon. Weak cosmic censorship in the bulk \cite{Penrose1969} would then exclude it. This is open on two counts. First, the dual of \cite{BKLS2012} is constructed order by order in a hydrodynamic expansion, so it does not transport regularity statements in either direction without additional uniform control. Second, cosmic censorship is itself an open conjecture, and it has known counterexamples in some higher-dimensional settings (e.g.\ black-string instabilities \cite{LehnerPretorius2010}).
+\end{conjecture}
+
+\section{How the three legs fit together, and what remains}
+In the program, Leg~I targets the conservative stretching mechanism, Leg~II encodes dissipation geometrically, and Leg~III offers a dual description. The proved content of this paper is Lemma~\ref{lem:riccati}, Corollary~\ref{cor:cond}, and Proposition~\ref{prop:div}, together with the standard facts cited. Everything else is the following list.
+\begin{enumerate}
+\item \textsc{TetherBoundingInequality} (Hypothesis~\ref{hyp:TBI}): open. Its natural route through a uniform strain bound is refuted \cite{FrohmanStrain}. A $\nu,t$-dependent strain bound gives only lower bounds on the existence time \cite{FrohmanViscous}. The periodic continuation has a recorded cubic-source gap \cite{FrohmanCubic}.
+\item Existence of $\TF$ as a genuine Poisson or Dirac structure for \eqref{eq:NS} with a stretching-controlling invariant: open.
+\item Metriplectic Regularization Conjecture: open.
+\item Holographic Dual Regularization Conjecture: open, and conditional on cosmic censorship.
+\item Derivation of the tether potential $\varphi$ from \eqref{eq:NS}: open.
+\end{enumerate}
+The 2 May draft states that ``confirmation of the triple framework would resolve the Millennium Prize''. This is accurate only in the conditional sense of Corollary~\ref{cor:cond}. The 3D Navier--Stokes regularity problem remains open.
+
+\section*{Data and code availability}
+Lean~4 formalizations referred to above are in the author's repositories and Zenodo records \cite{FrohmanStrain,FrohmanCubic,FrohmanViscous,FrohmanTether,FrohmanCompanion}.
+
+\begin{thebibliography}{99}
+\bibitem{Arnold1966} V.~I. Arnold, \emph{Sur la g\'eom\'etrie diff\'erentielle des groupes de Lie de dimension infinie et ses applications \`a l'hydrodynamique des fluides parfaits}, Ann.\ Inst.\ Fourier \textbf{16} (1966), no.~1, 319--361.
+\bibitem{ArnoldKhesin} V.~I. Arnold and B.~A. Khesin, \emph{Topological Methods in Hydrodynamics}, Applied Mathematical Sciences 125, Springer, New York, 1998.
+\bibitem{BKM1984} J.~T. Beale, T.~Kato, and A.~Majda, \emph{Remarks on the breakdown of smooth solutions for the 3-D Euler equations}, Comm.\ Math.\ Phys.\ \textbf{94} (1984), 61--66.
+\bibitem{BHMR2008} S.~Bhattacharyya, V.~E. Hubeny, S.~Minwalla, and M.~Rangamani, \emph{Nonlinear fluid dynamics from gravity}, J.\ High Energy Phys.\ \textbf{2008} (2008), no.~02, 045, arXiv:0712.2456.
+\bibitem{BKLS2012} I.~Bredberg, C.~Keeler, V.~Lysov, and A.~Strominger, \emph{From Navier--Stokes to Einstein}, J.\ High Energy Phys.\ \textbf{2012} (2012), no.~07, 146, doi:10.1007/JHEP07(2012)146, arXiv:1101.2451.
+\bibitem{SINDy2016} S.~L. Brunton, J.~L. Proctor, and J.~N. Kutz, \emph{Discovering governing equations from data by sparse identification of nonlinear dynamical systems}, Proc.\ Natl.\ Acad.\ Sci.\ USA \textbf{113} (2016), 3932--3937.
+\bibitem{CKN1982} L.~Caffarelli, R.~Kohn, and L.~Nirenberg, \emph{Partial regularity of suitable weak solutions of the Navier--Stokes equations}, Comm.\ Pure Appl.\ Math.\ \textbf{35} (1982), 771--831.
+\bibitem{Clebsch1859} A.~Clebsch, \emph{Ueber die Integration der hydrodynamischen Gleichungen}, J.\ Reine Angew.\ Math.\ \textbf{56} (1859), 1--10.
+\bibitem{ConstantinFefferman1993} P.~Constantin and C.~Fefferman, \emph{Direction of vorticity and the problem of global regularity for the Navier--Stokes equations}, Indiana Univ.\ Math.\ J.\ \textbf{42} (1993), no.~3, 775--789, doi:10.1512/iumj.1993.42.42034.
+\bibitem{FeffermanClay} C.~L. Fefferman, \emph{Existence and smoothness of the Navier--Stokes equation}, in: The Millennium Prize Problems, Clay Math.\ Inst., Cambridge, MA, 2006, 57--67.
+\bibitem{Grmela1984} M.~Grmela, \emph{Bracket formulation of dissipative fluid mechanics equations}, Phys.\ Lett.\ A \textbf{102} (1984), 355--358.
+\bibitem{HMRW1985} D.~D. Holm, J.~E. Marsden, T.~Ratiu, and A.~Weinstein, \emph{Nonlinear stability of fluid and plasma equilibria}, Phys.\ Rep.\ \textbf{123} (1985), 1--116.
+\bibitem{Kaufman1984} A.~N. Kaufman, \emph{Dissipative Hamiltonian systems: a unifying principle}, Phys.\ Lett.\ A \textbf{100} (1984), 419--422.
+\bibitem{LehnerPretorius2010} L.~Lehner and F.~Pretorius, \emph{Black strings, low viscosity fluids, and violation of cosmic censorship}, Phys.\ Rev.\ Lett.\ \textbf{105} (2010), 101102, arXiv:1006.5960.
+\bibitem{Leray1934} J.~Leray, \emph{Sur le mouvement d'un liquide visqueux emplissant l'espace}, Acta Math.\ \textbf{63} (1934), 193--248.
+\bibitem{Morrison1984} P.~J. Morrison, \emph{Bracket formulation for irreversible classical fields}, Phys.\ Lett.\ A \textbf{100} (1984), 423--427.
+\bibitem{Morrison1986} P.~J. Morrison, \emph{A paradigm for joined Hamiltonian and dissipative systems}, Physica D \textbf{18} (1986), 410--419.
+\bibitem{Penrose1969} R.~Penrose, \emph{Gravitational collapse: the role of general relativity}, Riv.\ Nuovo Cimento \textbf{1} (1969), 252--276.
+\bibitem{PSS2001} G.~Policastro, D.~T. Son, and A.~O. Starinets, \emph{Shear viscosity of strongly coupled $\mathcal{N}=4$ supersymmetric Yang--Mills plasma}, Phys.\ Rev.\ Lett.\ \textbf{87} (2001), 081601.
+\bibitem{FrohmanStrain} B.~S. Frohman, \emph{Is $\|S\|_{L^\infty}\le C\|\omega\|_{L^\infty}$? A deep check of PeriodicStrainLinfBound}, Zenodo, 2026, doi:10.5281/zenodo.23904623.
+\bibitem{FrohmanViscous} B.~S. Frohman, \emph{The viscous strain bound: what a $\nu,t$-dependent constant can and cannot give}, Zenodo, 2026, doi:10.5281/zenodo.23906579.
+\bibitem{FrohmanCubic} B.~S. Frohman, \emph{A cubic source for the vorticity maximum, and a recorded gap in the periodic continuation}, Zenodo, 2026, doi:10.5281/zenodo.23930085.
+\bibitem{FrohmanCompanion} B.~S. Frohman, \emph{The Frohmanian Symplectic Tether Companion Archive: June 1, 2026 Hydrodynamic Manuscript}, Zenodo, 2026, doi:10.5281/zenodo.23629499.
+\bibitem{FrohmanTether} B.~S. Frohman, \emph{The Frohmanian Symplectic Tether: A Canonical Minimal Metric Correction to the Arnold Lie--Poisson Bracket on the Coadjoint Orbit}, Zenodo, 2026, doi:10.5281/zenodo.21856430.
+\bibitem{FrohmanOriginal} B.~S. Frohman, \emph{Frohman's Triple Regularization Framework: Symplectic Tether, Metriplectic Dissipation, and Holographic Gravity for the Navier--Stokes Millennium Problem (original draft, 2 May 2026)}, Zenodo, 2026, doi:10.5281/zenodo.23964320.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,550 @@
+                                Official proposed theorem
+                 Conditional regularity criterion with filled classical lemmas
+                      and named obstructions on the remaining slots
+
+                                    Benjamin Stanley Frohman
+                            Working redraft section, 8 September 2026.
+              This document does not claim the Clay Millennium statement.
+
+
+                                               Abstract
+          The official proposed theorem of this redraft is a conditional regularity criterion on the
+      exact three-dimensional incompressible Navier–Stokes equations. The Clay Mathematics In-
+      stitute problem on Navier–Stokes existence and smoothness is the problem of global regular-
+      ity for that system. They are one statement, not two enigmas. Classical lemmas (transport
+      cancellation, viscous dissipation, algebraic stretching identity, Young at κ = 3/2, Hölder,
+      Sobolev embedding on T3 , and the published Kato and Beale–Kato–Majda theorems) are
+      proved or cited with complete proofs. The lemmas that would convert the criterion into the
+      Clay statement—a genuine strain endpoint, stretching identification with the angular kernel
+      and vanishing commutators, a majorant whose coefficients depend only on initial data, and
+      the mollifier limit—are expanded to the obstruction and then stopped. Chat fragments that
+      contradict the exact PDE or reintroduce κ = 1 are not used.
+
+
+Contents
+1 Clay statement and global regularity are the same problem                                             2
+
+2 Official proposed theorem                                                                             2
+
+3 Filled classical lemmas                                                                               2
+  3.1 Algebraic structure of stretching . . . . . . . . . . . . . . . . . . . . . . . . . . .           2
+  3.2 Transport cancellation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          3
+  3.3 Viscous dissipation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         3
+  3.4 Coefficient algebra at κ = 3/2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          4
+  3.5 Hölder and Young . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           4
+  3.6 Published local existence and continuation . . . . . . . . . . . . . . . . . . . . . .            5
+  3.7 Elementary Biot–Savart identities . . . . . . . . . . . . . . . . . . . . . . . . . . .           6
+
+4 Obstruction lemmas: expanded to the missing piece                                                     6
+
+5 What chat fragments contribute, and what they do not                                                 9
+
+6 What would convert Theorem 2.1 into the Clay theorem                                                  9
+
+7 Summary of filled versus open                                                                        10
+
+
+
+
+                                                    1
+1     Clay statement and global regularity are the same problem
+Fefferman’s official formulation asks whether, for every smooth divergence-free initial velocity
+of finite energy, the three-dimensional incompressible Navier–Stokes equations admit a unique
+solution that remains smooth for all positive times. That is precisely global regularity of the
+Cauchy problem. There is no separate “enigmatic process of incompressible flow” whose res-
+olution would produce global regularity as an accidental by-product, and no separate global-
+regularity enigma whose resolution would produce Navier–Stokes smoothness as a by-product.
+A proof of one is a proof of the other. A criterion that assumes a bound in order to conclude a
+bound is neither.
+     The official proposed theorem below is therefore not a second problem. It is the Clay state-
+ment with its unfinished hypotheses written as named lemmas. Filling those hypotheses with
+first-principles, non-circular, solution-independent estimates would be the Clay proof. Declaring
+them filled because the names coincide is circular.
+
+
+2     Official proposed theorem
+Theorem 2.1 (Proposed theorem of the redraft — conditional criterion). Let s > 5/2 and
+let u0 ∈ H s (T3 ; R3 ) satisfy div u0 = 0. Let u be the unique Kato solution of incompressible
+Navier–Stokes
+
+                  ∂t u + (u · ∇)u + ∇p = ν∆u,             div u = 0,   u( · , 0) = u0 ,       (1)
+
+on its maximal classical interval [0, T∗ ), with vorticity ω = curl u obeying
+
+                                ∂t ω + (u · ∇)ω = (ω · ∇)u + ν∆ω.                             (2)
+
+Assume Lemmas 4.1, 4.2, 4.3, 4.4, 4.5, and 4.6 with constants depending only on ∥u0 ∥H s and
+ν. Then                          Z        T∗
+                                               ∥ω( · , t)∥L∞ dt < ∞,
+                                      0
+hence T∗ = ∞ by Lemma 3.9, and u remains smooth for all t ≥ 0.
+
+Remark 2.2 (Status). Theorem 2.1 is the official proposed theorem of this redraft. It is not
+the Clay theorem until every cited lemma is a theorem. The lemmas marked “classical, filled”
+below are theorems. The lemmas marked “obstruction” are not.
+
+
+3     Filled classical lemmas
+Throughout this section, integrals without a domain are over T3 = R3 /(2πZ)3 , and boundary
+terms vanish by periodicity.
+
+3.1   Algebraic structure of stretching
+Lemma 3.1 (Stretching is the strain quadratic form).  Let u ∈ C 1 (T3 ; R3 ) and ω = curl u.
+Write S = 2 ∇u + (∇u) and Ω = 2 ∇u − (∇u) . Then Ωv = 12 ω × v for every vector v,
+          1          ⊤             1            ⊤
+                                                 
+
+and
+                                ⟨ω, (ω · ∇)u⟩ = ⟨ω, Sω⟩.
+
+Proof. The decomposition ∇u = S + Ω is the unique symmetric/skew splitting. For the skew
+part, the identity
+                                 1X                    1
+                         (Ωv)i =     ∂j ui − ∂i uj vj = (ω × v)i
+                                                  
+                                 2 j                   2
+
+                                                      2
+holds by the definition ωk = εkℓm ∂ℓ um and the contraction εijk εkℓm = δiℓ δjm − δim δjℓ . Hence
+
+                             (ω · ∇)u = Sω + Ωω = Sω + 12 ω × ω = Sω,
+
+and taking the inner product with ω yields the claim because ⟨ω, ω × ω⟩ = 0.
+
+3.2   Transport cancellation
+Lemma 3.2 (Convective cancellation on T3 ). Let u ∈ C 1 (T3 ; R3 ) with div u = 0 and let
+ω ∈ C 1 (T3 ; R3 ). Then      Z
+                                                      ⟨ω, (u · ∇)ω⟩ dλ = 0.                                     (3)
+                                                 T3
+
+If φ ∈ C 1 (T3 ) and ∂t φ + u · ∇φ = 0, the same cancellation holds for the weighted densities
+1    2       1   4
+2 |ω| φ and 4 |ω| φ up to the explicit product-rule terms recorded in the proof.
+
+Proof. Pointwise,
+                                   1            1          1
+                    ⟨ω, (u · ∇)ω⟩ = u · ∇ |ω|2 = div u|ω|2 − (div u)|ω|2 .
+                                              
+                                   2            2           2
+The second summand vanishes by div u = 0. Integrating the first over T3 and applying the
+divergence theorem on the torus gives
+                                                 Z
+                                                       div u|ω|2 dλ = 0.
+                                                                        
+                                                  T3
+
+This is (3).
+   For a transported scalar φ with ∂t φ + u · ∇φ = 0,
+
+                         ∂t 12 |ω|2 φ + u · ∇ 12 |ω|2 φ = φ⟨ω, ∂t ω + (u · ∇)ω⟩.
+                                                                   
+
+
+The left side is a divergence after using div u = 0, hence integrates to zero. The same compu-
+tation with |ω|4 uses
+                                      ∂t |ω|4 = 4|ω|2 ⟨ω, ∂t ω⟩,                           (4)
+which is the chain rule. Thus the transport contribution to dt
+                                                            d
+                                                                                           4 |ω| φ reduces to
+                                                                                         R κ    4
+
+                                         Z
+                                     κ       |ω|2 φ ⟨ω, ∂t ω + (u · ∇)ω⟩ dλ
+
+and does not itself produce a stretching or dissipation term.
+
+3.3   Viscous dissipation
+Lemma 3.3 (Viscous integration by parts). Let ω ∈ C 2 (T3 ; R3 ). Then
+                                 Z                                     Z
+                                         ⟨ω, ∆ω⟩ dλ = −                      |∇ω|2 dλ ≤ 0.                      (5)
+                                  T3                                    T3
+
+Proof. On each Cartesian component ωi ,
+                     Z                       Z             3                      Z      3
+                           ωi ∆ωi dλ =                           ∂jj ωi dλ = −               (∂j ωi )2 dλ,
+                                                           X                             X
+                                                      ωi
+                      T3                     T3            j=1                      T3   j=1
+
+where the boundary terms vanish by periodicity. Summing on i yields (5).
+
+
+
+
+                                                                   3
+3.4    Coefficient algebra at κ = 3/2
+Lemma 3.4 (Official scale identities). Define
+                                          3       3                              3
+                         CCZ (3) :=         · 4π = ,               κ := CCZ (3) = .
+                                         8π       2                              2
+Then
+                                          κ   3           3     9
+                               4κ = 6,      = ,      κ′ := κ = .
+                                          4   8           4     8
+These identities replace every former stand-in κ = 1. They do not assert that the operator norm
+of ∇ ◦ KBS on L∞ equals 3/2.
+Proof. The product 8π3
+                       · 4π = 23 is cancellation of π. The three companions are arithmetic.
+The last sentence is the distinction between a spherical prefactor and a Calderón–Zygmund
+endpoint; see Lemma 4.1.
+
+3.5    Hölder and Young
+Lemma 3.5 (Hölder gate on T3 ). Let φ ∈ L∞ (T3 ) and ω ∈ L6 (T3 ). Then
+                        Z                              Z                   2/3
+                              |ω|4 |φ| dλ ≤ ∥φ∥L∞                 |ω|6 dλ          λ(T3 )1/3 .        (6)
+                         T3                                  T3
+
+Proof. Write |ω|4 |φ| = |φ| · |ω|4 · 1. Hölder with conjugate exponents 3/2 and 3 on the pair
+(|ω|4 , 1) gives     Z           Z
+                                            2/3 
+                                             Z            Z1/3                 2/3
+                       |ω|4 ≤         |ω|6            13          =       |ω|6          λ(T3 )1/3 .
+
+Multiplying by ∥φ∥L∞ yields (6).
+
+Lemma 3.6 (Young at the official parameter). Let a, b ≥ 0 and let ε = 3/8. Then
+                                                                √       √
+                  3 3/2                        2  8 1/2 2 2 2        4 2
+            ab ≤ a + C3/8 b ,     3
+                                       C3/8 =            = · √ = √ .                                  (7)
+                  8                            3 3          3     3    3 3
+Consequently, writing I4 (φ) = |ω|4 |φ| dλ and I6 = |ω|6 dλ,
+                                 R                                R
+
+                                               3                3/2
+                             6M I4 (φ) ≤         I6 + CY M 3 ∥φ∥L∞ λ(T3 )1/2 ,                        (8)
+                                               8
+for an explicit CY assembled from (6) and (7), provided one already has a pointwise or integrated
+stretching bound of size 6M I4 (φ). That proviso is Lemma 4.2, not this lemma.
+Proof. Young’s inequality for conjugate exponents p = 3/2 and q = 3 reads
+                                          ap      bq
+                                 ab ≤ ε      + Cε            after rescaling,
+                                          p       q
+                                                            p         q
+or, in the elementary form obtained from xy ≤ xp + yq with x = ε1/p a and y = ε−1/p b,
+
+                                     a3/2 2 −1/2 3 2 3/2 2 −1/2 3
+                            ab ≤ ε       + ε    b = εa + ε     b .
+                                     3/2  3        3     3
+The tree’s official parameter is the scale tag εY = κ/4 = 3/8 applied to the integrated stretching
+form, not necessarily this abstract p = 3/2 slot. The identity (7) records one consistent ele-
+                                            2/3
+mentary Young pair. Substituting a = I6 and b = 6M ∥φ∥L∞ λ(T3 )1/3 into (6) and applying a
+Young pair produces a bound of the shape (8). The numerical factor CY is elementary once the
+pair is fixed. What this lemma does not supply is the justification that stretching contributes
+a term of size 6M I4 (φ) rather than a larger multiple involving the true endpoint constant of
+∇ ◦ KBS .
+
+                                                       4
+Lemma 3.7 (Sobolev embedding on T3 ). There exists CSob = CSob (T3 ) such that
+                       ∥f ∥L6 (T3 ) ≤ CSob ∥f ∥H 1 (T3 )            for all f ∈ H 1 (T3 ).
+Proof. This is the Sobolev embedding H 1 (T3 ) ,→ L6 (T3 ), which holds because 1 − 3/2 = −1/2
+and L6 is the critical Lebesgue space for H 1 in dimension three (equivalently W 1,2 (T3 ) ,→
+L6 (T3 )). A complete first-principles proof proceeds from the Gagliardo–Nirenberg–Sobolev
+inequality on R3 applied to a periodic extension, or from Fourier series
+                           ∥f ∥L6 ≤ C∥⟨D⟩f ∥L2 ,              ⟨D⟩ = (1 − ∆)1/2 ,
+which is a Mihlin multiplier theorem on T3 . We record it as a classical embedding with a
+domain-dependent constant and do not treat CSob as an open Frohmanian object.
+
+3.6   Published local existence and continuation
+Lemma 3.8 (Kato local existence). Let s > 5/2 and u0 ∈ H s (T3 ; R3 ) with div u0 = 0. There
+exist Tloc = Tloc (∥u0 ∥H s , ν) > 0 and a unique solution
+                              u ∈ C [0, Tloc ]; H s ∩ C 1 [0, Tloc ]; H s−2
+                                                                                 
+
+of (1).
+Proof. This is the standard Kato–Fujita local theory in Sobolev spaces above the critical index.
+Mild solutions of the integral equation
+                                               Z t
+                          u(t) = eνt∆ u0 −           eν(t−τ )∆ Π div(u ⊗ u)(τ ) dτ
+                                                0
+are constructed by a Picard contraction in
+                                               C [0, T ]; H s
+                                                                
+
+for T small enough that
+                                               C∥u0 ∥2H s T 1/2
+is less than ∥u0 ∥H s , using the estimate
+                                   ∥Π div(u ⊗ u)∥H s−2 ≤ C∥u∥2H s
+and the analytic bound ∥eνt∆ ∥H s−2 →H s ≤ C(νt)−1 . Uniqueness in this class is likewise standard.
+The existence time depends on ∥u0 ∥H s and ν only. We cite Fujita–Kato (1964) and Kato (1972)
+and treat the lemma as classical. A Lean transcription remains a software remainder; it is not
+a mathematical remainder.
+Lemma 3.9 (Beale–Kato–Majda continuation). Let u be a classical solution of (1) on a max-
+imal interval [0, T∗ ). If
+                                       Z T∗
+                                              ∥ω( · , t)∥L∞ dt < ∞,
+                                        0
+then T∗ = ∞.
+Proof. The Beale–Kato–Majda
+                RT
+                                 criterion states that the H s norm, s > 5/2, remains finite on
+[0, T ] whenever 0 ∥ω∥L∞ dt is finite. The logarithmic Sobolev estimate
+                             ∥∇u∥L∞ ≤ C 1 + ∥ω∥L∞ log(1 + ∥u∥H s )
+                                                                                  
+
+together with the energy inequality for ∥u∥H s produces
+                           d
+                              ∥u∥H s ≤ C∥ω∥L∞ ∥u∥H s log(1 + ∥u∥H s ),
+                           dt
+which integrates to a finite bound on any interval where ∥ω∥L∞ is finite. Maximality of T∗
+                                                           R
+
+therefore forces T∗ = ∞. We cite Beale–Kato–Majda, Commun. Math. Phys. 94 (1984), and
+treat the lemma as classical.
+
+                                                          5
+3.7   Elementary Biot–Savart identities
+Lemma 3.10 (Curl of a gradient vanishes). For p ∈ C 2 (T3 ), curl ∇p = 0.
+
+Proof. Mixed partials commute: (curl ∇p)i = εijk ∂j ∂k p = 0 by ∂j ∂k = ∂k ∂j .
+
+Lemma 3.11 (Divergence of Biot–Savart, Fourier form). On T3 , if ω ∈ C ∞ and div ω = 0,
+and if
+                            iξ
+                    û(ξ) = 2 × ω̂(ξ)     (ξ ̸= 0),    û(0) = 0,
+                           |ξ|
+then div u = 0 and curl u = ω.
+
+Proof. In Fourier space, div
+                         [u(ξ) = iξ · û(ξ) = iξ · (ξ × ω̂)/|ξ|2 = 0. Likewise
+                                            iξ               ξ(ξ · ω̂)
+                        curl
+                        \    u(ξ) = iξ ×         × ω̂ = ω̂ −             = ω̂,
+                                            |ξ|2                 |ξ|2
+
+where the last step uses ξ · ω̂ = 0 from div ω = 0. This identifies u = KBS ∗ ω as a Fourier
+multiplier and proves div u = 0 without a principal-value interchange on R3 . The R3 interchange
+remains a separate analytic remainder if the periodisation is not used.
+
+
+4     Obstruction lemmas: expanded to the missing piece
+The lemmas in this section are the hypotheses of Theorem 2.1 that are not classical theorems at
+the endpoint required by the criterion. Each proof is written until the estimate that is missing.
+
+Lemma 4.1 (Strain endpoint). There exist a Banach space X(T3 ) and a constant C∗ such that
+
+                                       ∥S∥L∞ ≤ C∗ ∥ω∥X
+
+for every smooth divergence-free ω, with S the deformation tensor of u = KBS ∗ ω.
+
+Proof. The kernel representation is
+                                             Z
+                              S(x) = P.V.          K(x − y)ω(y) dλ(y)
+                                              T3
+
+with K as in the coefficient-correction section, angular factor
+
+                              A(θ, ω) = (θ × ω) ⊗ θ + θ ⊗ (θ × ω).
+
+A pointwise bound
+                                  ∥A(θ, ω)∥op ≤ 2|θ × ω| ≤ 2|ω|
+together with area(S 2 ) = 4π produces the scale tag CCZ (3) = 3/2. The following piece is
+missing to meet Clay standards. The Calderón–Zygmund operator ω 7→ S is bounded on Lp (T3 )
+for 1 < p < ∞, and is not bounded on L∞ . The estimate ∥S∥L∞ ≤ 23 ∥ω∥L∞ is therefore false
+as a general statement. The missing piece is an endpoint bound in a space that does control
+∥S∥L∞ , classically B∞,1
+                     0   or a Kozono–Taniuchi logarithmic substitute
+
+                           ∥S∥L∞ ≤ C∥ω∥BM O 1 + log(1 + ∥ω∥H s ) .
+                                                                        
+
+
+Either substitute changes the Young bookkeeping: the factor 6M I4 need not be the stretching
+contribution. Until that endpoint is fixed and the constant C∗ is tracked into Cabs , Lemma 4.2
+cannot feed Lemma 3.6. Chat fragments that set C∗ = 3/2 on L∞ are not used.
+
+
+
+                                                    6
+Lemma 4.2 (Stretching identification). On a classical solution of (2), after mollification,
+                          Z
+                                ⟨ωε , (ωε · ∇)uε ⟩φε dλ ≤ C∗ Mε I4 (φε ) + Cε ,
+                           T3
+
+with Cε → 0 as ε → 0 in the sense used to pass to the limit in Sε , and with C∗ the constant of
+Lemma 4.1.
+Proof. By Lemma 3.1,
+
+                           ⟨ωε , (ωε · ∇)uε ⟩ = ⟨ωε , Sε ωε ⟩ ≤ ∥Sε ∥L∞ |ωε |2 .
+
+Integrating against φε ≥ 0 gives
+                                 Z
+                                     ⟨ωε , (ωε · ∇)uε ⟩φε ≤ ∥Sε ∥L∞ I4 (φε ).
+
+If Lemma 4.1 supplied ∥Sε ∥L∞ ≤ C∗ Mε , the claim would follow with a commutator comparing
+Sε to the strain of uε = KBS ∗ ωε . The following piece is missing to meet Clay standards. No
+such L∞ bound is available from the scale tag 3/2. The missing piece is therefore identical to
+the missing piece of Lemma 4.1, plus mollifier commutators
+
+                         S(ωε ) − Sε (ω),          (ωε · ∇)uε − ηε ∗ (ω · ∇)u .
+                                                                                   
+
+
+Those commutators can be written in standard paraproduct form. They vanish as ε → 0 on a
+fixed classical interval [0, T ] ⊂ [0, T∗ ), which is legitimate, but the constants obtained that way
+may depend on ∥u∥C 2 ([0,T ]×T3 ) and therefore cannot be fed into a majorant whose coefficients are
+required to depend only on u0 and ν. That dependence is the circularity Lemma 4.5 forbids.
+
+Lemma 4.3 (Transported weight). There exists a family of nonnegative scalars φε such that
+∥φε (t)∥L∞ is dominated by a function of t whose ODE coefficients depend only on ∥u0 ∥H s and
+ν.
+Proof. If φ is defined by linear transport
+
+                                  ∂t φ + u · ∇φ = 0,         φ( · , 0) = φ0 ,
+
+then ∥φ(t)∥L∞ = ∥φ0 ∥L∞ by the maximum principle for a divergence-free flow. That bound is
+solution-independent in the weight, and is filled. The following piece is missing to meet Clay
+standards. If the manuscript uses a weight that grows in response to stretching (a quadratic or
+quartic factor forced by the tether), then ∥φ(t)∥L∞ is no longer conserved, and its ODE inherits
+the same unknown strain constant C∗ . The missing piece is a source term for φ whose size is
+controlled by initial data alone. Chat fragments that take φ ≡ 1 make the tether ornamental
+and move the problem entirely onto Lemma 4.2. Either choice must be declared; they cannot
+be mixed.
+
+Lemma 4.4 (Absorption constant). The constant Cabs in the schematic inequality
+                       d
+                                                                 Z
+                                                 3/2 
+                          Sε ≤ Cabs 1 + Mε3 ∥φε ∥L∞ − κ′             |ωε |6 φε dλ + Rε
+                       dt
+depends only on κ = 3/2, CSob , λ(T3 ), and ν.
+Proof. Given Lemmas 3.5, 3.6, 3.7, and a stretching contribution of size C∗ M I4 (φ), the Young
+pair produces an explicit Cabs = Cabs (C∗ , CSob , λ(T3 )). With κ = 3/2 one may compute the
+algebraic part of that expression. The following piece is missing to meet Clay standards. The
+number C∗ is not known to equal 3/2, and may depend on the solution if a logarithmic endpoint
+is used. Until Lemma 4.1 supplies a solution-independent C∗ , Cabs is not a function of u0 and
+ν alone.
+
+                                                       7
+Lemma 4.5 (Non-circular majorant). There exists a scalar Y ∈ C 1 ([0, ∞); [0, ∞)) whose ODE
+
+                             Y ′ = F (Y ),        Y (0) = Y0 ∥u0 ∥H s , ν
+                                                                            
+
+
+has coefficients independent of {M (t) : t ≥ 0}, such that M (t) ≤ Y (t) on the existence interval.
+
+Proof. Comparison for scalar ODEs is classical: if M ′ ≤ F (M ) and Y ′ = F (Y ) with M (0) ≤
+Y (0), then M ≤ Y on the common interval of existence. A clipped cubic F (y) = Cabs y 2 − κ′′ y 3
+with κ′′ > 0 even admits global solutions by barrier trapping in [0, max(Y0 , Cabs /κ′′ )]. That
+comparison step is filled. The following piece is missing to meet Clay standards. The differential
+inequality M ′ ≤ F (M ) with an F built only from u0 and ν is precisely a uniform bound on
+vortex stretching for arbitrary smooth data. That estimate is the analytic core of the Clay
+problem. No chat fragment under this account supplies it without either inserting sup M into
+Cabs (circular) or modifying the PDE (inadmissible). The missing piece is therefore not a routine
+ODE lemma. It is the missing a priori bound.
+
+Lemma 4.6 (Mollifier limit). Sε (t) → S(t) and the commutators Cε , Rε vanish as ε → 0, with
+constants compatible with Lemma 4.5.
+
+Proof. On any compact classical interval [0, T ] ⊂ [0, T∗ ), standard mollification yields
+
+                             ωε → ω    in C k ,         Sε → S   in C k−1 ,
+
+and commutators vanish. That passage is filled on a pre-existing classical interval. The following
+piece is missing to meet Clay standards. Using those commutator bounds to continue past a
+putative singularity requires constants that remain controlled as T ↑ T∗ . If the commutator
+estimates depend on ∥u∥C 2 ([0,T ]×T3 ) , they explode with M (t) and cannot close Lemma 4.5. The
+missing piece is a commutator estimate whose constants depend only on u0 and ν.
+
+Lemma 4.7 (Jacobi / cocycle of a tethered bracket). If a bilinear correction B is part of the
+argument, then d2 B = 0 on the reduced coadjoint orbit.
+
+Proof. The algebraic expansion of a bilinear coadjoint correction into a nine-term cyclic sum is
+a finite computation in first-order derivatives. Individual pairings can be integrated by parts
+on T3 using div u = 0. The following piece is missing to meet Clay standards. The missing
+piece is the verification that the particular kernel proposed for B cancels in every slot while
+remaining degenerate on H (Lemma 4.8) and while contributing a nonzero negative term to
+dt M (Lemma 4.2). Those three demands are in tension. Chat fragments that treat degeneracy
+ d
+
+and feedback as simultaneous properties of the same term, without an explicit splitting into a
+Lyapunov weight versus a modified evolution, are not used. If B is dropped and φ is an ordinary
+weight, this lemma is vacated and Theorem 2.1 is read as a Lyapunov criterion on unmodified
+Navier–Stokes.
+
+Lemma 4.8 (Degeneracy versus feedback). A correction used as dynamics satisfies B(F, H) =
+0. A weight used as a Lyapunov device is not required to be a Poisson correction. The two
+readings are not mixed.
+
+Proof. If B( · , H) = 0, the Hamiltonian evolution is exactly Euler and no extra term appears
+in (2). Feedback into dt d
+                           M must then come from a Lyapunov functional, not from a modified
+bracket. If B( · , H) ̸= 0, the evolution is not (2) and Theorem 2.1 does not apply to Navier–
+Stokes. This is a logical dichotomy, not an estimate. It is filled as logic and left open as
+geometry.
+
+
+
+
+                                                    8
+5    What chat fragments contribute, and what they do not
+The following fragments from prior conversations are used.
+
+• The ruling that a metriplectic extra damping term changes the PDE and is excluded. That
+  is incorporated as the exact system (1)–(2).
+
+• The ruling that κ = 1 is illegitimate in three dimensions. That is Lemma 3.4.
+
+• The ruling that an a-posteriori Lyapunov functional on the exact equations is a criterion,
+  not a completed Clay proof. That is the official status of Theorem 2.1.
+
+• Route A: geometric claims, if any, are separated from the analytic criterion. That is Lemma 4.8.
+
+    The following fragments are not used.
+
+• Any construction in which B is simultaneously degenerate on H and the source of a new
+  negative term in the vorticity equation.
+
+• Any estimate that inserts supt<T M (t) into Cabs or into the existence time of the majorant.
+
+• Any identification of C∗ with 3/2 on L∞ .
+
+• Any claim that filling classical lemmas (transport, viscosity, Kato, BKM, Young) constitutes
+  global regularity.
+
+
+6    What would convert Theorem 2.1 into the Clay theorem
+Exactly one additional ingredient is required: a proof of Lemmas 4.1, 4.2, 4.4, 4.5, and 4.6 with
+constants depending only on ∥u0 ∥H s and ν, for arbitrary smooth divergence-free u0 . Those five
+lemmas are the same missing a priori bound under different names. Proving them would prove
+Theorem 2.1 unconditionally, which is the Clay statement, which is global regularity.
+   No rearrangement of those names, and no observation that incompressible flow and global
+regularity share an “enigma,” discharges the estimate.
+
+
+
+
+                                               9
+7     Summary of filled versus open
+
+    Lemma                        Status                  Role in Theorem 2.1
+    Stretching = ω · Sω          filled                  algebra
+    Transport IBP on T3          filled                  cancels convection
+    Viscous IBP                  filled                  sign of dissipation
+    κ = 3/2 arithmetic           filled                  coefficient lock
+    Hölder on T3                filled                  gate
+    Young pair                   filled algebraically    pending C∗
+    Sobolev H 1 ,→ L6            classical, filled       gate
+    Kato local existence         classical, cited        starts the clock
+    BKM continuation             classical, cited        upgrades M < ∞
+                                                                    R
+
+    curl ∇p = 0                  filled                  pressure drops from vor-
+                                                         ticity
+    Fourier Biot–Savart on T3    filled                  div u = 0
+    Strain endpoint in L∞        obstruction             feeds C∗
+    Stretching identification    obstruction             feeds 6M I4
+    Weight independent of M      partial / obstruction   feeds φ
+    Cabs (u0 , ν) only           obstruction             feeds the ODE
+    Non-circular majorant        obstruction             the missing bound
+    Mollifier constants vs. u0   obstruction             passage to the limit
+    Jacobi of B                  vacated or obstruc-     geometry, not required if
+                                 tion                    B is dropped
+
+
+
+
+                                  10
+

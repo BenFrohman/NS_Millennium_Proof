@@ -1,0 +1,3 @@
+import NS_Millennium_Proof.Modules.SymplecticTether
+#print axioms FrohmanianTether.TetherIntegralPreserved
+#print axioms FrohmanianTether.tether_coadjoint_invariance

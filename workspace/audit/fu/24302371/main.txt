@@ -1,0 +1,1057 @@
+Identiﬁed strain kernel A(θ, ω) and a conditional regularity
+criterion for 3D Navier–Stokes (κ = 3/2): named open hypotheses,
+gaps T1–T10, and the current Lean implications
+Working notes; not a Clay claim
+Benjamin Stanley Frohman
+Independent Researcher, Texas, United States
+ORCID: 0009-0006-7068-3718
+frohmanbenjamin@gmail.com
+16 November 2026 (third version of the gaps record; earlier versions 18 September and 12
+November 2026)
+Abstract
+This is the third version of the gaps record 10.5281/zenodo.22835069 (concept
+10.5281/zenodo.22835068; second version 10.5281/zenodo.24148258). It does not claim
+the Clay Millennium statement, and it does not derive any estimate that would close a named
+gap or prove an open hypothesis.
+The earlier record recorded (i) the Biot–Savart identiﬁcation of the strain kernel A(θ, ω) =
+(θ×ω)⊗θ+θ⊗(θ×ω), (ii) the prefactor lock κ = CCZ (3) = (3/8π)·4π = 3/2 6= 1, (iii) same-point
+cancellation and the | sin φ| pairing, and (iv) a conditional regularity criterion: if a data-only or
+energy-controlled bound on kSk∞ exists in a space that controls the Beale–Kato–Majda integral,
+then the classical solution on T3 exists globally. Named gaps T1–T10 (Lemmas 4.1–4.6 in that
+record’s abstract) record why that bound is not derived there. An L∞ bound on S on the
+whole torus is emptiness of the singular set, not P1 -nullity (Caﬀarelli–Kohn–Nirenberg). The
+two-point strain pairing that would discharge Constantin–Feﬀerman is not free.
+This update restates those gaps faithfully from the published PDF, records how the abstract’s
+phrase “T1–T10” sits relative to the lemmas actually printed in the body, and inserts the current
+exact Lean statements of the named open hypotheses and of the conditional implications
+NamedHypothesis =⇒ GlobalRegularity,
+pinned to public commits. The rate and bound remain open. By the Beale–Kato–Majda criterion, the remaining periodic closing bound is as hard as Feﬀerman’s Statement (B) itself.
+New in this version: (a) every Lean citation is re-pinned to a current commit whose continuous integration passed, with line numbers re-checked; (b) the Lean libraries cited here contain
+no sorry, admit, native_decide, or axiom declaration in any built module (counts in §10);
+(c) a kernel axiom certiﬁcate, produced by #print axioms for every cited declaration, shows
+only propext, Classical.choice, and Quot.sound; (d) a status table for T1–T10 (§8) states,
+item by item, what is formalized and what is open. No T-item is closed. This version also cites
+the conditional Feﬀerman reduction paper 10.5281/zenodo.24152113.
+
+This is not a Clay Millennium claim. The open cubic rate M 0 ≤ CM 2 − κM 3 and the
+uniform vorticity closing bound are unproved for general smooth, divergence-free, ﬁnite-energy
+data. The architecture of the formalizations is an implication from a named Prop to global
+regularity. Composition would give an unconditional theorem only after a proof of that Prop
+exists. No such proof is oﬀered here.
+1
+
+Contents
+1 Purpose and non-claims
+
+3
+
+2 Choice of record and overlap
+
+3
+
+3 The oﬃcial conditional criterion of the gaps record
+
+4
+
+4 Gaps T1–T10, restated from 10.5281/zenodo.22835069
+4.1 How the label “T1–T10” is used in the source . . . . . . . . . . . . . . . . . . . . . .
+4.2 Lemma 4.1 (strain endpoint) — T1 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3 Lemma 4.2 (stretching identiﬁcation) — T2 . . . . . . . . . . . . . . . . . . . . . . .
+4.4 Lemma 4.3 (transported weight) — T3 . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.5 Lemma 4.4 (absorption constant) — T4 . . . . . . . . . . . . . . . . . . . . . . . . .
+4.6 Lemma 4.5 (non-circular majorant) — T5 . . . . . . . . . . . . . . . . . . . . . . . .
+4.7 Lemma 4.6 (molliﬁer limit) — T6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.8 Lemma 4.7 (Jacobi / cocycle) — T7 . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.9 Lemma 4.8 (degeneracy versus feedback) — T8 . . . . . . . . . . . . . . . . . . . . .
+4.10 The two abstract scope statements — T9 and T10 . . . . . . . . . . . . . . . . . . .
+
+4
+4
+5
+5
+6
+6
+6
+6
+6
+6
+7
+
+5 Named Lean hypotheses, copied from the public commits
+7
+5.1 Periodic closing bound (sdiﬀ, commit 0727e6d) . . . . . . . . . . . . . . . . . . . . . 7
+5.2 Physical-class rate and bound (sdiﬀ, same commit) . . . . . . . . . . . . . . . . . . . 7
+5.3 Repaired rate on Feﬀerman’s smooth class (sdiﬀ, pull request #4) . . . . . . . . . . 8
+5.4 One-sided direction depletion (feﬀerman, main after v1.5.0) . . . . . . . . . . . . . . 9
+5.5 The same names in NS_Millennium_Proof (commit b8d2f1e) . . . . . . . . . . . . . 10
+6 Known refutations and vacuities
+
+10
+
+7 Conditional implications
+7.1 sdiﬀ, after the BKM pillar (commit 0727e6d) . . . . . . . . . . . . . . . . . . . . . .
+7.2 sdiﬀ, Feﬀerman Problem (A) reduction (same commit) . . . . . . . . . . . . . . . . .
+7.3 feﬀerman v1.5.0 (commit 8d8a0cf) . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.4 NS_Millennium_Proof v2.5.0 (commit b8d2f1e) . . . . . . . . . . . . . . . . . . . .
+
+11
+11
+12
+12
+13
+
+8 Status of T1–T10 in this version
+
+13
+
+9 Honest scope
+
+14
+
+10 Reproducibility
+
+15
+
+A Axiom output
+
+16
+
+2
+
+1
+
+Purpose and non-claims
+
+This note has one job: to put in one place, without promotional language,
+1. the precise statements of the named open Lean hypotheses now used in the author’s public
+repositories,
+2. a faithful restatement of the obstruction lemmas of 10.5281/zenodo.22835069 (the gaps document), including the abstract’s wording on T1–T10 and the sentence “the pairing is not free,”
+3. the current conditional theorems as implications NamedHypothesis → GlobalRegularity, with
+exact names and ﬁle locations,
+4. the honest scope: the rate and bound are open; the remaining periodic bound is equivalent in
+diﬃculty to Clay (B); this is not a Clay claim; and the T3 = R3 caveats and known refutations
+are recorded rather than smoothed over.
+Nothing in this note invents a derivation that would close T1–T10, prove M 0 ≤ CM 2 − κM 3 for
+general data, or convert any conditional theorem into Statement (B). Line breaks inside Lean listings
+are typographic only; the repository text at the cited commit and file:line is authoritative.
+
+2
+
+Choice of record and overlap
+
+This document is a new version of the existing concept 10.5281/zenodo.22835068, whose ﬁrst
+version is 10.5281/zenodo.22835069 (18 September 2026; one ﬁle, the oﬃcial proposed theorem
+PDF). That ﬁrst record is the author’s gaps document: its description is the source of the phrase
+“Named gaps T1–T10 (Lemmas 4.1–4.6)” and of the sentence “The two-point strain pairing that
+would discharge Constantin–Feﬀerman is not free.” A later GitHub–Zenodo snapshot of the same
+repository, 10.5281/zenodo.23867482 (concept 10.5281/zenodo.23867481), is a source zip with
+a changelog and does not replace the gaps PDF. The second version, 10.5281/zenodo.24148258
+(12 November 2026), is the previous edition of this note. This third version supersedes it within
+the same concept; no new concept is created.
+A new concept would have duplicated that ledger. The other current records already have their
+own jobs and are cited, not re-released:
+• 10.5281/zenodo.22240168 — geometric reduction for the vorticity direction; remaining estimates left open; not a Clay solution.
+• 10.5281/zenodo.24144846 — Feﬀerman formalization v1.5.0 (one-sided depletion hypothesis;
+the old two-sided form is kernel-refuted).
+• 10.5281/zenodo.24144852 (concept 10.5281/zenodo.23749844) — conditional reduction
+note, with the word “unconditional” removed and a vacuity erratum added.
+• 10.5281/zenodo.24144853 (concept 10.5281/zenodo.23627609) — NS_Millennium_Proof
+v2.5.0, conditional title and explicit “not a Clay Millennium claim” scope.
+• 10.5281/zenodo.24144856 (concept 10.5281/zenodo.23652842) — tether regularity v1.3.0,
+with the P5 overclaim withdrawn and the statement that its T3 is really R3 .
+
+3
+
+• Concept 10.5281/zenodo.24081999 (latest published version 10.5281/zenodo.24148268, version 0.1.6) — sdiﬀ formalization (the BKM pillar was merged on GitHub on 11 November 2026 at
+commit 4aba751). The commit 0727e6d cited below adds only the axiom script and certiﬁcate
+of this note to that tree.
+• 10.5281/zenodo.24066255 — two-point strain–direction pairing note.
+• 10.5281/zenodo.24152113 — A Kernel-Checked Conditional Reduction of Feﬀerman’s Navier–
+Stokes Problem (A) to a Lipschitz Tether Rate and a Kato Maximal Solution (version 1.0). It
+builds on this gaps record; it is cited here for the reduction that §7.2 summarizes. Its hypotheses
+are open, as here.
+The unpublished draft 23940666 is not modiﬁed or reused.
+
+3
+
+The oﬃcial conditional criterion of the gaps record
+
+The published PDF of 10.5281/zenodo.22835069 states the oﬃcial proposed theorem as follows
+(Theorem 2.1, notation unchanged in substance). Let s > 5/2 and let u0 ∈ H s (T3 ; R3 ) satisfy
+div u0 = 0. Let u be the unique Kato solution of incompressible Navier–Stokes
+∂t u + (u · ∇)u + ∇p = ν∆u,
+
+div u = 0,
+
+u(·, 0) = u0 ,
+
+on its maximal classical interval [0, T∗ ), with vorticity ω = curl u. Assume Lemmas 4.1, 4.2, 4.3,
+4.4, 4.5, and 4.6 of that note, with constants depending only on ku0 kH s and ν. Then
+∫ T∗
+0
+
+kω(·, t)kL∞ dt < ∞,
+
+hence T∗ = ∞ by the Beale–Kato–Majda continuation lemma cited there, and u remains smooth
+for all t ≥ 0.
+Remark 3.1 (Status, quoted in substance from Remark 2.2). Theorem 2.1 is not the Clay theorem
+until every cited lemma is a theorem. The lemmas marked “classical, ﬁlled” in that note are
+theorems. The lemmas marked “obstruction” are not. Filling those hypotheses with ﬁrst-principles,
+non-circular, solution-independent estimates would be the Clay proof. Declaring them ﬁlled because
+the names coincide is circular.
+
+4
+
+Gaps T1–T10, restated from 10.5281/zenodo.22835069
+
+4.1
+
+How the label “T1–T10” is used in the source
+
+The body of the published PDF never prints the tokens T1, . . . , T10. The obstruction section is
+written as Lemmas 4.1–4.8. The abstract and the deposit description say: “Named gaps T1–T10
+(Lemmas 4.1–4.6) record why that bound is not derived here.” The same abstract adds two scope
+statements that are not numbered as lemmas: an L∞ bound on S on the whole torus is emptiness
+of the singular set, not P1 -nullity (Caﬀarelli–Kohn–Nirenberg); and “The two-point strain pairing
+that would discharge Constantin–Feﬀerman is not free.”
+This note does not invent a numbering that the PDF does not print. It restates every named
+obstruction in that record, and records the following reading of the abstract’s phrase T1–T10, which
+is a ledger reading rather than a typographic fact of the PDF:
+4
+
+Label
+
+Source in 22835069
+
+What it blocks
+
+T1
+
+Lemma 4.1, strain endpoint
+
+T2
+
+Lemma 4.2, stretching
+identiﬁcation
+Lemma 4.3, transported
+weight
+
+a solution-independent space X and constant C∗ with kSkL∞ ≤
+∫C∗ kωkX
+hωε , (ωε ·∇)uε iϕε ≤ C∗ Mε I4 (ϕε )+ Cε with commutators compatible with a data-only majorant
+a weight ϕε whose L∞ ODE coeﬃcients depend only on ku0 kH s
+and ν (if ϕ ≡ 1, the tether is ornamental and the problem moves
+onto Lemma 4.2)
+Cabs depending only on κ = 3/2, CSob , λ(T3 ), and ν
+
+T3
+
+T4
+T5
+T6
+
+Lemma 4.4, absorption
+constant
+Lemma 4.5, non-circular
+majorant
+Lemma 4.6, molliﬁer limit
+
+T7
+
+Lemma 4.7, Jacobi/cocycle
+of B
+
+T8
+
+Lemma 4.8, degeneracy
+versus feedback
+
+T9
+
+abstract / description
+
+T10
+
+abstract / description
+
+a comparison function Y whose ODE coeﬃcients are independent of {M (t) : t ≥ 0}, with M ≤ Y
+commutator constants that remain controlled as T ↑ T∗ , depending only on u0 and ν
+veriﬁcation of a tethered bracket that is simultaneously degenerate on H, Jacobi, and a source of a new negative term in
+d
+dt M (in tension; vacated if B is dropped)
+the dichotomy: a Poisson correction with B(·, H) = 0 cannot
+supply a new term in the vorticity equation; a nonzero correction changes the PDE
+an L∞ bound on S on the whole torus is emptiness of the
+singular set, not P1 -nullity (CKN)
+the two-point strain pairing that would discharge Constantin–
+Feﬀerman is not free
+
+T1–T6 are exactly the six hypotheses of Theorem 2.1. Section 6 of the source says that those
+ﬁve analytic pieces (4.1, 4.2, 4.4, 4.5, 4.6), with 4.3 the weight, “are the same missing a priori bound
+under diﬀerent names.” Proving them would prove Theorem 2.1 unconditionally, which is the Clay
+statement. No rearrangement of the names discharges the estimate.
+
+4.2
+
+Lemma 4.1 (strain endpoint) — T1
+
+There exist a Banach space X(T3 ) and a constant C∗ such that kSkL∞ ≤ C∗ kωkX for every smooth
+divergence-free ω, with S the deformation tensor of u = KBS ∗ ω.
+The source writes the kernel representation with angular factor A(θ, ω) = (θ×ω)⊗θ+θ⊗(θ×ω),
+and records the scale tag CCZ (3) = 3/2. It then stops: the Calderón–Zygmund operator ω 7→ S is
+bounded on Lp (T3 ) for 1 < p < ∞ and is not bounded on L∞ . The estimate kSkL∞ ≤ 23 kωkL∞ is
+0
+therefore false as a general statement. A Kozono–Taniuchi or Ḃ∞,1
+substitute changes the Young
+∞
+bookkeeping. Chat fragments that set C∗ = 3/2 on L are not used. Until the endpoint is ﬁxed,
+Lemma 4.2 cannot feed the Young absorption.
+
+4.3
+
+Lemma 4.2 (stretching identiﬁcation) — T2
+
+On a classical solution, after molliﬁcation,
+∫
+T3
+
+hωε , (ωε · ∇)uε iϕε dλ ≤ C∗ Mε I4 (ϕε ) + Cε ,
+
+with Cε → 0 in the sense used to pass to the limit in Sε , and with C∗ the constant of Lemma 4.1.
+The algebraic identity hω, (ω · ∇)ui = hω, Sωi is ﬁlled. The missing piece is the same L∞ bound,
+plus molliﬁer commutators whose constants may depend on kukC 2 ([0,T ]×T3 ) and therefore cannot
+be fed into a majorant whose coeﬃcients may depend only on u0 and ν.
+5
+
+4.4
+
+Lemma 4.3 (transported weight) — T3
+
+There exists a family of nonnegative scalars ϕε such that kϕε (t)kL∞ is dominated by a function of
+t whose ODE coeﬃcients depend only on ku0 kH s and ν. Linear transport with div u = 0 conserves
+kϕkL∞ and is ﬁlled. If the weight grows in response to stretching, the ODE inherits the unknown
+C∗ . Taking ϕ ≡ 1 makes the tether ornamental and moves the problem onto Lemma 4.2. Either
+choice must be declared; they cannot be mixed.
+
+4.5
+
+Lemma 4.4 (absorption constant) — T4
+
+d
+Sε depends only on κ = 3/2, CSob , λ(T3 ), and ν.
+The constant Cabs in the schematic inequality for dt
+Given a stretching contribution of size C∗ M I4 (ϕ), Young produces an explicit Cabs (C∗ , CSob , λ(T3 )).
+Until Lemma 4.1 supplies a solution-independent C∗ , Cabs is not a function of u0 and ν alone.
+
+4.6
+
+Lemma 4.5 (non-circular majorant) — T5
+
+There exists a scalar Y ∈ C 1 ([0, ∞); [0, ∞)) whose ODE Y 0 = F (Y ) has coeﬃcients independent
+of {M (t) : t ≥ 0}, such that M (t) ≤ Y (t) on the existence interval. Scalar ODE comparison,
+including a clipped cubic F (y) = Cabs y 2 − κ00 y 3 with a global barrier, is ﬁlled. The missing piece
+is the diﬀerential inequality M 0 ≤ F (M ) with an F built only from u0 and ν. That estimate is
+the analytic core of the Clay problem. Inserting sup M into Cabs is circular; modifying the PDE is
+inadmissible.
+
+4.7
+
+Lemma 4.6 (molliﬁer limit) — T6
+
+Sε (t) → S(t) and the commutators Cε , Rε vanish as ε → 0, with constants compatible with
+Lemma 4.5. Passage on a compact classical interval [0, T ] ⊂ [0, T∗ ) is ﬁlled. Using those bounds
+to continue past a putative singularity requires constants that remain controlled as T ↑ T∗ . If they
+explode with M (t), they cannot close Lemma 4.5.
+
+4.8
+
+Lemma 4.7 (Jacobi / cocycle) — T7
+
+If a bilinear correction B is part of the argument, then d2 B = 0 on the reduced coadjoint orbit.
+The algebraic expansion is a ﬁnite computation; the missing piece is veriﬁcation that the particular
+kernel cancels in every slot while remaining degenerate on H (Lemma 4.8) and contributing a
+d
+M (Lemma 4.2). Those three demands are in tension. If B is dropped
+nonzero negative term to dt
+and ϕ is an ordinary weight, this lemma is vacated and Theorem 2.1 is a Lyapunov criterion on
+unmodiﬁed Navier–Stokes.
+
+4.9
+
+Lemma 4.8 (degeneracy versus feedback) — T8
+
+A correction used as dynamics satisﬁes B(F, H) = 0. A weight used as a Lyapunov device is
+not required to be a Poisson correction. The two readings are not mixed. If B(·, H) = 0, the
+Hamiltonian evolution is exactly Euler and no extra term appears in the vorticity equation. If
+B(·, H) 6= 0, the evolution is not Navier–Stokes and Theorem 2.1 does not apply. This is ﬁlled as
+logic and left open as geometry.
+
+6
+
+4.10
+
+The two abstract scope statements — T9 and T10
+
+An L∞ bound on S on the whole torus is emptiness of the singular set, not P1 -nullity in the
+sense of Caﬀarelli–Kohn–Nirenberg. The two-point strain pairing that would discharge Constantin–
+Feﬀerman is not free. Neither sentence is a proof of a bound, and neither is weakened here.
+
+5
+
+Named Lean hypotheses, copied from the public commits
+
+All three repositories below use toolchain leanprover/lean4:v4.30.0-rc1 and Mathlib commit
+0c154d67103f74be3a0f2c509f72ccbf5be9f2a7. The statements are Props passed as hypotheses,
+not axioms and not theorems about general Navier–Stokes solutions, except where a refutation or
+a zero-datum special case is explicitly named.
+
+5.1
+
+Periodic closing bound (sdiﬀ, commit 0727e6d)
+
+This is the remaining hypothesis of the sdiﬀ main theorem after the BKM pillar of pull request #5.
+Source: BenFrohman/frohmanian-tether-sdiff, commit 0727e6d, ﬁle FrohmanianTether/
+ClayStatements.lean, lines 575–581.
+@[expose] public def PeriodicTetherClosingBound (nu : Real) : Prop :=
+forall u0 : VelocityField,
+(forall x, div u0 x = 0) -> ContDiff Real (top : NatInfinity) u0 ->
+IsZ3Periodic u0 ->
+exists Y : Real, forall (T : Real) (u : TimeDependentVelocity)
+(p : TimeDependentPressure),
+IsPeriodicSmoothSolutionOn nu T u0 u p ->
+forall t in Set.Ico (0 : Real) T,
+vorticity_sup_norm (vorticity (u t)) <= Y
+
+(The listing spells Lean’s unicode as ASCII only in this paragraph’s display of operators; the ﬁle
+uses ν, ∀, →, >, ∃, ∈, ≤.) In words: for every smooth, divergence-free, Z3 -periodic initial datum,
+there is a ﬁnite ceiling Y , independent of the existence time T , that bounds kω(t)k∞ along every
+classical periodic solution on [0, T ).
+The pointwise bound for a single datum is PeriodicTetherBound (FrohmanianTether/
+TetherImpliesBKM.lean, line 45). The R3 /physical-class companions, which are not the Clay (B)
+hypotheses, are recorded next.
+
+5.2
+
+Physical-class rate and bound (sdiﬀ, same commit)
+
+Source: FrohmanianTether/SymplecticTether.lean, lines 401–407 and 421–431.
+@[expose] public abbrev FrohmanianTetherBound (u0 : VelocityField) (nu : Real) : Prop :=
+forall u : Real -> VelocityField, forall p : Real -> PressureField,
+NS_PDE u p nu -> u 0 = u0 -> IsPhysicalNSSolution u ->
+exists Y : Real,
+(forall tau >= (0 : Real),
+vorticity_sup_norm (vorticity (u tau)) <= Y) /\
+Continuous (fun tau : Real => vorticity_sup_norm (vorticity (u tau))) /\
+(forall tau >= (0 : Real),
+BddAbove (Set.range fun x => ||vorticity (u tau) x||))
+@[expose] public abbrev FrohmanianTetherRate (u0 : VelocityField) (nu : Real) : Prop :=
+forall u : Real -> VelocityField, forall p : Real -> PressureField,
+0 < nu -> NS_PDE u p nu -> u 0 = u0 -> IsPhysicalNSSolution u ->
+
+7
+
+exists C k : Real, 0 < C /\ 0 < k /\
+(forall s >= (0 : Real),
+DifferentiableAt Real
+(fun tau => vorticity_sup_norm (vorticity (u tau))) s) /\
+(forall s >= (0 : Real),
+deriv (fun tau => vorticity_sup_norm (vorticity (u tau))) s <=
+C * vorticity_sup_norm (vorticity (u s)) ^ 2 k * vorticity_sup_norm (vorticity (u s)) ^ 3) /\
+Continuous (fun tau : Real => vorticity_sup_norm (vorticity (u tau))) /\
+(forall tau >= (0 : Real),
+BddAbove (Set.range fun x => ||vorticity (u tau) x||))
+
+The closing form FrohmanianTetherClosingBound (ClayStatements.lean, line 48) asks the
+bound of every smooth, divergence-free, ﬁnite-energy datum in this physical class. Related
+compact-interval forms are LocalTetherRate, LocalTetherBound, LocalTetherClosingBound,
+and the earlier two-sided variants LocalTetherRateV014 and LocalTetherBoundV014.
+These physical-class statements are not theorems for general data. See §6.
+
+5.3
+
+Repaired rate on Feﬀerman’s smooth class (sdiﬀ, pull request #4)
+
+This material entered the public tree in the merge of pull request #4 (commit 0698d08, 11 November
+2026) and is present unchanged at commit 0727e6d. File FrohmanianTether/FeffermanClayA.
+lean. It is the repaired rate intended for Feﬀerman’s smooth class, after the unrestricted physicalclass rate was refuted (see §6).
+Source: BenFrohman/frohmanian-tether-sdiff, commit 0727e6d, lines 84–91.
+@[expose] public def FrohmanianTetherRateSmooth
+(u0 : VelocityField) (nu : Real) : Prop :=
+exists C kap : Real, 0 < C /\ 0 < kap /\
+forall (T : Real) (u : TimeDependentVelocity)
+(p : TimeDependentPressure),
+IsFeffermanSolutionOn nu T u0 u p ->
+ContinuousOn (Momega u) (Set.Ico (0 : Real) T) /\
+(forall s in Set.Ico (0 : Real) T, exists d : Real,
+HasDerivWithinAt (Momega u) d (Set.Ici s) s /\
+d <= C * Momega u s ^ 2 - kap * Momega u s ^ 3) /\
+(forall t in Set.Ico (0 : Real) T,
+BddAbove (Set.range fun x => ||vorticity (u t) x||))
+
+(The listing spells Lean’s unicode as ASCII; the ﬁle uses ν, u0 , ∀, ∃, →, ∧, ∈, ≤, k · k, and the
+identiﬁer Mω.) In words: along every local solution in Feﬀerman’s smooth class on R3 × [0, T ) from
+u0 , M = kωk∞ is ﬁnite, continuous on [0, T ), and has a right derivative satisfying M 0 ≤ CM 2 −κM 3
+with C, κ > 0 depending only on u0 , ν. The solution class IsFeffermanSolutionOn (same ﬁle, lines
+66–75) requires joint smoothness, the Navier–Stokes equations with f ≡ 0, the initial condition,
+and the energy inequality. The junk-derivative counterexample of §6, whose datum is nowhere
+diﬀerentiable, is excluded.
+This Prop is open for general Feﬀerman data. No derivation of it from the unmodiﬁed vorticity equation appears in the formalization or in this note. It is shown only at the zero ﬁeld:
+frohmanianTetherRateSmooth_zero (line 179).
+The companion continuation hypothesis on R3 is not the periodic BKM theorem of pull request #5.
+
+8
+
+Source: same ﬁle, lines 97–105.
+@[expose] public def R3BKMContinuationAt (nu : Real)
+(u0 : VelocityField) : Prop :=
+(exists Y : Real, forall (T : Real) (u : TimeDependentVelocity)
+(p : TimeDependentPressure),
+IsFeffermanSolutionOn nu T u0 u p ->
+forall t in Set.Ico (0 : Real) T,
+BddAbove (Set.range fun x => ||vorticity (u t) x||) /\
+Momega u t <= Y) ->
+exists (u : TimeDependentVelocity) (p : TimeDependentPressure),
+FeffermanGlobalSolution nu u0 u p
+@[expose] public def R3BKMContinuation (nu : Real) : Prop :=
+forall u0 : VelocityField,
+ContDiff Real (top : NatInfinity) u0 ->
+(forall x, div u0 x = 0) -> FeffermanDecay u0 ->
+R3BKMContinuationAt nu u0
+
+The ﬁle’s docstring records that this is the classical Kato / Beale–Kato–Majda continuation
+on R3 , “known, NOT formalized.” It is a named hypothesis, not a theorem, for general data.
+The only kernel instance is r3BKMContinuationAt_zero (line 149), at u0 = 0. Do not confuse R3BKMContinuation with PeriodicBKMContinuation, which is proved for every ν > 0
+as periodicBKMContinuation_of_classical (FrohmanianTether/Pillars/BKMContinuation.
+lean, line 145).
+A global-solution form FrohmanianTetherRateSmoothGlobal (lines 198–208) is recorded only
+to be set aside: frohmanianTetherRateSmoothGlobal_of_no_global_solution (lines 210–213)
+shows that it holds automatically for any datum that has no global smooth physical solution, and
+therefore cannot feed Clay (A).
+
+5.4
+
+One-sided direction depletion (feﬀerman, main after v1.5.0)
+
+Source: BenFrohman/fefferman-clay-navier-stokes, commit 8d8a0cf (main after the v1.5.0
+erratum; the Lean statements are unchanged from 3512caa). The one-sided correction and
+the kernel refutation of the old form were proved in commit afaab80. File FeffermanClayNS/
+HighSetDepletionAndBKM.lean, lines 240–252 (current form) and 257–269 (old form).
+@[expose] public def PeriodicDirectionDepletionBound (nu : Real) : Prop :=
+forall u0 : VelocityField,
+IsPeriodicSmoothInitialData u0 ->
+exists C_CZ k : Real, 0 < C_CZ /\ 0 < k /\
+forall (T : Real) (u : TimeDependentVelocity)
+(p : TimeDependentPressure),
+IsPeriodicSmoothSolutionOn nu u0 (fun _ _ => 0) T u p ->
+ContinuousOn (fun s => vorticity_sup_norm (vorticity (u s)))
+(Set.Icc (0 : Real) T) /\
+(forall s in Set.Ico (0 : Real) T, exists d : Real,
+HasDerivWithinAt
+(fun tau => vorticity_sup_norm (vorticity (u tau)))
+d (Set.Ici s) s /\
+d <= C_CZ * (vorticity_sup_norm (vorticity (u s))) ^ 2 k * (vorticity_sup_norm (vorticity (u s))) ^ 3)
+
+This is the open cubic rate M 0 ≤ CCZ M 2 − κ00 M 3 along every local periodic smooth solution, with M continuous on [0, T ] and M 0 a right derivative at each s ∈ [0, T ). The alias
+
+9
+
+DirectionCurvatureBound is this same deﬁnition (FeffermanClayNS/MainTheorem.lean, line 33).
+The hypothesis is open.
+The v1.0–v1.4 form, retained as PeriodicDirectionDepletionBoundOriginal, asked for a
+two-sided DifferentiableAt at every t ∈ [0, T ], including t = 0. That form is false for every ν:
+theorem old_periodicDirectionDepletionBound_unsatisfiable (nu : Real) :
+Not (PeriodicDirectionDepletionBoundOriginal nu)
+
+(HighSetDepletionAndBKM.lean, lines 741–742, ﬁrst proved in afaab80). The witness is the path
+that is zero on [0, ∞) and a linear shear with nonzero vorticity for t < 0. Every implication that
+assumed the old form was vacuously true. The corrected one-sided clause is not refuted by values
+oﬀ [0, T ] (jumpPath_oneSided_depletion_clause).
+The feﬀerman ﬁle also deﬁnes a periodic closing bound on the closed interval [0, T ]
+(PeriodicTetherClosingBound, same ﬁle, lines 275–282), and proves that the one-sided depletion
+bound implies that ceiling (periodicTetherClosingBound_of_directionDepletion).
+
+5.5
+
+The same names in NS_Millennium_Proof (commit b8d2f1e)
+
+Source: BenFrohman/NS_Millennium_Proof, commit b8d2f1e (Lean statements unchanged from
+aa9d28c). This repository uses some of the same identiﬁers with diﬀerent meanings. That fact
+is recorded, not repaired, here.
+• FrohmanianTetherBound and FrohmanianTetherRate in NS_Millennium_Proof/Modules/
+SymplecticTether.lean, lines 734–740 and 746–757, match the sdiﬀ physical-class deﬁnitions
+above, including the two-sided DifferentiableAt in the rate.
+• PeriodicTetherClosingBound in NS_Millennium_Proof/Modules/ClayStatements.lean,
+line 568, matches the sdiﬀ periodic ceiling (solutions on [0, T )).
+• PeriodicDirectionDepletionBound
+in
+NS_Millennium_Proof/Modules/
+HighSetDepletionAndBKM.lean, lines 201–210, is not the cubic rate. It is a uniform
+envelope
+(
+)
+kω(t)k∞ ≤ max kω0 k∞ , C/κdir
+along periodic solutions on [0, T ).
+The ﬁle itself says the accurate public name is
+UniformVorticityEnvelopeBound (line 214), and that the deﬁnition “assumes the ceiling itself; it does NOT assert or derive a diﬀerential inequality.”
+• A separate predicate CubicVorticityDifferentialBound (lines 218–230) is a compact-interval,
+two-sided DifferentiableAt rate, declared as “an additional hypothesis, NOT a theorem about
+Navier–Stokes solutions.” It has not been updated to the feﬀerman one-sided form.
+
+6
+
+Known refutations and vacuities
+
+These are kernel theorems, not informal caveats.
+• TetherRateCounterexample.not_forall_frohmanianTetherRate
+and
+not_
+frohmanianTetherRate_U (sdiﬀ FrohmanianTether/TetherRateCounterexample.lean, lines
+424–431; the same names in NS_Millennium_Proof/Modules/TetherRateCounterexample.
+lean, lines 624–631). The universal quantiﬁcation “for every datum, the physical-class rate
+holds” is false. A steady ﬁnite-energy ﬁeld U with a nowhere-diﬀerentiable (Takagi) component
+10
+
+“solves” NS_PDE because that class does not demand spatial diﬀerentiability and Mathlib’s
+fderiv is zero at non-diﬀerentiable points, while kω(U )k is unbounded, violating the BddAbove
+conjunct. The bound is likewise refuted: not_frohmanianTetherBound_U.
+• not_forall_localTetherRateV014 (sdiﬀ FrohmanianTether/TetherDefinitionAudit.lean,
+line 241, via the manuscript stub manuscript/lean/not_forall_localTetherRateV014.lean).
+The earlier two-sided compact-interval rate is not a theorem for every datum.
+• TetherRatePeriodicVacuity:
+on
+nonzero
+continuous
+Z3 -periodic
+data,
+FrohmanianTetherRate and FrohmanianTetherBound hold only vacuously, because such
+data are not square-integrable on the model space used by IsPhysicalNSSolution. This is
+one precise form of the T3 versus R3 (or non-L2 periodic) mismatch. The periodic Clay (B)
+hypotheses above do not use that physical-class ﬁlter.
+• old_periodicDirectionDepletionBound_unsatisfiable (feﬀerman, commit afaab80, retained on main at 8d8a0cf): the pre-v1.5.0 two-sided depletion hypothesis is false for every
+ν.
+• Zero data are a special case, not a general proof: frohmanianTetherRate_zero and
+frohmanianTetherBound_zero hold unconditionally after the physical-class repair at the zero
+ﬁeld.
+The repaired statement on Feﬀerman’s smooth class, FeffermanClayA.FrohmanianTether
+RateSmooth, is recorded in §5.3. It is open for general data; the refutation of the unrestricted rate
+is why the statement was repaired. It is not proved here.
+The tether-regularity record 10.5281/zenodo.24144856 separately states that its T3 is really
+3
+R , so its regularity theorem says nothing about periodic ﬂows, and that its P5 claim is withdrawn.
+Those corrections stand on that record; they are not reopened or strengthened here.
+
+7
+
+Conditional implications
+
+In every case the conclusion is a proved implication. The named hypotheses remain open, with one
+exception: periodic BKM continuation in the sdiﬀ library after pull request #5, which is a proved
+theorem for every ν > 0. The R3 companion R3BKMContinuation is not that theorem; it remains
+a hypothesis (see §5.3).
+
+7.1
+
+sdiﬀ, after the BKM pillar (commit 0727e6d)
+
+FrohmanianTether/Pillars/BKMContinuation.lean, lines 145 and 171–179:
+theorem periodicBKMContinuation_of_classical {nu : Real} (hnu : 0 < nu) :
+PeriodicBKMContinuation nu
+theorem clay_B_exact_of_periodic_tether_closing_bound
+(hclose : forall nu > (0 : Real), PeriodicTetherClosingBound nu) :
+Clay_B_exact
+theorem clay_B_exact_unique_of_periodic_tether_closing_bound
+(hclose : forall nu > (0 : Real), PeriodicTetherClosingBound nu) :
+Clay_B_exact_unique
+
+11
+
+The only remaining hypothesis is the open periodic closing bound. Uniqueness of the global periodic velocity is proved unconditionally (periodicSmoothSolution_unique in FrohmanianTether/
+Pillars/Uniqueness.lean); Clay_B_exact_unique is therefore equivalent to Clay_B_exact
+(clay_B_exact_unique_iff). Both sides remain open as statements about nature. The ﬁle states,
+and this note repeats, that the closing bound is, by the Beale–Kato–Majda criterion, as hard as
+Statement (B) itself. This is not a proof of Statement (B).
+The older form clay_B_exact_of_periodic_tether_bound (ClayStatements.lean,
+lines 599–601) still takes both hclose and hBKM; the pillar discharges hBKM by supplying
+periodicBKMContinuation_of_classical.
+The library also has a physical-class implication frohmanian_conditional_regularity_of_
+closing_bound (ClayStatements.lean, line 159), which still takes Kato, BKM, uniqueness, and
+LocalTetherClosingBound as binders, and conditional_regularity_of_open_hyps. Those are
+not Statement (B).
+
+7.2
+
+sdiﬀ, Feﬀerman Problem (A) reduction (same commit)
+
+FrohmanianTether/FeffermanClayA.lean, lines 124–128, with the literal conclusion Clay_A_
+Fefferman at lines 58–62:
+@[expose] public def Clay_A_Fefferman : Prop :=
+forall (nu : Real) (u0 : VelocityField),
+0 < nu -> ContDiff Real (top : NatInfinity) u0 ->
+(forall x, div u0 x = 0) -> FeffermanDecay u0 ->
+exists (u : TimeDependentVelocity)
+(p : TimeDependentPressure),
+FeffermanGlobalSolution nu u0 u p
+public theorem clay_A_fefferman_of_frohmanianTetherRateSmooth
+(hrate : forall nu > (0 : Real), forall u0 : VelocityField,
+ContDiff Real (top : NatInfinity) u0 ->
+(forall x, div u0 x = 0) -> FeffermanDecay u0 ->
+FrohmanianTetherRateSmooth u0 nu)
+(hBKM : forall nu > (0 : Real), R3BKMContinuation nu) :
+Clay_A_Fefferman
+
+In words, writing “Feﬀerman data” for smooth, divergence-free ﬁelds on R3 that satisfy Feﬀerman’s
+decay (4):
+(
+
+∀ν > 0, ∀ Feﬀerman data u0 , FrohmanianTetherRateSmooth u0 ν
+(
+
+→ ∀ν > 0, R3BKMContinuation ν
+
+)
+
+)
+
+→ Clay_A_Fefferman.
+
+The proof applies the already-formalized comparison
+ceiling_of_rate
+(lines 108–111), which turns
+(
+)
+the cubic rate into a uniform ceiling max M (u0 ), C/κ on every local Feﬀerman-class solution, and
+then invokes the R3 continuation hypothesis. Both binders remain open for general data; they are
+shown only at u0 = 0. This is not a proof of Feﬀerman’s Problem (A), and it is not a Clay claim.
+Once proofs of those two named hypotheses exist, the already-formalized implication gives
+Clay_A_Fefferman directly. No such proofs are oﬀered here, and no derivation of the repaired rate
+from the unmodiﬁed vorticity equation is supplied.
+
+7.3
+
+feﬀerman v1.5.0 (commit 8d8a0cf)
+
+FeffermanClayNS/MainTheorem.lean, lines 36–39:
+12
+
+theorem clay_reduces_to_direction_curvature_bound :
+forall nu : Real, 0 < nu -> PeriodicBKMContinuation nu ->
+(DirectionCurvatureBound nu -> Clay_B_exact nu)
+
+Here DirectionCurvatureBound is the corrected one-sided PeriodicDirectionDepletionBound,
+which is open. PeriodicBKMContinuation remains an explicit hypothesis in this repository (classical BKM, not formalized in this ﬁle). The converse is not proved.
+
+7.4
+
+NS_Millennium_Proof v2.5.0 (commit b8d2f1e)
+
+NS_Millennium_Proof/Modules/MainTheorem.lean, lines 31–41:
+theorem clay_reduces_to_direction_curvature_bound
+(hBKM : forall nu > (0 : Real), PeriodicBKMContinuation nu) :
+(forall nu > (0 : Real), DirectionCurvatureBound nu) -> Clay_B_exact
+theorem clay_reduces_to_uniform_vorticity_envelope
+(hBKM : forall nu > (0 : Real), PeriodicBKMContinuation nu) :
+(forall nu > (0 : Real), UniformVorticityEnvelopeBound nu) -> Clay_B_exact
+
+The two theorems are the same implication: DirectionCurvatureBound is an alias of the envelope
+UniformVorticityEnvelopeBound, not of a cubic rate. Both the envelope and classical BKM
+continuation remain hypotheses. No general PDE estimate is supplied. The periodic-bound form
+clay_B_exact_of_periodic_tether_bound (ClayStatements.lean, lines 592–594) likewise still
+takes both hclose and hBKM.
+
+8
+
+Status of T1–T10 in this version
+
+Three statuses are used. Closed in Lean means a kernel-checked theorem proves the item as stated
+in 10.5281/zenodo.22835069; no T-item has this status. Named hypothesis means the missing
+estimate appears in Lean only as a Prop binder in a theorem statement, never as an axiom or
+a sorry. Open means the estimate is unproved and has no separate Lean statement. Where a
+classical sub-piece of an item is formalized, the theorem is named; such a sub-piece does not close
+the item. Every name below is in the axiom certiﬁcate of §10.
+
+13
+
+Item
+
+Status
+
+Lean content (sdiﬀ 0727e6d unless stated) and what remains open
+
+T1
+
+Open; enters Lean
+through a named
+hypothesis
+
+T2
+
+Open
+
+T3
+
+Open; transport
+sub-piece formalized
+
+T4
+T5
+
+Open
+Named hypothesis;
+comparison
+sub-piece formalized
+
+T6
+
+Open
+
+T7
+
+Open; pointwise
+identity formalized
+
+T8
+
+Logic formalized;
+geometry open
+
+T9
+
+Scope statement,
+not a lemma
+Open
+
+No separate statement. Together with T2 and T4–T6 it is the missing
+a priori bound, which appears only as PeriodicTetherClosingBound
+(sdiﬀ) and PeriodicDirectionDepletionBound (feﬀerman). Open: a
+solution-independent X, C∗ with kSk∞ ≤ C∗ kωkX .
+The identity hω, (ω · ∇)ui = hω, Sωi is classical. Open: the molliﬁed
+stretching bound with constants depending only on u0 , ν.
+NavierStokes3D.transported_scalar_maximum_principle: sup-norm
+bound for a scalar transported along a covering family of characteristics,
+which is a hypothesis; the repository’s T3 is R3 . Open: a weight whose
+growth ODE depends only on u0 , ν.
+No Lean statement. Open: Cabs depending only on κ, CSob , λ(T3 ), ν.
+TetheredLyapunov.comparison_ode_exists,
+TetheredLyapunov.uniform_majorant_bound and
+FeffermanClayA.ceiling_of_rate (rate implies ceiling). The diﬀerential
+inequality M 0 ≤ F (M ) itself is the named hypothesis
+FrohmanianTetherRateSmooth (R3 , Feﬀerman class) and, periodically,
+PeriodicDirectionDepletionBound (feﬀerman 8d8a0cf). Open for
+general data.
+Proved but not closing T6:
+FrohmanianTether.Pillars.periodicBKMContinuation_of_classical
+(periodic BKM continuation; it consumes an integral bound and does not
+supply one). Open: commutator constants controlled as T ↑ T∗ .
+Symplectori.SymplecticConstraint.kksPointwise_cyclic_jacobi_id
+entity. Open: Jacobi for the particular tethered kernel together with
+d
+M.
+degeneracy on H and a negative term in dt
+FrohmanianTether.antisymmetric_correction_diagonal_zero: an
+antisymmetric (Poisson) correction vanishes on the diagonal, so it cannot
+supply the sign of (C3). Open: the geometric construction.
+Nothing to close. An L∞ bound on S on the whole torus is emptiness of
+the singular set, not P1 -nullity.
+No Lean statement. The two-point strain pairing that would discharge
+Constantin–Feﬀerman is not free.
+
+T10
+
+The certiﬁcate does not change any of these statuses. It shows only that the stated implications
+and the formalized sub-pieces are proved from the standard axioms, and that every open estimate
+enters as an explicit hypothesis.
+
+9
+
+Honest scope
+
+• The cubic rate and the uniform vorticity closing bound are open for general smooth, divergencefree, ﬁnite-energy (or periodic) data. The repaired rate FrohmanianTetherRateSmooth is likewise open for general Feﬀerman data.
+• By Beale–Kato–Majda, a time-uniform kωk∞ bound along every local periodic solution, for all
+such data, is as hard as Statement (B). The gaps T1–T6 of 22835069 are that same missing a
+priori bound under diﬀerent names.
+• The formalizations prove implications, not Statement (B), not Feﬀerman’s Problem (A), and
+not the Clay Millennium problem. In particular, clay_A_fefferman_of_frohmanianTether
+RateSmooth would yield Clay_A_Fefferman only after proofs of both of its binders exist.
+
+14
+
+• R3BKMContinuation (classical continuation on R3 ) remains a hypothesis; it is not the proved
+periodic theorem periodicBKMContinuation_of_classical.
+• Known refutations of the physical-class rate and of the old two-sided depletion hypothesis are
+theorems; they are not side remarks.
+• Where a repository’s T3 is really R3 , or where a physical-class ﬁlter excludes genuine periodic
+data, a theorem on that class is silent about Feﬀerman’s periodic Statement (B).
+• The two-point strain pairing is not free. An L∞ bound on S on the whole torus is emptiness of
+the singular set, not P1 -nullity.
+
+10
+
+Reproducibility
+
+Reproducibility box.
+Commits (continuous integration passed on each):
+• BenFrohman/frohmanian-tether-sdiff 0727e6d561ca68678eb909d8b6dd120c4a2a6e15, branch
+feat/gaps-ledger-v2, pull request #8: the main tree at c213b5a plus this note’s axiom script and
+certiﬁcate;
+• BenFrohman/fefferman-clay-navier-stokes 8d8a0cf60b06d111fdee59215797b32e6029eeff
+(main);
+• BenFrohman/NS_Millennium_Proof b8d2f1eaa3e749eb2cb321b629259d199a4fd6b0 (main).
+Toolchain: leanprover/lean4:v4.30.0-rc1; Mathlib 0c154d67103f74be3a0f2c509f72ccbf5be9f2
+a7 (from each lake-manifest.json).
+Source scan (comments and strings stripped): sorry, admit, native_decide, and axiom declarations:
+0 in every .lean ﬁle of sdiﬀ and feﬀerman, and 0 in every built module of NS_Millennium_Proof.
+Axiom output: 42 cited declarations: 31 in sdiﬀ and 7 in NS_Millennium_Proof, printed locally with
+#print axioms; 4 in feﬀerman, read from the kernel output of its CI run. Every axiom set is contained
+in {propext, Classical.choice, Quot.sound}; none contains sorryAx or Lean.ofReduceBool. Full
+output: gaps-ledger-axioms.txt and Appendix A.
+Rebuild (from a clone of sdiﬀ at the commit above):
+lake exe cache get && lake build && lake env lean scripts/PrintGapsLedgerAxioms.lean
+
+sdiﬀ (commit 0727e6d). The script scripts/PrintGapsLedgerAxioms.lean prints the axioms
+of every sdiﬀ declaration cited in this note: the named open hypotheses (deﬁnitions; printing
+them proves nothing about solutions), the proved implications, the zero-datum instances, the
+refutations, and the formalized sub-pieces of §8. Its output is committed as certificates/
+gaps-ledger-axioms.txt, and scripts/verify.sh reruns it and fails on any axiom outside the
+standard three. The repository’s strict audit scripts/AxiomAudit.lean and source scan scripts/
+check_no_sorry.py run in the same CI job. CI for pull request #8: https://github.com/Ben
+Frohman/frohmanian-tether-sdiff/actions/runs/43933623627 (Lean certificate: build,
+source scan, strict audit, and scripts/verify.sh including this script; passed; the run reported
+31 declarations, 0 with nonstandard axioms) and https://github.com/BenFrohman/frohmanian
+-tether-sdiff/actions/runs/43933623413 (Lean 4, passed).
+
+15
+
+feﬀerman (commit 8d8a0cf; Lean correction ﬁrst proved in afaab80). CI run https:
+//github.com/BenFrohman/fefferman-clay-navier-stokes/actions/runs/43928116535
+(Lean certificate, passed) prints 245 axiom lines, all standard. The certiﬁcate copies the lines
+for clay_reduces_to_direction_curvature_bound, old_periodicDirectionDepletionBound_
+unsatisfiable, jumpPath_oneSided_depletion_clause, and periodicTetherClosingBound_
+of_directionDepletion. Rebuild: bash scripts/verify.sh in a clone at that commit.
+NS_Millennium_Proof (commit b8d2f1e). CI run h t t p s : / / g i t h u b . c o m / B e n F r o h m a
+n/NS_Millennium_Proof/actions/runs/43928069777 (Build (lake), passed) prints
+261 axiom lines, all standard. The seven cited declarations (clay_reduces_to_direction_
+curvature_bound,
+clay_reduces_to_uniform_vorticity_envelope,
+clay_B_exact_of_
+periodic_tether_bound, frohmanianTetherRate_zero, not_forall_frohmanianTetherRate,
+not_frohmanianTetherRate_U, not_frohmanianTetherBound_U) were also printed locally at
+that commit, all standard. The repository also keeps archival, unbuilt Lean ﬁles under docs/
+and historical/; they contain 105 sorry and one axiom declaration, are imported by no built
+module, and are not cited here. Rebuild: lake build in a clone at that commit.
+This note.
+
+The PDF is built from main.tex by
+
+tectonic main.tex
+
+The original published cover PDF of 22835069 is included unchanged as 00_COVER_Official_
+Proposed_Theorem.pdf.
+
+A
+
+Axiom output
+
+Verbatim #print axioms output from certificates/gaps-ledger-axioms.txt; lists that Lean
+wraps across lines are joined.
+sdiﬀ, commit 0727e6d (local).
+’FrohmanianTether.ClayStatements.PeriodicTetherClosingBound’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.TetherImpliesBKM.PeriodicTetherBound’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.FrohmanianTetherBound’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FrohmanianTether.FrohmanianTetherRate’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.ClayStatements.FrohmanianTetherClosingBound’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayA.FrohmanianTetherRateSmooth’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FeffermanClayA.R3BKMContinuationAt’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FeffermanClayA.R3BKMContinuation’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FeffermanClayA.Clay_A_Fefferman’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.Pillars.periodicBKMContinuation_of_classical’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.Pillars.clay_B_exact_of_periodic_tether_closing_bound’ depends on axioms:
+[propext, Classical.choice, Quot.sound]
+’FrohmanianTether.Pillars.clay_B_exact_unique_of_periodic_tether_closing_bound’ depends on
+axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.Pillars.periodicSmoothSolution_unique’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+
+16
+
+’FrohmanianTether.Pillars.clay_B_exact_unique_iff’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound’ depends on axioms:
+[propext, Classical.choice, Quot.sound]
+’FrohmanianTether.ClayStatements.frohmanian_conditional_regularity_of_closing_bound’ depends on
+axioms: [propext, Classical.choice, Quot.sound]
+’ConditionalRegularity.conditional_regularity_of_open_hyps’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayA.ceiling_of_rate’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FeffermanClayA.clay_A_fefferman_of_frohmanianTetherRateSmooth’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayA.frohmanianTetherRateSmooth_zero’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FeffermanClayA.r3BKMContinuationAt_zero’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FeffermanClayA.frohmanianTetherRateSmoothGlobal_of_no_global_solution’ depends on axioms:
+[propext, Classical.choice, Quot.sound]
+’TetherRateCounterexample.not_forall_frohmanianTetherRate’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’TetherRateCounterexample.not_frohmanianTetherRate_U’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’TetherRateCounterexample.not_frohmanianTetherBound_U’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.TetherDefinitionAudit.not_forall_localTetherRateV014’ depends on axioms:
+[propext, Classical.choice, Quot.sound]
+’NavierStokes3D.transported_scalar_maximum_principle’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’TetheredLyapunov.comparison_ode_exists’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’TetheredLyapunov.uniform_majorant_bound’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’Symplectori.SymplecticConstraint.kksPointwise_cyclic_jacobi_identity’ depends on axioms:
+[propext, Classical.choice, Quot.sound]
+’FrohmanianTether.antisymmetric_correction_diagonal_zero’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+
+feﬀerman, commit 8d8a0cf (CI run 43928116535).
+’FeffermanClayNS.clay_reduces_to_direction_curvature_bound’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayNS.old_periodicDirectionDepletionBound_unsatisfiable’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayNS.jumpPath_oneSided_depletion_clause’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayNS.periodicTetherClosingBound_of_directionDepletion’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+
+NS_Millennium_Proof, commit b8d2f1e (local).
+’FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound’ depends on
+axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope’ depends on
+axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound’ depends on axioms:
+[propext, Classical.choice, Quot.sound]
+’FrohmanianTether.ClayStatements.frohmanianTetherRate_zero’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+
+17
+
+’TetherRateCounterexample.not_forall_frohmanianTetherRate’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’TetherRateCounterexample.not_frohmanianTetherRate_U’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’TetherRateCounterexample.not_frohmanianTetherBound_U’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+
+Copyright and license
+Copyright © 2026 Benjamin Stanley Frohman. All rights reserved. Released under the
+Apache License, Version 2.0 (SPDX: Apache-2.0).
+Author: Frohman, Benjamin Stanley
+(ORCID 0009-0006-7068-3718; Independent Researcher, Texas, United States).
+Contact:
+frohmanbenjamin@gmail.com.
+
+18
+
+

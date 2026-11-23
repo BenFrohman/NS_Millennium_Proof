@@ -1,0 +1,68 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{The Chain Atom W = u\textasciicircum{}5 v + v\textasciicircum{}6 and Three-Chain Jacobian Rings: Milnor Number 25, Diagonal Symmetry Order 30, and Explicit Monomial Bases}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/ChainAtom-u5v-v6}}
+\date{\textbf{Origin Provenance:} 2026-09-25 05:30:00 CDT (UTC-5) (BenFrohman/ChainAtom-u5v-v6) \& 2026-10-12 CDT (BenFrohman/ThreeChainJacobian)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632798}{10.5281/zenodo.23632798} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Proved Symbolic \& Commutative-Algebraic Singularity Computation (Lean 4 / Symbolic Certified)\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent Unifying BenFrohman/ChainAtom-u5v-v6 and BenFrohman/ThreeChainJacobian, this monograph provides the complete monomial basis, Grobner reduction rules, graded Poincare polynomial, and diagonal symmetry representation for the two-variable chain atom W(u,v) = u\textasciicircum{}5 v + v\textasciicircum{}6 (weights q\_u = 1/6, q\_v = 1/6; symmetry order 30; Milnor number mu(W) = 25; transpose W\textasciicircum{}T = u\textasciicircum{}5 + u v\textasciicircum{}6 with mu(W\textasciicircum{}T) = 26) together with the general three-variable chain singularity W\_3(x,y,z) = x\textasciicircum{}a y + y\textasciicircum{}b z + z\textasciicircum{}c whose Milnor number is mu(W\_3) = a b c - a b + a - 1.
+\end{abstract}
+
+
+\section{Complete Invariants of the Chain Atom $W = u^5 v + v^6$ and Three-Chain Family}
+For $W(u,v) = u^5 v + v^6$, the partial derivatives are $\partial_u W = 5 u^4 v$ and $\partial_v W = u^5 + 6 v^5$, generating the Jacobian ideal $J(W) = (u^4 v,\, u^5 + 6 v^5) \subset \mathbb{C}[u,v]$.
+
+\begin{theorem}[Explicit 25-Element Monomial Basis of $\mathrm{Jac}(u^5 v + v^6)$]
+Multiplying $u^5 \equiv -6 v^5 \pmod{J(W)}$ by $v$ gives $u^5 v = u(u^4 v) \equiv 0 \pmod{J(W)}$, so $v^6 \equiv 0$ and $u^6 \equiv -6 u v^5 \pmod{J(W)}$. The Milnor algebra $\mathrm{Jac}(W) = \mathbb{C}[u,v]/J(W)$ has dimension $\mu(W) = 25$ with explicit basis:
+\begin{equation}
+\mathcal{B}_{25} = \bigl\{u^i v^j : 0 \le i \le 3,\; 0 \le j \le 5\bigr\} \;\cup\; \{u^4\}, \qquad |\mathcal{B}_{25}| = 4 \times 6 + 1 = 25.
+\end{equation}
+For the three-variable chain polynomial $W_{a,b,c}(x,y,z) = x^a y + y^b z + z^c$ (\texttt{BenFrohman/ThreeChainJacobian}), the Kouchnirenko--Orlik--Solomon formula yields the exact Milnor number
+\begin{equation}
+\mu(W_{a,b,c}) = abc - ab + a - 1.
+\end{equation}
+\end{theorem}
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-09-25 05:30:00 CDT (UTC-5) (BenFrohman/ChainAtom-u5v-v6) \& 2026-10-12 CDT (BenFrohman/ThreeChainJacobian).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/ChainAtom-u5v-v6}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632798}{\texttt{10.5281/zenodo.23632798}} (Zenodo Record \texttt{23632798}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

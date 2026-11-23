@@ -1,0 +1,140 @@
+     A LEAN-CERTIFIED CONDITIONAL IMPLICATION FOR THE 3D
+  INCOMPRESSIBLE NAVIER–STOKES EQUATIONS: HYPOTHESIS B AND
+  THE BEALE–KATO–MAJDA CRITERION IMPLY GLOBAL REGULARITY
+               OF MAXIMAL CLASSICAL SOLUTIONS
+
+                                       BENJAMIN STANLEY FROHMAN
+
+
+        Abstract. This paper states only what a Lean 4 kernel certificate proves in the companion
+        repository. Let ν > 0 and let u0 be a smooth, periodic, divergence-free initial velocity on R3
+        (the period cell models T3 ). In the Lean development, a maximal classical solution of periodic
+        incompressible Navier–Stokes is an object of type NSSolution. Lean proves: if Hypothesis B
+        holds for some bound C⋆ , and if the named Beale–Kato–Majda hypothesis    ∫T     BKMCriterion holds,
+        then every such maximal classical solution is global (T ⋆ = ⊤) and 0 ∥∇u(t)∥L∞ dt < ∞ for
+        every finite T > 0. Those two hypotheses are recorded below exactly as they are written in
+        Lean. They are assumptions, not theorems of this development. Clay Millennium Problem State-
+        ment (B) remains open [2]: the unconditioned statement is recorded in Lean only as the proposition
+        analytic_bridge_unconditional_Statement, which has no proof. Kato local existence, Fujita–
+        Kato small-data global regularity, a strain-only continuation criterion, logarithmic Sobolev bounds,
+        and a parabolic bootstrap are not formalized here and are not claimed.
+
+
+
+Copyright (c) 2026 Benjamin Stanley Frohman. The paper (this PDF and its LATEX source) is licensed under
+CC BY 4.0. Lean code in the companion repository is licensed under the Apache License 2.0.
+
+                                           1. What is certified
+   The companion repository https://github.com/BenFrohman/frohmanian-tether-conditional-regularity
+contains a Lean 4 formalization. The only regularity theorem claimed in this paper is the one Lean
+proves under two named hypotheses. The kernel certificate is the oﬀicial GitHub Actions artifact
+for the commit and run recorded in the certificate block below. That artifact includes the repos-
+itory’s own lake-manifest.json, its SHA-256, the toolchain, elan/lake/lean versions, the full
+teed lake build log, and #print axioms output. A hand-written summary is not a certificate.
+   An independent review of whether the Lean encodings of BKMCriterion and HypothesisB are
+faithful to the textbook Beale–Kato–Majda criterion, and whether they are vacuous, is in progress.
+This paper transcribes the Lean hypotheses as they stand. If that review requires a rewrite of either
+hypothesis, the paper and the Truth Gate lock will be updated to match, and nothing built on a
+rewritten hypothesis will be treated as already passed.
+
+                    2. The Lean hypotheses and the certified implication
+  In Lean, E3 is R3 with the Euclidean structure, and periodicity is periodicity of period 1 in each
+coordinate. A structure IsClassicalNS records that (u, p) is a classical solution of periodic incom-
+pressible Navier–Stokes with viscosity ν > 0 on the lifespan [0, T ⋆ ): the initial condition, periodicity,
+smoothness, divergence-free constraint, and pointwise momentum equation. An NSSolution pack-
+ages a positive viscosity, a lifespan, fields u and p, a proof of IsClassicalNS, and maximality.
+The quantity gradLinf(u(t)) is the supremum of the operator norm of Du(t) over the closed unit
+   Date: November 17, 2026.
+   Independent Researcher, Texas, United States. ORCID 0009-0006-7068-3718. Copyright (c) 2026 Benjamin
+Stanley Frohman. The paper (this PDF and its LATEX source) is licensed under CC BY 4.0. Lean code in the
+companion repository is licensed under the Apache License 2.0.
+                                                         1
+2                                      BENJAMIN STANLEY FROHMAN
+
+
+cell, and gradIntegral is the lower Lebesgue integral of that quantity over the lifespan intersected
+with [0, T ).
+Definition 2.1 (Hypothesis B, Lean HypothesisB). For a bound C⋆ : R → R, Hypothesis B says:
+for every viscosity ν, every initial datum u0 , every maximal classical solution sol, and every T > 0,
+                        gradIntegral(sol, T ) ≤ ENNReal.ofReal(C⋆ (T )).
+Definition 2.2 (Named BKM hypothesis, Lean BKMCriterion). BKMCriterion says: for every
+maximal classical solution with T ⋆ ̸= ⊤,
+                         ∫ -
+                               ENNReal.ofReal(gradLinf(u(t))) dt = ⊤.
+                           [0,T ⋆ )
+This is a named hypothesis in the Lean development, written after the Beale–Kato–Majda contin-
+uation criterion [1]. It is not proved in Lean.
+Definition 2.3 (Analytic bridge statement, Lean AnalyticBridgeStatement). The analytic bridge
+statement says: for every ν > 0 and every smooth, periodic, divergence-free initial datum u0 , every
+maximal classical solution satisfies T ⋆ = ⊤ and gradIntegral(sol, T ) < ⊤ for every T > 0.
+Theorem 2.4 (Conditional implication, Lean analyticBridge_of_formB / analyticBridge_of_formB_forall).
+For every bound C⋆ : R → R, if Hypothesis B holds for C⋆ and if BKMCriterion holds, then the
+analytic bridge statement holds.
+  A companion Lean theorem, formB_Hs_bound, gives a direct H s -style bound under the additional
+named hypothesis KatoPonceEnergy (a cited Kato–Ponce energy inequality on genuine solutions,
+not proved in Lean): on [0, T ],
+                                                      (                  )
+                        HsR(s, u(t)) ≤ HsR(s, u0 ) exp Cs max(C⋆ (T ), 0) .
+The content of that bound for a zero dummy norm is trivial (kp_trivial); its intended content is
+for a true H s norm, which Mathlib does not yet supply on T3 .
+   The unconditioned statement (Definition 2.3 with no Hypothesis B and no BKMCriterion) is
+recorded only as
+ClassicalNS.analytic_bridge_unconditional_Statement : Prop := AnalyticBridgeStatement.
+It is not a theorem and it has no proof. Clay Statement (B) remains open.
+
+                                      3. Open formalization items
+   The following claims appeared as theorems in earlier versions of this manuscript. They are not
+formalized in the companion Lean development, and this paper does not present them as proved
+or as kernel-certified:
+      • Kato local existence and a deterministic lifespan bound for arbitrary data in H s (s > 5/2);
+      • Fujita–Kato global regularity for suﬀiciently small data in Ḣ 1/2 ;
+      • a strain-only continuation criterion, logarithmic Sobolev bounds relating ∥∇u∥L∞ to ∥ω∥L∞ ,
+        a double-exponential H s majorant, and a parabolic bootstrap to C ∞ ;
+      • the geometric metriplectic completion of Arnold’s Lie–Poisson framework on SDiﬀ(T3 ) as
+        a derivation of the Navier–Stokes equations on the torus (the repository does contain ab-
+        stract degeneracy and symmetry lemmas in FrohmanianTripleArchitecture.lean; those
+        lemmas are not a kernel-checked derivation of the PDE on T3 ).
+Formalizing any of these in Lean, with only the standard axioms and no sorry, is left open.
+Lean kernel certificate. This paper is accompanied by a Lean 4 kernel certificate produced
+from this repository’s own committed lake-manifest.json. The certificate is the Lean kernel’s
+own check, together with #print axioms. A hand-written CI summary is not a certificate. This
+work is strictly conditional and does not resolve the Clay Millennium Problem.
+                  LEAN-CERTIFIED CONDITIONAL IMPLICATION FOR 3D NAVIER–STOKES                                   3
+
+        Table 1. Status of claims in this manuscript. Every claim listed as Lean-certified
+        is a theorem in the companion repository.
+
+Item                                         Status                            Content
+Theorem 2.4                                                       HypothesisB C⋆ → BKMCriterion →
+                                             Lean-certified, conditional
+                                                                  AnalyticBridgeStatement
+formB_Hs_bound                        Lean-certified, conditional the         same      hypotheses       plus
+                                                                  KatoPonceEnergy give the exponen-
+                                                                  tial H s -style bound
+Open target                           Statement only, not proved analytic_bridge_unconditional_Stateme
+Kato local existence                  Open, not formalized        not claimed
+Fujita–Kato small-data                Open, not formalized        not claimed
+Strain-only / log-Sobolev / bootstrap Open, not formalized        not claimed
+Clay Statement (B)                    Open                        unconditional large-data global regularity
+
+       • Repository: https://github.com/BenFrohman/frohmanian-tether-conditional-regularity
+       • Git commit:
+           86336a9e7d9a3da117b271d23ee7c05848d5de61
+       • GitHub Actions run (lake build and kernel check):
+           45249571059
+       • lake-manifest.json SHA-256:
+           0024851d12fc7f5986ced05ff51d014f0b8b4df728bb8f9cef2812126a21ebb2
+       • Toolchain: leanprover/lean4:v4.30.0-rc1
+       • Mathlib revision:
+           0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 (v4.30.0-rc1)
+       • Rebuild command:
+           lake exe cache get && lake build && ./scripts/kernel_check.sh
+
+                                                 References
+1. J. T. Beale, T. Kato, and A. Majda, Remarks on the breakdown of smooth solutions for the 3-d euler equations,
+   Comm. Math. Phys. 94 (1984), 61–66.
+2. C. Fefferman, Existence and smoothness of the navier–stokes equation, The Millennium Prize Problems, Clay Math.
+   Inst., 2000, pp. 57–67.
+
+  Independent Researcher, Texas, United States
+

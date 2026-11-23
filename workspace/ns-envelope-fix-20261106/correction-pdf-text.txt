@@ -1,0 +1,164 @@
+ Correction: Uniform Vorticity Envelope versus Cubic
+               Diﬀerential Hypothesis
+                                   Frohman, Benjamin Stanley
+                                    frohmanbenjamin@gmail.com
+
+                                         November 6, 2026
+
+
+                                              Abstract
+         This addendum separates the uniform-envelope assumption in the checked Lean reduction
+     from a genuinely diﬀerential assumption on the actual vorticity supremum. It records the
+     conditional comparison proved in the accompanying source patch, tests a proposed coercivity
+     mechanism on explicit periodic solutions, and identiﬁes the remaining analytic obligation. It
+     is not a proof of general Navier–Stokes regularity. Earlier published PDFs and archives are
+     unchanged.
+
+
+1    The corrected distinction
+The baseline source is BenFrohman/NS_Millennium_Proof at commit c98fe859867affeba4508b
+3e51583cfa6b20087c. Historically DirectionCurvatureBound abbreviates PeriodicDirectionD
+epletionBound. Its actual body assumes that, for every smooth divergence-free periodic datum,
+there are positive constants C, κ such that every represented local solution satisﬁes
+
+                             M (t) ≤ max{M (0), C/κ},         0 ≤ t < T.
+
+Here M (t) = ∥ curl u(t)∥∞ . The constants may depend on viscosity and the datum, but not on the
+solution or its lifespan. This deﬁnition does not assert a diﬀerential inequality. The accurate public
+name is now UniformVorticityEnvelopeBound; the original body, historical aliases and original
+conditional theorem are preserved.
+    The separate CubicVorticityDifferentialBoundutauCkappa explicitly requires τ ≥ 0,
+C, κ > 0, bounded spatial vorticity-norm ranges, ordinary diﬀerentiability of the actual M at every
+point of [0, τ ], and
+                               M ′ (t) ≤ CM (t)2 − κM (t)3 (0 ≤ t ≤ τ ).
+The boundedness guard matters for the real-valued conditional supremum used in Lean. No dif-
+ferential estimate or diﬀerentiability of a supremum is inferred merely from smoothness of the
+velocity.
+
+
+2    The checked conditional consequences
+The existing comparison_ode_ceiling, with all its hypotheses, gives the compact envelope
+above. The new source proves this for the actual curl supremum, then bounds the actual curl
+pointwise using spatial boundedness. On an actual IsPeriodicSmoothSolutionOn, compatible
+compact hypotheses for every 0 ≤ τ < T with the same coeﬃcients give the envelope on [0, T ); the
+
+                                                  1
+initial identity comes from that solution’s deﬁnition. A zero-trajectory regression shows that the
+diﬀerential predicate is inhabited.
+    clay_reduces_to_uniform_vorticity_envelope accurately names the existing conditional
+reduction: the uniform envelope for every positive viscosity, and the separately assumed periodic
+BKM continuation principle, imply Clay_B_exact. Neither premise is established by that reduc-
+tion.
+    The Stage6 additions check the derivative of M0 e−at , its cubic estimate with C = κM0 , and the
+ﬁxed-coeﬃcient obstruction below. These are scalar calculus and algebra theorems. Assembly of
+the following vector ﬁelds into the Lean solution structure and identiﬁcation of their suprema are
+not newly formalized here; the explicit PDE calculations are separate mathematical checks.
+
+
+3     What the PDE identity supplies
+For a classical unforced incompressible solution, let ω = curl u, S = (∇u + (∇u)T )/2 and ρ = |ω|.
+Then
+                                        |ω|2               |ω|2
+                           (∂t + u · ∇)      = ω · Sω + ν∆      − ν|∇ω|2 .
+                                         2                  2
+Where ρ > 0, write ω = ρξ, |ξ| = 1. Diﬀerentiating gives
+
+                                            |∇ω|2 = |∇ρ|2 + ρ2 |∇ξ|2 ,
+                             (∂t + u · ∇ − ν∆)ρ = ρ ξ · Sξ − νρ|∇ξ|2 .
+
+At a positive spatial maximum ∇ρ = 0 and ∆ρ ≤ 0. These facts do not give a lower bound on
+direction curvature. A general maximum-in-time argument also needs a justiﬁed one-sided/Dini
+derivative treatment of maximizing-branch switches, not an automatic ordinary derivative of M .
+
+3.1   Beltrami family: ﬁxed coeﬃcients versus data dependence
+On the unit torus take k = 2π, a = νk 2 , A > 0, and
+
+                        uA (t, x) = Ae−at (sin(kx3 ), cos(kx3 ), 0),      p = 0.
+
+Direct diﬀerentiation gives div uA = 0, (uA · ∇)uA = 0, ∆uA = −k 2 uA , ∂t uA = ν∆uA and
+curl uA = kuA . Consequently
+
+                               MA (t) = kAe−at ,        MA′ = −aMA .
+
+At zero, the cubic estimate is equivalent to κMA (0)2 − CMA (0) − a ≤ 0. For ﬁxed C ≥ 0,
+κ > 0 and a ≥ 0, this fails at suﬃciently large amplitude. The Lean theorem fixed_cubic_
+constants_fail_for_some_amplitude proves the quantiﬁed scalar obstruction. This does
+not refute the data-dependent envelope: choosing C = κMA (0) makes the cubic right-hand side
+κMA (t)2 (MA (0) − MA (t)) ≥ 0, while MA′ ≤ 0. The latter special-case suﬃcient estimate is also
+checked in Lean for the scalar proﬁle.
+
+3.2   Single shear: direction-only coercivity fails
+Instead take the actual periodic heat shear
+
+                            vA (t, x) = Ae−at (sin(kx3 ), 0, 0),       p = 0.
+
+
+                                                   2
+The same divergence, convection and heat calculation veriﬁes the unforced Navier–Stokes equations.
+Here
+                               ωA (t, x) = (0, kAe−at cos(kx3 ), 0).
+At x3 = 0, its norm attains the positive global maximum M = kAe−at . In a neighborhood
+cos(kx3 ) > 0, so ξ = (0, 1, 0) is constant and |∇ξ|2 = 0. Thus the bare premise
+
+                                            κM 2 ≤ ν|∇ξ|2
+
+from viscous_direction_dissipation_bridge fails for every κ > 0, even if it depends on this
+datum. This refutes promotion of that premise to an unconditional assertion at every positive
+maximum, not the existing implication which assumes it. Nor does it refute a diﬀerent estimate
+restricted above a data-dependent threshold. The actual damping here comes from amplitude
+curvature:
+                            ωA · ∆ωA = −k 2 M 2 , M ′ = −νk 2 M.
+Discarding amplitude curvature loses this real viscous contribution.
+
+3.3   Scaling is not a coercivity proof
+For the parabolic rescaling uλ (t, x) = λu(λ2 t, λx), one has Mλ (t) = λ2 M (λ2 t) and the time deriva-
+tive scales by λ4 wherever it exists. A cubic inequality therefore transforms with Cλ = C and
+κλ = κ/λ2 , not ﬁxed positive κ. Likewise ν|∇ξ|2 scales by λ2 whereas M 2 scales by λ4 . This
+does not contradict data-dependent coeﬃcients. On the ﬁxed unit torus the displayed transfor-
+mation preserves unit periodicity for positive integer λ; arbitrary domain rescalings are not the
+same torus. The separate scale-homogeneous premise κeﬀ M ≤ ν|∇ξ|2 in the source only yields
+M ′ ≤ (C − κeﬀ )M 2 , not cubic damping in M . Scaling supplies neither coercivity premise.
+
+
+4     Endpoint representation and remaining obligation
+The Lean local-solution structure constrains only nonnegative times. Extend the zero forward so-
+lution by (sin(kx3 ), cos(kx3 ), 0) for negative times. It is still the zero solution on [0, T ), but its
+actual vorticity supremum jumps from k to zero at time zero. Hence ordinary two-sided diﬀeren-
+tiability of M at zero cannot follow for every represented solution. This is not an obstruction to
+right-sided PDE smoothness. The globally zero trajectory, unlike this other extension, passes the
+new regression. The compact diﬀerential predicate is an explicit additional condition on a given
+trajectory, not a universal PDE theorem.
+    A suﬃcient net-source estimate at the relevant positive maxima would be
+
+                                  ω · Sω + νω · ∆ω ≤ CM 3 − κM 4 ,
+
+with correctly quantiﬁed positive coeﬃcients uniform in time and lifespan. Division by M then gives
+the cubic rate after a justiﬁed maximum-derivative argument. The repository proves the algebra
+conditionally, not this general source estimate. An endpoint L∞ Calderon–Zygmund bound cannot
+silently supply it. A suitable source estimate and a one-sided/Dini comparison bridge remain
+analytic/formal obligations. No general regularity breakthrough is claimed.
+
+
+
+
+                                                   3
+5    Reproduction and evidence boundary
+Use Lean leanprover/lean4:v4.30.0-rc1 and Mathlib commit 0c154d67103f74be3a0f2c
+509f72ccbf5be9f2a7; all package pins are in lake-manifest.json. Run lakebuild, then
+the Lean scripts scripts/AxiomAudit.lean, scripts/EnvelopeCorrectionAudit.lean, and
+scripts/CertificateAxiomInventory.lean using lakeenvlean. The correction audit checks
+old API compatibility and every new theorem’s axioms; the inventory reports transitive axioms per
+noninternal project theorem. No new axiom, sorry or native_decide is introduced. Standard-
+axiom checks establish neither a missing analytic hypothesis nor novelty.
+    The Markdown companion docs/VORTICITY_ENVELOPE_CORRECTION.md supplies exact pinned
+source permalinks and the full named-theorem list. The review bundle contains sources, depen-
+dency/toolchain pins, logs, project artifacts and hashes; it is not a standalone independently trusted
+proof certiﬁcate. Earlier published PDFs/Zenodo records are not modiﬁed or republished.
+Copyright (c) 2026 Benjamin Stanley Frohman. Existing Apache-2.0 licensing and third-party
+notices are unchanged.
+
+
+
+
+                                                  4
+

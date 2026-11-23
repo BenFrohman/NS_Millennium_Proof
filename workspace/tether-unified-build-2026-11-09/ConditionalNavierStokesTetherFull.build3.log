@@ -1,0 +1,59 @@
+ConditionalNavierStokesTetherFull.lean:110:22: error: Application type mismatch: In the application
+  IntervalIntegrable.mono_set h_int (Icc_subset_Icc_right hs.right)
+the argument
+  Icc_subset_Icc_right hs.right
+has type
+  Icc ?m.12640 s ⊆ Icc ?m.12640 T : Prop
+but is expected to have type
+  uIcc 0 s ⊆ uIcc 0 T : Prop
+ConditionalNavierStokesTetherFull.lean:111:53: error: Application type mismatch: In the application
+  ContinuousOn.stronglyMeasurableAtFilter_nhdsWithin hα_cont hs
+the argument
+  hs
+has type
+  s ∈ Icc 0 T : Prop
+but is expected to have type
+  MeasurableSet (Icc 0 T) : Prop
+ConditionalNavierStokesTetherFull.lean:118:52: error: Application type mismatch: In the application
+  Ioo_subset_Icc_self hs
+the argument
+  hs
+has type
+  s ∈ interior (Icc 0 T) : Prop
+but is expected to have type
+  s ∈ Ioo 0 T : Prop
+ConditionalNavierStokesTetherFull.lean:123:10: error: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  deriv (M * fun x => rexp (-I x)) s
+case hf'
+M α : ℝ → ℝ
+T : ℝ
+hT : 0 ≤ T
+hM_diff : ∀ t ∈ Icc 0 T, DifferentiableAt ℝ M t
+hα_cont : ContinuousOn α (Icc 0 T)
+h_riccati : ∀ t ∈ Icc 0 T, deriv M t ≤ α t * M t
+t : ℝ
+ht : t ∈ Icc 0 T
+I : ℝ → ℝ := fun s => ∫ (τ : ℝ) in 0..s, α τ
+φ : ℝ → ℝ := fun s => M s * rexp (-I s)
+hI_deriv : ∀ s ∈ Icc 0 T, HasDerivAt I (α s) s
+s : ℝ
+hs : s ∈ interior (Icc 0 T)
+hs' : s ∈ Icc 0 T
+hMd : HasDerivAt M (deriv M s) s
+hId : HasDerivAt (fun x => rexp (-I x)) (rexp (-I s) * -α s) s
+hprod : HasDerivAt (M * fun x => rexp (-I x)) (deriv M s * rexp (-I s) + M s * (rexp (-I s) * -α s)) s
+⊢ DifferentiableWithinAt ℝ φ (interior (Icc 0 T)) s
+ConditionalNavierStokesTetherFull.lean:113:43: error: unsolved goals
+case hf'_nonpos
+M α : ℝ → ℝ
+T : ℝ
+hT : 0 ≤ T
+hM_diff : ∀ t ∈ Icc 0 T, DifferentiableAt ℝ M t
+hα_cont : ContinuousOn α (Icc 0 T)
+h_riccati : ∀ t ∈ Icc 0 T, deriv M t ≤ α t * M t
+t : ℝ
+ht : t ∈ Icc 0 T
+I : ℝ → ℝ := ⋯
+φ : ℝ → ℝ := ⋯
+hI_deriv : ∀ s ∈ Icc 0 T, HasDerivAt I (α s) s
+⊢ ∀ x ∈ interior (Icc 0 T), deriv φ x ≤ 0

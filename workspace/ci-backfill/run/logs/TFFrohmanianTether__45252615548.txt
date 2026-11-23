@@ -1,0 +1,696 @@
+
+===== 0_Build (lake, pinned toolchain).txt
+﻿2026-11-23T19:47:44.5322680Z Current runner version: '2.338.2'
+2026-11-23T19:47:44.5358305Z ##[group]Runner Image Provisioner
+2026-11-23T19:47:44.5360004Z Hosted Compute Agent
+2026-11-23T19:47:44.5361129Z Version: 20261111.635
+2026-11-23T19:47:44.5362302Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:47:44.5363810Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:47:44.5365040Z Worker ID: {db0870b3-86d1-4c4c-9178-4527cdf6bea1}
+2026-11-23T19:47:44.5366356Z Region: eastus
+2026-11-23T19:47:44.5367479Z Cloud: Azure
+2026-11-23T19:47:44.5368456Z ##[endgroup]
+2026-11-23T19:47:44.5371139Z ##[group]Operating System
+2026-11-23T19:47:44.5372218Z Ubuntu
+2026-11-23T19:47:44.5373100Z 26.04.1
+2026-11-23T19:47:44.5374152Z LTS
+2026-11-23T19:47:44.5375045Z ##[endgroup]
+2026-11-23T19:47:44.5376214Z ##[group]Runner Image
+2026-11-23T19:47:44.5377194Z Image: ubuntu-26.04
+2026-11-23T19:47:44.5378112Z Version: 20261116.202.1
+2026-11-23T19:47:44.5380647Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:47:44.5383592Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:47:44.5385384Z ##[endgroup]
+2026-11-23T19:47:44.5387715Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:47:44.5390909Z Contents: read
+2026-11-23T19:47:44.5392046Z Metadata: read
+2026-11-23T19:47:44.5392962Z ##[endgroup]
+2026-11-23T19:47:44.5396131Z Secret source: Actions
+2026-11-23T19:47:44.5398168Z Cache mode: write
+2026-11-23T19:47:44.5400193Z Prepare workflow directory
+2026-11-23T19:47:44.5897548Z Prepare all required actions
+2026-11-23T19:47:44.5971653Z Getting action download info
+2026-11-23T19:47:44.7752475Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-23T19:47:44.8706339Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:47:45.0547825Z Complete job name: Build (lake, pinned toolchain)
+2026-11-23T19:47:45.1429541Z ##[group]Run actions/checkout@v7
+2026-11-23T19:47:45.1430481Z with:
+2026-11-23T19:47:45.1430963Z   repository: BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.1435027Z   token: ***
+2026-11-23T19:47:45.1435456Z   ssh-strict: true
+2026-11-23T19:47:45.1435889Z   ssh-user: git
+2026-11-23T19:47:45.1436331Z   persist-credentials: true
+2026-11-23T19:47:45.1436807Z   clean: true
+2026-11-23T19:47:45.1437242Z   sparse-checkout-cone-mode: true
+2026-11-23T19:47:45.1437755Z   fetch-depth: 1
+2026-11-23T19:47:45.1438175Z   fetch-tags: false
+2026-11-23T19:47:45.1438608Z   show-progress: true
+2026-11-23T19:47:45.1439191Z   lfs: false
+2026-11-23T19:47:45.1439601Z   submodules: false
+2026-11-23T19:47:45.1440041Z   set-safe-directory: true
+2026-11-23T19:47:45.1440538Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:47:45.1441306Z ##[endgroup]
+2026-11-23T19:47:45.4075211Z Syncing repository: BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.4077273Z ##[group]Getting Git version info
+2026-11-23T19:47:45.4078331Z Working directory is '/home/runner/work/TFFrohmanianTether/TFFrohmanianTether'
+2026-11-23T19:47:45.4080781Z [command]/usr/bin/git version
+2026-11-23T19:47:45.4105607Z git version 2.56.1
+2026-11-23T19:47:45.4130768Z ##[endgroup]
+2026-11-23T19:47:45.4143020Z Temporarily overriding HOME='/home/runner/work/_temp/686d8380-093a-49b9-b89f-a83bdc9d40f9' before making global git config changes
+2026-11-23T19:47:45.4145366Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:47:45.4148026Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TFFrohmanianTether/TFFrohmanianTether
+2026-11-23T19:47:45.4214070Z Deleting the contents of '/home/runner/work/TFFrohmanianTether/TFFrohmanianTether'
+2026-11-23T19:47:45.4216898Z ##[group]Determining repository object format
+2026-11-23T19:47:45.4218447Z ##[endgroup]
+2026-11-23T19:47:45.4219730Z ##[group]Initializing the repository
+2026-11-23T19:47:45.4223384Z [command]/usr/bin/git init /home/runner/work/TFFrohmanianTether/TFFrohmanianTether
+2026-11-23T19:47:45.4344427Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:47:45.4346516Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:47:45.4348130Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:47:45.4349764Z hint: call:
+2026-11-23T19:47:45.4350489Z hint:
+2026-11-23T19:47:45.4351363Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:47:45.4352410Z hint:
+2026-11-23T19:47:45.4353451Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:47:45.4355146Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:47:45.4356486Z hint:
+2026-11-23T19:47:45.4357229Z hint: 	git branch -m <name>
+2026-11-23T19:47:45.4358079Z hint:
+2026-11-23T19:47:45.4359385Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:47:45.4370803Z Initialized empty Git repository in /home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/
+2026-11-23T19:47:45.4383093Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.4442904Z ##[endgroup]
+2026-11-23T19:47:45.4444712Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:47:45.4446452Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:47:45.4482938Z ##[endgroup]
+2026-11-23T19:47:45.4484538Z ##[group]Setting up auth
+2026-11-23T19:47:45.4487168Z Removing SSH command configuration
+2026-11-23T19:47:45.4488574Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:47:45.4524454Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:47:45.5050017Z Removing HTTP extra header
+2026-11-23T19:47:45.5055889Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:47:45.5089804Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:47:45.5381367Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:47:45.5387132Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:47:45.5429791Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:47:45.5735763Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:47:45.5776573Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5815216Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5854566Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5893491Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5925693Z ##[endgroup]
+2026-11-23T19:47:45.5927337Z ##[group]Fetching the repository
+2026-11-23T19:47:45.5935748Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +394cd9a919854babf45dd41bc74a136e65b456ba:refs/remotes/origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7793577Z From https://github.com/BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.7794888Z  * [new ref]         394cd9a919854babf45dd41bc74a136e65b456ba -> origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7803855Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7831010Z   origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7839983Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7864776Z 394cd9a919854babf45dd41bc74a136e65b456ba
+2026-11-23T19:47:45.7869817Z ##[endgroup]
+2026-11-23T19:47:45.7870656Z ##[group]Determining the checkout info
+2026-11-23T19:47:45.7873514Z ##[endgroup]
+2026-11-23T19:47:45.7874492Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:47:45.7927895Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:47:45.7961292Z ##[group]Checking out the ref
+2026-11-23T19:47:45.7966706Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/394cd9a refs/remotes/origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.8032804Z Switched to a new branch 'ci-backfill/394cd9a'
+2026-11-23T19:47:45.8039161Z branch 'ci-backfill/394cd9a' set up to track 'origin/ci-backfill/394cd9a'.
+2026-11-23T19:47:45.8045465Z ##[endgroup]
+2026-11-23T19:47:45.8090810Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:47:45.8116886Z 394cd9a919854babf45dd41bc74a136e65b456ba
+2026-11-23T19:47:45.8358233Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+2026-11-23T19:47:45.8360017Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \[0m
+2026-11-23T19:47:45.8361068Z [36;1m  | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:47:45.8361805Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:47:45.8398274Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:47:45.8398862Z ##[endgroup]
+2026-11-23T19:47:45.8889280Z info: downloading installer
+2026-11-23T19:47:46.0487692Z ##[group]Run echo "=== lean-toolchain ==="
+2026-11-23T19:47:46.0488509Z [36;1mecho "=== lean-toolchain ==="[0m
+2026-11-23T19:47:46.0489480Z [36;1mcat lean-toolchain[0m
+2026-11-23T19:47:46.0490055Z [36;1melan --version[0m
+2026-11-23T19:47:46.0526066Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:47:46.0526652Z ##[endgroup]
+2026-11-23T19:47:46.0587509Z === lean-toolchain ===
+2026-11-23T19:47:46.0613111Z leanprover/lean4:v4.30.0-rc1
+2026-11-23T19:47:46.0634229Z elan 4.4.0 (3cc76985a 2026-11-18)
+2026-11-23T19:47:46.0764982Z ##[group]Run lake exe cache get || echo "::warning::cache miss; building from source"
+2026-11-23T19:47:46.0766212Z [36;1mlake exe cache get || echo "::warning::cache miss; building from source"[0m
+2026-11-23T19:47:46.0800916Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:47:46.0801472Z ##[endgroup]
+2026-11-23T19:47:46.5322157Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:47:50.1421311Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:47:56.6928255Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:48:27.1927264Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:48:28.9990137Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:48:29.1553028Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:48:29.1678521Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:48:29.3281946Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:48:29.3385698Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:48:29.5476769Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:48:29.5667490Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:48:29.8914080Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:48:30.6593381Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:48:31.0201438Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:48:31.0479686Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:48:31.2247065Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:48:31.2377960Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:48:33.5960899Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:48:33.6335829Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:48:33.7970528Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:48:34.2110599Z ✔ [4/22] Built Cache.Init (315ms)
+2026-11-23T19:48:34.3110474Z ✔ [5/22] Built Cache.Lean (483ms)
+2026-11-23T19:48:34.4100506Z ✔ [6/22] Built Cache.Init:c.o (205ms)
+2026-11-23T19:48:34.6110511Z ✔ [7/22] Built Cache.Lean:c.o (242ms)
+2026-11-23T19:48:34.7120531Z ✔ [8/22] Built Batteries.Data.String.Basic (523ms)
+2026-11-23T19:48:34.8110899Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (146ms)
+2026-11-23T19:48:35.1094590Z ✔ [10/22] Built Batteries.Data.Array.Match (912ms)
+2026-11-23T19:48:35.4101429Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (371ms)
+2026-11-23T19:48:35.5092235Z ✔ [12/22] Built Batteries.Data.String.Matcher (389ms)
+2026-11-23T19:48:35.7108848Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (206ms)
+2026-11-23T19:48:36.0102010Z ✔ [14/22] Built Cache.IO (1.6s)
+2026-11-23T19:48:36.7130494Z ✔ [15/22] Built Cache.Hashing (772ms)
+2026-11-23T19:48:37.3130699Z ✔ [16/22] Built Cache.Hashing:c.o (580ms)
+2026-11-23T19:48:37.5122478Z ✔ [17/22] Built Cache.IO:c.o (1.6s)
+2026-11-23T19:48:38.8135475Z ✔ [18/22] Built Cache.Requests (2.1s)
+2026-11-23T19:48:39.6145318Z ✔ [19/22] Built Cache.Main (822ms)
+2026-11-23T19:48:40.3154468Z ✔ [20/22] Built Cache.Main:c.o (631ms)
+2026-11-23T19:48:41.0193254Z ✔ [21/22] Built Cache.Requests:c.o (2.2s)
+2026-11-23T19:48:41.7174030Z ✔ [22/22] Built cache:exe (687ms)
+2026-11-23T19:48:44.3580911Z Current branch: HEAD
+2026-11-23T19:48:44.3581548Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:48:44.3582490Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:48:44.8652859Z 
+2026-11-23T19:48:44.9685406Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 120 KB/s], Decompressed: 0
+2026-11-23T19:48:45.0695342Z Downloaded: 63 file(s) [attempted 63/8248 = 0%, 251 KB/s], Decompressed: 15
+2026-11-23T19:48:45.1702222Z Downloaded: 178 file(s) [attempted 178/8248 = 2%, 479 KB/s], Decompressed: 34
+2026-11-23T19:48:45.2692741Z Downloaded: 314 file(s) [attempted 314/8248 = 3%, 608 KB/s], Decompressed: 34
+2026-11-23T19:48:45.3699888Z Downloaded: 458 file(s) [attempted 458/8248 = 5%, 197 KB/s], Decompressed: 99
+2026-11-23T19:48:45.4735193Z Downloaded: 593 file(s) [attempted 593/8248 = 7%, 2149 KB/s], Decompressed: 99
+2026-11-23T19:48:45.5750165Z Downloaded: 749 file(s) [attempted 749/8248 = 9%, 827 KB/s], Decompressed: 99
+2026-11-23T19:48:45.6750398Z Downloaded: 898 file(s) [attempted 898/8248 = 10%, 685 KB/s], Decompressed: 99
+2026-11-23T19:48:45.7770102Z Downloaded: 1020 file(s) [attempted 1020/8248 = 12%, 373 KB/s], Decompressed: 99
+2026-11-23T19:48:45.8804307Z Downloaded: 1158 file(s) [attempted 1158/8248 = 14%, 488 KB/s], Decompressed: 99
+2026-11-23T19:48:45.9800943Z Downloaded: 1304 file(s) [attempted 1304/8248 = 15%, 189 KB/s], Decompressed: 99
+2026-11-23T19:48:46.0791529Z Downloaded: 1440 file(s) [attempted 1440/8248 = 17%, 472 KB/s], Decompressed: 99
+2026-11-23T19:48:46.1849393Z Downloaded: 1597 file(s) [attempted 1597/8248 = 19%, 2357 KB/s], Decompressed: 99
+2026-11-23T19:48:46.2820361Z Downloaded: 1737 file(s) [attempted 1737/8248 = 21%, 873 KB/s], Decompressed: 99
+2026-11-23T19:48:46.3807990Z Downloaded: 1884 file(s) [attempted 1884/8248 = 22%, 3647 KB/s], Decompressed: 99
+2026-11-23T19:48:46.4860573Z Downloaded: 2022 file(s) [attempted 2022/8248 = 24%, 372 KB/s], Decompressed: 424
+2026-11-23T19:48:46.5860497Z Downloaded: 2170 file(s) [attempted 2170/8248 = 26%, 722 KB/s], Decompressed: 424
+2026-11-23T19:48:46.6920379Z Downloaded: 2315 file(s) [attempted 2315/8248 = 28%, 481 KB/s], Decompressed: 424
+2026-11-23T19:48:46.7902087Z Downloaded: 2448 file(s) [attempted 2448/8248 = 29%, 1310 KB/s], Decompressed: 424
+2026-11-23T19:48:46.8903705Z Downloaded: 2597 file(s) [attempted 2597/8248 = 31%, 4278 KB/s], Decompressed: 424
+2026-11-23T19:48:46.9954887Z Downloaded: 2743 file(s) [attempted 2743/8248 = 33%, 1861 KB/s], Decompressed: 424
+2026-11-23T19:48:47.0943201Z Downloaded: 2878 file(s) [attempted 2878/8248 = 34%, 1995 KB/s], Decompressed: 424
+2026-11-23T19:48:47.1970274Z Downloaded: 3000 file(s) [attempted 3000/8248 = 36%, 540 KB/s], Decompressed: 424
+2026-11-23T19:48:47.2980901Z Downloaded: 3133 file(s) [attempted 3133/8248 = 37%, 126 KB/s], Decompressed: 424
+2026-11-23T19:48:47.4000349Z Downloaded: 3255 file(s) [attempted 3255/8248 = 39%, 965 KB/s], Decompressed: 424
+2026-11-23T19:48:47.5050228Z Downloaded: 3397 file(s) [attempted 3397/8248 = 41%, 165 KB/s], Decompressed: 424
+2026-11-23T19:48:47.6045087Z Downloaded: 3530 file(s) [attempted 3530/8248 = 42%, 1917 KB/s], Decompressed: 424
+2026-11-23T19:48:47.7072569Z Downloaded: 3681 file(s) [attempted 3681/8248 = 44%, 397 KB/s], Decompressed: 424
+2026-11-23T19:48:47.8068577Z Downloaded: 3823 file(s) [attempted 3823/8248 = 46%, 2394 KB/s], Decompressed: 424
+2026-11-23T19:48:47.9080454Z Downloaded: 3938 file(s) [attempted 3938/8248 = 47%, 2632 KB/s], Decompressed: 424
+2026-11-23T19:48:48.0193274Z Downloaded: 4038 file(s) [attempted 4038/8248 = 48%, 961 KB/s], Decompressed: 424
+2026-11-23T19:48:48.1190200Z Downloaded: 4173 file(s) [attempted 4173/8248 = 50%, 6097 KB/s], Decompressed: 424
+2026-11-23T19:48:48.2212732Z Downloaded: 4285 file(s) [attempted 4285/8248 = 51%, 4222 KB/s], Decompressed: 424
+2026-11-23T19:48:48.3282994Z Downloaded: 4405 file(s) [attempted 4405/8248 = 53%, 3584 KB/s], Decompressed: 424
+2026-11-23T19:48:48.4326123Z Downloaded: 4554 file(s) [attempted 4554/8248 = 55%, 1779 KB/s], Decompressed: 424
+2026-11-23T19:48:48.5336426Z Downloaded: 4703 file(s) [attempted 4703/8248 = 57%, 341 KB/s], Decompressed: 424
+2026-11-23T19:48:48.6362177Z Downloaded: 4850 file(s) [attempted 4850/8248 = 58%, 638 KB/s], Decompressed: 424
+2026-11-23T19:48:48.7368222Z Downloaded: 4989 file(s) [attempted 4989/8248 = 60%, 1581 KB/s], Decompressed: 424
+2026-11-23T19:48:48.8419445Z Downloaded: 5125 file(s) [attempted 5125/8248 = 62%, 177 KB/s], Decompressed: 424
+2026-11-23T19:48:48.9412014Z Downloaded: 5258 file(s) [attempted 5258/8248 = 63%, 282 KB/s], Decompressed: 424
+2026-11-23T19:48:49.0412371Z Downloaded: 5407 file(s) [attempted 5407/8248 = 65%, 1454 KB/s], Decompressed: 424
+2026-11-23T19:48:49.1498549Z Downloaded: 5531 file(s) [attempted 5531/8248 = 67%, 999 KB/s], Decompressed: 424
+2026-11-23T19:48:49.2539865Z Downloaded: 5673 file(s) [attempted 5673/8248 = 68%, 1121 KB/s], Decompressed: 424
+2026-11-23T19:48:49.3545165Z Downloaded: 5824 file(s) [attempted 5824/8248 = 70%, 1221 KB/s], Decompressed: 424
+2026-11-23T19:48:49.4590194Z Downloaded: 5970 file(s) [attempted 5970/8248 = 72%, 3642 KB/s], Decompressed: 424
+2026-11-23T19:48:49.5629896Z Downloaded: 6115 file(s) [attempted 6115/8248 = 74%, 357 KB/s], Decompressed: 424
+2026-11-23T19:48:49.6613414Z Downloaded: 6270 file(s) [attempted 6270/8248 = 76%, 400 KB/s], Decompressed: 424
+2026-11-23T19:48:49.7725304Z Downloaded: 6394 file(s) [attempted 6394/8248 = 77%, 212 KB/s], Decompressed: 424
+2026-11-23T19:48:49.8754047Z Downloaded: 6545 file(s) [attempted 6545/8248 = 79%, 751 KB/s], Decompressed: 424
+2026-11-23T19:48:49.9750371Z Downloaded: 6683 file(s) [attempted 6683/8248 = 81%, 145 KB/s], Decompressed: 424
+2026-11-23T19:48:50.0786220Z Downloaded: 6821 file(s) [attempted 6821/8248 = 82%, 3330 KB/s], Decompressed: 424
+2026-11-23T19:48:50.1800193Z Downloaded: 6933 file(s) [attempted 6933/8248 = 84%, 1208 KB/s], Decompressed: 424
+2026-11-23T19:48:50.2793094Z Downloaded: 7066 file(s) [attempted 7066/8248 = 85%, 395 KB/s], Decompressed: 424
+2026-11-23T19:48:50.3809221Z Downloaded: 7191 file(s) [attempted 7191/8248 = 87%, 296 KB/s], Decompressed: 424
+2026-11-23T19:48:50.4839653Z Downloaded: 7324 file(s) [attempted 7324/8248 = 88%, 3889 KB/s], Decompressed: 424
+2026-11-23T19:48:50.5834003Z Downloaded: 7466 file(s) [attempted 7466/8248 = 90%, 457 KB/s], Decompressed: 424
+2026-11-23T19:48:50.6856214Z Downloaded: 7608 file(s) [attempted 7608/8248 = 92%, 132 KB/s], Decompressed: 424
+2026-11-23T19:48:50.7878278Z Downloaded: 7734 file(s) [attempted 7734/8248 = 93%, 417 KB/s], Decompressed: 424
+2026-11-23T19:48:50.8906574Z Downloaded: 7855 file(s) [attempted 7855/8248 = 95%, 234 KB/s], Decompressed: 424
+2026-11-23T19:48:50.9901998Z Downloaded: 8000 file(s) [attempted 8000/8248 = 96%, 629 KB/s], Decompressed: 424
+2026-11-23T19:48:51.0936102Z Downloaded: 8115 file(s) [attempted 8115/8248 = 98%, 654 KB/s], Decompressed: 424
+2026-11-23T19:48:51.1558649Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 306 KB/s], Decompressed: 424
+2026-11-23T19:48:51.1564022Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 306 KB/s], Decompressed: 424
+2026-11-23T19:49:12.1918802Z Decompressed 8248 file(s)
+2026-11-23T19:49:12.1919554Z Already decompressed 8248 file(s)
+2026-11-23T19:49:12.2514271Z ##[group]Run set -o pipefail
+2026-11-23T19:49:12.2514598Z [36;1mset -o pipefail[0m
+2026-11-23T19:49:12.2514842Z [36;1mmkdir -p cert-out[0m
+2026-11-23T19:49:12.2515126Z [36;1mlake build 2>&1 | tee cert-out/lake-build.log[0m
+2026-11-23T19:49:12.2549354Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:12.2549615Z ##[endgroup]
+2026-11-23T19:49:12.9758171Z ✖ [0/0] Running job computation
+2026-11-23T19:49:12.9758846Z error: no such file or directory (error code: 4294967294)
+2026-11-23T19:49:12.9760137Z   file: /home/runner/work/TFFrohmanianTether/TFFrohmanianTether/TFFrohmanianTether/Basic.lean
+2026-11-23T19:49:12.9761097Z Some required targets logged failures:
+2026-11-23T19:49:12.9761609Z - job computation
+2026-11-23T19:49:12.9764527Z error: build failed
+2026-11-23T19:49:13.0117191Z ##[error]Process completed with exit code 1.
+2026-11-23T19:49:13.0179663Z ##[group]Run mkdir -p cert-out
+2026-11-23T19:49:13.0180027Z [36;1mmkdir -p cert-out[0m
+2026-11-23T19:49:13.0180368Z [36;1mcp -a lean-toolchain lake-manifest.json cert-out/ || true[0m
+2026-11-23T19:49:13.0180901Z [36;1msha256sum lean-toolchain lake-manifest.json | tee cert-out/pins.sha256 || true[0m
+2026-11-23T19:49:13.0181327Z [36;1m{[0m
+2026-11-23T19:49:13.0181561Z [36;1m  echo "commit: $(git rev-parse HEAD)"[0m
+2026-11-23T19:49:13.0181865Z [36;1m  echo "GITHUB_SHA: $GITHUB_SHA"[0m
+2026-11-23T19:49:13.0182208Z [36;1m  echo "elan: $(elan --version 2>/dev/null || echo missing)"[0m
+2026-11-23T19:49:13.0182620Z [36;1m  echo "lean: $(lean --version 2>/dev/null || echo missing)"[0m
+2026-11-23T19:49:13.0183014Z [36;1m  echo "lake: $(lake --version 2>/dev/null || echo missing)"[0m
+2026-11-23T19:49:13.0183370Z [36;1m} > cert-out/versions.txt[0m
+2026-11-23T19:49:13.0217766Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:13.0218019Z ##[endgroup]
+2026-11-23T19:49:13.0336734Z 1098ca8368e0db12138f33b070187e1f6527984ae0451a587b20e3e661f96a76  lean-toolchain
+2026-11-23T19:49:13.0337518Z 304f1ea78d48fee0abbb6480f3482364d000ad2af0df8e7b502200810dd0a5e5  lake-manifest.json
+2026-11-23T19:49:13.1317384Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:49:13.1317721Z with:
+2026-11-23T19:49:13.1317927Z   name: lean-certificate
+2026-11-23T19:49:13.1318159Z   path: cert-out/
+2026-11-23T19:49:13.1318373Z   if-no-files-found: warn
+2026-11-23T19:49:13.1318603Z   compression-level: 6
+2026-11-23T19:49:13.1318824Z   overwrite: false
+2026-11-23T19:49:13.1319265Z   include-hidden-files: false
+2026-11-23T19:49:13.1319507Z ##[endgroup]
+2026-11-23T19:49:13.3021027Z (node:2893) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:49:13.3022913Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:49:13.3086551Z With the provided path, there will be 5 files uploaded
+2026-11-23T19:49:13.3093984Z Artifact name is valid!
+2026-11-23T19:49:13.3094836Z Root directory input is valid!
+2026-11-23T19:49:13.5118883Z Beginning upload of artifact content to blob storage
+2026-11-23T19:49:13.5437727Z (node:2893) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:49:13.5742590Z Uploaded bytes 1854
+2026-11-23T19:49:13.5889430Z Finished uploading artifact content to blob storage!
+2026-11-23T19:49:13.5890952Z SHA256 digest of uploaded artifact zip is c03f27bdfa0c4be2043f335070683455d1eae3a3427d3a770719a203fce8ed04
+2026-11-23T19:49:13.5893201Z Finalizing artifact upload
+2026-11-23T19:49:13.9205689Z Artifact lean-certificate.zip successfully finalized. Artifact ID 14856409499
+2026-11-23T19:49:13.9207040Z Artifact lean-certificate has been successfully uploaded! Final size is 1854 bytes. Artifact ID is 14856409499
+2026-11-23T19:49:13.9214945Z Artifact download URL: https://github.com/BenFrohman/TFFrohmanianTether/actions/runs/45252615548/artifacts/14856409499
+2026-11-23T19:49:13.9461824Z Post job cleanup.
+2026-11-23T19:49:14.0293926Z [command]/usr/bin/git version
+2026-11-23T19:49:14.0349257Z git version 2.56.1
+2026-11-23T19:49:14.0420146Z Temporarily overriding HOME='/home/runner/work/_temp/64a7e8ad-08ee-494a-9203-164c0965fe46' before making global git config changes
+2026-11-23T19:49:14.0421442Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:49:14.0427129Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TFFrohmanianTether/TFFrohmanianTether
+2026-11-23T19:49:14.0463492Z Removing SSH command configuration
+2026-11-23T19:49:14.0485991Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:49:14.0522975Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:49:14.0834174Z Removing HTTP extra header
+2026-11-23T19:49:14.0840798Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:49:14.0900750Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:49:14.1201443Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:49:14.1208333Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:49:14.1236633Z includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path
+2026-11-23T19:49:14.1238085Z includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path
+2026-11-23T19:49:14.1240117Z includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:49:14.1241454Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:49:14.1249520Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path
+2026-11-23T19:49:14.1274231Z /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1284075Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1325078Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path
+2026-11-23T19:49:14.1356538Z /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1370164Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1405845Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:49:14.1430908Z /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1440385Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1476066Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:49:14.1503142Z /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1510788Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1551597Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:49:14.1842321Z Removing credentials config '/home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config'
+2026-11-23T19:49:14.2016439Z Cleaning up orphan processes
+2026-11-23T19:49:14.2383902Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== Build (lake, pinned toolchain)/18_Post Checkout.txt
+﻿2026-11-23T19:49:13.9461810Z Post job cleanup.
+2026-11-23T19:49:14.0293877Z [command]/usr/bin/git version
+2026-11-23T19:49:14.0349225Z git version 2.56.1
+2026-11-23T19:49:14.0420129Z Temporarily overriding HOME='/home/runner/work/_temp/64a7e8ad-08ee-494a-9203-164c0965fe46' before making global git config changes
+2026-11-23T19:49:14.0421438Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:49:14.0427116Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TFFrohmanianTether/TFFrohmanianTether
+2026-11-23T19:49:14.0463468Z Removing SSH command configuration
+2026-11-23T19:49:14.0485972Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:49:14.0522957Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:49:14.0834126Z Removing HTTP extra header
+2026-11-23T19:49:14.0840691Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:49:14.0900725Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:49:14.1201402Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:49:14.1208311Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:49:14.1236619Z includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path
+2026-11-23T19:49:14.1238070Z includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path
+2026-11-23T19:49:14.1240065Z includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:49:14.1241442Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:49:14.1249486Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path
+2026-11-23T19:49:14.1274216Z /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1284061Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1325059Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path
+2026-11-23T19:49:14.1356515Z /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1370127Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1405824Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:49:14.1430894Z /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1440369Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1476050Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:49:14.1503126Z /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:49:14.1510775Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-d5e65fb9\-6c4a\-4f3d\-9b88\-c4f4b202b0ec\.config
+2026-11-23T19:49:14.1551266Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:49:14.1842276Z Removing credentials config '/home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config'
+
+===== Build (lake, pinned toolchain)/19_Complete job.txt
+﻿2026-11-23T19:49:14.2016426Z Cleaning up orphan processes
+2026-11-23T19:49:14.2383880Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== Build (lake, pinned toolchain)/1_Set up job.txt
+﻿2026-11-23T19:47:44.5321649Z Current runner version: '2.338.2'
+2026-11-23T19:47:44.5358275Z ##[group]Runner Image Provisioner
+2026-11-23T19:47:44.5359975Z Hosted Compute Agent
+2026-11-23T19:47:44.5361112Z Version: 20261111.635
+2026-11-23T19:47:44.5362282Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:47:44.5363790Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:47:44.5365024Z Worker ID: {db0870b3-86d1-4c4c-9178-4527cdf6bea1}
+2026-11-23T19:47:44.5366335Z Region: eastus
+2026-11-23T19:47:44.5367463Z Cloud: Azure
+2026-11-23T19:47:44.5368442Z ##[endgroup]
+2026-11-23T19:47:44.5371114Z ##[group]Operating System
+2026-11-23T19:47:44.5372205Z Ubuntu
+2026-11-23T19:47:44.5373087Z 26.04.1
+2026-11-23T19:47:44.5374134Z LTS
+2026-11-23T19:47:44.5375032Z ##[endgroup]
+2026-11-23T19:47:44.5376202Z ##[group]Runner Image
+2026-11-23T19:47:44.5377186Z Image: ubuntu-26.04
+2026-11-23T19:47:44.5378102Z Version: 20261116.202.1
+2026-11-23T19:47:44.5380392Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:47:44.5383570Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:47:44.5385361Z ##[endgroup]
+2026-11-23T19:47:44.5387688Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:47:44.5390883Z Contents: read
+2026-11-23T19:47:44.5392036Z Metadata: read
+2026-11-23T19:47:44.5392910Z ##[endgroup]
+2026-11-23T19:47:44.5396106Z Secret source: Actions
+2026-11-23T19:47:44.5398151Z Cache mode: write
+2026-11-23T19:47:44.5400170Z Prepare workflow directory
+2026-11-23T19:47:44.5897460Z Prepare all required actions
+2026-11-23T19:47:44.5971625Z Getting action download info
+2026-11-23T19:47:44.7752442Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-23T19:47:44.8706312Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:47:45.0547802Z Complete job name: Build (lake, pinned toolchain)
+
+===== Build (lake, pinned toolchain)/2_Checkout.txt
+﻿2026-11-23T19:47:45.1429507Z ##[group]Run actions/checkout@v7
+2026-11-23T19:47:45.1430474Z with:
+2026-11-23T19:47:45.1430959Z   repository: BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.1435023Z   token: ***
+2026-11-23T19:47:45.1435453Z   ssh-strict: true
+2026-11-23T19:47:45.1435886Z   ssh-user: git
+2026-11-23T19:47:45.1436328Z   persist-credentials: true
+2026-11-23T19:47:45.1436804Z   clean: true
+2026-11-23T19:47:45.1437239Z   sparse-checkout-cone-mode: true
+2026-11-23T19:47:45.1437752Z   fetch-depth: 1
+2026-11-23T19:47:45.1438172Z   fetch-tags: false
+2026-11-23T19:47:45.1438605Z   show-progress: true
+2026-11-23T19:47:45.1439187Z   lfs: false
+2026-11-23T19:47:45.1439598Z   submodules: false
+2026-11-23T19:47:45.1440039Z   set-safe-directory: true
+2026-11-23T19:47:45.1440535Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:47:45.1441300Z ##[endgroup]
+2026-11-23T19:47:45.4075139Z Syncing repository: BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.4077247Z ##[group]Getting Git version info
+2026-11-23T19:47:45.4078235Z Working directory is '/home/runner/work/TFFrohmanianTether/TFFrohmanianTether'
+2026-11-23T19:47:45.4080759Z [command]/usr/bin/git version
+2026-11-23T19:47:45.4105575Z git version 2.56.1
+2026-11-23T19:47:45.4130745Z ##[endgroup]
+2026-11-23T19:47:45.4142987Z Temporarily overriding HOME='/home/runner/work/_temp/686d8380-093a-49b9-b89f-a83bdc9d40f9' before making global git config changes
+2026-11-23T19:47:45.4145339Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:47:45.4148007Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TFFrohmanianTether/TFFrohmanianTether
+2026-11-23T19:47:45.4214027Z Deleting the contents of '/home/runner/work/TFFrohmanianTether/TFFrohmanianTether'
+2026-11-23T19:47:45.4216878Z ##[group]Determining repository object format
+2026-11-23T19:47:45.4218434Z ##[endgroup]
+2026-11-23T19:47:45.4219706Z ##[group]Initializing the repository
+2026-11-23T19:47:45.4223326Z [command]/usr/bin/git init /home/runner/work/TFFrohmanianTether/TFFrohmanianTether
+2026-11-23T19:47:45.4344339Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:47:45.4346506Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:47:45.4348123Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:47:45.4349753Z hint: call:
+2026-11-23T19:47:45.4350483Z hint:
+2026-11-23T19:47:45.4351356Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:47:45.4352403Z hint:
+2026-11-23T19:47:45.4353445Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:47:45.4355137Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:47:45.4356480Z hint:
+2026-11-23T19:47:45.4357223Z hint: 	git branch -m <name>
+2026-11-23T19:47:45.4358074Z hint:
+2026-11-23T19:47:45.4359377Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:47:45.4370720Z Initialized empty Git repository in /home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/
+2026-11-23T19:47:45.4383062Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.4442873Z ##[endgroup]
+2026-11-23T19:47:45.4444703Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:47:45.4446436Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:47:45.4482899Z ##[endgroup]
+2026-11-23T19:47:45.4484528Z ##[group]Setting up auth
+2026-11-23T19:47:45.4487151Z Removing SSH command configuration
+2026-11-23T19:47:45.4488566Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:47:45.4524418Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:47:45.5049941Z Removing HTTP extra header
+2026-11-23T19:47:45.5055498Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:47:45.5089768Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:47:45.5381294Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:47:45.5387098Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:47:45.5429749Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:47:45.5735691Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:47:45.5776446Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git.path /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5815172Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/TFFrohmanianTether/TFFrohmanianTether/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5854530Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5893450Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d5e65fb9-6c4a-4f3d-9b88-c4f4b202b0ec.config
+2026-11-23T19:47:45.5925666Z ##[endgroup]
+2026-11-23T19:47:45.5927309Z ##[group]Fetching the repository
+2026-11-23T19:47:45.5935670Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +394cd9a919854babf45dd41bc74a136e65b456ba:refs/remotes/origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7793512Z From https://github.com/BenFrohman/TFFrohmanianTether
+2026-11-23T19:47:45.7794881Z  * [new ref]         394cd9a919854babf45dd41bc74a136e65b456ba -> origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7803830Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7830969Z   origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7839952Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.7864739Z 394cd9a919854babf45dd41bc74a136e65b456ba
+2026-11-23T19:47:45.7869796Z ##[endgroup]
+2026-11-23T19:47:45.7870650Z ##[group]Determining the checkout info
+2026-11-23T19:47:45.7873492Z ##[endgroup]
+2026-11-23T19:47:45.7874481Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:47:45.7927855Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:47:45.7961262Z ##[group]Checking out the ref
+2026-11-23T19:47:45.7966604Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/394cd9a refs/remotes/origin/ci-backfill/394cd9a
+2026-11-23T19:47:45.8032775Z Switched to a new branch 'ci-backfill/394cd9a'
+2026-11-23T19:47:45.8039131Z branch 'ci-backfill/394cd9a' set up to track 'origin/ci-backfill/394cd9a'.
+2026-11-23T19:47:45.8045420Z ##[endgroup]
+2026-11-23T19:47:45.8090779Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:47:45.8116854Z 394cd9a919854babf45dd41bc74a136e65b456ba
+
+===== Build (lake, pinned toolchain)/3_Install elan.txt
+﻿2026-11-23T19:47:45.8358202Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+2026-11-23T19:47:45.8360006Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \[0m
+2026-11-23T19:47:45.8361064Z [36;1m  | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:47:45.8361795Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:47:45.8398244Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:47:45.8398858Z ##[endgroup]
+2026-11-23T19:47:45.8889206Z info: downloading installer
+
+===== Build (lake, pinned toolchain)/4_Report toolchain (from repo).txt
+﻿2026-11-23T19:47:46.0487660Z ##[group]Run echo "=== lean-toolchain ==="
+2026-11-23T19:47:46.0488503Z [36;1mecho "=== lean-toolchain ==="[0m
+2026-11-23T19:47:46.0489468Z [36;1mcat lean-toolchain[0m
+2026-11-23T19:47:46.0490051Z [36;1melan --version[0m
+2026-11-23T19:47:46.0526052Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:47:46.0526647Z ##[endgroup]
+2026-11-23T19:47:46.0587479Z === lean-toolchain ===
+2026-11-23T19:47:46.0613087Z leanprover/lean4:v4.30.0-rc1
+2026-11-23T19:47:46.0634199Z elan 4.4.0 (3cc76985a 2026-11-18)
+
+===== Build (lake, pinned toolchain)/5_Fetch Mathlib cache (optional).txt
+﻿2026-11-23T19:47:46.0764954Z ##[group]Run lake exe cache get || echo "::warning::cache miss; building from source"
+2026-11-23T19:47:46.0766207Z [36;1mlake exe cache get || echo "::warning::cache miss; building from source"[0m
+2026-11-23T19:47:46.0800902Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:47:46.0801467Z ##[endgroup]
+2026-11-23T19:47:46.5322059Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:47:50.1421236Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:47:56.6928188Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:48:27.1927185Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:48:28.9990013Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:48:29.1552976Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:48:29.1678391Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:48:29.3281890Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:48:29.3385655Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:48:29.5476712Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:48:29.5667442Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:48:29.8914022Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:48:30.6593324Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:48:31.0201382Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:48:31.0479630Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:48:31.2246961Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:48:31.2377922Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:48:33.5960864Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:48:33.6335796Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:48:33.7970498Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:48:34.2110556Z ✔ [4/22] Built Cache.Init (315ms)
+2026-11-23T19:48:34.3110424Z ✔ [5/22] Built Cache.Lean (483ms)
+2026-11-23T19:48:34.4100452Z ✔ [6/22] Built Cache.Init:c.o (205ms)
+2026-11-23T19:48:34.6110460Z ✔ [7/22] Built Cache.Lean:c.o (242ms)
+2026-11-23T19:48:34.7120473Z ✔ [8/22] Built Batteries.Data.String.Basic (523ms)
+2026-11-23T19:48:34.8110857Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (146ms)
+2026-11-23T19:48:35.1094547Z ✔ [10/22] Built Batteries.Data.Array.Match (912ms)
+2026-11-23T19:48:35.4101376Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (371ms)
+2026-11-23T19:48:35.5092153Z ✔ [12/22] Built Batteries.Data.String.Matcher (389ms)
+2026-11-23T19:48:35.7108801Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (206ms)
+2026-11-23T19:48:36.0101966Z ✔ [14/22] Built Cache.IO (1.6s)
+2026-11-23T19:48:36.7130451Z ✔ [15/22] Built Cache.Hashing (772ms)
+2026-11-23T19:48:37.3130650Z ✔ [16/22] Built Cache.Hashing:c.o (580ms)
+2026-11-23T19:48:37.5122435Z ✔ [17/22] Built Cache.IO:c.o (1.6s)
+2026-11-23T19:48:38.8135428Z ✔ [18/22] Built Cache.Requests (2.1s)
+2026-11-23T19:48:39.6145254Z ✔ [19/22] Built Cache.Main (822ms)
+2026-11-23T19:48:40.3154422Z ✔ [20/22] Built Cache.Main:c.o (631ms)
+2026-11-23T19:48:41.0193211Z ✔ [21/22] Built Cache.Requests:c.o (2.2s)
+2026-11-23T19:48:41.7173991Z ✔ [22/22] Built cache:exe (687ms)
+2026-11-23T19:48:44.3580867Z Current branch: HEAD
+2026-11-23T19:48:44.3581542Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:48:44.3582484Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:48:44.8652401Z 
+2026-11-23T19:48:44.9685353Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 120 KB/s], Decompressed: 0
+2026-11-23T19:48:45.0695287Z Downloaded: 63 file(s) [attempted 63/8248 = 0%, 251 KB/s], Decompressed: 15
+2026-11-23T19:48:45.1702170Z Downloaded: 178 file(s) [attempted 178/8248 = 2%, 479 KB/s], Decompressed: 34
+2026-11-23T19:48:45.2692695Z Downloaded: 314 file(s) [attempted 314/8248 = 3%, 608 KB/s], Decompressed: 34
+2026-11-23T19:48:45.3699810Z Downloaded: 458 file(s) [attempted 458/8248 = 5%, 197 KB/s], Decompressed: 99
+2026-11-23T19:48:45.4735151Z Downloaded: 593 file(s) [attempted 593/8248 = 7%, 2149 KB/s], Decompressed: 99
+2026-11-23T19:48:45.5750121Z Downloaded: 749 file(s) [attempted 749/8248 = 9%, 827 KB/s], Decompressed: 99
+2026-11-23T19:48:45.6750343Z Downloaded: 898 file(s) [attempted 898/8248 = 10%, 685 KB/s], Decompressed: 99
+2026-11-23T19:48:45.7770059Z Downloaded: 1020 file(s) [attempted 1020/8248 = 12%, 373 KB/s], Decompressed: 99
+2026-11-23T19:48:45.8804180Z Downloaded: 1158 file(s) [attempted 1158/8248 = 14%, 488 KB/s], Decompressed: 99
+2026-11-23T19:48:45.9800892Z Downloaded: 1304 file(s) [attempted 1304/8248 = 15%, 189 KB/s], Decompressed: 99
+2026-11-23T19:48:46.0791476Z Downloaded: 1440 file(s) [attempted 1440/8248 = 17%, 472 KB/s], Decompressed: 99
+2026-11-23T19:48:46.1849339Z Downloaded: 1597 file(s) [attempted 1597/8248 = 19%, 2357 KB/s], Decompressed: 99
+2026-11-23T19:48:46.2820315Z Downloaded: 1737 file(s) [attempted 1737/8248 = 21%, 873 KB/s], Decompressed: 99
+2026-11-23T19:48:46.3807939Z Downloaded: 1884 file(s) [attempted 1884/8248 = 22%, 3647 KB/s], Decompressed: 99
+2026-11-23T19:48:46.4860513Z Downloaded: 2022 file(s) [attempted 2022/8248 = 24%, 372 KB/s], Decompressed: 424
+2026-11-23T19:48:46.5860444Z Downloaded: 2170 file(s) [attempted 2170/8248 = 26%, 722 KB/s], Decompressed: 424
+2026-11-23T19:48:46.6920331Z Downloaded: 2315 file(s) [attempted 2315/8248 = 28%, 481 KB/s], Decompressed: 424
+2026-11-23T19:48:46.7902006Z Downloaded: 2448 file(s) [attempted 2448/8248 = 29%, 1310 KB/s], Decompressed: 424
+2026-11-23T19:48:46.8903659Z Downloaded: 2597 file(s) [attempted 2597/8248 = 31%, 4278 KB/s], Decompressed: 424
+2026-11-23T19:48:46.9954836Z Downloaded: 2743 file(s) [attempted 2743/8248 = 33%, 1861 KB/s], Decompressed: 424
+2026-11-23T19:48:47.0943152Z Downloaded: 2878 file(s) [attempted 2878/8248 = 34%, 1995 KB/s], Decompressed: 424
+2026-11-23T19:48:47.1970220Z Downloaded: 3000 file(s) [attempted 3000/8248 = 36%, 540 KB/s], Decompressed: 424
+2026-11-23T19:48:47.2980846Z Downloaded: 3133 file(s) [attempted 3133/8248 = 37%, 126 KB/s], Decompressed: 424
+2026-11-23T19:48:47.4000294Z Downloaded: 3255 file(s) [attempted 3255/8248 = 39%, 965 KB/s], Decompressed: 424
+2026-11-23T19:48:47.5050173Z Downloaded: 3397 file(s) [attempted 3397/8248 = 41%, 165 KB/s], Decompressed: 424
+2026-11-23T19:48:47.6045039Z Downloaded: 3530 file(s) [attempted 3530/8248 = 42%, 1917 KB/s], Decompressed: 424
+2026-11-23T19:48:47.7072497Z Downloaded: 3681 file(s) [attempted 3681/8248 = 44%, 397 KB/s], Decompressed: 424
+2026-11-23T19:48:47.8068527Z Downloaded: 3823 file(s) [attempted 3823/8248 = 46%, 2394 KB/s], Decompressed: 424
+2026-11-23T19:48:47.9077022Z Downloaded: 3938 file(s) [attempted 3938/8248 = 47%, 2632 KB/s], Decompressed: 424
+2026-11-23T19:48:48.0193231Z Downloaded: 4038 file(s) [attempted 4038/8248 = 48%, 961 KB/s], Decompressed: 424
+2026-11-23T19:48:48.1190148Z Downloaded: 4173 file(s) [attempted 4173/8248 = 50%, 6097 KB/s], Decompressed: 424
+2026-11-23T19:48:48.2212680Z Downloaded: 4285 file(s) [attempted 4285/8248 = 51%, 4222 KB/s], Decompressed: 424
+2026-11-23T19:48:48.3282942Z Downloaded: 4405 file(s) [attempted 4405/8248 = 53%, 3584 KB/s], Decompressed: 424
+2026-11-23T19:48:48.4326072Z Downloaded: 4554 file(s) [attempted 4554/8248 = 55%, 1779 KB/s], Decompressed: 424
+2026-11-23T19:48:48.5336377Z Downloaded: 4703 file(s) [attempted 4703/8248 = 57%, 341 KB/s], Decompressed: 424
+2026-11-23T19:48:48.6362132Z Downloaded: 4850 file(s) [attempted 4850/8248 = 58%, 638 KB/s], Decompressed: 424
+2026-11-23T19:48:48.7367887Z Downloaded: 4989 file(s) [attempted 4989/8248 = 60%, 1581 KB/s], Decompressed: 424
+2026-11-23T19:48:48.8419393Z Downloaded: 5125 file(s) [attempted 5125/8248 = 62%, 177 KB/s], Decompressed: 424
+2026-11-23T19:48:48.9411946Z Downloaded: 5258 file(s) [attempted 5258/8248 = 63%, 282 KB/s], Decompressed: 424
+2026-11-23T19:48:49.0412323Z Downloaded: 5407 file(s) [attempted 5407/8248 = 65%, 1454 KB/s], Decompressed: 424
+2026-11-23T19:48:49.1498497Z Downloaded: 5531 file(s) [attempted 5531/8248 = 67%, 999 KB/s], Decompressed: 424
+2026-11-23T19:48:49.2539819Z Downloaded: 5673 file(s) [attempted 5673/8248 = 68%, 1121 KB/s], Decompressed: 424
+2026-11-23T19:48:49.3545117Z Downloaded: 5824 file(s) [attempted 5824/8248 = 70%, 1221 KB/s], Decompressed: 424
+2026-11-23T19:48:49.4590147Z Downloaded: 5970 file(s) [attempted 5970/8248 = 72%, 3642 KB/s], Decompressed: 424
+2026-11-23T19:48:49.5629868Z Downloaded: 6115 file(s) [attempted 6115/8248 = 74%, 357 KB/s], Decompressed: 424
+2026-11-23T19:48:49.6613341Z Downloaded: 6270 file(s) [attempted 6270/8248 = 76%, 400 KB/s], Decompressed: 424
+2026-11-23T19:48:49.7725248Z Downloaded: 6394 file(s) [attempted 6394/8248 = 77%, 212 KB/s], Decompressed: 424
+2026-11-23T19:48:49.8754001Z Downloaded: 6545 file(s) [attempted 6545/8248 = 79%, 751 KB/s], Decompressed: 424
+2026-11-23T19:48:49.9750322Z Downloaded: 6683 file(s) [attempted 6683/8248 = 81%, 145 KB/s], Decompressed: 424
+2026-11-23T19:48:50.0786176Z Downloaded: 6821 file(s) [attempted 6821/8248 = 82%, 3330 KB/s], Decompressed: 424
+2026-11-23T19:48:50.1800146Z Downloaded: 6933 file(s) [attempted 6933/8248 = 84%, 1208 KB/s], Decompressed: 424
+2026-11-23T19:48:50.2793044Z Downloaded: 7066 file(s) [attempted 7066/8248 = 85%, 395 KB/s], Decompressed: 424
+2026-11-23T19:48:50.3809173Z Downloaded: 7191 file(s) [attempted 7191/8248 = 87%, 296 KB/s], Decompressed: 424
+2026-11-23T19:48:50.4839593Z Downloaded: 7324 file(s) [attempted 7324/8248 = 88%, 3889 KB/s], Decompressed: 424
+2026-11-23T19:48:50.5833943Z Downloaded: 7466 file(s) [attempted 7466/8248 = 90%, 457 KB/s], Decompressed: 424
+2026-11-23T19:48:50.6856163Z Downloaded: 7608 file(s) [attempted 7608/8248 = 92%, 132 KB/s], Decompressed: 424
+2026-11-23T19:48:50.7878232Z Downloaded: 7734 file(s) [attempted 7734/8248 = 93%, 417 KB/s], Decompressed: 424
+2026-11-23T19:48:50.8906524Z Downloaded: 7855 file(s) [attempted 7855/8248 = 95%, 234 KB/s], Decompressed: 424
+2026-11-23T19:48:50.9901945Z Downloaded: 8000 file(s) [attempted 8000/8248 = 96%, 629 KB/s], Decompressed: 424
+2026-11-23T19:48:51.0936043Z Downloaded: 8115 file(s) [attempted 8115/8248 = 98%, 654 KB/s], Decompressed: 424
+2026-11-23T19:48:51.1558594Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 306 KB/s], Decompressed: 424
+2026-11-23T19:48:51.1564011Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 306 KB/s], Decompressed: 424
+2026-11-23T19:49:12.1918761Z Decompressed 8248 file(s)
+2026-11-23T19:49:12.1919548Z Already decompressed 8248 file(s)
+
+===== Build (lake, pinned toolchain)/6_Build.txt
+﻿2026-11-23T19:49:12.2514252Z ##[group]Run set -o pipefail
+2026-11-23T19:49:12.2514595Z [36;1mset -o pipefail[0m
+2026-11-23T19:49:12.2514840Z [36;1mmkdir -p cert-out[0m
+2026-11-23T19:49:12.2515123Z [36;1mlake build 2>&1 | tee cert-out/lake-build.log[0m
+2026-11-23T19:49:12.2549345Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:12.2549613Z ##[endgroup]
+2026-11-23T19:49:12.9758123Z ✖ [0/0] Running job computation
+2026-11-23T19:49:12.9758841Z error: no such file or directory (error code: 4294967294)
+2026-11-23T19:49:12.9760132Z   file: /home/runner/work/TFFrohmanianTether/TFFrohmanianTether/TFFrohmanianTether/Basic.lean
+2026-11-23T19:49:12.9761092Z Some required targets logged failures:
+2026-11-23T19:49:12.9761605Z - job computation
+2026-11-23T19:49:12.9764514Z error: build failed
+2026-11-23T19:49:13.0117163Z ##[error]Process completed with exit code 1.
+
+===== Build (lake, pinned toolchain)/8_Collect pins.txt
+﻿2026-11-23T19:49:13.0179651Z ##[group]Run mkdir -p cert-out
+2026-11-23T19:49:13.0180024Z [36;1mmkdir -p cert-out[0m
+2026-11-23T19:49:13.0180365Z [36;1mcp -a lean-toolchain lake-manifest.json cert-out/ || true[0m
+2026-11-23T19:49:13.0180899Z [36;1msha256sum lean-toolchain lake-manifest.json | tee cert-out/pins.sha256 || true[0m
+2026-11-23T19:49:13.0181325Z [36;1m{[0m
+2026-11-23T19:49:13.0181552Z [36;1m  echo "commit: $(git rev-parse HEAD)"[0m
+2026-11-23T19:49:13.0181862Z [36;1m  echo "GITHUB_SHA: $GITHUB_SHA"[0m
+2026-11-23T19:49:13.0182206Z [36;1m  echo "elan: $(elan --version 2>/dev/null || echo missing)"[0m
+2026-11-23T19:49:13.0182618Z [36;1m  echo "lean: $(lean --version 2>/dev/null || echo missing)"[0m
+2026-11-23T19:49:13.0183012Z [36;1m  echo "lake: $(lake --version 2>/dev/null || echo missing)"[0m
+2026-11-23T19:49:13.0183367Z [36;1m} > cert-out/versions.txt[0m
+2026-11-23T19:49:13.0217759Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:49:13.0218017Z ##[endgroup]
+2026-11-23T19:49:13.0336656Z 1098ca8368e0db12138f33b070187e1f6527984ae0451a587b20e3e661f96a76  lean-toolchain
+2026-11-23T19:49:13.0337515Z 304f1ea78d48fee0abbb6480f3482364d000ad2af0df8e7b502200810dd0a5e5  lake-manifest.json
+
+===== Build (lake, pinned toolchain)/9_Upload certificate.txt
+﻿2026-11-23T19:49:13.1317369Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:49:13.1317718Z with:
+2026-11-23T19:49:13.1317924Z   name: lean-certificate
+2026-11-23T19:49:13.1318157Z   path: cert-out/
+2026-11-23T19:49:13.1318371Z   if-no-files-found: warn
+2026-11-23T19:49:13.1318601Z   compression-level: 6
+2026-11-23T19:49:13.1318816Z   overwrite: false
+2026-11-23T19:49:13.1319262Z   include-hidden-files: false
+2026-11-23T19:49:13.1319505Z ##[endgroup]
+2026-11-23T19:49:13.3020985Z (node:2893) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:49:13.3022900Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:49:13.3086523Z With the provided path, there will be 5 files uploaded
+2026-11-23T19:49:13.3093970Z Artifact name is valid!
+2026-11-23T19:49:13.3094828Z Root directory input is valid!
+2026-11-23T19:49:13.5118852Z Beginning upload of artifact content to blob storage
+2026-11-23T19:49:13.5437601Z (node:2893) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:49:13.5742551Z Uploaded bytes 1854
+2026-11-23T19:49:13.5889402Z Finished uploading artifact content to blob storage!
+2026-11-23T19:49:13.5890927Z SHA256 digest of uploaded artifact zip is c03f27bdfa0c4be2043f335070683455d1eae3a3427d3a770719a203fce8ed04
+2026-11-23T19:49:13.5893188Z Finalizing artifact upload
+2026-11-23T19:49:13.9205646Z Artifact lean-certificate.zip successfully finalized. Artifact ID 14856409499
+2026-11-23T19:49:13.9207035Z Artifact lean-certificate has been successfully uploaded! Final size is 1854 bytes. Artifact ID is 14856409499
+2026-11-23T19:49:13.9214937Z Artifact download URL: https://github.com/BenFrohman/TFFrohmanianTether/actions/runs/45252615548/artifacts/14856409499
+
+===== Build (lake, pinned toolchain)/system.txt
+2026-11-23T19:47:42.7140000Z Requested labels: ubuntu-latest
+2026-11-23T19:47:42.7140000Z Job defined at: BenFrohman/TFFrohmanianTether/.github/workflows/lean.yml@refs/heads/ci-backfill/394cd9a
+2026-11-23T19:47:42.7140000Z Waiting for a runner to pick up this job...
+2026-11-23T19:47:42.7160000Z Job is about to start running on the hosted runner: GitHub Actions 1000006480
+2026-11-23T19:47:42.7130000Z Evaluating build.if
+2026-11-23T19:47:42.7130000Z Evaluating: success()
+2026-11-23T19:47:42.7130000Z Result: true
+2026-11-23T19:47:42.7160000Z Job is waiting for a hosted runner to come online.

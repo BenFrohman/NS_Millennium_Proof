@@ -1,0 +1,97 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman. Licensed under CC BY 4.0.
+% DRAFT for author review (PipelineHalt alignment audit, 2026-11-23). Not deposited.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\title{Littlewood--Paley Formulations of the Conditional Continuation Theorem\\and Small-Data Global Regularity for 3D Navier--Stokes}
+\author{Benjamin Stanley Frohman}
+\date{November 23, 2026}
+
+\begin{document}
+\maketitle
+\noindent{\small Copyright (c) 2026 Benjamin Stanley Frohman. Licensed under CC BY 4.0. ORCID 0009-0006-7068-3718.}
+
+\begin{abstract}
+We record the Littlewood--Paley versions of the two classical results that form the sharp baseline for the 3D incompressible Navier--Stokes equations. First, the Kozono--Taniuchi refinement of the Beale--Kato--Majda criterion in one-directional continuation form: integrability of the vorticity in \(L^1_t B^0_{\infty,\infty}\) implies that a maximal Kato solution remains global and smooth for \(t>0\). Second, the Chemin / Fujita--Kato theorem of unconditional global regularity for data small in the critical Besov space \(\dot{B}^{-1+3/p}_{p,1}\) with \(1\le p<\infty\) and smallness linear in \(\nu\). The endpoint \(p=\infty\) is excluded: the problem is ill-posed in \(\dot B^{-1}_{\infty,q}\) for \(1\le q\le2\)~\cite{Wang2015} (see also~\cite{BourgainPavlovic2008}). Both statements are free of the five flaws that invalidate various proposed unconditional large-data arguments.
+\end{abstract}
+
+\section{Littlewood--Paley infrastructure}
+
+Let \(\chi,\varphi\) be the standard radial cutoff functions defining a dyadic resolution of unity. The dyadic blocks are \(\Delta_{-1}f=\chi(D)f\) and \(\Delta_j f=\varphi(2^{-j}D)f\) for \(j\ge 0\). Bernstein's inequality states that if \(\operatorname{supp}\widehat{f}\subset\{|\xi|\le R\lambda\}\) then
+\[
+\|\nabla^k f\|_{L^q}\le C^{k+1}\lambda^{k+3(1/p-1/q)}\|f\|_{L^p}
+\]
+for \(1\le p\le q\le\infty\).
+
+\section{Kozono--Taniuchi logarithmic bound}
+The bound below is due to Kozono, Ogawa and Taniuchi~\cite{KOT2002}; we sketch it.
+
+From the Biot--Savart law, \(\nabla u=K*\omega\). On each dyadic annulus the operator is smooth, so
+\[
+\|\Delta_j\nabla u\|_{L^\infty}\le C\|\Delta_j\omega\|_{L^\infty}\le C\|\omega\|_{B^0_{\infty,\infty}}.
+\]
+Splitting into low, medium and high frequencies and optimizing the cutoff \(N\approx\frac1{s-5/2}\log(2+\|\omega\|_{H^s})\) yields
+\begin{equation}\label{eq:KT}
+\|\nabla u\|_{L^\infty}
+\le C\Bigl(1+\|\omega\|_{B^0_{\infty,\infty}}\ln\bigl(e+\|\omega\|_{H^s}\bigr)+\|\omega\|_{L^2}\Bigr)
+\end{equation}
+for any \(s>5/2\).
+
+\section{Conditional continuation theorem}
+
+\begin{theorem}[Kozono--Taniuchi / Beale--Kato--Majda continuation]
+Let \(s>5/2\) and let \(u\) be a maximal Kato solution in \(H^s(\mathbb{T}^3)\) with existence time \(T^*\). If
+\[
+\int_0^{T^*}\|\omega(t)\|_{B^0_{\infty,\infty}}\,dt<\infty,
+\]
+then \(T^*=+\infty\) and \(u\in C^\infty(\mathbb{T}^3\times(0,\infty))\).
+\end{theorem}
+
+\begin{proof}[Sketch; see~\cite{BKM1984,KOT2002}]
+The Kato--Ponce~\cite{KatoPonce1988} commutator estimate gives
+\[
+\frac{d}{dt}\|\omega\|_{H^s}^2\le C\|\nabla u\|_{L^\infty}\|\omega\|_{H^s}^2.
+\]
+Substitute \eqref{eq:KT}, set \(Y(t)=e+\|\omega\|_{H^s}^2\), and obtain
+\[
+\frac{d}{dt}\ln(\ln Y(t))\le C\bigl(1+\|\omega\|_{B^0_{\infty,\infty}}\bigr).
+\]
+Integration produces a double-exponential bound. Finiteness of the Besov integral therefore keeps \(\|\omega\|_{H^s}\) bounded, and Kato local existence extends the solution past any finite time.
+\end{proof}
+
+\section{Unconditional small-data global regularity in critical Besov spaces}
+
+\begin{theorem}[Chemin / Fujita--Kato]
+Fix \(1\le p<\infty\). There exists \(\varepsilon>0\) such that if
+\[
+\|u_0\|_{\dot{B}^{-1+3/p}_{p,1}}\le\varepsilon\nu,
+\]
+then (\cite{Chemin1992,FujitaKato1964}; see~\cite{BCD2011}) the solution exists globally, is smooth for \(t>0\), and satisfies
+\[
+u\in L^\infty_t\dot{B}^{-1+3/p}_{p,1}\cap L^1_t\dot{B}^{1+3/p}_{p,1}.
+\]
+\end{theorem}
+
+\begin{proof}
+Apply \(\Delta_j\) to the mild formulation. After time integration and multiplication by the critical weight \(2^{j(-1+3/p)}\) one obtains the quadratic inequality
+\[
+X(t)\le C\|u_0\|_{\dot{B}^{-1+3/p}_{p,1}}+\frac{C}{\nu}X(t)^2,
+\]
+where \(X\) is the sum of the two critical norms appearing in the statement. For \(\|u_0\|\) at most a sufficiently small multiple of \(\nu\) (linear smallness in the viscosity), the quadratic inequality remains bounded for all time, yielding global regularity.
+\end{proof}
+
+\begin{thebibliography}{9}
+\bibitem{BCD2011} H. Bahouri, J.-Y. Chemin and R. Danchin, \emph{Fourier Analysis and Nonlinear Partial Differential Equations}, Springer, 2011.
+\bibitem{BKM1984} J. T. Beale, T. Kato and A. Majda, Remarks on the breakdown of smooth solutions for the 3-D Euler equations, Comm. Math. Phys. \textbf{94} (1984), 61--66.
+\bibitem{BourgainPavlovic2008} J. Bourgain and N. Pavlovi\'c, Ill-posedness of the Navier--Stokes equations in a critical space in 3D, J. Funct. Anal. \textbf{255} (2008), 2233--2247.
+\bibitem{Chemin1992} J.-Y. Chemin, Remarques sur l'existence globale pour le syst\`eme de Navier--Stokes incompressible, SIAM J. Math. Anal. \textbf{23} (1992), 20--28.
+\bibitem{FujitaKato1964} H. Fujita and T. Kato, On the Navier--Stokes initial value problem. I, Arch. Rational Mech. Anal. \textbf{16} (1964), 269--315.
+\bibitem{KatoPonce1988} T. Kato and G. Ponce, Commutator estimates and the Euler and Navier--Stokes equations, Comm. Pure Appl. Math. \textbf{41} (1988), 891--907.
+\bibitem{KOT2002} H. Kozono, T. Ogawa and Y. Taniuchi, The critical Sobolev inequalities in Besov spaces and regularity criterion to some semi-linear evolution equations, Math. Z. \textbf{242} (2002), 251--278.
+\bibitem{Wang2015} B. Wang, Ill-posedness for the Navier--Stokes equations in critical Besov spaces \(\dot B^{-1}_{\infty,q}\), Adv. Math. \textbf{268} (2015), 350--372.
+\end{thebibliography}
+\end{document}

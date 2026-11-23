@@ -1,0 +1,11 @@
+div U = 0
+curl U = Matrix([[0, 2*sin(x)*sin(z), 3*cos(x) + 3*cos(y)]])
+vorticity RHS at 0: Matrix([[0, 0, 6*A*(A - nu)]])  -> factor 6*A*(A - nu)
+|W|^2 = 4*sin(x)**2*sin(z)**2 + 9*cos(x)**2 + 18*cos(x)*cos(y) + 9*cos(y)**2  value at 0 = 36
+sup-norm: Mprime - RHS = 216*A**3*kappa + A**2*(6 - 36*C) - 6*A*nu
+int|W|^2 = 80*pi**3  int W.S.W = 0  int|gradW|^2 = 88*pi**3
+E(0)= 80*pi**3*A**2   E'(0)= -176*pi**3*A**2*nu
+enstrophy: Eprime - RHS = 512000*pi**9*A**6*kappa - 6400*pi**6*A**4*C - 176*pi**3*A**2*nu
+nu,C,kappa= 1 1 1  A= 2  sup-norm gap= 1596.00000000000
+nu,C,kappa= 1 100 1/100  A= 5003/3  sup-norm gap= 22683868.8266667
+nu,C,kappa= 1/1000 1000000 1e-06  A= 500000000003/3  sup-norm gap= 1.66672666596628e+23

@@ -1,0 +1,1553 @@
+
+===== 0_axiom-audit.txt
+﻿2026-11-23T21:23:07.6558466Z Current runner version: '2.338.2'
+2026-11-23T21:23:07.6584494Z ##[group]Runner Image Provisioner
+2026-11-23T21:23:07.6585527Z Hosted Compute Agent
+2026-11-23T21:23:07.6586170Z Version: 20261111.635
+2026-11-23T21:23:07.6586889Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:23:07.6587715Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:23:07.6588432Z Worker ID: {b8f5aca4-322c-4c05-afcf-8ad65f296776}
+2026-11-23T21:23:07.6589291Z Region: westus
+2026-11-23T21:23:07.6590038Z Cloud: Azure
+2026-11-23T21:23:07.6590675Z ##[endgroup]
+2026-11-23T21:23:07.6592204Z ##[group]Operating System
+2026-11-23T21:23:07.6592881Z Ubuntu
+2026-11-23T21:23:07.6593559Z 26.04.1
+2026-11-23T21:23:07.6594112Z LTS
+2026-11-23T21:23:07.6594689Z ##[endgroup]
+2026-11-23T21:23:07.6595389Z ##[group]Runner Image
+2026-11-23T21:23:07.6596038Z Image: ubuntu-26.04
+2026-11-23T21:23:07.6596734Z Version: 20261116.202.1
+2026-11-23T21:23:07.6598025Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:23:07.6599650Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T21:23:07.6600824Z ##[endgroup]
+2026-11-23T21:23:07.6602181Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:23:07.6604389Z Contents: read
+2026-11-23T21:23:07.6605132Z Metadata: read
+2026-11-23T21:23:07.6605751Z Packages: read
+2026-11-23T21:23:07.6606337Z ##[endgroup]
+2026-11-23T21:23:07.6608639Z Secret source: Actions
+2026-11-23T21:23:07.6609681Z Cache mode: write
+2026-11-23T21:23:07.6610705Z Prepare workflow directory
+2026-11-23T21:23:07.6954898Z Prepare all required actions
+2026-11-23T21:23:07.7007146Z Getting action download info
+2026-11-23T21:23:08.0709493Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:23:08.2749119Z Complete job name: axiom-audit
+2026-11-23T21:23:08.3781009Z ##[group]Run actions/checkout@v4
+2026-11-23T21:23:08.3781959Z with:
+2026-11-23T21:23:08.3782523Z   repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:08.3786404Z   token: ***
+2026-11-23T21:23:08.3786879Z   ssh-strict: true
+2026-11-23T21:23:08.3787345Z   ssh-user: git
+2026-11-23T21:23:08.3787814Z   persist-credentials: true
+2026-11-23T21:23:08.3788328Z   clean: true
+2026-11-23T21:23:08.3788800Z   sparse-checkout-cone-mode: true
+2026-11-23T21:23:08.3789352Z   fetch-depth: 1
+2026-11-23T21:23:08.3789810Z   fetch-tags: false
+2026-11-23T21:23:08.3790442Z   show-progress: true
+2026-11-23T21:23:08.3790909Z   lfs: false
+2026-11-23T21:23:08.3791356Z   submodules: false
+2026-11-23T21:23:08.3791829Z   set-safe-directory: true
+2026-11-23T21:23:08.3792366Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:23:08.3793166Z ##[endgroup]
+2026-11-23T21:23:08.6742536Z Syncing repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:08.6745531Z ##[group]Getting Git version info
+2026-11-23T21:23:08.6746963Z Working directory is '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T21:23:08.6748554Z [command]/usr/bin/git version
+2026-11-23T21:23:08.6772145Z git version 2.56.1
+2026-11-23T21:23:08.6798185Z ##[endgroup]
+2026-11-23T21:23:08.6815075Z Temporarily overriding HOME='/home/runner/work/_temp/f0351776-cbf1-437d-8f0e-4ff335466252' before making global git config changes
+2026-11-23T21:23:08.6818149Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:23:08.6821663Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T21:23:08.6892465Z Deleting the contents of '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T21:23:08.6896318Z ##[group]Initializing the repository
+2026-11-23T21:23:08.6902551Z [command]/usr/bin/git init /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T21:23:08.7015944Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:23:08.7018115Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:23:08.7019227Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:23:08.7020355Z hint: call:
+2026-11-23T21:23:08.7020918Z hint:
+2026-11-23T21:23:08.7021941Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:23:08.7022742Z hint:
+2026-11-23T21:23:08.7023740Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:23:08.7024874Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:23:08.7026419Z hint:
+2026-11-23T21:23:08.7027357Z hint: 	git branch -m <name>
+2026-11-23T21:23:08.7028289Z hint:
+2026-11-23T21:23:08.7029531Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:23:08.7031587Z Initialized empty Git repository in /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether/.git/
+2026-11-23T21:23:08.7053221Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:08.7142263Z ##[endgroup]
+2026-11-23T21:23:08.7144383Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:23:08.7146422Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:23:08.7191552Z ##[endgroup]
+2026-11-23T21:23:08.7193500Z ##[group]Setting up auth
+2026-11-23T21:23:08.7199684Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:23:08.7251457Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:23:08.7813430Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:23:08.7856340Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:23:08.8157710Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:23:08.8197447Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:23:08.8478516Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:23:08.8520956Z ##[endgroup]
+2026-11-23T21:23:08.8521895Z ##[group]Fetching the repository
+2026-11-23T21:23:08.8532898Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ee52bf509061df91d8a1d2052ae5af76e3f40a55:refs/remotes/origin/ci-backfill/ee52bf5
+2026-11-23T21:23:09.2819292Z From https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:09.2821834Z  * [new ref]         ee52bf509061df91d8a1d2052ae5af76e3f40a55 -> origin/ci-backfill/ee52bf5
+2026-11-23T21:23:09.2826696Z ##[endgroup]
+2026-11-23T21:23:09.2828899Z ##[group]Determining the checkout info
+2026-11-23T21:23:09.2830987Z ##[endgroup]
+2026-11-23T21:23:09.2836427Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:23:09.2891604Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:23:09.2925597Z ##[group]Checking out the ref
+2026-11-23T21:23:09.2931760Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/ee52bf5 refs/remotes/origin/ci-backfill/ee52bf5
+2026-11-23T21:23:09.3083123Z Switched to a new branch 'ci-backfill/ee52bf5'
+2026-11-23T21:23:09.3089747Z branch 'ci-backfill/ee52bf5' set up to track 'origin/ci-backfill/ee52bf5'.
+2026-11-23T21:23:09.3095146Z ##[endgroup]
+2026-11-23T21:23:09.3142315Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:23:09.3167130Z ee52bf509061df91d8a1d2052ae5af76e3f40a55
+2026-11-23T21:23:09.3411862Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T21:23:09.3414011Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T21:23:09.3415237Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T21:23:09.3453084Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:23:09.3453831Z ##[endgroup]
+2026-11-23T21:23:09.3957683Z info: downloading installer
+2026-11-23T21:23:09.6102537Z ##[group]Run lake exe cache get
+2026-11-23T21:23:09.6103226Z [36;1mlake exe cache get[0m
+2026-11-23T21:23:09.6139293Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:23:09.6140017Z ##[endgroup]
+2026-11-23T21:23:09.9706204Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T21:23:18.1000628Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T21:23:24.8860672Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T21:23:59.3631883Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T21:24:01.2928817Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T21:24:01.7574928Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T21:24:01.7707400Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T21:24:02.1404126Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T21:24:02.1514604Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T21:24:02.6154724Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T21:24:02.6345744Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T21:24:03.2454089Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T21:24:04.0156608Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T21:24:04.8534304Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T21:24:04.8817478Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T21:24:05.2909574Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T21:24:05.3047187Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T21:24:09.4519593Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T21:24:09.4908950Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T21:24:09.9386639Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T21:24:10.3563193Z ✔ [4/22] Built Cache.Init (390ms)
+2026-11-23T21:24:10.5571588Z ✔ [5/22] Built Cache.Lean (497ms)
+2026-11-23T21:24:10.5631067Z ✔ [6/22] Built Cache.Init:c.o (127ms)
+2026-11-23T21:24:10.7532845Z ✔ [7/22] Built Batteries.Data.String.Basic (532ms)
+2026-11-23T21:24:10.7571657Z ✔ [8/22] Built Cache.Lean:c.o (230ms)
+2026-11-23T21:24:10.9524595Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (181ms)
+2026-11-23T21:24:11.1530570Z ✔ [10/22] Built Batteries.Data.Array.Match (982ms)
+2026-11-23T21:24:11.5534608Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (353ms)
+2026-11-23T21:24:11.6539102Z ✔ [12/22] Built Batteries.Data.String.Matcher (450ms)
+2026-11-23T21:24:11.8535916Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (271ms)
+2026-11-23T21:24:12.0537746Z ✔ [14/22] Built Cache.IO (1.6s)
+2026-11-23T21:24:12.8546410Z ✔ [15/22] Built Cache.Hashing (740ms)
+2026-11-23T21:24:13.5593728Z ✔ [16/22] Built Cache.Hashing:c.o (706ms)
+2026-11-23T21:24:13.9597892Z ✔ [17/22] Built Cache.IO:c.o (1.9s)
+2026-11-23T21:24:14.8611422Z ✔ [18/22] Built Cache.Requests (2.0s)
+2026-11-23T21:24:15.7606849Z ✔ [19/22] Built Cache.Main (844ms)
+2026-11-23T21:24:16.3613780Z ✔ [20/22] Built Cache.Main:c.o (646ms)
+2026-11-23T21:24:17.1623131Z ✔ [21/22] Built Cache.Requests:c.o (2.2s)
+2026-11-23T21:24:17.8629729Z ✔ [22/22] Built cache:exe (696ms)
+2026-11-23T21:24:20.4938901Z Current branch: HEAD
+2026-11-23T21:24:20.4940078Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T21:24:20.4940939Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T21:24:21.1018317Z 
+2026-11-23T21:24:21.2045020Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 81 KB/s], Decompressed: 0
+2026-11-23T21:24:21.3051761Z Downloaded: 67 file(s) [attempted 67/8248 = 0%, 638 KB/s], Decompressed: 27
+2026-11-23T21:24:21.4069762Z Downloaded: 159 file(s) [attempted 159/8248 = 1%, 231 KB/s], Decompressed: 57
+2026-11-23T21:24:21.5067997Z Downloaded: 261 file(s) [attempted 261/8248 = 3%, 3279 KB/s], Decompressed: 57
+2026-11-23T21:24:21.6121374Z Downloaded: 374 file(s) [attempted 374/8248 = 4%, 377 KB/s], Decompressed: 57
+2026-11-23T21:24:21.7081402Z Downloaded: 478 file(s) [attempted 478/8248 = 5%, 4162 KB/s], Decompressed: 141
+2026-11-23T21:24:21.8105149Z Downloaded: 600 file(s) [attempted 600/8248 = 7%, 2071 KB/s], Decompressed: 141
+2026-11-23T21:24:21.9121600Z Downloaded: 711 file(s) [attempted 711/8248 = 8%, 191 KB/s], Decompressed: 141
+2026-11-23T21:24:22.0106125Z Downloaded: 812 file(s) [attempted 812/8248 = 9%, 3456 KB/s], Decompressed: 141
+2026-11-23T21:24:22.1120155Z Downloaded: 896 file(s) [attempted 896/8248 = 10%, 597 KB/s], Decompressed: 141
+2026-11-23T21:24:22.2166319Z Downloaded: 1008 file(s) [attempted 1008/8248 = 12%, 809 KB/s], Decompressed: 141
+2026-11-23T21:24:22.3173449Z Downloaded: 1112 file(s) [attempted 1112/8248 = 13%, 165 KB/s], Decompressed: 141
+2026-11-23T21:24:22.4223838Z Downloaded: 1208 file(s) [attempted 1208/8248 = 14%, 238 KB/s], Decompressed: 141
+2026-11-23T21:24:22.5240917Z Downloaded: 1301 file(s) [attempted 1301/8248 = 15%, 136 KB/s], Decompressed: 141
+2026-11-23T21:24:22.6272653Z Downloaded: 1396 file(s) [attempted 1396/8248 = 16%, 4445 KB/s], Decompressed: 141
+2026-11-23T21:24:22.7321227Z Downloaded: 1502 file(s) [attempted 1502/8248 = 18%, 665 KB/s], Decompressed: 442
+2026-11-23T21:24:22.8500827Z Downloaded: 1604 file(s) [attempted 1604/8248 = 19%, 723 KB/s], Decompressed: 442
+2026-11-23T21:24:22.9627687Z Downloaded: 1709 file(s) [attempted 1709/8248 = 20%, 902 KB/s], Decompressed: 442
+2026-11-23T21:24:23.0672246Z Downloaded: 1813 file(s) [attempted 1813/8248 = 21%, 3466 KB/s], Decompressed: 442
+2026-11-23T21:24:23.1766219Z Downloaded: 1915 file(s) [attempted 1915/8248 = 23%, 1109 KB/s], Decompressed: 442
+2026-11-23T21:24:23.2790418Z Downloaded: 2021 file(s) [attempted 2021/8248 = 24%, 119 KB/s], Decompressed: 442
+2026-11-23T21:24:23.4151289Z Downloaded: 2133 file(s) [attempted 2133/8248 = 25%, 2433 KB/s], Decompressed: 442
+2026-11-23T21:24:23.5121345Z Downloaded: 2235 file(s) [attempted 2235/8248 = 27%, 71 KB/s], Decompressed: 442
+2026-11-23T21:24:23.6118412Z Downloaded: 2284 file(s) [attempted 2284/8248 = 27%, 2207 KB/s], Decompressed: 442
+2026-11-23T21:24:23.7294322Z Downloaded: 2332 file(s) [attempted 2332/8248 = 28%, 519 KB/s], Decompressed: 442
+2026-11-23T21:24:23.8353109Z Downloaded: 2424 file(s) [attempted 2424/8248 = 29%, 497 KB/s], Decompressed: 442
+2026-11-23T21:24:23.9481716Z Downloaded: 2522 file(s) [attempted 2522/8248 = 30%, 213 KB/s], Decompressed: 442
+2026-11-23T21:24:24.0837941Z Downloaded: 2569 file(s) [attempted 2569/8248 = 31%, 2319 KB/s], Decompressed: 442
+2026-11-23T21:24:24.1967191Z Downloaded: 2619 file(s) [attempted 2619/8248 = 31%, 17 KB/s], Decompressed: 442
+2026-11-23T21:24:24.3077786Z Downloaded: 2706 file(s) [attempted 2706/8248 = 32%, 983 KB/s], Decompressed: 442
+2026-11-23T21:24:24.4133530Z Downloaded: 2803 file(s) [attempted 2803/8248 = 33%, 187 KB/s], Decompressed: 442
+2026-11-23T21:24:24.5311149Z Downloaded: 2913 file(s) [attempted 2913/8248 = 35%, 2487 KB/s], Decompressed: 442
+2026-11-23T21:24:24.6501520Z Downloaded: 3017 file(s) [attempted 3017/8248 = 36%, 5038 KB/s], Decompressed: 442
+2026-11-23T21:24:24.7480802Z Downloaded: 3132 file(s) [attempted 3132/8248 = 37%, 139 KB/s], Decompressed: 442
+2026-11-23T21:24:24.8530621Z Downloaded: 3237 file(s) [attempted 3237/8248 = 39%, 334 KB/s], Decompressed: 442
+2026-11-23T21:24:24.9581357Z Downloaded: 3335 file(s) [attempted 3335/8248 = 40%, 2835 KB/s], Decompressed: 442
+2026-11-23T21:24:25.0595751Z Downloaded: 3436 file(s) [attempted 3436/8248 = 41%, 327 KB/s], Decompressed: 442
+2026-11-23T21:24:25.1598973Z Downloaded: 3544 file(s) [attempted 3544/8248 = 42%, 1872 KB/s], Decompressed: 442
+2026-11-23T21:24:25.2651497Z Downloaded: 3641 file(s) [attempted 3641/8248 = 44%, 77 KB/s], Decompressed: 442
+2026-11-23T21:24:25.3890288Z Downloaded: 3713 file(s) [attempted 3713/8248 = 45%, 2112 KB/s], Decompressed: 442
+2026-11-23T21:24:25.5521122Z Downloaded: 3763 file(s) [attempted 3763/8248 = 45%, 705 KB/s], Decompressed: 442
+2026-11-23T21:24:25.6541427Z Downloaded: 3810 file(s) [attempted 3810/8248 = 46%, 476 KB/s], Decompressed: 442
+2026-11-23T21:24:25.7548332Z Downloaded: 3894 file(s) [attempted 3894/8248 = 47%, 50 KB/s], Decompressed: 442
+2026-11-23T21:24:25.8997293Z Downloaded: 3986 file(s) [attempted 3986/8248 = 48%, 345 KB/s], Decompressed: 442
+2026-11-23T21:24:26.0268462Z Downloaded: 4042 file(s) [attempted 4042/8248 = 49%, 891 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.1323039Z Downloaded: 4090 file(s) [attempted 4090/8248 = 49%, 6390 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.2348957Z Downloaded: 4134 file(s) [attempted 4134/8248 = 50%, 236 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.3381687Z Downloaded: 4222 file(s) [attempted 4222/8248 = 51%, 1211 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.4419402Z Downloaded: 4320 file(s) [attempted 4320/8248 = 52%, 1453 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.5561992Z Downloaded: 4413 file(s) [attempted 4413/8248 = 53%, 327 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.6547475Z Downloaded: 4478 file(s) [attempted 4478/8248 = 54%, 2407 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.7661626Z Downloaded: 4539 file(s) [attempted 4539/8248 = 55%, 501 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.8681060Z Downloaded: 4580 file(s) [attempted 4580/8248 = 55%, 388 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.9803561Z Downloaded: 4666 file(s) [attempted 4666/8248 = 56%, 801 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.0842407Z Downloaded: 4765 file(s) [attempted 4765/8248 = 57%, 559 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.2338261Z Downloaded: 4871 file(s) [attempted 4871/8248 = 59%, 183 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.3340937Z Downloaded: 4979 file(s) [attempted 4979/8248 = 60%, 10740 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.4352183Z Downloaded: 5082 file(s) [attempted 5082/8248 = 61%, 2502 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.5491718Z Downloaded: 5182 file(s) [attempted 5182/8248 = 62%, 1130 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.6471755Z Downloaded: 5239 file(s) [attempted 5239/8248 = 63%, 936 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.7621197Z Downloaded: 5295 file(s) [attempted 5295/8248 = 64%, 57 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.8604196Z Downloaded: 5327 file(s) [attempted 5327/8248 = 64%, 952 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.9691718Z Downloaded: 5383 file(s) [attempted 5383/8248 = 65%, 1088 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.0936731Z Downloaded: 5455 file(s) [attempted 5455/8248 = 66%, 48 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.1970924Z Downloaded: 5549 file(s) [attempted 5549/8248 = 67%, 5203 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.3014920Z Downloaded: 5655 file(s) [attempted 5655/8248 = 68%, 932 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.4896662Z Downloaded: 5756 file(s) [attempted 5756/8248 = 69%, 1484 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.6161352Z Downloaded: 5855 file(s) [attempted 5855/8248 = 70%, 3206 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.7313053Z Downloaded: 5898 file(s) [attempted 5898/8248 = 71%, 439 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.8386480Z Downloaded: 5989 file(s) [attempted 5989/8248 = 72%, 272 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.9427169Z Downloaded: 6090 file(s) [attempted 6090/8248 = 73%, 3248 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.0511250Z Downloaded: 6209 file(s) [attempted 6209/8248 = 75%, 2018 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.2141401Z Downloaded: 6309 file(s) [attempted 6309/8248 = 76%, 139 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.3310675Z Downloaded: 6360 file(s) [attempted 6360/8248 = 77%, 452 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.4498577Z Downloaded: 6444 file(s) [attempted 6444/8248 = 78%, 98 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.5511468Z Downloaded: 6539 file(s) [attempted 6539/8248 = 79%, 761 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.6511179Z Downloaded: 6650 file(s) [attempted 6650/8248 = 80%, 1972 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.7531395Z Downloaded: 6761 file(s) [attempted 6761/8248 = 81%, 963 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.8524510Z Downloaded: 6862 file(s) [attempted 6862/8248 = 83%, 246 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.9538979Z Downloaded: 6966 file(s) [attempted 6966/8248 = 84%, 237 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.0554095Z Downloaded: 7076 file(s) [attempted 7076/8248 = 85%, 110 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.1541096Z Downloaded: 7184 file(s) [attempted 7184/8248 = 87%, 135 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.2651324Z Downloaded: 7297 file(s) [attempted 7297/8248 = 88%, 440 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.3623741Z Downloaded: 7407 file(s) [attempted 7407/8248 = 89%, 340 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.4659775Z Downloaded: 7511 file(s) [attempted 7511/8248 = 91%, 1831 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.6210229Z Downloaded: 7582 file(s) [attempted 7582/8248 = 91%, 870 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.7221701Z Downloaded: 7669 file(s) [attempted 7669/8248 = 92%, 608 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.8300843Z Downloaded: 7754 file(s) [attempted 7754/8248 = 94%, 522 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.9292391Z Downloaded: 7814 file(s) [attempted 7814/8248 = 94%, 1193 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.0370526Z Downloaded: 7918 file(s) [attempted 7918/8248 = 95%, 1074 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.2276890Z Downloaded: 8005 file(s) [attempted 8005/8248 = 97%, 1188 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.3357306Z Downloaded: 8102 file(s) [attempted 8102/8248 = 98%, 6509 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.4489118Z Downloaded: 8181 file(s) [attempted 8181/8248 = 99%, 207 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.5442628Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 410 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.5452843Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 410 KB/s], Decompressed: 1446
+2026-11-23T21:24:47.4989124Z Decompressed 8248 file(s)
+2026-11-23T21:24:47.4989694Z Already decompressed 8248 file(s)
+2026-11-23T21:24:47.5626609Z ##[group]Run lake build
+2026-11-23T21:24:47.5626904Z [36;1mlake build[0m
+2026-11-23T21:24:47.5662953Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:24:47.5663237Z ##[endgroup]
+2026-11-23T21:24:53.3317493Z ✔ [2659/2683] Built TetherMayForm.Layer2 (4.2s)
+2026-11-23T21:24:55.0433131Z ✔ [2660/2683] Built TetherMayForm.EnstrophyL2 (5.9s)
+2026-11-23T21:24:57.4574314Z ✔ [2661/2683] Built TetherMayForm.RiccatiComparison (4.2s)
+2026-11-23T21:24:57.7577615Z ⚠ [2662/2683] Built TetherMayForm.Basic (8.8s)
+2026-11-23T21:24:57.7578686Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+2026-11-23T21:24:57.7579514Z 
+2026-11-23T21:24:57.7580318Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:24:58.9617760Z ✔ [2663/2683] Built TetherMayForm.CitedProps (3.8s)
+2026-11-23T21:25:00.7728630Z ⚠ [2664/2683] Built TetherMayForm.Jacobi (3.0s)
+2026-11-23T21:25:00.7731298Z warning: TetherMayForm/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+2026-11-23T21:25:00.7761002Z   [InnerProductSpace ℝ H]
+2026-11-23T21:25:00.7784498Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-11-23T21:25:00.7809757Z   omit [InnerProductSpace ℝ H] in theorem ...
+2026-11-23T21:25:00.7850721Z 
+2026-11-23T21:25:00.7853849Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-11-23T21:25:01.7713787Z ✔ [2665/2683] Built TetherMayForm.Metriplectic (4.0s)
+2026-11-23T21:25:04.5756646Z ✔ [2666/2683] Built TetherMayForm.RouteA (2.8s)
+2026-11-23T21:25:05.5774027Z ⚠ [2667/2683] Built TetherMayForm.JacobiWitness (4.8s)
+2026-11-23T21:25:05.5774877Z warning: TetherMayForm/JacobiWitness.lean:40:19: This simp argument is unused:
+2026-11-23T21:25:05.5775518Z   LinearMap.map_add₂
+2026-11-23T21:25:05.5775720Z 
+2026-11-23T21:25:05.5775873Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5776656Z   simp [crossBr,̵ ̵L̵i̵n̵e̵a̵r̵M̵a̵p̵.̵m̵a̵p̵_̵a̵d̵d̵₂̵]
+2026-11-23T21:25:05.5776999Z 
+2026-11-23T21:25:05.5777312Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5778106Z warning: TetherMayForm/JacobiWitness.lean:52:15: This simp argument is unused:
+2026-11-23T21:25:05.5778708Z   WithLp.ofLp_toLp
+2026-11-23T21:25:05.5778879Z 
+2026-11-23T21:25:05.5779030Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5779758Z   simp only [W̵i̵t̵h̵L̵p̵.̵o̵f̵L̵p̵_̵t̵o̵L̵p̵,̵ ̵e1, e2, e3, PiLp.add_apply, PiLp.zero_apply] at *
+2026-11-23T21:25:05.5780455Z 
+2026-11-23T21:25:05.5780760Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5781815Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5782570Z 
+2026-11-23T21:25:05.5782742Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5783624Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5784359Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5784782Z instead of
+2026-11-23T21:25:05.5785395Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5786108Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5786491Z 
+2026-11-23T21:25:05.5787152Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5788540Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5789297Z 
+2026-11-23T21:25:05.5789470Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5790839Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5791596Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5792027Z instead of
+2026-11-23T21:25:05.5792625Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5793351Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5793727Z 
+2026-11-23T21:25:05.5794348Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5795727Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5796481Z 
+2026-11-23T21:25:05.5796659Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5797498Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5798226Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5798651Z instead of
+2026-11-23T21:25:05.5799239Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5800567Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5801054Z 
+2026-11-23T21:25:05.5801693Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5802791Z warning: TetherMayForm/JacobiWitness.lean:68:17: This simp argument is unused:
+2026-11-23T21:25:05.5803390Z   EuclideanSpace.norm_eq
+2026-11-23T21:25:05.5803600Z 
+2026-11-23T21:25:05.5803748Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5804424Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T21:25:05.5805526Z   ̲  ̲ ̲ ̲E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵n̵o̵r̵m̵_̵e̵q̵,̵ ̵inner, Fin.sum_univ_three, EuclideanSpace.single_apply]
+2026-11-23T21:25:05.5806079Z 
+2026-11-23T21:25:05.5806385Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5807180Z warning: TetherMayForm/JacobiWitness.lean:68:48: This simp argument is unused:
+2026-11-23T21:25:05.5807753Z   Fin.sum_univ_three
+2026-11-23T21:25:05.5807933Z 
+2026-11-23T21:25:05.5808082Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5808688Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3,
+2026-11-23T21:25:05.5809336Z   ̵  ̵ ̵ ̵cross_apply,
+2026-11-23T21:25:05.5810297Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵EuclideanSpace.single_apply]
+2026-11-23T21:25:05.5810885Z 
+2026-11-23T21:25:05.5811192Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5811990Z warning: TetherMayForm/JacobiWitness.lean:68:68: This simp argument is unused:
+2026-11-23T21:25:05.5812601Z   EuclideanSpace.single_apply
+2026-11-23T21:25:05.5812832Z 
+2026-11-23T21:25:05.5812983Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5813663Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T21:25:05.5815033Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵F̲i̲n̲.̲s̲u̲m̲_̲u̲n̲i̲v̲_̲t̲h̲r̲e̲e̲]̲
+2026-11-23T21:25:05.5815812Z 
+2026-11-23T21:25:05.5816117Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5817162Z warning: TetherMayForm/JacobiWitness.lean:76:12: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5817914Z 
+2026-11-23T21:25:05.5818086Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5819126Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5820033Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5820466Z instead of
+2026-11-23T21:25:05.5821066Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5821791Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5822166Z 
+2026-11-23T21:25:05.5822791Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5823970Z warning: TetherMayForm/JacobiWitness.lean:76:12: This simp argument is unused:
+2026-11-23T21:25:05.5824586Z   EuclideanSpace.single_apply
+2026-11-23T21:25:05.5824820Z 
+2026-11-23T21:25:05.5824973Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5825590Z   simp [e2,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵] at this
+2026-11-23T21:25:05.5825981Z 
+2026-11-23T21:25:05.5826306Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:06.8788409Z ✔ [2668/2683] Built TetherMayForm.Main (2.3s)
+2026-11-23T21:25:09.0841584Z ✔ [2669/2683] Built TetherMayForm.TetheredLyapunov (2.1s)
+2026-11-23T21:25:11.3846619Z ✔ [2670/2683] Built TetherMayForm.GlobalRegularity (2.3s)
+2026-11-23T21:25:12.3905178Z ✔ [2671/2683] Built TetherMayForm.Torus (3.3s)
+2026-11-23T21:25:12.4929834Z ⚠ [2672/2683] Built TetherMayForm.Enstrophy (3.4s)
+2026-11-23T21:25:12.4931321Z warning: TetherMayForm/Enstrophy.lean:116:50: unused variable `hC`
+2026-11-23T21:25:12.4932449Z 
+2026-11-23T21:25:12.4933124Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:25:12.4933814Z warning: TetherMayForm/Enstrophy.lean:116:63: unused variable `hκ`
+2026-11-23T21:25:12.4934104Z 
+2026-11-23T21:25:12.4934331Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:25:15.5967284Z ⚠ [2673/2683] Built TetherMayForm.Final (3.1s)
+2026-11-23T21:25:15.5968490Z warning: TetherMayForm/Final.lean:69:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+2026-11-23T21:25:15.5969795Z If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+2026-11-23T21:25:15.5971015Z ```
+2026-11-23T21:25:15.5971629Z open Lean.Parser.Tactic in
+2026-11-23T21:25:15.5972178Z macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+2026-11-23T21:25:15.5973046Z   `(tactic| push $cfg:optConfig Not $[$loc]?)
+2026-11-23T21:25:15.5973532Z ```
+2026-11-23T21:25:15.5974356Z warning: TetherMayForm/Final.lean:180:35: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:15.5975477Z 
+2026-11-23T21:25:15.5975704Z Note: The updated constant has a different type:
+2026-11-23T21:25:15.5977058Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:15.5978154Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:15.5978659Z instead of
+2026-11-23T21:25:15.5979378Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:15.5980561Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:15.5981035Z 
+2026-11-23T21:25:15.5981851Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:15.5983103Z warning: TetherMayForm/Final.lean:180:35: This simp argument is unused:
+2026-11-23T21:25:15.5983765Z   EuclideanSpace.single_apply
+2026-11-23T21:25:15.5984043Z 
+2026-11-23T21:25:15.5984222Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:15.5987043Z   simp [y, Fin.sum_univ_three,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]
+2026-11-23T21:25:15.5987639Z 
+2026-11-23T21:25:15.5988021Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:20.1017133Z ⚠ [2674/2683] Built TetherMayForm.LogLoss (4.5s)
+2026-11-23T21:25:20.1017983Z warning: TetherMayForm/LogLoss.lean:95:50: unused variable `hy0`
+2026-11-23T21:25:20.1018472Z 
+2026-11-23T21:25:20.1018865Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:25:23.3057976Z ✔ [2675/2683] Built TetherMayForm.PalinstrophyH1 (3.2s)
+2026-11-23T21:25:26.0088313Z ✔ [2676/2683] Built TetherMayForm.VorticityTether (2.7s)
+2026-11-23T21:25:32.4173224Z ✔ [2677/2683] Built TetherMayForm.CurlNS (6.5s)
+2026-11-23T21:25:36.4255971Z ✔ [2678/2683] Built TetherMayForm.BiotSavart (3.0s)
+2026-11-23T21:25:39.5319089Z ✔ [2679/2683] Built TetherMayForm.ChevalleyEilenberg (3.1s)
+2026-11-23T21:25:42.8350436Z ⚠ [2680/2683] Built TetherMayForm.FieldJacobi (6.4s)
+2026-11-23T21:25:42.8351454Z warning: TetherMayForm/FieldJacobi.lean:195:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T21:25:42.8352171Z 
+2026-11-23T21:25:42.8352629Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T21:25:45.6382757Z ✔ [2681/2683] Built TetherMayForm.FieldMetriplectic (2.8s)
+2026-11-23T21:25:47.6405058Z ✔ [2682/2683] Built TetherMayForm (2.0s)
+2026-11-23T21:25:47.6541237Z Build completed successfully (2683 jobs).
+2026-11-23T21:25:47.6934423Z ##[group]Run set -o pipefail
+2026-11-23T21:25:47.6934773Z [36;1mset -o pipefail[0m
+2026-11-23T21:25:47.6935415Z [36;1mlake env lean AxiomAudit.lean 2>&1 | awk '/^[ \t]/{sub(/^[ \t]+/," ");printf "%s",$0;next} NR>1{print ""} {printf "%s",$0} END{print ""}' | tee axioms.txt[0m
+2026-11-23T21:25:47.6970065Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:47.6970514Z ##[endgroup]
+2026-11-23T21:25:50.5559241Z 'Frohman.Tether.IsAdmissibleCorrection.c1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5601002Z 'Frohman.Tether.IsAdmissibleCorrection.c2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5650820Z 'Frohman.Tether.IsAdmissibleCorrection.c3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5700950Z 'Frohman.Tether.IsAdmissibleCorrection.symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5751262Z 'Frohman.Tether.ProducesControllableNegativeFeedback.calibrated' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5791226Z 'Frohman.Tether.ProducesControllableNegativeFeedback.nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5807171Z 'Frohman.Tether.admissible_eq_smul_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5817808Z 'Frohman.Tether.degeneracy_forces_projection' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5850855Z 'Frohman.Tether.degeneracy_verification' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5852258Z 'Frohman.Tether.degeneracy_verification_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5880832Z 'Frohman.Tether.diag_eq_of_norm_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5900830Z 'Frohman.Tether.exists_unit_orthogonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5902177Z 'Frohman.Tether.feedback_fixes_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5903533Z 'Frohman.Tether.frohmanianTether_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5904837Z 'Frohman.Tether.frohmanianTether_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5906113Z 'Frohman.Tether.frohmanianTether_degenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5907471Z 'Frohman.Tether.frohmanianTether_energy_neutral' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5908804Z 'Frohman.Tether.frohmanianTether_feedback' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5934016Z 'Frohman.Tether.frohmanianTether_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5935433Z 'Frohman.Tether.frohmanianTether_self_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5936765Z 'Frohman.Tether.frohmanianTether_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5938174Z 'Frohman.Tether.frohmanian_symplectic_tether_theorem_calibrated' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5939560Z 'Frohman.Tether.gauge_uniqueness_weak' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5940932Z 'Frohman.Tether.inner_piU_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5942002Z 'Frohman.Tether.inner_u_piU' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5943042Z 'Frohman.Tether.piU_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5944138Z 'Frohman.Tether.piU_apply_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5945279Z 'Frohman.Tether.piU_comm_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5947196Z 'Frohman.Tether.piU_eq_self_of_inner_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5948397Z 'Frohman.Tether.piU_smul_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5949596Z 'Frohman.Tether.projectionOrthogonalToU' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5972952Z 'Frohman.Tether.tetheredBracket_kineticEnergy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5974433Z 'Frohman.Tether.uniqueness_of_minimal_metric_tether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6001032Z 'Frohman.Tether.uniqueness_of_minimal_metric_tether_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6010799Z 'Frohman.Tether.BiotSavart.DFMode.hK' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6030794Z 'Frohman.Tether.BiotSavart.DFMode.ha' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6046011Z 'Frohman.Tether.BiotSavart.DFMode.hb' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6070795Z 'Frohman.Tether.BiotSavart.bsC_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6072038Z 'Frohman.Tether.BiotSavart.bsSum_diff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6073280Z 'Frohman.Tether.BiotSavart.comp_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6074574Z 'Frohman.Tether.BiotSavart.curlC_bsC' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6100910Z 'Frohman.Tether.BiotSavart.curlRightInverse_trig' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6102288Z 'Frohman.Tether.BiotSavart.curl_bsMode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6103550Z 'Frohman.Tether.BiotSavart.curl_bsSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6104765Z 'Frohman.Tether.BiotSavart.divC_bsC' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6105984Z 'Frohman.Tether.BiotSavart.div_bsMode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6107213Z 'Frohman.Tether.BiotSavart.gradL2_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6108427Z 'Frohman.Tether.BiotSavart.kSq_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6109675Z 'Frohman.Tether.BiotSavart.mode_contDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6111132Z 'Frohman.Tether.BiotSavart.mode_diff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6112376Z 'Frohman.Tether.BiotSavart.pd_comp_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6113591Z 'Frohman.Tether.BiotSavart.pd_trig' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6114749Z 'Frohman.Tether.BiotSavart.th_e' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6115920Z 'Frohman.Tether.BiotSavart.toE_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6116972Z 'Frohman.Tether.CE.antiCorr_alt' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6130702Z 'Frohman.Tether.CE.antiCorr_cocycle_iff' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6135920Z 'Frohman.Tether.CE.cocycle_of_coboundary' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6161147Z 'Frohman.Tether.CE.d2_d1' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6185143Z 'Frohman.Tether.CE.symPart_not_cochain' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6210813Z 'Frohman.Tether.Shear.div_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6225263Z 'Frohman.Tether.Shear.shearBad_div' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6226774Z 'Frohman.Tether.Shear.shearBad_not_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6227984Z 'Frohman.Tether.Shear.shear_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6229132Z 'Frohman.Tether.CitedProps.instIsProbabilityMeasureForallFinOfNatNatRealTorusMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6230561Z 'Frohman.Tether.CitedProps.l4l2Holder_of_prob' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6231948Z 'Frohman.Tether.CitedProps.l4l2Holder_torus' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6233245Z 'Frohman.Tether.CitedProps.sq_integral_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6234468Z 'Frohman.Tether.CurlNS.comp_add_diff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6235645Z 'Frohman.Tether.CurlNS.comp_adv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6236769Z 'Frohman.Tether.CurlNS.comp_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6237903Z 'Frohman.Tether.CurlNS.comp_grad' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6239085Z 'Frohman.Tether.CurlNS.comp_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6240507Z 'Frohman.Tether.CurlNS.curlOfForcedNS' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6241694Z 'Frohman.Tether.CurlNS.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6242855Z 'Frohman.Tether.CurlNS.curl_advection' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6244027Z 'Frohman.Tether.CurlNS.curl_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6245178Z 'Frohman.Tether.CurlNS.curl_grad' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6246355Z 'Frohman.Tether.CurlNS.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6247516Z 'Frohman.Tether.CurlNS.curl_lin' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6248603Z 'Frohman.Tether.CurlNS.dif' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6249726Z 'Frohman.Tether.CurlNS.fderiv_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6251218Z 'Frohman.Tether.CurlNS.hasDerivAt_pd_time' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6252494Z 'Frohman.Tether.CurlNS.hasDerivAt_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6253730Z 'Frohman.Tether.CurlNS.hasDerivAt_vec3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6254963Z 'Frohman.Tether.CurlNS.lap_scalar_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6256081Z 'Frohman.Tether.CurlNS.pd3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6257146Z 'Frohman.Tether.CurlNS.pd_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6258229Z 'Frohman.Tether.CurlNS.pd_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6259304Z 'Frohman.Tether.CurlNS.pd_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6260573Z 'Frohman.Tether.CurlNS.pd_comp'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6261698Z 'Frohman.Tether.CurlNS.pd_comp_adv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6262855Z 'Frohman.Tether.CurlNS.pd_const_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6263974Z 'Frohman.Tether.CurlNS.pd_lap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6265576Z 'Frohman.Tether.CurlNS.pd_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6266653Z 'Frohman.Tether.CurlNS.pd_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6267706Z 'Frohman.Tether.CurlNS.pd_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6268779Z 'Frohman.Tether.CurlNS.sm_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6270027Z 'Frohman.Tether.CurlNS.sm_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6271117Z 'Frohman.Tether.CurlNS.sm_pd' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6272231Z 'Frohman.Tether.CurlNS.vec3_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6273348Z 'Frohman.Tether.CurlNS.vec3_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6274658Z 'Frohman.Tether.EnstrophyL2.enstrophy_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6276085Z 'Frohman.Tether.EnstrophyL2.enstrophy_deriv_logistic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6277451Z 'Frohman.Tether.EnstrophyL2.stretch_absorb' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6278842Z 'Frohman.Tether.EnstrophyL2.tethered_L2_vorticity_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6280611Z 'Frohman.Tether.EnstrophyL2.tethered_enstrophy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6282100Z 'Frohman.Tether.EnstrophyL2.tethered_enstrophy_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6283426Z 'Frohman.Tether.EnstrophyL2.young_lam' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6284690Z 'Frohman.Tether.frohmanianTether_orth_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6285962Z 'Frohman.Tether.nsOnly_not_sufficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6287273Z 'Frohman.Tether.tetherFeedback_of_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6288664Z 'Frohman.Tether.tetherTerm_of_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6290079Z 'Frohman.Tether.young_kappa_quarter' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6291307Z 'Frohman.Tether.FieldJacobi.br_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6292544Z 'Frohman.Tether.FieldJacobi.br_add_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6293782Z 'Frohman.Tether.FieldJacobi.br_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6295116Z 'Frohman.Tether.FieldJacobi.br_eq_zero_of_xOnly_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6296438Z 'Frohman.Tether.FieldJacobi.br_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6297626Z 'Frohman.Tether.FieldJacobi.br_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6298847Z 'Frohman.Tether.FieldJacobi.br_smul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6300300Z 'Frohman.Tether.FieldJacobi.br_uX_eX_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6301553Z 'Frohman.Tether.FieldJacobi.br_uY_aZ_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6302800Z 'Frohman.Tether.FieldJacobi.br_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6304020Z 'Frohman.Tether.FieldJacobi.br_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6306190Z 'Frohman.Tether.FieldJacobi.bvec_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6307714Z 'Frohman.Tether.FieldJacobi.bvec_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6308996Z 'Frohman.Tether.FieldJacobi.divFree_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6310481Z 'Frohman.Tether.FieldJacobi.divFree_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6311749Z 'Frohman.Tether.FieldJacobi.divFree_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6313014Z 'Frohman.Tether.FieldJacobi.divFree_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6314283Z 'Frohman.Tether.FieldJacobi.jacF_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6315531Z 'Frohman.Tether.FieldJacobi.jacF_cycle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6316767Z 'Frohman.Tether.FieldJacobi.jacF_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6318016Z 'Frohman.Tether.FieldJacobi.jacF_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6319274Z 'Frohman.Tether.FieldJacobi.jacF_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6320761Z 'Frohman.Tether.FieldJacobi.jacT_eq_mixedSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6321805Z 'Frohman.Tether.FieldJacobi.kx_ne' depends on axioms: [propext]
+2026-11-23T21:25:50.6322893Z 'Frohman.Tether.FieldJacobi.mixedF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6324241Z 'Frohman.Tether.FieldJacobi.mixedSumF_diag' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6325618Z 'Frohman.Tether.FieldJacobi.mixedSumF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6326748Z 'Frohman.Tether.FieldJacobi.ne_kx' depends on axioms: [propext]
+2026-11-23T21:25:50.6327548Z 'Frohman.Tether.FieldJacobi.ne_ky' depends on axioms: [propext]
+2026-11-23T21:25:50.6328575Z 'Frohman.Tether.FieldJacobi.not_divFree_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6329790Z 'Frohman.Tether.FieldJacobi.piF_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6331584Z 'Frohman.Tether.FieldJacobi.piF_of_pr_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6332827Z 'Frohman.Tether.FieldJacobi.piF_smul_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6334054Z 'Frohman.Tether.FieldJacobi.piF_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6335234Z 'Frohman.Tether.FieldJacobi.pr_aZ_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6336420Z 'Frohman.Tether.FieldJacobi.pr_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6337662Z 'Frohman.Tether.FieldJacobi.pr_add_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6338860Z 'Frohman.Tether.FieldJacobi.pr_eX_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6340202Z 'Frohman.Tether.FieldJacobi.pr_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6341442Z 'Frohman.Tether.FieldJacobi.pr_smul_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6342680Z 'Frohman.Tether.FieldJacobi.pr_uX_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6343890Z 'Frohman.Tether.FieldJacobi.pr_uX_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6345054Z 'Frohman.Tether.FieldJacobi.pr_uY_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6346207Z 'Frohman.Tether.FieldJacobi.pr_uY_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6347915Z 'Frohman.Tether.FieldJacobi.pr_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6349166Z 'Frohman.Tether.FieldJacobi.pr_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6350657Z 'Frohman.Tether.FieldJacobi.shearX_jacobi_fails' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6352005Z 'Frohman.Tether.FieldJacobi.shearX_mixed_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6353348Z 'Frohman.Tether.FieldJacobi.shearX_mixed_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6354793Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6356236Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6357599Z 'Frohman.Tether.FieldJacobi.shearY_mixed_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6359046Z 'Frohman.Tether.FieldJacobi.shearY_transverse_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6360778Z 'Frohman.Tether.FieldJacobi.shearY_transverse_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6362127Z 'Frohman.Tether.FieldJacobi.tetF_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6363371Z 'Frohman.Tether.FieldJacobi.tetF_tetF' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6364601Z 'Frohman.Tether.FieldJacobi.tetF_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6365834Z 'Frohman.Tether.FieldJacobi.xOnly_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6367037Z 'Frohman.Tether.FieldJacobi.xOnly_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6368272Z 'Frohman.Tether.FieldJacobi.xOnly_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6369460Z 'Frohman.Tether.FieldJacobi.xOnly_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6370963Z 'Frohman.Tether.FieldMetriplectic.IsRealF.neg'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6372315Z 'Frohman.Tether.FieldMetriplectic.conj_pr' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6373655Z 'Frohman.Tether.FieldMetriplectic.dissF_energy_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6375136Z 'Frohman.Tether.FieldMetriplectic.dissF_energy_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6376517Z 'Frohman.Tether.FieldMetriplectic.dissF_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6377874Z 'Frohman.Tether.FieldMetriplectic.dissF_shearX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6379248Z 'Frohman.Tether.FieldMetriplectic.dissF_shearY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6380817Z 'Frohman.Tether.FieldMetriplectic.dissF_shear_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6382238Z 'Frohman.Tether.FieldMetriplectic.isRealF_piF' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6383660Z 'Frohman.Tether.FieldMetriplectic.isRealF_sub_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6385059Z 'Frohman.Tether.FieldMetriplectic.mem_support_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6386396Z 'Frohman.Tether.FieldMetriplectic.piF_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6387705Z 'Frohman.Tether.FieldMetriplectic.pr_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6389283Z 'Frohman.Tether.FieldMetriplectic.pr_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6391051Z 'Frohman.Tether.FieldMetriplectic.pr_self_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6392418Z 'Frohman.Tether.FieldMetriplectic.pr_self_re_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6393755Z 'Frohman.Tether.FieldMetriplectic.pr_uX_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6395040Z 'Frohman.Tether.FieldMetriplectic.pr_uY_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6396392Z 'Frohman.Tether.FieldMetriplectic.tetF_energy_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6397868Z 'Frohman.Tether.FieldMetriplectic.tetF_energy_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6399249Z 'Frohman.Tether.FieldMetriplectic.tetF_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6400783Z 'Frohman.Tether.inner_secondDeriv_le_of_isMaxOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6402130Z 'Frohman.Tether.inner_secondDeriv_nonpos_of_isMaxOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6403388Z 'Frohman.Tether.periodic_exists_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6404541Z 'Frohman.Tether.periodic_int_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6405852Z 'Frohman.Tether.quarticTether_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6436337Z 'Frohman.Tether.quarticWeight_of_def' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6437697Z 'Frohman.Tether.secondDeriv_nonpos_of_isLocalMax' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6439068Z 'Frohman.Tether.tetherFeedback_of_quartic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6440524Z 'Frohman.Tether.viscousAtMax_of_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6531123Z 'Frohman.Tether.viscous_nonpos_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6546002Z 'Frohman.Tether.frohmanian_symplectic_tether_theorem_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6547547Z 'Frohman.Tether.JacobiWitness.crossBr_isClassical' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6548931Z 'Frohman.Tether.JacobiWitness.mixed_sum_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6550276Z 'Frohman.Tether.JacobiWitness.mixed_sum_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6551100Z 'Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6551913Z 'Frohman.Tether.IsClassicalBracket.add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6552635Z 'Frohman.Tether.IsClassicalBracket.jacobi' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6553348Z 'Frohman.Tether.jacobi_classical_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6554016Z 'Frohman.Tether.jacobi_iff_mixed_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6554645Z 'Frohman.Tether.jacobi_term7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6555222Z 'Frohman.Tether.jacobi_term8' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6555792Z 'Frohman.Tether.jacobi_term9' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6556397Z 'Frohman.Tether.jacobiator_eq_mixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6557346Z 'Frohman.Tether.jacobiator_eq_zero_of_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6558171Z 'Frohman.Tether.jacobiator_nine_terms' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6558805Z 'Frohman.Tether.mixedTerm_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6559433Z 'Frohman.Tether.tetherVec_tetherVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6560525Z 'Frohman.Tether.tetheredBracket_nested' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6561687Z 'Frohman.Tether.comparisonField_equilibrium' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6562392Z 'Frohman.Tether.comparisonField_neg_above' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6563085Z 'Frohman.Tether.comparisonField_pos_between' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6563778Z 'Frohman.Tether.comparisonField_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6564448Z 'Frohman.Tether.comparison_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6565106Z 'Frohman.Tether.comparison_bound_of_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6565739Z 'Frohman.Tether.layer2_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6566343Z 'Frohman.Tether.young_absorption' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6566983Z 'Frohman.Tether.comparison_bound_logloss' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6567653Z 'Frohman.Tether.global_regularity_logloss' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6568299Z 'Frohman.Tether.logField_neg_above' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6568938Z 'Frohman.Tether.logThreshold_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6569597Z 'Frohman.Tether.tether_pointwise_logloss' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6570723Z 'Frohman.Tether.RouteAFeedback.leadingCoefficient_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6571553Z 'Frohman.Tether.frohmanian_symplectic_tether_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6572303Z 'Frohman.Tether.kappa_eq_stretching_of_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6573008Z 'Frohman.Tether.routeA_determines_kappa' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6573659Z 'Frohman.Tether.routeA_layer2_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6574325Z 'Frohman.Tether.antiPart_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6575078Z 'Frohman.Tether.antiPart_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6576223Z 'Frohman.Tether.antiPart_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6576890Z 'Frohman.Tether.antiPart_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6578133Z 'Frohman.Tether.degenerate_of_parts' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6579149Z 'Frohman.Tether.eq_zero_of_symm_of_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6580325Z 'Frohman.Tether.metriplecticBracket_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6581382Z 'Frohman.Tether.metriplectic_energy_conserved' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6582386Z 'Frohman.Tether.parts_degenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6583873Z 'Frohman.Tether.split_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6585086Z 'Frohman.Tether.symPart_add_antiPart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6586258Z 'Frohman.Tether.symPart_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6587385Z 'Frohman.Tether.symPart_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6588503Z 'Frohman.Tether.symPart_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6589526Z 'Frohman.Tether.symPart_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6590810Z 'Frohman.Tether.sym_anti_pairing_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6591985Z 'Frohman.Tether.symm_antisymm_pairing_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6593208Z 'Frohman.Tether.PalinstrophyH1.amgm_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6594543Z 'Frohman.Tether.PalinstrophyH1.higherNormControl_tethered' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6595875Z 'Frohman.Tether.PalinstrophyH1.lp_absorb' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6597099Z 'Frohman.Tether.PalinstrophyH1.palin_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6598396Z 'Frohman.Tether.PalinstrophyH1.tether_H1_density_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6599739Z 'Frohman.Tether.PalinstrophyH1.tether_H1_density_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6601395Z 'Frohman.Tether.PalinstrophyH1.tethered_palinstrophy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6602744Z 'Frohman.Tether.PalinstrophyH1.young_43' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6603961Z 'Frohman.Tether.Riccati.ricSol_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6605128Z 'Frohman.Tether.Riccati.ricSol_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6606279Z 'Frohman.Tether.Riccati.riccati_blowup' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6607460Z 'Frohman.Tether.Riccati.tethered_ceiling' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6608690Z 'Frohman.Tether.RouteAFeedback.jacobi_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6610170Z 'Frohman.Tether.RouteAFeedback.matches_stretching' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6611636Z 'Frohman.Tether.RouteAFeedback.maximizer_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6613169Z 'Frohman.Tether.RouteAFeedback.maximizer_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6614595Z 'Frohman.Tether.RouteAFeedback.nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6616048Z 'Frohman.Tether.RouteAFeedback.poisson_unchanged' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6617554Z 'Frohman.Tether.RouteAFeedback.toControllable' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6618981Z 'Frohman.Tether.frohmanianTether_routeA' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6620549Z 'Frohman.Tether.routeA_fixes_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6621962Z 'Frohman.Tether.routeA_iff_controllable_on_tether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6623365Z 'Frohman.Tether.uniqueness_routeA_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6624985Z 'Frohman.Tether.NSTetherSolution.smoothOn_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6626675Z 'Frohman.Tether.NSTetherSolution.smoothOn_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6628151Z 'Frohman.Tether.NSTetherSolution.y_zero_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6629625Z 'Frohman.Tether.comparison_majorant_global_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7944417Z 'Frohman.Tether.global_regularity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7945661Z 'Frohman.Tether.lemma_3_1_uniform_bound_and_continuation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7946973Z 'Frohman.Tether.Torus.classicalSolutionOn_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7948227Z 'Frohman.Tether.Torus.classicalSolutionOn_of_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7949581Z 'Frohman.Tether.Torus.classicalSolutionOn_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7951091Z 'Frohman.Tether.Torus.not_tetherRealizesFeedback_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7952291Z 'Frohman.Tether.Torus.tetheredNS_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7953496Z 'Frohman.Tether.Torus.toNSTetherSolution_smoothOn_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7954739Z 'Frohman.Tether.Torus.toNSTetherSolution_y' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7955958Z 'Frohman.Tether.Torus.toNSTetherSolution_y_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7957119Z 'Frohman.Tether.Torus.vortSup_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7958287Z 'Frohman.Tether.VorticityTether.LerayProj.idem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7959545Z 'Frohman.Tether.VorticityTether.LerayProj.symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7960986Z 'Frohman.Tether.VorticityTether.curl_lerayTetherForce' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7962401Z 'Frohman.Tether.VorticityTether.enstrophyIdentity_of_vorticityLevel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7963755Z 'Frohman.Tether.VorticityTether.inner_cubic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7964980Z 'Frohman.Tether.VorticityTether.inner_leray_of_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7966284Z 'Frohman.Tether.VorticityTether.quarticTether_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7967621Z 'Frohman.Tether.VorticityTether.tether_H1_density_nonneg'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7968879Z 'Frohman.Tether.VorticityTether.tether_H1_term' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7970222Z 'Frohman.Tether.VorticityTether.tether_L2_term' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7971590Z 'Frohman.Tether.VorticityTether.tetheredVorticity_of_velocity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7973057Z 'Frohman.Tether.VorticityTether.tetheredVorticity_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.8021234Z ##[group]Run test -s axioms.txt
+2026-11-23T21:25:50.8021672Z [36;1mtest -s axioms.txt[0m
+2026-11-23T21:25:50.8022299Z [36;1mOK='depends on axioms: \[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$|does not depend on any axioms$'[0m
+2026-11-23T21:25:50.8023153Z [36;1mn=$(grep -c "^#print axioms" AxiomAudit.lean); m=$(grep -E "^'" axioms.txt | grep -cE "$OK" || true)[0m
+2026-11-23T21:25:50.8023943Z [36;1mecho "audited $n declarations, $m with standard axioms only"[0m
+2026-11-23T21:25:50.8024458Z [36;1mif [ "$n" -ne "$m" ] || grep -iE "error|warning: declaration uses" axioms.txt; then[0m
+2026-11-23T21:25:50.8024961Z [36;1m  echo "Non-standard axiom output:"; cat axioms.txt; exit 1; fi[0m
+2026-11-23T21:25:50.8057567Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:50.8057839Z ##[endgroup]
+2026-11-23T21:25:50.8151489Z audited 308 declarations, 308 with standard axioms only
+2026-11-23T21:25:50.8198541Z ##[group]Run python3 scripts/check_no_sorry.py
+2026-11-23T21:25:50.8198958Z [36;1mpython3 scripts/check_no_sorry.py[0m
+2026-11-23T21:25:50.8231394Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:50.8231676Z ##[endgroup]
+2026-11-23T21:25:50.8894229Z OK: no sorry/admit/native_decide, no axiom declarations
+2026-11-23T21:25:50.9062994Z Post job cleanup.
+2026-11-23T21:25:51.0002522Z [command]/usr/bin/git version
+2026-11-23T21:25:51.0060860Z git version 2.56.1
+2026-11-23T21:25:51.0111709Z Temporarily overriding HOME='/home/runner/work/_temp/2f520a7c-57cd-4cad-bd4c-245011361b18' before making global git config changes
+2026-11-23T21:25:51.0113390Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:25:51.0138817Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T21:25:51.0179502Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:25:51.0225707Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:25:51.0556723Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:25:51.0589524Z http.https://github.com/.extraheader
+2026-11-23T21:25:51.0609767Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:25:51.0672269Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:25:51.1004785Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:25:51.1046276Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:25:51.1486011Z Cleaning up orphan processes
+2026-11-23T21:25:51.1869373Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== axiom-audit/16_Post Run actions_checkout@v4.txt
+﻿2026-11-23T21:25:50.9062981Z Post job cleanup.
+2026-11-23T21:25:51.0002482Z [command]/usr/bin/git version
+2026-11-23T21:25:51.0060817Z git version 2.56.1
+2026-11-23T21:25:51.0111672Z Temporarily overriding HOME='/home/runner/work/_temp/2f520a7c-57cd-4cad-bd4c-245011361b18' before making global git config changes
+2026-11-23T21:25:51.0113382Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:25:51.0138797Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T21:25:51.0179473Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:25:51.0225671Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:25:51.0556591Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:25:51.0589488Z http.https://github.com/.extraheader
+2026-11-23T21:25:51.0609739Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:25:51.0672225Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:25:51.1004738Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:25:51.1046222Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== axiom-audit/17_Complete job.txt
+﻿2026-11-23T21:25:51.1485999Z Cleaning up orphan processes
+2026-11-23T21:25:51.1869351Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== axiom-audit/1_Set up job.txt
+﻿2026-11-23T21:23:07.6557415Z Current runner version: '2.338.2'
+2026-11-23T21:23:07.6584471Z ##[group]Runner Image Provisioner
+2026-11-23T21:23:07.6585520Z Hosted Compute Agent
+2026-11-23T21:23:07.6586167Z Version: 20261111.635
+2026-11-23T21:23:07.6586884Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:23:07.6587711Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:23:07.6588428Z Worker ID: {b8f5aca4-322c-4c05-afcf-8ad65f296776}
+2026-11-23T21:23:07.6589287Z Region: westus
+2026-11-23T21:23:07.6590034Z Cloud: Azure
+2026-11-23T21:23:07.6590672Z ##[endgroup]
+2026-11-23T21:23:07.6592193Z ##[group]Operating System
+2026-11-23T21:23:07.6592877Z Ubuntu
+2026-11-23T21:23:07.6593555Z 26.04.1
+2026-11-23T21:23:07.6594107Z LTS
+2026-11-23T21:23:07.6594655Z ##[endgroup]
+2026-11-23T21:23:07.6595384Z ##[group]Runner Image
+2026-11-23T21:23:07.6596034Z Image: ubuntu-26.04
+2026-11-23T21:23:07.6596731Z Version: 20261116.202.1
+2026-11-23T21:23:07.6597836Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:23:07.6599645Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T21:23:07.6600819Z ##[endgroup]
+2026-11-23T21:23:07.6602177Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:23:07.6604369Z Contents: read
+2026-11-23T21:23:07.6605128Z Metadata: read
+2026-11-23T21:23:07.6605748Z Packages: read
+2026-11-23T21:23:07.6606335Z ##[endgroup]
+2026-11-23T21:23:07.6608621Z Secret source: Actions
+2026-11-23T21:23:07.6609677Z Cache mode: write
+2026-11-23T21:23:07.6610699Z Prepare workflow directory
+2026-11-23T21:23:07.6954865Z Prepare all required actions
+2026-11-23T21:23:07.7007117Z Getting action download info
+2026-11-23T21:23:08.0709457Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:23:08.2749088Z Complete job name: axiom-audit
+
+===== axiom-audit/2_Run actions_checkout@v4.txt
+﻿2026-11-23T21:23:08.3780980Z ##[group]Run actions/checkout@v4
+2026-11-23T21:23:08.3781951Z with:
+2026-11-23T21:23:08.3782518Z   repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:08.3786399Z   token: ***
+2026-11-23T21:23:08.3786876Z   ssh-strict: true
+2026-11-23T21:23:08.3787342Z   ssh-user: git
+2026-11-23T21:23:08.3787811Z   persist-credentials: true
+2026-11-23T21:23:08.3788325Z   clean: true
+2026-11-23T21:23:08.3788797Z   sparse-checkout-cone-mode: true
+2026-11-23T21:23:08.3789349Z   fetch-depth: 1
+2026-11-23T21:23:08.3789808Z   fetch-tags: false
+2026-11-23T21:23:08.3790438Z   show-progress: true
+2026-11-23T21:23:08.3790906Z   lfs: false
+2026-11-23T21:23:08.3791353Z   submodules: false
+2026-11-23T21:23:08.3791826Z   set-safe-directory: true
+2026-11-23T21:23:08.3792362Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:23:08.3793159Z ##[endgroup]
+2026-11-23T21:23:08.6742468Z Syncing repository: BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:08.6745390Z ##[group]Getting Git version info
+2026-11-23T21:23:08.6746952Z Working directory is '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T21:23:08.6748546Z [command]/usr/bin/git version
+2026-11-23T21:23:08.6772100Z git version 2.56.1
+2026-11-23T21:23:08.6798151Z ##[endgroup]
+2026-11-23T21:23:08.6815040Z Temporarily overriding HOME='/home/runner/work/_temp/f0351776-cbf1-437d-8f0e-4ff335466252' before making global git config changes
+2026-11-23T21:23:08.6818119Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:23:08.6821603Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T21:23:08.6892419Z Deleting the contents of '/home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether'
+2026-11-23T21:23:08.6896286Z ##[group]Initializing the repository
+2026-11-23T21:23:08.6902481Z [command]/usr/bin/git init /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether
+2026-11-23T21:23:08.7015878Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:23:08.7018094Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:23:08.7019212Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:23:08.7020338Z hint: call:
+2026-11-23T21:23:08.7020914Z hint:
+2026-11-23T21:23:08.7021927Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:23:08.7022737Z hint:
+2026-11-23T21:23:08.7023727Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:23:08.7024869Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:23:08.7026396Z hint:
+2026-11-23T21:23:08.7027348Z hint: 	git branch -m <name>
+2026-11-23T21:23:08.7028283Z hint:
+2026-11-23T21:23:08.7029519Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:23:08.7031546Z Initialized empty Git repository in /home/runner/work/frohmanian-symplectic-tether/frohmanian-symplectic-tether/.git/
+2026-11-23T21:23:08.7053191Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:08.7142219Z ##[endgroup]
+2026-11-23T21:23:08.7144348Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:23:08.7146390Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:23:08.7191520Z ##[endgroup]
+2026-11-23T21:23:08.7193476Z ##[group]Setting up auth
+2026-11-23T21:23:08.7199652Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:23:08.7251407Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:23:08.7813327Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:23:08.7855833Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:23:08.8157634Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:23:08.8197406Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:23:08.8478409Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:23:08.8520922Z ##[endgroup]
+2026-11-23T21:23:08.8521891Z ##[group]Fetching the repository
+2026-11-23T21:23:08.8532860Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ee52bf509061df91d8a1d2052ae5af76e3f40a55:refs/remotes/origin/ci-backfill/ee52bf5
+2026-11-23T21:23:09.2819131Z From https://github.com/BenFrohman/frohmanian-symplectic-tether
+2026-11-23T21:23:09.2821798Z  * [new ref]         ee52bf509061df91d8a1d2052ae5af76e3f40a55 -> origin/ci-backfill/ee52bf5
+2026-11-23T21:23:09.2826665Z ##[endgroup]
+2026-11-23T21:23:09.2828868Z ##[group]Determining the checkout info
+2026-11-23T21:23:09.2830971Z ##[endgroup]
+2026-11-23T21:23:09.2836395Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:23:09.2891566Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:23:09.2925542Z ##[group]Checking out the ref
+2026-11-23T21:23:09.2931729Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/ee52bf5 refs/remotes/origin/ci-backfill/ee52bf5
+2026-11-23T21:23:09.3083080Z Switched to a new branch 'ci-backfill/ee52bf5'
+2026-11-23T21:23:09.3089710Z branch 'ci-backfill/ee52bf5' set up to track 'origin/ci-backfill/ee52bf5'.
+2026-11-23T21:23:09.3095125Z ##[endgroup]
+2026-11-23T21:23:09.3142285Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:23:09.3167097Z ee52bf509061df91d8a1d2052ae5af76e3f40a55
+
+===== axiom-audit/3_Install elan (toolchain pinned by lean-toolchain = leanprover_lean4v4.30.0-rc1).txt
+﻿2026-11-23T21:23:09.3411825Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T21:23:09.3414000Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T21:23:09.3415232Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T21:23:09.3453059Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:23:09.3453821Z ##[endgroup]
+2026-11-23T21:23:09.3957585Z info: downloading installer
+
+===== axiom-audit/4_Get Mathlib cache.txt
+﻿2026-11-23T21:23:09.6102505Z ##[group]Run lake exe cache get
+2026-11-23T21:23:09.6103221Z [36;1mlake exe cache get[0m
+2026-11-23T21:23:09.6139279Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:23:09.6140010Z ##[endgroup]
+2026-11-23T21:23:09.9706116Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T21:23:18.1000550Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T21:23:24.8860608Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T21:23:59.3631798Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T21:24:01.2928638Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T21:24:01.7574868Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T21:24:01.7707356Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T21:24:02.1403974Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T21:24:02.1514560Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T21:24:02.6154664Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T21:24:02.6345702Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T21:24:03.2454028Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T21:24:04.0156559Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T21:24:04.8534256Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T21:24:04.8817415Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T21:24:05.2909535Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T21:24:05.3047125Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T21:24:09.4519551Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T21:24:09.4908909Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T21:24:09.9386596Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T21:24:10.3563127Z ✔ [4/22] Built Cache.Init (390ms)
+2026-11-23T21:24:10.5571523Z ✔ [5/22] Built Cache.Lean (497ms)
+2026-11-23T21:24:10.5631034Z ✔ [6/22] Built Cache.Init:c.o (127ms)
+2026-11-23T21:24:10.7532802Z ✔ [7/22] Built Batteries.Data.String.Basic (532ms)
+2026-11-23T21:24:10.7571619Z ✔ [8/22] Built Cache.Lean:c.o (230ms)
+2026-11-23T21:24:10.9524549Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (181ms)
+2026-11-23T21:24:11.1530530Z ✔ [10/22] Built Batteries.Data.Array.Match (982ms)
+2026-11-23T21:24:11.5534568Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (353ms)
+2026-11-23T21:24:11.6539057Z ✔ [12/22] Built Batteries.Data.String.Matcher (450ms)
+2026-11-23T21:24:11.8535815Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (271ms)
+2026-11-23T21:24:12.0537702Z ✔ [14/22] Built Cache.IO (1.6s)
+2026-11-23T21:24:12.8546367Z ✔ [15/22] Built Cache.Hashing (740ms)
+2026-11-23T21:24:13.5593681Z ✔ [16/22] Built Cache.Hashing:c.o (706ms)
+2026-11-23T21:24:13.9597842Z ✔ [17/22] Built Cache.IO:c.o (1.9s)
+2026-11-23T21:24:14.8611374Z ✔ [18/22] Built Cache.Requests (2.0s)
+2026-11-23T21:24:15.7606803Z ✔ [19/22] Built Cache.Main (844ms)
+2026-11-23T21:24:16.3613737Z ✔ [20/22] Built Cache.Main:c.o (646ms)
+2026-11-23T21:24:17.1623077Z ✔ [21/22] Built Cache.Requests:c.o (2.2s)
+2026-11-23T21:24:17.8629682Z ✔ [22/22] Built cache:exe (696ms)
+2026-11-23T21:24:20.4938858Z Current branch: HEAD
+2026-11-23T21:24:20.4939850Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T21:24:20.4940934Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T21:24:21.1018266Z 
+2026-11-23T21:24:21.2044631Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 81 KB/s], Decompressed: 0
+2026-11-23T21:24:21.3051646Z Downloaded: 67 file(s) [attempted 67/8248 = 0%, 638 KB/s], Decompressed: 27
+2026-11-23T21:24:21.4069713Z Downloaded: 159 file(s) [attempted 159/8248 = 1%, 231 KB/s], Decompressed: 57
+2026-11-23T21:24:21.5067951Z Downloaded: 261 file(s) [attempted 261/8248 = 3%, 3279 KB/s], Decompressed: 57
+2026-11-23T21:24:21.6121329Z Downloaded: 374 file(s) [attempted 374/8248 = 4%, 377 KB/s], Decompressed: 57
+2026-11-23T21:24:21.7081358Z Downloaded: 478 file(s) [attempted 478/8248 = 5%, 4162 KB/s], Decompressed: 141
+2026-11-23T21:24:21.8105104Z Downloaded: 600 file(s) [attempted 600/8248 = 7%, 2071 KB/s], Decompressed: 141
+2026-11-23T21:24:21.9121551Z Downloaded: 711 file(s) [attempted 711/8248 = 8%, 191 KB/s], Decompressed: 141
+2026-11-23T21:24:22.0106069Z Downloaded: 812 file(s) [attempted 812/8248 = 9%, 3456 KB/s], Decompressed: 141
+2026-11-23T21:24:22.1120097Z Downloaded: 896 file(s) [attempted 896/8248 = 10%, 597 KB/s], Decompressed: 141
+2026-11-23T21:24:22.2166240Z Downloaded: 1008 file(s) [attempted 1008/8248 = 12%, 809 KB/s], Decompressed: 141
+2026-11-23T21:24:22.3173400Z Downloaded: 1112 file(s) [attempted 1112/8248 = 13%, 165 KB/s], Decompressed: 141
+2026-11-23T21:24:22.4223793Z Downloaded: 1208 file(s) [attempted 1208/8248 = 14%, 238 KB/s], Decompressed: 141
+2026-11-23T21:24:22.5240870Z Downloaded: 1301 file(s) [attempted 1301/8248 = 15%, 136 KB/s], Decompressed: 141
+2026-11-23T21:24:22.6272598Z Downloaded: 1396 file(s) [attempted 1396/8248 = 16%, 4445 KB/s], Decompressed: 141
+2026-11-23T21:24:22.7321181Z Downloaded: 1502 file(s) [attempted 1502/8248 = 18%, 665 KB/s], Decompressed: 442
+2026-11-23T21:24:22.8500776Z Downloaded: 1604 file(s) [attempted 1604/8248 = 19%, 723 KB/s], Decompressed: 442
+2026-11-23T21:24:22.9627648Z Downloaded: 1709 file(s) [attempted 1709/8248 = 20%, 902 KB/s], Decompressed: 442
+2026-11-23T21:24:23.0672202Z Downloaded: 1813 file(s) [attempted 1813/8248 = 21%, 3466 KB/s], Decompressed: 442
+2026-11-23T21:24:23.1766141Z Downloaded: 1915 file(s) [attempted 1915/8248 = 23%, 1109 KB/s], Decompressed: 442
+2026-11-23T21:24:23.2790375Z Downloaded: 2021 file(s) [attempted 2021/8248 = 24%, 119 KB/s], Decompressed: 442
+2026-11-23T21:24:23.4151240Z Downloaded: 2133 file(s) [attempted 2133/8248 = 25%, 2433 KB/s], Decompressed: 442
+2026-11-23T21:24:23.5121294Z Downloaded: 2235 file(s) [attempted 2235/8248 = 27%, 71 KB/s], Decompressed: 442
+2026-11-23T21:24:23.6118365Z Downloaded: 2284 file(s) [attempted 2284/8248 = 27%, 2207 KB/s], Decompressed: 442
+2026-11-23T21:24:23.7294278Z Downloaded: 2332 file(s) [attempted 2332/8248 = 28%, 519 KB/s], Decompressed: 442
+2026-11-23T21:24:23.8353061Z Downloaded: 2424 file(s) [attempted 2424/8248 = 29%, 497 KB/s], Decompressed: 442
+2026-11-23T21:24:23.9481666Z Downloaded: 2522 file(s) [attempted 2522/8248 = 30%, 213 KB/s], Decompressed: 442
+2026-11-23T21:24:24.0837891Z Downloaded: 2569 file(s) [attempted 2569/8248 = 31%, 2319 KB/s], Decompressed: 442
+2026-11-23T21:24:24.1967095Z Downloaded: 2619 file(s) [attempted 2619/8248 = 31%, 17 KB/s], Decompressed: 442
+2026-11-23T21:24:24.3077737Z Downloaded: 2706 file(s) [attempted 2706/8248 = 32%, 983 KB/s], Decompressed: 442
+2026-11-23T21:24:24.4133436Z Downloaded: 2803 file(s) [attempted 2803/8248 = 33%, 187 KB/s], Decompressed: 442
+2026-11-23T21:24:24.5311082Z Downloaded: 2913 file(s) [attempted 2913/8248 = 35%, 2487 KB/s], Decompressed: 442
+2026-11-23T21:24:24.6501477Z Downloaded: 3017 file(s) [attempted 3017/8248 = 36%, 5038 KB/s], Decompressed: 442
+2026-11-23T21:24:24.7480755Z Downloaded: 3132 file(s) [attempted 3132/8248 = 37%, 139 KB/s], Decompressed: 442
+2026-11-23T21:24:24.8530573Z Downloaded: 3237 file(s) [attempted 3237/8248 = 39%, 334 KB/s], Decompressed: 442
+2026-11-23T21:24:24.9581311Z Downloaded: 3335 file(s) [attempted 3335/8248 = 40%, 2835 KB/s], Decompressed: 442
+2026-11-23T21:24:25.0595704Z Downloaded: 3436 file(s) [attempted 3436/8248 = 41%, 327 KB/s], Decompressed: 442
+2026-11-23T21:24:25.1598669Z Downloaded: 3544 file(s) [attempted 3544/8248 = 42%, 1872 KB/s], Decompressed: 442
+2026-11-23T21:24:25.2651438Z Downloaded: 3641 file(s) [attempted 3641/8248 = 44%, 77 KB/s], Decompressed: 442
+2026-11-23T21:24:25.3890239Z Downloaded: 3713 file(s) [attempted 3713/8248 = 45%, 2112 KB/s], Decompressed: 442
+2026-11-23T21:24:25.5521075Z Downloaded: 3763 file(s) [attempted 3763/8248 = 45%, 705 KB/s], Decompressed: 442
+2026-11-23T21:24:25.6541379Z Downloaded: 3810 file(s) [attempted 3810/8248 = 46%, 476 KB/s], Decompressed: 442
+2026-11-23T21:24:25.7548285Z Downloaded: 3894 file(s) [attempted 3894/8248 = 47%, 50 KB/s], Decompressed: 442
+2026-11-23T21:24:25.8997251Z Downloaded: 3986 file(s) [attempted 3986/8248 = 48%, 345 KB/s], Decompressed: 442
+2026-11-23T21:24:26.0268410Z Downloaded: 4042 file(s) [attempted 4042/8248 = 49%, 891 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.1322993Z Downloaded: 4090 file(s) [attempted 4090/8248 = 49%, 6390 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.2348913Z Downloaded: 4134 file(s) [attempted 4134/8248 = 50%, 236 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.3381609Z Downloaded: 4222 file(s) [attempted 4222/8248 = 51%, 1211 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.4419361Z Downloaded: 4320 file(s) [attempted 4320/8248 = 52%, 1453 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.5561942Z Downloaded: 4413 file(s) [attempted 4413/8248 = 53%, 327 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.6547426Z Downloaded: 4478 file(s) [attempted 4478/8248 = 54%, 2407 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.7661575Z Downloaded: 4539 file(s) [attempted 4539/8248 = 55%, 501 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.8681012Z Downloaded: 4580 file(s) [attempted 4580/8248 = 55%, 388 KB/s], Decompressed: 1446
+2026-11-23T21:24:26.9803511Z Downloaded: 4666 file(s) [attempted 4666/8248 = 56%, 801 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.0842362Z Downloaded: 4765 file(s) [attempted 4765/8248 = 57%, 559 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.2338189Z Downloaded: 4871 file(s) [attempted 4871/8248 = 59%, 183 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.3340853Z Downloaded: 4979 file(s) [attempted 4979/8248 = 60%, 10740 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.4352133Z Downloaded: 5082 file(s) [attempted 5082/8248 = 61%, 2502 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.5491662Z Downloaded: 5182 file(s) [attempted 5182/8248 = 62%, 1130 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.6471711Z Downloaded: 5239 file(s) [attempted 5239/8248 = 63%, 936 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.7621151Z Downloaded: 5295 file(s) [attempted 5295/8248 = 64%, 57 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.8604148Z Downloaded: 5327 file(s) [attempted 5327/8248 = 64%, 952 KB/s], Decompressed: 1446
+2026-11-23T21:24:27.9691654Z Downloaded: 5383 file(s) [attempted 5383/8248 = 65%, 1088 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.0936679Z Downloaded: 5455 file(s) [attempted 5455/8248 = 66%, 48 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.1970876Z Downloaded: 5549 file(s) [attempted 5549/8248 = 67%, 5203 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.3014829Z Downloaded: 5655 file(s) [attempted 5655/8248 = 68%, 932 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.4896617Z Downloaded: 5756 file(s) [attempted 5756/8248 = 69%, 1484 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.6161296Z Downloaded: 5855 file(s) [attempted 5855/8248 = 70%, 3206 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.7313003Z Downloaded: 5898 file(s) [attempted 5898/8248 = 71%, 439 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.8386426Z Downloaded: 5989 file(s) [attempted 5989/8248 = 72%, 272 KB/s], Decompressed: 1446
+2026-11-23T21:24:28.9427125Z Downloaded: 6090 file(s) [attempted 6090/8248 = 73%, 3248 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.0511195Z Downloaded: 6209 file(s) [attempted 6209/8248 = 75%, 2018 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.2141353Z Downloaded: 6309 file(s) [attempted 6309/8248 = 76%, 139 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.3310628Z Downloaded: 6360 file(s) [attempted 6360/8248 = 77%, 452 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.4498048Z Downloaded: 6444 file(s) [attempted 6444/8248 = 78%, 98 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.5511417Z Downloaded: 6539 file(s) [attempted 6539/8248 = 79%, 761 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.6511133Z Downloaded: 6650 file(s) [attempted 6650/8248 = 80%, 1972 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.7531341Z Downloaded: 6761 file(s) [attempted 6761/8248 = 81%, 963 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.8524463Z Downloaded: 6862 file(s) [attempted 6862/8248 = 83%, 246 KB/s], Decompressed: 1446
+2026-11-23T21:24:29.9538928Z Downloaded: 6966 file(s) [attempted 6966/8248 = 84%, 237 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.0554043Z Downloaded: 7076 file(s) [attempted 7076/8248 = 85%, 110 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.1541050Z Downloaded: 7184 file(s) [attempted 7184/8248 = 87%, 135 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.2651270Z Downloaded: 7297 file(s) [attempted 7297/8248 = 88%, 440 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.3623662Z Downloaded: 7407 file(s) [attempted 7407/8248 = 89%, 340 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.4659724Z Downloaded: 7511 file(s) [attempted 7511/8248 = 91%, 1831 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.6210174Z Downloaded: 7582 file(s) [attempted 7582/8248 = 91%, 870 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.7221663Z Downloaded: 7669 file(s) [attempted 7669/8248 = 92%, 608 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.8300797Z Downloaded: 7754 file(s) [attempted 7754/8248 = 94%, 522 KB/s], Decompressed: 1446
+2026-11-23T21:24:30.9292347Z Downloaded: 7814 file(s) [attempted 7814/8248 = 94%, 1193 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.0370481Z Downloaded: 7918 file(s) [attempted 7918/8248 = 95%, 1074 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.2276846Z Downloaded: 8005 file(s) [attempted 8005/8248 = 97%, 1188 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.3357252Z Downloaded: 8102 file(s) [attempted 8102/8248 = 98%, 6509 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.4489026Z Downloaded: 8181 file(s) [attempted 8181/8248 = 99%, 207 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.5442578Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 410 KB/s], Decompressed: 1446
+2026-11-23T21:24:31.5452800Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 410 KB/s], Decompressed: 1446
+2026-11-23T21:24:47.4989083Z Decompressed 8248 file(s)
+2026-11-23T21:24:47.4989690Z Already decompressed 8248 file(s)
+
+===== axiom-audit/5_Build.txt
+﻿2026-11-23T21:24:47.5626596Z ##[group]Run lake build
+2026-11-23T21:24:47.5626901Z [36;1mlake build[0m
+2026-11-23T21:24:47.5662944Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:24:47.5663235Z ##[endgroup]
+2026-11-23T21:24:53.3317447Z ✔ [2659/2683] Built TetherMayForm.Layer2 (4.2s)
+2026-11-23T21:24:55.0433089Z ✔ [2660/2683] Built TetherMayForm.EnstrophyL2 (5.9s)
+2026-11-23T21:24:57.4574267Z ✔ [2661/2683] Built TetherMayForm.RiccatiComparison (4.2s)
+2026-11-23T21:24:57.7577567Z ⚠ [2662/2683] Built TetherMayForm.Basic (8.8s)
+2026-11-23T21:24:57.7578674Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+2026-11-23T21:24:57.7579507Z 
+2026-11-23T21:24:57.7580309Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:24:58.9617715Z ✔ [2663/2683] Built TetherMayForm.CitedProps (3.8s)
+2026-11-23T21:25:00.7728583Z ⚠ [2664/2683] Built TetherMayForm.Jacobi (3.0s)
+2026-11-23T21:25:00.7731150Z warning: TetherMayForm/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+2026-11-23T21:25:00.7760981Z   [InnerProductSpace ℝ H]
+2026-11-23T21:25:00.7784475Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-11-23T21:25:00.7809734Z   omit [InnerProductSpace ℝ H] in theorem ...
+2026-11-23T21:25:00.7850693Z 
+2026-11-23T21:25:00.7853832Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-11-23T21:25:01.7713746Z ✔ [2665/2683] Built TetherMayForm.Metriplectic (4.0s)
+2026-11-23T21:25:04.5756602Z ✔ [2666/2683] Built TetherMayForm.RouteA (2.8s)
+2026-11-23T21:25:05.5773972Z ⚠ [2667/2683] Built TetherMayForm.JacobiWitness (4.8s)
+2026-11-23T21:25:05.5774870Z warning: TetherMayForm/JacobiWitness.lean:40:19: This simp argument is unused:
+2026-11-23T21:25:05.5775514Z   LinearMap.map_add₂
+2026-11-23T21:25:05.5775716Z 
+2026-11-23T21:25:05.5775870Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5776611Z   simp [crossBr,̵ ̵L̵i̵n̵e̵a̵r̵M̵a̵p̵.̵m̵a̵p̵_̵a̵d̵d̵₂̵]
+2026-11-23T21:25:05.5776996Z 
+2026-11-23T21:25:05.5777308Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5778102Z warning: TetherMayForm/JacobiWitness.lean:52:15: This simp argument is unused:
+2026-11-23T21:25:05.5778704Z   WithLp.ofLp_toLp
+2026-11-23T21:25:05.5778875Z 
+2026-11-23T21:25:05.5779026Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5779752Z   simp only [W̵i̵t̵h̵L̵p̵.̵o̵f̵L̵p̵_̵t̵o̵L̵p̵,̵ ̵e1, e2, e3, PiLp.add_apply, PiLp.zero_apply] at *
+2026-11-23T21:25:05.5780451Z 
+2026-11-23T21:25:05.5780757Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5781809Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5782566Z 
+2026-11-23T21:25:05.5782738Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5783600Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5784355Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5784778Z instead of
+2026-11-23T21:25:05.5785389Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5786100Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5786485Z 
+2026-11-23T21:25:05.5787147Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5788534Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5789293Z 
+2026-11-23T21:25:05.5789467Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5790488Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5791591Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5792023Z instead of
+2026-11-23T21:25:05.5792619Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5793347Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5793724Z 
+2026-11-23T21:25:05.5794343Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5795715Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5796476Z 
+2026-11-23T21:25:05.5796656Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5797475Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5798221Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5798648Z instead of
+2026-11-23T21:25:05.5799234Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5800559Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5801050Z 
+2026-11-23T21:25:05.5801688Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5802785Z warning: TetherMayForm/JacobiWitness.lean:68:17: This simp argument is unused:
+2026-11-23T21:25:05.5803386Z   EuclideanSpace.norm_eq
+2026-11-23T21:25:05.5803598Z 
+2026-11-23T21:25:05.5803745Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5804419Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T21:25:05.5805501Z   ̲  ̲ ̲ ̲E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵n̵o̵r̵m̵_̵e̵q̵,̵ ̵inner, Fin.sum_univ_three, EuclideanSpace.single_apply]
+2026-11-23T21:25:05.5806074Z 
+2026-11-23T21:25:05.5806381Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5807173Z warning: TetherMayForm/JacobiWitness.lean:68:48: This simp argument is unused:
+2026-11-23T21:25:05.5807749Z   Fin.sum_univ_three
+2026-11-23T21:25:05.5807930Z 
+2026-11-23T21:25:05.5808080Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5808683Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3,
+2026-11-23T21:25:05.5809332Z   ̵  ̵ ̵ ̵cross_apply,
+2026-11-23T21:25:05.5810288Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵EuclideanSpace.single_apply]
+2026-11-23T21:25:05.5810881Z 
+2026-11-23T21:25:05.5811189Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5811970Z warning: TetherMayForm/JacobiWitness.lean:68:68: This simp argument is unused:
+2026-11-23T21:25:05.5812597Z   EuclideanSpace.single_apply
+2026-11-23T21:25:05.5812829Z 
+2026-11-23T21:25:05.5812980Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5813659Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+2026-11-23T21:25:05.5815026Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵F̲i̲n̲.̲s̲u̲m̲_̲u̲n̲i̲v̲_̲t̲h̲r̲e̲e̲]̲
+2026-11-23T21:25:05.5815808Z 
+2026-11-23T21:25:05.5816113Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:05.5817155Z warning: TetherMayForm/JacobiWitness.lean:76:12: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:05.5817911Z 
+2026-11-23T21:25:05.5818083Z Note: The updated constant has a different type:
+2026-11-23T21:25:05.5818897Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5820028Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5820463Z instead of
+2026-11-23T21:25:05.5821059Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:05.5821787Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:05.5822162Z 
+2026-11-23T21:25:05.5822786Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:05.5823965Z warning: TetherMayForm/JacobiWitness.lean:76:12: This simp argument is unused:
+2026-11-23T21:25:05.5824582Z   EuclideanSpace.single_apply
+2026-11-23T21:25:05.5824818Z 
+2026-11-23T21:25:05.5824971Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:05.5825585Z   simp [e2,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵] at this
+2026-11-23T21:25:05.5825979Z 
+2026-11-23T21:25:05.5826285Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:06.8788365Z ✔ [2668/2683] Built TetherMayForm.Main (2.3s)
+2026-11-23T21:25:09.0841535Z ✔ [2669/2683] Built TetherMayForm.TetheredLyapunov (2.1s)
+2026-11-23T21:25:11.3846578Z ✔ [2670/2683] Built TetherMayForm.GlobalRegularity (2.3s)
+2026-11-23T21:25:12.3905137Z ✔ [2671/2683] Built TetherMayForm.Torus (3.3s)
+2026-11-23T21:25:12.4929763Z ⚠ [2672/2683] Built TetherMayForm.Enstrophy (3.4s)
+2026-11-23T21:25:12.4931312Z warning: TetherMayForm/Enstrophy.lean:116:50: unused variable `hC`
+2026-11-23T21:25:12.4932441Z 
+2026-11-23T21:25:12.4933100Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:25:12.4933810Z warning: TetherMayForm/Enstrophy.lean:116:63: unused variable `hκ`
+2026-11-23T21:25:12.4934101Z 
+2026-11-23T21:25:12.4934328Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:25:15.5967200Z ⚠ [2673/2683] Built TetherMayForm.Final (3.1s)
+2026-11-23T21:25:15.5968480Z warning: TetherMayForm/Final.lean:69:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+2026-11-23T21:25:15.5969789Z If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+2026-11-23T21:25:15.5971009Z ```
+2026-11-23T21:25:15.5971613Z open Lean.Parser.Tactic in
+2026-11-23T21:25:15.5972174Z macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+2026-11-23T21:25:15.5973039Z   `(tactic| push $cfg:optConfig Not $[$loc]?)
+2026-11-23T21:25:15.5973527Z ```
+2026-11-23T21:25:15.5974351Z warning: TetherMayForm/Final.lean:180:35: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T21:25:15.5975468Z 
+2026-11-23T21:25:15.5975699Z Note: The updated constant has a different type:
+2026-11-23T21:25:15.5977048Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:15.5978127Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:15.5978655Z instead of
+2026-11-23T21:25:15.5979372Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T21:25:15.5980555Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T21:25:15.5981030Z 
+2026-11-23T21:25:15.5981845Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T21:25:15.5983098Z warning: TetherMayForm/Final.lean:180:35: This simp argument is unused:
+2026-11-23T21:25:15.5983761Z   EuclideanSpace.single_apply
+2026-11-23T21:25:15.5984039Z 
+2026-11-23T21:25:15.5984218Z Hint: Omit it from the simp argument list.
+2026-11-23T21:25:15.5987031Z   simp [y, Fin.sum_univ_three,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]
+2026-11-23T21:25:15.5987634Z 
+2026-11-23T21:25:15.5988017Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:25:20.1016533Z ⚠ [2674/2683] Built TetherMayForm.LogLoss (4.5s)
+2026-11-23T21:25:20.1017976Z warning: TetherMayForm/LogLoss.lean:95:50: unused variable `hy0`
+2026-11-23T21:25:20.1018468Z 
+2026-11-23T21:25:20.1018860Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T21:25:23.3057930Z ✔ [2675/2683] Built TetherMayForm.PalinstrophyH1 (3.2s)
+2026-11-23T21:25:26.0088269Z ✔ [2676/2683] Built TetherMayForm.VorticityTether (2.7s)
+2026-11-23T21:25:32.4173179Z ✔ [2677/2683] Built TetherMayForm.CurlNS (6.5s)
+2026-11-23T21:25:36.4255925Z ✔ [2678/2683] Built TetherMayForm.BiotSavart (3.0s)
+2026-11-23T21:25:39.5319030Z ✔ [2679/2683] Built TetherMayForm.ChevalleyEilenberg (3.1s)
+2026-11-23T21:25:42.8350390Z ⚠ [2680/2683] Built TetherMayForm.FieldJacobi (6.4s)
+2026-11-23T21:25:42.8351448Z warning: TetherMayForm/FieldJacobi.lean:195:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-11-23T21:25:42.8352165Z 
+2026-11-23T21:25:42.8352580Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-11-23T21:25:45.6382709Z ✔ [2681/2683] Built TetherMayForm.FieldMetriplectic (2.8s)
+2026-11-23T21:25:47.6405017Z ✔ [2682/2683] Built TetherMayForm (2.0s)
+2026-11-23T21:25:47.6541192Z Build completed successfully (2683 jobs).
+
+===== axiom-audit/6_Axiom audit.txt
+﻿2026-11-23T21:25:47.6934407Z ##[group]Run set -o pipefail
+2026-11-23T21:25:47.6934770Z [36;1mset -o pipefail[0m
+2026-11-23T21:25:47.6935412Z [36;1mlake env lean AxiomAudit.lean 2>&1 | awk '/^[ \t]/{sub(/^[ \t]+/," ");printf "%s",$0;next} NR>1{print ""} {printf "%s",$0} END{print ""}' | tee axioms.txt[0m
+2026-11-23T21:25:47.6970055Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:47.6970508Z ##[endgroup]
+2026-11-23T21:25:50.5559189Z 'Frohman.Tether.IsAdmissibleCorrection.c1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5600971Z 'Frohman.Tether.IsAdmissibleCorrection.c2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5650786Z 'Frohman.Tether.IsAdmissibleCorrection.c3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5700921Z 'Frohman.Tether.IsAdmissibleCorrection.symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5751147Z 'Frohman.Tether.ProducesControllableNegativeFeedback.calibrated' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5791191Z 'Frohman.Tether.ProducesControllableNegativeFeedback.nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5807149Z 'Frohman.Tether.admissible_eq_smul_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5817793Z 'Frohman.Tether.degeneracy_forces_projection' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5850837Z 'Frohman.Tether.degeneracy_verification' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5852251Z 'Frohman.Tether.degeneracy_verification_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5880816Z 'Frohman.Tether.diag_eq_of_norm_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5900814Z 'Frohman.Tether.exists_unit_orthogonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5902153Z 'Frohman.Tether.feedback_fixes_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5903524Z 'Frohman.Tether.frohmanianTether_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5904816Z 'Frohman.Tether.frohmanianTether_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5906102Z 'Frohman.Tether.frohmanianTether_degenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5907464Z 'Frohman.Tether.frohmanianTether_energy_neutral' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5908799Z 'Frohman.Tether.frohmanianTether_feedback' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5933998Z 'Frohman.Tether.frohmanianTether_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5935407Z 'Frohman.Tether.frohmanianTether_self_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5936754Z 'Frohman.Tether.frohmanianTether_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5938167Z 'Frohman.Tether.frohmanian_symplectic_tether_theorem_calibrated' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5939555Z 'Frohman.Tether.gauge_uniqueness_weak' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5940921Z 'Frohman.Tether.inner_piU_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5941996Z 'Frohman.Tether.inner_u_piU' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5943037Z 'Frohman.Tether.piU_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5944133Z 'Frohman.Tether.piU_apply_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5945273Z 'Frohman.Tether.piU_comm_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5946870Z 'Frohman.Tether.piU_eq_self_of_inner_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5948384Z 'Frohman.Tether.piU_smul_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5949590Z 'Frohman.Tether.projectionOrthogonalToU' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5972937Z 'Frohman.Tether.tetheredBracket_kineticEnergy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.5974427Z 'Frohman.Tether.uniqueness_of_minimal_metric_tether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6001018Z 'Frohman.Tether.uniqueness_of_minimal_metric_tether_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6010786Z 'Frohman.Tether.BiotSavart.DFMode.hK' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6030754Z 'Frohman.Tether.BiotSavart.DFMode.ha' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6045999Z 'Frohman.Tether.BiotSavart.DFMode.hb' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6070783Z 'Frohman.Tether.BiotSavart.bsC_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6072033Z 'Frohman.Tether.BiotSavart.bsSum_diff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6073275Z 'Frohman.Tether.BiotSavart.comp_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6074567Z 'Frohman.Tether.BiotSavart.curlC_bsC' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6100898Z 'Frohman.Tether.BiotSavart.curlRightInverse_trig' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6102281Z 'Frohman.Tether.BiotSavart.curl_bsMode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6103521Z 'Frohman.Tether.BiotSavart.curl_bsSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6104759Z 'Frohman.Tether.BiotSavart.divC_bsC' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6105977Z 'Frohman.Tether.BiotSavart.div_bsMode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6107208Z 'Frohman.Tether.BiotSavart.gradL2_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6108421Z 'Frohman.Tether.BiotSavart.kSq_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6109669Z 'Frohman.Tether.BiotSavart.mode_contDiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6111126Z 'Frohman.Tether.BiotSavart.mode_diff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6112371Z 'Frohman.Tether.BiotSavart.pd_comp_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6113569Z 'Frohman.Tether.BiotSavart.pd_trig' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6114744Z 'Frohman.Tether.BiotSavart.th_e' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6115914Z 'Frohman.Tether.BiotSavart.toE_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6116967Z 'Frohman.Tether.CE.antiCorr_alt' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6130690Z 'Frohman.Tether.CE.antiCorr_cocycle_iff' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6135905Z 'Frohman.Tether.CE.cocycle_of_coboundary' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6161129Z 'Frohman.Tether.CE.d2_d1' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6185129Z 'Frohman.Tether.CE.symPart_not_cochain' depends on axioms: [propext, Quot.sound]
+2026-11-23T21:25:50.6210800Z 'Frohman.Tether.Shear.div_mode' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6224615Z 'Frohman.Tether.Shear.shearBad_div' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6226769Z 'Frohman.Tether.Shear.shearBad_not_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6227981Z 'Frohman.Tether.Shear.shear_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6229129Z 'Frohman.Tether.CitedProps.instIsProbabilityMeasureForallFinOfNatNatRealTorusMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6230552Z 'Frohman.Tether.CitedProps.l4l2Holder_of_prob' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6231942Z 'Frohman.Tether.CitedProps.l4l2Holder_torus' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6233239Z 'Frohman.Tether.CitedProps.sq_integral_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6234463Z 'Frohman.Tether.CurlNS.comp_add_diff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6235625Z 'Frohman.Tether.CurlNS.comp_adv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6236764Z 'Frohman.Tether.CurlNS.comp_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6237897Z 'Frohman.Tether.CurlNS.comp_grad' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6239078Z 'Frohman.Tether.CurlNS.comp_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6240499Z 'Frohman.Tether.CurlNS.curlOfForcedNS' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6241686Z 'Frohman.Tether.CurlNS.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6242850Z 'Frohman.Tether.CurlNS.curl_advection' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6244021Z 'Frohman.Tether.CurlNS.curl_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6245159Z 'Frohman.Tether.CurlNS.curl_grad' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6246349Z 'Frohman.Tether.CurlNS.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6247509Z 'Frohman.Tether.CurlNS.curl_lin' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6248597Z 'Frohman.Tether.CurlNS.dif' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6249720Z 'Frohman.Tether.CurlNS.fderiv_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6251211Z 'Frohman.Tether.CurlNS.hasDerivAt_pd_time' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6252483Z 'Frohman.Tether.CurlNS.hasDerivAt_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6253725Z 'Frohman.Tether.CurlNS.hasDerivAt_vec3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6254930Z 'Frohman.Tether.CurlNS.lap_scalar_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6256076Z 'Frohman.Tether.CurlNS.pd3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6257141Z 'Frohman.Tether.CurlNS.pd_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6258224Z 'Frohman.Tether.CurlNS.pd_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6259299Z 'Frohman.Tether.CurlNS.pd_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6260565Z 'Frohman.Tether.CurlNS.pd_comp'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6261692Z 'Frohman.Tether.CurlNS.pd_comp_adv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6262850Z 'Frohman.Tether.CurlNS.pd_const_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6263970Z 'Frohman.Tether.CurlNS.pd_lap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6265368Z 'Frohman.Tether.CurlNS.pd_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6266648Z 'Frohman.Tether.CurlNS.pd_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6267700Z 'Frohman.Tether.CurlNS.pd_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6268774Z 'Frohman.Tether.CurlNS.sm_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6269854Z 'Frohman.Tether.CurlNS.sm_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6271109Z 'Frohman.Tether.CurlNS.sm_pd' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6272225Z 'Frohman.Tether.CurlNS.vec3_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6273344Z 'Frohman.Tether.CurlNS.vec3_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6274638Z 'Frohman.Tether.EnstrophyL2.enstrophy_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6276080Z 'Frohman.Tether.EnstrophyL2.enstrophy_deriv_logistic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6277446Z 'Frohman.Tether.EnstrophyL2.stretch_absorb' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6278837Z 'Frohman.Tether.EnstrophyL2.tethered_L2_vorticity_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6280602Z 'Frohman.Tether.EnstrophyL2.tethered_enstrophy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6282094Z 'Frohman.Tether.EnstrophyL2.tethered_enstrophy_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6283420Z 'Frohman.Tether.EnstrophyL2.young_lam' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6284684Z 'Frohman.Tether.frohmanianTether_orth_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6285946Z 'Frohman.Tether.nsOnly_not_sufficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6287268Z 'Frohman.Tether.tetherFeedback_of_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6288657Z 'Frohman.Tether.tetherTerm_of_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6290071Z 'Frohman.Tether.young_kappa_quarter' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6291301Z 'Frohman.Tether.FieldJacobi.br_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6292538Z 'Frohman.Tether.FieldJacobi.br_add_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6293777Z 'Frohman.Tether.FieldJacobi.br_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6295102Z 'Frohman.Tether.FieldJacobi.br_eq_zero_of_xOnly_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6296431Z 'Frohman.Tether.FieldJacobi.br_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6297620Z 'Frohman.Tether.FieldJacobi.br_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6298841Z 'Frohman.Tether.FieldJacobi.br_smul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6300291Z 'Frohman.Tether.FieldJacobi.br_uX_eX_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6301548Z 'Frohman.Tether.FieldJacobi.br_uY_aZ_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6302792Z 'Frohman.Tether.FieldJacobi.br_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6304015Z 'Frohman.Tether.FieldJacobi.br_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6305275Z 'Frohman.Tether.FieldJacobi.bvec_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6307707Z 'Frohman.Tether.FieldJacobi.bvec_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6308990Z 'Frohman.Tether.FieldJacobi.divFree_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6310472Z 'Frohman.Tether.FieldJacobi.divFree_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6311744Z 'Frohman.Tether.FieldJacobi.divFree_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6313007Z 'Frohman.Tether.FieldJacobi.divFree_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6314275Z 'Frohman.Tether.FieldJacobi.jacF_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6315525Z 'Frohman.Tether.FieldJacobi.jacF_cycle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6316749Z 'Frohman.Tether.FieldJacobi.jacF_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6318010Z 'Frohman.Tether.FieldJacobi.jacF_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6319269Z 'Frohman.Tether.FieldJacobi.jacF_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6320754Z 'Frohman.Tether.FieldJacobi.jacT_eq_mixedSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6321799Z 'Frohman.Tether.FieldJacobi.kx_ne' depends on axioms: [propext]
+2026-11-23T21:25:50.6322889Z 'Frohman.Tether.FieldJacobi.mixedF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6324236Z 'Frohman.Tether.FieldJacobi.mixedSumF_diag' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6325611Z 'Frohman.Tether.FieldJacobi.mixedSumF_eq_zero_of_shear' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6326734Z 'Frohman.Tether.FieldJacobi.ne_kx' depends on axioms: [propext]
+2026-11-23T21:25:50.6327542Z 'Frohman.Tether.FieldJacobi.ne_ky' depends on axioms: [propext]
+2026-11-23T21:25:50.6328567Z 'Frohman.Tether.FieldJacobi.not_divFree_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6329782Z 'Frohman.Tether.FieldJacobi.piF_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6331570Z 'Frohman.Tether.FieldJacobi.piF_of_pr_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6332817Z 'Frohman.Tether.FieldJacobi.piF_smul_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6334045Z 'Frohman.Tether.FieldJacobi.piF_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6335228Z 'Frohman.Tether.FieldJacobi.pr_aZ_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6336408Z 'Frohman.Tether.FieldJacobi.pr_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6337647Z 'Frohman.Tether.FieldJacobi.pr_add_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6338855Z 'Frohman.Tether.FieldJacobi.pr_eX_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6340195Z 'Frohman.Tether.FieldJacobi.pr_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6341436Z 'Frohman.Tether.FieldJacobi.pr_smul_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6342673Z 'Frohman.Tether.FieldJacobi.pr_uX_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6343884Z 'Frohman.Tether.FieldJacobi.pr_uX_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6345041Z 'Frohman.Tether.FieldJacobi.pr_uY_aZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6346202Z 'Frohman.Tether.FieldJacobi.pr_uY_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6347713Z 'Frohman.Tether.FieldJacobi.pr_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6349161Z 'Frohman.Tether.FieldJacobi.pr_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6350649Z 'Frohman.Tether.FieldJacobi.shearX_jacobi_fails' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6352000Z 'Frohman.Tether.FieldJacobi.shearX_mixed_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6353342Z 'Frohman.Tether.FieldJacobi.shearX_mixed_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6354780Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_fails_transverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6356229Z 'Frohman.Tether.FieldJacobi.shearY_jacobi_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6357583Z 'Frohman.Tether.FieldJacobi.shearY_mixed_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6359041Z 'Frohman.Tether.FieldJacobi.shearY_transverse_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6360770Z 'Frohman.Tether.FieldJacobi.shearY_transverse_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6362122Z 'Frohman.Tether.FieldJacobi.tetF_add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6363366Z 'Frohman.Tether.FieldJacobi.tetF_tetF' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6364596Z 'Frohman.Tether.FieldJacobi.tetF_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6365829Z 'Frohman.Tether.FieldJacobi.xOnly_eX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6367027Z 'Frohman.Tether.FieldJacobi.xOnly_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6368260Z 'Frohman.Tether.FieldJacobi.xOnly_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6369453Z 'Frohman.Tether.FieldJacobi.xOnly_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6370954Z 'Frohman.Tether.FieldMetriplectic.IsRealF.neg'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6372310Z 'Frohman.Tether.FieldMetriplectic.conj_pr' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6373648Z 'Frohman.Tether.FieldMetriplectic.dissF_energy_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6375130Z 'Frohman.Tether.FieldMetriplectic.dissF_energy_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6376512Z 'Frohman.Tether.FieldMetriplectic.dissF_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6377869Z 'Frohman.Tether.FieldMetriplectic.dissF_shearX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6379236Z 'Frohman.Tether.FieldMetriplectic.dissF_shearY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6380810Z 'Frohman.Tether.FieldMetriplectic.dissF_shear_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6382232Z 'Frohman.Tether.FieldMetriplectic.isRealF_piF' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6383651Z 'Frohman.Tether.FieldMetriplectic.isRealF_sub_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6385054Z 'Frohman.Tether.FieldMetriplectic.mem_support_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6386391Z 'Frohman.Tether.FieldMetriplectic.piF_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6387699Z 'Frohman.Tether.FieldMetriplectic.pr_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6389003Z 'Frohman.Tether.FieldMetriplectic.pr_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6391044Z 'Frohman.Tether.FieldMetriplectic.pr_self_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6392412Z 'Frohman.Tether.FieldMetriplectic.pr_self_re_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6393749Z 'Frohman.Tether.FieldMetriplectic.pr_uX_uX' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6395035Z 'Frohman.Tether.FieldMetriplectic.pr_uY_uY' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6396385Z 'Frohman.Tether.FieldMetriplectic.tetF_energy_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6397860Z 'Frohman.Tether.FieldMetriplectic.tetF_energy_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6399244Z 'Frohman.Tether.FieldMetriplectic.tetF_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6400768Z 'Frohman.Tether.inner_secondDeriv_le_of_isMaxOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6402125Z 'Frohman.Tether.inner_secondDeriv_nonpos_of_isMaxOn' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6403383Z 'Frohman.Tether.periodic_exists_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6404536Z 'Frohman.Tether.periodic_int_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6405846Z 'Frohman.Tether.quarticTether_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6436319Z 'Frohman.Tether.quarticWeight_of_def' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6437686Z 'Frohman.Tether.secondDeriv_nonpos_of_isLocalMax' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6439043Z 'Frohman.Tether.tetherFeedback_of_quartic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6440515Z 'Frohman.Tether.viscousAtMax_of_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6531092Z 'Frohman.Tether.viscous_nonpos_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6545983Z 'Frohman.Tether.frohmanian_symplectic_tether_theorem_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6547539Z 'Frohman.Tether.JacobiWitness.crossBr_isClassical' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6548913Z 'Frohman.Tether.JacobiWitness.mixed_sum_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6550267Z 'Frohman.Tether.JacobiWitness.mixed_sum_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6551097Z 'Frohman.Tether.JacobiWitness.tethered_jacobiator_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6551898Z 'Frohman.Tether.IsClassicalBracket.add_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6552633Z 'Frohman.Tether.IsClassicalBracket.jacobi' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6553346Z 'Frohman.Tether.jacobi_classical_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6554014Z 'Frohman.Tether.jacobi_iff_mixed_cancel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6554636Z 'Frohman.Tether.jacobi_term7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6555220Z 'Frohman.Tether.jacobi_term8' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6555790Z 'Frohman.Tether.jacobi_term9' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6556395Z 'Frohman.Tether.jacobiator_eq_mixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6557066Z 'Frohman.Tether.jacobiator_eq_zero_of_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6558168Z 'Frohman.Tether.jacobiator_nine_terms' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6558803Z 'Frohman.Tether.mixedTerm_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6559431Z 'Frohman.Tether.tetherVec_tetherVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6560518Z 'Frohman.Tether.tetheredBracket_nested' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6561683Z 'Frohman.Tether.comparisonField_equilibrium' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6562390Z 'Frohman.Tether.comparisonField_neg_above' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6563083Z 'Frohman.Tether.comparisonField_pos_between' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6563766Z 'Frohman.Tether.comparisonField_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6564446Z 'Frohman.Tether.comparison_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6565104Z 'Frohman.Tether.comparison_bound_of_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6565737Z 'Frohman.Tether.layer2_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6566341Z 'Frohman.Tether.young_absorption' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6566981Z 'Frohman.Tether.comparison_bound_logloss' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6567651Z 'Frohman.Tether.global_regularity_logloss' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6568297Z 'Frohman.Tether.logField_neg_above' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6568931Z 'Frohman.Tether.logThreshold_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6569595Z 'Frohman.Tether.tether_pointwise_logloss' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6570717Z 'Frohman.Tether.RouteAFeedback.leadingCoefficient_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6571550Z 'Frohman.Tether.frohmanian_symplectic_tether_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6572300Z 'Frohman.Tether.kappa_eq_stretching_of_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6573005Z 'Frohman.Tether.routeA_determines_kappa' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6573657Z 'Frohman.Tether.routeA_layer2_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6574323Z 'Frohman.Tether.antiPart_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6575066Z 'Frohman.Tether.antiPart_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6576216Z 'Frohman.Tether.antiPart_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6576888Z 'Frohman.Tether.antiPart_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6578127Z 'Frohman.Tether.degenerate_of_parts' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6579144Z 'Frohman.Tether.eq_zero_of_symm_of_antisymm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6580318Z 'Frohman.Tether.metriplecticBracket_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6581378Z 'Frohman.Tether.metriplectic_energy_conserved' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6582380Z 'Frohman.Tether.parts_degenerate' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6583697Z 'Frohman.Tether.split_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6585082Z 'Frohman.Tether.symPart_add_antiPart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6586254Z 'Frohman.Tether.symPart_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6587382Z 'Frohman.Tether.symPart_frohmanianTether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6588499Z 'Frohman.Tether.symPart_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6589523Z 'Frohman.Tether.symPart_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6590805Z 'Frohman.Tether.sym_anti_pairing_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6591982Z 'Frohman.Tether.symm_antisymm_pairing_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6593196Z 'Frohman.Tether.PalinstrophyH1.amgm_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6594538Z 'Frohman.Tether.PalinstrophyH1.higherNormControl_tethered' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6595871Z 'Frohman.Tether.PalinstrophyH1.lp_absorb' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6597095Z 'Frohman.Tether.PalinstrophyH1.palin_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6598392Z 'Frohman.Tether.PalinstrophyH1.tether_H1_density_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6599735Z 'Frohman.Tether.PalinstrophyH1.tether_H1_density_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6601391Z 'Frohman.Tether.PalinstrophyH1.tethered_palinstrophy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6602740Z 'Frohman.Tether.PalinstrophyH1.young_43' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6603950Z 'Frohman.Tether.Riccati.ricSol_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6605124Z 'Frohman.Tether.Riccati.ricSol_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6606275Z 'Frohman.Tether.Riccati.riccati_blowup' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6607455Z 'Frohman.Tether.Riccati.tethered_ceiling' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6608685Z 'Frohman.Tether.RouteAFeedback.jacobi_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6610165Z 'Frohman.Tether.RouteAFeedback.matches_stretching' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6611631Z 'Frohman.Tether.RouteAFeedback.maximizer_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6613158Z 'Frohman.Tether.RouteAFeedback.maximizer_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6614591Z 'Frohman.Tether.RouteAFeedback.nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6616043Z 'Frohman.Tether.RouteAFeedback.poisson_unchanged' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6617550Z 'Frohman.Tether.RouteAFeedback.toControllable' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6618977Z 'Frohman.Tether.frohmanianTether_routeA' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6620542Z 'Frohman.Tether.routeA_fixes_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6621957Z 'Frohman.Tether.routeA_iff_controllable_on_tether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6623360Z 'Frohman.Tether.uniqueness_routeA_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6624774Z 'Frohman.Tether.NSTetherSolution.smoothOn_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6626671Z 'Frohman.Tether.NSTetherSolution.smoothOn_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6628146Z 'Frohman.Tether.NSTetherSolution.y_zero_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.6629621Z 'Frohman.Tether.comparison_majorant_global_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7944374Z 'Frohman.Tether.global_regularity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7945657Z 'Frohman.Tether.lemma_3_1_uniform_bound_and_continuation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7946969Z 'Frohman.Tether.Torus.classicalSolutionOn_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7948223Z 'Frohman.Tether.Torus.classicalSolutionOn_of_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7949561Z 'Frohman.Tether.Torus.classicalSolutionOn_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7951085Z 'Frohman.Tether.Torus.not_tetherRealizesFeedback_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7952287Z 'Frohman.Tether.Torus.tetheredNS_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7953492Z 'Frohman.Tether.Torus.toNSTetherSolution_smoothOn_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7954735Z 'Frohman.Tether.Torus.toNSTetherSolution_y' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7955955Z 'Frohman.Tether.Torus.toNSTetherSolution_y_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7957115Z 'Frohman.Tether.Torus.vortSup_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7958275Z 'Frohman.Tether.VorticityTether.LerayProj.idem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7959541Z 'Frohman.Tether.VorticityTether.LerayProj.symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7960982Z 'Frohman.Tether.VorticityTether.curl_lerayTetherForce' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7962396Z 'Frohman.Tether.VorticityTether.enstrophyIdentity_of_vorticityLevel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7963745Z 'Frohman.Tether.VorticityTether.inner_cubic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7964976Z 'Frohman.Tether.VorticityTether.inner_leray_of_divFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7966281Z 'Frohman.Tether.VorticityTether.quarticTether_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7967611Z 'Frohman.Tether.VorticityTether.tether_H1_density_nonneg'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7968876Z 'Frohman.Tether.VorticityTether.tether_H1_term' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7970217Z 'Frohman.Tether.VorticityTether.tether_L2_term' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7971586Z 'Frohman.Tether.VorticityTether.tetheredVorticity_of_velocity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:25:50.7973053Z 'Frohman.Tether.VorticityTether.tetheredVorticity_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+===== axiom-audit/7_Check axioms are standard only.txt
+﻿2026-11-23T21:25:50.8021225Z ##[group]Run test -s axioms.txt
+2026-11-23T21:25:50.8021669Z [36;1mtest -s axioms.txt[0m
+2026-11-23T21:25:50.8022296Z [36;1mOK='depends on axioms: \[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$|does not depend on any axioms$'[0m
+2026-11-23T21:25:50.8023150Z [36;1mn=$(grep -c "^#print axioms" AxiomAudit.lean); m=$(grep -E "^'" axioms.txt | grep -cE "$OK" || true)[0m
+2026-11-23T21:25:50.8023940Z [36;1mecho "audited $n declarations, $m with standard axioms only"[0m
+2026-11-23T21:25:50.8024455Z [36;1mif [ "$n" -ne "$m" ] || grep -iE "error|warning: declaration uses" axioms.txt; then[0m
+2026-11-23T21:25:50.8024959Z [36;1m  echo "Non-standard axiom output:"; cat axioms.txt; exit 1; fi[0m
+2026-11-23T21:25:50.8057561Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:50.8057836Z ##[endgroup]
+2026-11-23T21:25:50.8151465Z audited 308 declarations, 308 with standard axioms only
+
+===== axiom-audit/8_No sorry _ no axiom declarations.txt
+﻿2026-11-23T21:25:50.8198529Z ##[group]Run python3 scripts/check_no_sorry.py
+2026-11-23T21:25:50.8198955Z [36;1mpython3 scripts/check_no_sorry.py[0m
+2026-11-23T21:25:50.8231387Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:50.8231673Z ##[endgroup]
+2026-11-23T21:25:50.8894167Z OK: no sorry/admit/native_decide, no axiom declarations
+
+===== axiom-audit/system.txt
+2026-11-23T21:22:14.8460000Z Requested labels: ubuntu-latest
+2026-11-23T21:22:14.8460000Z Job defined at: BenFrohman/frohmanian-symplectic-tether/.github/workflows/axiom-table.yml@refs/heads/ci-backfill/ee52bf5
+2026-11-23T21:22:14.8460000Z Waiting for a runner to pick up this job...
+2026-11-23T21:22:14.8380000Z Evaluating axiom-audit.if
+2026-11-23T21:22:14.8380000Z Evaluating: success()
+2026-11-23T21:22:14.8380000Z Result: true
+2026-11-23T21:22:15.1440000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-23T21:23:05.1350000Z Job is about to start running on the hosted runner: GitHub Actions 1000006728
+2026-11-23T21:23:05.1340000Z Job is waiting for a hosted runner to come online.

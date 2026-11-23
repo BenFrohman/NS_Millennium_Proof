@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.NS_Equations
+#print axioms NavierStokes3D.stretching_inner_le_at_max

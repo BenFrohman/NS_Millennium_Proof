@@ -1,0 +1,181 @@
+    Feﬀerman Statement (B) on T3: A Precise Lean
+    Formalization, a Kernel-Checked Reduction, and
+     the Boundaries of the Frohmanian Symplectic
+                        Tether
+                                  Benjamin Stanley Frohman
+                  ORCID: 0009-0006-7068-3718 | GitHub: BenFrohman/Clay-
+                    Concept DOI (all versions): 10.5281/zenodo.23653012
+                         This version DOI: 10.5281/zenodo.23940667
+
+       Earliest Commit Provenance: 2026-10-07 06:16:45 AM CDT (UTC-5)
+Revised edition: November 1, 2026 (America/Chicago, UTC−6). Not peer reviewed.
+
+
+                                             Abstract
+         This monograph records, in Lean 4 against Mathlib, a precise formal statement of
+      Feﬀerman’s Statement (B) on global smoothness of the unforced incompressible Navier–
+      Stokes equations on T3 = R3 /Z3 , together with an exact ledger of the analytic inputs
+      that the Frohmanian symplectic tether does not supply. Statement (B) is not proved
+      here. What is proved is a reduction: Statement (B) follows from the classical local theory
+      with the Beale–Kato–Majda continuation criterion and from the open hypothesis that
+      the Beale–Kato–Majda integral is ﬁnite on every ﬁnite interval of existence. We also
+      record the two-dimensional clock test: constant vortex direction (sin φ ≡ 0) coexists
+      with linear growth ∥ϕ(t)∥L∞ = M02 t on steady Euler equilibria.
+
+
+1     Scope and non-claim boundary
+This repository is a boundary and gap ledger. It is not a resolution of the Clay Millennium
+Problem. Every open input is a named proposition in Lean; none is assumed as an axiom,
+and no proof uses sorry. The build and axiom audit (lean/AxiomReport.lean, output
+in AXIOMS.md) reports only propext, Classical.choice and Quot.sound. The active
+continuation of this programme, in which the remaining gap is decomposed into ﬁner named
+statements (all open or conditional, apart from individually proved lemmas such as the planar
+sinShear obstruction; the open statement is the Frohmanian Tether Hypothesis (A)/(B),
+see NAMING.md), is BenFrohman/periodic-ns-classical-continuation.
+
+    • Repository: https://github.com/BenFrohman/Clay-
+
+    • Concept DOI: 10.5281/zenodo.23653012
+
+    • This version DOI: 10.5281/zenodo.23940667
+
+    • Earliest commit:    9e61806681bfce3f0edee28293d22a6a711f0780 (2026-10-07,
+      06:16:45 CDT, UTC−5)
+
+    • License: Copyright © 2026 Benjamin Stanley Frohman. Apache License, Version 2.0.
+
+
+
+                                                  1
+2     Statement (B)
+Following the oﬃcial problem description of Feﬀerman [1], ﬁx ν > 0 and let u◦ be a smooth,
+divergence-free vector ﬁeld on R3 with u◦ (x + ej ) = u◦ (x) for j = 1, 2, 3. Take f ≡ 0.
+
+      Statement (B). There exist smooth functions p(x, t), ui (x, t) on R3 × [0, ∞)
+      such that
+                        ∑
+                        3
+              ∂t ui +         uj ∂j ui = ν ∆ui − ∂i p,       div u = 0,   u(x, 0) = u◦ (x),
+                        j=1
+
+      and u, p are 1-periodic in each spatial coordinate.
+
+    In Lean this is the proposition Clay.StatementB.FeffermanStatementB (ﬁle lean/Cla
+y/StatementB.lean). Space is R3 realised as Euclidean space on Fin 3; partial derivatives
+are Fréchet derivatives along the standard basis; the time derivative is taken within [0, ∞);
+smoothness is C ∞ on [0, ∞) × R3 . No component of the statement is opaque or trivial.
+
+
+3     The proved reduction
+Write ω = curl u. Consider the propositions
+    • PeriodicMaximalSolutionWithBKM (classical; Kato, Fujita–Kato, Beale–Kato–
+      Majda [2]; not yet formalized): for all admissible data
+                                                           ∫ T∗
+                                                               there are T ∗ ∈ (0, ∞] and a
+                              ∗             ∗
+      smooth solution on [0, T ) such that T < ∞ implies 0 ∥ω(t)∥L∞ dt = ∞;
+
+    • PeriodicBKMIntegrability ∫T
+                                     (open; the Clay core): every smooth solution on a ﬁnite
+      interval [0, T ) satisﬁes 0 ∥ω(t)∥L∞ dt < ∞.
+Theorem 1 (feffermanStatementB_of_bkm). PeriodicMaximalSolutionWithBKM and
+PeriodicBKMIntegrability together imply Statement (B).  [Proved as an implication;
+Conditional on both hypotheses]
+
+
+ theorem feffermanStatementB_of_bkm (hloc : PeriodicMaximalSolutionWithBKM)
+     (hbkm : PeriodicBKMIntegrability) : FeffermanStatementB
+
+
+Theorem 2 (bkmIntegralFinite_of_holographic). If ∥ω(t)∥L∞ is bounded on every
+ﬁnite interval of existence, then PeriodicBKMIntegrability holds. [Proved as an implication;
+the bound itself is open]
+
+   The second hypothesis of the ﬁrst theorem is open and is equivalent in strength to
+Statement (B) itself. Consequently the reduction does not prove Statement (B).
+
+
+4     Ledger of missing inputs
+The ﬁle lean/Clay/Gaps/MissingInputs.lean states each former placeholder as a precise
+proposition:
+                                                                  ∫
+    • metriplecticControlsEnstrophyL2: sup[0,T ) T3 |ω|2 < ∞ for every solution on a
+      ﬁnite interval (open);
+
+    • czGivesBMONotLinf: no constant C gives ∥∇v∥L∞ ≤ C∥ curl v∥L∞ for smooth periodic
+      divergence-free v (classical, not formalized);
+
+                                                         2
+    • spikeObstruction: no constant C gives ∥f ∥L∞ ≤ C∥f ∥L6 (T3 ) for smooth periodic f
+      (classical, not formalized);
+
+    • holographicNotAZFCBound: the uniform ceiling sup[0,T ) ∥ω∥L∞ < ∞ (open);
+
+    • depletedStretching: ω · Sω ≤ C|ω|2 uniformly on ﬁnite intervals (open).
+
+The former trivial deﬁnitions have been removed; the repository history retains them. For
+planar ﬁelds v = (v1 (x1 , x2 ), v2 (x1 , x2 ), 0) the vorticity is proved parallel to e3 . Kernel-
+checked elementary results include the identity Πu u = 0 for the pointwise tether projection,
+the unboundedness of the history integral m2 t for m > 0, and the conditional Riccati rear-
+rangement.
+
+
+5     Build and axiom status
+Proved (kernel-checked). lake build of the full Clay library (root module and all 14
+submodules, including the note Clay.Notes.NotBlowup) succeeds on Lean/Mathlib v4.16.0.
+The axiom report lists 62 theorem declarations (including compiler-generated auxiliary lem-
+mas), none using sorryAx, and none using an axiom beyond propext, Classical.choice,
+Quot.sound. The substantive kernel-checked results are feffermanStatementB_of_bkm,
+statementB_of_bkmIntegralFinite, bkmIntegralFinite_of_holographic, bkmIntegralFinite_of_vortS
+the two-dimensional clock results steady_euler_clock, alignment_does_not_delete_clock,
+clock_fails_on_aligned_2d_solutions, the planar-vorticity lemma curl_planar, the
+tether identities tether_degeneracy, tether_bracket_preservation, and the integer
+rearrangement conditional_riccati. This is a machine check of the Lean statements, not
+peer review.
+    Conditional on. The global-existence reduction takes PeriodicMaximalSolutionW
+ithBKM (classical local theory and continuation, not proved here) and PeriodicBKMInteg
+rability (the still-undischarged BKM integrability assumption) as arguments. Neither is
+supplied by the reduction.
+    The separate declaration conditional_riccati is an algebraic implication over integers.
+For rate, C, κ, M ∈ Z, CorrectedMaxRate is exactly
+
+                                    rate ≤ M (CM − κM 2 ),
+
+and the theorem rewrites its right-hand side as CM 2 −κM 3 . Here rate is an integer variable,
+not a time derivative. No real-valued trajectory, diﬀerential inequality, vorticity maximum
+principle, or connection of this predicate to Navier–Stokes is proved. An analytical max-rate
+law and its PDE bridge remain separate missing inputs; this rearrangement does not supply
+them. Finer decompositions of the open BKM input belong to the continuation repository
+and are not formalized here.
+    Open. PeriodicBKMIntegrability; every item of the ledger above marked open; and
+therefore Statement (B) itself. The Clay Millennium Problem is not solved by this work.
+
+
+6     Provenance hashes
+Source ﬁles are ﬁngerprinted with SHA-256 (provenance/PROVENANCE_HASHES.json) and
+a Merkle root (provenance/PROVENANCE_MERKLE_ROOT.json), signed with Ed25519 key
+ﬁngerprint b428fb72676f1c52. These are ﬁle-integrity ﬁngerprints of an earlier snapshot
+only; they are not a certiﬁcate of correctness or review. The authoritative correctness check
+is the build and axiom report above, rerun by CI on every push.
+
+
+                                                3
+References
+[1] C. L. Feﬀerman, Existence and smoothness of the Navier–Stokes equation, in: The Mil-
+    lennium Prize Problems, Clay Mathematics Institute, 2006, pp. 57–67.
+
+[2] J. T. Beale, T. Kato, A. Majda, Remarks on the breakdown of smooth solutions for the
+    3-D Euler equations, Comm. Math. Phys. 94 (1984), 61–66.
+
+[3] P. Constantin, C. Feﬀerman, Direction of vorticity and the problem of global regularity
+    for the Navier–Stokes equations, Indiana Univ. Math. J. 42 (1993), 775–789.
+
+
+
+
+Attribution and licensing. Copyright © 2026 Benjamin Stanley Frohman (ORCID 0009-0006-7068-3718).
+Licensed under the Apache License, Version 2.0.
+
+
+                                               4
+

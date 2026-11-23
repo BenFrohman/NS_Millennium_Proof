@@ -1,0 +1,10 @@
+ConditionalNavierStokesTetherFull.lean:131:8: error: Application type mismatch: In the application
+  ContinuousWithinAt.mul (ContinuousAt.continuousWithinAt (DifferentiableAt.continuousAt (hM_diff s hs)))
+    (Tendsto.exp (ContinuousWithinAt.neg (hI_cont s hs)))
+the argument
+  Tendsto.exp (ContinuousWithinAt.neg (hI_cont s hs))
+has type
+  Tendsto (fun x => NormedSpace.exp ?m.17221 (-I x)) (𝓝[Icc 0 T] s)
+    (𝓝 (NormedSpace.exp ?m.17221 ((fun x => -I x) s))) : Prop
+but is expected to have type
+  ContinuousWithinAt (fun s => rexp (-I s)) (Icc 0 T) s : Prop

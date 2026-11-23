@@ -1,0 +1,145 @@
+\documentclass[11pt]{article}\emergencystretch=2em
+\usepackage[margin=1in]{geometry}
+\usepackage{array}\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref,tabularx}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}[theorem]{Lemma}\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Fld}{\mathsf{Fld}}\newcommand{\br}[2]{[#1,#2]}\newcommand{\pr}[2]{\langle #1,#2\rangle}
+\newcommand{\ii}{\mathrm{i}}
+\author{Frohman, Benjamin Stanley\\ \small ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718} \quad Independent Researcher \quad \href{mailto:frohmanbenjamin@gmail.com}{frohmanbenjamin@gmail.com}}
+\date{Review draft, 6 November 2026 --- not published}
+
+\title{A Restricted Jacobi Identity (Elementary Checked Boundary Case) for the Field-Level Tethered Bracket on the Divergence-Free Shear Class\\ \large Companion paper I (machine-checked, finite-Fourier model)}
+\begin{document}\maketitle
+\begin{abstract}
+In a finite-Fourier model of vector fields on $\mathbb T^3$ we consider the vector-valued tethered bracket $\{a,b\}=[a,b]+T(a,b)$, where $[\cdot,\cdot]$ is the vector-field Lie bracket and $T(a,b)=-(\kappa w)\langle\Pi_u a,\Pi_u b\rangle u$. For the shear axis $u=(\sin y,0,0)$ we prove that the Jacobiator vanishes whenever all three arguments are divergence-free and point along $e_x$. On this class the classical Lie bracket vanishes. The tether term $T$ need not vanish, but it takes values in $\mathbb C u_Y$, which lies in the class, and all nested terms vanish. The result is formalized as \texttt{shearY\_jacobi\_holds} in Lean~4/Mathlib. It is an elementary, machine-checked boundary case, not a new Jacobi theorem. Companion paper~II shows that the XOnly hypothesis cannot be dropped: an explicit divergence-free diagonal triple fails. We make no claim about the geometric reduced coadjoint orbit.
+\end{abstract}
+\section{The finite-Fourier field model (exact Lean definitions)}
+All definitions are in \texttt{FTVerified/May/FieldJacobi.lean} (namespace\\ \texttt{Frohman.Tether.FieldJacobi}) at commit \texttt{26f16da}. For $k\in\mathbb Z^3$ write $k_{\mathbb C}\in\mathbb C^3$ for its image (\texttt{kC}, \texttt{BiotSavart.lean:46}); $v\cdot w=\sum_{j}v_jw_j$ is the \emph{bilinear} (non-Hermitian) dot product on $\mathbb C^3$. Components are indexed $0,1,2$ ($=x,y,z$).
+
+\begin{definition}[\texttt{Fld}, line 48]
+$\Fld$ is the space of finitely supported maps $a:\mathbb Z^3\to\mathbb C^3$, $k\mapsto \hat a_k$; we read $a$ as the trigonometric polynomial $\sum_k \hat a_k e^{\ii k\cdot x}$ on $\mathbb T^3$. No reality condition is imposed; scalars are complex.
+\end{definition}
+\begin{definition}[\texttt{bvec}, \texttt{br}, lines 51--56]
+For modes $p,q$ and $v,w\in\mathbb C^3$, $\mathrm{bvec}(p,q,v,w)=\ii\big((v\cdot q)\,w-(w\cdot p)\,v\big)$, and
+$\br ab=\sum_{p,q}\mathrm{bvec}(p,q,\hat a_p,\hat b_q)\,\delta_{p+q}$, the Fourier form of $(a\cdot\nabla)b-(b\cdot\nabla)a$.
+\end{definition}
+\begin{definition}[\texttt{pr}, line 59]
+$\pr ab=\sum_p \hat a_p\cdot \hat b_{-p}$ (complex-bilinear $L^2$ pairing $(2\pi)^{-3}\!\int a\cdot b$).
+\end{definition}
+\begin{definition}[\texttt{piF}, \texttt{tetF}, \texttt{brT}, \texttt{jacT}; lines 108, 111, 362, 364]
+For $u,x\in\Fld$ and $\kappa,w\in\mathbb C$:
+$\Pi_u x=x-\frac{\pr ux}{\pr uu}u$ (Lean division, so $\Pi_u x=x$ if $\pr uu=0$);
+$T(a,b)=-(\kappa w)\pr{\Pi_u a}{\Pi_u b}\,u$;
+$\{a,b\}=\br ab+T(a,b)$;
+$J(a,b,c)=\{\{a,b\},c\}+\{\{b,c\},a\}+\{\{c,a\},b\}$.
+Here $\kappa,w$ are \emph{arbitrary complex parameters}: in this file $w$ is not tied to any field (the docstring of \texttt{Basic.lean} reads $w$ as $\int|\omega|^2$, but nothing in \texttt{FieldJacobi.lean} enforces that).
+\end{definition}
+\begin{definition}[\texttt{mixedF}, \texttt{mixedSumF}; lines 114, 116]
+$M(a,b,c)=\br{T(a,b)}{c}+T(\br ab,c)$ and $S(a,b,c)=M(a,b,c)+M(b,c,a)+M(c,a,b)$.
+\end{definition}
+\begin{definition}[\texttt{DivergenceFree}, line 121; \texttt{XOnly}, line 183]
+$a$ is \emph{divergence-free} if $k_{\mathbb C}\cdot\hat a_k=0$ for all $k$; $a$ is \emph{XOnly} if $(\hat a_k)_1=(\hat a_k)_2=0$ for all $k$.
+\end{definition}
+\begin{definition}[explicit fields, lines 224--234]
+$k_x=(1,0,0)$, $k_y=(0,1,0)$.
+$u_Y=\delta_{k_y}(-\tfrac{\ii}{2},0,0)+\delta_{-k_y}(\tfrac{\ii}{2},0,0)$, i.e.\ $(\sin y,0,0)$;
+$a_Z=\delta_{k_x}(0,0,-\tfrac{\ii}{2})+\delta_{-k_x}(0,0,\tfrac{\ii}{2})$, i.e.\ $(0,0,\sin x)$.
+\end{definition}
+
+\begin{lemma}[Jacobiator reduction, \texttt{jacT\_eq\_mixedSum}, line 384]\label{lem:red}
+If $\pr uu\ne0$ then $J(a,b,c)=S(a,b,c)$ for all $a,b,c$ and all $\kappa,w$.
+\end{lemma}
+\begin{proof}
+$T$ is additive in its first slot (\texttt{tetF\_add\_left}) and $\br\cdot\cdot$ is additive in each slot, so
+$\{\{a,b\},c\}=\br{\br ab}c+M(a,b,c)+T(T(a,b),c)$. Since $T(a,b)=s\,u$ and $\Pi_u(su)=su-\frac{s\pr uu}{\pr uu}u=0$ when $\pr uu\ne0$ (\texttt{piF\_smul\_self}), $T(T(a,b),c)=0$ (\texttt{tetF\_tetF}). Summing cyclically, $J=\mathrm{jacF}(a,b,c)+S(a,b,c)$, where $\mathrm{jacF}$ is the Jacobiator of $\br\cdot\cdot$. Finally $\mathrm{jacF}\equiv0$ (\texttt{jacF\_eq\_zero}, line 164): by trilinearity it suffices to check single modes, where all three terms sit at mode $p+q+r$ and the identity is a polynomial identity in the coordinates of $v,w,z,p,q,r$ (closed by \texttt{ring}); it is the Fourier form of Jacobi for the Lie bracket of vector fields.
+\end{proof}
+\begin{lemma}[\texttt{pr\_uY\_uY}, line 396]\label{lem:uu} $\pr{u_Y}{u_Y}=\tfrac12$; in particular $\ne0$. \end{lemma}
+\begin{proof} $\pr{u_Y}{u_Y}=(-\tfrac{\ii}{2})(\tfrac{\ii}{2})+(\tfrac{\ii}{2})(-\tfrac{\ii}{2})=\tfrac14+\tfrac14$. \end{proof}
+
+\section{Main theorem}
+\begin{lemma}[\texttt{br\_eq\_zero\_of\_xOnly\_divFree}, line 185]\label{lem:ab}
+If $a,b$ are XOnly and divergence-free then $\br ab=0$.
+\end{lemma}
+\begin{proof}
+For XOnly $a$, divergence-freeness reads $p_0(\hat a_p)_0=0$ for every $p$; similarly $q_0(\hat b_q)_0=0$. Fix $p,q$, $v=\hat a_p$, $w=\hat b_q$. Then $v\cdot q=q_0v_0$ and $w\cdot p=p_0w_0$, so $\mathrm{bvec}(p,q,v,w)=\ii(q_0v_0\,w-p_0w_0\,v)$. Its components $1,2$ vanish since $v_j=w_j=0$ there; its component $0$ is $\ii(v_0\,q_0w_0-w_0\,p_0v_0)=0$ by the two divergence conditions (Lean: \texttt{linear\_combination} $v_0\cdot h_2-w_0\cdot h_1$). Hence every summand of $\br ab$ is zero.
+\end{proof}
+\begin{lemma}[\texttt{mixedF\_eq\_zero\_of\_shear}, \texttt{shearY\_mixed\_cancel}; lines 207, 325]\label{lem:mix}
+If $a,b,c$ are XOnly and divergence-free, then $S(a,b,c)=0$ at $u=u_Y$, for all $\kappa,w\in\mathbb C$.
+\end{lemma}
+\begin{proof}
+$u_Y$ is XOnly and divergence-free (\texttt{xOnly\_uY}, \texttt{divFree\_uY}: its modes are $\pm k_y$ with $x$-directed coefficients, and $(\pm k_y)\cdot(\ast,0,0)=0$). Both properties are preserved by scalar multiples. In $M(a,b,c)=\br{T(a,b)}{c}+T(\br ab,c)$: $\br ab=0$ by Lemma~\ref{lem:ab} and $T(0,c)=0$; and $T(a,b)=s\,u_Y$ is XOnly and divergence-free, so $\br{s u_Y}{c}=0$ by Lemma~\ref{lem:ab}. Thus $M(a,b,c)=0$; the same holds for the cyclic permutations, so $S=0$.
+\end{proof}
+\begin{theorem}[\texttt{shearY\_jacobi\_holds}, line 410]\label{thm:main}
+For all $\kappa,w\in\mathbb C$ and all $a,b,c\in\Fld$ that are XOnly and divergence-free,
+$J(a,b,c)=0$ for the tethered bracket at $u=u_Y=(\sin y,0,0)$.
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{lem:uu}, $\pr{u_Y}{u_Y}\ne0$, so Lemma~\ref{lem:red} gives $J(a,b,c)=S(a,b,c)$, which is $0$ by Lemma~\ref{lem:mix}.
+\end{proof}
+\begin{remark}[What the theorem does and does not say]
+(i) XOnly plus divergence-free means $\hat a_k\ne0$ only for $k_0=0$: these are the shear flows $f(y,z)\,e_x$. On this class the classical Lie bracket is zero. The tether $T(a,b)=s\,u_Y$ can be nonzero, but it lies in $\mathbb C u_Y$, inside the class, so every nested term ($[T(a,b),c]$, $T([a,b],c)$, $[[a,b],c]$, $T(T(a,b),c)$) vanishes individually. There is no cancellation \emph{between} terms. This is an elementary checked boundary case, not a new Jacobi theorem.
+(ii) The Lean Jacobiator theorem is stated \emph{only} for $u=u_Y$. The mixed-sum lemma \texttt{mixedSumF\_eq\_zero\_of\_shear} holds for any XOnly, divergence-free $u$. Passing from it to $J=0$ via \texttt{jacT\_eq\_mixedSum} requires $\pr uu\ne0$, and this is not automatic: under the complex-bilinear pairing there are nonzero isotropic $u$ with $\pr uu=0$. No general-$u$ Jacobiator theorem is claimed.
+(iii) The class is \emph{closed} under the operation: for $a,b$ in the class, $\{a,b\}=T(a,b)\in\mathbb C u_Y$, and $u_Y$ is XOnly and divergence-free.
+(iv) XOnly cannot be dropped: companion paper~II gives an explicit divergence-free diagonal triple for which $J\ne0$.
+\end{remark}
+\section{Lean mapping}
+\small\begin{tabularx}{\linewidth}{@{}>{\raggedright}p{0.14\linewidth}>{\raggedright}p{0.36\linewidth}>{\raggedright\arraybackslash}X@{}}\toprule
+Statement & Lean name (\texttt{FieldJacobi.lean}:line) & Exact hypotheses\\\midrule
+Thm.~\ref{thm:main} & \texttt{shearY\_jacobi\_holds}:410 & \texttt{\{$\kappa$ w : $\mathbb{C}$\} \{a b c : Fld\}}, \texttt{XOnly a}, \texttt{DivergenceFree a}, same for \texttt{b}, \texttt{c}; concludes \texttt{jacT $\kappa$ w uY a b c = 0}\\
+Lem.~\ref{lem:mix} & \texttt{shearY\_mixed\_cancel}:325; \texttt{mixedSumF\_eq\_zero\_of\_shear}:214 & as above; general version also takes \texttt{XOnly u}, \texttt{DivergenceFree u}\\
+Lem.~\ref{lem:ab} & \texttt{br\_eq\_zero\_of\_xOnly\_divFree}:185 & \texttt{XOnly}, \texttt{DivergenceFree} for both\\
+Lem.~\ref{lem:red} & \texttt{jacT\_eq\_mixedSum}:384 & \texttt{pr u u $\ne$ 0}\\
+Lem.~\ref{lem:uu} & \texttt{pr\_uY\_uY}:396 & none\\
+(classical Jacobi) & \texttt{jacF\_eq\_zero}:164 & none\\
+\bottomrule\end{tabularx}\normalsize
+\section{Provenance, reproduction and axioms}
+\begin{itemize}
+\item Source: \url{https://github.com/BenFrohman/frohmanian-tether-verified}, commit\\ \texttt{26f16da2f679e2491e0a1d2a517e70638ef48bb2} (Apache-2.0). Geometric comparison repository: \texttt{BenFrohman/frohmanian-tether-geometric} at \texttt{9e40ae7}. Axiom evidence: independent review, 6 November 2026.
+\item Lean toolchain (\texttt{lean-toolchain}): \texttt{leanprover/lean4:v4.30.0-rc1}.
+\item Mathlib (\texttt{lake-manifest.json}): input rev \texttt{v4.30.0-rc1}, locked rev\\ \texttt{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7}.
+\end{itemize}
+Reproduction:
+\begin{verbatim}
+git clone https://github.com/BenFrohman/frohmanian-tether-verified
+cd frohmanian-tether-verified && git checkout 26f16da
+lake exe cache get
+lake build FTVerified.May.FieldJacobi FTVerified.May.JacobiWitness
+cat > /tmp/Ax.lean <<'L'
+import FTVerified.May.FieldJacobi
+import FTVerified.May.JacobiWitness
+open Frohman.Tether
+#print axioms FieldJacobi.shearY_jacobi_holds
+#print axioms FieldJacobi.shearY_jacobi_fails_transverse
+#print axioms JacobiWitness.tethered_jacobiator_ne_zero
+L
+lake env lean /tmp/Ax.lean
+\end{verbatim}
+\textbf{Axiom evidence.} An independent review at commit \texttt{26f16da} ran 12 \texttt{\#print axioms} checks on the theorems used in these companion papers; every result listed only the standard axioms (\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}). The same review compiled the 18 modules involved from a fresh cache, and the build passed. There are no \texttt{sorry}, \texttt{admit} or \texttt{axiom} declarations in \texttt{FieldJacobi.lean}, \texttt{JacobiWitness.lean}, \texttt{Jacobi.lean} or \texttt{Basic.lean}.
+
+\section{Comparison with the geometric repository}
+The repository \texttt{frohmanian-tether-geometric} at commit \texttt{9e40ae7} formalizes a different object. Line numbers below refer to that commit.
+\begin{itemize}
+\item \emph{Geometric bracket} (\texttt{SymplecticTether.lean}\\ 353--381). It is a \emph{scalar} bracket of functionals, $\{F,G\}=\mathrm{ClassicalBracket}(F,G)(\omega)+\mathrm{TetherKernel}(\omega,F,G)$, with
+\[\mathrm{TetherKernel}(\omega,F,G)=-\kappa\,\mathrm{Enstrophy}(\omega)\int\big\langle \Pi_{u(\omega)}\,\delta F(x),\ \Pi_{u(\omega)}\,\delta G(x)\big\rangle\,dx .\]
+The tether axis is state-dependent: $u(\omega)$ is \texttt{velocity\_from\_vorticity}~$\omega$, the Biot--Savart velocity (\texttt{ArnoldGeometric.lean} 918).
+\item \emph{Parameters.} The geometric bracket has no free parameter $w$. Its tether prefactor is $-\kappa\cdot\mathrm{Enstrophy}(\omega)$, with $\kappa$ fixed at $3/2$ (\texttt{kappa\_eq\_three\_halves}, \texttt{SymplecticTether.lean} 300--310), and $\mathrm{Enstrophy}(\omega)=\int\|\omega\|^2$ is a state functional (\texttt{ArnoldGeometric.lean} 208--213).
+\item \emph{Projection.} $\Pi_u$ is the global $L^2$ Gram--Schmidt projector $v\mapsto v-\frac{\int v\cdot u}{\int\|u\|^2}u$ (\texttt{ForMathlib/\allowbreak Projection.lean} 35).
+\item \emph{Functional derivative.} $\delta F$ is a chosen G\^ateaux representative in the vorticity pairing, and it is $0$ if no representative exists (\texttt{FunctionalDerivative}, \texttt{ArnoldGeometric.lean} 313). For the kinetic energy the representative is the stream function $\psi$, not the velocity (\texttt{SymplecticTether.lean} 366--368).
+\item \emph{Fourier model (here).} $u$ is \emph{frozen}, $\kappa,w\in\mathbb C$ are free, and $\{a,b\}$ is a \emph{vector-valued} operation on velocity-slot fields.
+\end{itemize}
+\paragraph{Shared features (stated, not an identification).} The geometric operation is also not antisymmetric, because its correction is symmetric. Its diagonal tether is negative semidefinite: $\{F,F\}=T(F,F)=-\kappa\|\omega\|^2\int\|\Pi_u\delta F\|^2\le0$ (\texttt{SymplecticTether.lean} 375--380). No geometric Jacobi witness is proved in that repository. Its \texttt{tethered\_jacobi\_identity} (\texttt{SymplecticTether.lean} 1187--1196) is conditional on the hypotheses \texttt{hident} (the Jacobiator equals an integrated cyclic Lie pairing) and \texttt{hvanish} (that integral vanishes); its proof is the rewrite \texttt{rw [hident, hvanish]}.
+\paragraph{Why nothing transports.} Pairing the vector operation here with a state $m$ produces a factor $\langle m,u\rangle$ from the tether term. Even formally, the parameters could therefore be matched only pointwise, where that pairing is nonzero. No identification between the two models is claimed.
+\emph{Informal remark (not proved):} because $u$, $\mathrm{Enstrophy}$ and $\Pi_{u(\omega)}$ depend on the state, one expects a geometric Jacobiator to contain extra terms involving $\delta E$ and $\delta\Pi$, which the frozen-$u$ \texttt{jacT} lacks. Neither the differentiability of the state-dependent $\Pi$ nor any geometric Jacobiator formula is proved in either repository. Neither the restricted identity (paper~I) nor the counterexample (paper~II) is claimed to transport to the geometric setting. This comparison is not a refutation, or a confirmation, of any geometric statement.
+
+\section{Audit scope}
+\begin{itemize}
+\item The result concerns the \emph{finite-Fourier field model} $\Fld$ of complex trigonometric-polynomial vector fields on $\mathbb T^3$, with the vector-valued bracket $\{a,b\}=\br ab+T(a,b)$ defined above. It is not a statement about a Poisson bracket on functionals, about smooth or Sobolev fields, or about Navier--Stokes solutions.
+\item No identification of this model, or of the shear class, with the geometric reduced coadjoint orbit (or with $u^\perp$ in any geometric sense) has been proved in Lean or here. The link from Fourier coefficients to the \texttt{fderiv}-based fields of \texttt{Torus.lean} is not formalized for \texttt{br}.
+\item Kernel checking establishes that the stated Lean propositions follow from the stated definitions. It does not establish that the definitions faithfully model the intended geometry, nor any novelty of the results.
+\item Nothing here bears on any Clay Millennium Problem, and no such claim is made.
+\end{itemize}
+\paragraph{License.} Text: Apache-2.0, matching the source repository. Copyright 2026 Benjamin Stanley Frohman.
+
+\section{Relation to companion paper II}
+Paper~II (\emph{Failure of Antisymmetry and of the Cyclic Jacobi Identity for a Specified Finite-Fourier Tethered Operation}) proves \texttt{shearY\_jacobi\_fails\_transverse}: at the same $u_Y$, $J(a_Z,a_Z,a_Z)\ne0$ whenever $\kappa w\ne0$, with $a_Z=(0,0,\sin x)$ divergence-free but not XOnly. The XOnly hypothesis in Theorem~\ref{thm:main} therefore cannot be dropped. Explicitly, XOnly cannot be dropped, because an explicit divergence-free diagonal triple fails. No claim is made about divergence-free triples of three distinct arguments.
+\end{document}

@@ -1,0 +1,208 @@
+diff --git a/paper/Clay_Technical_Monograph_2026.pdf b/paper/Clay_Technical_Monograph_2026.pdf
+index 8f8ec93..18610a3 100644
+Binary files a/paper/Clay_Technical_Monograph_2026.pdf and b/paper/Clay_Technical_Monograph_2026.pdf differ
+diff --git a/paper/Clay_Technical_Monograph_2026.tex b/paper/Clay_Technical_Monograph_2026.tex
+index fd63f3d..4f99330 100644
+--- a/paper/Clay_Technical_Monograph_2026.tex
++++ b/paper/Clay_Technical_Monograph_2026.tex
+@@ -1,14 +1,22 @@
+ \documentclass[11pt,a4paper]{article}
+-\usepackage[margin=1in]{geometry}
+-\usepackage{amsmath,amssymb,amsthm}
++\usepackage[margin=1.1in]{geometry}
++\usepackage{amsmath,amssymb,amsthm,mathtools}
++\usepackage{lmodern}
++\usepackage[T1]{fontenc}
++\usepackage{microtype}
+ \usepackage{booktabs}
+-\usepackage{hyperref}
+-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
++\usepackage{xurl}
++\input{leanlisting}
++\usepackage[colorlinks,linkcolor=leankw,citecolor=leankw,urlcolor=leankw]{hyperref}
++\newtheorem{theorem}{Theorem}
++\newcommand{\lean}[1]{{\upshape\path{#1}}}
++\newcommand{\st}[1]{{\upshape\small\textsf{[#1]}}}
++\emergencystretch=2em
+ 
+ \title{\textbf{Fefferman Statement (B) on $\mathbb{T}^3$: A Precise Lean Formalization, a Kernel-Checked Reduction, and the Boundaries of the Frohmanian Symplectic Tether}}
+ \author{Benjamin Stanley Frohman\\
+ \small ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718} \quad|\quad
+-GitHub: \href{https://github.com/BenFrohman/Clay-}{\texttt{BenFrohman/Clay-}}\\
++GitHub: \href{https://github.com/BenFrohman/Clay-}{\lean{BenFrohman/Clay-}}\\
+ \small Concept DOI (all versions): \href{https://doi.org/10.5281/zenodo.23653012}{\texttt{10.5281/zenodo.23653012}}\\ \small This version DOI: \href{https://doi.org/10.5281/zenodo.23940667}{\texttt{10.5281/zenodo.23940667}}}
+ \date{Earliest Commit Provenance: 2026-10-07 06:16:45 AM CDT (UTC-5)\\
+ Revised edition: November 1, 2026 (America/Chicago, UTC$-6$). Not peer reviewed.}
+@@ -21,7 +29,7 @@
+ \end{abstract}
+ 
+ \section{Scope and non-claim boundary}
+-This repository is a boundary and gap ledger. It is \textbf{not} a resolution of the Clay Millennium Problem. Every open input is a named proposition in Lean; none is assumed as an axiom, and no proof uses \texttt{sorry}. The axiom audit (\texttt{lean/AxiomReport.lean}, output in \texttt{AXIOMS.md}) reports only \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. The active continuation of this programme, in which the remaining gap is decomposed into finer named statements (all open or conditional, apart from individually proved lemmas such as the planar \texttt{sinShear} obstruction; the open statement is the Frohmanian Tether Hypothesis (A)/(B), see \texttt{NAMING.md}), is \href{https://github.com/BenFrohman/periodic-ns-classical-continuation}{\texttt{BenFrohman/periodic-ns-classical-continuation}}.
++This repository is a boundary and gap ledger. It is \textbf{not} a resolution of the Clay Millennium Problem. Every open input is a named proposition in Lean; none is assumed as an axiom, and no proof uses \texttt{sorry}. The build and axiom audit (\lean{lean/AxiomReport.lean}, output in \lean{AXIOMS.md}) reports only \texttt{propext}, \lean{Classical.choice} and \lean{Quot.sound}. The active continuation of this programme, in which the remaining gap is decomposed into finer named statements (all open or conditional, apart from individually proved lemmas such as the planar \texttt{sinShear} obstruction; the open statement is the Frohmanian Tether Hypothesis (A)/(B), see \lean{NAMING.md}), is \href{https://github.com/BenFrohman/periodic-ns-classical-continuation}{\lean{BenFrohman/periodic-ns-classical-continuation}}.
+ 
+ \begin{itemize}
+   \item \textbf{Repository:} \url{https://github.com/BenFrohman/Clay-}
+@@ -42,43 +50,52 @@ \section{Statement (B)}
+ and $u$, $p$ are $1$-periodic in each spatial coordinate.
+ \end{quote}
+ 
+-In Lean this is the proposition \texttt{Clay.StatementB.FeffermanStatementB} (file \texttt{lean/Clay/StatementB.lean}). Space is $\mathbb{R}^3$ realised as Euclidean space on $\mathrm{Fin}\,3$; partial derivatives are Fréchet derivatives along the standard basis; the time derivative is taken within $[0,\infty)$; smoothness is $C^\infty$ on $[0,\infty)\times\mathbb{R}^3$. No component of the statement is opaque or trivial.
++In Lean this is the proposition \lean{Clay.StatementB.FeffermanStatementB} (file \lean{lean/Clay/StatementB.lean}). Space is $\mathbb{R}^3$ realised as Euclidean space on $\mathrm{Fin}\,3$; partial derivatives are Fr\'echet derivatives along the standard basis; the time derivative is taken within $[0,\infty)$; smoothness is $C^\infty$ on $[0,\infty)\times\mathbb{R}^3$. No component of the statement is opaque or trivial.
+ 
+ \section{The proved reduction}
+ Write $\omega=\operatorname{curl}u$. Consider the propositions
+ \begin{itemize}
+-  \item \texttt{PeriodicMaximalSolutionWithBKM} (classical; Kato, Fujita--Kato, Beale--Kato--Majda~\cite{BKM}; not yet formalized): for all admissible data there are $T^\ast\in(0,\infty]$ and a smooth solution on $[0,T^\ast)$ such that $T^\ast<\infty$ implies $\int_0^{T^\ast}\|\omega(t)\|_{L^\infty}\,dt=\infty$;
+-  \item \texttt{PeriodicBKMIntegrability} (\textbf{open}; the Clay core): every smooth solution on a finite interval $[0,T)$ satisfies $\int_0^{T}\|\omega(t)\|_{L^\infty}\,dt<\infty$.
++  \item \lean{PeriodicMaximalSolutionWithBKM} (classical; Kato, Fujita--Kato, Beale--Kato--Majda~\cite{BKM}; not yet formalized): for all admissible data there are $T^\ast\in(0,\infty]$ and a smooth solution on $[0,T^\ast)$ such that $T^\ast<\infty$ implies $\int_0^{T^\ast}\|\omega(t)\|_{L^\infty}\,dt=\infty$;
++  \item \lean{PeriodicBKMIntegrability} (\textbf{open}; the Clay core): every smooth solution on a finite interval $[0,T)$ satisfies $\int_0^{T}\|\omega(t)\|_{L^\infty}\,dt<\infty$.
+ \end{itemize}
+ 
+-\newtheorem{theorem}{Theorem}
+-\begin{theorem}[\texttt{feffermanStatementB\_of\_bkm}, kernel-checked]
+-\texttt{PeriodicMaximalSolutionWithBKM} and \texttt{PeriodicBKMIntegrability} together imply Statement~(B).
++\begin{theorem}[\lean{feffermanStatementB_of_bkm}]
++\lean{PeriodicMaximalSolutionWithBKM} and \lean{PeriodicBKMIntegrability} together imply Statement~(B).
++\hfill\st{Proved as an implication; Conditional on both hypotheses}
+ \end{theorem}
+-
+-\begin{theorem}[\texttt{bkmIntegralFinite\_of\_holographic}, kernel-checked]
+-If $\|\omega(t)\|_{L^\infty}$ is bounded on every finite interval of existence, then \texttt{PeriodicBKMIntegrability} holds.
++\begin{lstlisting}
++theorem feffermanStatementB_of_bkm (hloc : PeriodicMaximalSolutionWithBKM)
++    (hbkm : PeriodicBKMIntegrability) : FeffermanStatementB
++\end{lstlisting}
++
++\begin{theorem}[\lean{bkmIntegralFinite_of_holographic}]
++If $\|\omega(t)\|_{L^\infty}$ is bounded on every finite interval of existence, then \lean{PeriodicBKMIntegrability} holds.
++\hfill\st{Proved as an implication; the bound itself is open}
+ \end{theorem}
+ 
+ The second hypothesis of the first theorem is open and is equivalent in strength to Statement~(B) itself. Consequently the reduction does not prove Statement~(B).
+ 
+ \section{Ledger of missing inputs}
+-The file \texttt{lean/Clay/Gaps/MissingInputs.lean} states each former placeholder as a precise proposition:
++The file \lean{lean/Clay/Gaps/MissingInputs.lean} states each former placeholder as a precise proposition:
+ \begin{itemize}
+-  \item \texttt{metriplecticControlsEnstrophyL2}: $\sup_{[0,T)}\int_{\mathbb{T}^3}|\omega|^2<\infty$ for every solution on a finite interval (open);
+-  \item \texttt{czGivesBMONotLinf}: no constant $C$ gives $\|\nabla v\|_{L^\infty}\le C\|\operatorname{curl}v\|_{L^\infty}$ for smooth periodic divergence-free $v$ (classical, not formalized);
+-  \item \texttt{spikeObstruction}: no constant $C$ gives $\|f\|_{L^\infty}\le C\|f\|_{L^6(\mathbb{T}^3)}$ for smooth periodic $f$ (classical, not formalized);
+-  \item \texttt{holographicNotAZFCBound}: the uniform ceiling $\sup_{[0,T)}\|\omega\|_{L^\infty}<\infty$ (open);
+-  \item \texttt{depletedStretching}: $\omega\cdot S\omega\le C|\omega|^2$ uniformly on finite intervals (open).
++  \item \lean{metriplecticControlsEnstrophyL2}: $\sup_{[0,T)}\int_{\mathbb{T}^3}|\omega|^2<\infty$ for every solution on a finite interval (open);
++  \item \lean{czGivesBMONotLinf}: no constant $C$ gives $\|\nabla v\|_{L^\infty}\le C\|\operatorname{curl}v\|_{L^\infty}$ for smooth periodic divergence-free $v$ (classical, not formalized);
++  \item \lean{spikeObstruction}: no constant $C$ gives $\|f\|_{L^\infty}\le C\|f\|_{L^6(\mathbb{T}^3)}$ for smooth periodic $f$ (classical, not formalized);
++  \item \lean{holographicNotAZFCBound}: the uniform ceiling $\sup_{[0,T)}\|\omega\|_{L^\infty}<\infty$ (open);
++  \item \lean{depletedStretching}: $\omega\cdot S\omega\le C|\omega|^2$ uniformly on finite intervals (open).
+ \end{itemize}
+ The former trivial definitions have been removed; the repository history retains them. For planar fields $v=(v_1(x_1,x_2),v_2(x_1,x_2),0)$ the vorticity is proved parallel to $e_3$. Kernel-checked elementary results include the identity $\Pi_u u=0$ for the pointwise tether projection, the unboundedness of the history integral $m^2t$ for $m>0$, and the conditional Riccati rearrangement.
+ 
+ \section{Build and axiom status}
++\textbf{Proved (kernel-checked).} \texttt{lake build} of the full \texttt{Clay} library (root module and all 13 submodules) succeeds on Lean/Mathlib v4.16.0. The axiom report lists 60 theorem declarations (including compiler-generated auxiliary lemmas), none using \texttt{sorryAx}, and none using an axiom beyond \texttt{propext}, \lean{Classical.choice}, \lean{Quot.sound}. The substantive kernel-checked results are \lean{feffermanStatementB_of_bkm}, \lean{statementB_of_bkmIntegralFinite}, \lean{bkmIntegralFinite_of_holographic}, \lean{bkmIntegralFinite_of_vortSup_le}, the two-dimensional clock results \lean{steady_euler_clock}, \lean{alignment_does_not_delete_clock}, \lean{clock_fails_on_aligned_2d_solutions}, the planar-vorticity lemma \lean{curl_planar}, the tether identities \lean{tether_degeneracy}, \lean{tether_bracket_preservation}, and the integer rearrangement \lean{conditional_riccati}. This is a machine check of the Lean statements, not peer review.
+ \textbf{Proved (kernel-checked).} \texttt{lake build} of the full \texttt{Clay} library (root module and all 14 submodules, including the note \texttt{Clay.Notes.NotBlowup}) succeeds on Lean/Mathlib v4.16.0. The axiom report lists 62 theorem declarations (including compiler-generated auxiliary lemmas), none using \texttt{sorryAx}, and none using an axiom beyond \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}. The substantive kernel-checked results are \texttt{feffermanStatementB\_of\_bkm}, \texttt{statementB\_of\_bkmIntegralFinite}, \texttt{bkmIntegralFinite\_of\_holographic}, \texttt{bkmIntegralFinite\_of\_vortSup\_le}, the two-dimensional clock results \texttt{steady\_euler\_clock}, \texttt{alignment\_does\_not\_delete\_clock}, \texttt{clock\_fails\_on\_aligned\_2d\_solutions}, the planar-vorticity lemma \texttt{curl\_planar}, the tether identities \texttt{tether\_degeneracy}, \texttt{tether\_bracket\_preservation}, and the integer rearrangement \texttt{conditional\_riccati}. This is a machine check of the Lean statements, not peer review.
+ 
+-\textbf{Conditional on.} \texttt{PeriodicMaximalSolutionWithBKM} (classical, not formalized here), \texttt{PeriodicBKMIntegrability} (open), and, for \texttt{conditional\_riccati}, \texttt{CorrectedMaxRate}, an \emph{open hypothesis} and not a classical result: it is a Riccati / $\kappa$-matching max-rate law $\dot M\le CM-\kappa M^2$ at the vorticity maximum. The argument proposed for it is refuted, since the stretching at the maximum is quadratic, $\omega\cdot S\omega\le C_{CZ}M^2$ (up to a logarithm), and nothing in unmodified Navier--Stokes supplies a matching $-\kappa M^2$ term; \texttt{conditional\_riccati} only rearranges this hypothesis. Finer decompositions of the open input (for example tame $H^s$ and log-Sobolev BKM bounds) belong to the continuation repository and are not formalized here.
++\textbf{Conditional on.} \lean{PeriodicMaximalSolutionWithBKM} (classical, not formalized here), \lean{PeriodicBKMIntegrability} (open), and, for \lean{conditional_riccati}, \lean{CorrectedMaxRate}, an \emph{open hypothesis} and not a classical result: it is a Riccati / $\kappa$-matching max-rate law $\dot M\le CM-\kappa M^2$ at the vorticity maximum. The argument proposed for it is refuted, since the stretching at the maximum is quadratic, $\omega\cdot S\omega\le C_{CZ}M^2$ (up to a logarithm), and nothing in unmodified Navier--Stokes supplies a matching $-\kappa M^2$ term; \lean{conditional_riccati} only rearranges this hypothesis. Finer decompositions of the open input (for example tame $H^s$ and log-Sobolev BKM bounds) belong to the continuation repository and are not formalized here.
+ 
+-\textbf{Open.} \texttt{PeriodicBKMIntegrability}; every item of the ledger above marked open; and therefore Statement~(B) itself. The Clay Millennium Problem is not solved by this work.
++\textbf{Open.} \lean{PeriodicBKMIntegrability}; every item of the ledger above marked open; and therefore Statement~(B) itself. The Clay Millennium Problem is not solved by this work.
++
++\section{Provenance hashes}
++Source files are fingerprinted with SHA-256 (\lean{provenance/PROVENANCE_HASHES.json}) and a Merkle root (\lean{provenance/PROVENANCE_MERKLE_ROOT.json}), signed with Ed25519 key fingerprint \lean{b428fb72676f1c52}. These are file-integrity fingerprints of an earlier snapshot only; they are not a certificate of correctness or review. The authoritative correctness check is the build and axiom report above, rerun by CI on every push.
+ 
+ \begin{thebibliography}{9}
+ \bibitem{Fef} C.~L. Fefferman, \emph{Existence and smoothness of the Navier--Stokes equation}, in: The Millennium Prize Problems, Clay Mathematics Institute, 2006, pp.~57--67.
+@@ -86,12 +103,9 @@ \section{Build and axiom status}
+ \bibitem{CF} P.~Constantin, C.~Fefferman, \emph{Direction of vorticity and the problem of global regularity for the Navier--Stokes equations}, Indiana Univ. Math. J. \textbf{42} (1993), 775--789.
+ \end{thebibliography}
+ 
+-\section{Provenance hashes}
+-Source files are fingerprinted with SHA-256 (\texttt{provenance/PROVENANCE\_HASHES.json}) and a Merkle root (\texttt{provenance/PROVENANCE\_MERKLE\_ROOT.json}), signed with Ed25519 key fingerprint \texttt{b428fb72676f1c52}. These are file-integrity fingerprints of an earlier snapshot only; they are not a certificate of correctness or review. The authoritative correctness check is the build and axiom report above, rerun by CI on every push.
+-
+ \vfill
+ \noindent\rule{\textwidth}{0.4pt}\\
+ \footnotesize
+-\textbf{Attribution \& Licensing Notice:} Copyright \textcopyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}).
++\textbf{Attribution and licensing.} Copyright \textcopyright\ 2026 Benjamin Stanley Frohman (ORCID 0009-0006-7068-3718).
+ Licensed under the Apache License, Version 2.0.
+ \end{document}
+diff --git a/paper/leanlisting.tex b/paper/leanlisting.tex
+new file mode 100644
+index 0000000..e264e3a
+--- /dev/null
++++ b/paper/leanlisting.tex
+@@ -0,0 +1,74 @@
++% Lean 4 listings: Unicode source glyphs are mapped to LaTeX math, so no
++% Unicode font is required (Unicode-safe under pdfLaTeX, XeTeX and tectonic).
++\usepackage{listings}
++\usepackage{xcolor}
++\usepackage{newunicodechar}
++\definecolor{leankw}{RGB}{0,64,128}
++\definecolor{leancomment}{RGB}{96,96,96}
++\lstdefinelanguage{lean4}{
++  morekeywords={theorem,lemma,def,structure,fun,by,have,show,from,intro,exact,
++    refine,simp,simpa,apply,namespace,end,open,variable,noncomputable,Prop,Type,rfl},
++  sensitive=true, morecomment=[l]{--}, morecomment=[s]{/-}{-/},
++  morestring=[b]"}
++\lstset{language=lean4, basicstyle=\ttfamily\small, keywordstyle=\color{leankw}\bfseries,
++  commentstyle=\color{leancomment}\itshape, columns=fullflexible, keepspaces=true,
++  breaklines=true, breakatwhitespace=true, frame=tb, framerule=0.4pt,
++  aboveskip=0.8\baselineskip, belowskip=0.8\baselineskip, xleftmargin=0.5em,
++  mathescape=true}
++
++% Unicode Lean glyphs rendered as LaTeX math (works inside and outside listings)
++\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
++\newunicodechar{ℕ}{\ensuremath{\mathbb{N}}}
++\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
++\newunicodechar{ℂ}{\ensuremath{\mathbb{C}}}
++\newunicodechar{→}{\ensuremath{\to}}
++\newunicodechar{←}{\ensuremath{\leftarrow}}
++\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
++\newunicodechar{∀}{\ensuremath{\forall}}
++\newunicodechar{∃}{\ensuremath{\exists}}
++\newunicodechar{≤}{\ensuremath{\le}}
++\newunicodechar{≥}{\ensuremath{\ge}}
++\newunicodechar{≠}{\ensuremath{\ne}}
++\newunicodechar{¬}{\ensuremath{\neg}}
++\newunicodechar{∧}{\ensuremath{\wedge}}
++\newunicodechar{∨}{\ensuremath{\vee}}
++\newunicodechar{∈}{\ensuremath{\in}}
++\newunicodechar{∫}{\ensuremath{\int}}
++\newunicodechar{⁻}{\ensuremath{^{-}}}
++\newunicodechar{¹}{\ensuremath{^{1}}}
++\newunicodechar{²}{\ensuremath{^{2}}}
++\newunicodechar{⟨}{\ensuremath{\langle}}
++\newunicodechar{⟩}{\ensuremath{\rangle}}
++\newunicodechar{‖}{\ensuremath{\|}}
++\newunicodechar{∘}{\ensuremath{\circ}}
++\newunicodechar{•}{\ensuremath{\bullet}}
++\newunicodechar{·}{\ensuremath{\cdot}}
++\newunicodechar{⬝}{\ensuremath{\cdot}}
++\newunicodechar{∑}{\ensuremath{\sum}}
++\newunicodechar{λ}{\ensuremath{\lambda}}
++\newunicodechar{κ}{\ensuremath{\kappa}}
++\newunicodechar{ω}{\ensuremath{\omega}}
++\newunicodechar{ν}{\ensuremath{\nu}}
++\newunicodechar{π}{\ensuremath{\pi}}
++\newunicodechar{α}{\ensuremath{\alpha}}
++\newunicodechar{β}{\ensuremath{\beta}}
++\newunicodechar{ε}{\ensuremath{\varepsilon}}
++\newunicodechar{δ}{\ensuremath{\delta}}
++\newunicodechar{∇}{\ensuremath{\nabla}}
++\newunicodechar{∂}{\ensuremath{\partial}}
++\newunicodechar{⊥}{\ensuremath{\perp}}
++\newunicodechar{⊤}{\ensuremath{\top}}
++\newunicodechar{₀}{\ensuremath{_0}}
++\newunicodechar{₁}{\ensuremath{_1}}
++\newunicodechar{₂}{\ensuremath{_2}}
++\newunicodechar{ᵀ}{\ensuremath{^T}}
++\newunicodechar{≫}{\ensuremath{\gg}}
++\newunicodechar{⦃}{\ensuremath{\{\!|}}
++\newunicodechar{⦄}{\ensuremath{|\!\}}}
++\newunicodechar{∞}{\ensuremath{\infty}}
++\newunicodechar{×}{\ensuremath{\times}}
++\newunicodechar{⊆}{\ensuremath{\subseteq}}
++\newunicodechar{≈}{\ensuremath{\approx}}
++\newunicodechar{𝔗}{\ensuremath{\mathfrak{T}}}
++\newunicodechar{⇑}{\ensuremath{\Uparrow}}
++\newunicodechar{ᶜ}{\ensuremath{^{c}}}

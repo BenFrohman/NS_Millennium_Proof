@@ -1,0 +1,122 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman. Licensed under CC BY 4.0.
+% DRAFT for author review (PipelineHalt alignment audit, 2026-11-23, America/Chicago).
+% Not deposited. Not for Zenodo until the halt points in ns-audit/REPORT.md are answered.
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,microtype}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb{R}}\newcommand{\T}{\mathbb{T}^3}\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\lean}[1]{\texttt{#1}}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\title[Geometric Phase-Space Completion and Conditional Regularity]{Geometric Phase-Space Completion and Conditional Global Regularity for the 3D Incompressible Navier--Stokes Equations\\[0.3em]\large Corrected version aligned with the kernel-checked Lean statements}
+\author{Benjamin Stanley Frohman}
+\address{ORCID 0009-0006-7068-3718}
+\date{November 23, 2026}
+\begin{document}\sloppy
+\begin{abstract}
+Let $\nu>0$ and let $u_0$ be a smooth, divergence-free, mean-zero velocity field on $\T=\R^3/(2\pi\Z)^3$. We record (i) three classical results, cited to their sources: the Beale--Kato--Majda continuation criterion in its one-directional form for $s>5/2$, Kato local existence, and Fujita--Kato small-data global regularity; (ii) the velocity-slot Frohmanian Symplectic Tether $B(F,G)$, a symmetric negative-semidefinite (metriplectic-type) form with $B(F,H)\equiv0$, so the generated dynamics are the unmodified Navier--Stokes equations; and (iii) the exact statements that a Lean~4 kernel certificate proves about these objects, with every analytic input that Lean assumes named as a hypothesis. The cubic-sink rate $M'\le C_{\mathrm{CZ}}M^2-\kappa M^3$ for $M=\norm{\omega}_{L^\infty}$ is the hypothesis \lean{CorrectedMaxRate}; it is not derived from the vorticity equation. Clay Millennium Problem Statement~(B) remains open, and nothing here proves global regularity for large data.
+\end{abstract}
+\maketitle
+\noindent{\small Copyright (c) 2026 Benjamin Stanley Frohman. This paper is licensed under CC BY 4.0. Lean code in the companion repositories is licensed under Apache-2.0.}
+
+\section{Equations, symbols and scope}
+We write $u$ for the velocity, $p$ for the pressure, $\nu>0$ for the kinematic viscosity, $\omega=\nabla\times u$ for the vorticity, $S=\tfrac12(\nabla u+\nabla u^{\mathsf T})$ for the strain, and $M(t)=\norm{\omega(t)}_{L^\infty}$:
+\[
+\partial_tu+(u\cdot\nabla)u+\nabla p=\nu\Delta u,\qquad\nabla\cdot u=0,\qquad u(\cdot,0)=u_0,
+\]
+\[
+\partial_t\omega+(u\cdot\nabla)\omega=(\omega\cdot\nabla)u+\nu\Delta\omega .
+\]
+The energy inequality $\norm{u(t)}_{L^2}^2+2\nu\int_0^t\norm{\omega}_{L^2}^2\le\norm{u_0}_{L^2}^2$ is the only global a~priori bound used. Clay Statement~(B)~\cite{Fefferman2000} is open.
+
+\section{Classical results (cited; proofs in the sources)}
+\begin{theorem}[Kato~\cite{Kato1972}; Kato--Ponce~\cite{KatoPonce1988}]\label{thm:B}
+Let $s>5/2$. There is $c_s>0$ such that every divergence-free, mean-zero $u_0\in H^s(\T)$ has a unique maximal solution $u\in C([0,T^*);H^s)$ with $T^*\ge c_s/\norm{u_0}_{H^s}$, and $u\in C^\infty(\T\times(0,T^*))$.
+\end{theorem}
+\begin{theorem}[Beale--Kato--Majda~\cite{BKM1984}, one-directional]\label{thm:A}
+Let $s>5/2$ and let $u$ be the maximal solution of Theorem~\ref{thm:B}. If $T^*<\infty$ then $\int_0^{T^*}\norm{\omega(t)}_{L^\infty}\,dt=\infty$. Equivalently (contrapositive): if $\int_0^{\min(T,T^*)}\norm{\omega}_{L^\infty}\,dt<\infty$ for every finite $T$, then $T^*=\infty$ and $u\in C^\infty(\T\times(0,\infty))$.
+\end{theorem}
+\begin{remark}
+The analogous criterion with $\norm{S}_{L^\infty}$ in place of $\norm{\omega}_{L^\infty}$ also holds~\cite{Ponce1985}: since $D^+M\le\norm{S}_{L^\infty}M$, finiteness of $\int_0^{\min(T,T^*)}\norm{S}_{L^\infty}$ bounds $M$ and Theorem~\ref{thm:A} applies. The integrals of $\norm{S}_{L^\infty}$ and $\norm{\omega}_{L^\infty}$ are not pointwise comparable, because the Calder\'on--Zygmund operator $\omega\mapsto\nabla u$ is unbounded on $L^\infty$; the correct substitute is the logarithmic bound $\norm{\nabla u}_{L^\infty}\le C(1+\norm{\omega}_{L^2}+\norm{\omega}_{L^\infty}\log(e+\norm{u}_{H^s}))$~\cite{BKM1984,KozonoTaniuchi2000}. The converse of Theorem~\ref{thm:A} is only local: on every compact subinterval of $[0,T^*)$ the integral is finite.
+\end{remark}
+\begin{theorem}[Fujita--Kato~\cite{FujitaKato1964}]\label{thm:C}
+There is an absolute $\varepsilon>0$ such that if $u_0\in H^s(\T)$, $s>5/2$, is divergence-free and mean-zero with $\norm{u_0}_{\dot H^{1/2}}\le\varepsilon\nu$, then $T^*=\infty$ and $u\in C^\infty(\T\times(0,\infty))$.
+\end{theorem}
+
+\section{The velocity-slot tether}
+For $F$ a smooth functional on divergence-free vorticity fields put $v_F=\nabla\times\frac{\delta F}{\delta\omega}$. The kinetic energy $H=\frac12\int|u|^2$ has $\frac{\delta H}{\delta\omega}=\psi$ with $\nabla\times\psi=u$, so $v_H=u$. With $\Pi_u\Phi=\Phi-\frac{\langle\Phi,u\rangle_{L^2}}{\norm{u}_{L^2}^2}u$ and $\kappa\ge0$ (the value $\kappa=C_{\mathrm{CZ}}(3)=3/2$ from the strain kernel is one admissible choice), set
+\[
+B(F,G)=-\kappa\int_{\T}|\omega|^2\,(\Pi_uv_F)\cdot(\Pi_uv_G)\,dx .
+\]
+\begin{proposition}\label{prop:tether}
+$B$ is symmetric, $B(F,F)\le0$, and $B(F,H)=0$ for every $F$. Hence $\dot F=\{F,H\}_{\mathrm{LP}}+[F,H]_{\mathrm{diss}}+B(F,H)$ is the unmodified Navier--Stokes vorticity equation. $B$ is a metric (metriplectic-type) term~\cite{Morrison1986}, not a Poisson correction, and no Jacobi identity is claimed for $\{\cdot,\cdot\}_{\mathrm{LP}}+B$. The Jacobi identity of the Lie--Poisson bracket itself is classical~\cite{Arnold1966,MW1983,AK1998}.
+\end{proposition}
+\begin{remark}[What the tether does not do]
+Because $B(\cdot,H)\equiv0$, the tether changes the evolution of no observable. It supplies no a~priori estimate and does not imply Form~B, \lean{CorrectedMaxRate}, or any regularity statement.
+\end{remark}
+\noindent\emph{Lean.} \lean{tether\_degenerate\_H}, \lean{tether\_symmetric}, \lean{tether\_nonpos}, \lean{totalMetriplectic\_flow\_equals\_unmodified\_NS} (\path{frohmanian-tether-conditional-regularity}, commit \texttt{86336a9}) prove these facts over an abstract inner-product space in which $\nabla\times\frac{\delta H}{\delta\omega}=u$ is the structure field \lean{curlGradVar\_H} (an assumption). \lean{tetherKernelVel\_C2} (\path{frohmanian-symplectic-tether-regularity}) proves $B(F,H)=0$ under the explicit hypothesis \lean{hcurl}. The curl identity itself is not proved in Lean for the library's functional derivative.
+
+\section{The corrected-rate hypothesis and the cubic source}\label{sec:rate}
+\begin{hypothesis}[\lean{CorrectedMaxRate}]\label{hyp:cmr}
+For real $\mathrm{rate},M,C_{\mathrm{CZ}},\kappa$: $\mathrm{rate}\le M\,(C_{\mathrm{CZ}}M-\kappa M^2)$.
+\end{hypothesis}
+Lean proves only the algebra \lean{cubic\_sink\_of\_corrected\_rate}: \lean{CorrectedMaxRate}$\,\Rightarrow\mathrm{rate}\le C_{\mathrm{CZ}}M^2-\kappa M^3$. It is a hypothesis, never an axiom, and no Lean theorem proves it along a Navier--Stokes solution.
+
+What the vorticity equation gives at a spatial maximum is a cubic source in the pairing, $\langle\omega,(\omega\cdot\nabla)u\rangle\le C_{\mathrm{CZ}}M^3$ (\lean{stretching\_inner\_le\_at\_max}), and this holds only under the hypothesis \lean{PointwiseStrainSupBound} ($\norm{\nabla u(x)}\le C_{\mathrm{CZ}}\norm{\omega}_{L^\infty}$). That pointwise bound is refuted as a universal statement in Lean (\lean{StrainBoundRefutation.not\_forall\_strain\_le\_sup\_vorticity}). So $M'\le C_{\mathrm{CZ}}M^2$ is itself conditional, and the unconditional classical bound carries a logarithm (Remark after Theorem~\ref{thm:A}). The cubic source does not give the reduced pairing: \lean{classical\_source\_not\_reduced\_strain}. With the weight $1+\kappa M^2$ the source becomes $C_{\mathrm{CZ}}M^3(1+\kappa M^2)$, which amplifies rather than damps (\lean{weighted\_source\_polynomial}). The plus-weight Lyapunov functional has a positive sextic source and the minus-weight functional loses coercivity once $|\omega|^2\varphi>1/\kappa$ (\lean{hasDerivAt\_lyapunov\_plus\_of\_enstrophy\_source}, \lean{lyapunovSminus\_density\_neg\_of\_large\_weight}). There is no sextic sink.
+
+\begin{proposition}[Conditional consequence; Lean \lean{riccati\_ceiling\_of\_vorticity\_di}, \lean{classical\_vorticity\_ceiling}]\label{prop:ceiling}
+If $M$ is differentiable and $M'\le CM^2-\kappa''M^3$ with $C,\kappa''>0$ on $[0,\infty)$, then $M(t)\le\max\{M(0),C/\kappa''\}$; with Theorem~\ref{thm:A} this gives $T^*=\infty$.
+\end{proposition}
+The differential inequality is an argument of these theorems (\lean{hDI}). The Lyapunov identity \lean{hIdent} and the package \lean{hRiccati} are explicit theorem arguments in \lean{TetheredLyapunov}; neither is proved, and \lean{frohmanian\_tether\_theorem} is conditional on them.
+
+\paragraph{Construction order.} The development is built in two stages, in this order. First comes the geometric stage: the tether is fixed uniquely inside the restricted class of symmetric projected forms (degeneracy $B(\cdot,H)=0$, symmetry, sign, and the canonicity results with their stated hypotheses). Only then comes the analytic stage: a majorant comparison, in which a scalar function $y$ with $y'\le C y^2-\kappa'' y^3$ and $M\le y$ is compared with $M$. This order explains why the geometric results are proved while the analytic ones are not: the geometric stage does not touch the vorticity equation's estimates, and the analytic stage needs exactly the missing inequality. It does not close any gap. The following remain open: \lean{CorrectedMaxRate} (equivalently \lean{ReducedStrain}) along Navier--Stokes solutions; \lean{hIdent}; \lean{hRiccati}; and Clay Statement~(B).
+
+\section{The Lean statements (exact)}
+\begin{definition}[Lean \lean{ClassicalNS.HypothesisB}]
+For $C_\star:\R\to\R$: for every $\nu$, every $u_0$, every maximal classical solution and every $T>0$, $\int_{[0,T)\cap[0,T^\star)}\norm{\nabla u(t)}_{L^\infty}\,dt\le C_\star(T)$.
+\end{definition}
+\begin{definition}[Lean \lean{ClassicalNS.BKMCriterion}]
+For every maximal classical solution with $T^\star\neq\infty$: $\int_{[0,T^\star)}\norm{\nabla u(t)}_{L^\infty}\,dt=\infty$.
+\end{definition}
+\begin{theorem}[Lean \lean{ClassicalNS.analyticBridge\_of\_formB\_forall}]
+For every $C_\star$, \lean{HypothesisB}$\,C_\star\Rightarrow$ \lean{BKMCriterion} $\Rightarrow$ every maximal classical solution with smooth periodic divergence-free data is global with $\int_0^T\norm{\nabla u}_{L^\infty}<\infty$ for all $T>0$.
+\end{theorem}
+\begin{remark}[Status of the encoding; author decision pending]
+In \lean{HypothesisB} the bound $C_\star$ depends only on $T$, not on $u_0$ or $\nu$. On the unit-period torus of the Lean encoding, the exact shear solution $u(x,t)=A e^{-4\pi^2\nu t}\sin(2\pi x_2)\,e_1$, $p=0$ (advection term $0$, $\partial_tu=\nu\Delta u$, $\nabla\cdot u=0$), is a global classical solution in the Lean class with $\int_0^T\norm{\nabla u}_{L^\infty}=\frac{A}{2\pi\nu}(1-e^{-4\pi^2\nu T})$, which exceeds any fixed $C_\star(T)$ for large $A$. So \lean{HypothesisB}$\,C_\star$ fails for every $C_\star$ and the theorem above is vacuous. This argument is not yet kernel-checked. The data-dependent, per-solution statement is \lean{ClassicalNS.clayB\_iff\_gradIntegral\_finite}: under \lean{BKMCriterion}, $T^\star=\infty$ iff $\int_0^T\norm{\nabla u}_{L^\infty}<\infty$ for all $T>0$. Form~B as written in earlier versions (a bound $C_*(\norm{u_0}_{H^s},\nu,T)$ on $\int_0^T\norm{S}_{L^\infty}$) is a third, different statement, and it is not formalized.
+\end{remark}
+\noindent Elsewhere, Lean proves classical inputs in other encodings: \lean{periodicBKMCriterion} and \lean{periodicLocalExistence\_of\_nonneg} (\path{periodic-ns-classical-continuation}, $\Z^3$-periodic smooth class, $H^3$), \lean{periodicBKMContinuation\_of\_classical} and \lean{clay\_B\_exact\_of\_periodic\_tether\_bound} (\path{frohmanian-tether-sdiff}, commit \texttt{50928f3}, conditional only on the open \lean{PeriodicTetherClosingBound}), and \lean{KatoMaximal.katoMaximalSolution\_of\_feffermanDecay}, \lean{LogBoundLocal.bkmLogInequality} (on $\R^3$, $m=3$). These are not the statements of Theorems~\ref{thm:A}--\ref{thm:C} for general $s>5/2$, and no Lean bridge connects them to \lean{ClassicalNS.BKMCriterion}.
+
+\section{Status}
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}lll@{}}\toprule
+Item & Status & Lean\\\midrule
+Theorems~\ref{thm:B},~\ref{thm:A},~\ref{thm:C} & classical, cited & other encodings only (\S5)\\
+Tether: symmetry, sign, $B(F,H)=0$ & proved & under the curl identity as hypothesis\\
+\lean{CorrectedMaxRate} along NS & open hypothesis & algebra only\\
+\lean{hIdent}, \lean{hRiccati} & open, theorem arguments & never axioms, never discharged\\
+\lean{analyticBridge\_of\_formB\_forall} & proved implication & hypothesis unsatisfiable (Remark, pending)\\
+Clay Statement~(B) & open & statement only\\\bottomrule
+\end{tabular}\end{table}
+\noindent Certificate: official GitHub Actions run \texttt{45249571059} (\lean{Lean build and kernel check}) and \texttt{45249569955} (\lean{Kernel certificate}) at commit \texttt{86336a9e7d9a3da117b271d23ee7c05848d5de61}; toolchain \texttt{leanprover/lean4:v4.30.0-rc1}; axioms \lean{propext}, \lean{Classical.choice}, \lean{Quot.sound}; rebuild \texttt{lake exe cache get \&\& lake build \&\& ./scripts/kernel\_check.sh}. The deposited PDF must carry the certificate of the exact commit it is built from.
+
+\begin{thebibliography}{99}
+\bibitem{AK1998} V.~I. Arnold and B.~A. Khesin, \emph{Topological Methods in Hydrodynamics}, Springer, 1998.
+\bibitem{Arnold1966} V.~I. Arnold, Sur la g\'eom\'etrie diff\'erentielle des groupes de Lie de dimension infinie et ses applications \`a l'hydrodynamique des fluides parfaits, Ann. Inst. Fourier \textbf{16} (1966), 319--361.
+\bibitem{BKM1984} J.~T. Beale, T.~Kato and A.~Majda, Remarks on the breakdown of smooth solutions for the 3-D Euler equations, Comm. Math. Phys. \textbf{94} (1984), 61--66.
+\bibitem{Fefferman2000} C.~L. Fefferman, Existence and smoothness of the Navier--Stokes equation, Clay Mathematics Institute, 2000.
+\bibitem{FujitaKato1964} H.~Fujita and T.~Kato, On the Navier--Stokes initial value problem.~I, Arch. Rational Mech. Anal. \textbf{16} (1964), 269--315.
+\bibitem{Kato1972} T.~Kato, Nonstationary flows of viscous and ideal fluids in $\R^3$, J. Funct. Anal. \textbf{9} (1972), 296--305.
+\bibitem{KatoPonce1988} T.~Kato and G.~Ponce, Commutator estimates and the Euler and Navier--Stokes equations, Comm. Pure Appl. Math. \textbf{41} (1988), 891--907.
+\bibitem{KozonoTaniuchi2000} H.~Kozono and Y.~Taniuchi, Bilinear estimates in BMO and the Navier--Stokes equations, Math. Z. \textbf{235} (2000), 173--194.
+\bibitem{Morrison1986} P.~J. Morrison, A paradigm for joined Hamiltonian and dissipative systems, Physica D \textbf{18} (1986), 410--419.
+\bibitem{MW1983} J.~Marsden and A.~Weinstein, Coadjoint orbits, vortices, and Clebsch variables for incompressible fluids, Physica D \textbf{7} (1983), 305--323.
+\bibitem{Ponce1985} G.~Ponce, Remarks on a paper by J.~T. Beale, T.~Kato, and A.~Majda, Comm. Math. Phys. \textbf{98} (1985), 349--353.
+\end{thebibliography}
+\end{document}

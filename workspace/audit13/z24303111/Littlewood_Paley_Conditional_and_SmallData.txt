@@ -1,0 +1,111 @@
+ Littlewood–Paley Formulations of the Conditional Continuation
+                           Theorem
+     and Small-Data Global Regularity for 3D Navier–Stokes
+                                   Benjamin Stanley Frohman
+                           Independent Researcher, Texas, United States
+                                  ORCID 0009-0006-7068-3718
+
+                                        November 17, 2026
+
+
+Copyright (c) 2026 Benjamin Stanley Frohman. The paper (this PDF and its LATEX source) is licensed
+under CC BY 4.0. Lean code in the companion repository is licensed under the Apache License 2.0.
+
+
+                                              Abstract
+         We record the Littlewood–Paley versions of the two classical results that form the sharp
+     baseline for the 3D incompressible Navier–Stokes equations. First, the Kozono–Taniuchi
+     refinement of the Beale–Kato–Majda criterion in one-directional continuation form: inte-
+     grability of the vorticity in L1t B∞,∞
+                                        0
+                                            implies that a maximal Kato solution remains global
+     and smooth for t > 0. Second, the Chemin / Fujita–Kato theorem of unconditional global
+                                                               −1+3/p
+     regularity for data small in the critical Besov space Ḃp,1      with 1 ≤ p ≤ ∞ and small-
+     ness linear in ν. Both statements are free of the five flaws that invalidate various proposed
+     unconditional large-data arguments.
+
+
+1   Littlewood–Paley infrastructure
+Let χ, φ be the standard radial cutoff functions defining a dyadic resolution of unity. The dyadic
+blocks are ∆−1 f = χ(D)f and ∆j f = φ(2−j D)f for j ≥ 0. Bernstein’s inequality states that if
+supp fb ⊂ {|ξ| ≤ Rλ} then
+
+                               ∥∇k f ∥Lq ≤ C k+1 λk+3(1/p−1/q) ∥f ∥Lp
+
+for 1 ≤ p ≤ q ≤ ∞.
+
+
+2   Kozono–Taniuchi logarithmic bound
+From the Biot–Savart law, ∇u = K ∗ ω. On each dyadic annulus the operator is smooth, so
+
+                             ∥∆j ∇u∥L∞ ≤ C∥∆j ω∥L∞ ≤ C∥ω∥B∞,∞
+                                                          0   .
+
+Splitting into low, medium and high frequencies and optimizing the cutoff N ≈ s−5/2
+                                                                                1
+                                                                                    log(2 +
+∥ω∥H ) yields
+      s
+                                                                    
+                                                            
+                     ∥∇u∥L∞ ≤ C 1 + ∥ω∥B∞,∞0   ln e + ∥ω∥H s + ∥ω∥L2                     (1)
+
+for any s > 5/2.
+
+
+
+
+                                                  1
+3    Conditional continuation theorem
+Theorem 3.1 (Kozono–Taniuchi / Beale–Kato–Majda continuation). Let s > 5/2 and let u be
+a maximal Kato solution in H s (T3 ) with existence time T ∗ . If
+                                     Z T∗
+                                            ∥ω(t)∥B∞,∞
+                                                   0   dt < ∞,
+                                      0
+
+then T ∗ = +∞ and u ∈ C ∞ (T3 × (0, ∞)).
+
+Proof. The Kato–Ponce commutator estimate gives
+                                   d
+                                      ∥ω∥2H s ≤ C∥∇u∥L∞ ∥ω∥2H s .
+                                   dt
+Substitute (1), set Y (t) = e + ∥ω∥2H s , and obtain
+
+                                d                               
+                                   ln(ln Y (t)) ≤ C 1 + ∥ω∥B∞,∞
+                                                            0     .
+                                dt
+Integration produces a double-exponential bound. Finiteness of the Besov integral therefore
+keeps ∥ω∥H s bounded, and Kato local existence extends the solution past any finite time.
+
+
+4    Unconditional small-data global regularity in critical Besov
+     spaces
+Theorem 4.1 (Chemin / Fujita–Kato). Fix 1 ≤ p ≤ ∞. There exists ε > 0 such that if
+
+                                          ∥u0 ∥Ḃ −1+3/p ≤ εν,
+                                                p,1
+
+
+then the solution exists globally, is smooth for t > 0, and satisfies
+                                              −1+3/p
+                                   u ∈ L∞
+                                                                  1+3/p
+                                        t Ḃp,1           ∩ L1t Ḃp,1     .
+
+Proof. Apply ∆j to the mild formulation. After time integration and multiplication by the
+critical weight 2j(−1+3/p) one obtains the quadratic inequality
+                                                                 C
+                                X(t) ≤ C∥u0 ∥Ḃ −1+3/p +           X(t)2 ,
+                                                   p,1           ν
+where X is the sum of the two critical norms appearing in the statement. For ∥u0 ∥ at most
+a suﬀiciently small multiple of ν (linear smallness in the viscosity), the quadratic inequality
+remains bounded for all time, yielding global regularity.
+
+
+
+
+                                                      2
+

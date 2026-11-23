@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.IndependentMajorant
+#print axioms IndependentMajorant.comparison_majorant_global_bound

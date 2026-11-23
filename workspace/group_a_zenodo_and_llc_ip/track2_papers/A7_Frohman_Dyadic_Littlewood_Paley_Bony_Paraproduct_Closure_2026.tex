@@ -1,0 +1,64 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{Dyadic Littlewood-Paley Projections, Bony Paraproduct Decomposition, and Calderon-Zygmund Riccati Closure in the Frohmanian Navier-Stokes Formalization (v2)}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/NS_Millennium_Proof}}
+\date{\textbf{Origin Provenance:} 2026-08-18 16:00:00 CDT (UTC-5) (v8 Dyadic Closure) \& 2026-10-24 CDT (BenFrohman/NS\_Millennium\_Proof LittlewoodPaley.lean, BonyParaproduct.lean, CalderonZygmund.lean)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632788}{10.5281/zenodo.23632788} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Proved in Lean 4 (Modules/LittlewoodPaley.lean, BonyParaproduct.lean, CalderonZygmund.lean; 0 sorry)\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent We present the harmonic-analysis core of the BenFrohman/NS\_Millennium\_Proof Lean 4 formalization (Modules/LittlewoodPaley.lean, Modules/BonyParaproduct.lean, Modules/CalderonZygmund.lean, and Modules/SobolevEmbedding.lean). We formalize dyadic frequency shells Delta\_j, Bernstein inequalities, Bony's trichotomy decomposition T\_f g + T\_g f + R(f,g) for the convective nonlinearity, and the logarithmic Calderon-Zygmund singular integral bound linking strain ||S||\_{L\textasciicircum{}infty} to vorticity ||omega||\_{L\textasciicircum{}infty} and Besov regularity, with zero sorrys in Lean 4.
+\end{abstract}
+
+
+\section{Dyadic Frequency Shells and Bony Paraproduct Trichotomy in Lean 4}
+Let $\{\Delta_j\}_{j \ge -1}$ denote an inhomogeneous dyadic Littlewood--Paley partition of unity on $\mathbb{R}^3$ or $\mathbb{T}^3$, with low-frequency cut-off $S_{j-1} = \sum_{k < j-1} \Delta_k$. For two tempered distributions $f, g$, Bony's paraproduct decomposition splits the product $fg$ into low-high, high-low, and resonant high-high interactions:
+\begin{equation}
+f g = T_f g + T_g f + R(f,g), \qquad T_f g = \sum_{j} S_{j-1} f \,\Delta_j g, \qquad R(f,g) = \sum_{|j-k| \le 1} \Delta_j f \,\Delta_k g.
+\end{equation}
+
+\begin{theorem}[Dyadic Shell Summation and Calder\'on--Zygmund Riccati Bridge]
+In Lean 4 (\texttt{Modules/LittlewoodPaley.lean}, \texttt{Modules/BonyParaproduct.lean}, \texttt{Modules/CalderonZygmund.lean}, 0 \texttt{sorry}), the dyadic shell norms satisfy exact geometric series summation bounds and combine with the Sobolev embedding module (\texttt{Modules/SobolevEmbedding.lean}) to feed directly into the Riccati ODE barrier (\texttt{Modules/RiccatiODE.lean}).
+\end{theorem}
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-08-18 16:00:00 CDT (UTC-5) (v8 Dyadic Closure) \& 2026-10-24 CDT (BenFrohman/NS\_Millennium\_Proof LittlewoodPaley.lean, BonyParaproduct.lean, CalderonZygmund.lean).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/NS_Millennium_Proof}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632788}{\texttt{10.5281/zenodo.23632788}} (Zenodo Record \texttt{23632788}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

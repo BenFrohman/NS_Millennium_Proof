@@ -1,0 +1,9 @@
+TRUTH GATE OBSERVE neg_native_decide: paper_claim [scripts/truth-gate-tests/paper.txt § Section 1] := ∀ (n : Nat),
+  n = 0 + n
+TRUTH GATE RED neg_native_decide: 2 failure(s)
+TRUTH GATE FAIL NATIVE_DECIDE TGFixture_neg_native_decide.formal_proof: depends on TGFixture_neg_native_decide.formal_proof._native.native_decide.ax_1 (native_decide / compiler trust)
+TRUTH GATE FAIL NATIVE_DECIDE TGFixture_neg_native_decide.paper_holds: depends on TGFixture_neg_native_decide.formal_proof._native.native_decide.ax_1 (native_decide / compiler trust)
+TRUTH GATE SUMMARY locks=1 todo=0 failures=2
+scripts/truth-gate-tests/neg_native_decide.lean:36:0: error: TRUTH GATE FAILED: 2 failure(s); see TRUTH GATE FAIL lines
+
+[exit 1]

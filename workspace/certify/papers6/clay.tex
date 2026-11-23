@@ -1,0 +1,57 @@
+\input{PREAMBLE}
+\title[Constant-bound BKM bookkeeping]{Constant Vorticity Bounds, the BKM Integral, and Quadratic History Growth: Two Definitional Identities Checked in Lean~4}
+\author{Benjamin Stanley Frohman}
+\email{frohmanbenjamin@gmail.com}
+\date{November 4, 2026}
+\begin{document}
+\begin{abstract}
+The Beale--Kato--Majda (BKM) criterion says that a smooth solution of the three-dimensional incompressible Euler or Navier--Stokes equations can be continued past time $T$ as long as $\int_0^T\|\omega(t)\|_{L^\infty}\,dt<\infty$. A common heuristic error is to read linear growth of a quadratic history functional as a sign of blow-up. We record, as a worked illustration, the bookkeeping for a vorticity sup-norm that is constant equal to $M$: the BKM integral over $[0,T]$ is $M T$, finite, while the quadratic history $\int_0^T M^2\,dt$ equals $M^2T$ and grows linearly in $T$. In the accompanying Lean~4 formalization both quantities are \emph{defined} by these closed forms, and the two theorems hold by \texttt{rfl}. This note does not prove or disprove any statement about solutions of the Navier--Stokes equations, and in particular says nothing about the Fefferman (C) or (D) problems.
+\end{abstract}
+\maketitle
+
+\section{Background}
+Let $u$ be a smooth solution of the 3D incompressible Navier--Stokes or Euler equations on $[0,T^*)$ with vorticity $\omega=\nabla\times u$. Beale, Kato and Majda \cite{bkm} proved that if $T^*<\infty$ is the maximal time of existence then $\int_0^{T^*}\|\omega(t)\|_{L^\infty}dt=\infty$. Consequently, any quantity that stays bounded under a bounded $\|\omega\|_{L^\infty}$ is not, on its own, evidence of singularity.
+
+The simplest illustration is the case $\|\omega(t)\|_{L^\infty}\equiv M$ on $[0,T]$. Then
+\[
+\int_0^T\|\omega\|_{L^\infty}\,dt=MT<\infty,\qquad \int_0^T\|\omega\|_{L^\infty}^2\,dt=M^2T,
+\]
+so the quadratic ``history'' grows without bound as $T\to\infty$ while the BKM integral is finite for each finite $T$. These two equalities are elementary calculus; the formalization below does not derive them from integration, but takes the right-hand sides as definitions.
+
+\section{Formal content}
+\begin{definition}
+For $M,T\in\mathbb{R}$ set $\mathrm{bkm}(M,T):=M\cdot T$ (Lean: \lean{bkmIntegral}) and $\mathrm{hist}(M,T):=M\cdot M\cdot T$ (Lean: \lean{history}).
+\end{definition}
+
+\begin{theorem}[\lean{ClayCD.NotBlowup.bounded_M_keeps_bkm_finite}]\label{thm:a}
+For all $M,T\in\mathbb{R}$, $\mathrm{bkm}(M,T)=M\cdot T$.
+\end{theorem}
+
+\begin{theorem}[\lean{ClayCD.NotBlowup.history_can_grow_while_bkm_stays_finite}]\label{thm:b}
+For all $M,T\in\mathbb{R}$, $\mathrm{hist}(M,T)=M\cdot M\cdot T$ and $\mathrm{bkm}(M,T)=M\cdot T$.
+\end{theorem}
+
+Both proofs are \texttt{rfl}: they unfold the definitions. Their mathematical content is precisely the observation, made in the previous section, that under a constant bound the BKM quantity is the real number $MT$ (hence finite) while the history is $M^2T$. The Lean names describe this intended reading; the formal statements are exactly the equalities above.
+
+\section{Scope}
+The formalization contains no Navier--Stokes or Euler equations, no vorticity field, no integrals, no function spaces, and no blow-up criterion. It does not formalize the BKM theorem itself. It makes no claim toward the Clay Millennium problem; the repository name records that \emph{no} Clay statement (C) or (D) is certified here.
+
+\section{Correspondence between claims and Lean declarations}
+File \lean{lean/NotBlowup.lean}, namespace \lean{ClayCD.NotBlowup}; Lean~4 v4.30.0-rc1 with Mathlib (for $\mathbb{R}$).
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Claim & Lean declaration\\
+\midrule
+Definition of $\mathrm{bkm}$, $\mathrm{hist}$ & \lean{bkmIntegral}, \lean{history}\\
+Theorem~\ref{thm:a} & \lean{bounded_M_keeps_bkm_finite}\\
+Theorem~\ref{thm:b} & \lean{history_can_grow_while_bkm_stays_finite}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{9}
+\bibitem{bkm} J.~T.~Beale, T.~Kato, A.~Majda, \emph{Remarks on the breakdown of smooth solutions for the 3-D Euler equations}, Comm.\ Math.\ Phys.\ \textbf{94} (1984), 61--66.
+\bibitem{fefferman} C.~L.~Fefferman, \emph{Existence and smoothness of the Navier--Stokes equation}, in: The Millennium Prize Problems, Clay Math.\ Inst.\ (2006), 57--67.
+\end{thebibliography}
+\end{document}

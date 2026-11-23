@@ -1,0 +1,3 @@
+import NS_Millennium_Proof.Modules.ArnoldGeometric
+#print axioms ArnoldGeometric.CoadjointAction
+#print axioms ArnoldGeometric.SDiffActionHyp

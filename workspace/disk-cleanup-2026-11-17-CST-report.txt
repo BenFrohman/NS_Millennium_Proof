@@ -1,0 +1,1990 @@
+Disk cleanup report — 2026-11-17 ~01:10 America/Chicago (CST)
+Scope: /workspace only. No GitHub deletions, no git push.
+Did not touch ~/.cache/mathlib, ~/.elan, or other non-redeployable caches.
+
+== df before (start of cleanup) ==
+  used=136388145152 bytes (127.02 GiB)  avail=388780032 bytes (0.36 GiB, 389 MB)  Use=100%
+== df after ==
+  used=77231415296 bytes (71.93 GiB)  avail=59545509888 bytes (55.46 GiB)  Use=57%
+== freed ==
+  59.16 GB  (55.09 GiB) used space
+  packages step: 53.19 GiB  (57.11 GB)
+  clone step: 2.07 GiB  (2.22 GB)
+
+== Never-touched in-use / recently-active trees ==
+  KEEP in-use/protected: /workspace/p2q-v1.4
+  KEEP in-use/protected: /workspace/p2q-r2s2t
+  KEEP in-use/protected: /workspace/frohmanian-tether-sdiff
+  KEEP in-use/protected: /workspace/notation-sweep-2026-11-16/ns-tether-key-estimate-refutation
+  KEEP in-use/protected: /workspace/truthgate-20261116/r/frohmanian-tether-sdiff
+  KEEP in-use/protected: /workspace/certify/frohmanian-tether-sdiff
+
+== 1. Lake packages deleted ==
+  Count: 458 dirs under <repo>/.lake/packages/*
+  Reason (all): not in use; git HEAD exists on the upstream GitHub repo
+  (commit page HTTP 200, and most are official release tags such as mathlib4 v4.16.0/v4.22.0/v4.26.0/v4.28.0/v4.30.0-rc1);
+  restorable with `lake exe cache get` / lake update.
+  Clean porcelain: 429
+  Only missing upstream files (scripts/bench/build/* or similar deletions, no unique local edits; HEAD is a release tag): 29
+
+-- packages with clean porcelain --
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/certify/FermatPlanes/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/certify/FermatPlanes/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/certify/FermatPlanes/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/certify/FermatPlanes/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/certify/FermatPlanes/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/certify/FermatPlanes/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/certify/FermatPlanes/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/certify/FermatPlanes/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/certify/FermatPlanes/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/certify/HODGE/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/certify/HODGE/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/certify/HODGE/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/certify/HODGE/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/certify/HODGE/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/certify/HODGE/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/certify/HODGE/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/certify/HODGE/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/certify/HODGE/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/chain-sextic-rank-20261109/repo/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/Cli
+      HEAD 0c8ea32a15a4f74143e4e1e107ba2c412adb90fd tag v2.2.0-lv4.14.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/LeanSearchClient
+      HEAD 003ff459cdd85de551f4dcf95cdfeefe10f20531   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/Qq
+      HEAD f0c584bcb14c5adfb53079781eeea75b26ebbd32 tag v4.15.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/aesop
+      HEAD 79402ad9ab4be9a2286701a9880697e2351e4955 tag v4.16.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/batteries
+      HEAD 01006c9e86bf9e397c026fef4190478dd1fd897e tag v4.16.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/importGraph
+      HEAD 1a6613663c3eb08c401ce0fd1a408412f2c2321e tag v4.16.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/mathlib
+      HEAD a6276f4c6097675b1cf5ebd49b1146b735f38c02 tag v4.16.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/plausible
+      HEAD 1622a8693b31523c8f82db48e01b14c74bc1f155 tag v4.16.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/clay-smooth-fix-20261109/repo/lean/.lake/packages/proofwidgets
+      HEAD 07f60e90998dfd6592688a14cd67bd4e384b77b2 tag v0.0.50  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/Cli
+      HEAD 0c8ea32a15a4f74143e4e1e107ba2c412adb90fd tag v2.2.0-lv4.14.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/LeanSearchClient
+      HEAD 003ff459cdd85de551f4dcf95cdfeefe10f20531   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/Qq
+      HEAD f0c584bcb14c5adfb53079781eeea75b26ebbd32 tag v4.15.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/aesop
+      HEAD 79402ad9ab4be9a2286701a9880697e2351e4955 tag v4.16.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/batteries
+      HEAD 01006c9e86bf9e397c026fef4190478dd1fd897e tag v4.16.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/importGraph
+      HEAD 1a6613663c3eb08c401ce0fd1a408412f2c2321e tag v4.16.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/mathlib
+      HEAD a6276f4c6097675b1cf5ebd49b1146b735f38c02 tag v4.16.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/plausible
+      HEAD 1622a8693b31523c8f82db48e01b14c74bc1f155 tag v4.16.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/clay-spatial-pr-20261106/lean/.lake/packages/proofwidgets
+      HEAD 07f60e90998dfd6592688a14cd67bd4e384b77b2 tag v0.0.50  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/clayB/lean/.lake/packages/Cli
+      HEAD 0c8ea32a15a4f74143e4e1e107ba2c412adb90fd tag v2.2.0-lv4.14.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/clayB/lean/.lake/packages/LeanSearchClient
+      HEAD 003ff459cdd85de551f4dcf95cdfeefe10f20531   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/clayB/lean/.lake/packages/Qq
+      HEAD f0c584bcb14c5adfb53079781eeea75b26ebbd32 tag v4.15.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/clayB/lean/.lake/packages/aesop
+      HEAD 79402ad9ab4be9a2286701a9880697e2351e4955 tag v4.16.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/clayB/lean/.lake/packages/batteries
+      HEAD 01006c9e86bf9e397c026fef4190478dd1fd897e tag v4.16.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/clayB/lean/.lake/packages/importGraph
+      HEAD 1a6613663c3eb08c401ce0fd1a408412f2c2321e tag v4.16.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/clayB/lean/.lake/packages/mathlib
+      HEAD a6276f4c6097675b1cf5ebd49b1146b735f38c02 tag v4.16.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/clayB/lean/.lake/packages/plausible
+      HEAD 1622a8693b31523c8f82db48e01b14c74bc1f155 tag v4.16.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/clayB/lean/.lake/packages/proofwidgets
+      HEAD 07f60e90998dfd6592688a14cd67bd4e384b77b2 tag v0.0.50  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/FrohmanianTether
+      HEAD 8b7bd6741f8a54587db6a95b4a5199dcf2775f97   remote https://github.com/BenFrohman/frohmanian-tether-sdiff.git
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/NS_Millennium_Proof
+      HEAD dc60b4943a9ae22fb443e0f2abb2ce514714aa49   remote https://github.com/BenFrohman/NS_Millennium_Proof.git
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/hodge-ci-fix-20261109/repo/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/hodge-spans-check-20261110/repo/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/hodge-vacuity-20261110/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/Cli
+      HEAD 0c8ea32a15a4f74143e4e1e107ba2c412adb90fd tag v2.2.0-lv4.14.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/LeanSearchClient
+      HEAD 003ff459cdd85de551f4dcf95cdfeefe10f20531   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/Qq
+      HEAD f0c584bcb14c5adfb53079781eeea75b26ebbd32 tag v4.15.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/aesop
+      HEAD 79402ad9ab4be9a2286701a9880697e2351e4955 tag v4.16.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/batteries
+      HEAD 01006c9e86bf9e397c026fef4190478dd1fd897e tag v4.16.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/importGraph
+      HEAD 1a6613663c3eb08c401ce0fd1a408412f2c2321e tag v4.16.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/mathlib
+      HEAD a6276f4c6097675b1cf5ebd49b1146b735f38c02 tag v4.16.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/plausible
+      HEAD 1622a8693b31523c8f82db48e01b14c74bc1f155 tag v4.16.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/math-fixes-20261106/Clay-/lean/.lake/packages/proofwidgets
+      HEAD 07f60e90998dfd6592688a14cd67bd4e384b77b2 tag v0.0.50  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/math-fixes-20261106/HODGE/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/metriplectic-tether-model-2026-11-16/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/NS_Millennium_Proof
+      HEAD aa04c4feec0813c16778a016dc793dc9c542e6bd   remote https://github.com/BenFrohman/NS_Millennium_Proof.git
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ns-conflict-fix-20261116/NS_Tether_Alternatives/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ns_push/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ns_push/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ns_push/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ns_push/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ns_push/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ns_push/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ns_push/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ns_push/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ns_snapshot_0629/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ns_snapshot_0629/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ns_snapshot_0629/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ns_snapshot_0629/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ns_snapshot_0629/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ns_snapshot_0629/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ns_snapshot_0629/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ns_snapshot_0629/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ns_trial/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ns_trial/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ns_trial/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ns_trial/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ns_trial/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ns_trial/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ns_trial/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ns_trial/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ns_trial_rebase/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ns_trial_rebase/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ns_trial_rebase/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ns_trial_rebase/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ns_trial_rebase/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ns_trial_rebase/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ns_trial_rebase/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ns_trial_rebase/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/nsm-semlock/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/nsm-semlock/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/nsm-semlock/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/nsm-semlock/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/nsm-semlock/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/nsm-semlock/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/nsm-semlock/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+  DEL /workspace/nsm-semlock/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/nsm-semlock/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/p2q-lean-extensions-independent-audit-2026-11-06/fresh/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/p2q-lean-structural-independent-audit-2026-11-06/fresh/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/p2q-lean-theorem28-2026-11-06/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/p7-independent-audit-20261106-1838/isolated/p2q-lean-p7-descent-2026-11-06/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/FeffermanClayNS
+      HEAD ebcf10921e02350e46b32b3bcded8dd8ca2c87c4   remote https://github.com/BenFrohman/fefferman-clay-navier-stokes.git
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/TorusFourierNS
+      HEAD e63af4ea9bd3849ee7a0e6d9a7b64a0751d12fbe   remote https://github.com/BenFrohman/torus-fourier-ns-lemmas.git
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/WeightedEnstrophy
+      HEAD 1df4652d1a40430055ba6480904db5ab270497c3   remote https://github.com/BenFrohman/weighted-enstrophy-identities.git
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/scratch/fresh/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/scratch/fresh/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/scratch/fresh/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/scratch/fresh/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/scratch/fresh/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/scratch/fresh/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/scratch/fresh/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/scratch/fresh/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/tether-may-form/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/tether-may-form/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/tether-may-form/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/tether-may-form/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/tether-may-form/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/tether-may-form/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/tether-may-form/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/tether-may-form/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/torus-velocity-tether/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/torus-velocity-tether/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/torus-velocity-tether/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/torus-velocity-tether/.lake/packages/TorusFourierNS
+      HEAD a241bf427d25be13e358c6df09176ca3f3ad75e4   remote https://github.com/BenFrohman/torus-fourier-ns-lemmas.git
+  DEL /workspace/torus-velocity-tether/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/torus-velocity-tether/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/torus-velocity-tether/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/torus-velocity-tether/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/torus-velocity-tether/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/Cli
+      HEAD c682c91d2d4dd59a7187e2ab977ac25bd1f87329 tag v4.22.0-rc4  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/LeanSearchClient
+      HEAD 99657ad92e23804e279f77ea6dbdeebaa1317b98   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/Qq
+      HEAD 917bfa5064b812b7fbd7112d018ea0b4def25ab3 tag v4.22.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/aesop
+      HEAD 1256a18522728c2eeed6109b02dd2b8f207a2a3c tag v4.22.0  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/batteries
+      HEAD 240676e9568c254a69be94801889d4b13f3b249f tag v4.22.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/importGraph
+      HEAD eb164a46de87078f27640ee71e6c3841defc2484 tag v4.22.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/mathlib
+      HEAD 79e94a093aff4a60fb1b1f92d9681e407124c2ca tag v4.22.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/plausible
+      HEAD b100ad4c5d74a464f497aaa8e7c74d86bf39a56f tag v4.22.0  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/truthgate-20261116/full/HODGE/.lake/packages/proofwidgets
+      HEAD 1253a071e6939b0faf5c09d2b30b0bfc79dae407 tag v0.0.68  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/zr/Clay-/lean/.lake/packages/Cli
+      HEAD 0c8ea32a15a4f74143e4e1e107ba2c412adb90fd tag v2.2.0-lv4.14.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/zr/Clay-/lean/.lake/packages/LeanSearchClient
+      HEAD 003ff459cdd85de551f4dcf95cdfeefe10f20531   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/zr/Clay-/lean/.lake/packages/Qq
+      HEAD f0c584bcb14c5adfb53079781eeea75b26ebbd32 tag v4.15.0  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/zr/Clay-/lean/.lake/packages/aesop
+      HEAD 79402ad9ab4be9a2286701a9880697e2351e4955 tag v4.16.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/zr/Clay-/lean/.lake/packages/batteries
+      HEAD 01006c9e86bf9e397c026fef4190478dd1fd897e tag v4.16.0  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/zr/Clay-/lean/.lake/packages/importGraph
+      HEAD 1a6613663c3eb08c401ce0fd1a408412f2c2321e tag v4.16.0  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/zr/Clay-/lean/.lake/packages/mathlib
+      HEAD a6276f4c6097675b1cf5ebd49b1146b735f38c02 tag v4.16.0  remote https://github.com/leanprover-community/mathlib4
+  DEL /workspace/zr/Clay-/lean/.lake/packages/plausible
+      HEAD 1622a8693b31523c8f82db48e01b14c74bc1f155 tag v4.16.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/zr/Clay-/lean/.lake/packages/proofwidgets
+      HEAD 07f60e90998dfd6592688a14cd67bd4e384b77b2 tag v0.0.50  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/Cli
+      HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5 tag v4.30.0-rc1  remote https://github.com/leanprover/lean4-cli
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/LeanSearchClient
+      HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843   remote https://github.com/leanprover-community/LeanSearchClient
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/Qq
+      HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057 tag v4.30.0-rc1  remote https://github.com/leanprover-community/quote4
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/aesop
+      HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21 tag v4.30.0-rc1  remote https://github.com/leanprover-community/aesop
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/batteries
+      HEAD bf597c77bf9b8e66720d724928207f5911533113 tag v4.30.0-rc1  remote https://github.com/leanprover-community/batteries
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/importGraph
+      HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/import-graph
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/plausible
+      HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3 tag v4.30.0-rc1  remote https://github.com/leanprover-community/plausible
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/proofwidgets
+      HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf tag v0.0.97  remote https://github.com/leanprover-community/ProofWidgets4
+
+-- packages with only upstream-file deletions (still restorable from the tagged commit) --
+  DEL /workspace/NS_Millennium_Proof/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/bf/fefferman-clay-navier-stokes/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/bf/frohmanian-symplectic-tether-regularity/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/certify/Clay-CD-not-certified/lean/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/certify/eth-conflict-clause-lattice/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/certify/frohmanian-symplectic-tether-may-form/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/certify/frohmanian-symplectic-tether/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/deliverable_titanlattice/lean/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/fin/NS_Millennium_Proof/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/fix4/NS_Millennium_Proof/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/fix4/frohmanian-symplectic-tether-may-form/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/frohmanian-metriplectic-ns/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/frohmanian-symplectic-tether-may-form/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/mk1-kernel-limits/lean/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/names/NS_Millennium_Proof/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/ns-torus-classical-uniqueness/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/ns_push/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/ns_snapshot_0528/.lake/packages/mathlib
+      HEAD 8f9d9cff6bd728b17a24e163c9402775d9e6a365 tag v4.28.0  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D Mathlib/Algebra/GroupWithZero/Pointwise/Set/Basic.lean |  D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/ns_snapshot_0629/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/ns_trial/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/ns_trial_rebase/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/periodic-ns-classical-continuation/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/scan/NS_Millennium_Proof/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/scratch/fresh/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/tether-may-form/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/torus-velocity-tether/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/zr/Clay-CD-not-certified/lean/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+  DEL /workspace/zr/frohmanian-symplectic-tether/.lake/packages/mathlib
+      HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 tag v4.30.0-rc1  remote https://github.com/leanprover-community/mathlib4.git
+      porcelain: D scripts/bench/build/README.md |  D scripts/bench/build/fake-root/bin/lean |  D scripts/bench/build/fake-root/bin/lean.py |  D scripts/bench/build/lakeprof_report_template.html |  D scripts/bench/build/lakeprof_report_upload.py |  D scripts/bench/build/run
+
+-- packages kept (in-use/protected): 19 --
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/Cli  HEAD 933fce7e893f65969714c60cdb4bd8376786044e
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/LeanSearchClient  HEAD 3591c3f664ac3719c4c86e4483e21e228707bfa2
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/Qq  HEAD 9312503909aa8e8bb392530145cc1677a6298574
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/aesop  HEAD 2f6d238744c4cb07fdc91240feaf5d4221a27931
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/batteries  HEAD 24241822ef9d3e7f6a3bcc53ad136e12663db8f3
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/importGraph  HEAD e9f31324f15ead11048b1443e62c5deaddd055d2
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/mathlib  HEAD 2df2f0150c275ad53cb3c90f7c98ec15a56a1a67
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/plausible  HEAD 160af9e8e7d4ae448f3c92edcc5b6a8522453f11
+  KEEP /workspace/p2q-v1.4/repo/.lake/packages/proofwidgets  HEAD b4fb2aa5290ebf61bc5f80a5375ba642f0a49192
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/Cli  HEAD f7d0ca7c926cdde0562af20394dd25d028b839a5
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/LeanSearchClient  HEAD c5d5b8fe6e5158def25cd28eb94e4141ad97c843
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/NSTorusUniqueness  HEAD de92662d45e8a0f47ce0c196f6dbcfe44ddb4b3b
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/Qq  HEAD 7aa86cb20b8458748dc24d55dab2d7ea01161057
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/aesop  HEAD f74c7555aaa94eadd7b7bff9170f7983f92aac21
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/batteries  HEAD bf597c77bf9b8e66720d724928207f5911533113
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/importGraph  HEAD 86503d416c875fdcf3b6b6c54c22581e96c6bda7
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/mathlib  HEAD 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/plausible  HEAD f449eabb8f7e3feef0366856c20e28a6d2c97ee3
+  KEEP /workspace/certify/frohmanian-tether-sdiff/.lake/packages/proofwidgets  HEAD 82d457fb3bdd9efadbae06608ff337d689efdddf
+
+== 2. Duplicate GitHub clones deleted ==
+  Count: 524 BenFrohman clones
+  Reason (all): origin github.com/BenFrohman/<repo>; at least one other clone kept on the box;
+  git status --porcelain --ignored clean except .lake/ build output; no stashes;
+  every local branch tip is a GitHub remote-branch tip, or an ancestor of one
+  (git log --branches/--all --not --remotes empty, and/or GitHub compare status behind/identical);
+  not in use. Restricted to inventory/audit trees: xscan, survey, inventory, repos_audit,
+  certaudit, certify, cr, lean-header-20261116, ph-runs, ph-runs2, inv, scan,
+  ci-audit-20261116, fin, fin2, naming, new_repos_stage, group_a_zenodo_and_llc_ip.
+  Grouped by repo (92 repos):
+  [.github] 4 clones
+    DEL /workspace/cr/.github  (DELETE_OK)
+    DEL /workspace/repos_audit/.github  (DELETE_OK)
+    DEL /workspace/survey/.github  (DELETE_OK)
+    DEL /workspace/xscan/.github  (DELETE_OK)
+  [3n-plus-c-cycle-census] 4 clones
+    DEL /workspace/cr/3n-plus-c-cycle-census  (DELETE_OK)
+    DEL /workspace/repos_audit/3n-plus-c-cycle-census  (DELETE_OK_API)
+    DEL /workspace/survey/3n-plus-c-cycle-census  (DELETE_OK_API)
+    DEL /workspace/xscan/3n-plus-c-cycle-census  (DELETE_OK)
+  [AtiyahHirzebruch] 4 clones
+    DEL /workspace/cr/AtiyahHirzebruch  (DELETE_OK)
+    DEL /workspace/repos_audit/AtiyahHirzebruch  (DELETE_OK_API)
+    DEL /workspace/survey/AtiyahHirzebruch  (DELETE_OK_API)
+    DEL /workspace/xscan/AtiyahHirzebruch  (DELETE_OK)
+  [BenFrohman] 4 clones
+    DEL /workspace/cr/BenFrohman  (DELETE_OK)
+    DEL /workspace/repos_audit/BenFrohman  (DELETE_OK_API)
+    DEL /workspace/survey/BenFrohman  (DELETE_OK_API)
+    DEL /workspace/xscan/BenFrohman  (DELETE_OK)
+  [BohmIdentities] 4 clones
+    DEL /workspace/cr/BohmIdentities  (DELETE_OK)
+    DEL /workspace/repos_audit/BohmIdentities  (DELETE_OK_API)
+    DEL /workspace/survey/BohmIdentities  (DELETE_OK_API)
+    DEL /workspace/xscan/BohmIdentities  (DELETE_OK)
+  [ChainAtom-u5v-v6] 4 clones
+    DEL /workspace/cr/ChainAtom-u5v-v6  (DELETE_OK)
+    DEL /workspace/repos_audit/ChainAtom-u5v-v6  (DELETE_OK_API)
+    DEL /workspace/survey/ChainAtom-u5v-v6  (DELETE_OK_API)
+    DEL /workspace/xscan/ChainAtom-u5v-v6  (DELETE_OK)
+  [Clay-] 9 clones
+    DEL /workspace/certaudit/clones/Clay-  (DELETE_OK)
+    DEL /workspace/ci-audit-20261116/Clay-  (DELETE_OK)
+    DEL /workspace/cr/Clay-  (DELETE_OK)
+    DEL /workspace/inv/Clay-  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/Clay-  (DELETE_OK_API)
+    DEL /workspace/naming/Clay-  (DELETE_OK_API)
+    DEL /workspace/repos_audit/Clay-  (DELETE_OK_API)
+    DEL /workspace/survey/Clay-  (DELETE_OK_API)
+    DEL /workspace/xscan/Clay-  (DELETE_OK_API)
+  [Clay-CD-not-certified] 7 clones
+    DEL /workspace/certaudit/clones/Clay-CD-not-certified  (DELETE_OK)
+    DEL /workspace/cr/Clay-CD-not-certified  (DELETE_OK)
+    DEL /workspace/inv/Clay-CD-not-certified  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/Clay-CD-not-certified  (DELETE_OK_API)
+    DEL /workspace/repos_audit/Clay-CD-not-certified  (DELETE_OK_API)
+    DEL /workspace/survey/Clay-CD-not-certified  (DELETE_OK_API)
+    DEL /workspace/xscan/Clay-CD-not-certified  (DELETE_OK_API)
+  [ClosedClaims-Ledger] 4 clones
+    DEL /workspace/cr/ClosedClaims-Ledger  (DELETE_OK)
+    DEL /workspace/repos_audit/ClosedClaims-Ledger  (DELETE_OK_API)
+    DEL /workspace/survey/ClosedClaims-Ledger  (DELETE_OK_API)
+    DEL /workspace/xscan/ClosedClaims-Ledger  (DELETE_OK)
+  [CubicFourfold] 6 clones
+    DEL /workspace/cr/CubicFourfold  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/CubicFourfold  (DELETE_OK)
+    DEL /workspace/ph-runs2/CubicFourfold  (DELETE_OK_API)
+    DEL /workspace/repos_audit/CubicFourfold  (DELETE_OK_API)
+    DEL /workspace/survey/CubicFourfold  (DELETE_OK_API)
+    DEL /workspace/xscan/CubicFourfold  (DELETE_OK_API)
+  [DHL-3-2-implies-liminf-prime-gap-le-6] 7 clones
+    DEL /workspace/certaudit/clones/DHL-3-2-implies-liminf-prime-gap-le-6  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/DHL-3-2-implies-liminf-prime-gap-le-6  (DELETE_OK)
+    DEL /workspace/cr/DHL-3-2-implies-liminf-prime-gap-le-6  (DELETE_OK)
+    DEL /workspace/fin2/DHL-3-2-implies-liminf-prime-gap-le-6  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/DHL-3-2-implies-liminf-prime-gap-le-6  (DELETE_OK_API)
+    DEL /workspace/survey/DHL-3-2-implies-liminf-prime-gap-le-6  (DELETE_OK_API)
+    DEL /workspace/xscan/DHL-3-2-implies-liminf-prime-gap-le-6  (DELETE_OK_API)
+  [DerivedCategories] 7 clones
+    DEL /workspace/certaudit/clones/DerivedCategories  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/DerivedCategories  (DELETE_OK)
+    DEL /workspace/cr/DerivedCategories  (DELETE_OK)
+    DEL /workspace/inventory/clones/DerivedCategories  (DELETE_OK_API)
+    DEL /workspace/repos_audit/DerivedCategories  (DELETE_OK_API)
+    DEL /workspace/survey/DerivedCategories  (DELETE_OK_API)
+    DEL /workspace/xscan/DerivedCategories  (DELETE_OK_API)
+  [FJRW-ThreeBlock-F] 4 clones
+    DEL /workspace/cr/FJRW-ThreeBlock-F  (DELETE_OK)
+    DEL /workspace/repos_audit/FJRW-ThreeBlock-F  (DELETE_OK_API)
+    DEL /workspace/survey/FJRW-ThreeBlock-F  (DELETE_OK_API)
+    DEL /workspace/xscan/FJRW-ThreeBlock-F  (DELETE_OK)
+  [FermatPlanes] 9 clones
+    DEL /workspace/certaudit/clones/FermatPlanes  (DELETE_OK)
+    DEL /workspace/certify/FermatPlanes  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/FermatPlanes  (DELETE_OK)
+    DEL /workspace/cr/FermatPlanes  (DELETE_OK)
+    DEL /workspace/inventory/clones/FermatPlanes  (DELETE_OK_API)
+    DEL /workspace/ph-runs2/FermatPlanes  (DELETE_OK_API)
+    DEL /workspace/repos_audit/FermatPlanes  (DELETE_OK_API)
+    DEL /workspace/survey/FermatPlanes  (DELETE_OK_API)
+    DEL /workspace/xscan/FermatPlanes  (DELETE_OK_API)
+  [FermatQuinticHost] 9 clones
+    DEL /workspace/certaudit/clones/FermatQuinticHost  (DELETE_OK)
+    DEL /workspace/certify/FermatQuinticHost  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/FermatQuinticHost  (DELETE_OK)
+    DEL /workspace/cr/FermatQuinticHost  (DELETE_OK)
+    DEL /workspace/inventory/clones/FermatQuinticHost  (DELETE_OK_API)
+    DEL /workspace/ph-runs2/FermatQuinticHost  (DELETE_OK_API)
+    DEL /workspace/repos_audit/FermatQuinticHost  (DELETE_OK_API)
+    DEL /workspace/survey/FermatQuinticHost  (DELETE_OK_API)
+    DEL /workspace/xscan/FermatQuinticHost  (DELETE_OK_API)
+  [FermatQuinticJacobian] 9 clones
+    DEL /workspace/certaudit/clones/FermatQuinticJacobian  (DELETE_OK)
+    DEL /workspace/certify/FermatQuinticJacobian  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/FermatQuinticJacobian  (DELETE_OK)
+    DEL /workspace/cr/FermatQuinticJacobian  (DELETE_OK)
+    DEL /workspace/inventory/clones/FermatQuinticJacobian  (DELETE_OK_API)
+    DEL /workspace/ph-runs2/FermatQuinticJacobian  (DELETE_OK_API)
+    DEL /workspace/repos_audit/FermatQuinticJacobian  (DELETE_OK_API)
+    DEL /workspace/survey/FermatQuinticJacobian  (DELETE_OK_API)
+    DEL /workspace/xscan/FermatQuinticJacobian  (DELETE_OK_API)
+  [Frohman-MixedCorrelators-FJ] 4 clones
+    DEL /workspace/cr/Frohman-MixedCorrelators-FJ  (DELETE_OK)
+    DEL /workspace/repos_audit/Frohman-MixedCorrelators-FJ  (DELETE_OK_API)
+    DEL /workspace/survey/Frohman-MixedCorrelators-FJ  (DELETE_OK_API)
+    DEL /workspace/xscan/Frohman-MixedCorrelators-FJ  (DELETE_OK)
+  [Frohman-S-UnitCorrection] 5 clones
+    DEL /workspace/cr/Frohman-S-UnitCorrection  (DELETE_OK)
+    DEL /workspace/inventory/clones/Frohman-S-UnitCorrection  (DELETE_OK_API)
+    DEL /workspace/repos_audit/Frohman-S-UnitCorrection  (DELETE_OK_API)
+    DEL /workspace/survey/Frohman-S-UnitCorrection  (DELETE_OK_API)
+    DEL /workspace/xscan/Frohman-S-UnitCorrection  (DELETE_OK)
+  [HODGE] 9 clones
+    DEL /workspace/certaudit/clones/HODGE  (DELETE_OK)
+    DEL /workspace/certify/HODGE  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/HODGE  (DELETE_OK)
+    DEL /workspace/cr/HODGE  (DELETE_OK)
+    DEL /workspace/inventory/clones/HODGE  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/HODGE  (DELETE_OK)
+    DEL /workspace/repos_audit/HODGE  (DELETE_OK_API)
+    DEL /workspace/survey/HODGE  (DELETE_OK_API)
+    DEL /workspace/xscan/HODGE  (DELETE_OK)
+  [HODGE-DISPROOF] 9 clones
+    DEL /workspace/certaudit/clones/HODGE-DISPROOF  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/HODGE-DISPROOF  (DELETE_OK)
+    DEL /workspace/cr/HODGE-DISPROOF  (DELETE_OK)
+    DEL /workspace/inventory/clones/HODGE-DISPROOF  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/HODGE-DISPROOF  (DELETE_OK)
+    DEL /workspace/ph-runs2/HODGE-DISPROOF  (DELETE_OK_API)
+    DEL /workspace/repos_audit/HODGE-DISPROOF  (DELETE_OK_API)
+    DEL /workspace/survey/HODGE-DISPROOF  (DELETE_OK_API)
+    DEL /workspace/xscan/HODGE-DISPROOF  (DELETE_OK_API)
+  [HodgeDisproof] 9 clones
+    DEL /workspace/certaudit/clones/HodgeDisproof  (DELETE_OK)
+    DEL /workspace/certify/HodgeDisproof  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/HodgeDisproof  (DELETE_OK)
+    DEL /workspace/cr/HodgeDisproof  (DELETE_OK)
+    DEL /workspace/inventory/clones/HodgeDisproof  (DELETE_OK_API)
+    DEL /workspace/ph-runs2/HodgeDisproof  (DELETE_OK_API)
+    DEL /workspace/repos_audit/HodgeDisproof  (DELETE_OK_API)
+    DEL /workspace/survey/HodgeDisproof  (DELETE_OK_API)
+    DEL /workspace/xscan/HodgeDisproof  (DELETE_OK_API)
+  [NS_Millennium_Proof] 5 clones
+    DEL /workspace/inv/NS_Millennium_Proof  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/NS_Millennium_Proof  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/NS_Millennium_Proof  (DELETE_OK)
+    DEL /workspace/survey/NS_Millennium_Proof  (DELETE_OK_API)
+    DEL /workspace/xscan/NS_Millennium_Proof  (DELETE_OK_API)
+  [NS_Tether_Alternatives] 4 clones
+    DEL /workspace/ci-audit-20261116/NS_Tether_Alternatives  (DELETE_OK)
+    DEL /workspace/inv/NS_Tether_Alternatives  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/NS_Tether_Alternatives  (DELETE_OK)
+    DEL /workspace/xscan/NS_Tether_Alternatives  (DELETE_OK_API)
+  [NoetherLefschetz] 7 clones
+    DEL /workspace/certaudit/clones/NoetherLefschetz  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/NoetherLefschetz  (DELETE_OK)
+    DEL /workspace/cr/NoetherLefschetz  (DELETE_OK)
+    DEL /workspace/inventory/clones/NoetherLefschetz  (DELETE_OK_API)
+    DEL /workspace/repos_audit/NoetherLefschetz  (DELETE_OK_API)
+    DEL /workspace/survey/NoetherLefschetz  (DELETE_OK_API)
+    DEL /workspace/xscan/NoetherLefschetz  (DELETE_OK_API)
+  [OmegaZero34] 9 clones
+    DEL /workspace/certaudit/clones/OmegaZero34  (DELETE_OK)
+    DEL /workspace/certify/OmegaZero34  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/OmegaZero34  (DELETE_OK)
+    DEL /workspace/cr/OmegaZero34  (DELETE_OK)
+    DEL /workspace/fin2/OmegaZero34  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/OmegaZero34  (DELETE_OK_API)
+    DEL /workspace/repos_audit/OmegaZero34  (DELETE_OK_API)
+    DEL /workspace/survey/OmegaZero34  (DELETE_OK_API)
+    DEL /workspace/xscan/OmegaZero34  (DELETE_OK_API)
+  [PipelineHalt] 5 clones
+    DEL /workspace/certaudit/clones/PipelineHalt  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/relicense/PipelineHalt  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/PipelineHalt  (DELETE_OK)
+    DEL /workspace/survey/PipelineHalt  (DELETE_OK_API)
+    DEL /workspace/xscan/PipelineHalt  (DELETE_OK_API)
+  [RCW-Residuals-Lean] 3 clones
+    DEL /workspace/certify/kc/repos/RCW-Residuals-Lean  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/RCW-Residuals-Lean  (DELETE_OK)
+    DEL /workspace/xscan/RCW-Residuals-Lean  (DELETE_OK_API)
+  [RCW-Version15-Certificates] 3 clones
+    DEL /workspace/certify/kc/repos/RCW-Version15-Certificates  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/RCW-Version15-Certificates  (DELETE_OK)
+    DEL /workspace/xscan/RCW-Version15-Certificates  (DELETE_OK_API)
+  [RecurringAlignment] 3 clones
+    DEL /workspace/inventory/clones/RecurringAlignment  (DELETE_OK_API)
+    DEL /workspace/survey/RecurringAlignment  (DELETE_OK_API)
+    DEL /workspace/xscan/RecurringAlignment  (DELETE_OK)
+  [SingularityLab] 6 clones
+    DEL /workspace/cr/SingularityLab  (DELETE_OK)
+    DEL /workspace/inventory/clones/SingularityLab  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/SingularityLab  (DELETE_OK)
+    DEL /workspace/repos_audit/SingularityLab  (DELETE_OK_API)
+    DEL /workspace/survey/SingularityLab  (DELETE_OK_API)
+    DEL /workspace/xscan/SingularityLab  (DELETE_OK_API)
+  [StandardConjectures] 8 clones
+    DEL /workspace/certaudit/clones/StandardConjectures  (DELETE_OK)
+    DEL /workspace/certify/StandardConjectures  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/StandardConjectures  (DELETE_OK)
+    DEL /workspace/cr/StandardConjectures  (DELETE_OK)
+    DEL /workspace/inventory/clones/StandardConjectures  (DELETE_OK_API)
+    DEL /workspace/repos_audit/StandardConjectures  (DELETE_OK_API)
+    DEL /workspace/survey/StandardConjectures  (DELETE_OK_API)
+    DEL /workspace/xscan/StandardConjectures  (DELETE_OK_API)
+  [TateConjecture] 7 clones
+    DEL /workspace/certaudit/clones/TateConjecture  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/TateConjecture  (DELETE_OK)
+    DEL /workspace/cr/TateConjecture  (DELETE_OK)
+    DEL /workspace/inventory/clones/TateConjecture  (DELETE_OK_API)
+    DEL /workspace/repos_audit/TateConjecture  (DELETE_OK_API)
+    DEL /workspace/survey/TateConjecture  (DELETE_OK_API)
+    DEL /workspace/xscan/TateConjecture  (DELETE_OK_API)
+  [TateLedger] 4 clones
+    DEL /workspace/cr/TateLedger  (DELETE_OK)
+    DEL /workspace/repos_audit/TateLedger  (DELETE_OK_API)
+    DEL /workspace/survey/TateLedger  (DELETE_OK_API)
+    DEL /workspace/xscan/TateLedger  (DELETE_OK)
+  [ThreeChainJacobian] 4 clones
+    DEL /workspace/cr/ThreeChainJacobian  (DELETE_OK)
+    DEL /workspace/repos_audit/ThreeChainJacobian  (DELETE_OK_API)
+    DEL /workspace/survey/ThreeChainJacobian  (DELETE_OK_API)
+    DEL /workspace/xscan/ThreeChainJacobian  (DELETE_OK)
+  [agentic-dev] 5 clones
+    DEL /workspace/cr/agentic-dev  (DELETE_OK)
+    DEL /workspace/group_a_zenodo_and_llc_ip/track1_live_clones/agentic-dev  (DELETE_OK_API)
+    DEL /workspace/scan/agentic-dev  (DELETE_OK_API)
+    DEL /workspace/survey/agentic-dev  (DELETE_OK_API)
+    DEL /workspace/xscan/agentic-dev  (DELETE_OK)
+  [amm-flash-loan-symplectic-guard] 5 clones
+    DEL /workspace/cr/amm-flash-loan-symplectic-guard  (DELETE_OK)
+    DEL /workspace/group_a_zenodo_and_llc_ip/track1_live_clones/amm-flash-loan-symplectic-guard  (DELETE_OK_API)
+    DEL /workspace/scan/amm-flash-loan-symplectic-guard  (DELETE_OK_API)
+    DEL /workspace/survey/amm-flash-loan-symplectic-guard  (DELETE_OK_API)
+    DEL /workspace/xscan/amm-flash-loan-symplectic-guard  (DELETE_OK)
+  [bohm-identities] 8 clones
+    DEL /workspace/certaudit/clones/bohm-identities  (DELETE_OK)
+    DEL /workspace/certify/bohm-identities  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/bohm-identities  (DELETE_OK)
+    DEL /workspace/cr/bohm-identities  (DELETE_OK)
+    DEL /workspace/inventory/clones/bohm-identities  (DELETE_OK_API)
+    DEL /workspace/repos_audit/bohm-identities  (DELETE_OK_API)
+    DEL /workspace/survey/bohm-identities  (DELETE_OK_API)
+    DEL /workspace/xscan/bohm-identities  (DELETE_OK_API)
+  [collatz-covering-claim] 9 clones
+    DEL /workspace/certaudit/clones/collatz-covering-claim  (DELETE_OK)
+    DEL /workspace/certify/collatz-covering-claim  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/collatz-covering-claim  (DELETE_OK)
+    DEL /workspace/cr/collatz-covering-claim  (DELETE_OK)
+    DEL /workspace/inventory/clones/collatz-covering-claim  (DELETE_OK_API)
+    DEL /workspace/ph-runs2/collatz-covering-claim  (DELETE_OK_API)
+    DEL /workspace/repos_audit/collatz-covering-claim  (DELETE_OK_API)
+    DEL /workspace/survey/collatz-covering-claim  (DELETE_OK_API)
+    DEL /workspace/xscan/collatz-covering-claim  (DELETE_OK_API)
+  [collatz-teaming-lemma] 9 clones
+    DEL /workspace/certaudit/clones/collatz-teaming-lemma  (DELETE_OK)
+    DEL /workspace/certify/collatz-teaming-lemma  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/collatz-teaming-lemma  (DELETE_OK)
+    DEL /workspace/cr/collatz-teaming-lemma  (DELETE_OK)
+    DEL /workspace/inventory/clones/collatz-teaming-lemma  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/collatz-teaming-lemma  (DELETE_OK)
+    DEL /workspace/repos_audit/collatz-teaming-lemma  (DELETE_OK_API)
+    DEL /workspace/survey/collatz-teaming-lemma  (DELETE_OK_API)
+    DEL /workspace/xscan/collatz-teaming-lemma  (DELETE_OK_API)
+  [collatz-terras-density] 10 clones
+    DEL /workspace/certaudit/clones/collatz-terras-density  (DELETE_OK)
+    DEL /workspace/certify/collatz-terras-density  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/collatz-terras-density  (DELETE_OK)
+    DEL /workspace/cr/collatz-terras-density  (DELETE_OK)
+    DEL /workspace/inventory/clones/collatz-terras-density  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/collatz-terras-density  (DELETE_OK)
+    DEL /workspace/ph-runs2/collatz-terras-density  (DELETE_OK_API)
+    DEL /workspace/repos_audit/collatz-terras-density  (DELETE_OK_API)
+    DEL /workspace/survey/collatz-terras-density  (DELETE_OK_API)
+    DEL /workspace/xscan/collatz-terras-density  (DELETE_OK_API)
+  [displacement-without-redundancy] 4 clones
+    DEL /workspace/cr/displacement-without-redundancy  (DELETE_OK)
+    DEL /workspace/repos_audit/displacement-without-redundancy  (DELETE_OK_API)
+    DEL /workspace/survey/displacement-without-redundancy  (DELETE_OK_API)
+    DEL /workspace/xscan/displacement-without-redundancy  (DELETE_OK)
+  [eth-conflict-clause-lattice] 6 clones
+    DEL /workspace/certify/eth-conflict-clause-lattice  (DELETE_OK_API)
+    DEL /workspace/cr/eth-conflict-clause-lattice  (DELETE_OK)
+    DEL /workspace/inventory/clones/eth-conflict-clause-lattice  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/eth-conflict-clause-lattice  (DELETE_OK)
+    DEL /workspace/survey/eth-conflict-clause-lattice  (DELETE_OK_API)
+    DEL /workspace/xscan/eth-conflict-clause-lattice  (DELETE_OK_API)
+  [fefferman-clay-navier-stokes] 12 clones
+    DEL /workspace/certaudit/clones/fefferman-clay-navier-stokes  (DELETE_OK)
+    DEL /workspace/certify/fefferman-clay-navier-stokes  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/fefferman-clay-navier-stokes  (DELETE_OK)
+    DEL /workspace/cr/fefferman-clay-navier-stokes  (DELETE_OK)
+    DEL /workspace/fin/fefferman-clay-navier-stokes  (DELETE_OK_API)
+    DEL /workspace/inv/fefferman-clay-navier-stokes  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/fefferman-clay-navier-stokes  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/fefferman-clay-navier-stokes  (DELETE_OK)
+    DEL /workspace/naming/fefferman-clay-navier-stokes  (DELETE_OK_API)
+    DEL /workspace/scan/fefferman-clay-navier-stokes  (DELETE_OK_API)
+    DEL /workspace/survey/fefferman-clay-navier-stokes  (DELETE_OK_API)
+    DEL /workspace/xscan/fefferman-clay-navier-stokes  (DELETE_OK_API)
+  [fourfold-structural-template] 4 clones
+    DEL /workspace/cr/fourfold-structural-template  (DELETE_OK)
+    DEL /workspace/repos_audit/fourfold-structural-template  (DELETE_OK_API)
+    DEL /workspace/survey/fourfold-structural-template  (DELETE_OK_API)
+    DEL /workspace/xscan/fourfold-structural-template  (DELETE_OK)
+  [frohman-V13] 5 clones
+    DEL /workspace/cr/frohman-V13  (DELETE_OK)
+    DEL /workspace/group_a_zenodo_and_llc_ip/track1_live_clones/frohman-V13  (DELETE_OK_API)
+    DEL /workspace/scan/frohman-V13  (DELETE_OK_API)
+    DEL /workspace/survey/frohman-V13  (DELETE_OK_API)
+    DEL /workspace/xscan/frohman-V13  (DELETE_OK)
+  [frohman-symplectic-qec-codes] 5 clones
+    DEL /workspace/cr/frohman-symplectic-qec-codes  (DELETE_OK)
+    DEL /workspace/group_a_zenodo_and_llc_ip/track1_live_clones/frohman-symplectic-qec-codes  (DELETE_OK_API)
+    DEL /workspace/scan/frohman-symplectic-qec-codes  (DELETE_OK_API)
+    DEL /workspace/survey/frohman-symplectic-qec-codes  (DELETE_OK_API)
+    DEL /workspace/xscan/frohman-symplectic-qec-codes  (DELETE_OK)
+  [frohmanian-metriplectic-ns] 3 clones
+    DEL /workspace/certaudit/clones/frohmanian-metriplectic-ns  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/frohmanian-metriplectic-ns  (DELETE_OK)
+    DEL /workspace/xscan/frohmanian-metriplectic-ns  (DELETE_OK_API)
+  [frohmanian-ns-symplectic-tether] 3 clones
+    DEL /workspace/inventory/clones/frohmanian-ns-symplectic-tether  (DELETE_OK_API)
+    DEL /workspace/survey/frohmanian-ns-symplectic-tether  (DELETE_OK_API)
+    DEL /workspace/xscan/frohmanian-ns-symplectic-tether  (DELETE_OK)
+  [frohmanian-strain-eigenvalue] 4 clones
+    DEL /workspace/certaudit/clones/frohmanian-strain-eigenvalue  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/frohmanian-strain-eigenvalue  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-strain-eigenvalue  (DELETE_OK)
+    DEL /workspace/xscan/frohmanian-strain-eigenvalue  (DELETE_OK_API)
+  [frohmanian-symplectic-tether] 7 clones
+    DEL /workspace/certaudit/clones/frohmanian-symplectic-tether  (DELETE_OK)
+    DEL /workspace/certify/frohmanian-symplectic-tether  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/frohmanian-symplectic-tether  (DELETE_OK)
+    DEL /workspace/inv/frohmanian-symplectic-tether  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-symplectic-tether  (DELETE_OK)
+    DEL /workspace/survey/frohmanian-symplectic-tether  (DELETE_OK_API)
+    DEL /workspace/xscan/frohmanian-symplectic-tether  (DELETE_OK_API)
+  [frohmanian-symplectic-tether-may-form] 6 clones
+    DEL /workspace/certaudit/clones/frohmanian-symplectic-tether-may-form  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/frohmanian-symplectic-tether-may-form  (DELETE_OK)
+    DEL /workspace/cr/frohmanian-symplectic-tether-may-form  (DELETE_OK)
+    DEL /workspace/fin/tether-may-form  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/frohmanian-symplectic-tether-may-form  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-symplectic-tether-may-form  (DELETE_OK)
+  [frohmanian-symplectic-tether-regularity] 10 clones
+    DEL /workspace/certaudit/clones/frohmanian-symplectic-tether-regularity  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/frohmanian-symplectic-tether-regularity  (DELETE_OK)
+    DEL /workspace/cr/frohmanian-symplectic-tether-regularity  (DELETE_OK)
+    DEL /workspace/fin/frohmanian-symplectic-tether-regularity  (DELETE_OK_API)
+    DEL /workspace/inv/frohmanian-symplectic-tether-regularity  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/frohmanian-symplectic-tether-regularity  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-symplectic-tether-regularity  (DELETE_OK)
+    DEL /workspace/naming/frohmanian-symplectic-tether-regularity  (DELETE_OK_API)
+    DEL /workspace/survey/frohmanian-symplectic-tether-regularity  (DELETE_OK_API)
+    DEL /workspace/xscan/frohmanian-symplectic-tether-regularity  (DELETE_OK_API)
+  [frohmanian-tether-conditional-regularity] 4 clones
+    DEL /workspace/certify/kc/repos/frohmanian-tether-conditional-regularity  (DELETE_OK)
+    DEL /workspace/ci-audit-20261116/frohmanian-tether-conditional-regularity  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-tether-conditional-regularity  (DELETE_OK)
+    DEL /workspace/xscan/frohmanian-tether-conditional-regularity  (DELETE_OK_API)
+  [frohmanian-tether-discrete-scaling-proximity] 1 clones
+    DEL /workspace/ci-audit-20261116/frohmanian-tether-discrete-scaling-proximity  (DELETE_OK)
+  [frohmanian-tether-early-may-2026-snapshot] 3 clones
+    DEL /workspace/lean-header-20261116/relicense/frohmanian-tether-early-may-2026-snapshot  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-tether-early-may-2026-snapshot  (DELETE_OK)
+    DEL /workspace/xscan/frohmanian-tether-early-may-2026-snapshot  (DELETE_OK_API)
+  [frohmanian-tether-geometric] 4 clones
+    DEL /workspace/certaudit/clones/frohmanian-tether-geometric  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/frohmanian-tether-geometric  (DELETE_OK)
+    DEL /workspace/ci-audit-20261116/frohmanian-tether-geometric  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-tether-geometric  (DELETE_OK)
+  [frohmanian-tether-manuscript-2026-06-01] 7 clones
+    DEL /workspace/certaudit/clones/frohmanian-tether-manuscript-2026-06-01  (DELETE_OK)
+    DEL /workspace/ci-audit-20261116/frohmanian-tether-manuscript-2026-06-01  (DELETE_OK)
+    DEL /workspace/cr/frohmanian-tether-manuscript-2026-06-01  (DELETE_OK)
+    DEL /workspace/inventory/clones/frohmanian-tether-manuscript-2026-06-01  (DELETE_OK_API)
+    DEL /workspace/repos_audit/frohmanian-tether-manuscript-2026-06-01  (DELETE_OK_API)
+    DEL /workspace/survey/frohmanian-tether-manuscript-2026-06-01  (DELETE_OK_API)
+    DEL /workspace/xscan/frohmanian-tether-manuscript-2026-06-01  (DELETE_OK_API)
+  [frohmanian-tether-sdiff] 6 clones
+    DEL /workspace/certaudit/clones/frohmanian-tether-sdiff  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/frohmanian-tether-sdiff  (DELETE_OK)
+    DEL /workspace/ci-audit-20261116/frohmanian-tether-sdiff  (DELETE_OK)
+    DEL /workspace/inv/frohmanian-tether-sdiff  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-tether-sdiff  (DELETE_OK)
+    DEL /workspace/xscan/frohmanian-tether-sdiff  (DELETE_OK_API)
+  [frohmanian-tether-verified] 5 clones
+    DEL /workspace/certaudit/clones/frohmanian-tether-verified  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/frohmanian-tether-verified  (DELETE_OK)
+    DEL /workspace/ci-audit-20261116/frohmanian-tether-verified  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/frohmanian-tether-verified  (DELETE_OK)
+    DEL /workspace/xscan/frohmanian-tether-verified  (DELETE_OK_API)
+  [functional-equation-tether-b4] 4 clones
+    DEL /workspace/cr/functional-equation-tether-b4  (DELETE_OK)
+    DEL /workspace/new_repos_stage/functional-equation-tether-b4  (DELETE_OK_API)
+    DEL /workspace/survey/functional-equation-tether-b4  (DELETE_OK_API)
+    DEL /workspace/xscan/functional-equation-tether-b4  (DELETE_OK)
+  [global-from-local-restart] 10 clones
+    DEL /workspace/certaudit/clones/global-from-local-restart  (DELETE_OK)
+    DEL /workspace/certify/global-from-local-restart  (DELETE_OK_API)
+    DEL /workspace/certify/kc/repos/global-from-local-restart  (DELETE_OK)
+    DEL /workspace/cr/global-from-local-restart  (DELETE_OK)
+    DEL /workspace/inv/global-from-local-restart  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/global-from-local-restart  (DELETE_OK_API)
+    DEL /workspace/ph-runs2/global-from-local-restart  (DELETE_OK_API)
+    DEL /workspace/repos_audit/global-from-local-restart  (DELETE_OK_API)
+    DEL /workspace/survey/global-from-local-restart  (DELETE_OK_API)
+    DEL /workspace/xscan/global-from-local-restart  (DELETE_OK_API)
+  [hlex-latent-exchange-fabric] 5 clones
+    DEL /workspace/cr/hlex-latent-exchange-fabric  (DELETE_OK)
+    DEL /workspace/new_repos_stage/hlex-latent-exchange-fabric  (DELETE_OK_API)
+    DEL /workspace/scan/hlex-latent-exchange-fabric  (DELETE_OK_API)
+    DEL /workspace/survey/hlex-latent-exchange-fabric  (DELETE_OK_API)
+    DEL /workspace/xscan/hlex-latent-exchange-fabric  (DELETE_OK)
+  [intelligence-partial-order-and-formalization-audits] 5 clones
+    DEL /workspace/cr/intelligence-partial-order-and-formalization-audits  (DELETE_OK)
+    DEL /workspace/new_repos_stage/intelligence-partial-order-and-formalization-audits  (DELETE_OK_API)
+    DEL /workspace/scan/intelligence-partial-order-and-formalization-audits  (DELETE_OK_API)
+    DEL /workspace/survey/intelligence-partial-order-and-formalization-audits  (DELETE_OK_API)
+    DEL /workspace/xscan/intelligence-partial-order-and-formalization-audits  (DELETE_OK)
+  [jobbot-enterprise] 1 clones
+    DEL /workspace/xscan/jobbot-enterprise  (DELETE_OK)
+  [local-hodge-lean-variants-2026] 1 clones
+    DEL /workspace/lean-header-20261116/repos/local-hodge-lean-variants-2026  (DELETE_OK)
+  [metriplectic-world-model] 10 clones
+    DEL /workspace/certaudit/clones/metriplectic-world-model  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/metriplectic-world-model  (DELETE_OK)
+    DEL /workspace/cr/metriplectic-world-model  (DELETE_OK)
+    DEL /workspace/inv/metriplectic-world-model  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/metriplectic-world-model  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/metriplectic-world-model  (DELETE_OK)
+    DEL /workspace/naming/metriplectic-world-model  (DELETE_OK_API)
+    DEL /workspace/scan/metriplectic-world-model  (DELETE_OK_API)
+    DEL /workspace/survey/metriplectic-world-model  (DELETE_OK_API)
+    DEL /workspace/xscan/metriplectic-world-model  (DELETE_OK_API)
+  [mk1-kernel-limits] 3 clones
+    DEL /workspace/certaudit/clones/mk1-kernel-limits  (DELETE_OK)
+    DEL /workspace/inv/mk1-kernel-limits  (DELETE_OK_API)
+    DEL /workspace/xscan/mk1-kernel-limits  (DELETE_OK_API)
+  [mk1-quantum-kernel] 2 clones
+    DEL /workspace/certaudit/clones/mk1-quantum-kernel  (DELETE_OK)
+    DEL /workspace/xscan/mk1-quantum-kernel  (DELETE_OK_API)
+  [modular-robotic-excitation-arms] 5 clones
+    DEL /workspace/cr/modular-robotic-excitation-arms  (DELETE_OK)
+    DEL /workspace/inventory/clones/modular-robotic-excitation-arms  (DELETE_OK_API)
+    DEL /workspace/scan/modular-robotic-excitation-arms  (DELETE_OK_API)
+    DEL /workspace/survey/modular-robotic-excitation-arms  (DELETE_OK_API)
+    DEL /workspace/xscan/modular-robotic-excitation-arms  (DELETE_OK)
+  [ns-i11-conditional-criterion] 5 clones
+    DEL /workspace/cr/ns-i11-conditional-criterion  (DELETE_OK)
+    DEL /workspace/inv/ns-i11-conditional-criterion  (DELETE_OK_API)
+    DEL /workspace/repos_audit/ns-i11-conditional-criterion  (DELETE_OK_API)
+    DEL /workspace/survey/ns-i11-conditional-criterion  (DELETE_OK_API)
+    DEL /workspace/xscan/ns-i11-conditional-criterion  (DELETE_OK)
+  [ns-tether-key-estimate-refutation] 1 clones
+    DEL /workspace/certaudit/clones/ns-tether-key-estimate-refutation  (DELETE_OK)
+  [orlov-equivalence-VF] 8 clones
+    DEL /workspace/certaudit/clones/orlov-equivalence-VF  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/orlov-equivalence-VF  (DELETE_OK)
+    DEL /workspace/certify/orlov-equivalence-VF  (DELETE_OK_API)
+    DEL /workspace/cr/orlov-equivalence-VF  (DELETE_OK)
+    DEL /workspace/inventory/clones/orlov-equivalence-VF  (DELETE_OK_API)
+    DEL /workspace/repos_audit/orlov-equivalence-VF  (DELETE_OK_API)
+    DEL /workspace/survey/orlov-equivalence-VF  (DELETE_OK_API)
+    DEL /workspace/xscan/orlov-equivalence-VF  (DELETE_OK_API)
+  [overemployed-job-bot] 5 clones
+    DEL /workspace/cr/overemployed-job-bot  (DELETE_OK)
+    DEL /workspace/inventory/clones/overemployed-job-bot  (DELETE_OK_API)
+    DEL /workspace/repos_audit/overemployed-job-bot  (DELETE_OK_API)
+    DEL /workspace/survey/overemployed-job-bot  (DELETE_OK_API)
+    DEL /workspace/xscan/overemployed-job-bot  (DELETE_OK_API)
+  [p2q-jumps-lean] 8 clones
+    DEL /workspace/certify/kc/repos/p2q-jumps-lean  (DELETE_OK)
+    DEL /workspace/certify/p2q-jumps-lean  (DELETE_OK_API)
+    DEL /workspace/cr/p2q-jumps-lean  (DELETE_OK)
+    DEL /workspace/inventory/clones/p2q-jumps-lean  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/p2q-jumps-lean  (DELETE_OK)
+    DEL /workspace/repos_audit/p2q-jumps-lean  (DELETE_OK_API)
+    DEL /workspace/survey/p2q-jumps-lean  (DELETE_OK_API)
+    DEL /workspace/xscan/p2q-jumps-lean  (DELETE_OK_API)
+  [periodic-navier-stokes-smooth-uniqueness] 4 clones
+    DEL /workspace/certaudit/clones/periodic-navier-stokes-smooth-uniqueness  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/periodic-navier-stokes-smooth-uniqueness  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/periodic-navier-stokes-smooth-uniqueness  (DELETE_OK)
+    DEL /workspace/xscan/periodic-navier-stokes-smooth-uniqueness  (DELETE_OK_API)
+  [periodic-ns-classical-continuation] 8 clones
+    DEL /workspace/certaudit/clones/periodic-ns-classical-continuation  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/periodic-ns-classical-continuation  (DELETE_OK)
+    DEL /workspace/cr/periodic-ns-classical-continuation  (DELETE_OK)
+    DEL /workspace/inv/periodic-ns-classical-continuation  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/periodic-ns-classical-continuation  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/periodic-ns-classical-continuation  (DELETE_OK)
+    DEL /workspace/survey/periodic-ns-classical-continuation  (DELETE_OK_API)
+    DEL /workspace/xscan/periodic-ns-classical-continuation  (DELETE_OK_API)
+  [poincare-wigner-motion-geometry] 4 clones
+    DEL /workspace/cr/poincare-wigner-motion-geometry  (DELETE_OK)
+    DEL /workspace/new_repos_stage/poincare-wigner-motion-geometry  (DELETE_OK_API)
+    DEL /workspace/survey/poincare-wigner-motion-geometry  (DELETE_OK_API)
+    DEL /workspace/xscan/poincare-wigner-motion-geometry  (DELETE_OK)
+  [pqc-symplectic-lattice-sieving] 5 clones
+    DEL /workspace/cr/pqc-symplectic-lattice-sieving  (DELETE_OK)
+    DEL /workspace/group_a_zenodo_and_llc_ip/track1_live_clones/pqc-symplectic-lattice-sieving  (DELETE_OK_API)
+    DEL /workspace/scan/pqc-symplectic-lattice-sieving  (DELETE_OK_API)
+    DEL /workspace/survey/pqc-symplectic-lattice-sieving  (DELETE_OK_API)
+    DEL /workspace/xscan/pqc-symplectic-lattice-sieving  (DELETE_OK)
+  [quadratic-residues-lean] 4 clones
+    DEL /workspace/certaudit/clones/quadratic-residues-lean  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/quadratic-residues-lean  (DELETE_OK)
+    DEL /workspace/lean-header-20261116/repos/quadratic-residues-lean  (DELETE_OK)
+    DEL /workspace/xscan/quadratic-residues-lean  (DELETE_OK_API)
+  [r3-biot-savart-stream] 9 clones
+    DEL /workspace/certaudit/clones/r3-biot-savart-stream  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/r3-biot-savart-stream  (DELETE_OK)
+    DEL /workspace/certify/r3-biot-savart-stream  (DELETE_OK_API)
+    DEL /workspace/cr/r3-biot-savart-stream  (DELETE_OK)
+    DEL /workspace/inventory/clones/r3-biot-savart-stream  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/r3-biot-savart-stream  (DELETE_OK)
+    DEL /workspace/ph-runs2/r3-biot-savart-stream  (DELETE_OK_API)
+    DEL /workspace/survey/r3-biot-savart-stream  (DELETE_OK_API)
+    DEL /workspace/xscan/r3-biot-savart-stream  (DELETE_OK_API)
+  [sealguard] 5 clones
+    DEL /workspace/cr/sealguard  (DELETE_OK)
+    DEL /workspace/inventory/clones/sealguard  (DELETE_OK_API)
+    DEL /workspace/scan/sealguard  (DELETE_OK_API)
+    DEL /workspace/survey/sealguard  (DELETE_OK_API)
+    DEL /workspace/xscan/sealguard  (DELETE_OK)
+  [sentinel-gate] 5 clones
+    DEL /workspace/cr/sentinel-gate  (DELETE_OK)
+    DEL /workspace/group_a_zenodo_and_llc_ip/track1_live_clones/sentinel-gate  (DELETE_OK_API)
+    DEL /workspace/scan/sentinel-gate  (DELETE_OK_API)
+    DEL /workspace/survey/sentinel-gate  (DELETE_OK_API)
+    DEL /workspace/xscan/sentinel-gate  (DELETE_OK)
+  [symplectic-tether-sim] 1 clones
+    DEL /workspace/xscan/symplectic-tether-sim  (DELETE_OK)
+  [symplectohydronamics] 5 clones
+    DEL /workspace/cr/symplectohydronamics  (DELETE_OK)
+    DEL /workspace/inventory/clones/symplectohydronamics  (DELETE_OK_API)
+    DEL /workspace/repos_audit/symplectohydronamics  (DELETE_OK_API)
+    DEL /workspace/survey/symplectohydronamics  (DELETE_OK_API)
+    DEL /workspace/xscan/symplectohydronamics  (DELETE_OK_API)
+  [the-3n-plus-1-machine] 4 clones
+    DEL /workspace/cr/the-3n-plus-1-machine  (DELETE_OK)
+    DEL /workspace/repos_audit/the-3n-plus-1-machine  (DELETE_OK_API)
+    DEL /workspace/survey/the-3n-plus-1-machine  (DELETE_OK_API)
+    DEL /workspace/xscan/the-3n-plus-1-machine  (DELETE_OK)
+  [titan-audit] 6 clones
+    DEL /workspace/certaudit/clones/titan-audit  (DELETE_OK)
+    DEL /workspace/cr/titan-audit  (DELETE_OK)
+    DEL /workspace/inventory/clones/titan-audit  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/titan-audit  (DELETE_OK)
+    DEL /workspace/survey/titan-audit  (DELETE_OK_API)
+    DEL /workspace/xscan/titan-audit  (DELETE_OK_API)
+  [torus-fourier-ns-lemmas] 6 clones
+    DEL /workspace/certaudit/clones/torus-fourier-ns-lemmas  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/torus-fourier-ns-lemmas  (DELETE_OK)
+    DEL /workspace/inv/torus-fourier-ns-lemmas  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/torus-fourier-ns-lemmas  (DELETE_OK)
+    DEL /workspace/survey/torus-fourier-ns-lemmas  (DELETE_OK_API)
+    DEL /workspace/xscan/torus-fourier-ns-lemmas  (DELETE_OK_API)
+  [torus-velocity-tether] 10 clones
+    DEL /workspace/certaudit/clones/torus-velocity-tether  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/torus-velocity-tether  (DELETE_OK)
+    DEL /workspace/certify/torus-velocity-tether  (DELETE_OK_API)
+    DEL /workspace/cr/torus-velocity-tether  (DELETE_OK)
+    DEL /workspace/inv/torus-velocity-tether  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/torus-velocity-tether  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/torus-velocity-tether  (DELETE_OK)
+    DEL /workspace/ph-runs2/torus-velocity-tether  (DELETE_OK_API)
+    DEL /workspace/survey/torus-velocity-tether  (DELETE_OK_API)
+    DEL /workspace/xscan/torus-velocity-tether  (DELETE_OK_API)
+  [triadic-homogenization-lean] 7 clones
+    DEL /workspace/certify/triadic-homogenization-lean  (DELETE_OK_API)
+    DEL /workspace/cr/triadic-homogenization-lean  (DELETE_OK)
+    DEL /workspace/inventory/clones/triadic-homogenization-lean  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/triadic-homogenization-lean  (DELETE_OK)
+    DEL /workspace/new_repos_stage/triadic-homogenization-lean  (DELETE_OK_API)
+    DEL /workspace/survey/triadic-homogenization-lean  (DELETE_OK_API)
+    DEL /workspace/xscan/triadic-homogenization-lean  (DELETE_OK_API)
+  [two-point-strain-coercivity] 5 clones
+    DEL /workspace/cr/two-point-strain-coercivity  (DELETE_OK)
+    DEL /workspace/inv/two-point-strain-coercivity  (DELETE_OK_API)
+    DEL /workspace/repos_audit/two-point-strain-coercivity  (DELETE_OK_API)
+    DEL /workspace/survey/two-point-strain-coercivity  (DELETE_OK_API)
+    DEL /workspace/xscan/two-point-strain-coercivity  (DELETE_OK)
+  [uniruled-fourfolds] 8 clones
+    DEL /workspace/certaudit/clones/uniruled-fourfolds  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/uniruled-fourfolds  (DELETE_OK)
+    DEL /workspace/cr/uniruled-fourfolds  (DELETE_OK)
+    DEL /workspace/inventory/clones/uniruled-fourfolds  (DELETE_OK_API)
+    DEL /workspace/ph-runs2/uniruled-fourfolds  (DELETE_OK_API)
+    DEL /workspace/repos_audit/uniruled-fourfolds  (DELETE_OK_API)
+    DEL /workspace/survey/uniruled-fourfolds  (DELETE_OK_API)
+    DEL /workspace/xscan/uniruled-fourfolds  (DELETE_OK_API)
+  [weighted-enstrophy-identities] 11 clones
+    DEL /workspace/certaudit/clones/weighted-enstrophy-identities  (DELETE_OK)
+    DEL /workspace/certify/kc/repos/weighted-enstrophy-identities  (DELETE_OK)
+    DEL /workspace/certify/weighted-enstrophy-identities  (DELETE_OK_API)
+    DEL /workspace/cr/weighted-enstrophy-identities  (DELETE_OK)
+    DEL /workspace/fin/weighted-enstrophy-identities  (DELETE_OK_API)
+    DEL /workspace/inv/weighted-enstrophy-identities  (DELETE_OK_API)
+    DEL /workspace/inventory/clones/weighted-enstrophy-identities  (DELETE_OK_API)
+    DEL /workspace/lean-header-20261116/repos/weighted-enstrophy-identities  (DELETE_OK)
+    DEL /workspace/scan/weighted-enstrophy-identities  (DELETE_OK_API)
+    DEL /workspace/survey/weighted-enstrophy-identities  (DELETE_OK_API)
+    DEL /workspace/xscan/weighted-enstrophy-identities  (DELETE_OK_API)
+
+== 3. Last-copy inventory clones kept (would otherwise wipe the only remaining local copies) ==
+  KEEP last local copy of .github: /workspace/inventory/clones/.github
+  KEEP last local copy of 3n-plus-c-cycle-census: /workspace/inventory/clones/3n-plus-c-cycle-census
+  KEEP last local copy of AtiyahHirzebruch: /workspace/inventory/clones/AtiyahHirzebruch
+  KEEP last local copy of BenFrohman: /workspace/inventory/clones/BenFrohman
+  KEEP last local copy of BohmIdentities: /workspace/inventory/clones/BohmIdentities
+  KEEP last local copy of ChainAtom-u5v-v6: /workspace/inventory/clones/ChainAtom-u5v-v6
+  KEEP last local copy of ClosedClaims-Ledger: /workspace/inventory/clones/ClosedClaims-Ledger
+  KEEP last local copy of CubicFourfold: /workspace/inventory/clones/CubicFourfold
+  KEEP last local copy of FJRW-ThreeBlock-F: /workspace/inventory/clones/FJRW-ThreeBlock-F
+  KEEP last local copy of Frohman-MixedCorrelators-FJ: /workspace/inventory/clones/Frohman-MixedCorrelators-FJ
+  KEEP last local copy of RCW-Residuals-Lean: /workspace/certaudit/clones/RCW-Residuals-Lean
+  KEEP last local copy of RCW-Version15-Certificates: /workspace/certaudit/clones/RCW-Version15-Certificates
+  KEEP last local copy of TateLedger: /workspace/inventory/clones/TateLedger
+  KEEP last local copy of ThreeChainJacobian: /workspace/inventory/clones/ThreeChainJacobian
+  KEEP last local copy of agentic-dev: /workspace/inventory/clones/agentic-dev
+  KEEP last local copy of amm-flash-loan-symplectic-guard: /workspace/inventory/clones/amm-flash-loan-symplectic-guard
+  KEEP last local copy of displacement-without-redundancy: /workspace/inventory/clones/displacement-without-redundancy
+  KEEP last local copy of fourfold-structural-template: /workspace/inventory/clones/fourfold-structural-template
+  KEEP last local copy of frohman-V13: /workspace/inventory/clones/frohman-V13
+  KEEP last local copy of frohman-symplectic-qec-codes: /workspace/inventory/clones/frohman-symplectic-qec-codes
+  KEEP last local copy of frohmanian-tether-discrete-scaling-proximity: /workspace/xscan/frohmanian-tether-discrete-scaling-proximity
+  KEEP last local copy of functional-equation-tether-b4: /workspace/inventory/clones/functional-equation-tether-b4
+  KEEP last local copy of hlex-latent-exchange-fabric: /workspace/inventory/clones/hlex-latent-exchange-fabric
+  KEEP last local copy of intelligence-partial-order-and-formalization-audits: /workspace/inventory/clones/intelligence-partial-order-and-formalization-audits
+  KEEP last local copy of local-hodge-lean-variants-2026: /workspace/xscan/local-hodge-lean-variants-2026
+  KEEP last local copy of ns-i11-conditional-criterion: /workspace/inventory/clones/ns-i11-conditional-criterion
+  KEEP last local copy of poincare-wigner-motion-geometry: /workspace/inventory/clones/poincare-wigner-motion-geometry
+  KEEP last local copy of pqc-symplectic-lattice-sieving: /workspace/inventory/clones/pqc-symplectic-lattice-sieving
+  KEEP last local copy of sentinel-gate: /workspace/inventory/clones/sentinel-gate
+  KEEP last local copy of the-3n-plus-1-machine: /workspace/inventory/clones/the-3n-plus-1-machine
+  KEEP last local copy of two-point-strain-coercivity: /workspace/inventory/clones/two-point-strain-coercivity
+
+== 4. Kept paths with uncommitted or unpushed work (BenFrohman clones) ==
+-- uncommitted/ignored-non-lake or dirty (61) --
+  KEEP /workspace/NS_Millennium_Proof  repo=NS_Millennium_Proof  stash=False  extra_entries=3
+      ?? ConditionalNavierStokesTetherFull.lean
+      ?? FrohmanianTetherComplete.lean
+      ?? scratch/
+  KEEP /workspace/PipelineHalt  repo=PipelineHalt  stash=False  extra_entries=3
+      !! dist/
+      !! node_modules/
+      !! test/fixtures/truth-gate-lean/.lake/
+  KEEP /workspace/bridge-20261110/repo  repo=frohmanian-tether-conditional-regularity  stash=False  extra_entries=1
+      !! certificates/
+  KEEP /workspace/certaudit/clones/symplectohydronamics  repo=symplectohydronamics  stash=False  extra_entries=1
+      !! library/certificates/build.log
+  KEEP /workspace/certify/Clay-CD-not-certified  repo=Clay-CD-not-certified  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/certify/kc-local/sdiff  repo=frohmanian-tether-sdiff  stash=False  extra_entries=340
+      D  .github/workflows/certify.yml
+      D  .github/workflows/kernel-certificate.yml
+      D  .github/workflows/lean-header.yml
+      D  .github/workflows/lean.yml
+      D  .gitignore
+      D  .zenodo.json
+  KEEP /workspace/certify/kc/repos/Test-Practice-Repo  repo=Test-Practice-Repo  stash=False  extra_entries=1
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+  KEEP /workspace/certify/symplectohydronamics  repo=symplectohydronamics  stash=False  extra_entries=1
+      !! library/.lake/
+  KEEP /workspace/certify/tether-derivation  repo=frohmanian-tether-sdiff  stash=False  extra_entries=1
+      !! papers/tether-rate-derivation/print_axioms.txt
+  KEEP /workspace/clay-smooth-fix-20261109/repo  repo=Clay-  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/clay-spatial-pr-20261106  repo=Clay-  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/clayB  repo=Clay-  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/fefferman-clay-navier-stokes  repo=fefferman-clay-navier-stokes  stash=False  extra_entries=1
+      ?? fefferman-clay-navier-stokes.bundle
+  KEEP /workspace/frohmanian-symplectic-tether-regularity  repo=frohmanian-symplectic-tether-regularity  stash=False  extra_entries=1
+      ?? ftr.bundle
+  KEEP /workspace/hodge-delsarte-v14-20261110  repo=HODGE  stash=False  extra_entries=1
+      ?? paper/hodge_sextic/hodge_sextic.pdf
+  KEEP /workspace/inventory/clones/Test-Practice-Repo  repo=Test-Practice-Repo  stash=False  extra_entries=1
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+  KEEP /workspace/kato-ponce  repo=frohmanian-tether-sdiff  stash=False  extra_entries=1
+      ?? Scratch/PlancherelBridge.lean
+  KEEP /workspace/lean-header-20261116/relicense/titan-audit  repo=titan-audit  stash=False  extra_entries=3
+      !! .pytest_cache/
+      !! src/titan_audit/__pycache__/
+      !! tests/__pycache__/
+  KEEP /workspace/lean-header-20261116/repos/Clay-  repo=Clay-  stash=False  extra_entries=1
+      ?? scripts/__pycache__/
+  KEEP /workspace/math-fixes-20261106/Clay-  repo=Clay-  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/math-fixes-20261106/FermatQuinticJacobian  repo=FermatQuinticJacobian  stash=False  extra_entries=1
+      ?? .verification/
+  KEEP /workspace/math-fixes-20261106/HODGE  repo=HODGE  stash=False  extra_entries=1
+      ?? paper/hodge_sextic/hodge_sextic.pdf
+  KEEP /workspace/math-fixes-20261106/HODGE-DISPROOF  repo=HODGE-DISPROOF  stash=False  extra_entries=1
+      !! .schema-build/
+  KEEP /workspace/mk1-kernel-limits  repo=mk1-kernel-limits  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/ns-conflict-fix-20261116/NS_Millennium_Proof  repo=NS_Millennium_Proof  stash=False  extra_entries=2
+      ?? truth-gate-report/
+      !! truth-gate-report/build.log
+  KEEP /workspace/ns-gateaux  repo=NS_Millennium_Proof  stash=False  extra_entries=2
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+      ?? NS_Millennium_Proof/Modules/TrajectoryDistinction.lean
+  KEEP /workspace/ns-key-estimate-release-2026-11-10  repo=ns-tether-key-estimate-refutation  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/ns-key-estimate-v1.1.0-paper  repo=ns-tether-key-estimate-refutation  stash=False  extra_entries=6
+       D artifacts/out/axioms.log
+       D artifacts/out/lake_build.log
+       D artifacts/out/v1_trig_example.log
+       D artifacts/out/v2_maxcert.log
+       D artifacts/out/v2_sym.pkl
+       D artifacts/out/v2_symbolic.log
+  KEEP /workspace/ns-torus-classical-uniqueness  repo=periodic-navier-stokes-smooth-uniqueness  stash=False  extra_entries=1
+      !! axioms.txt
+  KEEP /workspace/ns_ci_zenodo  repo=NS_Millennium_Proof  stash=False  extra_entries=5
+       M NS_Millennium_Proof.lean
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+      ?? Modules/SymplecticConstraint.lean
+      ?? NS_Millennium_Proof/Modules/SymplecticConstraint.lean
+      ?? Symplectori/
+  KEEP /workspace/ns_push  repo=NS_Millennium_Proof  stash=False  extra_entries=1
+      ?? NS_Millennium_Proof.bundle
+  KEEP /workspace/ns_snapshot_0629  repo=NS_Millennium_Proof  stash=False  extra_entries=51
+       M ForMathlib/NS/Tether.lean
+       M ForMathlib/NS/Tether.lean.bak
+       M ForMathlib/NS/Tether.lean.bak2
+       M ForMathlib/NS/Tether.lean.bak3
+       M ForMathlib/NS/Tether.lean.bak4
+       M ForMathlib/NS/Tether.lean.bak5
+  KEEP /workspace/ns_trial  repo=NS_Millennium_Proof  stash=False  extra_entries=1
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+  KEEP /workspace/ns_trial_rebase  repo=NS_Millennium_Proof  stash=False  extra_entries=49
+       M ForMathlib/NS/Tether.lean.bak
+       M ForMathlib/NS/Tether.lean.bak2
+       M ForMathlib/NS/Tether.lean.bak3
+       M ForMathlib/NS/Tether.lean.bak4
+       M ForMathlib/NS/Tether.lean.bak5
+       M ForMathlib/NS/Tether.lean.bak6
+  KEEP /workspace/periodic-ns-classical-continuation  repo=periodic-ns-classical-continuation  stash=False  extra_entries=12
+      !! paper/offset_tests/N64_nu0.0025_s1.npz
+      !! paper/offset_tests/N64_nu0.005_s1.npz
+      !! paper/offset_tests/N64_nu0.005_s2.npz
+      !! paper/offset_tests/N64_nu0.01_s1.npz
+      !! paper/offset_tests/N96_nu0.0025_s1.npz
+      !! paper/offset_tests/N96_nu0.005_s1.npz
+  KEEP /workspace/ph-runs2/Test-Practice-Repo  repo=Test-Practice-Repo  stash=False  extra_entries=1
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+  KEEP /workspace/plancherel-wt  repo=frohmanian-tether-sdiff  stash=False  extra_entries=1
+      ?? Scratch/PlancherelBridge.lean
+  KEEP /workspace/repos_audit/Test-Practice-Repo  repo=Test-Practice-Repo  stash=False  extra_entries=1
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+  KEEP /workspace/rewrite/ns_wt  repo=NS_Millennium_Proof  stash=False  extra_entries=101
+      M  03_Quartic_Forced_Kappa_Absorption.md
+      D  CLAY_B_T3.md
+      D  HWEIGHT_OBSTRUCTION.md
+      M  Modules/AnalyticEstimates.lean
+      M  Modules/AnalyticPipeline.lean
+      M  Modules/ArnoldGeometric.lean
+  KEEP /workspace/scan/frohmanian-symplectic-tether-may-form  repo=frohmanian-symplectic-tether-may-form  stash=False  extra_entries=2
+       M TetherMayForm/FieldJacobi.lean
+       M paper/companion.tex
+  KEEP /workspace/scan/frohmanian-symplectic-tether-regularity  repo=frohmanian-symplectic-tether-regularity  stash=False  extra_entries=1
+       M FrohmanianSymplecticTether/FieldMetriplectic.lean
+  KEEP /workspace/survey/Test-Practice-Repo  repo=Test-Practice-Repo  stash=False  extra_entries=1
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+  KEEP /workspace/t703/HodgeDisproof  repo=HodgeDisproof  stash=False  extra_entries=1
+      ?? lake-manifest.json
+  KEEP /workspace/t703/titan-audit  repo=titan-audit  stash=False  extra_entries=2
+      ?? lean-kernel-gate/lake-manifest.json
+      !! lean-kernel-gate/.lake/
+  KEEP /workspace/tether-may-form  repo=frohmanian-symplectic-tether-may-form  stash=False  extra_entries=1
+      ?? Ax.lean
+  KEEP /workspace/tether-pr1-20261109/repo  repo=frohmanian-tether-conditional-regularity  stash=False  extra_entries=1
+      !! certificates/
+  KEEP /workspace/tetherrate-verify-2026-11-16/frohmanian-tether-conditional-regularity  repo=frohmanian-tether-conditional-regularity  stash=False  extra_entries=3
+      !! certificates/SUMMARY.txt
+      !! certificates/axioms-bridge.log
+      !! certificates/axioms.log
+  KEEP /workspace/titan-audit  repo=titan-audit  stash=False  extra_entries=7
+      !! .pytest_cache/
+      !! keys/dev_ed25519.pem
+      !! src/titan_audit/__pycache__/
+      !! tests/__pycache__/
+      !! tests/fixture/.lake/
+      !! tests/fixture/lake-manifest.json
+  KEEP /workspace/tm  repo=frohmanian-tether-manuscript-2026-06-01  stash=False  extra_entries=13
+      D  .zenodo.json
+      D  CITATION.cff
+      D  LICENSE
+      D  NOTICE
+      D  README.md
+      D  companion_papers/Frohmanian_Symplectic_Tether_and_Frohmanian_Curve.pdf
+  KEEP /workspace/truth-gate-work/PipelineHalt  repo=PipelineHalt  stash=False  extra_entries=3
+      !! dist/
+      !! node_modules/
+      !! test/fixtures/truth-gate-lean/.lake/
+  KEEP /workspace/truthgate-20261116/full/HODGE  repo=HODGE  stash=False  extra_entries=1
+      ?? truth-gate-report/
+  KEEP /workspace/truthgate-20261116/full/frohmanian-strain-eigenvalue  repo=frohmanian-strain-eigenvalue  stash=False  extra_entries=1
+      ?? truth-gate-report/
+  KEEP /workspace/truthgate-20261116/full/metriplectic-world-model  repo=metriplectic-world-model  stash=False  extra_entries=1
+      ?? truth-gate-report/
+  KEEP /workspace/truthgate-20261116/full/weighted-enstrophy-identities  repo=weighted-enstrophy-identities  stash=False  extra_entries=1
+      ?? truth-gate-report/
+  KEEP /workspace/truthgate-20261116/tv  repo=frohmanian-tether-verified  stash=False  extra_entries=1
+      !! truth-gate-report/
+  KEEP /workspace/tv-holdlift-20261110  repo=frohmanian-tether-verified  stash=False  extra_entries=1
+      ?? paper/lie-poisson-jacobi/outputs/lean_core_output.txt
+  KEEP /workspace/wt-bend  repo=periodic-ns-classical-continuation  stash=False  extra_entries=6
+      ?? paper/periodic-ns-classical-continuation.aux
+      ?? paper/periodic-ns-classical-continuation.bbl
+      ?? paper/periodic-ns-classical-continuation.out
+      ?? paper/reduction/reduction.aux
+      ?? paper/reduction/reduction.bbl
+      ?? paper/reduction/reduction.out
+  KEEP /workspace/xscan/Test-Practice-Repo  repo=Test-Practice-Repo  stash=False  extra_entries=1
+       D historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+  KEEP /workspace/xscan/ns-tether-key-estimate-refutation  repo=ns-tether-key-estimate-refutation  stash=False  extra_entries=6
+       D artifacts/out/axioms.log
+       D artifacts/out/lake_build.log
+       D artifacts/out/v1_trig_example.log
+       D artifacts/out/v2_maxcert.log
+       D artifacts/out/v2_sym.pkl
+       D artifacts/out/v2_symbolic.log
+  KEEP /workspace/zr/Clay-  repo=Clay-  stash=False  extra_entries=1
+      !! lean/.lake/
+  KEEP /workspace/zr/Clay-CD-not-certified  repo=Clay-CD-not-certified  stash=False  extra_entries=1
+      !! lean/.lake/
+
+-- unpushed local commits in audited inventory trees (57) --
+  KEEP /workspace/certaudit/clones/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_ALL_REFS
+      commits: 7960d2fc4ca22f871d37e7cd3e56aac6933fff4a, b1622f95f5ea67add43fc7957ddab28f39a8f59e, 2d6fda23b01ef99ed8954baa604dfee24c01834c, 83d8627af7cdfd860bf132634af90e69ce608237, f506dbc826e91c77f33ff51dd4f826330075fa04, 5e105d979d20056b028942b314c4cc27961f9d24, 632adf1424bed668907ff7e1267523d23b80036c, bfae76c75c8e2674e0dac43a73c8329c2d76ee22
+  KEEP /workspace/certaudit/clones/eth-conflict-clause-lattice  repo=eth-conflict-clause-lattice  KEEP_UNPUSHED_ALL_REFS
+      commits: 96ff4246606efc7d2b893aecb0907a6efdc71f7d
+  KEEP /workspace/certify/DerivedCategories  repo=DerivedCategories  KEEP_UNPUSHED_ALL_REFS
+      commits: d0f65ed430e4e8a05b2a43bb5661b8b6637bd5e9, 1f59bed4dc5e5c80dc93d59f765a49a493796e92, 444cda1c3ef54841c1bfdf6f1c1aa8e82810b5d2, 18140c2e213832af1397e7b8b6a3a2d456aea30b, 8a43c8b71fe6aaf19eaf7b6c5f0e827e54072723, 08754434f35cd3d7839e454003a2808fed2cd046, 27dcd9ea9140028124a8e2ebe203b509dea551fe, 0c5b0e4d949b09a00b894d81604f2cf9e59f4c7c
+  KEEP /workspace/certify/NoetherLefschetz  repo=NoetherLefschetz  KEEP_UNPUSHED_ALL_REFS
+      commits: a9e891b46b06935c614947487eac3c4d58d142a4, 63570b448a9d463f9276acc9756f173a02eb91a2, 7f0659eb332522c1755a089488dc1c2bf0a65a8e, 76262d7121ed1121f7b0e473e4ed57ba88cf021e, fd727948312af85bcc4cb90345670d247308462d, c5a043f4e645f5d071b46ad0078ae037131d0009, 8879e80c8448381ddc204503ac8ed68ec91ac753, ed08867b8652120810ad512b85f69c8f7af64193
+  KEEP /workspace/certify/TateConjecture  repo=TateConjecture  KEEP_UNPUSHED_ALL_REFS
+      commits: 8fa195f7eae5fd1f0805a8d8e10b1a832ee73608, c65c7b9423a9034bc5a4e7febec848c9720770ae, 0f12158139dfcf6946bb3efb752c03705a6db013, e7dfa6cf923b7a870de915016aa2a18bde8646ad, 9001be1c3db560c2820f1835cdbd81396f618474
+  KEEP /workspace/certify/frohmanian-symplectic-tether-may-form  repo=frohmanian-symplectic-tether-may-form  KEEP_UNPUSHED_ALL_REFS
+      commits: d3b12f6470ecbfa5b69fec2630163a59e1040083, 7fe28288ce844cf6d533f382c8d0d7f34a6be12a, a25416982fb18d99f6576fd2fbc4b1a9030c583c, 9716fed14e047334f8ef417c2e336c4e4b075275, f2f91adbda4d1e95079f81b07078cdbac58aa109, 54aeec7d8d87118ffedf6093b7daa80838a8ba67, 3582a574cadff02e865a858c186eee5c10523ed7, f2fd3ed070d69e9e8ea52351b1fd2a42663c1d1f
+  KEEP /workspace/certify/kc/repos/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_ALL_REFS
+      commits: 7960d2fc4ca22f871d37e7cd3e56aac6933fff4a, b1622f95f5ea67add43fc7957ddab28f39a8f59e, 2d6fda23b01ef99ed8954baa604dfee24c01834c, 83d8627af7cdfd860bf132634af90e69ce608237, f506dbc826e91c77f33ff51dd4f826330075fa04, 5e105d979d20056b028942b314c4cc27961f9d24, 632adf1424bed668907ff7e1267523d23b80036c, bfae76c75c8e2674e0dac43a73c8329c2d76ee22
+  KEEP /workspace/certify/kc/repos/eth-conflict-clause-lattice  repo=eth-conflict-clause-lattice  KEEP_UNPUSHED_ALL_REFS
+      commits: 96ff4246606efc7d2b893aecb0907a6efdc71f7d
+  KEEP /workspace/ci-audit-20261116/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_ALL_REFS
+      commits: 7960d2fc4ca22f871d37e7cd3e56aac6933fff4a, b1622f95f5ea67add43fc7957ddab28f39a8f59e, 2d6fda23b01ef99ed8954baa604dfee24c01834c, 83d8627af7cdfd860bf132634af90e69ce608237, f506dbc826e91c77f33ff51dd4f826330075fa04, 5e105d979d20056b028942b314c4cc27961f9d24, 632adf1424bed668907ff7e1267523d23b80036c, bfae76c75c8e2674e0dac43a73c8329c2d76ee22
+  KEEP /workspace/cr/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_ALL_REFS
+      commits: 7960d2fc4ca22f871d37e7cd3e56aac6933fff4a, b1622f95f5ea67add43fc7957ddab28f39a8f59e, 2d6fda23b01ef99ed8954baa604dfee24c01834c, 83d8627af7cdfd860bf132634af90e69ce608237, f506dbc826e91c77f33ff51dd4f826330075fa04, 5e105d979d20056b028942b314c4cc27961f9d24, 632adf1424bed668907ff7e1267523d23b80036c, bfae76c75c8e2674e0dac43a73c8329c2d76ee22
+  KEEP /workspace/cr/frohmanian-ns-symplectic-tether  repo=frohmanian-ns-symplectic-tether  KEEP_UNPUSHED_ALL_REFS
+      commits: db8fa27c5ad9bfd53d645f71f27be0ad13c6b88e
+  KEEP /workspace/fin/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_ALL_REFS
+      commits: b54ec8fe893db8edb4799d2eb4c97c28f948837c
+  KEEP /workspace/lean-header-20261116/repos/Clay-CD-not-certified  repo=Clay-CD-not-certified  KEEP_UNPUSHED_VS_TRACKING
+      commits: f7b819f81f5666c0907927e2d35218882037f8b7, 66a4f74a3540e7abae9c1aa8919d6c0c01313fb3
+  KEEP /workspace/lean-header-20261116/repos/DHL-3-2-implies-liminf-prime-gap-le-6  repo=DHL-3-2-implies-liminf-prime-gap-le-6  KEEP_UNPUSHED_VS_TRACKING
+      commits: b4faa0dd5b9ec986b63c8d73f700b2b487793337, e7cb208bdddb13bb13ce54873083e45a61c752e4
+  KEEP /workspace/lean-header-20261116/repos/DerivedCategories  repo=DerivedCategories  KEEP_UNPUSHED_VS_TRACKING
+      commits: b81ca6a7ff0a029468f40c29cfebf8699e436922, 0397f6beb7b0e6f63c3ff50ef3458545be1dffac
+  KEEP /workspace/lean-header-20261116/repos/FermatPlanes  repo=FermatPlanes  KEEP_UNPUSHED_VS_TRACKING
+      commits: 3da86fef6250136762d91bbd15ef4c31fa097b51, d9f4e2a7a20ece0d5815a2f7e1ae4b4863d5eaba
+  KEEP /workspace/lean-header-20261116/repos/FermatQuinticHost  repo=FermatQuinticHost  KEEP_UNPUSHED_VS_TRACKING
+      commits: 6c607d65ccf6bf3c0cac954d1e846daad1f45cad, ab167afaa0c88bb3cf8b45180ab0ef2db622d88d
+  KEEP /workspace/lean-header-20261116/repos/FermatQuinticJacobian  repo=FermatQuinticJacobian  KEEP_UNPUSHED_VS_TRACKING
+      commits: 43f4e49af798d58a05514e09c26c547877a69ce5, c17c035866f0fe6df04b30d993a38f96b1159570
+  KEEP /workspace/lean-header-20261116/repos/HodgeDisproof  repo=HodgeDisproof  KEEP_UNPUSHED_VS_TRACKING
+      commits: f51c682312a811f3769ba4030ec6338f678e20f2, d3a525e85303ac65f87b4d660c78ec6b8a1edc2a
+  KEEP /workspace/lean-header-20261116/repos/NoetherLefschetz  repo=NoetherLefschetz  KEEP_UNPUSHED_VS_TRACKING
+      commits: 55e50b49165700fb2a57279e2748f4a35745ac91, aeaa2fb97cb8cd90bb7ad290b483f0e29482fda8
+  KEEP /workspace/lean-header-20261116/repos/OmegaZero34  repo=OmegaZero34  KEEP_UNPUSHED_VS_TRACKING
+      commits: bc5d3fbb84605c0b4a431865b1405cb99976ef2e, f94c50cbaee57d38b47de84a0acef1a53fe6f728
+  KEEP /workspace/lean-header-20261116/repos/StandardConjectures  repo=StandardConjectures  KEEP_UNPUSHED_VS_TRACKING
+      commits: c445716f75116f21155f1704b1611e137bb9791c, e92d87d5ae26ae3dd2f8c60412a4320062ce24f0
+  KEEP /workspace/lean-header-20261116/repos/TateConjecture  repo=TateConjecture  KEEP_UNPUSHED_VS_TRACKING
+      commits: 2ed91d9cd1ac1b553b3cb44f3a9d03f598e16cb2, dc92862ba3a10ff8b69320df6188bb5736a95509
+  KEEP /workspace/lean-header-20261116/repos/bohm-identities  repo=bohm-identities  KEEP_UNPUSHED_VS_TRACKING
+      commits: 1202dd0e362fbe639a26fe3040c9a906df8ce1af, 67021294981a64ec34eff0ec54c6c30faa6026d3
+  KEEP /workspace/lean-header-20261116/repos/collatz-covering-claim  repo=collatz-covering-claim  KEEP_UNPUSHED_VS_TRACKING
+      commits: 06c121cb520aa2f2046d0e1b6dfc552f15b0b677, f4e91f4055603cfc1509a92af0cab1be3fb5bb53
+  KEEP /workspace/lean-header-20261116/repos/frohmanian-metriplectic-ns  repo=frohmanian-metriplectic-ns  KEEP_UNPUSHED_VS_TRACKING
+      commits: c9a5be9154b665319a4c01e0fb4c7ced93b29c33, b22347c9174525dcc6ad2294e68879df8d2d145c
+  KEEP /workspace/lean-header-20261116/repos/frohmanian-tether-manuscript-2026-06-01  repo=frohmanian-tether-manuscript-2026-06-01  KEEP_UNPUSHED_VS_TRACKING
+      commits: 216669131895f9179d282d84963e5b5202a3eb99, 36e2fa3c40659934fd3f4046ff18b428f1d712ab
+  KEEP /workspace/lean-header-20261116/repos/global-from-local-restart  repo=global-from-local-restart  KEEP_UNPUSHED_VS_TRACKING
+      commits: 9fb2882d93aa15abd7c782f73eb3694340285395, 67f84917777946896c7be32ea0f210cb1b37c758
+  KEEP /workspace/lean-header-20261116/repos/mk1-kernel-limits  repo=mk1-kernel-limits  KEEP_UNPUSHED_VS_TRACKING
+      commits: 249d46aa61ce62f08f0d4054b10292a3182d7225, 01e4abbdb389ca35379aae588ac77ff01fb7bc5c
+  KEEP /workspace/lean-header-20261116/repos/mk1-quantum-kernel  repo=mk1-quantum-kernel  KEEP_UNPUSHED_VS_TRACKING
+      commits: 0dbee7ce61f3cdfb734f4e51bd1e230c7c9677c3, c17664ba4f65ddecb99a6d967c75be07393bca7d
+  KEEP /workspace/lean-header-20261116/repos/ns-tether-key-estimate-refutation  repo=ns-tether-key-estimate-refutation  KEEP_UNPUSHED_VS_TRACKING
+      commits: 16b79d0c7bc857aa4a43a00057f933992f0cf069, 0530678626bf124be077da433a6c4b54dcc927d5, fafda8ee708381116de864d062e479d9692c69d2, ba9122f0bba088d049f31b996a3d5fffe7fe64ad
+  KEEP /workspace/lean-header-20261116/repos/orlov-equivalence-VF  repo=orlov-equivalence-VF  KEEP_UNPUSHED_VS_TRACKING
+      commits: e511c2e4ba9bb796366cc20534c14cb7f2e4f64e, 982a703c4445b7fe422b88bea0b11005a22ea091
+  KEEP /workspace/lean-header-20261116/repos/symplectohydronamics  repo=symplectohydronamics  KEEP_UNPUSHED_VS_TRACKING
+      commits: 51fa65a65f05a80c2369f5e68d0cb273084fd189, 68d586665c9d1b5b07b3e0787be761d273bdcddf, b5ee9b791dfba85265308fb968226bca8fcc8626
+  KEEP /workspace/lean-header-20261116/repos/uniruled-fourfolds  repo=uniruled-fourfolds  KEEP_UNPUSHED_VS_TRACKING
+      commits: cf8d6e04fd7c7ecc91b04a556f8619459e511deb, 9c649f5a0af256e8cbb57334c6f7b63d47ec9e60
+  KEEP /workspace/naming/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_VS_TRACKING
+      commits: f624805267b8042407033f80e3ed7fdf5acc8232
+  KEEP /workspace/ph-runs/DHL-3-2-implies-liminf-prime-gap-le-6  repo=DHL-3-2-implies-liminf-prime-gap-le-6  KEEP_UNPUSHED_VS_TRACKING
+      commits: d318ddd40df48029ef3835a35a871bba3abd4b5c
+  KEEP /workspace/ph-runs/HODGE  repo=HODGE  KEEP_UNPUSHED_VS_TRACKING
+      commits: 4e5141a86a56d84e9a09770ec1a25fff0b67d1bc
+  KEEP /workspace/ph-runs/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_VS_TRACKING
+      commits: 50ebd434e5cd4bf210caf21ddfcadc72b755ba63
+  KEEP /workspace/ph-runs/OmegaZero34  repo=OmegaZero34  KEEP_UNPUSHED_VS_TRACKING
+      commits: bc7482d13a92b3d88e7a694109e709f57bb95dd9
+  KEEP /workspace/ph-runs/StandardConjectures  repo=StandardConjectures  KEEP_UNPUSHED_VS_TRACKING
+      commits: db737bdaeb10267628a128dda23677a5c979f0bb
+  KEEP /workspace/ph-runs/collatz-teaming-lemma  repo=collatz-teaming-lemma  KEEP_UNPUSHED_VS_TRACKING
+      commits: 9a2ae3db0852076ef4a7cb837a7bb50148c975f4
+  KEEP /workspace/ph-runs/eth-conflict-clause-lattice  repo=eth-conflict-clause-lattice  KEEP_UNPUSHED_VS_TRACKING
+      commits: 96ff4246606efc7d2b893aecb0907a6efdc71f7d
+  KEEP /workspace/ph-runs/fefferman-clay-navier-stokes  repo=fefferman-clay-navier-stokes  KEEP_UNPUSHED_VS_TRACKING
+      commits: 96da45ffe0b332b6958662c6c8f3125583d114e8
+  KEEP /workspace/ph-runs/frohmanian-symplectic-tether-regularity  repo=frohmanian-symplectic-tether-regularity  KEEP_UNPUSHED_VS_TRACKING
+      commits: b6cd9ee74efa5c47e0a559bec17d69943c8ae807
+  KEEP /workspace/ph-runs/p2q-jumps-lean  repo=p2q-jumps-lean  KEEP_UNPUSHED_VS_TRACKING
+      commits: f74745febbf487feb06fe35b997af2b62b5db9e3
+  KEEP /workspace/ph-runs2/Clay-  repo=Clay-  KEEP_UNPUSHED_VS_TRACKING
+      commits: 155bc37942bfb1334161736a4e048e4f141a178d
+  KEEP /workspace/ph-runs2/SingularityLab  repo=SingularityLab  KEEP_UNPUSHED_VS_TRACKING
+      commits: 462c33192c5b88a30c25a53bb8821e58f18faa1a
+  KEEP /workspace/ph-runs2/bohm-identities  repo=bohm-identities  KEEP_UNPUSHED_VS_TRACKING
+      commits: f8ad1ae33f7d33d3bf8d23b0b9799b951c1b1b1f
+  KEEP /workspace/ph-runs2/frohmanian-symplectic-tether  repo=frohmanian-symplectic-tether  KEEP_UNPUSHED_VS_TRACKING
+      commits: 18e25871e545f93d224b5ec3a39b753a349b40f1
+  KEEP /workspace/ph-runs2/frohmanian-symplectic-tether-may-form  repo=frohmanian-symplectic-tether-may-form  KEEP_UNPUSHED_VS_TRACKING
+      commits: 07110c7bd8883d5e695be7ebf34063197339ee26
+  KEEP /workspace/ph-runs2/metriplectic-world-model  repo=metriplectic-world-model  KEEP_UNPUSHED_VS_TRACKING
+      commits: 161fc69c04bee440392b426cac908361fa910997
+  KEEP /workspace/ph-runs2/periodic-ns-classical-continuation  repo=periodic-ns-classical-continuation  KEEP_UNPUSHED_VS_TRACKING
+      commits: 1a11792609d6dcc460f1670929c499939c6896f2
+  KEEP /workspace/ph-runs2/torus-fourier-ns-lemmas  repo=torus-fourier-ns-lemmas  KEEP_UNPUSHED_VS_TRACKING
+      commits: ecaf36eb948c98c2037e6612d6f61ed391c80cd2
+  KEEP /workspace/ph-runs2/triadic-homogenization-lean  repo=triadic-homogenization-lean  KEEP_UNPUSHED_VS_TRACKING
+      commits: 8c14fc51fa6a2fb3ffa3cc1d0ae3d59528396ccf
+  KEEP /workspace/ph-runs2/weighted-enstrophy-identities  repo=weighted-enstrophy-identities  KEEP_UNPUSHED_VS_TRACKING
+      commits: 43b460cc9ef859d79a031a3446c78004bd6ed8b4
+  KEEP /workspace/repos_audit/frohmanian-ns-symplectic-tether  repo=frohmanian-ns-symplectic-tether  KEEP_UNPUSHED_ALL_REFS
+      commits: db8fa27c5ad9bfd53d645f71f27be0ad13c6b88e
+  KEEP /workspace/scan/NS_Millennium_Proof  repo=NS_Millennium_Proof  KEEP_UNPUSHED_ALL_REFS
+      commits: 7960d2fc4ca22f871d37e7cd3e56aac6933fff4a, b1622f95f5ea67add43fc7957ddab28f39a8f59e, 2d6fda23b01ef99ed8954baa604dfee24c01834c, 83d8627af7cdfd860bf132634af90e69ce608237, f506dbc826e91c77f33ff51dd4f826330075fa04, 5e105d979d20056b028942b314c4cc27961f9d24, 632adf1424bed668907ff7e1267523d23b80036c, bfae76c75c8e2674e0dac43a73c8329c2d76ee22
+
+-- inventory clones whose GitHub compare was diverged/404, so kept as unclear (12) --
+  KEEP /workspace/certify/cert-b497281  repo=frohmanian-tether-sdiff  reasons=["feat/kato-ponce-lemma:b497281f93 compare={'ok': True, 'status': 'diverged'}", "feat/r3-bkm-continuation:15709131f4 compare={'ok': True, 'status': 'diverged'}"]
+  KEEP /workspace/certify/r3bkm  repo=frohmanian-tether-sdiff  reasons=["feat/kato-ponce-lemma:b497281f93 compare={'ok': True, 'status': 'diverged'}", "feat/r3-bkm-continuation:15709131f4 compare={'ok': True, 'status': 'diverged'}"]
+  KEEP /workspace/certify/torus-fourier-ns-lemmas  repo=torus-fourier-ns-lemmas  reasons=["main:5ef9259aea compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/cr/torus-fourier-ns-lemmas  repo=torus-fourier-ns-lemmas  reasons=["main:09819f2b34 compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/fin/torus-fourier-ns-lemmas  repo=torus-fourier-ns-lemmas  reasons=["main:dfb9faabeb compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/inv/frohmanian-symplectic-tether-may-form  repo=frohmanian-symplectic-tether-may-form  reasons=["fresh-public:37648feb9f compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/inv/frohmanian-tether-geometric  repo=frohmanian-tether-geometric  reasons=["gateaux-pairing:9e40ae7071 compare={'ok': True, 'status': 'diverged'}"]
+  KEEP /workspace/inventory/clones/frohmanian-symplectic-tether  repo=frohmanian-symplectic-tether  reasons=["main:8d23b47a64 compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/inventory/clones/torus-fourier-ns-lemmas  repo=torus-fourier-ns-lemmas  reasons=["main:89f408b52c compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/survey/frohmanian-symplectic-tether-may-form  repo=frohmanian-symplectic-tether-may-form  reasons=["fresh-public:e974a52bd0 compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/xscan/frohmanian-symplectic-tether-may-form  repo=frohmanian-symplectic-tether-may-form  reasons=["fresh-public:2d458759f6 compare={'ok': False, 'kind': '404'}"]
+  KEEP /workspace/xscan/frohmanian-tether-geometric  repo=frohmanian-tether-geometric  reasons=["gateaux-pairing:ac27181e27 compare={'ok': True, 'status': 'diverged'}"]
+
+Note: work checkouts outside the inventory/audit trees were not considered for deletion,
+even if clean. Unpushed checks were run on inventory/audit trees only.
+Unique-only inventory clones (no second local copy) were also kept:
+  /workspace/xscan/collatz-tmap-census
+  /workspace/xscan/collatz-tmap-census-2026
+  /workspace/xscan/modular-forms-totient-jumps
+  /workspace/xscan/two-point-strain-direction-pairing-2026-11
+  /workspace/xscan/zucker-cubic-fourfold-lean-skeleton

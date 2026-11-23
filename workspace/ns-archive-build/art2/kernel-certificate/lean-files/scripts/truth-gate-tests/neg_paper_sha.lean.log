@@ -1,0 +1,7 @@
+TRUTH GATE OBSERVE neg_paper_sha: paper_claim [scripts/truth-gate-tests/paper.txt § Section 1] := ∀ (n : Nat), n = 0 + n
+TRUTH GATE RED neg_paper_sha: 1 failure(s)
+TRUTH GATE FAIL PAPER_SHA neg_paper_sha: scripts/truth-gate-tests/paper.txt sha256 532b798056366ed6fe06466562125ce0a3f9b65a4aac42d01efa684995584a71 ≠ locked 0000000000000000000000000000000000000000000000000000000000000000
+TRUTH GATE SUMMARY locks=1 todo=0 failures=1
+scripts/truth-gate-tests/neg_paper_sha.lean:34:0: error: TRUTH GATE FAILED: 1 failure(s); see TRUTH GATE FAIL lines
+
+[exit 1]

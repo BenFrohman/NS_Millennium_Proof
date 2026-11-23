@@ -1,0 +1,89 @@
+✖ [3052/3054] Building TripleArchitectureBuild.FrohmanianTripleArchitecture
+trace: .> LEAN_PATH=/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/Cli/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/batteries/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/Qq/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/aesop/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/proofwidgets/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/importGraph/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/plausible/.lake/build/lib/lean:/workspace/p2q-lean-theorem-d-independent-audit-2026-11-06/fresh/.lake/packages/mathlib/.lake/build/lib/lean:/workspace/triple-architecture-build-2026-11-09/.lake/build/lib/lean /home/box/.elan/toolchains/leanprover--lean4---v4.22.0/bin/lean /workspace/triple-architecture-build-2026-11-09/TripleArchitectureBuild/FrohmanianTripleArchitecture.lean -o /workspace/triple-architecture-build-2026-11-09/.lake/build/lib/lean/TripleArchitectureBuild/FrohmanianTripleArchitecture.olean -i /workspace/triple-architecture-build-2026-11-09/.lake/build/lib/lean/TripleArchitectureBuild/FrohmanianTripleArchitecture.ilean -c /workspace/triple-architecture-build-2026-11-09/.lake/build/ir/TripleArchitectureBuild/FrohmanianTripleArchitecture.c --setup /workspace/triple-architecture-build-2026-11-09/.lake/build/ir/TripleArchitectureBuild/FrohmanianTripleArchitecture.setup.json --json
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:132:4: expected '{' or indented tactic sequence
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:108:52: Application type mismatch: In the application
+  ContinuousOn.intervalIntegrable hα_cont
+the argument
+  hα_cont
+has type
+  ContinuousOn α (Icc 0 T) : Prop
+but is expected to have type
+  ContinuousOn α (uIcc 0 T) : Prop
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:112:10: unknown identifier 'antitoneOn_of_deriv_nonpos'
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:113:4: no goals to be solved
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:131:57: unsolved goals
+Y α : ℝ → ℝ
+T : ℝ
+hT : 0 ≤ T
+hY_diff : ∀ t ∈ Icc 0 T, DifferentiableAt ℝ Y t
+hα_cont : ContinuousOn α (Icc 0 T)
+h_ineq : ∀ t ∈ Icc 0 T, deriv Y t ≤ α t * Y t
+t : ℝ
+ht : t ∈ Icc 0 T
+I : ℝ → ℝ := fun s => ∫ (τ : ℝ) in 0..s, α τ
+φ : ℝ → ℝ := fun s => Y s * rexp (-I s)
+hI_deriv : ∀ s ∈ Icc 0 T, HasDerivAt I (α s) s
+hφ_anti : AntitoneOn φ (Icc 0 T)
+h0 : 0 ∈ Icc 0 T
+hle : Y t * rexp (-I t) ≤ Y 0
+hI0 : I 0 = 0
+⊢ Y t = Y t * rexp (-I t) * rexp (I t)
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:102:68: unsolved goals
+case calc.step
+Y α : ℝ → ℝ
+T : ℝ
+hT : 0 ≤ T
+hY_diff : ∀ t ∈ Icc 0 T, DifferentiableAt ℝ Y t
+hα_cont : ContinuousOn α (Icc 0 T)
+h_ineq : ∀ t ∈ Icc 0 T, deriv Y t ≤ α t * Y t
+t : ℝ
+ht : t ∈ Icc 0 T
+I : ℝ → ℝ := fun s => ∫ (τ : ℝ) in 0..s, α τ
+φ : ℝ → ℝ := fun s => Y s * rexp (-I s)
+hI_deriv : ∀ s ∈ Icc 0 T, HasDerivAt I (α s) s
+hφ_anti : AntitoneOn φ (Icc 0 T)
+h0 : 0 ∈ Icc 0 T
+hle : Y t * rexp (-I t) ≤ Y 0
+hI0 : I 0 = 0
+⊢ Y t * rexp (-I t) * rexp (I t) ≤ Y 0 * rexp (∫ (τ : ℝ) in 0..t, α τ)
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:172:4: Application type mismatch: In the application
+  ContinuousOn.intervalIntegrable (ContinuousOn.mono hVortCont (Icc_subset_Icc_right ht.right))
+the argument
+  ContinuousOn.mono hVortCont (Icc_subset_Icc_right ht.right)
+has type
+  ContinuousOn sol.vorticitySup (Icc 0 t) : Prop
+but is expected to have type
+  ContinuousOn sol.vorticitySup (uIcc 0 t) : Prop
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:206:8: expected '{' or indented tactic sequence
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:199:6: linarith failed to find a contradiction
+case h
+sol : NavierStokesUnifiedData
+h_bkm_clay : BKMVorticityIntegrable sol ↔ sol.clayStatementB
+hClay : sol.clayStatementB
+T : ℝ
+hT : T > 0
+C_S : ℝ
+hCS : ∀ t ∈ Icc 0 T, sol.strainSup t ≤ C_S
+hStrainCont : ContinuousOn sol.strainSup (Icc 0 T)
+h0 : sol.strainSup 0 ≤ C_S
+h0_nonneg : 0 ≤ sol.vorticitySup 0
+a✝ : C_S < 0
+⊢ False
+failed
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:203:6: Application type mismatch: In the application
+  ContinuousOn.intervalIntegrable (ContinuousOn.mono hStrainCont (Icc_subset_Icc_right ht.right))
+the argument
+  ContinuousOn.mono hStrainCont (Icc_subset_Icc_right ht.right)
+has type
+  ContinuousOn sol.strainSup (Icc 0 t) : Prop
+but is expected to have type
+  ContinuousOn sol.strainSup (uIcc 0 t) : Prop
+error: TripleArchitectureBuild/FrohmanianTripleArchitecture.lean:190:57: unsolved goals
+sol : NavierStokesUnifiedData
+h_bkm_clay : BKMVorticityIntegrable sol ↔ sol.clayStatementB
+h_clay_hypB : sol.clayStatementB → HypothesisB sol
+⊢ (HypothesisB sol ↔ BKMVorticityIntegrable sol) ∧ (BKMVorticityIntegrable sol ↔ sol.clayStatementB)
+error: Lean exited with code 1
+Some required builds logged failures:
+- TripleArchitectureBuild.FrohmanianTripleArchitecture
+error: build failed

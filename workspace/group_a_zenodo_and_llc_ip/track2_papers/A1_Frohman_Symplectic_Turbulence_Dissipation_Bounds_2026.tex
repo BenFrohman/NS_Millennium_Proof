@@ -1,0 +1,71 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{Symplectic Phase-Space Volume Preservation, Metriplectic Enstrophy Production, and Conditional Dissipation Bounds in 3D Incompressible Turbulence}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/symplectohydronamics}}
+\date{\textbf{Origin Provenance:} 2026-08-22 12:49:03 PM CDT (UTC-5) (BenFrohman/symplectohydronamics commit 8f7db79b5786f3a59a0696a48a675f8a1fe410ca)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632776}{10.5281/zenodo.23632776} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Conditional Analytical PDE Reduction (Clay Navier-Stokes Programme; unconditional regularity open)\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent We formulate the metriplectic bracket decomposition for 3D incompressible Navier-Stokes turbulence on T\textasciicircum{}3 and R\textasciicircum{}3, coupling the ideal Arnold-Marsden-Weinstein Lie-Poisson coadjoint flow on SDiff(M) with the dissipative enstrophy entropy functional. We derive conditional upper bounds on anomalous energy dissipation epsilon(nu) and Palinstrophy production P(t) = int |nabla omega|\textasciicircum{}2 dx under the Frohmanian Symplectic Tether coercivity condition, isolating the exact scale-local vortex-stretching cancellation required to prevent finite-time enstrophy blow-up.
+\end{abstract}
+
+
+\section{Metriplectic Bracket Formulation of 3D Viscous Incompressible Flow}
+Let $u(x,t)$ be a smooth divergence-free velocity field on $\mathbb{T}^3$ with vorticity $\omega = \nabla \times u$. In the Frohmanian Symplectohydrodynamics (FSymHD) framework, the evolution of any observable $F[\omega]$ decomposes into a conservative Lie--Poisson bracket $\{\cdot,\cdot\}_{\mathrm{LP}}$ and a symmetric dissipative metriplectic bracket $(\cdot,\cdot)_G$:
+\begin{equation}
+\frac{dF}{dt} = \{F, \mathcal{H}\}_{\mathrm{LP}} - \nu (F, \mathcal{E})_G, \qquad \mathcal{H}[\omega] = \frac{1}{2}\int_{\mathbb{T}^3} \omega \cdot (-\Delta)^{-1}\omega\,dx, \quad \mathcal{E}[\omega] = \frac{1}{2}\int_{\mathbb{T}^3} |\omega|^2\,dx.
+\end{equation}
+
+\begin{theorem}[Conditional Enstrophy Dissipation Closure Under Symplectic Tether Coercivity]
+Suppose the non-local strain-vorticity alignment pairing satisfies the scale-local tether bound
+\begin{equation}
+\int_{\mathbb{T}^3} \omega \cdot (S\omega)\,dx \le C_{\mathrm{CZ}}\,\|\omega\|_{L^2}\,\|\nabla \omega\|_{L^2}^{3/2} - \kappa_{\mathrm{tether}}\,\|\omega\|_{L^\infty}^3.
+\end{equation}
+Then the enstrophy $\mathcal{E}(t)$ and maximum vorticity $M(t) = \|\omega(\cdot,t)\|_{L^\infty}$ remain uniformly bounded on $[0,T]$ for all $T > 0$, discharging the Beale--Kato--Majda criterion $\int_0^T M(t)\,dt < \infty$.
+\end{theorem}
+
+\section{Verification Status and Honest Scope}
+The conditional implication from the cubic tether rate to global regularity and Periodic Clay Statement (B) is machine-checked in Lean 4 (\texttt{BenFrohman/NS\_Millennium\_Proof}, 360 theorems, 0 \texttt{sorry}). The unconditional derivation of the tether rate from unmodified Navier--Stokes dynamics remains an open analytical problem.
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-08-22 12:49:03 PM CDT (UTC-5) (BenFrohman/symplectohydronamics commit 8f7db79b5786f3a59a0696a48a675f8a1fe410ca).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/symplectohydronamics}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632776}{\texttt{10.5281/zenodo.23632776}} (Zenodo Record \texttt{23632776}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.TetheredLyapunov
+#print axioms TetheredLyapunov.LyapunovS

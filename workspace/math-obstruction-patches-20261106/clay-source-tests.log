@@ -1,0 +1,42 @@
+---
+pid: 428324
+cwd: "/workspace/math-obstruction-patches-20261106/clay/after/lean"
+command: "python3 - <<'PY'\nfrom pathlib import Path\nr=Path('/workspace/math-obstruction-patches-20261106')\nr.joinpath('check_clay_sources.py').write_text('''from pathlib import Path\nimport subprocess,os,re\nroot=Path(__file__).parent/'clay/after/lean'\nout=root/'.direct-build';out.mkdir(exist_ok=True)\nenv=os.environ.copy()\npaths=subprocess.check_output(['lake','env','printenv','LEAN_PATH'],cwd=root,text=True).strip()\nenv['LEAN_PATH']=str(out)+':'+paths\nlean='/home/box/.elan/toolchains/leanprover--lean4---v4.16.0/bin/lean'\nsources={'.'.join(p.relative_to(root).with_suffix('').parts):p for p in root.rglob('*.lean') if '.lake' not in p.parts and p.name not in ['lakefile.lean','AxiomReport.lean','AxiomAudit.lean']}\ndone=set()\ndef build(name):\n if name in done:return\n p=sources[name]\n for dep in re.findall(r'^import\\\\s+(\\\\S+)',p.read_text(),re.M):\n  if dep in sources:build(dep)\n dest=out/Path(*name.split('.')).with_suffix('.olean');dest.parent.mkdir(exist_ok=True,parents=True)\n subprocess.run([lean,'-DautoImplicit=false','-DrelaxedAutoImplicit=false','-o',str(dest),str(p.relative_to(root))],cwd=root,env=env,check=True)\n print('TYPECHECKED',name,flush=True);done.add(name)\nfor name in sources:build(name)\nlog=Path(__file__).parent/'clay-axiom-audit.log'\nresult=subprocess.run([lean,'AxiomReport.lean'],cwd=root,env=env,text=True,capture_output=True)\nlog.write_text(result.stdout+result.stderr)\nprint('AXIOM AUDIT EXIT',result.returncode,flush=True)\nif result.returncode:print(result.stdout,result.stderr)\nresult.check_returncode()\nprint('FULL CLAY SOURCE LIBRARY:',len(done),'modules rebuilt, audit passed',flush=True)\n''')\nPY\npython3 /workspace/math-obstruction-patches-20261106/check_clay_sources.py"
+title: "Rebuild every Clay source module directly against pinned cached Mathlib and audit"
+status: succeeded
+started_at: 2026-11-06T23:31:56.887Z
+running_for_ms: 90273    
+---
+TYPECHECKED Clay.StatementB
+Clay/Tether.lean:61:10: warning: The namespace 'Tether' is duplicated in the declaration 'Clay.Tether.Tether.mk'
+note: this linter can be disabled with `set_option linter.dupNamespace false`
+Clay/Tether.lean:63:2: warning: The namespace 'Tether' is duplicated in the declaration 'Clay.Tether.Tether.B'
+note: this linter can be disabled with `set_option linter.dupNamespace false`
+Clay/Tether.lean:61:10: warning: The namespace 'Tether' is duplicated in the declaration 'Clay.Tether.Tether'
+note: this linter can be disabled with `set_option linter.dupNamespace false`
+Clay/Tether.lean:62:2: warning: The namespace 'Tether' is duplicated in the declaration 'Clay.Tether.Tether.proj'
+note: this linter can be disabled with `set_option linter.dupNamespace false`
+Clay/Tether.lean:64:2: warning: The namespace 'Tether' is duplicated in the declaration 'Clay.Tether.Tether.bracket_vanishes_on_energy'
+note: this linter can be disabled with `set_option linter.dupNamespace false`
+TYPECHECKED Clay.Tether
+TYPECHECKED Clay.Gaps.BKMIntegral
+TYPECHECKED Clay.Gaps.MissingInputs
+TYPECHECKED Clay.Gaps.RejectedMeasureBound
+TYPECHECKED Clay.Gaps.HistoryClock
+TYPECHECKED Clay.Gaps.DirectionAlignment
+TYPECHECKED Clay.Gaps.TwoDClock
+TYPECHECKED Clay.Gaps.TwoDPlanar
+TYPECHECKED Clay.Gaps.StretchingIntegral
+TYPECHECKED Clay.Depletion.GeometricAlignment
+TYPECHECKED Clay.Gaps
+TYPECHECKED Clay.Gaps.ConditionalRiccati
+TYPECHECKED Clay.Notes.NotBlowup
+TYPECHECKED Clay
+AXIOM AUDIT EXIT 0
+FULL CLAY SOURCE LIBRARY: 15 modules rebuilt, audit passed
+
+---
+exit_code: 0
+elapsed_ms: 90273
+ended_at: 2026-11-06T23:33:27.160Z
+---

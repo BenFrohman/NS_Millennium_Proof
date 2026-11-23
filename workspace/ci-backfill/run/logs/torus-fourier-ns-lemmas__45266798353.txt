@@ -1,0 +1,1124 @@
+
+===== 0_build.txt
+﻿2026-11-23T21:09:45.3584212Z Current runner version: '2.338.2'
+2026-11-23T21:09:45.3612331Z ##[group]Runner Image Provisioner
+2026-11-23T21:09:45.3613669Z Hosted Compute Agent
+2026-11-23T21:09:45.3614783Z Version: 20261111.635
+2026-11-23T21:09:45.3615886Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:09:45.3617080Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:09:45.3618141Z Worker ID: {2c6aa4ef-cfed-4507-9a0b-fcbcdc5998cd}
+2026-11-23T21:09:45.3619304Z Region: eastus2
+2026-11-23T21:09:45.3620131Z Cloud: Azure
+2026-11-23T21:09:45.3620984Z ##[endgroup]
+2026-11-23T21:09:45.3623816Z ##[group]Operating System
+2026-11-23T21:09:45.3625090Z Ubuntu
+2026-11-23T21:09:45.3625958Z 26.04.1
+2026-11-23T21:09:45.3626750Z LTS
+2026-11-23T21:09:45.3627540Z ##[endgroup]
+2026-11-23T21:09:45.3628463Z ##[group]Runner Image
+2026-11-23T21:09:45.3629354Z Image: ubuntu-26.04
+2026-11-23T21:09:45.3630275Z Version: 20261116.202.1
+2026-11-23T21:09:45.3632160Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:09:45.3634996Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T21:09:45.3636574Z ##[endgroup]
+2026-11-23T21:09:45.3638543Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:09:45.3641409Z Contents: read
+2026-11-23T21:09:45.3642413Z Metadata: read
+2026-11-23T21:09:45.3643258Z Packages: read
+2026-11-23T21:09:45.3645004Z ##[endgroup]
+2026-11-23T21:09:45.3648008Z Secret source: Actions
+2026-11-23T21:09:45.3649516Z Cache mode: write
+2026-11-23T21:09:45.3650838Z Prepare workflow directory
+2026-11-23T21:09:45.4211803Z Prepare all required actions
+2026-11-23T21:09:45.4280863Z Getting action download info
+2026-11-23T21:09:45.5883715Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:09:45.7673814Z Complete job name: build
+2026-11-23T21:09:45.8709812Z ##[group]Run actions/checkout@v4
+2026-11-23T21:09:45.8710674Z with:
+2026-11-23T21:09:45.8711194Z   repository: BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:45.8715440Z   token: ***
+2026-11-23T21:09:45.8715910Z   ssh-strict: true
+2026-11-23T21:09:45.8716378Z   ssh-user: git
+2026-11-23T21:09:45.8716857Z   persist-credentials: true
+2026-11-23T21:09:45.8717362Z   clean: true
+2026-11-23T21:09:45.8717833Z   sparse-checkout-cone-mode: true
+2026-11-23T21:09:45.8718376Z   fetch-depth: 1
+2026-11-23T21:09:45.8718840Z   fetch-tags: false
+2026-11-23T21:09:45.8719302Z   show-progress: true
+2026-11-23T21:09:45.8719768Z   lfs: false
+2026-11-23T21:09:45.8720204Z   submodules: false
+2026-11-23T21:09:45.8720681Z   set-safe-directory: true
+2026-11-23T21:09:45.8721208Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:09:45.8721981Z ##[endgroup]
+2026-11-23T21:09:46.0848991Z Syncing repository: BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.0852299Z ##[group]Getting Git version info
+2026-11-23T21:09:46.0854205Z Working directory is '/home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas'
+2026-11-23T21:09:46.0856864Z [command]/usr/bin/git version
+2026-11-23T21:09:46.0859747Z git version 2.56.1
+2026-11-23T21:09:46.0882208Z ##[endgroup]
+2026-11-23T21:09:46.0898900Z Temporarily overriding HOME='/home/runner/work/_temp/d675d61a-3933-4a8e-a168-6a7a89c12e5c' before making global git config changes
+2026-11-23T21:09:46.0902394Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:09:46.0905677Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.0962307Z Deleting the contents of '/home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas'
+2026-11-23T21:09:46.0969999Z ##[group]Initializing the repository
+2026-11-23T21:09:46.0971655Z [command]/usr/bin/git init /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.1069568Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:09:46.1071714Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:09:46.1074153Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:09:46.1075990Z hint: call:
+2026-11-23T21:09:46.1077017Z hint:
+2026-11-23T21:09:46.1078203Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:09:46.1079697Z hint:
+2026-11-23T21:09:46.1081156Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:09:46.1083372Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:09:46.1085385Z hint:
+2026-11-23T21:09:46.1086705Z hint: 	git branch -m <name>
+2026-11-23T21:09:46.1088008Z hint:
+2026-11-23T21:09:46.1089633Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:09:46.1092619Z Initialized empty Git repository in /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas/.git/
+2026-11-23T21:09:46.1097418Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.1138760Z ##[endgroup]
+2026-11-23T21:09:46.1140374Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:09:46.1142575Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:09:46.1179487Z ##[endgroup]
+2026-11-23T21:09:46.1180855Z ##[group]Setting up auth
+2026-11-23T21:09:46.1186809Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:09:46.1224592Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:09:46.1646276Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:09:46.1718344Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:09:46.1988991Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:09:46.2026956Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:09:46.2319067Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:09:46.2360816Z ##[endgroup]
+2026-11-23T21:09:46.2362264Z ##[group]Fetching the repository
+2026-11-23T21:09:46.2372645Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5f4da0388cce5e70d71394d6395935110f29b72b:refs/remotes/origin/ci-backfill/5f4da03
+2026-11-23T21:09:46.4742923Z From https://github.com/BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.4746018Z  * [new ref]         5f4da0388cce5e70d71394d6395935110f29b72b -> origin/ci-backfill/5f4da03
+2026-11-23T21:09:46.4750494Z ##[endgroup]
+2026-11-23T21:09:46.4752328Z ##[group]Determining the checkout info
+2026-11-23T21:09:46.4760577Z ##[endgroup]
+2026-11-23T21:09:46.4766091Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:09:46.4812577Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:09:46.4845274Z ##[group]Checking out the ref
+2026-11-23T21:09:46.4850436Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/5f4da03 refs/remotes/origin/ci-backfill/5f4da03
+2026-11-23T21:09:46.4982758Z Switched to a new branch 'ci-backfill/5f4da03'
+2026-11-23T21:09:46.4988883Z branch 'ci-backfill/5f4da03' set up to track 'origin/ci-backfill/5f4da03'.
+2026-11-23T21:09:46.4993735Z ##[endgroup]
+2026-11-23T21:09:46.5037087Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:09:46.5064016Z 5f4da0388cce5e70d71394d6395935110f29b72b
+2026-11-23T21:09:46.5339150Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T21:09:46.5343571Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T21:09:46.5346819Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T21:09:46.5388710Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:09:46.5389822Z ##[endgroup]
+2026-11-23T21:09:46.5989777Z info: downloading installer
+2026-11-23T21:09:46.8126109Z ##[group]Run lake exe cache get
+2026-11-23T21:09:46.8127434Z [36;1mlake exe cache get[0m
+2026-11-23T21:09:46.8168871Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:09:46.8170092Z ##[endgroup]
+2026-11-23T21:09:47.3232645Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T21:09:51.1290397Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T21:09:57.9026724Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T21:10:28.8412720Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T21:10:30.9113223Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T21:10:31.1293802Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T21:10:31.1424994Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T21:10:31.3197013Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T21:10:31.3304738Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T21:10:31.5814839Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T21:10:31.6002303Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T21:10:31.9676715Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T21:10:32.6577804Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T21:10:33.0467370Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T21:10:33.0747363Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T21:10:33.2781943Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T21:10:33.2915749Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T21:10:35.5899369Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T21:10:35.6285149Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T21:10:35.8392173Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T21:10:36.2606318Z ✔ [4/22] Built Cache.Init (376ms)
+2026-11-23T21:10:36.3566150Z ✔ [5/22] Built Cache.Init:c.o (103ms)
+2026-11-23T21:10:36.4566279Z ✔ [6/22] Built Cache.Lean (540ms)
+2026-11-23T21:10:36.5560688Z ✔ [7/22] Built Batteries.Data.String.Basic (500ms)
+2026-11-23T21:10:36.6565637Z ✔ [8/22] Built Cache.Lean:c.o (192ms)
+2026-11-23T21:10:36.7576277Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (151ms)
+2026-11-23T21:10:36.9726248Z ✔ [10/22] Built Batteries.Data.Array.Match (935ms)
+2026-11-23T21:10:37.2723055Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (291ms)
+2026-11-23T21:10:37.4726949Z ✔ [12/22] Built Batteries.Data.String.Matcher (428ms)
+2026-11-23T21:10:37.6729488Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (244ms)
+2026-11-23T21:10:37.8731757Z ✔ [14/22] Built Cache.IO (1.4s)
+2026-11-23T21:10:38.5808605Z ✔ [15/22] Built Cache.Hashing (721ms)
+2026-11-23T21:10:39.1756493Z ✔ [16/22] Built Cache.Hashing:c.o (524ms)
+2026-11-23T21:10:39.3749659Z ✔ [17/22] Built Cache.IO:c.o (1.4s)
+2026-11-23T21:10:40.5761939Z ✔ [18/22] Built Cache.Requests (1.9s)
+2026-11-23T21:10:41.2771633Z ✔ [19/22] Built Cache.Main (777ms)
+2026-11-23T21:10:41.8778877Z ✔ [20/22] Built Cache.Main:c.o (586ms)
+2026-11-23T21:10:42.4785651Z ✔ [21/22] Built Cache.Requests:c.o (1.0s)
+2026-11-23T21:10:43.1793117Z ✔ [22/22] Built cache:exe (692ms)
+2026-11-23T21:10:46.2193470Z Current branch: HEAD
+2026-11-23T21:10:46.2194759Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T21:10:46.2195465Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T21:10:46.7917500Z 
+2026-11-23T21:10:46.8946768Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 79 KB/s], Decompressed: 0
+2026-11-23T21:10:46.9945498Z Downloaded: 61 file(s) [attempted 61/8248 = 0%, 746 KB/s], Decompressed: 17
+2026-11-23T21:10:47.0942693Z Downloaded: 164 file(s) [attempted 164/8248 = 1%, 1247 KB/s], Decompressed: 37
+2026-11-23T21:10:47.1936790Z Downloaded: 266 file(s) [attempted 266/8248 = 3%, 985 KB/s], Decompressed: 84
+2026-11-23T21:10:47.2944014Z Downloaded: 393 file(s) [attempted 393/8248 = 4%, 357 KB/s], Decompressed: 84
+2026-11-23T21:10:47.3956881Z Downloaded: 514 file(s) [attempted 514/8248 = 6%, 184 KB/s], Decompressed: 84
+2026-11-23T21:10:47.4966274Z Downloaded: 641 file(s) [attempted 641/8248 = 7%, 397 KB/s], Decompressed: 84
+2026-11-23T21:10:47.5955258Z Downloaded: 758 file(s) [attempted 758/8248 = 9%, 401 KB/s], Decompressed: 84
+2026-11-23T21:10:47.6973851Z Downloaded: 885 file(s) [attempted 885/8248 = 10%, 388 KB/s], Decompressed: 84
+2026-11-23T21:10:47.7983268Z Downloaded: 998 file(s) [attempted 998/8248 = 12%, 325 KB/s], Decompressed: 253
+2026-11-23T21:10:47.8970493Z Downloaded: 1122 file(s) [attempted 1122/8248 = 13%, 226 KB/s], Decompressed: 253
+2026-11-23T21:10:48.0016226Z Downloaded: 1246 file(s) [attempted 1246/8248 = 15%, 1961 KB/s], Decompressed: 253
+2026-11-23T21:10:48.1075828Z Downloaded: 1365 file(s) [attempted 1365/8248 = 16%, 1505 KB/s], Decompressed: 253
+2026-11-23T21:10:48.2056268Z Downloaded: 1489 file(s) [attempted 1489/8248 = 18%, 288 KB/s], Decompressed: 253
+2026-11-23T21:10:48.3075432Z Downloaded: 1618 file(s) [attempted 1618/8248 = 19%, 1905 KB/s], Decompressed: 253
+2026-11-23T21:10:48.4106784Z Downloaded: 1725 file(s) [attempted 1725/8248 = 20%, 487 KB/s], Decompressed: 253
+2026-11-23T21:10:48.5105717Z Downloaded: 1837 file(s) [attempted 1837/8248 = 22%, 3213 KB/s], Decompressed: 253
+2026-11-23T21:10:48.6116173Z Downloaded: 1970 file(s) [attempted 1970/8248 = 23%, 2340 KB/s], Decompressed: 253
+2026-11-23T21:10:48.7105932Z Downloaded: 2087 file(s) [attempted 2087/8248 = 25%, 2730 KB/s], Decompressed: 253
+2026-11-23T21:10:48.8127087Z Downloaded: 2207 file(s) [attempted 2207/8248 = 26%, 528 KB/s], Decompressed: 253
+2026-11-23T21:10:48.9310269Z Downloaded: 2324 file(s) [attempted 2324/8248 = 28%, 416 KB/s], Decompressed: 253
+2026-11-23T21:10:49.0125837Z Downloaded: 2443 file(s) [attempted 2443/8248 = 29%, 1043 KB/s], Decompressed: 253
+2026-11-23T21:10:49.1135864Z Downloaded: 2565 file(s) [attempted 2565/8248 = 31%, 519 KB/s], Decompressed: 253
+2026-11-23T21:10:49.2129365Z Downloaded: 2689 file(s) [attempted 2689/8248 = 32%, 426 KB/s], Decompressed: 253
+2026-11-23T21:10:49.3129153Z Downloaded: 2806 file(s) [attempted 2806/8248 = 34%, 425 KB/s], Decompressed: 253
+2026-11-23T21:10:49.4172158Z Downloaded: 2935 file(s) [attempted 2935/8248 = 35%, 2032 KB/s], Decompressed: 253
+2026-11-23T21:10:49.5165840Z Downloaded: 3054 file(s) [attempted 3054/8248 = 37%, 2079 KB/s], Decompressed: 253
+2026-11-23T21:10:49.6157001Z Downloaded: 3179 file(s) [attempted 3179/8248 = 38%, 460 KB/s], Decompressed: 253
+2026-11-23T21:10:49.7147382Z Downloaded: 3298 file(s) [attempted 3298/8248 = 39%, 931 KB/s], Decompressed: 253
+2026-11-23T21:10:49.8174128Z Downloaded: 3420 file(s) [attempted 3420/8248 = 41%, 5683 KB/s], Decompressed: 253
+2026-11-23T21:10:49.9188465Z Downloaded: 3535 file(s) [attempted 3535/8248 = 42%, 3819 KB/s], Decompressed: 253
+2026-11-23T21:10:50.0191444Z Downloaded: 3652 file(s) [attempted 3652/8248 = 44%, 318 KB/s], Decompressed: 253
+2026-11-23T21:10:50.1265810Z Downloaded: 3769 file(s) [attempted 3769/8248 = 45%, 662 KB/s], Decompressed: 253
+2026-11-23T21:10:50.2277645Z Downloaded: 3882 file(s) [attempted 3882/8248 = 47%, 4429 KB/s], Decompressed: 253
+2026-11-23T21:10:50.3283709Z Downloaded: 4006 file(s) [attempted 4006/8248 = 48%, 1243 KB/s], Decompressed: 253
+2026-11-23T21:10:50.4303344Z Downloaded: 4128 file(s) [attempted 4128/8248 = 50%, 556 KB/s], Decompressed: 253
+2026-11-23T21:10:50.5287017Z Downloaded: 4241 file(s) [attempted 4241/8248 = 51%, 89 KB/s], Decompressed: 253
+2026-11-23T21:10:50.6316296Z Downloaded: 4363 file(s) [attempted 4363/8248 = 52%, 754 KB/s], Decompressed: 253
+2026-11-23T21:10:50.7297680Z Downloaded: 4489 file(s) [attempted 4489/8248 = 54%, 1002 KB/s], Decompressed: 253
+2026-11-23T21:10:50.8326018Z Downloaded: 4617 file(s) [attempted 4617/8248 = 55%, 1709 KB/s], Decompressed: 253
+2026-11-23T21:10:50.9327458Z Downloaded: 4744 file(s) [attempted 4744/8248 = 57%, 316 KB/s], Decompressed: 991
+2026-11-23T21:10:51.0396289Z Downloaded: 4856 file(s) [attempted 4856/8248 = 58%, 615 KB/s], Decompressed: 991
+2026-11-23T21:10:51.1416052Z Downloaded: 4981 file(s) [attempted 4981/8248 = 60%, 522 KB/s], Decompressed: 991
+2026-11-23T21:10:51.2398017Z Downloaded: 5100 file(s) [attempted 5100/8248 = 61%, 233 KB/s], Decompressed: 991
+2026-11-23T21:10:51.3405873Z Downloaded: 5204 file(s) [attempted 5204/8248 = 63%, 1628 KB/s], Decompressed: 991
+2026-11-23T21:10:51.4440569Z Downloaded: 5319 file(s) [attempted 5319/8248 = 64%, 1137 KB/s], Decompressed: 991
+2026-11-23T21:10:51.5465360Z Downloaded: 5434 file(s) [attempted 5434/8248 = 65%, 1566 KB/s], Decompressed: 991
+2026-11-23T21:10:51.6472648Z Downloaded: 5553 file(s) [attempted 5553/8248 = 67%, 85 KB/s], Decompressed: 991
+2026-11-23T21:10:51.7518232Z Downloaded: 5671 file(s) [attempted 5671/8248 = 68%, 1456 KB/s], Decompressed: 991
+2026-11-23T21:10:51.8636126Z Downloaded: 5786 file(s) [attempted 5786/8248 = 70%, 765 KB/s], Decompressed: 991
+2026-11-23T21:10:51.9616026Z Downloaded: 5912 file(s) [attempted 5912/8248 = 71%, 4861 KB/s], Decompressed: 991
+2026-11-23T21:10:52.0614261Z Downloaded: 6010 file(s) [attempted 6010/8248 = 72%, 3493 KB/s], Decompressed: 991
+2026-11-23T21:10:52.1581170Z Downloaded: 6133 file(s) [attempted 6133/8248 = 74%, 181 KB/s], Decompressed: 991
+2026-11-23T21:10:52.2585054Z Downloaded: 6243 file(s) [attempted 6243/8248 = 75%, 2998 KB/s], Decompressed: 991
+2026-11-23T21:10:52.3626802Z Downloaded: 6358 file(s) [attempted 6358/8248 = 77%, 285 KB/s], Decompressed: 991
+2026-11-23T21:10:52.4610308Z Downloaded: 6467 file(s) [attempted 6467/8248 = 78%, 169 KB/s], Decompressed: 991
+2026-11-23T21:10:52.5622913Z Downloaded: 6579 file(s) [attempted 6579/8248 = 79%, 594 KB/s], Decompressed: 991
+2026-11-23T21:10:52.6667160Z Downloaded: 6708 file(s) [attempted 6708/8248 = 81%, 2830 KB/s], Decompressed: 991
+2026-11-23T21:10:52.7781305Z Downloaded: 6823 file(s) [attempted 6823/8248 = 82%, 894 KB/s], Decompressed: 991
+2026-11-23T21:10:52.9302316Z Downloaded: 6904 file(s) [attempted 6904/8248 = 83%, 1972 KB/s], Decompressed: 991
+2026-11-23T21:10:53.0301915Z Downloaded: 7003 file(s) [attempted 7003/8248 = 84%, 4460 KB/s], Decompressed: 991
+2026-11-23T21:10:53.1519894Z Downloaded: 7058 file(s) [attempted 7058/8248 = 85%, 154 KB/s], Decompressed: 991
+2026-11-23T21:10:53.2816302Z Downloaded: 7098 file(s) [attempted 7098/8248 = 86%, 299 KB/s], Decompressed: 991
+2026-11-23T21:10:53.3797257Z Downloaded: 7218 file(s) [attempted 7218/8248 = 87%, 258 KB/s], Decompressed: 991
+2026-11-23T21:10:53.4888137Z Downloaded: 7339 file(s) [attempted 7339/8248 = 88%, 2847 KB/s], Decompressed: 991
+2026-11-23T21:10:53.6511729Z Downloaded: 7415 file(s) [attempted 7415/8248 = 89%, 6694 KB/s], Decompressed: 991
+2026-11-23T21:10:53.7575956Z Downloaded: 7512 file(s) [attempted 7512/8248 = 91%, 353 KB/s], Decompressed: 991
+2026-11-23T21:10:53.8552991Z Downloaded: 7573 file(s) [attempted 7573/8248 = 91%, 1556 KB/s], Decompressed: 991
+2026-11-23T21:10:53.9679659Z Downloaded: 7680 file(s) [attempted 7680/8248 = 93%, 3305 KB/s], Decompressed: 991
+2026-11-23T21:10:54.0854341Z Downloaded: 7807 file(s) [attempted 7807/8248 = 94%, 5638 KB/s], Decompressed: 991
+2026-11-23T21:10:54.1872882Z Downloaded: 7913 file(s) [attempted 7913/8248 = 95%, 423 KB/s], Decompressed: 991
+2026-11-23T21:10:54.3432864Z Downloaded: 8042 file(s) [attempted 8042/8248 = 97%, 259 KB/s], Decompressed: 991
+2026-11-23T21:10:54.4415457Z Downloaded: 8121 file(s) [attempted 8121/8248 = 98%, 734 KB/s], Decompressed: 991
+2026-11-23T21:10:54.5457245Z Downloaded: 8179 file(s) [attempted 8179/8248 = 99%, 1838 KB/s], Decompressed: 991
+2026-11-23T21:10:54.6724031Z Downloaded: 8245 file(s) [attempted 8245/8248 = 99%, 281 KB/s], Decompressed: 991
+2026-11-23T21:10:54.6767188Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 330 KB/s], Decompressed: 991
+2026-11-23T21:10:54.6773840Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 330 KB/s], Decompressed: 991
+2026-11-23T21:11:13.2169163Z Decompressed 8248 file(s)
+2026-11-23T21:11:13.2171926Z Already decompressed 8248 file(s)
+2026-11-23T21:11:13.2794843Z ##[group]Run lake build
+2026-11-23T21:11:13.2795135Z [36;1mlake build[0m
+2026-11-23T21:11:13.2833233Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:11:13.2833498Z ##[endgroup]
+2026-11-23T21:11:21.8049211Z ✔ [8264/8279] Built TorusFourierNS.Basic (4.9s)
+2026-11-23T21:11:28.2207644Z ✔ [8265/8279] Built TorusFourierNS.Heat (6.4s)
+2026-11-23T21:11:28.5210463Z ⚠ [8266/8279] Built TorusFourierNS.Strain (6.7s)
+2026-11-23T21:11:28.5210953Z warning: TorusFourierNS/Strain.lean:131:40: This simp argument is unused:
+2026-11-23T21:11:28.5211386Z   ← Complex.ofReal_pow
+2026-11-23T21:11:28.5211540Z 
+2026-11-23T21:11:28.5211654Z Hint: Omit it from the simp argument list.
+2026-11-23T21:11:28.5212609Z   simp [Complex.mul_re, Complex.mul_im,̵ ̵←̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵o̵f̵R̵e̵a̵l̵_̵p̵o̵w̵]
+2026-11-23T21:11:28.5212944Z 
+2026-11-23T21:11:28.5214060Z Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+2026-11-23T21:11:28.5215405Z 
+2026-11-23T21:11:28.5215712Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:11:32.7237688Z ✔ [8267/8279] Built TorusFourierNS.GateauxBridge (4.2s)
+2026-11-23T21:11:37.4303659Z ⚠ [8268/8279] Built TorusFourierNS.FieldBiotSavart (4.7s)
+2026-11-23T21:11:37.4304632Z warning: TorusFourierNS/FieldBiotSavart.lean:84:56: This simp argument is unused:
+2026-11-23T21:11:37.4305243Z   mul_one
+2026-11-23T21:11:37.4305787Z 
+2026-11-23T21:11:37.4305958Z Hint: Omit it from the simp argument list.
+2026-11-23T21:11:37.4306681Z   simp only [one_pow, neg_one_sq, one_mul, neg_one_mul,̵ ̵m̵u̵l̵_̵o̵n̵e̵] at h1 h2
+2026-11-23T21:11:37.4307149Z 
+2026-11-23T21:11:37.4307474Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:11:43.0385974Z ✔ [8269/8279] Built TorusFourierNS.SobolevField (5.5s)
+2026-11-23T21:11:48.9535951Z ✔ [8270/8279] Built TorusFourierNS.FconvSummable (5.9s)
+2026-11-23T21:11:54.7626512Z ✔ [8271/8279] Built TorusFourierNS.GalerkinNS (11s)
+2026-11-23T21:11:58.0666064Z ✔ [8272/8279] Built TorusFourierNS.SobolevProduct (15s)
+2026-11-23T21:12:00.7703684Z ✔ [8273/8279] Built TorusFourierNS.GalerkinEnergy (6.0s)
+2026-11-23T21:12:14.8919515Z ✔ [8274/8279] Built TorusFourierNS.TransportBound (14s)
+2026-11-23T21:12:22.4071697Z ✔ [8275/8279] Built TorusFourierNS.GalerkinStructure (7.4s)
+2026-11-23T21:12:27.4165937Z ✔ [8276/8279] Built TorusFourierNS.TameTransport (12s)
+2026-11-23T21:12:30.6199692Z ✔ [8277/8279] Built TorusFourierNS.GalerkinContinuation (8.2s)
+2026-11-23T21:12:34.2227883Z ✔ [8278/8279] Built TorusFourierNS (3.5s)
+2026-11-23T21:12:34.2670027Z Build completed successfully (8279 jobs).
+2026-11-23T21:12:34.3109420Z ##[group]Run lake env lean AxiomReport.lean 2>&1 | tee axiom-audit.log
+2026-11-23T21:12:34.3109939Z [36;1mlake env lean AxiomReport.lean 2>&1 | tee axiom-audit.log[0m
+2026-11-23T21:12:34.3110417Z [36;1mif grep -q "sorryAx" axiom-audit.log; then echo "sorryAx found"; exit 1; fi[0m
+2026-11-23T21:12:34.3111026Z [36;1mif grep -q "AxiomReport FAIL" axiom-audit.log; then echo "nonstandard axiom found"; exit 1; fi[0m
+2026-11-23T21:12:34.3111549Z [36;1mgrep -q "nonstandard: 0" axiom-audit.log[0m
+2026-11-23T21:12:34.3148523Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:12:34.3148816Z ##[endgroup]
+2026-11-23T21:15:25.9255517Z AXROW | `TorusFourierNS.DivergenceFree.add'` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9257130Z AXROW | `TorusFourierNS.DivergenceFree.smul'` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9258711Z AXROW | `TorusFourierNS.DivergenceFreeL2MeanZero.div_free` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9260232Z AXROW | `TorusFourierNS.DivergenceFreeL2MeanZero.mean_zero` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9261761Z AXROW | `TorusFourierNS.DivergenceFreeL2MeanZero.summable` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9263119Z AXROW | `TorusFourierNS.HsSq.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9264247Z AXROW | `TorusFourierNS.HsSq_zero` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9265503Z AXROW | `TorusFourierNS.InHs.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9266627Z AXROW | `TorusFourierNS.L2_strain_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9267801Z AXROW | `TorusFourierNS.L2_strain_le` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9268990Z AXROW | `TorusFourierNS.MemHsField.add` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9270220Z AXROW | `TorusFourierNS.MemHsField.sub` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9271399Z AXROW | `TorusFourierNS.aC.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9272592Z AXROW | `TorusFourierNS.aC_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9273811Z AXROW | `TorusFourierNS.abs_dotZ_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9275307Z AXROW | `TorusFourierNS.abs_mode_le_nrm` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9276807Z AXROW | `TorusFourierNS.abs_pairing_le` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9278218Z AXROW | `TorusFourierNS.abs_rpow_sub_rpow_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9279552Z AXROW | `TorusFourierNS.br.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9280789Z AXROW | `TorusFourierNS.br_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9282047Z AXROW | `TorusFourierNS.br_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9283299Z AXROW | `TorusFourierNS.br_sq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9284742Z AXROW | `TorusFourierNS.clampC.eq_1` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9286154Z AXROW | `TorusFourierNS.clampC_dist_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9287924Z AXROW | `TorusFourierNS.clampC_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9289352Z AXROW | `TorusFourierNS.clampC_of_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9290786Z AXROW | `TorusFourierNS.clampG_dist_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9292192Z AXROW | `TorusFourierNS.clampG_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9293862Z AXROW | `TorusFourierNS.clampG_of_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9295506Z AXROW | `TorusFourierNS.clamp_real_abs` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9296832Z AXROW | `TorusFourierNS.coeff.eq_1` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9298056Z AXROW | `TorusFourierNS.coeffField.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9299408Z AXROW | `TorusFourierNS.coeff_eq_mFourierCoeff` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9300653Z AXROW | `TorusFourierNS.coeff_heat` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9301889Z AXROW | `TorusFourierNS.coeff_le_hsNorm` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9303147Z AXROW | `TorusFourierNS.coeff_multiplier` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9304683Z AXROW | `TorusFourierNS.comp_le_hsNormSq` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9306104Z AXROW | `TorusFourierNS.comp_product_bound` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9307400Z AXROW | `TorusFourierNS.cross.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9308591Z AXROW | `TorusFourierNS.curlSym.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9309806Z AXROW | `TorusFourierNS.curl_deltaH_eq_u` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9311226Z AXROW | `TorusFourierNS.curl_modeFunctionalDerivative_eq_u` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9312617Z AXROW | `TorusFourierNS.curl_sq_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9313801Z AXROW | `TorusFourierNS.curl_stream_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9315289Z AXROW | `TorusFourierNS.divergenceFree_extendG_restrictG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9316816Z AXROW | `TorusFourierNS.divergenceFree_iff` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9318253Z AXROW | `TorusFourierNS.divergenceFree_of_hs_limit` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9319553Z AXROW | `TorusFourierNS.dot.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9320720Z AXROW | `TorusFourierNS.dot_add'` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9322005Z AXROW | `TorusFourierNS.dot_galerkinNSField` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9323275Z AXROW | `TorusFourierNS.dot_neg'` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9324688Z AXROW | `TorusFourierNS.dot_self_kvec` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9326141Z AXROW | `TorusFourierNS.dot_smulC` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9327351Z AXROW | `TorusFourierNS.dot_smulR` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9328588Z AXROW | `TorusFourierNS.ennCS_fin` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9329830Z AXROW | `TorusFourierNS.ennCS` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9331112Z AXROW | `TorusFourierNS.ennr_add_sq_le` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9332603Z AXROW | `TorusFourierNS.ennr_half_sq` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9333826Z AXROW | `TorusFourierNS.ext_coeff` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9335186Z AXROW | `TorusFourierNS.extendG.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9336449Z AXROW | `TorusFourierNS.extendG_add` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9337793Z AXROW | `TorusFourierNS.extendG_apply` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9339140Z AXROW | `TorusFourierNS.extendG_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9340472Z AXROW | `TorusFourierNS.extendG_smul` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9341789Z AXROW | `TorusFourierNS.fieldCurl.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9343311Z AXROW | `TorusFourierNS.fieldCurl_functionalDerivative_eq` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9345109Z AXROW | `TorusFourierNS.fieldCurl_stream_eq` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9346553Z AXROW | `TorusFourierNS.fieldEnergy_curl_L2` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9347882Z AXROW | `TorusFourierNS.fieldEnergy_curl` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9349244Z AXROW | `TorusFourierNS.fieldEnergy_expand` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9350782Z AXROW | `TorusFourierNS.fieldFunctionalDerivative.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9352440Z AXROW | `TorusFourierNS.fieldFunctionalDerivative_energy` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9354069Z AXROW | `TorusFourierNS.fieldFunctionalDerivative_eq` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9355721Z AXROW | `TorusFourierNS.fieldGateauxRep_unique` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9357244Z AXROW | `TorusFourierNS.fieldPairing_singleDir` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9358767Z AXROW | `TorusFourierNS.fieldStream_isGateauxRep` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9360264Z AXROW | `TorusFourierNS.finEnergy_add_smul` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9361682Z AXROW | `TorusFourierNS.finEnergy_curl` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9363100Z AXROW | `TorusFourierNS.finEnergy_singleDir` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9364541Z AXROW | `TorusFourierNS.galerkinField.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9366211Z AXROW | `TorusFourierNS.galerkinField_contDiff` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9367820Z AXROW | `TorusFourierNS.galerkinHsEnergyInequality_of_gt` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9369525Z AXROW | `TorusFourierNS.galerkinHsEnergyInequality_of_transport` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9371087Z AXROW | `TorusFourierNS.galerkinNSField.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9372673Z AXROW | `TorusFourierNS.galerkinNSField_apply` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9374194Z AXROW | `TorusFourierNS.galerkinNSField_contDiff` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9375910Z AXROW | `TorusFourierNS.galerkinNSField_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9377545Z AXROW | `TorusFourierNS.galerkinNS_continuation_of_hsBound` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9379269Z AXROW | `TorusFourierNS.galerkinNS_continuation_of_normBound` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9380947Z AXROW | `TorusFourierNS.galerkinNS_divergenceFree_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9382478Z AXROW | `TorusFourierNS.galerkinNS_divergenceFree` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9383972Z AXROW | `TorusFourierNS.galerkinNS_hermitian_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9385616Z AXROW | `TorusFourierNS.galerkinNS_local_existence` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9387130Z AXROW | `TorusFourierNS.galerkinNS_structure_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9388730Z AXROW | `TorusFourierNS.galerkinTameEnergyInequality_of_gt` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9390319Z AXROW | `TorusFourierNS.galerkinTameTransportBound_of_gt` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9391910Z AXROW | `TorusFourierNS.galerkinTransportBound_of_gt` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9393458Z AXROW | `TorusFourierNS.galerkin_hs_propagation` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9395060Z AXROW | `TorusFourierNS.galerkin_local_existence` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9396598Z AXROW | `TorusFourierNS.galerkin_uniform_bound_of_energy` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9398132Z AXROW | `TorusFourierNS.galerkin_uniform_bound_of_gt` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9399503Z AXROW | `TorusFourierNS.gconv.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9400753Z AXROW | `TorusFourierNS.gconv_add_left` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9402006Z AXROW | `TorusFourierNS.gconv_add_right` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9403365Z AXROW | `TorusFourierNS.gconv_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9405149Z AXROW | `TorusFourierNS.gconv_smul_left` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9406254Z AXROW | `TorusFourierNS.gconv_smul_right` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9407000Z AXROW | `TorusFourierNS.heat.congr_simp` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9407672Z AXROW | `TorusFourierNS.heat.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9408335Z AXROW | `TorusFourierNS.heatSymbol.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9408973Z AXROW | `TorusFourierNS.heat_add` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9409776Z AXROW | `TorusFourierNS.heat_smoothing_real` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9410474Z AXROW | `TorusFourierNS.heat_smoothing` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9411138Z AXROW | `TorusFourierNS.heat_zero` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9411906Z AXROW | `TorusFourierNS.hermitian_extendG_restrictG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9412749Z AXROW | `TorusFourierNS.hermitian_of_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9413569Z AXROW | `TorusFourierNS.hsBoxConst_nonneg` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9414352Z AXROW | `TorusFourierNS.hsConst.eq_1` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9415368Z AXROW | `TorusFourierNS.hsField_complete` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9416118Z AXROW | `TorusFourierNS.hsLp.congr_simp` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9416832Z AXROW | `TorusFourierNS.hsLp.eq_1` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9417555Z AXROW | `TorusFourierNS.hsNormField.eq_1` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9418303Z AXROW | `TorusFourierNS.hsNormField_add_le` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9419028Z AXROW | `TorusFourierNS.hsNormField_eq` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9419827Z AXROW | `TorusFourierNS.hsNormField_extendG_restrictG_le` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9420643Z AXROW | `TorusFourierNS.hsNormField_nonneg` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9421404Z AXROW | `TorusFourierNS.hsNormField_sub_eq` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9422170Z AXROW | `TorusFourierNS.hsNormSq_ennr` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9423569Z AXROW | `TorusFourierNS.hsNormSq_extendG_hasDerivAt` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9424590Z AXROW | `TorusFourierNS.hsNormSq_extendG` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9425372Z AXROW | `TorusFourierNS.hsWeighted.eq_1` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9426104Z AXROW | `TorusFourierNS.hsWeighted_add` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9426858Z AXROW | `TorusFourierNS.hsWeighted_sub` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9427565Z AXROW | `TorusFourierNS.hs_two_toReal` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9428234Z AXROW | `TorusFourierNS.inHs_zero` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9429255Z AXROW | `TorusFourierNS.kpConst_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9430406Z AXROW | `TorusFourierNS.ksq.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9431388Z AXROW | `TorusFourierNS.ksq_kvec_neg` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9432177Z AXROW | `TorusFourierNS.ksq_neg'` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9433416Z AXROW | `TorusFourierNS.kvec.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9434163Z AXROW | `TorusFourierNS.kvec_ksq_ne_zero` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9435137Z AXROW | `TorusFourierNS.kvec_neg` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9435850Z AXROW | `TorusFourierNS.l1_le` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9436534Z AXROW | `TorusFourierNS.lerayP.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9437217Z AXROW | `TorusFourierNS.lerayP_add` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9437939Z AXROW | `TorusFourierNS.lerayP_conj` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9438665Z AXROW | `TorusFourierNS.lerayP_divFree` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9439357Z AXROW | `TorusFourierNS.lerayP_smul` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9440064Z AXROW | `TorusFourierNS.leray_pairing` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9440796Z AXROW | `TorusFourierNS.memHsField_iff` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9441851Z AXROW | `TorusFourierNS.memℓp_mul` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9442576Z AXROW | `TorusFourierNS.modeBox.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9443298Z AXROW | `TorusFourierNS.modeBox_neg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9444000Z AXROW | `TorusFourierNS.modeE.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9444911Z AXROW | `TorusFourierNS.modeE_curl` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9445603Z AXROW | `TorusFourierNS.modeEnergy.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9446279Z AXROW | `TorusFourierNS.modeEnergy_curl` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9446972Z AXROW | `TorusFourierNS.modeEnergy_expand` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9447714Z AXROW | `TorusFourierNS.modeEnergy_nonneg` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9448538Z AXROW | `TorusFourierNS.modeFunctionalDerivative.eq_1` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9449398Z AXROW | `TorusFourierNS.modeFunctionalDerivative_eq` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9450301Z AXROW | `TorusFourierNS.modeFunctionalDerivative_modeEnergy` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9451151Z AXROW | `TorusFourierNS.modeGateauxRep_unique` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9452070Z AXROW | `TorusFourierNS.modePairing.eq_1` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9452812Z AXROW | `TorusFourierNS.multiplier.congr_simp` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9453522Z AXROW | `TorusFourierNS.multiplier.eq_1` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9454231Z AXROW | `TorusFourierNS.negG.eq_1` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9455139Z AXROW | `TorusFourierNS.norm_heatSymbol_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9455955Z AXROW | `TorusFourierNS.norm_heatSymbol` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9456616Z AXROW | `TorusFourierNS.norm_heat_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9457310Z AXROW | `TorusFourierNS.norm_hsWeighted_sq` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9458123Z AXROW | `TorusFourierNS.norm_le_hsNormField_mul` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9458900Z AXROW | `TorusFourierNS.norm_multiplier_le` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9459625Z AXROW | `TorusFourierNS.norm_triTerm_sub_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9460363Z AXROW | `TorusFourierNS.norm_uconj_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9461116Z AXROW | `TorusFourierNS.norm_udot_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9461796Z AXROW | `TorusFourierNS.normsq_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9462464Z AXROW | `TorusFourierNS.nrm.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9463175Z AXROW | `TorusFourierNS.nrm_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9463870Z AXROW | `TorusFourierNS.nrm_sq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9464645Z AXROW | `TorusFourierNS.nsBilin.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9465371Z AXROW | `TorusFourierNS.nsBilinCLM_apply` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9466076Z AXROW | `TorusFourierNS.nsq.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9466759Z AXROW | `TorusFourierNS.nsq_add_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9467450Z AXROW | `TorusFourierNS.nsq_add` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9468125Z AXROW | `TorusFourierNS.nsq_neg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9468778Z AXROW | `TorusFourierNS.nsq_nonneg` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9469451Z AXROW | `TorusFourierNS.ode_barrier` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9470181Z AXROW | `TorusFourierNS.ode_unique_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9470896Z AXROW | `TorusFourierNS.one_add_pow_mul_exp_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9471581Z AXROW | `TorusFourierNS.one_add_rpow_mul_exp_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9472278Z AXROW | `TorusFourierNS.one_add_sq_pos` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9473104Z AXROW | `TorusFourierNS.one_le_sobW` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9473827Z AXROW | `TorusFourierNS.parseval_norm_sq` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9474653Z AXROW | `TorusFourierNS.preTerm.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9475493Z AXROW | `TorusFourierNS.preTerm_sum_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9476235Z AXROW | `TorusFourierNS.reflG.eq_1` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9477143Z AXROW | `TorusFourierNS.reflG_hasDerivAt` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9478141Z AXROW | `TorusFourierNS.reflG_of_hermitian` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9479227Z AXROW | `TorusFourierNS.reflG_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9479969Z AXROW | `TorusFourierNS.restrictG.eq_1` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9480726Z AXROW | `TorusFourierNS.rpow_le_factorial_ceil_mul_exp` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9481689Z AXROW | `TorusFourierNS.rpow_sub_rpow_le_of_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9482434Z AXROW | `TorusFourierNS.sig.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9483122Z AXROW | `TorusFourierNS.sig_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9483796Z AXROW | `TorusFourierNS.sig_neg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9494843Z AXROW | `TorusFourierNS.sig_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9495670Z AXROW | `TorusFourierNS.sig_sq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9496425Z AXROW | `TorusFourierNS.singleDir.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9497168Z AXROW | `TorusFourierNS.sobW_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9497900Z AXROW | `TorusFourierNS.sobW_neg_le_prod` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9498644Z AXROW | `TorusFourierNS.sobW_peetre` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9499334Z AXROW | `TorusFourierNS.sobW_pos` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9500092Z AXROW | `TorusFourierNS.sobolevProductEstimate` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9500886Z AXROW | `TorusFourierNS.sq_sum_fin3_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9501621Z AXROW | `TorusFourierNS.sqrt_sobW_neg_mul` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9502360Z AXROW | `TorusFourierNS.sqrt_sobW_peetre` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9503061Z AXROW | `TorusFourierNS.strainSym.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9503756Z AXROW | `TorusFourierNS.strain_sq_eq_half_curl_sq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9504657Z AXROW | `TorusFourierNS.strain_sq_le_curl_sq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9505487Z AXROW | `TorusFourierNS.streamFunctionRepresentative_T3` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9506533Z AXROW | `TorusFourierNS.streamSym.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9507298Z AXROW | `TorusFourierNS.streamSym_isModeGateauxRep` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9508080Z AXROW | `TorusFourierNS.sum_shift_sq_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9508836Z AXROW | `TorusFourierNS.summable_coeffField` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9509725Z AXROW | `TorusFourierNS.summable_coeff_sq` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9510467Z AXROW | `TorusFourierNS.summable_fconv_inner_of_gt` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9511258Z AXROW | `TorusFourierNS.summable_fconv_inner` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9512037Z AXROW | `TorusFourierNS.summable_norm_fconv_inner` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9512818Z AXROW | `TorusFourierNS.summable_one_add_sq_rpow'` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9513587Z AXROW | `TorusFourierNS.summable_pairing` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9514327Z AXROW | `TorusFourierNS.summable_sobW_neg` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9515401Z AXROW | `TorusFourierNS.summable_sq_of_memHs` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9516186Z AXROW | `TorusFourierNS.tameConst_nonneg` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9516962Z AXROW | `TorusFourierNS.tendsto_coeff_of_hs` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9517750Z AXROW | `TorusFourierNS.transportConst_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9518547Z AXROW | `TorusFourierNS.transport_pairing_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9519299Z AXROW | `TorusFourierNS.triDom.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9520016Z AXROW | `TorusFourierNS.triTerm.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9520780Z AXROW | `TorusFourierNS.triTerm_sym_cancel` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9521531Z AXROW | `TorusFourierNS.tsum_conv_comm` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9522227Z AXROW | `TorusFourierNS.two_toReal` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9522932Z AXROW | `TorusFourierNS.viscCoeff.eq_1` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9523688Z AXROW | `TorusFourierNS.viscCoeff_nonneg` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9524653Z AXROW | `TorusFourierNS.weight_commutator_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9525411Z AXROW | `TorusFourierNS.wh_sq` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9526132Z AXROW | `TorusFourierNS.young_box'` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9526842Z AXROW | `TorusFourierNS.young_box` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9527557Z AXROW | `TorusFourierNS.young_l1_l2` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9528431Z AXROW | `TorusFourierNS.young_l2_l1` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9529035Z AXSUMMARY 250 theorems, 332 declarations in TorusFourierNS; nonstandard: 0
+2026-11-23T21:15:26.2016287Z Post job cleanup.
+2026-11-23T21:15:26.2933137Z [command]/usr/bin/git version
+2026-11-23T21:15:26.2979815Z git version 2.56.1
+2026-11-23T21:15:26.3029035Z Temporarily overriding HOME='/home/runner/work/_temp/89fb85ed-0c03-4293-9046-7b268b5ba3c1' before making global git config changes
+2026-11-23T21:15:26.3030041Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:15:26.3030804Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas
+2026-11-23T21:15:26.3077754Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:15:26.3118830Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:15:26.3438427Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:15:26.3469092Z http.https://github.com/.extraheader
+2026-11-23T21:15:26.3481660Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:15:26.3529738Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:15:26.3985732Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:15:26.3991019Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:15:26.4555684Z Cleaning up orphan processes
+2026-11-23T21:15:26.4927091Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/12_Post Run actions_checkout@v4.txt
+﻿2026-11-23T21:15:26.2016272Z Post job cleanup.
+2026-11-23T21:15:26.2933091Z [command]/usr/bin/git version
+2026-11-23T21:15:26.2979785Z git version 2.56.1
+2026-11-23T21:15:26.3029019Z Temporarily overriding HOME='/home/runner/work/_temp/89fb85ed-0c03-4293-9046-7b268b5ba3c1' before making global git config changes
+2026-11-23T21:15:26.3030035Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:15:26.3030799Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas
+2026-11-23T21:15:26.3077729Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:15:26.3118806Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:15:26.3438274Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:15:26.3469065Z http.https://github.com/.extraheader
+2026-11-23T21:15:26.3481631Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:15:26.3529715Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:15:26.3985689Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:15:26.3991006Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== build/13_Complete job.txt
+﻿2026-11-23T21:15:26.4555670Z Cleaning up orphan processes
+2026-11-23T21:15:26.4927069Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/1_Set up job.txt
+﻿2026-11-23T21:09:45.3583698Z Current runner version: '2.338.2'
+2026-11-23T21:09:45.3612298Z ##[group]Runner Image Provisioner
+2026-11-23T21:09:45.3613659Z Hosted Compute Agent
+2026-11-23T21:09:45.3614770Z Version: 20261111.635
+2026-11-23T21:09:45.3615876Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:09:45.3617067Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:09:45.3618133Z Worker ID: {2c6aa4ef-cfed-4507-9a0b-fcbcdc5998cd}
+2026-11-23T21:09:45.3619296Z Region: eastus2
+2026-11-23T21:09:45.3620122Z Cloud: Azure
+2026-11-23T21:09:45.3620975Z ##[endgroup]
+2026-11-23T21:09:45.3623749Z ##[group]Operating System
+2026-11-23T21:09:45.3625076Z Ubuntu
+2026-11-23T21:09:45.3625952Z 26.04.1
+2026-11-23T21:09:45.3626743Z LTS
+2026-11-23T21:09:45.3627533Z ##[endgroup]
+2026-11-23T21:09:45.3628456Z ##[group]Runner Image
+2026-11-23T21:09:45.3629345Z Image: ubuntu-26.04
+2026-11-23T21:09:45.3630266Z Version: 20261116.202.1
+2026-11-23T21:09:45.3631883Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:09:45.3634972Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T21:09:45.3636560Z ##[endgroup]
+2026-11-23T21:09:45.3638530Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:09:45.3641384Z Contents: read
+2026-11-23T21:09:45.3642404Z Metadata: read
+2026-11-23T21:09:45.3643250Z Packages: read
+2026-11-23T21:09:45.3644981Z ##[endgroup]
+2026-11-23T21:09:45.3647981Z Secret source: Actions
+2026-11-23T21:09:45.3649501Z Cache mode: write
+2026-11-23T21:09:45.3650824Z Prepare workflow directory
+2026-11-23T21:09:45.4211730Z Prepare all required actions
+2026-11-23T21:09:45.4280830Z Getting action download info
+2026-11-23T21:09:45.5883681Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:09:45.7673782Z Complete job name: build
+
+===== build/2_Run actions_checkout@v4.txt
+﻿2026-11-23T21:09:45.8709785Z ##[group]Run actions/checkout@v4
+2026-11-23T21:09:45.8710668Z with:
+2026-11-23T21:09:45.8711189Z   repository: BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:45.8715434Z   token: ***
+2026-11-23T21:09:45.8715906Z   ssh-strict: true
+2026-11-23T21:09:45.8716374Z   ssh-user: git
+2026-11-23T21:09:45.8716853Z   persist-credentials: true
+2026-11-23T21:09:45.8717358Z   clean: true
+2026-11-23T21:09:45.8717829Z   sparse-checkout-cone-mode: true
+2026-11-23T21:09:45.8718371Z   fetch-depth: 1
+2026-11-23T21:09:45.8718829Z   fetch-tags: false
+2026-11-23T21:09:45.8719299Z   show-progress: true
+2026-11-23T21:09:45.8719765Z   lfs: false
+2026-11-23T21:09:45.8720200Z   submodules: false
+2026-11-23T21:09:45.8720678Z   set-safe-directory: true
+2026-11-23T21:09:45.8721205Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:09:45.8721977Z ##[endgroup]
+2026-11-23T21:09:46.0848919Z Syncing repository: BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.0852260Z ##[group]Getting Git version info
+2026-11-23T21:09:46.0854082Z Working directory is '/home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas'
+2026-11-23T21:09:46.0856842Z [command]/usr/bin/git version
+2026-11-23T21:09:46.0859714Z git version 2.56.1
+2026-11-23T21:09:46.0882173Z ##[endgroup]
+2026-11-23T21:09:46.0898863Z Temporarily overriding HOME='/home/runner/work/_temp/d675d61a-3933-4a8e-a168-6a7a89c12e5c' before making global git config changes
+2026-11-23T21:09:46.0902364Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:09:46.0905646Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.0962268Z Deleting the contents of '/home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas'
+2026-11-23T21:09:46.0969975Z ##[group]Initializing the repository
+2026-11-23T21:09:46.0971644Z [command]/usr/bin/git init /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.1069443Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:09:46.1071689Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:09:46.1074124Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:09:46.1075976Z hint: call:
+2026-11-23T21:09:46.1077007Z hint:
+2026-11-23T21:09:46.1078193Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:09:46.1079682Z hint:
+2026-11-23T21:09:46.1081143Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:09:46.1083357Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:09:46.1085370Z hint:
+2026-11-23T21:09:46.1086691Z hint: 	git branch -m <name>
+2026-11-23T21:09:46.1087992Z hint:
+2026-11-23T21:09:46.1089619Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:09:46.1092585Z Initialized empty Git repository in /home/runner/work/torus-fourier-ns-lemmas/torus-fourier-ns-lemmas/.git/
+2026-11-23T21:09:46.1097401Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.1138723Z ##[endgroup]
+2026-11-23T21:09:46.1140361Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:09:46.1142546Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:09:46.1179454Z ##[endgroup]
+2026-11-23T21:09:46.1180836Z ##[group]Setting up auth
+2026-11-23T21:09:46.1186778Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:09:46.1224562Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:09:46.1646170Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:09:46.1717693Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:09:46.1988922Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:09:46.2026910Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:09:46.2318994Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:09:46.2360778Z ##[endgroup]
+2026-11-23T21:09:46.2362214Z ##[group]Fetching the repository
+2026-11-23T21:09:46.2372572Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5f4da0388cce5e70d71394d6395935110f29b72b:refs/remotes/origin/ci-backfill/5f4da03
+2026-11-23T21:09:46.4742854Z From https://github.com/BenFrohman/torus-fourier-ns-lemmas
+2026-11-23T21:09:46.4745931Z  * [new ref]         5f4da0388cce5e70d71394d6395935110f29b72b -> origin/ci-backfill/5f4da03
+2026-11-23T21:09:46.4750470Z ##[endgroup]
+2026-11-23T21:09:46.4752308Z ##[group]Determining the checkout info
+2026-11-23T21:09:46.4760549Z ##[endgroup]
+2026-11-23T21:09:46.4766061Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:09:46.4812526Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:09:46.4845245Z ##[group]Checking out the ref
+2026-11-23T21:09:46.4850417Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/5f4da03 refs/remotes/origin/ci-backfill/5f4da03
+2026-11-23T21:09:46.4982711Z Switched to a new branch 'ci-backfill/5f4da03'
+2026-11-23T21:09:46.4988852Z branch 'ci-backfill/5f4da03' set up to track 'origin/ci-backfill/5f4da03'.
+2026-11-23T21:09:46.4993722Z ##[endgroup]
+2026-11-23T21:09:46.5037053Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:09:46.5063982Z 5f4da0388cce5e70d71394d6395935110f29b72b
+
+===== build/3_Install elan.txt
+﻿2026-11-23T21:09:46.5339122Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T21:09:46.5343560Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T21:09:46.5346807Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T21:09:46.5388685Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:09:46.5389817Z ##[endgroup]
+2026-11-23T21:09:46.5989731Z info: downloading installer
+
+===== build/4_Fetch Mathlib cache.txt
+﻿2026-11-23T21:09:46.8126079Z ##[group]Run lake exe cache get
+2026-11-23T21:09:46.8127428Z [36;1mlake exe cache get[0m
+2026-11-23T21:09:46.8168857Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:09:46.8170086Z ##[endgroup]
+2026-11-23T21:09:47.3232560Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T21:09:51.1290312Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T21:09:57.9026648Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T21:10:28.8412658Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T21:10:30.9113162Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T21:10:31.1293759Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T21:10:31.1424962Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T21:10:31.3196839Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T21:10:31.3304709Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T21:10:31.5814775Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T21:10:31.6002272Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T21:10:31.9676650Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T21:10:32.6577731Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T21:10:33.0467300Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T21:10:33.0747233Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T21:10:33.2781893Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T21:10:33.2915670Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T21:10:35.5899330Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T21:10:35.6285119Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T21:10:35.8392134Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T21:10:36.2606271Z ✔ [4/22] Built Cache.Init (376ms)
+2026-11-23T21:10:36.3566100Z ✔ [5/22] Built Cache.Init:c.o (103ms)
+2026-11-23T21:10:36.4566222Z ✔ [6/22] Built Cache.Lean (540ms)
+2026-11-23T21:10:36.5560640Z ✔ [7/22] Built Batteries.Data.String.Basic (500ms)
+2026-11-23T21:10:36.6565594Z ✔ [8/22] Built Cache.Lean:c.o (192ms)
+2026-11-23T21:10:36.7576233Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (151ms)
+2026-11-23T21:10:36.9726189Z ✔ [10/22] Built Batteries.Data.Array.Match (935ms)
+2026-11-23T21:10:37.2723013Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (291ms)
+2026-11-23T21:10:37.4726900Z ✔ [12/22] Built Batteries.Data.String.Matcher (428ms)
+2026-11-23T21:10:37.6729414Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (244ms)
+2026-11-23T21:10:37.8731706Z ✔ [14/22] Built Cache.IO (1.4s)
+2026-11-23T21:10:38.5808549Z ✔ [15/22] Built Cache.Hashing (721ms)
+2026-11-23T21:10:39.1756437Z ✔ [16/22] Built Cache.Hashing:c.o (524ms)
+2026-11-23T21:10:39.3749603Z ✔ [17/22] Built Cache.IO:c.o (1.4s)
+2026-11-23T21:10:40.5761888Z ✔ [18/22] Built Cache.Requests (1.9s)
+2026-11-23T21:10:41.2771576Z ✔ [19/22] Built Cache.Main (777ms)
+2026-11-23T21:10:41.8778826Z ✔ [20/22] Built Cache.Main:c.o (586ms)
+2026-11-23T21:10:42.4785598Z ✔ [21/22] Built Cache.Requests:c.o (1.0s)
+2026-11-23T21:10:43.1793063Z ✔ [22/22] Built cache:exe (692ms)
+2026-11-23T21:10:46.2193416Z Current branch: HEAD
+2026-11-23T21:10:46.2194753Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T21:10:46.2195458Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T21:10:46.7917439Z 
+2026-11-23T21:10:46.8946298Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 79 KB/s], Decompressed: 0
+2026-11-23T21:10:46.9945444Z Downloaded: 61 file(s) [attempted 61/8248 = 0%, 746 KB/s], Decompressed: 17
+2026-11-23T21:10:47.0942638Z Downloaded: 164 file(s) [attempted 164/8248 = 1%, 1247 KB/s], Decompressed: 37
+2026-11-23T21:10:47.1936732Z Downloaded: 266 file(s) [attempted 266/8248 = 3%, 985 KB/s], Decompressed: 84
+2026-11-23T21:10:47.2943938Z Downloaded: 393 file(s) [attempted 393/8248 = 4%, 357 KB/s], Decompressed: 84
+2026-11-23T21:10:47.3956818Z Downloaded: 514 file(s) [attempted 514/8248 = 6%, 184 KB/s], Decompressed: 84
+2026-11-23T21:10:47.4966215Z Downloaded: 641 file(s) [attempted 641/8248 = 7%, 397 KB/s], Decompressed: 84
+2026-11-23T21:10:47.5955200Z Downloaded: 758 file(s) [attempted 758/8248 = 9%, 401 KB/s], Decompressed: 84
+2026-11-23T21:10:47.6973794Z Downloaded: 885 file(s) [attempted 885/8248 = 10%, 388 KB/s], Decompressed: 84
+2026-11-23T21:10:47.7983209Z Downloaded: 998 file(s) [attempted 998/8248 = 12%, 325 KB/s], Decompressed: 253
+2026-11-23T21:10:47.8970396Z Downloaded: 1122 file(s) [attempted 1122/8248 = 13%, 226 KB/s], Decompressed: 253
+2026-11-23T21:10:48.0016165Z Downloaded: 1246 file(s) [attempted 1246/8248 = 15%, 1961 KB/s], Decompressed: 253
+2026-11-23T21:10:48.1075766Z Downloaded: 1365 file(s) [attempted 1365/8248 = 16%, 1505 KB/s], Decompressed: 253
+2026-11-23T21:10:48.2056212Z Downloaded: 1489 file(s) [attempted 1489/8248 = 18%, 288 KB/s], Decompressed: 253
+2026-11-23T21:10:48.3075374Z Downloaded: 1618 file(s) [attempted 1618/8248 = 19%, 1905 KB/s], Decompressed: 253
+2026-11-23T21:10:48.4106740Z Downloaded: 1725 file(s) [attempted 1725/8248 = 20%, 487 KB/s], Decompressed: 253
+2026-11-23T21:10:48.5105662Z Downloaded: 1837 file(s) [attempted 1837/8248 = 22%, 3213 KB/s], Decompressed: 253
+2026-11-23T21:10:48.6116115Z Downloaded: 1970 file(s) [attempted 1970/8248 = 23%, 2340 KB/s], Decompressed: 253
+2026-11-23T21:10:48.7105874Z Downloaded: 2087 file(s) [attempted 2087/8248 = 25%, 2730 KB/s], Decompressed: 253
+2026-11-23T21:10:48.8126986Z Downloaded: 2207 file(s) [attempted 2207/8248 = 26%, 528 KB/s], Decompressed: 253
+2026-11-23T21:10:48.9310235Z Downloaded: 2324 file(s) [attempted 2324/8248 = 28%, 416 KB/s], Decompressed: 253
+2026-11-23T21:10:49.0125783Z Downloaded: 2443 file(s) [attempted 2443/8248 = 29%, 1043 KB/s], Decompressed: 253
+2026-11-23T21:10:49.1135811Z Downloaded: 2565 file(s) [attempted 2565/8248 = 31%, 519 KB/s], Decompressed: 253
+2026-11-23T21:10:49.2129313Z Downloaded: 2689 file(s) [attempted 2689/8248 = 32%, 426 KB/s], Decompressed: 253
+2026-11-23T21:10:49.3129086Z Downloaded: 2806 file(s) [attempted 2806/8248 = 34%, 425 KB/s], Decompressed: 253
+2026-11-23T21:10:49.4172106Z Downloaded: 2935 file(s) [attempted 2935/8248 = 35%, 2032 KB/s], Decompressed: 253
+2026-11-23T21:10:49.5165788Z Downloaded: 3054 file(s) [attempted 3054/8248 = 37%, 2079 KB/s], Decompressed: 253
+2026-11-23T21:10:49.6156945Z Downloaded: 3179 file(s) [attempted 3179/8248 = 38%, 460 KB/s], Decompressed: 253
+2026-11-23T21:10:49.7147298Z Downloaded: 3298 file(s) [attempted 3298/8248 = 39%, 931 KB/s], Decompressed: 253
+2026-11-23T21:10:49.8174073Z Downloaded: 3420 file(s) [attempted 3420/8248 = 41%, 5683 KB/s], Decompressed: 253
+2026-11-23T21:10:49.9188416Z Downloaded: 3535 file(s) [attempted 3535/8248 = 42%, 3819 KB/s], Decompressed: 253
+2026-11-23T21:10:50.0191397Z Downloaded: 3652 file(s) [attempted 3652/8248 = 44%, 318 KB/s], Decompressed: 253
+2026-11-23T21:10:50.1265756Z Downloaded: 3769 file(s) [attempted 3769/8248 = 45%, 662 KB/s], Decompressed: 253
+2026-11-23T21:10:50.2277593Z Downloaded: 3882 file(s) [attempted 3882/8248 = 47%, 4429 KB/s], Decompressed: 253
+2026-11-23T21:10:50.3283654Z Downloaded: 4006 file(s) [attempted 4006/8248 = 48%, 1243 KB/s], Decompressed: 253
+2026-11-23T21:10:50.4303289Z Downloaded: 4128 file(s) [attempted 4128/8248 = 50%, 556 KB/s], Decompressed: 253
+2026-11-23T21:10:50.5286963Z Downloaded: 4241 file(s) [attempted 4241/8248 = 51%, 89 KB/s], Decompressed: 253
+2026-11-23T21:10:50.6315782Z Downloaded: 4363 file(s) [attempted 4363/8248 = 52%, 754 KB/s], Decompressed: 253
+2026-11-23T21:10:50.7297634Z Downloaded: 4489 file(s) [attempted 4489/8248 = 54%, 1002 KB/s], Decompressed: 253
+2026-11-23T21:10:50.8325961Z Downloaded: 4617 file(s) [attempted 4617/8248 = 55%, 1709 KB/s], Decompressed: 253
+2026-11-23T21:10:50.9327423Z Downloaded: 4744 file(s) [attempted 4744/8248 = 57%, 316 KB/s], Decompressed: 991
+2026-11-23T21:10:51.0396236Z Downloaded: 4856 file(s) [attempted 4856/8248 = 58%, 615 KB/s], Decompressed: 991
+2026-11-23T21:10:51.1416001Z Downloaded: 4981 file(s) [attempted 4981/8248 = 60%, 522 KB/s], Decompressed: 991
+2026-11-23T21:10:51.2397956Z Downloaded: 5100 file(s) [attempted 5100/8248 = 61%, 233 KB/s], Decompressed: 991
+2026-11-23T21:10:51.3405818Z Downloaded: 5204 file(s) [attempted 5204/8248 = 63%, 1628 KB/s], Decompressed: 991
+2026-11-23T21:10:51.4440527Z Downloaded: 5319 file(s) [attempted 5319/8248 = 64%, 1137 KB/s], Decompressed: 991
+2026-11-23T21:10:51.5465311Z Downloaded: 5434 file(s) [attempted 5434/8248 = 65%, 1566 KB/s], Decompressed: 991
+2026-11-23T21:10:51.6472550Z Downloaded: 5553 file(s) [attempted 5553/8248 = 67%, 85 KB/s], Decompressed: 991
+2026-11-23T21:10:51.7518178Z Downloaded: 5671 file(s) [attempted 5671/8248 = 68%, 1456 KB/s], Decompressed: 991
+2026-11-23T21:10:51.8636076Z Downloaded: 5786 file(s) [attempted 5786/8248 = 70%, 765 KB/s], Decompressed: 991
+2026-11-23T21:10:51.9615976Z Downloaded: 5912 file(s) [attempted 5912/8248 = 71%, 4861 KB/s], Decompressed: 991
+2026-11-23T21:10:52.0614202Z Downloaded: 6010 file(s) [attempted 6010/8248 = 72%, 3493 KB/s], Decompressed: 991
+2026-11-23T21:10:52.1581106Z Downloaded: 6133 file(s) [attempted 6133/8248 = 74%, 181 KB/s], Decompressed: 991
+2026-11-23T21:10:52.2584997Z Downloaded: 6243 file(s) [attempted 6243/8248 = 75%, 2998 KB/s], Decompressed: 991
+2026-11-23T21:10:52.3626748Z Downloaded: 6358 file(s) [attempted 6358/8248 = 77%, 285 KB/s], Decompressed: 991
+2026-11-23T21:10:52.4610262Z Downloaded: 6467 file(s) [attempted 6467/8248 = 78%, 169 KB/s], Decompressed: 991
+2026-11-23T21:10:52.5622819Z Downloaded: 6579 file(s) [attempted 6579/8248 = 79%, 594 KB/s], Decompressed: 991
+2026-11-23T21:10:52.6667107Z Downloaded: 6708 file(s) [attempted 6708/8248 = 81%, 2830 KB/s], Decompressed: 991
+2026-11-23T21:10:52.7781254Z Downloaded: 6823 file(s) [attempted 6823/8248 = 82%, 894 KB/s], Decompressed: 991
+2026-11-23T21:10:52.9302265Z Downloaded: 6904 file(s) [attempted 6904/8248 = 83%, 1972 KB/s], Decompressed: 991
+2026-11-23T21:10:53.0301863Z Downloaded: 7003 file(s) [attempted 7003/8248 = 84%, 4460 KB/s], Decompressed: 991
+2026-11-23T21:10:53.1519843Z Downloaded: 7058 file(s) [attempted 7058/8248 = 85%, 154 KB/s], Decompressed: 991
+2026-11-23T21:10:53.2815771Z Downloaded: 7098 file(s) [attempted 7098/8248 = 86%, 299 KB/s], Decompressed: 991
+2026-11-23T21:10:53.3797201Z Downloaded: 7218 file(s) [attempted 7218/8248 = 87%, 258 KB/s], Decompressed: 991
+2026-11-23T21:10:53.4888087Z Downloaded: 7339 file(s) [attempted 7339/8248 = 88%, 2847 KB/s], Decompressed: 991
+2026-11-23T21:10:53.6511631Z Downloaded: 7415 file(s) [attempted 7415/8248 = 89%, 6694 KB/s], Decompressed: 991
+2026-11-23T21:10:53.7575905Z Downloaded: 7512 file(s) [attempted 7512/8248 = 91%, 353 KB/s], Decompressed: 991
+2026-11-23T21:10:53.8552724Z Downloaded: 7573 file(s) [attempted 7573/8248 = 91%, 1556 KB/s], Decompressed: 991
+2026-11-23T21:10:53.9679616Z Downloaded: 7680 file(s) [attempted 7680/8248 = 93%, 3305 KB/s], Decompressed: 991
+2026-11-23T21:10:54.0854291Z Downloaded: 7807 file(s) [attempted 7807/8248 = 94%, 5638 KB/s], Decompressed: 991
+2026-11-23T21:10:54.1872828Z Downloaded: 7913 file(s) [attempted 7913/8248 = 95%, 423 KB/s], Decompressed: 991
+2026-11-23T21:10:54.3432816Z Downloaded: 8042 file(s) [attempted 8042/8248 = 97%, 259 KB/s], Decompressed: 991
+2026-11-23T21:10:54.4415420Z Downloaded: 8121 file(s) [attempted 8121/8248 = 98%, 734 KB/s], Decompressed: 991
+2026-11-23T21:10:54.5457192Z Downloaded: 8179 file(s) [attempted 8179/8248 = 99%, 1838 KB/s], Decompressed: 991
+2026-11-23T21:10:54.6723618Z Downloaded: 8245 file(s) [attempted 8245/8248 = 99%, 281 KB/s], Decompressed: 991
+2026-11-23T21:10:54.6767157Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 330 KB/s], Decompressed: 991
+2026-11-23T21:10:54.6773830Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 330 KB/s], Decompressed: 991
+2026-11-23T21:11:13.2169115Z Decompressed 8248 file(s)
+2026-11-23T21:11:13.2171916Z Already decompressed 8248 file(s)
+
+===== build/5_Build.txt
+﻿2026-11-23T21:11:13.2794829Z ##[group]Run lake build
+2026-11-23T21:11:13.2795132Z [36;1mlake build[0m
+2026-11-23T21:11:13.2833228Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:11:13.2833495Z ##[endgroup]
+2026-11-23T21:11:21.8049149Z ✔ [8264/8279] Built TorusFourierNS.Basic (4.9s)
+2026-11-23T21:11:28.2207593Z ✔ [8265/8279] Built TorusFourierNS.Heat (6.4s)
+2026-11-23T21:11:28.5210418Z ⚠ [8266/8279] Built TorusFourierNS.Strain (6.7s)
+2026-11-23T21:11:28.5210950Z warning: TorusFourierNS/Strain.lean:131:40: This simp argument is unused:
+2026-11-23T21:11:28.5211382Z   ← Complex.ofReal_pow
+2026-11-23T21:11:28.5211537Z 
+2026-11-23T21:11:28.5211651Z Hint: Omit it from the simp argument list.
+2026-11-23T21:11:28.5212603Z   simp [Complex.mul_re, Complex.mul_im,̵ ̵←̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵o̵f̵R̵e̵a̵l̵_̵p̵o̵w̵]
+2026-11-23T21:11:28.5212940Z 
+2026-11-23T21:11:28.5213950Z Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+2026-11-23T21:11:28.5215401Z 
+2026-11-23T21:11:28.5215708Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:11:32.7237640Z ✔ [8267/8279] Built TorusFourierNS.GateauxBridge (4.2s)
+2026-11-23T21:11:37.4303608Z ⚠ [8268/8279] Built TorusFourierNS.FieldBiotSavart (4.7s)
+2026-11-23T21:11:37.4304626Z warning: TorusFourierNS/FieldBiotSavart.lean:84:56: This simp argument is unused:
+2026-11-23T21:11:37.4305240Z   mul_one
+2026-11-23T21:11:37.4305782Z 
+2026-11-23T21:11:37.4305954Z Hint: Omit it from the simp argument list.
+2026-11-23T21:11:37.4306675Z   simp only [one_pow, neg_one_sq, one_mul, neg_one_mul,̵ ̵m̵u̵l̵_̵o̵n̵e̵] at h1 h2
+2026-11-23T21:11:37.4307145Z 
+2026-11-23T21:11:37.4307470Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T21:11:43.0385926Z ✔ [8269/8279] Built TorusFourierNS.SobolevField (5.5s)
+2026-11-23T21:11:48.9535852Z ✔ [8270/8279] Built TorusFourierNS.FconvSummable (5.9s)
+2026-11-23T21:11:54.7626457Z ✔ [8271/8279] Built TorusFourierNS.GalerkinNS (11s)
+2026-11-23T21:11:58.0666009Z ✔ [8272/8279] Built TorusFourierNS.SobolevProduct (15s)
+2026-11-23T21:12:00.7703635Z ✔ [8273/8279] Built TorusFourierNS.GalerkinEnergy (6.0s)
+2026-11-23T21:12:14.8919462Z ✔ [8274/8279] Built TorusFourierNS.TransportBound (14s)
+2026-11-23T21:12:22.4071647Z ✔ [8275/8279] Built TorusFourierNS.GalerkinStructure (7.4s)
+2026-11-23T21:12:27.4165884Z ✔ [8276/8279] Built TorusFourierNS.TameTransport (12s)
+2026-11-23T21:12:30.6199638Z ✔ [8277/8279] Built TorusFourierNS.GalerkinContinuation (8.2s)
+2026-11-23T21:12:34.2227828Z ✔ [8278/8279] Built TorusFourierNS (3.5s)
+2026-11-23T21:12:34.2669987Z Build completed successfully (8279 jobs).
+
+===== build/6_Axiom audit.txt
+﻿2026-11-23T21:12:34.3109406Z ##[group]Run lake env lean AxiomReport.lean 2>&1 | tee axiom-audit.log
+2026-11-23T21:12:34.3109937Z [36;1mlake env lean AxiomReport.lean 2>&1 | tee axiom-audit.log[0m
+2026-11-23T21:12:34.3110414Z [36;1mif grep -q "sorryAx" axiom-audit.log; then echo "sorryAx found"; exit 1; fi[0m
+2026-11-23T21:12:34.3111023Z [36;1mif grep -q "AxiomReport FAIL" axiom-audit.log; then echo "nonstandard axiom found"; exit 1; fi[0m
+2026-11-23T21:12:34.3111547Z [36;1mgrep -q "nonstandard: 0" axiom-audit.log[0m
+2026-11-23T21:12:34.3148515Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:12:34.3148813Z ##[endgroup]
+2026-11-23T21:15:25.9255475Z AXROW | `TorusFourierNS.DivergenceFree.add'` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9257124Z AXROW | `TorusFourierNS.DivergenceFree.smul'` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9258611Z AXROW | `TorusFourierNS.DivergenceFreeL2MeanZero.div_free` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9260229Z AXROW | `TorusFourierNS.DivergenceFreeL2MeanZero.mean_zero` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9261757Z AXROW | `TorusFourierNS.DivergenceFreeL2MeanZero.summable` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9263115Z AXROW | `TorusFourierNS.HsSq.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9264243Z AXROW | `TorusFourierNS.HsSq_zero` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9265499Z AXROW | `TorusFourierNS.InHs.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9266623Z AXROW | `TorusFourierNS.L2_strain_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9267791Z AXROW | `TorusFourierNS.L2_strain_le` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9268986Z AXROW | `TorusFourierNS.MemHsField.add` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9270216Z AXROW | `TorusFourierNS.MemHsField.sub` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9271395Z AXROW | `TorusFourierNS.aC.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9272580Z AXROW | `TorusFourierNS.aC_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9273802Z AXROW | `TorusFourierNS.abs_dotZ_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9275284Z AXROW | `TorusFourierNS.abs_mode_le_nrm` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9276790Z AXROW | `TorusFourierNS.abs_pairing_le` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9278205Z AXROW | `TorusFourierNS.abs_rpow_sub_rpow_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9279548Z AXROW | `TorusFourierNS.br.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9280784Z AXROW | `TorusFourierNS.br_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9282043Z AXROW | `TorusFourierNS.br_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9283296Z AXROW | `TorusFourierNS.br_sq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9284738Z AXROW | `TorusFourierNS.clampC.eq_1` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9286150Z AXROW | `TorusFourierNS.clampC_dist_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9287566Z AXROW | `TorusFourierNS.clampC_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9289347Z AXROW | `TorusFourierNS.clampC_of_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9290782Z AXROW | `TorusFourierNS.clampG_dist_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9292188Z AXROW | `TorusFourierNS.clampG_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9293857Z AXROW | `TorusFourierNS.clampG_of_norm_le` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9295500Z AXROW | `TorusFourierNS.clamp_real_abs` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9296809Z AXROW | `TorusFourierNS.coeff.eq_1` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9298051Z AXROW | `TorusFourierNS.coeffField.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9299403Z AXROW | `TorusFourierNS.coeff_eq_mFourierCoeff` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9300648Z AXROW | `TorusFourierNS.coeff_heat` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9301885Z AXROW | `TorusFourierNS.coeff_le_hsNorm` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9303143Z AXROW | `TorusFourierNS.coeff_multiplier` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9304677Z AXROW | `TorusFourierNS.comp_le_hsNormSq` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9306098Z AXROW | `TorusFourierNS.comp_product_bound` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9307387Z AXROW | `TorusFourierNS.cross.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9308587Z AXROW | `TorusFourierNS.curlSym.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9309802Z AXROW | `TorusFourierNS.curl_deltaH_eq_u` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9311221Z AXROW | `TorusFourierNS.curl_modeFunctionalDerivative_eq_u` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9312613Z AXROW | `TorusFourierNS.curl_sq_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9313797Z AXROW | `TorusFourierNS.curl_stream_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9315283Z AXROW | `TorusFourierNS.divergenceFree_extendG_restrictG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9316802Z AXROW | `TorusFourierNS.divergenceFree_iff` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9318248Z AXROW | `TorusFourierNS.divergenceFree_of_hs_limit` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9319548Z AXROW | `TorusFourierNS.dot.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9320715Z AXROW | `TorusFourierNS.dot_add'` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9321999Z AXROW | `TorusFourierNS.dot_galerkinNSField` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9323269Z AXROW | `TorusFourierNS.dot_neg'` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9324684Z AXROW | `TorusFourierNS.dot_self_kvec` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9325922Z AXROW | `TorusFourierNS.dot_smulC` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9327347Z AXROW | `TorusFourierNS.dot_smulR` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9328584Z AXROW | `TorusFourierNS.ennCS_fin` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9329826Z AXROW | `TorusFourierNS.ennCS` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9331108Z AXROW | `TorusFourierNS.ennr_add_sq_le` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9332598Z AXROW | `TorusFourierNS.ennr_half_sq` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9333821Z AXROW | `TorusFourierNS.ext_coeff` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9335169Z AXROW | `TorusFourierNS.extendG.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9336444Z AXROW | `TorusFourierNS.extendG_add` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9337787Z AXROW | `TorusFourierNS.extendG_apply` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9339136Z AXROW | `TorusFourierNS.extendG_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9340457Z AXROW | `TorusFourierNS.extendG_smul` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9341785Z AXROW | `TorusFourierNS.fieldCurl.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9343307Z AXROW | `TorusFourierNS.fieldCurl_functionalDerivative_eq` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9345097Z AXROW | `TorusFourierNS.fieldCurl_stream_eq` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9346549Z AXROW | `TorusFourierNS.fieldEnergy_curl_L2` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9347878Z AXROW | `TorusFourierNS.fieldEnergy_curl` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9349239Z AXROW | `TorusFourierNS.fieldEnergy_expand` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9350777Z AXROW | `TorusFourierNS.fieldFunctionalDerivative.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9352435Z AXROW | `TorusFourierNS.fieldFunctionalDerivative_energy` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9354064Z AXROW | `TorusFourierNS.fieldFunctionalDerivative_eq` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9355706Z AXROW | `TorusFourierNS.fieldGateauxRep_unique` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9357229Z AXROW | `TorusFourierNS.fieldPairing_singleDir` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9358762Z AXROW | `TorusFourierNS.fieldStream_isGateauxRep` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9360260Z AXROW | `TorusFourierNS.finEnergy_add_smul` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9361677Z AXROW | `TorusFourierNS.finEnergy_curl` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9363094Z AXROW | `TorusFourierNS.finEnergy_singleDir` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9364536Z AXROW | `TorusFourierNS.galerkinField.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9365998Z AXROW | `TorusFourierNS.galerkinField_contDiff` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9367816Z AXROW | `TorusFourierNS.galerkinHsEnergyInequality_of_gt` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9369520Z AXROW | `TorusFourierNS.galerkinHsEnergyInequality_of_transport` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9371083Z AXROW | `TorusFourierNS.galerkinNSField.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9372668Z AXROW | `TorusFourierNS.galerkinNSField_apply` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9374190Z AXROW | `TorusFourierNS.galerkinNSField_contDiff` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9375894Z AXROW | `TorusFourierNS.galerkinNSField_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9377541Z AXROW | `TorusFourierNS.galerkinNS_continuation_of_hsBound` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9379264Z AXROW | `TorusFourierNS.galerkinNS_continuation_of_normBound` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9380943Z AXROW | `TorusFourierNS.galerkinNS_divergenceFree_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9382474Z AXROW | `TorusFourierNS.galerkinNS_divergenceFree` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9383967Z AXROW | `TorusFourierNS.galerkinNS_hermitian_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9385611Z AXROW | `TorusFourierNS.galerkinNS_local_existence` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9387119Z AXROW | `TorusFourierNS.galerkinNS_structure_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9388725Z AXROW | `TorusFourierNS.galerkinTameEnergyInequality_of_gt` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9390314Z AXROW | `TorusFourierNS.galerkinTameTransportBound_of_gt` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9391906Z AXROW | `TorusFourierNS.galerkinTransportBound_of_gt` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9393454Z AXROW | `TorusFourierNS.galerkin_hs_propagation` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9395056Z AXROW | `TorusFourierNS.galerkin_local_existence` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9396587Z AXROW | `TorusFourierNS.galerkin_uniform_bound_of_energy` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9398128Z AXROW | `TorusFourierNS.galerkin_uniform_bound_of_gt` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9399498Z AXROW | `TorusFourierNS.gconv.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9400749Z AXROW | `TorusFourierNS.gconv_add_left` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9402000Z AXROW | `TorusFourierNS.gconv_add_right` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9403359Z AXROW | `TorusFourierNS.gconv_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9405124Z AXROW | `TorusFourierNS.gconv_smul_left` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9405980Z AXROW | `TorusFourierNS.gconv_smul_right` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9406996Z AXROW | `TorusFourierNS.heat.congr_simp` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9407670Z AXROW | `TorusFourierNS.heat.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9408333Z AXROW | `TorusFourierNS.heatSymbol.eq_1` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9408971Z AXROW | `TorusFourierNS.heat_add` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9409772Z AXROW | `TorusFourierNS.heat_smoothing_real` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9410472Z AXROW | `TorusFourierNS.heat_smoothing` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9411136Z AXROW | `TorusFourierNS.heat_zero` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9411898Z AXROW | `TorusFourierNS.hermitian_extendG_restrictG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9412746Z AXROW | `TorusFourierNS.hermitian_of_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9413567Z AXROW | `TorusFourierNS.hsBoxConst_nonneg` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9414350Z AXROW | `TorusFourierNS.hsConst.eq_1` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9415361Z AXROW | `TorusFourierNS.hsField_complete` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9416115Z AXROW | `TorusFourierNS.hsLp.congr_simp` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9416829Z AXROW | `TorusFourierNS.hsLp.eq_1` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9417547Z AXROW | `TorusFourierNS.hsNormField.eq_1` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9418301Z AXROW | `TorusFourierNS.hsNormField_add_le` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9419027Z AXROW | `TorusFourierNS.hsNormField_eq` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9419824Z AXROW | `TorusFourierNS.hsNormField_extendG_restrictG_le` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9420641Z AXROW | `TorusFourierNS.hsNormField_nonneg` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9421402Z AXROW | `TorusFourierNS.hsNormField_sub_eq` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9422168Z AXROW | `TorusFourierNS.hsNormSq_ennr` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9423559Z AXROW | `TorusFourierNS.hsNormSq_extendG_hasDerivAt` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9424587Z AXROW | `TorusFourierNS.hsNormSq_extendG` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9425369Z AXROW | `TorusFourierNS.hsWeighted.eq_1` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9426101Z AXROW | `TorusFourierNS.hsWeighted_add` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9426856Z AXROW | `TorusFourierNS.hsWeighted_sub` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9427562Z AXROW | `TorusFourierNS.hs_two_toReal` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9428232Z AXROW | `TorusFourierNS.inHs_zero` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9428928Z AXROW | `TorusFourierNS.kpConst_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9430399Z AXROW | `TorusFourierNS.ksq.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9431381Z AXROW | `TorusFourierNS.ksq_kvec_neg` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9432169Z AXROW | `TorusFourierNS.ksq_neg'` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9433408Z AXROW | `TorusFourierNS.kvec.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9434160Z AXROW | `TorusFourierNS.kvec_ksq_ne_zero` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9435131Z AXROW | `TorusFourierNS.kvec_neg` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9435840Z AXROW | `TorusFourierNS.l1_le` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9436532Z AXROW | `TorusFourierNS.lerayP.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9437215Z AXROW | `TorusFourierNS.lerayP_add` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9437937Z AXROW | `TorusFourierNS.lerayP_conj` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9438664Z AXROW | `TorusFourierNS.lerayP_divFree` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9439355Z AXROW | `TorusFourierNS.lerayP_smul` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9440062Z AXROW | `TorusFourierNS.leray_pairing` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9440789Z AXROW | `TorusFourierNS.memHsField_iff` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9441847Z AXROW | `TorusFourierNS.memℓp_mul` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9442573Z AXROW | `TorusFourierNS.modeBox.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9443296Z AXROW | `TorusFourierNS.modeBox_neg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9443997Z AXROW | `TorusFourierNS.modeE.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9444907Z AXROW | `TorusFourierNS.modeE_curl` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9445601Z AXROW | `TorusFourierNS.modeEnergy.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9446277Z AXROW | `TorusFourierNS.modeEnergy_curl` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9446963Z AXROW | `TorusFourierNS.modeEnergy_expand` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9447703Z AXROW | `TorusFourierNS.modeEnergy_nonneg` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9448535Z AXROW | `TorusFourierNS.modeFunctionalDerivative.eq_1` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9449394Z AXROW | `TorusFourierNS.modeFunctionalDerivative_eq` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9450298Z AXROW | `TorusFourierNS.modeFunctionalDerivative_modeEnergy` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9451149Z AXROW | `TorusFourierNS.modeGateauxRep_unique` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9451915Z AXROW | `TorusFourierNS.modePairing.eq_1` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9452809Z AXROW | `TorusFourierNS.multiplier.congr_simp` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9453520Z AXROW | `TorusFourierNS.multiplier.eq_1` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9454229Z AXROW | `TorusFourierNS.negG.eq_1` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9455134Z AXROW | `TorusFourierNS.norm_heatSymbol_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9455950Z AXROW | `TorusFourierNS.norm_heatSymbol` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9456614Z AXROW | `TorusFourierNS.norm_heat_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9457308Z AXROW | `TorusFourierNS.norm_hsWeighted_sq` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9458109Z AXROW | `TorusFourierNS.norm_le_hsNormField_mul` | `TorusFourierNS.GalerkinContinuation` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9458898Z AXROW | `TorusFourierNS.norm_multiplier_le` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9459623Z AXROW | `TorusFourierNS.norm_triTerm_sub_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9460361Z AXROW | `TorusFourierNS.norm_uconj_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9461113Z AXROW | `TorusFourierNS.norm_udot_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9461794Z AXROW | `TorusFourierNS.normsq_eq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9462462Z AXROW | `TorusFourierNS.nrm.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9463164Z AXROW | `TorusFourierNS.nrm_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9463868Z AXROW | `TorusFourierNS.nrm_sq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9464643Z AXROW | `TorusFourierNS.nsBilin.eq_1` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9465368Z AXROW | `TorusFourierNS.nsBilinCLM_apply` | `TorusFourierNS.GalerkinNS` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9466074Z AXROW | `TorusFourierNS.nsq.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9466756Z AXROW | `TorusFourierNS.nsq_add_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9467441Z AXROW | `TorusFourierNS.nsq_add` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9468119Z AXROW | `TorusFourierNS.nsq_neg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9468775Z AXROW | `TorusFourierNS.nsq_nonneg` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9469448Z AXROW | `TorusFourierNS.ode_barrier` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9470178Z AXROW | `TorusFourierNS.ode_unique_Icc` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9470894Z AXROW | `TorusFourierNS.one_add_pow_mul_exp_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9471578Z AXROW | `TorusFourierNS.one_add_rpow_mul_exp_le` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9472275Z AXROW | `TorusFourierNS.one_add_sq_pos` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9472965Z AXROW | `TorusFourierNS.one_le_sobW` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9473823Z AXROW | `TorusFourierNS.parseval_norm_sq` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9474644Z AXROW | `TorusFourierNS.preTerm.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9475489Z AXROW | `TorusFourierNS.preTerm_sum_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9476233Z AXROW | `TorusFourierNS.reflG.eq_1` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9477140Z AXROW | `TorusFourierNS.reflG_hasDerivAt` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9478137Z AXROW | `TorusFourierNS.reflG_of_hermitian` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9479214Z AXROW | `TorusFourierNS.reflG_reflG` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9479966Z AXROW | `TorusFourierNS.restrictG.eq_1` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9480723Z AXROW | `TorusFourierNS.rpow_le_factorial_ceil_mul_exp` | `TorusFourierNS.Heat` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9481684Z AXROW | `TorusFourierNS.rpow_sub_rpow_le_of_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9482431Z AXROW | `TorusFourierNS.sig.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9483119Z AXROW | `TorusFourierNS.sig_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9483795Z AXROW | `TorusFourierNS.sig_neg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9494815Z AXROW | `TorusFourierNS.sig_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9495658Z AXROW | `TorusFourierNS.sig_sq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9496422Z AXROW | `TorusFourierNS.singleDir.eq_1` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9497165Z AXROW | `TorusFourierNS.sobW_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9497898Z AXROW | `TorusFourierNS.sobW_neg_le_prod` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9498642Z AXROW | `TorusFourierNS.sobW_peetre` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9499332Z AXROW | `TorusFourierNS.sobW_pos` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9500089Z AXROW | `TorusFourierNS.sobolevProductEstimate` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9500881Z AXROW | `TorusFourierNS.sq_sum_fin3_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9501619Z AXROW | `TorusFourierNS.sqrt_sobW_neg_mul` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9502358Z AXROW | `TorusFourierNS.sqrt_sobW_peetre` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9503059Z AXROW | `TorusFourierNS.strainSym.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9503754Z AXROW | `TorusFourierNS.strain_sq_eq_half_curl_sq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9504654Z AXROW | `TorusFourierNS.strain_sq_le_curl_sq` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9505478Z AXROW | `TorusFourierNS.streamFunctionRepresentative_T3` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9506277Z AXROW | `TorusFourierNS.streamSym.eq_1` | `TorusFourierNS.Strain` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9507295Z AXROW | `TorusFourierNS.streamSym_isModeGateauxRep` | `TorusFourierNS.GateauxBridge` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9508077Z AXROW | `TorusFourierNS.sum_shift_sq_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9508833Z AXROW | `TorusFourierNS.summable_coeffField` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9509721Z AXROW | `TorusFourierNS.summable_coeff_sq` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9510465Z AXROW | `TorusFourierNS.summable_fconv_inner_of_gt` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9511249Z AXROW | `TorusFourierNS.summable_fconv_inner` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9512034Z AXROW | `TorusFourierNS.summable_norm_fconv_inner` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9512816Z AXROW | `TorusFourierNS.summable_one_add_sq_rpow'` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9513584Z AXROW | `TorusFourierNS.summable_pairing` | `TorusFourierNS.FieldBiotSavart` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9514325Z AXROW | `TorusFourierNS.summable_sobW_neg` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9515395Z AXROW | `TorusFourierNS.summable_sq_of_memHs` | `TorusFourierNS.FconvSummable` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9516184Z AXROW | `TorusFourierNS.tameConst_nonneg` | `TorusFourierNS.TameTransport` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9516949Z AXROW | `TorusFourierNS.tendsto_coeff_of_hs` | `TorusFourierNS.SobolevField` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9517748Z AXROW | `TorusFourierNS.transportConst_nonneg` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9518545Z AXROW | `TorusFourierNS.transport_pairing_eq` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9519297Z AXROW | `TorusFourierNS.triDom.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9520014Z AXROW | `TorusFourierNS.triTerm.eq_1` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9520778Z AXROW | `TorusFourierNS.triTerm_sym_cancel` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9521529Z AXROW | `TorusFourierNS.tsum_conv_comm` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9522221Z AXROW | `TorusFourierNS.two_toReal` | `TorusFourierNS.Basic` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9522930Z AXROW | `TorusFourierNS.viscCoeff.eq_1` | `TorusFourierNS.GalerkinStructure` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9523686Z AXROW | `TorusFourierNS.viscCoeff_nonneg` | `TorusFourierNS.GalerkinEnergy` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9524650Z AXROW | `TorusFourierNS.weight_commutator_le` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9525408Z AXROW | `TorusFourierNS.wh_sq` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9526129Z AXROW | `TorusFourierNS.young_box'` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9526839Z AXROW | `TorusFourierNS.young_box` | `TorusFourierNS.TransportBound` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9527556Z AXROW | `TorusFourierNS.young_l1_l2` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9528248Z AXROW | `TorusFourierNS.young_l2_l1` | `TorusFourierNS.SobolevProduct` | Classical.choice, Quot.sound, propext |
+2026-11-23T21:15:25.9529031Z AXSUMMARY 250 theorems, 332 declarations in TorusFourierNS; nonstandard: 0
+
+===== build/system.txt
+2026-11-23T21:09:43.5630000Z Evaluating build.if
+2026-11-23T21:09:43.5630000Z Evaluating: success()
+2026-11-23T21:09:43.5630000Z Result: true
+2026-11-23T21:09:43.5610000Z Requested labels: ubuntu-latest
+2026-11-23T21:09:43.5610000Z Job defined at: BenFrohman/torus-fourier-ns-lemmas/.github/workflows/lean.yml@refs/heads/ci-backfill/5f4da03
+2026-11-23T21:09:43.5610000Z Waiting for a runner to pick up this job...
+2026-11-23T21:09:43.5630000Z Job is waiting for a hosted runner to come online.
+2026-11-23T21:09:43.7060000Z Job is about to start running on the hosted runner: GitHub Actions 1000006695

@@ -1,0 +1,92 @@
+      Conditional Continuation Theorem for 3D Navier–Stokes:
+       Beale–Kato–Majda Criterion and Parabolic Bootstrap
+                                    Benjamin Stanley Frohman
+
+                                           November 9, 2026
+
+
+                                               Abstract
+          We record the classical Beale–Kato–Majda continuation criterion in self-contained form.
+      For a maximal Kato solution of the 3D incompressible Navier–Stokes equations on T3 , inte-
+      grability of the vorticity supremum in time implies that the solution extends globally and is
+      smooth for positive times. (The classical criterion is stated here in the one-directional con-
+      tinuation form that the argument proves.) The argument uses only the logarithmic Sobolev
+      inequality, Kato–Ponce commutators, a log-Gronwall estimate, and standard parabolic boot-
+      strap; it contains no circularity and no auxiliary fields with incorrect signs.
+
+
+1     Statement
+Theorem 1.1 (Beale–Kato–Majda continuation). Let s > 5/2 and let u0 ∈ H s (T3 ) be divergence-
+free. Let u ∈ C([0, T ∗ ); H s (T3 )) be the unique maximal local solution of the 3D incompressible
+Navier–Stokes equations on T3 . If
+                                        ∫ T∗
+                                             ∥ω(t)∥L∞ (T3 ) dt < ∞,                             (1)
+                                       0
+
+where ω = ∇ × u, then T ∗ = +∞ and u ∈ C ∞ (T3 × (0, ∞)).
+
+
+2     Proof
+2.1   Logarithmic Sobolev inequality
+The velocity gradient is given by a Calderón–Zygmund singular integral of the vorticity. The
+operator is not bounded on L∞ . The sharp substitute is the logarithmic estimate (Beale–Kato–
+Majda / Kozono–Taniuchi): for s > 5/2,
+                                   (                                    )
+                    ∥∇u∥L∞ ≤ Cs 1 + ∥ω∥L∞ (1 + log+ ∥ω∥H s ) + ∥ω∥L2 .                    (2)
+
+(The proof proceeds by Littlewood–Paley decomposition: low frequencies are controlled by the
+energy, medium frequencies produce a factor equal to the number of shells times ∥ω∥L∞ , and the
+high-frequency tail is estimated by Sobolev embedding after a cutoff at frequency comparable
+to ∥ω∥H s .)
+
+2.2   H s energy estimate
+Apply Λs = (I − ∆)s/2 to the vorticity equation and take the L2 inner product with Λs ω.
+The viscous term is non-negative. The nonlinear terms are controlled by the Kato–Ponce
+commutator estimate, yielding
+                                    d
+                                       ∥ω∥2H s ≤ Cs ∥∇u∥L∞ ∥ω∥2H s .                                   (3)
+                                    dt
+
+                                                    1
+2.3   Log-Gronwall inequality
+Substitute (2) into (3). After absorbing lower-order terms one obtains
+
+                       d             (         )       (               )
+                          ∥ω∥2H s ≤ C 1 + ∥ω∥L∞ ∥ω∥2H s 1 + log+ ∥ω∥H s .                     (4)
+                       dt
+Set Y (t) = log(e + ∥ω(t)∥2H s ). Then
+
+                                 d           (            )
+                                    Y (t) ≤ C 1 + ∥ω(t)∥L∞ Y (t).                             (5)
+                                 dt
+Integration and the ordinary Gronwall lemma produce the double-exponential bound
+                                                      (                    )
+                                    (             )exp C ∫ T (1+∥ω∥L∞ ) dt
+                        ∥ω(T )∥H s ≤ e + ∥ω0 ∥H s
+                               2              2           0
+                                                                             .                (6)
+
+Under hypothesis (1) the integral is finite, so
+
+                                           sup ∥ω(t)∥H s < ∞.
+                                         t∈[0,T ∗ )
+
+
+2.4   Continuation and parabolic bootstrap
+Kato’s local existence theorem asserts that a state with ∥u∥H s ≤ K may be continued for a
+positive time of order 1/K. Because the H s norm remains bounded up to T ∗ , the solution can
+be extended past any finite T ∗ , a contradiction unless T ∗ = +∞.
+   Once the solution is global and bounded in H s , Duhamel’s formula for the Stokes semigroup
+                                           ∫ t
+                                                          [        ]
+                         u(t) = eνt∆ u0 −      eν(t−τ )∆ P (u · ∇)u (τ ) dτ
+                                                  0
+
+together with the smoothing properties of the heat kernel yields, by induction, that u(t) ∈ H s+k
+for every k and every t > 0. Sobolev embedding then gives u ∈ C ∞ (T3 × (0, ∞)).
+
+
+
+
+                                                      2
+

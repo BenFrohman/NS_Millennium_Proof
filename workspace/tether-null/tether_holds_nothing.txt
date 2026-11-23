@@ -1,0 +1,343 @@
+                   A TETHER THAT HOLDS NOTHING:
+               ENERGY-NULL METRIPLECTIC CORRECTIONS
+          AND THE VANISHING ENSTROPHY CONTRIBUTION ON T3
+
+                                       BENJAMIN STANLEY FROHMAN
+
+
+        Abstract. We record the Frohmanian geometric tether—a symmetric, negative-semidefinite qua-
+        dratic correction to the Lie–Poisson bracket on the vorticity coadjoint orbit of ideal incompressible
+        fluid—in both its stream-function (ψ) and velocity-slot forms. The velocity-slot kernel Tvel anni-
+        hilates the kinetic energy by construction (condition C2), restoring consistency of the metriplectic
+        sum with the classical Euler equations. That consistency, however, is precisely the obstruction:
+        by symmetry the tether contributes nothing to the enstrophy balance, so no cubic damping of
+        enstrophy appears. We state the open analytic hypothesis FrohmanianTetherRate, distinguish its
+        inequivalent differential forms, and delimit the scope of the associated product theorem: uncondi-
+        tional only for a discontinuous step field, zero data, and constant flow. No claim is made on the
+        Clay Millennium problem for the three-dimensional Navier–Stokes equations.
+
+
+
+
+                                               1. Introduction
+   The geometric structure of ideal incompressible fluid on a compact Riemannian manifold is
+classical: the Euler equations are Hamiltonian on the coadjoint orbits of the volume-preserving
+diffeomorphism group, with the Lie–Poisson bracket of Arnold [Arn66, AK98] and kinetic energy
+as Hamiltonian. Dissipative corrections that preserve energy while producing entropy growth—
+metriplectic systems in the sense of Morrison [Mor86] and Grmela–Öttinger [GO97]—offer a natural
+language in which to ask whether a structurally minimal correction could supply the missing a-priori
+bound on vorticity.
+   The Frohmanian geometric tether is one such candidate: a symmetric bilinear form T(F, G) on
+functionals of vorticity, weighted by global enstrophy and projected orthogonal to the Biot–Savart
+velocity. Its design goals are three conditions conventionally labelled C1–C3:
+(C1) negative-semidefiniteness of the quadratic form T(F, F );
+(C2) annihilation of the kinetic energy, T(H, ·) = 0;
+(C3) compatibility with the coadjoint (vorticity) structure.
+Condition (C2) ensures that the tethered dynamics leave the ideal Euler equations unchanged when-
+ever the dissipative (viscous) term is switched off. The present note records the precise definitions
+used in the accompanying Lean development frohmanian-tether-sdiff, the quadratic geometry
+of the kernel, a C2 failure of the ψ-slot form, the velocity-slot repair, and the analytic obstruction
+that follows once C2 holds.
+   The conclusion is negative in a precise sense. The very property that makes the tether con-
+sistent with Euler—energy nullity—forces, by symmetry, a vanishing contribution to the enstro-
+phy balance. No damping of the form −κ′ M 2 is produced. Closing a differential inequality for
+enstrophy along physical Navier–Stokes solutions therefore remains an open analytic step, named
+
+  Date: 4 November 2026.
+  2020 Mathematics Subject Classification. 35Q30, 76D05, 37K65.
+  Key words and phrases. Navier–Stokes equations, metriplectic systems, coadjoint orbits, enstrophy, Beale–Kato–
+Majda, geometric tether, formal Lean verification.
+  ORCID: 0009-0006-7068-3718.
+                                                         1
+2                                   BENJAMIN STANLEY FROHMAN
+
+
+FrohmanianTetherRate (also hDI). The Clay question of global regularity for smooth finite-energy
+data on T3 [Fef00] is untouched.
+
+                             2. Notation and classical identities
+   Let T3 = R3 /(2πZ)3 be the flat three-torus. Write u for a divergence-free velocity field, ω = curl u
+for its vorticity, and u = BS(ω) for the Biot–Savart reconstruction (the unique divergence-free,
+mean-zero solution of curl u = ω). Functionals F, G of vorticity take values in R; their functional
+derivatives δF /δω are identified with stream-function-like fields. The kinetic energy and (unsigned)
+enstrophy are                        Z                           Z
+                          H(u) = 2 1
+                                         |u| dx,
+                                            2
+                                                     M (ω) = 2 1
+                                                                     |ω|2 dx.                        (1)
+                                      T3                        T3
+            1
+(The factor 2 is conventional; rescaling M rescales constants in any differential inequality but does
+not alter its shape.) The classical enstrophy identity for a smooth solution of the incompressible
+Navier–Stokes equations with viscosity ν > 0 reads
+                                                   Z
+                               d
+                                 M + ν∥∇ω∥L2 =2
+                                                        ω, (ω · ∇)u dx.                          (2)
+                              dt                     T3
+The right-hand side is the vortex-stretching term. In three dimensions enstrophy is not a Casimir of
+the Euler–Poisson bracket: the classical contribution {M, H}LP is precisely the stretching integral
+and is nonzero in general. (Helicity is a true Casimir; we do not use it here.)
+  The Beale–Kato–Majda criterion [BKM84] states that a smooth solution on [0, T ) extends past
+T whenever                              Z T
+                                            ∥ω(t)∥L∞ dt < ∞.                                     (3)
+                                         0
+Thus a time-integrated bound on a critical norm is the realistic analytic target; a pointwise cubic
+differential inequality is stronger than what BKM requires.
+
+                                    3. The geometric tether
+3.1. The ψ-slot kernel.
+Definition 3.1 (TetherKernel). Fix κ > 0. For vorticity ω on a coadjoint orbit and functionals
+F, G, the ψ-slot tether kernel is
+                                                Z D
+                                                                    E
+                         T(F, G)(ω) = −κ ∥ω∥2L2     Πu δF
+                                                       δω   , Π   δG
+                                                                u δω    dx,                (4)
+                                                   T3
+where u = BS(ω) and Πu denotes the pointwise orthogonal projection onto the plane perpendicular
+to u(x) (with the convention Π0 = Id). In the Lean development the constant is fixed at κ = 32 .
+The global scalar weight ∥ω∥2L2 replaced an earlier pointwise density |ω(x)|2 (author decision of
+3 November 2026); the two objects are inequivalent.
+    The Lean realisation in frohmanian-tether-sdiff is:
+    /-! ## The Quadratic Metric Correction (the Tether) -/
+    /-- Canonical Frohmanian tether kernel
+    `B(F,G)(ω) = -κ ‖ω‖² ∫ (Π_u (δF/δω) · Π_u (δG/δω)) dλ`, with the GLOBAL
+    enstrophy `‖ω‖² = Enstrophy ω = ∫ |ω|²` outside the integral. -/
+    @[expose] public noncomputable def TetherKernel
+        (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
+      -kappa * Enstrophy ω * ∫ x,
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) x)
+            (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) x)
+        ∂volume
+                                  A TETHER THAT HOLDS NOTHING                                         3
+
+
+
+  public noncomputable def TetheredBracket
+      (F G : Functional) (ω : CoadjointOrbit) : ℝ :=
+    ClassicalBracket F G ω + TetherKernel ω F G
+
+
+Proposition 3.2 (Quadratic form). The form T is symmetric in (F, G). Its diagonal satisfies
+                                               Z
+                                                       2
+                          T(F, F ) = −κ ∥ω∥2L2   Πu δF
+                                                    δω   dx ≤ 0.                            (5)
+                                                     T3
+In particular T(F, F ) = 0 whenever δF /δω is pointwise parallel to u.                Lean identifier:
+tetherKernel_quadratic_form.
+
+   The tethered bracket {F, G}T = {F, G}LP +T(F, G) is therefore metriplectic rather than Poisson:
+the Lie–Poisson summand is antisymmetric (and Jacobi, cited but not formalized in the present
+development), while the correction is symmetric. The identity {F, F }T = T(F, F ) ≤ 0 encodes
+dissipation along level sets of F . Canonicity of the kernel is proved only inside a restricted class of
+quadratic corrections and under the explicit hypotheses of uniqueness_of_minimal_tether; it is not
+an unconditional uniqueness statement.
+3.2. Schematic geometry of the quadratic form. All figures in this note are schematic illus-
+trations of the sign structure of T(F, F ). They are not computed fluid fields.
+
+
+
+
+       Figure 1. Schematic. Left and right: the diagonal T(F, F ) over a two-dimensional
+       slice of argument space. The surface is identically zero along the component parallel
+       to u (the kinetic-energy direction) and negative-quadratic in the orthogonal compo-
+       nent. Captions refer to T(F, F ), not to the off-diagonal T(F, G).
+4                           BENJAMIN STANLEY FROHMAN
+
+
+
+
+    Figure 2. Schematic. Left: trough geometry with energy and projected axes.
+    Right: one-dimensional profile T(F, F ) ∝ −|Πu δF |2 .
+                          A TETHER THAT HOLDS NOTHING                                     5
+
+
+
+
+Figure 3. Schematic. Top: bowl −(y 2 + z 2 ) over the projected plane (Πu )1 × (Πu )2 .
+The kinetic-energy direction is orthogonal to this plane and sits at the unique point
+where T = 0 (the origin). Earlier drafts incorrectly drew the energy line along
+a projected axis; see Appendix A. Bottom: a coadjoint orbit (closed curve) with
+sample projected vectors Πu δF (arrows). Illustration only.
+6                                   BENJAMIN STANLEY FROHMAN
+
+
+                       4. The velocity-slot repair and condition C2
+4.1. Failure of C2 in the ψ-slot. Condition (C2) asks that T(H, ·) = 0 for the kinetic energy H.
+In the ψ-slot form (4) one projects δH/δω = ψ, the stream function. In general ψ ∦ u, so Πu ψ ̸≡ 0.
+On 30 October 2026 this was confirmed in Lean on a two-mode shear flow (commit a52c6af): the
+ψ-slot kernel fails C2 on that example. The global enstrophy weight, being a scalar factor, cannot
+repair a pointwise nonvanishing integrand.
+
+4.2. The velocity-slot kernel. The repair is to project on the velocity side of the functional
+derivative.
+Definition 4.1 (TetherKernelVel). The velocity-slot tether kernel is
+                                          Z D                             E
+                Tvel (F, G)(ω) = −κ ∥ω∥L2
+                                       2
+                                              Πu curl δFδω   , Π u   curl δG
+                                                                          δω    dx.              (6)
+                                              T3
+
+    public noncomputable def TetherKernelVel
+        (ω : CoadjointOrbit) (F G : Functional) : ℝ :=
+      -kappa * Enstrophy ω * ∫ x,
+          inner ℝ
+            (Pi_u (velocity_from_vorticity ω)
+                  (curl (FunctionalDerivative F ω)) x)
+            (Pi_u (velocity_from_vorticity ω)
+                  (curl (FunctionalDerivative G ω)) x)
+        ∂volume
+
+
+Proposition 4.2 (C2 for the velocity slot). Assume curl(δH/δω) = u = BS(ω). Then Πu u = 0
+pointwise, hence Tvel (H, G) = 0 for every functional G.
+Proof. By the standing identification of the functional derivative of kinetic energy, δH/δω = ψ with
+curl ψ = u. The integrand of (6) at F = H therefore contains the factor Πu u, which vanishes at
+every x ∈ T3 by definition of Πu . The scalar prefactor −κ∥ω∥2L2 is immaterial. Thus Tvel (H, G) =
+0.                                                                                                □
+Remark 4.3 (Lean status). The argument of Proposition 4.2 is elementary once the identification
+curl(δH/δω) = u is available in the development. At the time of writing tetherKernelVel_C2
+is kernel-checked in Lean 4 (0 sorry; axioms propext, Classical.choice, Quot.sound only; local
+commit 7e3cf78), conditional on the named open hypothesis KineticEnergyCurlIdentification,
+                             curl(δH/δω) = velocity_from_vorticity ω,
+together with div u = 0 and finite energy. Because Πu in the development is the L2 Gram–Schmidt
+projector rather than a pointwise one, Πu u u = 0 is proved almost everywhere under those standing
+hypotheses (Pi_u_self_ae_zero). Discharging the curl identification requires a Gâteaux deriva-
+tive and Biot–Savart calculus not yet present in the development.
+
+                        5. The C2 obstruction to enstrophy damping
+  Suppose C2 holds in the form T(H, G) = 0 for every second slot G (as it does for Tvel under
+the hypotheses of Proposition 4.2). Taking G = M , the enstrophy functional, yields T(H, M ) = 0.
+Symmetry of T then gives
+                                    T(M, H) = T(H, M ) = 0.                                   (7)
+Along the tethered flow the evolution of enstrophy is therefore
+                             dM
+                                 = {M, H}LP + T(M, H) = {M, H}LP .                               (8)
+                              dt
+                                  A TETHER THAT HOLDS NOTHING                                        7
+
+
+The tether contributes nothing. In particular no term of the shape −κ′ M 2 (or −κ′′ M 3 ) is generated
+by the geometric correction. The classical stretching contribution {M, H}LP remains exactly as in
+the untethered Euler or Navier–Stokes dynamics.
+Remark 5.1 (Enstrophy is not a 3D Casimir). The vanishing (7) should not be confused with the
+Casimir property. In three dimensions, enstrophy is not a Casimir of the Euler bracket: {M, H}LP
+equals the vortex-stretching integral and is nonzero for generic data. The tether simply fails to
+modify that classical balance. Replacing “enstrophy” by a true Casimir such as helicity yields the
+same formal conclusion—the tether adds nothing—but helicity does not control regularity.
+Remark 5.2 (Projection gap). Even an asymmetric tether designed to produce damping would
+confront a projection gap. The only estimate available from the definition is the upper bound
+                                     Z
+                                         |Πu ω|2 dx ≤ ∥ω∥2L2 .
+                                          T3
+A coercive lower bound on |Πu ω| is what damping requires, and it fails wherever ω ∥ u—precisely
+the Beltrami-type regions in which vortex stretching is weakest. No such lower bound follows from
+the present geometric construction.
+    Thus two routes have been examined.
+(1) Inside the bracket (metriplectic tether). The C2/C3 obstruction prevents the symmetric tether
+     from producing cubic damping. No modification of the present form removes the obstruction
+     while preserving both energy conservation and the coadjoint structure.
+(2) Outside the bracket (a-posteriori estimate). Starting from a smooth solution of the unmodified
+     3D Navier–Stokes equations, one may form a Lyapunov quantity from its vorticity and attempt
+     a differential inequality by classical identities. This avoids the C2 conflict, but the resulting
+     inequality does not close for arbitrary data.
+ Until an open rate hypothesis is discharged by a genuine estimate, neither route yields global
+ regularity for every smooth finite-energy initial datum.
+
+                        6. The open hypothesis FrohmanianTetherRate
+Hypothesis 6.1 (FrohmanianTetherRate / hDI). There exist constants C > 0 and κ′ > 0 such
+that every smooth solution of the 3D incompressible Navier–Stokes equations on T3 satisfies a
+differential inequality of one of the following shapes for its enstrophy (or a supremum-norm proxy)
+M (t):
+                                   M ′ (t) ≤ C M (t)2 − κ′′ M (t)3 ,                               (9)
+                                      ′                       ′
+                                   M (t) ≤ C M (t)   3/2
+                                                           − κ M (t) .
+                                                                    2
+                                                                                                  (10)
+Remark 6.2 (Inequivalence). The two forms (9) and (10) are not equivalent: they assert different
+powers and neither implies the other. A single oﬀicial form must be fixed; referring to both as
+“equivalent” is a paper-to-code mismatch. The factor 12 in (1) merely rescales constants and cannot
+convert an unproved inequality into a proved one.
+   The hypothesis is taken as an explicit argument by the conditional regularity theorems
+frohmanian_tether_theorem and global_regularity_for_NS. It is not derived from the classical iden-
+tity (2), nor from the geometric tether. Earlier attempts to obtain a pointwise cubic bound of this
+shape were withdrawn on grounds of scale inconsistency and the C2 obstruction of Section 5.
+   Known obstructions to a direct derivation include:
+ • Scale inconsistency. A sink −κM 4 , or −κ′ M 2 with dimensionless κ′ , does not match the para-
+   bolic scaling of Navier–Stokes.
+ • The C2 obstruction. The symmetric tether contributes zero to the enstrophy balance (8).
+8                                       BENJAMIN STANLEY FROHMAN
+
+
+ • The projection gap. Only an upper bound on Πu ω is available; cf. Remark 5.2.
+ By Beale–Kato–Majda (3), a time-integrated bound on ∥ω∥∞ already yields continuation. The
+ differential inequalities (9)–(10) are therefore stronger than necessary; a weaker integrated form
+ would suﬀice for the regularity application and may be a more realistic target.
+    Concrete next steps that do not claim a solution:
+(1) Extract the exact classical stretching integral and the precise Hölder/Sobolev constants already
+     present in the Lean files.
+(2) Test candidate scale-invariant replacements (for instance −κνM 2 · (dimensionless quantity))
+     against known exact solutions and scaling counter-examples.
+(3) Record any partial estimate that holds under an extra hypothesis—e.g. a bound on the direction
+     of vorticity in the sense of Constantin–Fefferman [CF93]—as a named conditional lemma.
+
+                                  7. Scope of the product theorem
+    The Lean declaration
+        frohmanian_metriplectic_system_canonical_uniqueness_and_global_-
+        regularity_product_theorem
+ is assumption-free as a formal object, but its regularity conjunct covers only three regimes:
+  (i) a discontinuous step field that is not a Navier–Stokes solution;
+ (ii) identically zero data;
+(iii) constant (trivial) flow.
+ Every theorem in the development that addresses general smooth finite-energy data takes one of the
+ named open hypotheses hRiccati, FrohmanianTetherBound, or TetherCoefficientBounded as an explicit
+ argument. Consequently:
+Theorem 7.1 (Scope; informal). There is no unconditional global-regularity theorem for arbitrary
+smooth finite-energy initial data of 3D Navier–Stokes on T3 in the present development. The Clay
+Millennium problem [Fef00] is not solved here.
+  The honest forward path is therefore to drop the tether from the dynamics and treat any can-
+didate bound as an a-posteriori estimate on true Navier–Stokes solutions, labelled explicitly as
+conditional on the rate or absorbing-bound hypotheses above.
+
+                                            Acknowledgements
+  The accompanying formal development is the Lean repository frohmanian-tether-sdiff.
+Schematic figures were generated from the quadratic form (5) for illustration only.
+
+               Appendix A. Earlier drafts of the three-dimensional figure
+   The two plots below are the author’s original script outputs, retained for the record. In both, a
+black “energy direction” line was drawn along a projected axis, incorrectly placing the kinetic-energy
+direction inside the projected plane. The corrected Fig. 3 shows the energy direction orthogonal to
+the projected plane, at the unique point of the figure where T = 0.
+
+                                                 References
+[Arn66] V. I. Arnold, Sur la géométrie différentielle des groupes de Lie de dimension infinie et ses applications à
+    l’hydrodynamique des fluides parfaits, Ann. Inst. Fourier (Grenoble) 16 (1966), 319–361.
+[AK98] V. I. Arnold and B. A. Khesin, Topological Methods in Hydrodynamics, Appl. Math. Sci. 125, Springer, New
+    York, 1998.
+[BKM84] J. T. Beale, T. Kato, and A. Majda, Remarks on the breakdown of smooth solutions for the 3-D Euler
+    equations, Comm. Math. Phys. 94 (1984), 61–66.
+[CF93] P. Constantin and C. Fefferman, Direction of vorticity and the problem of global regularity for the Navier–
+    Stokes equations, Indiana Univ. Math. J. 42 (1993), 775–789.
+                                      A TETHER THAT HOLDS NOTHING                                               9
+
+
+
+
+        Figure 4. Earlier drafts (author’s original script outputs). Schematic only. The
+        energy-direction line coincides with a projected axis—an error corrected in Fig. 3.
+
+[Fef00] C. L. Fefferman, Existence and smoothness of the Navier–Stokes equation, in The Millennium Prize Problems,
+     Clay Mathematics Institute, Cambridge, MA, 2000.
+[GO97] M. Grmela and H. C. Öttinger, Dynamics and thermodynamics of complex fluids. I. Development of a general
+     formalism, Phys. Rev. E 56 (1997), 6620–6632.
+[Mor86] P. J. Morrison, A paradigm for joined Hamiltonian and dissipative systems, Physica D 18 (1986), 410–419.
+
+  Independent researcher
+  Email address: frohmanbenjamin@gmail.com
+

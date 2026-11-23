@@ -1,0 +1,69 @@
+   Section 10 bootstrap, with the two open gaps
+                      marked
+                       Benjamin Stanley Frohman
+                               October 2026
+
+   Assume a smooth divergence-free solution of unforced 3D incompressible
+Navier–Stokes on T3 exists on [0, T ). Let M (t) = ∥ω(t)∥L∞ and Mε (t) =
+∥ω ∗ ηε ∥L∞ .
+
+Auxiliary field.
+                      ∂t ϕ + u · ∇ϕ = |ω|2 , ϕ(0, x) = 0.
+                                     ∫t
+Along characteristics, ∥ϕ(t)∥L∞ ≤ 0 M (s)2 ds. This upper bound is linear in
+t whenever M is bounded below by a positive constant. It is not a uniform
+constant on [0, ∞).
+
+Pointwise stretching. At an interior maximum of |ωε |2 the viscous pairing
+is non-positive. The pointwise algebraic stretching estimate is
+                    |ωε · ((ωε · ∇)u)| ≤ Mε (t)2 ∥∇u(t)∥L∞ .
+The strain factor ∥∇u(t)∥L∞ is essential and is not a universal constant.
+Calderón–Zygmund theory gives BMO rather than a closed L∞ estimate from
+bounded vorticity. A logarithmic Beale–Kato–Majda estimate also involves a
+higher-regularity norm; it does not justify dropping the strain factor. A PDE
+evolution estimate for mollified vorticity additionally requires control of the
+mollification commutators.
+
+Lyapunov inequality, as stated.
+                                                     ∫
+               dSε       (                 3/2 )
+                   ≤ Cabs 1 + Mε (t)3 ∥ϕε ∥L∞ − κ′            |ωε |6 dλ.
+                dt                                       T3
+
+Gap A. Substituting the history bound makes the prefactor grow like t3/2 if
+Mε remains positive. The comparison equation is not the autonomous ODE
+y ′ = Cy 2 − κ′′ y 3 .   ∫
+     Gap B. The relation |ωε |6 ≥ cMε4 does not follow from Hölder. Hölder
+supplies ∥ωε ∥6 ≤ Mε on a unit-volume torus. A lower bound requires a lower
+bound on the measure of {|ωε | ≳ Mε }.
+
+
+                                       1
+A conditional analytic suﬀicient condition. For the unmollified smooth
+solution, put q = |ω|2 and S = (∇u + (∇u)T )/2. The vorticity equation gives
+
+                    (∂t + u · ∇ − ν∆)q = 2ω · Sω − 2ν|∇ω|2 .
+
+Set a(t) = supx max{ω ·Sω/|ω|2 , 0}, taking the quotient to be zero where ω = 0.
+                                   ∫T
+If the additional hypothesis A = 0 a(t) dt < ∞ holds, the maximum principle
+implies
+                         (∫ t        )      ∫ T
+       M (t) ≤ M (0) exp      a(s) ds ,         M (t) dt ≤ T M (0)eA < ∞.
+                           0                  0
+
+This is a conditional classical analytic implication, not a Lean-formalized PDE
+estimate here. The solution-derived bound A < ∞ is not supplied by the tether
+or by the integer Riccati rearrangement and remains an open input.
+                                                        ∫T
+What would close (B). A proof must produce 0 M (t) dt < ∞ for every
+finite T , for every smooth divergence-free finite-energy u◦ , with f ≡ 0, and then
+invoke Beale–Kato–Majda plus parabolic regularity. Neither the tether degen-
+eracy identity B(F, H) ≡ 0 nor a holographic analogy supplies that integral
+bound.
+
+
+
+
+                                        2
+

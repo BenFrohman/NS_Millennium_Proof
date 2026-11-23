@@ -1,0 +1,566 @@
+Formalizing Feﬀerman’s Oﬃcial Periodic
+Navier–Stokes Problem (B) in Lean 4:
+Global Linear Strain Exclusion on T3, Biot–Savart
+Direction Depletion Identities, and Conditional
+Reductions via Beale–Kato–Majda
+Benjamin Stanley Frohman
+ORCID: 0009-0006-7068-3718
+frohmanbenjamin@gmail.com
+October 25, 2026
+
+Abstract
+We present a self-contained Lean 4 formalization (leanprover/lean4:v4.30.0-rc1,
+Mathlib 4, 184 kernel-veriﬁed theorems across 5 modules with zero sorry and zero nonstandard axioms outside [propext, Classical.choice, Quot.sound]) of Charles L. Fefferman’s oﬃcial periodic 3D incompressible Navier–Stokes problem statement (Existence
+and Smoothness of the Navier–Stokes Equation, Clay Mathematics Institute, 2006, Statement (B) on R3 /Z3 ) together with unconditional geometric/kinematic identities and explicit
+conditional reductions to Beale–Kato–Majda continuation.
+Scope and Honesty Statement: This work does not solve Clay Problem (B) or (A).
+Speciﬁcally:
+1. We prove unconditionally that spatial Z3 -periodicity excludes any non-zero global linear background strain ustrain (x) = Ax on R3 (z3_periodic_linear_eq_zero), including the global uniaxial Burgers background strain A = diag(−α/2, −α/2, α) with
+α ̸= 0 (burgersLinearStrain_not_z3_periodic). Crucially, torus periodicity rules
+out only a global linear background strain: localized Burgers-like stretched vortex
+structures can still form locally on T3 = R3 /Z3 , so global linear strain exclusion does
+not yield unconditional Clay (B).
+2. We prove unconditionally the pointwise Biot–Savart direction-alignment depletion
+identity (biot_savart_det_aligned_eq_zero, aligned_vorticity_stretching_integrand_zero,
+biot_savart_det_difference_identity), the parabolic scale-invariance identities of
+3D Navier–Stokes under uλ (x, t) = λu(λx, λ2 t) (navier_stokes_vorticity_dt_scaling_exponent,
+navier_stokes_scaling_homogeneity_deg6, unnormalized_quartic_scaling_mismatch),
+and the cubic comparison ODE ceiling M (t) ≤ max(M (0), CCZ /κ′′ ) (comparison_ode_ceiling)
+whenever a diﬀerentiable trajectory satisﬁes M ′ (t) ≤ CCZ M (t)2 − κ′′ M (t)3 .
+
+3. We formulate the analytic closure hypotheses PeriodicDirectionDepletionBound ν,
+PeriodicTetherClosingBound ν, and PeriodicBKMContinuation ν as explicit Propvalued hypotheses (never as axioms) and prove the conditional reductions clay_B_exact_of_periodic_tet
+and clay_B_exact_of_torus_direction_depletion. Whether arbitrary smooth periodic Navier–Stokes ﬂows on T3 satisfy PeriodicDirectionDepletionBound ν or
+PeriodicTetherClosingBound ν remains an open problem.
+All Lean 4 proofs are audited in-kernel by AxiomAudit.lean and attested with an Ed25519signed titan-audit certiﬁcate and sealguard Merkle-root provenance manifest.
+
+1
+
+Contents
+1 Introduction and Explicit Proved vs. Open Status
+
+2
+
+2 Feﬀerman’s Oﬃcial Periodic Navier–Stokes Formulation on R3 /Z3
+2.1 Eliminating Step-Jump Vacuity in Local Existence Horizons . . . . . . . . . . . .
+
+2
+4
+
+3 Global Linear Strain Exclusion on T3 and Its Exact Scope
+
+4
+
+4 Biot–Savart Direction Alignment Depletion and Parabolic Scaling Identities
+
+5
+
+5 Cubic Comparison ODE Ceiling and Conditional Reductions to Clay_B_exact
+
+6
+
+6 Verbatim Lean 4 Kernel Audit and Cryptographic Attestation
+
+7
+
+1
+
+Introduction and Explicit Proved vs. Open Status
+
+In his oﬃcial Clay Mathematics Institute problem description [1], Charles L. Feﬀerman formulates the periodic existence and smoothness problem (Statement (B)) for the three-dimensional
+incompressible Navier–Stokes equations on T3 = R3 /Z3 . Formalizing PDE regularity statements
+in interactive theorem provers requires extreme care to avoid speciﬁcation gaming, vacuous hypotheses, or conﬂating conditional reductions with unconditional proofs.
+In this paper and its companion Lean 4 repository (BenFrohman/fefferman-clay-navier-stokes),
+we maintain a strict, machine-checked separation between:
+• Unconditionally proved theorems in Lean 4 (veriﬁed from Mathlib’s standard axioms [propext, Classical.choice, Quot.sound] with zero sorry and zero custom
+axiom declarations), and
+
+• Open analytic hypotheses (PeriodicDirectionDepletionBound ν, PeriodicTetherClosingBound ν
+and the classical PDE continuation package PeriodicBKMContinuation ν), which are deﬁned as Props and passed explicitly as hypotheses to our conditional reduction theorems.
+Table 1 provides a complete, transparent accounting of what is unconditionally proved and
+what remains open.
+
+2
+
+Feﬀerman’s Oﬃcial Periodic Navier–Stokes Formulation on
+R3 /Z3
+
+Let e1 , e2 , e3 denote the standard orthonormal basis of R3 . Following Feﬀerman [1], a velocity
+ﬁeld u : R3 → R3 or time-dependent ﬁeld u : R3 × [0, ∞) → R3 and pressure p : R3 × [0, ∞) → R
+are spatial Z3 -periodic (IsZ3Periodic / IsZ3PeriodicScalar) if for all x ∈ R3 , t ≥ 0, and
+1 ≤ j ≤ 3,
+u(x + ej , t) = u(x, t),
+p(x + ej , t) = p(x, t).
+(1)
+The incompressible 3D Navier–Stokes system with viscosity ν > 0 and zero external force
+(f ≡ 0) reads:
+3
+∂p
+∂ui
+∂ui ∑
++
+= ν∆ui −
+uj
+∂t
+∂xj
+∂xi
+j=1
+
+div u =
+
+3
+∑
+∂ui
+
+(x ∈ R3 , t ≥ 0, 1 ≤ i ≤ 3),
+
+(2)
+
+=0
+
+(x ∈ R3 , t ≥ 0),
+
+(3)
+
+u(x, 0) = u◦ (x)
+
+(x ∈ R3 ).
+
+(4)
+
+∂xi
+i=1
+
+2
+
+Table 1: Summary of Unconditionally Proved Theorems vs. Open Analytic Hypotheses in
+FeffermanClayNS.
+Declaration
+Item
+
+/
+
+Mathematical
+
+Status
+
+Mathematical Meaning & Scope
+
+PROVED (Unconditional)
+
+Exact encoding of Feﬀerman’s Statement (B) (eqs. (1)–(3), (5), (7), (10)–
+(11) at f ≡ 0) and logical implication
+from the energy-bounded variant.
+
+library_huniq_unsatisfiable_at_zero,
+PROVED (UnstepField_not_physical,
+conditional)
+repaired_hInt,
+repaired_huniq_at_zero
+
+Proof that unguarded local uniqueness
+fails against step-jump ﬁelds ustep (t),
+and that the time-continuity repair
+in IsPhysicalNSSolution eliminates
+step-jump pathology and is satisﬁed by
+u ≡ 0.
+
+z3_periodic_linear_eq_zero,
+PROVED (UnburgersLinearStrain_not_z3_periodic
+conditional)
+
+Any Z3 -periodic linear map on R3 vanishes identically; the global linear Burgers strain diag(−α/2, −α/2, α)x (α ̸=
+0) is not Z3 -periodic. (Note: Rules out
+global linear strain only; local Burgerslike vortex structures can still form on
+T3 .)
+
+biot_savart_det_aligned_eq_zero, PROVED (Unaligned_vorticity_stretching_integrand_zero,
+conditional)
+biot_savart_det_difference_identity
+
+Exact pointwise vanishing of the
+Biot–Savart stretching determinant
+det(ω(y), z, ω(x)) when ω(y) = c ω(x),
+reducing the stretching kernel to direction increments ω(y) − ω(x).
+
+navier_stokes_vorticity_dt_scaling_exponent,
+PROVED (Unnavier_stokes_scaling_homogeneity_deg6,
+conditional)
+unnormalized_quartic_scaling_mismatch
+
+Under parabolic scaling uλ (x, t) =
+λu(λx, λ2 t), the scale-invariant cubic
+ˆ 2 ∼ λ6 matches
+dissipation ν|ω|2 |∇ξ|
+2
+6
+∂t |ω| ∼ λ , whereas unnormalized
+quartic terms scale as λ8 .
+
+Clay_B_exact ν,
+clay_B_exact_of_with_energy
+
+unmodified_max_rate_of_cubic_source,
+PROVED (Un- Algebraic and diﬀerential reduction
+viscous_direction_dissipation_bridge,
+conditional)
+from high-vorticity direction gradient
+ˆ 2 ≥ cdir |ω| to the cuscale_invariant_cubic_rate_of_direction_coercivity coercivity |∇ξ|
+bic vorticity inequality M ′ ≤ CCZ M 2 −
+κ′′ M 3 with κ′′ = νcdir .
+comparison_ode_ceiling,
+PROVED (UnperiodicTetherClosingBound_of_directionDepletion
+conditional)
+
+First-exit-time ODE comparison proof
+that M ′ (t) ≤ CCZ M (t)2 − κ′′ M (t)3
+on
+[0, T ]
+implies
+M (t)
+≤
+max(M (0), CCZ /κ′′ ) for all t ∈ [0, T ].
+
+PeriodicDirectionDepletionBound ν OPEN
+HYPOTHESIS
+
+Whether every smooth periodic Navier–
+Stokes ﬂow on T3 satisﬁes M ′ (t) ≤
+CCZ M (t)2 −κ′′ M (t)3 along its existence
+horizon.
+
+PeriodicTetherClosingBound ν
+
+OPEN
+HYPOTHESIS
+
+Whether every smooth periodic Navier–
+Stokes ﬂow on T3 obeys a uniform L∞
+vorticity ceiling ∥ω(t)∥∞ ≤ Y (u0 , ν).
+
+PeriodicBKMContinuation ν
+
+OPEN
+FORMALIZATION
+HYPOTHESIS
+
+Classical PDE continuation theorem
+(Kato 1972 + Beale–Kato–Majda 1984
+on T3 ) stated as an explicit hypothesis
+in Lean 4.
+
+clay_B_exact_of_periodic_tether_bound,
+PROVED
+clay_B_exact_of_torus_direction_depletion
+CONDITIONAL
+RE3
+DUCTIONS
+
+Conditional theorems proving that if
+the open hypotheses above hold, then
+Clay_B_exact ν follows.
+
+In FeffermanClayNS/FeffermanStatements.lean, given smooth, divergence-free, Z3 -periodic
+initial data u◦ ∈ C ∞ (R3 /Z3 ) (IsPeriodicSmoothInitialData), a global smooth periodic solution (IsPeriodicSmoothSolution) satisﬁes (1)–(4) together with joint spacetime smoothness
+p, ui ∈ C ∞ (R3 × [0, ∞))
+
+(ContDiff R ⊤ (uncurry u)).
+
+(5)
+
+Feﬀerman’s Statement (B) is encoded verbatim as Clay_B_exact∫ ν, together with the energybounded variant Clay_B_exact_with_energy ν incorporating T3 |u(x, t)|2 dx < C and the
+proved reduction clay_B_exact_of_with_energy.
+
+2.1
+
+Eliminating Step-Jump Vacuity in Local Existence Horizons
+
+A subtle pitfall in formalizing PDE existence horizons in Lean 4 is that a pointwise time derivative predicate ∂t u(t, x) = · · · without continuity in t permits discontinuous step-jump ﬁelds
+such as
+{
+(0, 0, 0) if t ≤ 0,
+ustep (t, x) =
+(1, 0, 0) if t > 0,
+which satisfy ∂t ustep (t, x) = 0 = ν∆ustep − ∇p for every t > 0 while violating uniqueness from
+u◦ ≡ 0. In FeffermanStatements.lean, we prove:
+1. library_huniq_unsatisfiable_at_zero: An unguarded local uniqueness hypothesis on
+existenceTimes_unpatched is logically falsiﬁed (‘False‘) at u◦ ≡ 0 by ustep .
+2. stepField_not_physical: Upgrading the solution predicate to IsPhysicalNSSolution
+(requiring time continuity ContinuousOn (fun t => u t x) (Set.Icc 0 T) and spatial
+boundedness BddAbove) rules out ustep .
+3. repaired_hInt, repaired_huniq_shift_at_zero, and repaired_huniq_at_zero: The
+repaired physical solution class is non-vacuously inhabited by the trivial ﬂow u ≡ 0 and
+satisﬁes local uniqueness via the energy Grönwall identity.
+
+3
+
+Global Linear Strain Exclusion on T3 and Its Exact Scope
+
+On all of R3 , the classic Burgers vortex lives inside an unbounded uniaxial linear background
+strain
+
+
+
+
+
+
+−α/2
+0
+0
+x1
+
+ 
+−α/2 0  x2  ,
+ustrain (x) = Ax =  0
+0
+0
+α
+x3
+
+tr(A) = −
+
+α α
+− + α = 0.
+2
+2
+
+(6)
+
+In FeffermanClayNS/TorusStrainExclusion.lean, we prove that any Z3 -periodic linear map
+on R3 vanishes identically:
+Theorem 3.1 (z3_periodic_linear_eq_zero and burgersLinearStrain_not_z3_periodic).
+Let L : R3 →R R3 be any R-linear map satisfying IsZ3Periodic(L), i.e., L(x + ej ) = L(x) for
+all x ∈ R3 and j ∈ {1, 2, 3}. Then L = 0. In particular, for every α ̸= 0, the divergence-free
+global Burgers linear background strain (6) satisﬁes ¬ IsZ3Periodic(burgersLinearStrain α).
+Proof. By linearity and periodicity at x = 0, L(ej ) = L(0 + ej ) − L(0) = 0 for each standard
+∑
+basis vector ej . Since {e1 , e2 , e3 } spans R3 , L(x) = 3j=1 xj L(ej ) = 0 for all x ∈ R3 . For
+A = diag(−α/2, −α/2, α), evaluation at e3 yields (Ae3 )3 = α ̸= 0.
+
+4
+
+Remark 3.2 (Crucial Scope Warning: Why Global Linear Strain Exclusion Does Not Solve
+Clay (B)). Theorem burgersLinearStrain_not_z3_periodic rules out only a global linear
+background strain u(x) = Ax ∫across R3 /Z3 . On the compact torus T3 , a smooth periodic
+velocity ﬁeld u with zero mean ( T3 u dx = 0) can still exhibit a large, locally linear strain matrix
+∇u(x0 ) = A inside a small neighborhood Br (x0 ) ⊂ T3 , with the return ﬂow closing smoothly
+elsewhere in the periodic box. Consequently, localized Burgers-like vortex tubes and sheets can
+still form locally on T3 , and ruling out global linear strain does not yield an unconditional proof
+of Clay (B).
+
+4
+
+Biot–Savart Direction Alignment Depletion and Parabolic
+Scaling Identities
+
+Taking the curl of (2) yields the 3D vorticity transport equation for ω = ∇ × u:
+∂t ω + (u · ∇)ω = (ω · ∇)u + ν∆ω,
+
+(7)
+
+ˆ = 1 on {ω ̸= 0}):
+and the pointwise enstrophy evolution along ω = |ω|ξˆ (|ξ|
+1
+|ω|2
+ˆ 2.
+(∂t + u · ∇)|ω|2 = S(x)ω(x) · ω(x) + ν∆
+− ν|∇|ω||2 − ν|ω|2 |∇ξ|
+2
+2
+
+(8)
+
+Under the Biot–Savart law, the vortex stretching quadratic form at x has integrand proportional
+to the 3 × 3 determinant
+(
+
+)
+
+(
+
+)
+
+D(ω(y), z, ω(x)) = det ω(y), z, ω(x) = ω(y) × z · ω(x),
+
+z = x − y.
+
+In TorusStrainExclusion.lean, we prove three unconditional algebraic identities for this kernel:
+1. Collinear alignment vanishing (biot_savart_det_aligned_eq_zero): Whenever ω(y) =
+c ω(x) for any scalar c ∈ R, det(c ω(x), z, ω(x)) = 0.
+
+2. Complete stretching integrand vanishing under alignment (aligned_vorticity_stretching_int
+The full singular stretching integrand 3 (z·ω(x)) det(ω(y),z,ω(x))
+vanishes identically whenever
+|z|5
+ω(y) = c ω(x).
+3. Exact direction-diﬀerence decomposition (biot_savart_det_difference_identity):
+For all ωx , ωy , z ∈ R3 ,
+det(ωy , z, ωx ) = det(ωy − ωx , z, ωx ),
+(9)
+demonstrating that vortex stretching at x is driven exclusively by deviations of ω(y) from
+the direction of ω(x) (Constantin–Feﬀerman geometric depletion [3]).
+Furthermore, under parabolic Navier–Stokes rescaling uλ (x, t) = λu(λx, λ2 t), the vorticity
+ˆ λ (x, t) = λ(∇ξ)(λx,
+ˆ
+scales as ωλ (x, t) = λ2 ω(λx, λ2 t) and the direction gradient scales as (∇ξ)
+λ2 t).
+We prove in navier_stokes_scaling_homogeneity_deg6 and unnormalized_quartic_scaling_mismatch
+ˆ 2 scales homogeneously of degree 6 in λ:
+that the viscous direction-dissipation density ν|ω|2 |∇ξ|
+ˆ 2 = λ6 ν|ω|2 |∇ξ|
+ˆ 2,
+ν(λ2 |ω|)2 (λ|∇ξ|)
+
+(10)
+
+matching ∂t |ωλ |2 ∼ λ6 , whereas an unnormalized quartic damping κ|ω|4 scales as λ8 ̸= λ6 for
+λ∈
+/ {0, 1}.
+
+5
+
+5
+
+Cubic Comparison ODE Ceiling and Conditional Reductions
+to Clay_B_exact
+
+In FeffermanClayNS/HighSetDepletionAndBKM.lean, we ﬁrst prove the algebraic and diﬀerential bridges showing that if at the spatial maximum M (t) = ∥ω(t)∥∞ = |ω(t, x∗ (t))| the
+ˆ ∗ )|2 ≥
+high-vorticity direction gradient satisﬁes the scale-invariant coercivity lower bound |∇ξ(x
+2
+2
+ˆ
+cdir M (t) with cdir > 0, then the viscous direction-dissipation term −νM (t) |∇ξ(x∗ )| ≤ −νcdir M (t)3
+produces the cubic diﬀerential inequality (scale_invariant_cubic_rate_of_direction_coercivity):
+M ′ (t) ≤ CCZ M (t)2 − κ′′ M (t)3 ,
+
+κ′′ = νcdir > 0.
+
+(11)
+
+We then prove unconditionally the global ceiling theorem for any diﬀerentiable function
+M : R → R obeying (11):
+Theorem 5.1 (comparison_ode_ceiling). Let M : R → R be diﬀerentiable at every t ∈ [0, T ]
+and satisfy M ′ (t) ≤ CCZ M (t)2 − κ′′ M (t)3 on [0, T ] with CCZ > 0 and κ′′ > 0. Then for every
+t ∈ [0, T ],
+(
+)
+CCZ
+M (t) ≤ max M (0), ′′ .
+(12)
+κ
+Proof. Let Y = max(M (0), CCZ /κ′′ ) > 0. For any ε > 0, deﬁne the constant barrier B(s) =
+Y + ε. At any contact point s ∈ [0, t] where M (s) = Y + ε, we have M (s) > CCZ /κ′′ > 0, so
+κ′′ M (s) > CCZ and thus
+(
+
+)
+
+M ′ (s) ≤ M (s)2 CCZ − κ′′ M (s) < 0 = B ′ (s).
+Applying Mathlib’s ﬁrst-exit-time comparison lemma image_le_of_deriv_right_lt_deriv_boundary
+yields M (t) ≤ Y + ε for every ε > 0, and le_of_forall_pos_lt_add concludes M (t) ≤ Y .
+Finally, we state the two open analytic hypotheses and the conditional reductions:
+Open Analytic Hypothesis 5.2 (PeriodicDirectionDepletionBound ν — OPEN). For
+every smooth, divergence-free, Z3 -periodic initial datum u◦ , there exist CCZ , κ′′ > 0 such that
+along any local smooth periodic solution on [0, T ], M (t) = ∥ω(t)∥∞ is diﬀerentiable and obeys
+M ′ (t) ≤ CCZ M (t)2 − κ′′ M (t)3 on [0, T ].
+Open Analytic Hypothesis 5.3 (PeriodicTetherClosingBound ν — OPEN). For every
+smooth, divergence-free, Z3 -periodic initial datum u◦ , there exists Y ≥ 0 such that ∥ω(t)∥∞ ≤ Y
+for all t ∈ [0, T ] along any local smooth periodic solution on [0, T ].
+Theorem 5.4 (Conditional Reductions: periodicTetherClosingBound_of_directionDepletion,
+clay_B_exact_of_periodic_tether_bound, and clay_B_exact_of_torus_direction_depletion).
+1. PeriodicDirectionDepletionBound ν implies PeriodicTetherClosingBound ν with explicit ceiling Y = max(∥ω0 ∥∞ , CCZ /κ′′ ).
+2. Conditional on PeriodicTetherClosingBound ν (OPEN) and PeriodicBKMContinuation ν
+(classical Kato + Beale–Kato–Majda continuation [4, 2]), Clay_B_exact ν holds.
+3. Conditional on PeriodicDirectionDepletionBound ν (OPEN) and PeriodicBKMContinuation ν,
+Clay_B_exact ν holds.
+
+6
+
+6
+
+Verbatim Lean 4 Kernel Audit and Cryptographic Attestation
+
+Compiling the repository with lake build && lake env lean AxiomAudit.lean executes an
+in-kernel traversal of the Lean 4 environment via Lean.collectAxioms across all 184 theorems
+in the 4 theorem-bearing modules and prints the exact axiom footprint of the key theorems:
+Listing
+1:
+Verbatim
+output
+fefferman-clay-navier-stokes.
+
+of
+
+lake env lean AxiomAudit.lean
+
+on
+
+FeffermanClayNS.TorusStrainExclusion: theorems=19 nonstandard=0
+FeffermanClayNS.HighSetDepletionAndBKM: theorems=9 nonstandard=0
+FeffermanClayNS.FeffermanStatements: theorems=13 nonstandard=0
+FeffermanClayNS.Defs: theorems=143 nonstandard=0
+TOTAL theorems=184 nonstandard=0
+’FeffermanClayNS.clay_B_exact_of_with_energy’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FeffermanClayNS.library_huniq_unsatisfiable_at_zero’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FeffermanClayNS.repaired_huniq_at_zero’ depends on axioms: [propext, Classical.choice, Quot.
+sound]
+’FeffermanClayNS.z3_periodic_linear_eq_zero’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FeffermanClayNS.burgersLinearStrain_not_z3_periodic’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FeffermanClayNS.cross3_self’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FeffermanClayNS.det3_self_right’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FeffermanClayNS.biot_savart_det_aligned_eq_zero’ depends on axioms: [propext, Classical.choice
+, Quot.sound]
+’FeffermanClayNS.aligned_vorticity_stretching_integrand_zero’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayNS.biot_savart_det_difference_identity’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FeffermanClayNS.navier_stokes_vorticity_dt_scaling_exponent’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayNS.navier_stokes_scaling_homogeneity_deg6’ depends on axioms: [propext, Classical
+.choice, Quot.sound]
+’FeffermanClayNS.unnormalized_quartic_scaling_mismatch’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FeffermanClayNS.unmodified_max_rate_of_cubic_source’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FeffermanClayNS.viscous_direction_dissipation_bridge’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FeffermanClayNS.scale_invariant_cubic_rate_of_direction_coercivity’ depends on axioms: [
+propext, Classical.choice, Quot.sound]
+’FeffermanClayNS.comparison_ode_ceiling’ depends on axioms: [propext, Classical.choice, Quot.
+sound]
+’FeffermanClayNS.periodicTetherClosingBound_of_directionDepletion’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FeffermanClayNS.clay_B_exact_of_periodic_tether_bound’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FeffermanClayNS.clay_B_exact_of_torus_direction_depletion’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+
+In addition to AxiomAudit.lean, the repository includes an Ed25519-signed titan-audit
+certiﬁcate (audit/TITAN_AUDIT_CERTIFICATE.json, DOI 10.5281/zenodo.23630648) and a
+sealguard + sentinel-gate Merkle-root provenance and classiﬁed IP containment manifest (audit/SEALGUARD_CLASSIFIED_MANIFEST.json, DOIs 10.5281/zenodo.23631670 and
+10.5281/zenodo.23632766).
+
+7
+
+References
+[1] C. L. Feﬀerman, Existence and Smoothness of the Navier–Stokes Equation, in The Millennium Prize Problems, Clay Mathematics Institute / American Mathematical Society,
+pp. 57–67 (2006).
+[2] J. T. Beale, T. Kato, and A. Majda, Remarks on the breakdown of smooth solutions for the
+3-D Euler equations, Commun. Math. Phys. 94 (1984), 61–66.
+[3] P. Constantin and C. Feﬀerman, Direction of vorticity and the problem of global regularity
+for the Navier–Stokes equations, Indiana Univ. Math. J. 42 (1993), 775–789.
+[4] T. Kato, Nonstationary ﬂows of viscous and ideal ﬂuids in R3 , J. Funct. Anal. 9 (1972),
+296–305.
+[5] B. S. Frohman, Titan Audit: Speciﬁcation Gaming and Semantic Vacuity Detection for
+Formal Veriﬁcation in Lean 4, Zenodo, DOI: 10.5281/zenodo.23630648 (2026).
+[6] B. S. Frohman, SealGuard: Cryptographic Containment, Capability-Attested Boundary Enforcement, and Runtime Integrity Architecture, Zenodo, DOI: 10.5281/zenodo.23631670
+(2026).
+
+8
+
+

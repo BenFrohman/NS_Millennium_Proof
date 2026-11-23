@@ -1,0 +1,189 @@
+NS_Millennium_Proof.Semantics.intended_correspondence : NS_Millennium_Proof.Semantics.formal_claim ↔
+  NS_Millennium_Proof.Semantics.paper_claim
+def NS_Millennium_Proof.Semantics.paper_claim : Prop :=
+NS_Millennium_Proof.Semantics.EnvelopeReduction.paper_claim ∧
+  NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.paper_claim ∧
+    NS_Millennium_Proof.Semantics.PeriodicTetherReduction.paper_claim ∧
+      NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.paper_claim ∧
+        NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim
+def NS_Millennium_Proof.Semantics.formal_claim : Prop :=
+NS_Millennium_Proof.Semantics.EnvelopeReduction.formal_claim ∧
+  NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.formal_claim ∧
+    NS_Millennium_Proof.Semantics.PeriodicTetherReduction.formal_claim ∧
+      NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.formal_claim ∧
+        NS_Millennium_Proof.Semantics.TetherTheorem.formal_claim
+NS_Millennium_Proof.Semantics.EnvelopeReduction.intended_correspondence : NS_Millennium_Proof.Semantics.EnvelopeReduction.formal_claim ↔
+  NS_Millennium_Proof.Semantics.EnvelopeReduction.paper_claim
+def NS_Millennium_Proof.Semantics.EnvelopeReduction.paper_claim : Prop :=
+((∀ (ν : ℝ), 0 < ν → NS_Millennium_Proof.Semantics.PaperUniformEnvelope ν) ∧
+    ∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  FrohmanianTether.ClayStatements.Clay_B_exact
+def NS_Millennium_Proof.Semantics.EnvelopeReduction.formal_claim : Prop :=
+(∀ ν > 0, FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  (∀ ν > 0, FrohmanianTether.HighSetDepletionAndBKM.UniformVorticityEnvelopeBound ν) →
+    FrohmanianTether.ClayStatements.Clay_B_exact
+def NS_Millennium_Proof.Semantics.PaperUniformEnvelope : ℝ → Prop :=
+fun ν =>
+  ∀ (u₀ : NavierStokes3D.VelocityField),
+    ContDiff ℝ (↑⊤) u₀ →
+      (∀ (x : NavierStokes3D.T3), NavierStokes3D.div u₀ x = 0) →
+        NavierStokes3D.IsZ3Periodic u₀ →
+          ∃ C k,
+            0 < C ∧
+              0 < k ∧
+                ∀ (T : ℝ) (u : NavierStokes3D.TimeDependentVelocity) (p : NavierStokes3D.TimeDependentPressure),
+                  FrohmanianTether.ClayStatements.IsPeriodicSmoothSolutionOn ν T u₀ u p →
+                    ∀ (t : ℝ),
+                      0 ≤ t →
+                        t < T →
+                          NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u t)) ≤
+                            max (NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u 0))) (C / k)
+NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.intended_correspondence : NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.formal_claim ↔
+  NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.paper_claim
+def NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.paper_claim : Prop :=
+(∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  (∀ (ν : ℝ), 0 < ν → NS_Millennium_Proof.Semantics.PaperUniformCeiling ν) →
+    FrohmanianTether.ClayStatements.Clay_B_exact
+def NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.formal_claim : Prop :=
+(∀ ν > 0, FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  (∀ ν > 0, FrohmanianTether.HighSetDepletionAndBKM.DirectionCurvatureBound ν) →
+    FrohmanianTether.ClayStatements.Clay_B_exact
+def NS_Millennium_Proof.Semantics.PaperUniformCeiling : ℝ → Prop :=
+fun ν =>
+  ∀ (u₀ : NavierStokes3D.VelocityField),
+    ContDiff ℝ (↑⊤) u₀ →
+      (∀ (x : NavierStokes3D.T3), NavierStokes3D.div u₀ x = 0) →
+        NavierStokes3D.IsZ3Periodic u₀ →
+          ∃ Y,
+            ∀ (T : ℝ) (u : NavierStokes3D.TimeDependentVelocity) (p : NavierStokes3D.TimeDependentPressure),
+              FrohmanianTether.ClayStatements.IsPeriodicSmoothSolutionOn ν T u₀ u p →
+                ∀ (t : ℝ), 0 ≤ t → t < T → NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u t)) ≤ Y
+NS_Millennium_Proof.Semantics.PeriodicTetherReduction.intended_correspondence : NS_Millennium_Proof.Semantics.PeriodicTetherReduction.formal_claim ↔
+  NS_Millennium_Proof.Semantics.PeriodicTetherReduction.paper_claim
+def NS_Millennium_Proof.Semantics.PeriodicTetherReduction.paper_claim : Prop :=
+((∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicTetherClosingBound ν) ∧
+    ∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  FrohmanianTether.ClayStatements.Clay_B_exact
+def NS_Millennium_Proof.Semantics.PeriodicTetherReduction.formal_claim : Prop :=
+(∀ ν > 0, FrohmanianTether.ClayStatements.PeriodicTetherClosingBound ν) →
+  (∀ ν > 0, FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) → FrohmanianTether.ClayStatements.Clay_B_exact
+NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.intended_correspondence : NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.formal_claim ↔
+  NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.paper_claim
+def NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.paper_claim : Prop :=
+∀ (ν : ℝ) (u₀ : NavierStokes3D.VelocityField) (u : NavierStokes3D.TimeDependentVelocity)
+  (p : NavierStokes3D.TimeDependentPressure) (C κ'' : ℝ),
+  0 < ν →
+    ContDiffOn ℝ (↑⊤) (fun q => u q.1 q.2) (Set.Ici 0 ×ˢ Set.univ) →
+      ContDiffOn ℝ (↑⊤) (fun q => p q.1 q.2) (Set.Ici 0 ×ˢ Set.univ) →
+        (NavierStokes3D.navier_stokes_eq_Ici u p ν fun x x_1 => 0) →
+          u 0 = u₀ →
+            (∀ t ≥ 0, NavierStokes3D.IsZ3Periodic (u t) ∧ NavierStokes3D.IsZ3Periodic (p t)) →
+              0 < C →
+                0 < κ'' →
+                  (∀ s ≥ 0,
+                      DifferentiableAt ℝ (fun τ => NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u τ)))
+                        s) →
+                    (∀ s ≥ 0,
+                        deriv (fun τ => NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u τ))) s ≤
+                          C * NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u s)) ^ 2 -
+                            κ'' * NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u s)) ^ 3) →
+                      ∀ t ≥ 0,
+                        NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u t)) ≤
+                          max (NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u 0))) (C / κ'')
+def NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.formal_claim : Prop :=
+∀ (ν : ℝ),
+  0 < ν →
+    ∀ (u₀ : NavierStokes3D.VelocityField) (u : NavierStokes3D.TimeDependentVelocity)
+      (p : NavierStokes3D.TimeDependentPressure),
+      NavierStokes3D.IsPeriodicSmoothSolution ν u₀ (fun x x_1 => 0) u p →
+        ∀ (C κ'' : ℝ),
+          0 < C →
+            0 < κ'' →
+              (∀ s ≥ 0,
+                  DifferentiableAt ℝ (fun τ => NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u τ))) s) →
+                (∀ s ≥ 0,
+                    deriv (fun τ => NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u τ))) s ≤
+                      C * NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u s)) ^ 2 -
+                        κ'' * NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u s)) ^ 3) →
+                  ∀ t ≥ 0,
+                    NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u t)) ≤
+                      max (NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u 0))) (C / κ'')
+NS_Millennium_Proof.Semantics.TetherTheorem.intended_correspondence : NS_Millennium_Proof.Semantics.TetherTheorem.formal_claim ↔
+  NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim
+def NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim : Prop :=
+∀ (ν : ℝ), (fun x => 0) 0 = 0 ∧ NavierStokes3D.IsPeriodicSmoothSolution ν 0 (fun x x_1 => 0) (fun x => 0) fun x => 0
+def NS_Millennium_Proof.Semantics.TetherTheorem.formal_claim : Prop :=
+∀ (ν : ℝ), NavierStokes3D.IsPeriodicSmoothSolution ν 0 (fun x x_1 => 0) (fun x => 0) fun x => 0
+TRUTH GATE OBSERVE EnvelopeReduction: paper_claim [docs/VorticityEnvelopeCorrection.tex § §2 The checked conditional consequences] := ((∀
+      (ν : ℝ), 0 < ν → NS_Millennium_Proof.Semantics.PaperUniformEnvelope ν) ∧
+    ∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  FrohmanianTether.ClayStatements.Clay_B_exact
+TRUTH GATE OBSERVE DirectionCurvatureReduction: paper_claim [main.tex § Abstract] := (∀ (ν : ℝ),
+    0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  (∀ (ν : ℝ), 0 < ν → NS_Millennium_Proof.Semantics.PaperUniformCeiling ν) →
+    FrohmanianTether.ClayStatements.Clay_B_exact
+TRUTH GATE OBSERVE PeriodicTetherReduction: paper_claim [main.tex § §The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)] := ((∀
+      (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicTetherClosingBound ν) ∧
+    ∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  FrohmanianTether.ClayStatements.Clay_B_exact
+TRUTH GATE OBSERVE ConditionalGlobalRegularity: paper_claim [main.tex § §1 Introduction, Theorem 1.1 (thm:main)] := ∀
+  (ν : ℝ) (u₀ : NavierStokes3D.VelocityField) (u : NavierStokes3D.TimeDependentVelocity)
+  (p : NavierStokes3D.TimeDependentPressure) (C κ'' : ℝ),
+  0 < ν →
+    ContDiffOn ℝ (↑⊤) (fun q => u q.1 q.2) (Set.Ici 0 ×ˢ Set.univ) →
+      ContDiffOn ℝ (↑⊤) (fun q => p q.1 q.2) (Set.Ici 0 ×ˢ Set.univ) →
+        (NavierStokes3D.navier_stokes_eq_Ici u p ν fun x x_1 => 0) →
+          u 0 = u₀ →
+            (∀ t ≥ 0, NavierStokes3D.IsZ3Periodic (u t) ∧ NavierStokes3D.IsZ3Periodic (p t)) →
+              0 < C →
+                0 < κ'' →
+                  (∀ s ≥ 0,
+                      DifferentiableAt ℝ (fun τ => NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u τ)))
+                        s) →
+                    (∀ s ≥ 0,
+                        deriv (fun τ => NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u τ))) s ≤
+                          C * NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u s)) ^ 2 -
+                            κ'' * NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u s)) ^ 3) →
+                      ∀ t ≥ 0,
+                        NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u t)) ≤
+                          max (NavierStokes3D.vorticity_sup_norm (NavierStokes3D.vorticity (u 0))) (C / κ'')
+TRUTH GATE OBSERVE TetherTheorem: paper_claim [main.tex § §1 Introduction, Proposition prop:classical-zero] := ∀
+  (ν : ℝ), (fun x => 0) 0 = 0 ∧ NavierStokes3D.IsPeriodicSmoothSolution ν 0 (fun x x_1 => 0) (fun x => 0) fun x => 0
+TRUTH GATE PASS EnvelopeReduction
+TRUTH GATE PASS DirectionCurvatureReduction
+TRUTH GATE PASS PeriodicTetherReduction
+TRUTH GATE PASS ConditionalGlobalRegularity
+TRUTH GATE PASS TetherTheorem
+TRUTH GATE SUMMARY locks=5 todo=0 failures=0
+'NS_Millennium_Proof.Semantics.intended_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NS_Millennium_Proof.Semantics.EnvelopeReduction.intended_correspondence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NS_Millennium_Proof.Semantics.DirectionCurvatureReduction.intended_correspondence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NS_Millennium_Proof.Semantics.PeriodicTetherReduction.intended_correspondence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.intended_correspondence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NS_Millennium_Proof.Semantics.TetherTheorem.intended_correspondence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'CeilingFromRate.classical_vorticity_ceiling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CeilingFromRate.theorem_1_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NavierStokes3D.zero_isPeriodicSmoothSolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TetherRateCounterexample.zero_classical_periodic_solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+[exit 0]

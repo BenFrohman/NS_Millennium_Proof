@@ -1,0 +1,1133 @@
+
+===== 0_kernel-certificate.txt
+﻿2026-11-17T09:13:23.1681436Z Current runner version: '2.338.2'
+2026-11-17T09:13:23.1715529Z ##[group]Runner Image Provisioner
+2026-11-17T09:13:23.1716936Z Hosted Compute Agent
+2026-11-17T09:13:23.1717691Z Version: 20261103.629
+2026-11-17T09:13:23.1718369Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-17T09:13:23.1719161Z Build Date: 2026-11-03T17:26:59Z
+2026-11-17T09:13:23.1719879Z Worker ID: {fd76cfa7-1fc5-4e62-93cc-d73875300ecb}
+2026-11-17T09:13:23.1720685Z Region: northcentralus
+2026-11-17T09:13:23.1721336Z Cloud: Azure
+2026-11-17T09:13:23.1721882Z ##[endgroup]
+2026-11-17T09:13:23.1723936Z ##[group]Operating System
+2026-11-17T09:13:23.1724725Z Ubuntu
+2026-11-17T09:13:23.1725287Z 24.04.5
+2026-11-17T09:13:23.1726581Z LTS
+2026-11-17T09:13:23.1727173Z ##[endgroup]
+2026-11-17T09:13:23.1727721Z ##[group]Runner Image
+2026-11-17T09:13:23.1728482Z Image: ubuntu-24.04
+2026-11-17T09:13:23.1729104Z Version: 20261111.370.1
+2026-11-17T09:13:23.1730415Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261111.370/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-17T09:13:23.1731997Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261111.370
+2026-11-17T09:13:23.1733131Z ##[endgroup]
+2026-11-17T09:13:23.1734304Z ##[group]GITHUB_TOKEN Permissions
+2026-11-17T09:13:23.1736928Z Contents: read
+2026-11-17T09:13:23.1737564Z Metadata: read
+2026-11-17T09:13:23.1738306Z Packages: read
+2026-11-17T09:13:23.1738947Z ##[endgroup]
+2026-11-17T09:13:23.1741377Z Secret source: Actions
+2026-11-17T09:13:23.1742487Z Cache mode: write
+2026-11-17T09:13:23.1743568Z Prepare workflow directory
+2026-11-17T09:13:23.2249086Z Prepare all required actions
+2026-11-17T09:13:23.2323893Z Getting action download info
+2026-11-17T09:13:23.4547944Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-17T09:13:23.5787000Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-17T09:13:23.8007911Z Complete job name: kernel-certificate
+2026-11-17T09:13:23.8926634Z ##[group]Run actions/checkout@v4
+2026-11-17T09:13:23.8927663Z with:
+2026-11-17T09:13:23.8928204Z   repository: BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:23.8932055Z   token: ***
+2026-11-17T09:13:23.8932485Z   ssh-strict: true
+2026-11-17T09:13:23.8932922Z   ssh-user: git
+2026-11-17T09:13:23.8933369Z   persist-credentials: true
+2026-11-17T09:13:23.8933860Z   clean: true
+2026-11-17T09:13:23.8934307Z   sparse-checkout-cone-mode: true
+2026-11-17T09:13:23.8934829Z   fetch-depth: 1
+2026-11-17T09:13:23.8935258Z   fetch-tags: false
+2026-11-17T09:13:23.8935700Z   show-progress: true
+2026-11-17T09:13:23.8936367Z   lfs: false
+2026-11-17T09:13:23.8936815Z   submodules: false
+2026-11-17T09:13:23.8937273Z   set-safe-directory: true
+2026-11-17T09:13:23.8937787Z   allow-unsafe-pr-checkout: false
+2026-11-17T09:13:23.8938566Z ##[endgroup]
+2026-11-17T09:13:24.1452878Z Syncing repository: BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1455988Z ##[group]Getting Git version info
+2026-11-17T09:13:24.1457793Z Working directory is '/home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes'
+2026-11-17T09:13:24.1459820Z [command]/usr/bin/git version
+2026-11-17T09:13:24.1519890Z git version 2.56.1
+2026-11-17T09:13:24.1551680Z ##[endgroup]
+2026-11-17T09:13:24.1560321Z Temporarily overriding HOME='/home/runner/work/_temp/80436e82-2a01-40ea-90cd-578b774f3012' before making global git config changes
+2026-11-17T09:13:24.1563044Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T09:13:24.1566512Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1638332Z Deleting the contents of '/home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes'
+2026-11-17T09:13:24.1641132Z ##[group]Initializing the repository
+2026-11-17T09:13:24.1643069Z [command]/usr/bin/git init /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1767505Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-17T09:13:24.1769222Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-17T09:13:24.1772062Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-17T09:13:24.1773239Z hint: call:
+2026-11-17T09:13:24.1774195Z hint:
+2026-11-17T09:13:24.1774956Z hint: 	git config --global init.defaultBranch <name>
+2026-11-17T09:13:24.1776596Z hint:
+2026-11-17T09:13:24.1778175Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-17T09:13:24.1780210Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-17T09:13:24.1782211Z hint:
+2026-11-17T09:13:24.1783453Z hint: 	git branch -m <name>
+2026-11-17T09:13:24.1784922Z hint:
+2026-11-17T09:13:24.1786877Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-17T09:13:24.1790160Z Initialized empty Git repository in /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes/.git/
+2026-11-17T09:13:24.1801025Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1911848Z ##[endgroup]
+2026-11-17T09:13:24.1913756Z ##[group]Disabling automatic garbage collection
+2026-11-17T09:13:24.1916624Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-17T09:13:24.1959195Z ##[endgroup]
+2026-11-17T09:13:24.1961198Z ##[group]Setting up auth
+2026-11-17T09:13:24.1967594Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T09:13:24.2013820Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T09:13:24.2513608Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T09:13:24.2576664Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T09:13:24.2841129Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T09:13:24.2888622Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T09:13:24.3139327Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T09:13:24.3199687Z ##[endgroup]
+2026-11-17T09:13:24.3200751Z ##[group]Fetching the repository
+2026-11-17T09:13:24.3212726Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +aff2d6d87c39329c28964fbba1174f49b2eab88f:refs/remotes/origin/chore/certificate-manifest-elan-20261117
+2026-11-17T09:13:24.6860295Z From https://github.com/BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.6863139Z  * [new ref]         aff2d6d87c39329c28964fbba1174f49b2eab88f -> origin/chore/certificate-manifest-elan-20261117
+2026-11-17T09:13:24.6868683Z ##[endgroup]
+2026-11-17T09:13:24.6870034Z ##[group]Determining the checkout info
+2026-11-17T09:13:24.6871915Z ##[endgroup]
+2026-11-17T09:13:24.6873029Z [command]/usr/bin/git sparse-checkout disable
+2026-11-17T09:13:24.6940815Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-17T09:13:24.6984966Z ##[group]Checking out the ref
+2026-11-17T09:13:24.6989946Z [command]/usr/bin/git checkout --progress --force -B chore/certificate-manifest-elan-20261117 refs/remotes/origin/chore/certificate-manifest-elan-20261117
+2026-11-17T09:13:24.7115104Z Switched to a new branch 'chore/certificate-manifest-elan-20261117'
+2026-11-17T09:13:24.7122475Z branch 'chore/certificate-manifest-elan-20261117' set up to track 'origin/chore/certificate-manifest-elan-20261117'.
+2026-11-17T09:13:24.7127671Z ##[endgroup]
+2026-11-17T09:13:24.7179420Z [command]/usr/bin/git log -1 --format=%H
+2026-11-17T09:13:24.7214873Z aff2d6d87c39329c28964fbba1174f49b2eab88f
+2026-11-17T09:13:24.7513974Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-17T09:13:24.7518687Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-17T09:13:24.7521685Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-17T09:13:24.7548301Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:13:24.7549538Z ##[endgroup]
+2026-11-17T09:13:24.8101607Z info: downloading installer
+2026-11-17T09:13:25.1645619Z ##[group]Run mkdir -p cert-out
+2026-11-17T09:13:25.1647201Z [36;1mmkdir -p cert-out[0m
+2026-11-17T09:13:25.1648273Z [36;1m{[0m
+2026-11-17T09:13:25.1649276Z [36;1m  echo "commit: $(git rev-parse HEAD)"[0m
+2026-11-17T09:13:25.1650839Z [36;1m  echo "lean-toolchain: $(cat lean-toolchain)"[0m
+2026-11-17T09:13:25.1653821Z [36;1m  if command -v elan >/dev/null 2>&1; then echo "elan --version: $(elan --version)"; else echo "elan --version: not printed; elan was not on PATH"; fi[0m
+2026-11-17T09:13:25.1656983Z [36;1m  echo "lean --version: $(lean --version)"[0m
+2026-11-17T09:13:25.1658516Z [36;1m  echo "lake --version: $(lake --version)"[0m
+2026-11-17T09:13:25.1660093Z [36;1m  echo "date (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"[0m
+2026-11-17T09:13:25.1662131Z [36;1m  echo "run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"[0m
+2026-11-17T09:13:25.1664068Z [36;1m} | tee cert-out/environment.txt[0m
+2026-11-17T09:13:25.1688801Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:13:25.1689906Z ##[endgroup]
+2026-11-17T09:13:25.1862595Z commit: aff2d6d87c39329c28964fbba1174f49b2eab88f
+2026-11-17T09:13:25.1874646Z lean-toolchain: leanprover/lean4:v4.30.0-rc1
+2026-11-17T09:13:25.1898289Z elan --version: elan 4.2.4 (227caca13 2026-08-25)
+2026-11-17T09:13:25.9130862Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-17T09:13:28.3082297Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-17T09:13:34.5030032Z lean --version: Lean (version 4.30.0-rc1, x86_64-unknown-linux-gnu, commit 714601baf118066cbf3f282361339c6d06665b2a, Release)
+2026-11-17T09:13:34.5452353Z lake --version: Lake version 5.0.0-src+714601b (Lean version 4.30.0-rc1)
+2026-11-17T09:13:34.5468262Z date (UTC): 2026-11-17T09:13:34Z
+2026-11-17T09:13:34.5470377Z run: https://github.com/BenFrohman/fefferman-clay-navier-stokes/actions/runs/44051065773
+2026-11-17T09:13:34.5650878Z ##[group]Run if grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi
+2026-11-17T09:13:34.5652105Z [36;1mif grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi[0m
+2026-11-17T09:13:34.5674321Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:13:34.5674654Z ##[endgroup]
+2026-11-17T09:13:35.0287764Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-17T09:14:03.7113773Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-17T09:14:05.7679029Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-17T09:14:06.0631247Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-17T09:14:06.0764144Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-17T09:14:06.3926054Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-17T09:14:06.4035730Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-17T09:14:06.7190175Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-17T09:14:06.7385715Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-17T09:14:07.2716455Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-17T09:14:08.0287359Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-17T09:14:08.5791614Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-17T09:14:08.6075510Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-17T09:14:08.9470466Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-17T09:14:08.9595919Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-17T09:14:11.1652245Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-17T09:14:11.2040562Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-17T09:14:11.5178526Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-17T09:14:11.9304079Z ✔ [2/22] Built Cache.Init (298ms)
+2026-11-17T09:14:12.0305971Z ✔ [3/22] Built Cache.Lean (418ms)
+2026-11-17T09:14:12.0327398Z ✔ [4/22] Built Cache.Init:c.o (102ms)
+2026-11-17T09:14:12.1307817Z ✔ [5/22] Built Cache.Lean:c.o (171ms)
+2026-11-17T09:14:13.2373861Z ✔ [8/22] Built Cache.IO (1.3s)
+2026-11-17T09:14:13.6367751Z ✔ [9/22] Built Batteries.Data.String.Basic (479ms)
+2026-11-17T09:14:13.7369718Z ✔ [10/22] Built Batteries.Data.String.Basic:c.o (188ms)
+2026-11-17T09:14:14.1377853Z ✔ [11/22] Built Batteries.Data.Array.Match (1.0s)
+2026-11-17T09:14:14.5368879Z ✔ [12/22] Built Batteries.Data.Array.Match:c.o (447ms)
+2026-11-17T09:14:14.6374133Z ✔ [13/22] Built Batteries.Data.String.Matcher (517ms)
+2026-11-17T09:14:14.6426981Z ✔ [14/22] Built Cache.Hashing (1.4s)
+2026-11-17T09:14:14.9388663Z ✔ [15/22] Built Batteries.Data.String.Matcher:c.o (340ms)
+2026-11-17T09:14:15.2392125Z ✔ [16/22] Built Cache.Hashing:c.o (647ms)
+2026-11-17T09:14:15.5395701Z ✔ [17/22] Built Cache.IO:c.o (2.3s)
+2026-11-17T09:14:16.8407645Z ✔ [18/22] Built Cache.Requests (2.2s)
+2026-11-17T09:14:17.7411848Z ✔ [19/22] Built Cache.Main (831ms)
+2026-11-17T09:14:18.3409428Z ✔ [20/22] Built Cache.Main:c.o (650ms)
+2026-11-17T09:14:19.1418742Z ✔ [21/22] Built Cache.Requests:c.o (2.2s)
+2026-11-17T09:14:19.8455890Z ✔ [22/22] Built cache:exe (700ms)
+2026-11-17T09:14:22.4723696Z Current branch: HEAD
+2026-11-17T09:14:22.4724431Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-17T09:14:22.4725590Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-17T09:14:23.6200594Z 
+2026-11-17T09:14:23.7252539Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 16 KB/s], Decompressed: 0
+2026-11-17T09:14:23.8258418Z Downloaded: 167 file(s) [attempted 167/8248 = 2%, 610 KB/s], Decompressed: 13
+2026-11-17T09:14:23.9239466Z Downloaded: 361 file(s) [attempted 361/8248 = 4%, 485 KB/s], Decompressed: 13
+2026-11-17T09:14:24.0246456Z Downloaded: 549 file(s) [attempted 549/8248 = 6%, 187 KB/s], Decompressed: 13
+2026-11-17T09:14:24.1256677Z Downloaded: 789 file(s) [attempted 789/8248 = 9%, 910 KB/s], Decompressed: 89
+2026-11-17T09:14:24.2297514Z Downloaded: 944 file(s) [attempted 944/8248 = 11%, 4381 KB/s], Decompressed: 89
+2026-11-17T09:14:24.3278220Z Downloaded: 1072 file(s) [attempted 1072/8248 = 12%, 1867 KB/s], Decompressed: 89
+2026-11-17T09:14:24.4321414Z Downloaded: 1236 file(s) [attempted 1236/8248 = 14%, 1303 KB/s], Decompressed: 89
+2026-11-17T09:14:24.5334307Z Downloaded: 1430 file(s) [attempted 1430/8248 = 17%, 1688 KB/s], Decompressed: 89
+2026-11-17T09:14:24.6348572Z Downloaded: 1628 file(s) [attempted 1628/8248 = 19%, 699 KB/s], Decompressed: 89
+2026-11-17T09:14:24.7341837Z Downloaded: 1830 file(s) [attempted 1830/8248 = 22%, 920 KB/s], Decompressed: 89
+2026-11-17T09:14:24.8366597Z Downloaded: 2032 file(s) [attempted 2032/8248 = 24%, 1818 KB/s], Decompressed: 89
+2026-11-17T09:14:24.9355161Z Downloaded: 2254 file(s) [attempted 2254/8248 = 27%, 2823 KB/s], Decompressed: 89
+2026-11-17T09:14:25.0408121Z Downloaded: 2403 file(s) [attempted 2403/8248 = 29%, 745 KB/s], Decompressed: 89
+2026-11-17T09:14:25.1480253Z Downloaded: 2568 file(s) [attempted 2568/8248 = 31%, 961 KB/s], Decompressed: 89
+2026-11-17T09:14:25.2489066Z Downloaded: 2749 file(s) [attempted 2749/8248 = 33%, 1808 KB/s], Decompressed: 89
+2026-11-17T09:14:25.3498271Z Downloaded: 2964 file(s) [attempted 2964/8248 = 35%, 1019 KB/s], Decompressed: 89
+2026-11-17T09:14:25.4489373Z Downloaded: 3156 file(s) [attempted 3156/8248 = 38%, 2665 KB/s], Decompressed: 89
+2026-11-17T09:14:25.5494967Z Downloaded: 3348 file(s) [attempted 3348/8248 = 40%, 4222 KB/s], Decompressed: 89
+2026-11-17T09:14:25.6504453Z Downloaded: 3560 file(s) [attempted 3560/8248 = 43%, 3114 KB/s], Decompressed: 89
+2026-11-17T09:14:25.7531969Z Downloaded: 3766 file(s) [attempted 3766/8248 = 45%, 5172 KB/s], Decompressed: 89
+2026-11-17T09:14:25.8547490Z Downloaded: 3998 file(s) [attempted 3998/8248 = 48%, 5121 KB/s], Decompressed: 89
+2026-11-17T09:14:25.9537483Z Downloaded: 4215 file(s) [attempted 4215/8248 = 51%, 1810 KB/s], Decompressed: 89
+2026-11-17T09:14:26.0550272Z Downloaded: 4431 file(s) [attempted 4431/8248 = 53%, 3842 KB/s], Decompressed: 89
+2026-11-17T09:14:26.1578386Z Downloaded: 4635 file(s) [attempted 4635/8248 = 56%, 733 KB/s], Decompressed: 608
+2026-11-17T09:14:26.2615781Z Downloaded: 4865 file(s) [attempted 4865/8248 = 58%, 3303 KB/s], Decompressed: 608
+2026-11-17T09:14:26.3627166Z Downloaded: 5068 file(s) [attempted 5068/8248 = 61%, 5471 KB/s], Decompressed: 608
+2026-11-17T09:14:26.4608252Z Downloaded: 5274 file(s) [attempted 5274/8248 = 63%, 1179 KB/s], Decompressed: 608
+2026-11-17T09:14:26.5615098Z Downloaded: 5464 file(s) [attempted 5464/8248 = 66%, 1566 KB/s], Decompressed: 608
+2026-11-17T09:14:26.6656676Z Downloaded: 5658 file(s) [attempted 5658/8248 = 68%, 1476 KB/s], Decompressed: 608
+2026-11-17T09:14:26.7651331Z Downloaded: 5887 file(s) [attempted 5887/8248 = 71%, 4485 KB/s], Decompressed: 608
+2026-11-17T09:14:26.8710260Z Downloaded: 6096 file(s) [attempted 6096/8248 = 73%, 509 KB/s], Decompressed: 608
+2026-11-17T09:14:26.9716998Z Downloaded: 6275 file(s) [attempted 6275/8248 = 76%, 655 KB/s], Decompressed: 608
+2026-11-17T09:14:27.0778115Z Downloaded: 6496 file(s) [attempted 6496/8248 = 78%, 1628 KB/s], Decompressed: 608
+2026-11-17T09:14:27.1784743Z Downloaded: 6699 file(s) [attempted 6699/8248 = 81%, 3339 KB/s], Decompressed: 608
+2026-11-17T09:14:27.2777204Z Downloaded: 6919 file(s) [attempted 6919/8248 = 83%, 2149 KB/s], Decompressed: 608
+2026-11-17T09:14:27.3814210Z Downloaded: 7106 file(s) [attempted 7106/8248 = 86%, 7439 KB/s], Decompressed: 608
+2026-11-17T09:14:27.4789081Z Downloaded: 7303 file(s) [attempted 7303/8248 = 88%, 2607 KB/s], Decompressed: 608
+2026-11-17T09:14:27.5797835Z Downloaded: 7519 file(s) [attempted 7519/8248 = 91%, 20313 KB/s], Decompressed: 608
+2026-11-17T09:14:27.6802859Z Downloaded: 7726 file(s) [attempted 7726/8248 = 93%, 958 KB/s], Decompressed: 608
+2026-11-17T09:14:27.7858375Z Downloaded: 7947 file(s) [attempted 7947/8248 = 96%, 440 KB/s], Decompressed: 608
+2026-11-17T09:14:27.8827612Z Downloaded: 8086 file(s) [attempted 8086/8248 = 98%, 1406 KB/s], Decompressed: 608
+2026-11-17T09:14:27.9663297Z Downloaded: 8245 file(s) [attempted 8245/8248 = 99%, 669 KB/s], Decompressed: 608
+2026-11-17T09:14:27.9664442Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 669 KB/s], Decompressed: 608
+2026-11-17T09:14:48.9173698Z Decompressed 8248 file(s)
+2026-11-17T09:14:48.9176681Z Already decompressed 8248 file(s)
+2026-11-17T09:14:48.9875439Z ##[group]Run set -o pipefail
+2026-11-17T09:14:48.9875768Z [36;1mset -o pipefail[0m
+2026-11-17T09:14:48.9876044Z [36;1mlake build 2>&1 | tee cert-out/build.log[0m
+2026-11-17T09:14:48.9902949Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:14:48.9903203Z ##[endgroup]
+2026-11-17T09:14:54.3577856Z ✔ [2642/2650] Built FeffermanClayNS.Stage6Calculus (3.9s)
+2026-11-17T09:15:17.1935266Z ⚠ [2643/2650] Built FeffermanClayNS.Defs (26s)
+2026-11-17T09:15:17.1935765Z info: FeffermanClayNS/Defs.lean:2527:2: Try this:
+2026-11-17T09:15:17.1936418Z   [apply] abel_nf
+2026-11-17T09:15:17.1936985Z warning: FeffermanClayNS/Defs.lean:3676:9: unused variable `T`
+2026-11-17T09:15:17.1937677Z 
+2026-11-17T09:15:17.1937995Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-17T09:15:17.1938947Z info: FeffermanClayNS/Defs.lean:3678:0: 'NavierStokes3D.curl_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1940190Z info: FeffermanClayNS/Defs.lean:3679:0: 'NavierStokes3D.local_existence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1941442Z info: FeffermanClayNS/Defs.lean:3680:0: 'NavierStokes3D.smoothness_of_Tstar_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1942648Z info: FeffermanClayNS/Defs.lean:3681:0: 'NavierStokes3D.beale_kato_majda' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1943827Z info: FeffermanClayNS/Defs.lean:3682:0: 'NavierStokes3D.beale_kato_majda_scaffold_integrability_unused' depends on axioms: [propext,
+2026-11-17T09:15:17.1944487Z  Classical.choice,
+2026-11-17T09:15:17.1944707Z  Quot.sound]
+2026-11-17T09:15:17.1945323Z info: FeffermanClayNS/Defs.lean:3683:0: 'NavierStokes3D.bkm_criterion_without_integrability_not_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1946590Z info: FeffermanClayNS/Defs.lean:3684:0: 'NavierStokes3D.Tstar_eq_top_of_bkm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1947516Z info: FeffermanClayNS/Defs.lean:3685:0: 'NavierStokes3D.energy_zero_of_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1948491Z info: FeffermanClayNS/Defs.lean:3686:0: 'NavierStokes3D.Tstar_eq_top_of_unbounded_existenceTimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1949484Z info: FeffermanClayNS/Defs.lean:3687:0: 'NavierStokes3D.Tstar_eq_top_of_uniform_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1950447Z info: FeffermanClayNS/Defs.lean:3688:0: 'NavierStokes3D.Tstar_eq_top_of_katoRestartTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1951386Z info: FeffermanClayNS/Defs.lean:3689:0: 'NavierStokes3D.katoRestartTime_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1952282Z info: FeffermanClayNS/Defs.lean:3690:0: 'NavierStokes3D.katoSobolevIndex_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1953159Z info: FeffermanClayNS/Defs.lean:3691:0: 'NavierStokes3D.strain_sup_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1954023Z info: FeffermanClayNS/Defs.lean:3692:0: 'NavierStokes3D.one_add_log_le_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1954925Z info: FeffermanClayNS/Defs.lean:3693:0: 'NavierStokes3D.kato_ponce_implies_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1955879Z info: FeffermanClayNS/Defs.lean:3694:0: 'NavierStokes3D.kato_ponce_of_uniform_vorticity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1957093Z info: FeffermanClayNS/Defs.lean:3695:0: 'NavierStokes3D.kato_Hs_bound_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1958310Z info: FeffermanClayNS/Defs.lean:3696:0: 'NavierStokes3D.exists_mem_existenceTimes_gt_of_lt_Tstar' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1959281Z info: FeffermanClayNS/Defs.lean:3697:0: 'NavierStokes3D.navier_stokes_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1960155Z info: FeffermanClayNS/Defs.lean:3698:0: 'NavierStokes3D.kato_witness_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1961028Z info: FeffermanClayNS/Defs.lean:3699:0: 'NavierStokes3D.local_existence_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1961935Z info: FeffermanClayNS/Defs.lean:3700:0: 'NavierStokes3D.Tstar_pos_of_kato_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1962943Z info: FeffermanClayNS/Defs.lean:3701:0: 'NavierStokes3D.eq_of_l2_energy_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1963853Z info: FeffermanClayNS/Defs.lean:3702:0: 'NavierStokes3D.ns_cauchy_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1964789Z info: FeffermanClayNS/Defs.lean:3703:0: 'NavierStokes3D.ns_cauchy_eq_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1965731Z info: FeffermanClayNS/Defs.lean:3704:0: 'NavierStokes3D.energy_zero_of_gronwall_Icc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1967078Z info: FeffermanClayNS/Defs.lean:3705:0: 'NavierStokes3D.ns_cauchy_on_Icc_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1968025Z info: FeffermanClayNS/Defs.lean:3706:0: 'NavierStokes3D.uniqueness_of_existence_times_of_energy_gronwall' depends on axioms: [propext,
+2026-11-17T09:15:17.1968607Z  Classical.choice,
+2026-11-17T09:15:17.1968811Z  Quot.sound]
+2026-11-17T09:15:17.1969315Z info: FeffermanClayNS/Defs.lean:3707:0: 'NavierStokes3D.time_deriv_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1970172Z info: FeffermanClayNS/Defs.lean:3708:0: 'NavierStokes3D.ns_pde_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1971169Z info: FeffermanClayNS/Defs.lean:3709:0: 'NavierStokes3D.smoothness_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1972164Z info: FeffermanClayNS/Defs.lean:3710:0: 'NavierStokes3D.mem_existenceTimes_add_of_kato_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1973145Z info: FeffermanClayNS/Defs.lean:3711:0: 'NavierStokes3D.restart_of_kato_quantitative' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1974123Z info: FeffermanClayNS/Defs.lean:3712:0: 'NavierStokes3D.smoothness_below_Tstar_of_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1975032Z info: FeffermanClayNS/Defs.lean:3713:0: 'NavierStokes3D.curl_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1975903Z info: FeffermanClayNS/Defs.lean:3714:0: 'NavierStokes3D.mem_existenceTimes_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1977039Z info: FeffermanClayNS/Defs.lean:3715:0: 'NavierStokes3D.Tstar_zero_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1977877Z info: FeffermanClayNS/Defs.lean:3716:0: 'NavierStokes3D.div_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1978703Z info: FeffermanClayNS/Defs.lean:3717:0: 'NavierStokes3D.div_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1979543Z info: FeffermanClayNS/Defs.lean:3718:0: 'NavierStokes3D.div_smul_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1980355Z info: FeffermanClayNS/Defs.lean:3719:0: 'NavierStokes3D.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1981348Z info: FeffermanClayNS/Defs.lean:3720:0: 'NavierStokes3D.convective_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1982269Z info: FeffermanClayNS/Defs.lean:3721:0: 'NavierStokes3D.inner_convective_product_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1983223Z info: FeffermanClayNS/Defs.lean:3722:0: 'NavierStokes3D.cyclicLiePairing_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1984143Z info: FeffermanClayNS/Defs.lean:3723:0: 'NavierStokes3D.convective_norm_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1985032Z info: FeffermanClayNS/Defs.lean:3724:0: 'NavierStokes3D.stretching_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1986046Z info: FeffermanClayNS/Defs.lean:3725:0: 'NavierStokes3D.stretching_inner_le_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1987202Z info: FeffermanClayNS/Defs.lean:3726:0: 'NavierStokes3D.stretching_quartic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1988157Z info: FeffermanClayNS/Defs.lean:3727:0: 'NavierStokes3D.transport_inner_vanishes_of_grad_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1989128Z info: FeffermanClayNS/Defs.lean:3728:0: 'NavierStokes3D.vorticity_transport_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1990104Z info: FeffermanClayNS/Defs.lean:3729:0: 'NavierStokes3D.stretching_pairing_le_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1991102Z info: FeffermanClayNS/Defs.lean:3730:0: 'NavierStokes3D.stretching_enstrophy_di_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1992064Z info: FeffermanClayNS/Defs.lean:3731:0: 'NavierStokes3D.pressureGradient_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1992966Z info: FeffermanClayNS/Defs.lean:3732:0: 'NavierStokes3D.ns_momentum_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1993935Z info: FeffermanClayNS/Defs.lean:3733:0: 'NavierStokes3D.inner_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1994980Z info: FeffermanClayNS/Defs.lean:3734:0: 'NavierStokes3D.transported_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1996044Z info: FeffermanClayNS/Defs.lean:3735:0: 'NavierStokes3D.convective_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1997203Z info: FeffermanClayNS/Defs.lean:3736:0: 'NavierStokes3D.inner_convective_le_strain' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1998107Z info: FeffermanClayNS/Defs.lean:3737:0: 'NavierStokes3D.time_deriv_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1999067Z info: FeffermanClayNS/Defs.lean:3738:0: 'NavierStokes3D.transported_scalar_along_characteristic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2000090Z info: FeffermanClayNS/Defs.lean:3739:0: 'NavierStokes3D.transported_scalar_maximum_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2001078Z info: FeffermanClayNS/Defs.lean:3740:0: 'NavierStokes3D.reciprocal_of_quadratic_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2002005Z info: FeffermanClayNS/Defs.lean:3741:0: 'NavierStokes3D.le_vorticity_sup_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2002888Z info: FeffermanClayNS/Defs.lean:3742:0: 'NavierStokes3D.convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2003800Z info: FeffermanClayNS/Defs.lean:3743:0: 'NavierStokes3D.convective_eq_sum_directional' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2004899Z info: FeffermanClayNS/Defs.lean:3744:0: 'NavierStokes3D.directionalCoord_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2005815Z info: FeffermanClayNS/Defs.lean:3745:0: 'NavierStokes3D.curl_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2006969Z info: FeffermanClayNS/Defs.lean:3746:0: 'NavierStokes3D.curl_convective_div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2007851Z info: FeffermanClayNS/Defs.lean:3747:0: 'NavierStokes3D.curl_add3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2008843Z info: FeffermanClayNS/Defs.lean:3748:0: 'NavierStokes3D.fderiv_prod_snd_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2009763Z info: FeffermanClayNS/Defs.lean:3749:0: 'NavierStokes3D.deriv_prod_fst_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2010673Z info: FeffermanClayNS/Defs.lean:3750:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2011577Z info: FeffermanClayNS/Defs.lean:3751:0: 'NavierStokes3D.deriv_euclidean_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2012445Z info: FeffermanClayNS/Defs.lean:3752:0: 'NavierStokes3D.curl_time_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2013308Z info: FeffermanClayNS/Defs.lean:3753:0: 'NavierStokes3D.fderiv_field_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2014176Z info: FeffermanClayNS/Defs.lean:3754:0: 'NavierStokes3D.laplacian_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2015065Z info: FeffermanClayNS/Defs.lean:3755:0: 'NavierStokes3D.fderiv_apply_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2016015Z info: FeffermanClayNS/Defs.lean:3756:0: 'NavierStokes3D.contDiffAt_directionalCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2017275Z info: FeffermanClayNS/Defs.lean:3757:0: 'NavierStokes3D.directionalCoord_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2018189Z info: FeffermanClayNS/Defs.lean:3758:0: 'NavierStokes3D.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2019112Z info: FeffermanClayNS/Defs.lean:3759:0: 'NavierStokes3D.differentiableAt_time_deriv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2020105Z info: FeffermanClayNS/Defs.lean:3760:0: 'NavierStokes3D.differentiableAt_convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2021139Z info: FeffermanClayNS/Defs.lean:3761:0: 'NavierStokes3D.differentiableAt_pressureGradient_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2022121Z info: FeffermanClayNS/Defs.lean:3762:0: 'NavierStokes3D.vorticity_transport_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2023018Z info: FeffermanClayNS/Defs.lean:3763:0: 'NavierStokes3D.vorticity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2023936Z info: FeffermanClayNS/Defs.lean:3764:0: 'NavierStokes3D.vorticity_transport_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2024865Z info: FeffermanClayNS/Defs.lean:3765:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2025782Z info: FeffermanClayNS/Defs.lean:3766:0: 'NavierStokes3D.differentiableAt_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2026920Z info: FeffermanClayNS/Defs.lean:3767:0: 'NavierStokes3D.fderiv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2027985Z info: FeffermanClayNS/Defs.lean:3768:0: 'NavierStokes3D.integration_by_parts_of_vanishing_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2028969Z info: FeffermanClayNS/Defs.lean:3769:0: 'NavierStokes3D.inner_self_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext,
+2026-11-17T09:15:17.2029543Z  Classical.choice,
+2026-11-17T09:15:17.2029740Z  Quot.sound]
+2026-11-17T09:15:17.2030247Z info: FeffermanClayNS/Defs.lean:3770:0: 'NavierStokes3D.differentiableAt_coord_of_differentiableAt_field' depends on axioms: [propext,
+2026-11-17T09:15:17.2030825Z  Classical.choice,
+2026-11-17T09:15:17.2031013Z  Quot.sound]
+2026-11-17T09:15:17.2031556Z info: FeffermanClayNS/Defs.lean:3771:0: 'NavierStokes3D.differentiableAt_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2032703Z info: FeffermanClayNS/Defs.lean:3772:0: 'NavierStokes3D.convective_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2033697Z info: FeffermanClayNS/Defs.lean:3773:0: 'NavierStokes3D.pressure_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:20.4965566Z ✔ [2644/2650] Built FeffermanClayNS.FeffermanStatements (3.3s)
+2026-11-17T09:15:23.5013133Z ✔ [2645/2650] Built FeffermanClayNS.TorusStrainExclusion (3.0s)
+2026-11-17T09:15:27.4103197Z ✔ [2646/2650] Built FeffermanClayNS.HighSetDepletionAndBKM (3.9s)
+2026-11-17T09:15:29.1137097Z ✔ [2647/2650] Built FeffermanClayNS.MainTheorem (1.7s)
+2026-11-17T09:15:31.1158559Z ℹ [2648/2650] Built FeffermanClayNS.FinalProductTheorem (3.6s)
+2026-11-17T09:15:31.1159967Z info: FeffermanClayNS/FinalProductTheorem.lean:483:0: 'FeffermanClayNS.unitCube_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1161979Z info: FeffermanClayNS/FinalProductTheorem.lean:484:0: 'FeffermanClayNS.bddAbove_range_norm_of_attained_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1164041Z info: FeffermanClayNS/FinalProductTheorem.lean:485:0: 'FeffermanClayNS.vorticity_sup_norm_eq_of_isSpatialMax' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1166022Z info: FeffermanClayNS/FinalProductTheorem.lean:486:0: 'FeffermanClayNS.AttainedSpatialMaximum.vorticity_sup_norm_eq' depends on axioms: [propext,
+2026-11-17T09:15:31.1167443Z  Classical.choice,
+2026-11-17T09:15:31.1167775Z  Quot.sound]
+2026-11-17T09:15:31.1168897Z info: FeffermanClayNS/FinalProductTheorem.lean:487:0: 'FeffermanClayNS.polar_pythagoras_directional_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1170999Z info: FeffermanClayNS/FinalProductTheorem.lean:488:0: 'FeffermanClayNS.polar_pythagoras_3d_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1172936Z info: FeffermanClayNS/FinalProductTheorem.lean:489:0: 'FeffermanClayNS.bochner_laplacian_3d_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1174845Z info: FeffermanClayNS/FinalProductTheorem.lean:490:0: 'FeffermanClayNS.first_remaining_gap_bochner_polar_damping_at_max' depends on axioms: [propext,
+2026-11-17T09:15:31.1175982Z  Classical.choice,
+2026-11-17T09:15:31.1176487Z  Quot.sound]
+2026-11-17T09:15:31.1177485Z info: FeffermanClayNS/FinalProductTheorem.lean:491:0: 'FeffermanClayNS.concrete_bochner_polar_viscous_damping_at_max' depends on axioms: [propext,
+2026-11-17T09:15:31.1178607Z  Classical.choice,
+2026-11-17T09:15:31.1178928Z  Quot.sound]
+2026-11-17T09:15:31.1179961Z info: FeffermanClayNS/FinalProductTheorem.lean:492:0: 'FeffermanClayNS.constVelocity_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1181886Z info: FeffermanClayNS/FinalProductTheorem.lean:493:0: 'FeffermanClayNS.constVelocity_isZ3Periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1183853Z info: FeffermanClayNS/FinalProductTheorem.lean:494:0: 'FeffermanClayNS.constVelocity_convective_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1186320Z info: FeffermanClayNS/FinalProductTheorem.lean:495:0: 'FeffermanClayNS.constVelocity_laplacian_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1188430Z info: FeffermanClayNS/FinalProductTheorem.lean:496:0: 'FeffermanClayNS.constVelocity_isPeriodicSmoothInitialData' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1190612Z info: FeffermanClayNS/FinalProductTheorem.lean:497:0: 'FeffermanClayNS.constVelocity_isPeriodicSmoothSolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1192792Z info: FeffermanClayNS/FinalProductTheorem.lean:498:0: 'FeffermanClayNS.nonzero_periodic_smooth_solution_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1195070Z info: FeffermanClayNS/FinalProductTheorem.lean:499:0: 'FeffermanClayNS.beltrami_lamb_vector_cross3_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1197263Z info: FeffermanClayNS/FinalProductTheorem.lean:500:0: 'FeffermanClayNS.beltrami_amplitude_pos_and_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1199247Z info: FeffermanClayNS/FinalProductTheorem.lean:501:0: 'FeffermanClayNS.near_field_stretching_absorbed_by_viscous_direction_damping' depends on axioms: [propext,
+2026-11-17T09:15:31.1200455Z  Classical.choice,
+2026-11-17T09:15:31.1200788Z  Quot.sound]
+2026-11-17T09:15:31.1201952Z info: FeffermanClayNS/FinalProductTheorem.lean:502:0: 'FeffermanClayNS.constantin_fefferman_near_far_cutoff_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1203987Z info: FeffermanClayNS/FinalProductTheorem.lean:503:0: 'FeffermanClayNS.fefferman_periodic_ns_exact_reduction_product_theorem' depends on axioms: [propext,
+2026-11-17T09:15:31.1205152Z  Classical.choice,
+2026-11-17T09:15:31.1205478Z  Quot.sound]
+2026-11-17T09:15:33.1162142Z ✔ [2649/2650] Built FeffermanClayNS (1.0s)
+2026-11-17T09:15:33.1291584Z Build completed successfully (2650 jobs).
+2026-11-17T09:15:33.1708650Z ##[group]Run set -o pipefail
+2026-11-17T09:15:33.1708995Z [36;1mset -o pipefail[0m
+2026-11-17T09:15:33.1709438Z [36;1mpython3 certificates/tools/sorry_scan.py 2>&1 | tee cert-out/sorry-scan.txt[0m
+2026-11-17T09:15:33.1730433Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:15:33.1730703Z ##[endgroup]
+2026-11-17T09:15:33.2980567Z Scanned 10 tracked .lean files for sorry / admit / native_decide / axiom declarations (comments and strings ignored).
+2026-11-17T09:15:33.2981416Z RESULT: 0 hits
+2026-11-17T09:15:33.3066824Z ##[group]Run set -o pipefail
+2026-11-17T09:15:33.3067202Z [36;1mset -o pipefail[0m
+2026-11-17T09:15:33.3067762Z [36;1mpython3 certificates/tools/gen_audit.py cert-out/KernelCertificateAudit.lean cert-out/modules.txt[0m
+2026-11-17T09:15:33.3068627Z [36;1mlake env lean cert-out/KernelCertificateAudit.lean > cert-out/axioms.raw.txt 2>&1 || { cat cert-out/axioms.raw.txt; exit 1; }[0m
+2026-11-17T09:15:33.3070044Z [36;1mpython3 certificates/tools/check_audit.py cert-out/axioms.raw.txt > cert-out/axioms.txt || { tail -50 cert-out/axioms.txt; exit 1; }[0m
+2026-11-17T09:15:33.3070724Z [36;1mtail -1 cert-out/axioms.txt[0m
+2026-11-17T09:15:33.3091002Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:15:33.3091257Z ##[endgroup]
+2026-11-17T09:15:33.3405578Z 8 modules
+2026-11-17T09:15:36.1808833Z AUDIT PASS: 260 theorems in 7 modules depend only on propext, Classical.choice, Quot.sound (or on no axioms)
+2026-11-17T09:15:36.1860161Z ##[group]Run set -o pipefail
+2026-11-17T09:15:36.1860735Z [36;1mset -o pipefail[0m
+2026-11-17T09:15:36.1861232Z [36;1mLEANBIN="$(dirname "$(elan which lean)")"[0m
+2026-11-17T09:15:36.1861826Z [36;1mPREFIX="$(dirname "$LEANBIN")"[0m
+2026-11-17T09:15:36.1862451Z [36;1mVER="$(sed 's/.*://' lean-toolchain | tr -d '[:space:]')"[0m
+2026-11-17T09:15:36.1863262Z [36;1mif [ -f "$PREFIX/src/lean/LeanChecker.lean" ]; then[0m
+2026-11-17T09:15:36.1864376Z [36;1m  sed 's/target\.isPrefixOf m/target == m/' "$PREFIX/src/lean/LeanChecker.lean" > /tmp/LeanCheckerExact.lean[0m
+2026-11-17T09:15:36.1866027Z [36;1m  echo "checker: leanchecker source shipped with $VER (src/lean/LeanChecker.lean), prefix match -> exact match, run with lean --run" > cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1868102Z [36;1m  diff "$PREFIX/src/lean/LeanChecker.lean" /tmp/LeanCheckerExact.lean | sed 's/^/  patch: /' >> cert-out/leanchecker.txt || true[0m
+2026-11-17T09:15:36.1869394Z [36;1m  check() { lake env lean --run /tmp/LeanCheckerExact.lean -v "$1"; }[0m
+2026-11-17T09:15:36.1870592Z [36;1melif git ls-remote --exit-code --tags https://github.com/leanprover/lean4checker "refs/tags/$VER" >/dev/null; then[0m
+2026-11-17T09:15:36.1872273Z [36;1m  git clone -q --depth 1 --branch "$VER" https://github.com/leanprover/lean4checker /tmp/lean4checker[0m
+2026-11-17T09:15:36.1873291Z [36;1m  cp /tmp/lean4checker/Main.lean /tmp/Main.orig.lean[0m
+2026-11-17T09:15:36.1874113Z [36;1m  sed -i 's/target\.isPrefixOf m/target == m/' /tmp/lean4checker/Main.lean[0m
+2026-11-17T09:15:36.1874937Z [36;1m  (cd /tmp/lean4checker && lake build lean4checker)[0m
+2026-11-17T09:15:36.1876458Z [36;1m  echo "checker: lean4checker tag $VER ($(git -C /tmp/lean4checker rev-parse HEAD)), Main.lean prefix match -> exact match" > cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1878118Z [36;1m  diff /tmp/Main.orig.lean /tmp/lean4checker/Main.lean | sed 's/^/  patch: /' >> cert-out/leanchecker.txt || true[0m
+2026-11-17T09:15:36.1879339Z [36;1m  check() { lake env /tmp/lean4checker/.lake/build/bin/lean4checker -v "$1"; }[0m
+2026-11-17T09:15:36.1880082Z [36;1melse[0m
+2026-11-17T09:15:36.1880921Z [36;1m  echo "NOT RUN: toolchain $VER ships no leanchecker and lean4checker has no tag $VER" | tee cert-out/leanchecker.txt; exit 0[0m
+2026-11-17T09:15:36.1881962Z [36;1mfi[0m
+2026-11-17T09:15:36.1882324Z [36;1mwhile read -r m; do[0m
+2026-11-17T09:15:36.1882767Z [36;1m  [ -n "$m" ] || continue[0m
+2026-11-17T09:15:36.1883823Z [36;1m  if out=$(check "$m" 2>&1); then echo "$m: OK ($(echo "$out" | grep -c '^replaying') module replayed)"; else echo "$m: FAILED"; echo "$out" | tail -20; fi[0m
+2026-11-17T09:15:36.1885082Z [36;1mdone < cert-out/modules.txt | tee -a cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1885914Z [36;1mif grep -q ': FAILED$' cert-out/leanchecker.txt; then exit 1; fi[0m
+2026-11-17T09:15:36.1887698Z [36;1mecho "RESULT: $(grep -c ': OK (' cert-out/leanchecker.txt) of $(grep -c . cert-out/modules.txt) modules replayed through the kernel, 0 failures" | tee -a cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1913209Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:15:36.1913483Z ##[endgroup]
+2026-11-17T09:15:43.5892221Z FeffermanClayNS: OK (1 module replayed)
+2026-11-17T09:15:53.5718202Z FeffermanClayNS.Defs: OK (1 module replayed)
+2026-11-17T09:16:01.3728783Z FeffermanClayNS.FeffermanStatements: OK (1 module replayed)
+2026-11-17T09:16:09.1503898Z FeffermanClayNS.FinalProductTheorem: OK (1 module replayed)
+2026-11-17T09:16:17.0171424Z FeffermanClayNS.HighSetDepletionAndBKM: OK (1 module replayed)
+2026-11-17T09:16:24.4294734Z FeffermanClayNS.MainTheorem: OK (1 module replayed)
+2026-11-17T09:16:31.9678313Z FeffermanClayNS.Stage6Calculus: OK (1 module replayed)
+2026-11-17T09:16:39.6296497Z FeffermanClayNS.TorusStrainExclusion: OK (1 module replayed)
+2026-11-17T09:16:39.6366777Z RESULT: 8 of 8 modules replayed through the kernel, 0 failures
+2026-11-17T09:16:39.6404677Z ##[group]Run mkdir -p cert-out
+2026-11-17T09:16:39.6405037Z [36;1mmkdir -p cert-out[0m
+2026-11-17T09:16:39.6405316Z [36;1mif [ -f lake-manifest.json ]; then[0m
+2026-11-17T09:16:39.6405683Z [36;1m  cp -a lake-manifest.json cert-out/lake-manifest.json[0m
+2026-11-17T09:16:39.6406513Z [36;1m  sha256sum lake-manifest.json | tee cert-out/lake-manifest.json.sha256sum[0m
+2026-11-17T09:16:39.6407175Z [36;1m  awk '{print $1}' cert-out/lake-manifest.json.sha256sum > cert-out/lake-manifest.json.sha256[0m
+2026-11-17T09:16:39.6407653Z [36;1melse[0m
+2026-11-17T09:16:39.6408109Z [36;1m  echo "MISSING: lake-manifest.json was not present in the checkout" | tee cert-out/MISSING-lake-manifest.txt[0m
+2026-11-17T09:16:39.6408612Z [36;1mfi[0m
+2026-11-17T09:16:39.6408818Z [36;1mif [ -f lean-toolchain ]; then[0m
+2026-11-17T09:16:39.6409144Z [36;1m  cp -a lean-toolchain cert-out/lean-toolchain[0m
+2026-11-17T09:16:39.6409612Z [36;1m  sha256sum lean-toolchain | tee cert-out/lean-toolchain.sha256sum[0m
+2026-11-17T09:16:39.6410154Z [36;1m  awk '{print $1}' cert-out/lean-toolchain.sha256sum > cert-out/lean-toolchain.sha256[0m
+2026-11-17T09:16:39.6410575Z [36;1melse[0m
+2026-11-17T09:16:39.6410997Z [36;1m  echo "MISSING: lean-toolchain was not present in the checkout" | tee cert-out/MISSING-lean-toolchain.txt[0m
+2026-11-17T09:16:39.6411756Z [36;1mfi[0m
+2026-11-17T09:16:39.6411944Z [36;1m{[0m
+2026-11-17T09:16:39.6412254Z [36;1m  echo "commit: $(git rev-parse HEAD 2>/dev/null || echo not available)"[0m
+2026-11-17T09:16:39.6412714Z [36;1m  echo "github_sha: ${GITHUB_SHA:-not set in environment}"[0m
+2026-11-17T09:16:39.6413138Z [36;1m  echo "github_run_id: ${GITHUB_RUN_ID:-not set in environment}"[0m
+2026-11-17T09:16:39.6413618Z [36;1m  echo "github_run_attempt: ${GITHUB_RUN_ATTEMPT:-not set in environment}"[0m
+2026-11-17T09:16:39.6414122Z [36;1m  echo "github_event_name: ${GITHUB_EVENT_NAME:-not set in environment}"[0m
+2026-11-17T09:16:39.6414619Z [36;1m  echo "github_repository: ${GITHUB_REPOSITORY:-not set in environment}"[0m
+2026-11-17T09:16:39.6415008Z [36;1m  echo "elan --version:"[0m
+2026-11-17T09:16:39.6415451Z [36;1m  if command -v elan >/dev/null 2>&1; then elan --version; else echo "elan was not on PATH"; fi[0m
+2026-11-17T09:16:39.6415919Z [36;1m  echo "lake --version:"[0m
+2026-11-17T09:16:39.6416585Z [36;1m  if command -v lake >/dev/null 2>&1; then lake --version; else echo "lake was not on PATH"; fi[0m
+2026-11-17T09:16:39.6417034Z [36;1m  echo "lean --version:"[0m
+2026-11-17T09:16:39.6417438Z [36;1m  if command -v lean >/dev/null 2>&1; then lean --version; else echo "lean was not on PATH"; fi[0m
+2026-11-17T09:16:39.6417991Z [36;1m} > cert-out/versions.txt 2>&1[0m
+2026-11-17T09:16:39.6418264Z [36;1mcat cert-out/versions.txt[0m
+2026-11-17T09:16:39.6418524Z [36;1mpython3 -c '[0m
+2026-11-17T09:16:39.6418748Z [36;1mimport json, pathlib[0m
+2026-11-17T09:16:39.6419044Z [36;1mdest = pathlib.Path("cert-out/mathlib-rev.txt")[0m
+2026-11-17T09:16:39.6419414Z [36;1mmanifest = pathlib.Path("lake-manifest.json")[0m
+2026-11-17T09:16:39.6419727Z [36;1mif not manifest.exists():[0m
+2026-11-17T09:16:39.6420116Z [36;1m    dest.write_text("Mathlib rev: not available; lake-manifest.json missing\n")[0m
+2026-11-17T09:16:39.6420525Z [36;1m    raise SystemExit(0)[0m
+2026-11-17T09:16:39.6420764Z [36;1mtry:[0m
+2026-11-17T09:16:39.6420993Z [36;1m    data = json.loads(manifest.read_text())[0m
+2026-11-17T09:16:39.6421295Z [36;1mexcept Exception as e:[0m
+2026-11-17T09:16:39.6421676Z [36;1m    dest.write_text("Mathlib rev: could not parse lake-manifest.json (%s)\n" % e)[0m
+2026-11-17T09:16:39.6422085Z [36;1m    raise SystemExit(0)[0m
+2026-11-17T09:16:39.6422323Z [36;1mlines = [][0m
+2026-11-17T09:16:39.6422528Z [36;1mfound = False[0m
+2026-11-17T09:16:39.6422774Z [36;1mfor pkg in data.get("packages") or []:[0m
+2026-11-17T09:16:39.6423078Z [36;1m    if pkg.get("name") == "mathlib":[0m
+2026-11-17T09:16:39.6423381Z [36;1m        lines.append("name: mathlib")[0m
+2026-11-17T09:16:39.6423875Z [36;1m        lines.append("rev: %s" % pkg.get("rev"))[0m
+2026-11-17T09:16:39.6424257Z [36;1m        lines.append("inputRev: %s" % pkg.get("inputRev"))[0m
+2026-11-17T09:16:39.6424626Z [36;1m        lines.append("url: %s" % pkg.get("url"))[0m
+2026-11-17T09:16:39.6424922Z [36;1m        found = True[0m
+2026-11-17T09:16:39.6425145Z [36;1m        break[0m
+2026-11-17T09:16:39.6425356Z [36;1mif not found:[0m
+2026-11-17T09:16:39.6425706Z [36;1m    lines.append("Mathlib rev: no package named mathlib in lake-manifest.json")[0m
+2026-11-17T09:16:39.6426361Z [36;1mdest.write_text("\n".join(lines) + "\n")[0m
+2026-11-17T09:16:39.6426652Z [36;1m'[0m
+2026-11-17T09:16:39.6446053Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:16:39.6446925Z ##[endgroup]
+2026-11-17T09:16:39.6534838Z b81d814b7d2d2d2821b03ed679324d5e7ec7da674e0a977352d01c88cbe8ccb8  lake-manifest.json
+2026-11-17T09:16:39.6587328Z 1098ca8368e0db12138f33b070187e1f6527984ae0451a587b20e3e661f96a76  lean-toolchain
+2026-11-17T09:16:39.7534585Z commit: aff2d6d87c39329c28964fbba1174f49b2eab88f
+2026-11-17T09:16:39.7535308Z github_sha: aff2d6d87c39329c28964fbba1174f49b2eab88f
+2026-11-17T09:16:39.7535859Z github_run_id: 44051065773
+2026-11-17T09:16:39.7536514Z github_run_attempt: 1
+2026-11-17T09:16:39.7537298Z github_event_name: push
+2026-11-17T09:16:39.7537828Z github_repository: BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:16:39.7538438Z elan --version:
+2026-11-17T09:16:39.7538807Z elan 4.2.4 (227caca13 2026-08-25)
+2026-11-17T09:16:39.7539215Z lake --version:
+2026-11-17T09:16:39.7539629Z Lake version 5.0.0-src+714601b (Lean version 4.30.0-rc1)
+2026-11-17T09:16:39.7540135Z lean --version:
+2026-11-17T09:16:39.7540832Z Lean (version 4.30.0-rc1, x86_64-unknown-linux-gnu, commit 714601baf118066cbf3f282361339c6d06665b2a, Release)
+2026-11-17T09:16:39.7881852Z ##[group]Run actions/upload-artifact@v4
+2026-11-17T09:16:39.7882161Z with:
+2026-11-17T09:16:39.7882362Z   name: kernel-certificate
+2026-11-17T09:16:39.7882595Z   path: cert-out/
+2026-11-17T09:16:39.7882804Z   if-no-files-found: warn
+2026-11-17T09:16:39.7883038Z   compression-level: 6
+2026-11-17T09:16:39.7883249Z   overwrite: false
+2026-11-17T09:16:39.7883458Z   include-hidden-files: false
+2026-11-17T09:16:39.7883698Z ##[endgroup]
+2026-11-17T09:16:39.9746884Z (node:3467) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T09:16:39.9747917Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T09:16:39.9837623Z With the provided path, there will be 16 files uploaded
+2026-11-17T09:16:39.9844642Z Artifact name is valid!
+2026-11-17T09:16:39.9845295Z Root directory input is valid!
+2026-11-17T09:16:40.2344431Z Beginning upload of artifact content to blob storage
+2026-11-17T09:16:40.2795395Z (node:3467) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-17T09:16:40.3810317Z Uploaded bytes 12882
+2026-11-17T09:16:40.4141639Z Finished uploading artifact content to blob storage!
+2026-11-17T09:16:40.4142665Z SHA256 digest of uploaded artifact zip is 2ba408a2f75f8e7a41a2ee29e102afbe6e903ad32a749664f956be1955cfcd25
+2026-11-17T09:16:40.4143998Z Finalizing artifact upload
+2026-11-17T09:16:40.7670556Z Artifact kernel-certificate.zip successfully finalized. Artifact ID 14314019856
+2026-11-17T09:16:40.7671696Z Artifact kernel-certificate has been successfully uploaded! Final size is 12882 bytes. Artifact ID is 14314019856
+2026-11-17T09:16:40.7679118Z Artifact download URL: https://github.com/BenFrohman/fefferman-clay-navier-stokes/actions/runs/44051065773/artifacts/14314019856
+2026-11-17T09:16:40.7917548Z Post job cleanup.
+2026-11-17T09:16:40.8851867Z [command]/usr/bin/git version
+2026-11-17T09:16:40.8901817Z git version 2.56.1
+2026-11-17T09:16:40.8948584Z Temporarily overriding HOME='/home/runner/work/_temp/fd083c1c-97a7-46cd-9da5-b170f9cbe22d' before making global git config changes
+2026-11-17T09:16:40.8949719Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T09:16:40.8955479Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes
+2026-11-17T09:16:40.9004638Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T09:16:40.9044630Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T09:16:40.9324782Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T09:16:40.9353688Z http.https://github.com/.extraheader
+2026-11-17T09:16:40.9368804Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-17T09:16:40.9421051Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T09:16:40.9714223Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T09:16:40.9762638Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T09:16:41.0317088Z Cleaning up orphan processes
+2026-11-17T09:16:41.0813844Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== kernel-certificate/10_Collect lake-manifest provenance into cert-out.txt
+﻿2026-11-17T09:16:39.6404666Z ##[group]Run mkdir -p cert-out
+2026-11-17T09:16:39.6405033Z [36;1mmkdir -p cert-out[0m
+2026-11-17T09:16:39.6405313Z [36;1mif [ -f lake-manifest.json ]; then[0m
+2026-11-17T09:16:39.6405679Z [36;1m  cp -a lake-manifest.json cert-out/lake-manifest.json[0m
+2026-11-17T09:16:39.6406508Z [36;1m  sha256sum lake-manifest.json | tee cert-out/lake-manifest.json.sha256sum[0m
+2026-11-17T09:16:39.6407172Z [36;1m  awk '{print $1}' cert-out/lake-manifest.json.sha256sum > cert-out/lake-manifest.json.sha256[0m
+2026-11-17T09:16:39.6407651Z [36;1melse[0m
+2026-11-17T09:16:39.6408106Z [36;1m  echo "MISSING: lake-manifest.json was not present in the checkout" | tee cert-out/MISSING-lake-manifest.txt[0m
+2026-11-17T09:16:39.6408610Z [36;1mfi[0m
+2026-11-17T09:16:39.6408815Z [36;1mif [ -f lean-toolchain ]; then[0m
+2026-11-17T09:16:39.6409142Z [36;1m  cp -a lean-toolchain cert-out/lean-toolchain[0m
+2026-11-17T09:16:39.6409559Z [36;1m  sha256sum lean-toolchain | tee cert-out/lean-toolchain.sha256sum[0m
+2026-11-17T09:16:39.6410151Z [36;1m  awk '{print $1}' cert-out/lean-toolchain.sha256sum > cert-out/lean-toolchain.sha256[0m
+2026-11-17T09:16:39.6410572Z [36;1melse[0m
+2026-11-17T09:16:39.6410995Z [36;1m  echo "MISSING: lean-toolchain was not present in the checkout" | tee cert-out/MISSING-lean-toolchain.txt[0m
+2026-11-17T09:16:39.6411753Z [36;1mfi[0m
+2026-11-17T09:16:39.6411935Z [36;1m{[0m
+2026-11-17T09:16:39.6412251Z [36;1m  echo "commit: $(git rev-parse HEAD 2>/dev/null || echo not available)"[0m
+2026-11-17T09:16:39.6412712Z [36;1m  echo "github_sha: ${GITHUB_SHA:-not set in environment}"[0m
+2026-11-17T09:16:39.6413136Z [36;1m  echo "github_run_id: ${GITHUB_RUN_ID:-not set in environment}"[0m
+2026-11-17T09:16:39.6413616Z [36;1m  echo "github_run_attempt: ${GITHUB_RUN_ATTEMPT:-not set in environment}"[0m
+2026-11-17T09:16:39.6414120Z [36;1m  echo "github_event_name: ${GITHUB_EVENT_NAME:-not set in environment}"[0m
+2026-11-17T09:16:39.6414612Z [36;1m  echo "github_repository: ${GITHUB_REPOSITORY:-not set in environment}"[0m
+2026-11-17T09:16:39.6415005Z [36;1m  echo "elan --version:"[0m
+2026-11-17T09:16:39.6415448Z [36;1m  if command -v elan >/dev/null 2>&1; then elan --version; else echo "elan was not on PATH"; fi[0m
+2026-11-17T09:16:39.6415916Z [36;1m  echo "lake --version:"[0m
+2026-11-17T09:16:39.6416581Z [36;1m  if command -v lake >/dev/null 2>&1; then lake --version; else echo "lake was not on PATH"; fi[0m
+2026-11-17T09:16:39.6417032Z [36;1m  echo "lean --version:"[0m
+2026-11-17T09:16:39.6417436Z [36;1m  if command -v lean >/dev/null 2>&1; then lean --version; else echo "lean was not on PATH"; fi[0m
+2026-11-17T09:16:39.6417987Z [36;1m} > cert-out/versions.txt 2>&1[0m
+2026-11-17T09:16:39.6418261Z [36;1mcat cert-out/versions.txt[0m
+2026-11-17T09:16:39.6418515Z [36;1mpython3 -c '[0m
+2026-11-17T09:16:39.6418745Z [36;1mimport json, pathlib[0m
+2026-11-17T09:16:39.6419042Z [36;1mdest = pathlib.Path("cert-out/mathlib-rev.txt")[0m
+2026-11-17T09:16:39.6419407Z [36;1mmanifest = pathlib.Path("lake-manifest.json")[0m
+2026-11-17T09:16:39.6419725Z [36;1mif not manifest.exists():[0m
+2026-11-17T09:16:39.6420113Z [36;1m    dest.write_text("Mathlib rev: not available; lake-manifest.json missing\n")[0m
+2026-11-17T09:16:39.6420523Z [36;1m    raise SystemExit(0)[0m
+2026-11-17T09:16:39.6420761Z [36;1mtry:[0m
+2026-11-17T09:16:39.6420991Z [36;1m    data = json.loads(manifest.read_text())[0m
+2026-11-17T09:16:39.6421293Z [36;1mexcept Exception as e:[0m
+2026-11-17T09:16:39.6421674Z [36;1m    dest.write_text("Mathlib rev: could not parse lake-manifest.json (%s)\n" % e)[0m
+2026-11-17T09:16:39.6422083Z [36;1m    raise SystemExit(0)[0m
+2026-11-17T09:16:39.6422320Z [36;1mlines = [][0m
+2026-11-17T09:16:39.6422526Z [36;1mfound = False[0m
+2026-11-17T09:16:39.6422772Z [36;1mfor pkg in data.get("packages") or []:[0m
+2026-11-17T09:16:39.6423076Z [36;1m    if pkg.get("name") == "mathlib":[0m
+2026-11-17T09:16:39.6423378Z [36;1m        lines.append("name: mathlib")[0m
+2026-11-17T09:16:39.6423700Z [36;1m        lines.append("rev: %s" % pkg.get("rev"))[0m
+2026-11-17T09:16:39.6424254Z [36;1m        lines.append("inputRev: %s" % pkg.get("inputRev"))[0m
+2026-11-17T09:16:39.6424623Z [36;1m        lines.append("url: %s" % pkg.get("url"))[0m
+2026-11-17T09:16:39.6424919Z [36;1m        found = True[0m
+2026-11-17T09:16:39.6425142Z [36;1m        break[0m
+2026-11-17T09:16:39.6425354Z [36;1mif not found:[0m
+2026-11-17T09:16:39.6425704Z [36;1m    lines.append("Mathlib rev: no package named mathlib in lake-manifest.json")[0m
+2026-11-17T09:16:39.6426357Z [36;1mdest.write_text("\n".join(lines) + "\n")[0m
+2026-11-17T09:16:39.6426649Z [36;1m'[0m
+2026-11-17T09:16:39.6446048Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:16:39.6446920Z ##[endgroup]
+2026-11-17T09:16:39.6534820Z b81d814b7d2d2d2821b03ed679324d5e7ec7da674e0a977352d01c88cbe8ccb8  lake-manifest.json
+2026-11-17T09:16:39.6587313Z 1098ca8368e0db12138f33b070187e1f6527984ae0451a587b20e3e661f96a76  lean-toolchain
+2026-11-17T09:16:39.7534507Z commit: aff2d6d87c39329c28964fbba1174f49b2eab88f
+2026-11-17T09:16:39.7535299Z github_sha: aff2d6d87c39329c28964fbba1174f49b2eab88f
+2026-11-17T09:16:39.7535853Z github_run_id: 44051065773
+2026-11-17T09:16:39.7536495Z github_run_attempt: 1
+2026-11-17T09:16:39.7537290Z github_event_name: push
+2026-11-17T09:16:39.7537819Z github_repository: BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:16:39.7538432Z elan --version:
+2026-11-17T09:16:39.7538803Z elan 4.2.4 (227caca13 2026-08-25)
+2026-11-17T09:16:39.7539211Z lake --version:
+2026-11-17T09:16:39.7539626Z Lake version 5.0.0-src+714601b (Lean version 4.30.0-rc1)
+2026-11-17T09:16:39.7540131Z lean --version:
+2026-11-17T09:16:39.7540827Z Lean (version 4.30.0-rc1, x86_64-unknown-linux-gnu, commit 714601baf118066cbf3f282361339c6d06665b2a, Release)
+
+===== kernel-certificate/11_Upload certificate files.txt
+﻿2026-11-17T09:16:39.7881838Z ##[group]Run actions/upload-artifact@v4
+2026-11-17T09:16:39.7882158Z with:
+2026-11-17T09:16:39.7882360Z   name: kernel-certificate
+2026-11-17T09:16:39.7882593Z   path: cert-out/
+2026-11-17T09:16:39.7882802Z   if-no-files-found: warn
+2026-11-17T09:16:39.7883036Z   compression-level: 6
+2026-11-17T09:16:39.7883247Z   overwrite: false
+2026-11-17T09:16:39.7883455Z   include-hidden-files: false
+2026-11-17T09:16:39.7883695Z ##[endgroup]
+2026-11-17T09:16:39.9746842Z (node:3467) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T09:16:39.9747910Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T09:16:39.9837593Z With the provided path, there will be 16 files uploaded
+2026-11-17T09:16:39.9844625Z Artifact name is valid!
+2026-11-17T09:16:39.9845288Z Root directory input is valid!
+2026-11-17T09:16:40.2344396Z Beginning upload of artifact content to blob storage
+2026-11-17T09:16:40.2795247Z (node:3467) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-17T09:16:40.3810268Z Uploaded bytes 12882
+2026-11-17T09:16:40.4141601Z Finished uploading artifact content to blob storage!
+2026-11-17T09:16:40.4142655Z SHA256 digest of uploaded artifact zip is 2ba408a2f75f8e7a41a2ee29e102afbe6e903ad32a749664f956be1955cfcd25
+2026-11-17T09:16:40.4143993Z Finalizing artifact upload
+2026-11-17T09:16:40.7670522Z Artifact kernel-certificate.zip successfully finalized. Artifact ID 14314019856
+2026-11-17T09:16:40.7671693Z Artifact kernel-certificate has been successfully uploaded! Final size is 12882 bytes. Artifact ID is 14314019856
+2026-11-17T09:16:40.7679101Z Artifact download URL: https://github.com/BenFrohman/fefferman-clay-navier-stokes/actions/runs/44051065773/artifacts/14314019856
+
+===== kernel-certificate/1_Set up job.txt
+﻿2026-11-17T09:13:23.1680600Z Current runner version: '2.338.2'
+2026-11-17T09:13:23.1715503Z ##[group]Runner Image Provisioner
+2026-11-17T09:13:23.1716924Z Hosted Compute Agent
+2026-11-17T09:13:23.1717687Z Version: 20261103.629
+2026-11-17T09:13:23.1718365Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-17T09:13:23.1719157Z Build Date: 2026-11-03T17:26:59Z
+2026-11-17T09:13:23.1719875Z Worker ID: {fd76cfa7-1fc5-4e62-93cc-d73875300ecb}
+2026-11-17T09:13:23.1720682Z Region: northcentralus
+2026-11-17T09:13:23.1721333Z Cloud: Azure
+2026-11-17T09:13:23.1721879Z ##[endgroup]
+2026-11-17T09:13:23.1723918Z ##[group]Operating System
+2026-11-17T09:13:23.1724721Z Ubuntu
+2026-11-17T09:13:23.1725284Z 24.04.5
+2026-11-17T09:13:23.1726567Z LTS
+2026-11-17T09:13:23.1727169Z ##[endgroup]
+2026-11-17T09:13:23.1727717Z ##[group]Runner Image
+2026-11-17T09:13:23.1728478Z Image: ubuntu-24.04
+2026-11-17T09:13:23.1729100Z Version: 20261111.370.1
+2026-11-17T09:13:23.1730247Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261111.370/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-17T09:13:23.1731991Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261111.370
+2026-11-17T09:13:23.1733086Z ##[endgroup]
+2026-11-17T09:13:23.1734300Z ##[group]GITHUB_TOKEN Permissions
+2026-11-17T09:13:23.1736905Z Contents: read
+2026-11-17T09:13:23.1737561Z Metadata: read
+2026-11-17T09:13:23.1738302Z Packages: read
+2026-11-17T09:13:23.1738944Z ##[endgroup]
+2026-11-17T09:13:23.1741357Z Secret source: Actions
+2026-11-17T09:13:23.1742483Z Cache mode: write
+2026-11-17T09:13:23.1743561Z Prepare workflow directory
+2026-11-17T09:13:23.2249041Z Prepare all required actions
+2026-11-17T09:13:23.2323846Z Getting action download info
+2026-11-17T09:13:23.4547905Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-17T09:13:23.5786968Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-17T09:13:23.8007855Z Complete job name: kernel-certificate
+
+===== kernel-certificate/22_Post Run actions_checkout@v4.txt
+﻿2026-11-17T09:16:40.7917530Z Post job cleanup.
+2026-11-17T09:16:40.8851821Z [command]/usr/bin/git version
+2026-11-17T09:16:40.8901781Z git version 2.56.1
+2026-11-17T09:16:40.8948559Z Temporarily overriding HOME='/home/runner/work/_temp/fd083c1c-97a7-46cd-9da5-b170f9cbe22d' before making global git config changes
+2026-11-17T09:16:40.8949710Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T09:16:40.8955468Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes
+2026-11-17T09:16:40.9004610Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T09:16:40.9044611Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T09:16:40.9324650Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T09:16:40.9353652Z http.https://github.com/.extraheader
+2026-11-17T09:16:40.9368775Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-17T09:16:40.9421022Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T09:16:40.9714152Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T09:16:40.9762604Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== kernel-certificate/23_Complete job.txt
+﻿2026-11-17T09:16:41.0317075Z Cleaning up orphan processes
+2026-11-17T09:16:41.0813819Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== kernel-certificate/2_Run actions_checkout@v4.txt
+﻿2026-11-17T09:13:23.8926604Z ##[group]Run actions/checkout@v4
+2026-11-17T09:13:23.8927655Z with:
+2026-11-17T09:13:23.8928199Z   repository: BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:23.8932051Z   token: ***
+2026-11-17T09:13:23.8932483Z   ssh-strict: true
+2026-11-17T09:13:23.8932919Z   ssh-user: git
+2026-11-17T09:13:23.8933366Z   persist-credentials: true
+2026-11-17T09:13:23.8933857Z   clean: true
+2026-11-17T09:13:23.8934304Z   sparse-checkout-cone-mode: true
+2026-11-17T09:13:23.8934826Z   fetch-depth: 1
+2026-11-17T09:13:23.8935255Z   fetch-tags: false
+2026-11-17T09:13:23.8935697Z   show-progress: true
+2026-11-17T09:13:23.8936363Z   lfs: false
+2026-11-17T09:13:23.8936812Z   submodules: false
+2026-11-17T09:13:23.8937264Z   set-safe-directory: true
+2026-11-17T09:13:23.8937783Z   allow-unsafe-pr-checkout: false
+2026-11-17T09:13:23.8938559Z ##[endgroup]
+2026-11-17T09:13:24.1452806Z Syncing repository: BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1455840Z ##[group]Getting Git version info
+2026-11-17T09:13:24.1457776Z Working directory is '/home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes'
+2026-11-17T09:13:24.1459791Z [command]/usr/bin/git version
+2026-11-17T09:13:24.1519855Z git version 2.56.1
+2026-11-17T09:13:24.1551654Z ##[endgroup]
+2026-11-17T09:13:24.1560292Z Temporarily overriding HOME='/home/runner/work/_temp/80436e82-2a01-40ea-90cd-578b774f3012' before making global git config changes
+2026-11-17T09:13:24.1563034Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T09:13:24.1566486Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1638279Z Deleting the contents of '/home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes'
+2026-11-17T09:13:24.1641115Z ##[group]Initializing the repository
+2026-11-17T09:13:24.1643019Z [command]/usr/bin/git init /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1767414Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-17T09:13:24.1769207Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-17T09:13:24.1772024Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-17T09:13:24.1773226Z hint: call:
+2026-11-17T09:13:24.1774180Z hint:
+2026-11-17T09:13:24.1774944Z hint: 	git config --global init.defaultBranch <name>
+2026-11-17T09:13:24.1776567Z hint:
+2026-11-17T09:13:24.1778160Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-17T09:13:24.1780190Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-17T09:13:24.1782181Z hint:
+2026-11-17T09:13:24.1783429Z hint: 	git branch -m <name>
+2026-11-17T09:13:24.1784894Z hint:
+2026-11-17T09:13:24.1786849Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-17T09:13:24.1790070Z Initialized empty Git repository in /home/runner/work/fefferman-clay-navier-stokes/fefferman-clay-navier-stokes/.git/
+2026-11-17T09:13:24.1800991Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.1911789Z ##[endgroup]
+2026-11-17T09:13:24.1913725Z ##[group]Disabling automatic garbage collection
+2026-11-17T09:13:24.1916588Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-17T09:13:24.1959156Z ##[endgroup]
+2026-11-17T09:13:24.1961162Z ##[group]Setting up auth
+2026-11-17T09:13:24.1967561Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T09:13:24.2013766Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T09:13:24.2513506Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T09:13:24.2575819Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T09:13:24.2841029Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T09:13:24.2888563Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T09:13:24.3139228Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T09:13:24.3199629Z ##[endgroup]
+2026-11-17T09:13:24.3200736Z ##[group]Fetching the repository
+2026-11-17T09:13:24.3212676Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +aff2d6d87c39329c28964fbba1174f49b2eab88f:refs/remotes/origin/chore/certificate-manifest-elan-20261117
+2026-11-17T09:13:24.6860122Z From https://github.com/BenFrohman/fefferman-clay-navier-stokes
+2026-11-17T09:13:24.6863085Z  * [new ref]         aff2d6d87c39329c28964fbba1174f49b2eab88f -> origin/chore/certificate-manifest-elan-20261117
+2026-11-17T09:13:24.6868641Z ##[endgroup]
+2026-11-17T09:13:24.6870028Z ##[group]Determining the checkout info
+2026-11-17T09:13:24.6871898Z ##[endgroup]
+2026-11-17T09:13:24.6873018Z [command]/usr/bin/git sparse-checkout disable
+2026-11-17T09:13:24.6940784Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-17T09:13:24.6984938Z ##[group]Checking out the ref
+2026-11-17T09:13:24.6989923Z [command]/usr/bin/git checkout --progress --force -B chore/certificate-manifest-elan-20261117 refs/remotes/origin/chore/certificate-manifest-elan-20261117
+2026-11-17T09:13:24.7115051Z Switched to a new branch 'chore/certificate-manifest-elan-20261117'
+2026-11-17T09:13:24.7122442Z branch 'chore/certificate-manifest-elan-20261117' set up to track 'origin/chore/certificate-manifest-elan-20261117'.
+2026-11-17T09:13:24.7127647Z ##[endgroup]
+2026-11-17T09:13:24.7179347Z [command]/usr/bin/git log -1 --format=%H
+2026-11-17T09:13:24.7214839Z aff2d6d87c39329c28964fbba1174f49b2eab88f
+
+===== kernel-certificate/3_Install elan (toolchain from lean-toolchain).txt
+﻿2026-11-17T09:13:24.7513942Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-17T09:13:24.7518676Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-17T09:13:24.7521680Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-17T09:13:24.7548274Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:13:24.7549532Z ##[endgroup]
+2026-11-17T09:13:24.8101529Z info: downloading installer
+
+===== kernel-certificate/4_Toolchain and revision.txt
+﻿2026-11-17T09:13:25.1645585Z ##[group]Run mkdir -p cert-out
+2026-11-17T09:13:25.1647192Z [36;1mmkdir -p cert-out[0m
+2026-11-17T09:13:25.1648268Z [36;1m{[0m
+2026-11-17T09:13:25.1649271Z [36;1m  echo "commit: $(git rev-parse HEAD)"[0m
+2026-11-17T09:13:25.1650834Z [36;1m  echo "lean-toolchain: $(cat lean-toolchain)"[0m
+2026-11-17T09:13:25.1653809Z [36;1m  if command -v elan >/dev/null 2>&1; then echo "elan --version: $(elan --version)"; else echo "elan --version: not printed; elan was not on PATH"; fi[0m
+2026-11-17T09:13:25.1656975Z [36;1m  echo "lean --version: $(lean --version)"[0m
+2026-11-17T09:13:25.1658512Z [36;1m  echo "lake --version: $(lake --version)"[0m
+2026-11-17T09:13:25.1660089Z [36;1m  echo "date (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"[0m
+2026-11-17T09:13:25.1662126Z [36;1m  echo "run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"[0m
+2026-11-17T09:13:25.1664063Z [36;1m} | tee cert-out/environment.txt[0m
+2026-11-17T09:13:25.1688748Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:13:25.1689901Z ##[endgroup]
+2026-11-17T09:13:25.1862559Z commit: aff2d6d87c39329c28964fbba1174f49b2eab88f
+2026-11-17T09:13:25.1874627Z lean-toolchain: leanprover/lean4:v4.30.0-rc1
+2026-11-17T09:13:25.1898250Z elan --version: elan 4.2.4 (227caca13 2026-08-25)
+2026-11-17T09:13:25.9130802Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-17T09:13:28.3082222Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-17T09:13:34.5029960Z lean --version: Lean (version 4.30.0-rc1, x86_64-unknown-linux-gnu, commit 714601baf118066cbf3f282361339c6d06665b2a, Release)
+2026-11-17T09:13:34.5452270Z lake --version: Lake version 5.0.0-src+714601b (Lean version 4.30.0-rc1)
+2026-11-17T09:13:34.5468238Z date (UTC): 2026-11-17T09:13:34Z
+2026-11-17T09:13:34.5470368Z run: https://github.com/BenFrohman/fefferman-clay-navier-stokes/actions/runs/44051065773
+
+===== kernel-certificate/5_Get Mathlib cache (never rebuilds Mathlib from source).txt
+﻿2026-11-17T09:13:34.5650860Z ##[group]Run if grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi
+2026-11-17T09:13:34.5652094Z [36;1mif grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi[0m
+2026-11-17T09:13:34.5674311Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:13:34.5674649Z ##[endgroup]
+2026-11-17T09:13:35.0287705Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-17T09:14:03.7113722Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-17T09:14:05.7678870Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-17T09:14:06.0631190Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-17T09:14:06.0764020Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-17T09:14:06.3925914Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-17T09:14:06.4035693Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-17T09:14:06.7190116Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-17T09:14:06.7385666Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-17T09:14:07.2716408Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-17T09:14:08.0287305Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-17T09:14:08.5791567Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-17T09:14:08.6075471Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-17T09:14:08.9470422Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-17T09:14:08.9595859Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-17T09:14:11.1652200Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-17T09:14:11.2040520Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-17T09:14:11.5178491Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-17T09:14:11.9304037Z ✔ [2/22] Built Cache.Init (298ms)
+2026-11-17T09:14:12.0305926Z ✔ [3/22] Built Cache.Lean (418ms)
+2026-11-17T09:14:12.0327380Z ✔ [4/22] Built Cache.Init:c.o (102ms)
+2026-11-17T09:14:12.1307770Z ✔ [5/22] Built Cache.Lean:c.o (171ms)
+2026-11-17T09:14:13.2373816Z ✔ [8/22] Built Cache.IO (1.3s)
+2026-11-17T09:14:13.6367701Z ✔ [9/22] Built Batteries.Data.String.Basic (479ms)
+2026-11-17T09:14:13.7369673Z ✔ [10/22] Built Batteries.Data.String.Basic:c.o (188ms)
+2026-11-17T09:14:14.1377801Z ✔ [11/22] Built Batteries.Data.Array.Match (1.0s)
+2026-11-17T09:14:14.5368820Z ✔ [12/22] Built Batteries.Data.Array.Match:c.o (447ms)
+2026-11-17T09:14:14.6374032Z ✔ [13/22] Built Batteries.Data.String.Matcher (517ms)
+2026-11-17T09:14:14.6426955Z ✔ [14/22] Built Cache.Hashing (1.4s)
+2026-11-17T09:14:14.9388609Z ✔ [15/22] Built Batteries.Data.String.Matcher:c.o (340ms)
+2026-11-17T09:14:15.2392082Z ✔ [16/22] Built Cache.Hashing:c.o (647ms)
+2026-11-17T09:14:15.5395655Z ✔ [17/22] Built Cache.IO:c.o (2.3s)
+2026-11-17T09:14:16.8407597Z ✔ [18/22] Built Cache.Requests (2.2s)
+2026-11-17T09:14:17.7411799Z ✔ [19/22] Built Cache.Main (831ms)
+2026-11-17T09:14:18.3409383Z ✔ [20/22] Built Cache.Main:c.o (650ms)
+2026-11-17T09:14:19.1418697Z ✔ [21/22] Built Cache.Requests:c.o (2.2s)
+2026-11-17T09:14:19.8455832Z ✔ [22/22] Built cache:exe (700ms)
+2026-11-17T09:14:22.4723651Z Current branch: HEAD
+2026-11-17T09:14:22.4724424Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-17T09:14:22.4725583Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-17T09:14:23.6200541Z 
+2026-11-17T09:14:23.7252481Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 16 KB/s], Decompressed: 0
+2026-11-17T09:14:23.8258002Z Downloaded: 167 file(s) [attempted 167/8248 = 2%, 610 KB/s], Decompressed: 13
+2026-11-17T09:14:23.9239416Z Downloaded: 361 file(s) [attempted 361/8248 = 4%, 485 KB/s], Decompressed: 13
+2026-11-17T09:14:24.0246407Z Downloaded: 549 file(s) [attempted 549/8248 = 6%, 187 KB/s], Decompressed: 13
+2026-11-17T09:14:24.1256629Z Downloaded: 789 file(s) [attempted 789/8248 = 9%, 910 KB/s], Decompressed: 89
+2026-11-17T09:14:24.2297469Z Downloaded: 944 file(s) [attempted 944/8248 = 11%, 4381 KB/s], Decompressed: 89
+2026-11-17T09:14:24.3278166Z Downloaded: 1072 file(s) [attempted 1072/8248 = 12%, 1867 KB/s], Decompressed: 89
+2026-11-17T09:14:24.4321360Z Downloaded: 1236 file(s) [attempted 1236/8248 = 14%, 1303 KB/s], Decompressed: 89
+2026-11-17T09:14:24.5334249Z Downloaded: 1430 file(s) [attempted 1430/8248 = 17%, 1688 KB/s], Decompressed: 89
+2026-11-17T09:14:24.6348519Z Downloaded: 1628 file(s) [attempted 1628/8248 = 19%, 699 KB/s], Decompressed: 89
+2026-11-17T09:14:24.7341719Z Downloaded: 1830 file(s) [attempted 1830/8248 = 22%, 920 KB/s], Decompressed: 89
+2026-11-17T09:14:24.8366542Z Downloaded: 2032 file(s) [attempted 2032/8248 = 24%, 1818 KB/s], Decompressed: 89
+2026-11-17T09:14:24.9355087Z Downloaded: 2254 file(s) [attempted 2254/8248 = 27%, 2823 KB/s], Decompressed: 89
+2026-11-17T09:14:25.0408066Z Downloaded: 2403 file(s) [attempted 2403/8248 = 29%, 745 KB/s], Decompressed: 89
+2026-11-17T09:14:25.1480203Z Downloaded: 2568 file(s) [attempted 2568/8248 = 31%, 961 KB/s], Decompressed: 89
+2026-11-17T09:14:25.2489001Z Downloaded: 2749 file(s) [attempted 2749/8248 = 33%, 1808 KB/s], Decompressed: 89
+2026-11-17T09:14:25.3498219Z Downloaded: 2964 file(s) [attempted 2964/8248 = 35%, 1019 KB/s], Decompressed: 89
+2026-11-17T09:14:25.4489323Z Downloaded: 3156 file(s) [attempted 3156/8248 = 38%, 2665 KB/s], Decompressed: 89
+2026-11-17T09:14:25.5494918Z Downloaded: 3348 file(s) [attempted 3348/8248 = 40%, 4222 KB/s], Decompressed: 89
+2026-11-17T09:14:25.6504361Z Downloaded: 3560 file(s) [attempted 3560/8248 = 43%, 3114 KB/s], Decompressed: 89
+2026-11-17T09:14:25.7531916Z Downloaded: 3766 file(s) [attempted 3766/8248 = 45%, 5172 KB/s], Decompressed: 89
+2026-11-17T09:14:25.8547444Z Downloaded: 3998 file(s) [attempted 3998/8248 = 48%, 5121 KB/s], Decompressed: 89
+2026-11-17T09:14:25.9537432Z Downloaded: 4215 file(s) [attempted 4215/8248 = 51%, 1810 KB/s], Decompressed: 89
+2026-11-17T09:14:26.0550221Z Downloaded: 4431 file(s) [attempted 4431/8248 = 53%, 3842 KB/s], Decompressed: 89
+2026-11-17T09:14:26.1578340Z Downloaded: 4635 file(s) [attempted 4635/8248 = 56%, 733 KB/s], Decompressed: 608
+2026-11-17T09:14:26.2615726Z Downloaded: 4865 file(s) [attempted 4865/8248 = 58%, 3303 KB/s], Decompressed: 608
+2026-11-17T09:14:26.3627086Z Downloaded: 5068 file(s) [attempted 5068/8248 = 61%, 5471 KB/s], Decompressed: 608
+2026-11-17T09:14:26.4608205Z Downloaded: 5274 file(s) [attempted 5274/8248 = 63%, 1179 KB/s], Decompressed: 608
+2026-11-17T09:14:26.5615017Z Downloaded: 5464 file(s) [attempted 5464/8248 = 66%, 1566 KB/s], Decompressed: 608
+2026-11-17T09:14:26.6656627Z Downloaded: 5658 file(s) [attempted 5658/8248 = 68%, 1476 KB/s], Decompressed: 608
+2026-11-17T09:14:26.7651283Z Downloaded: 5887 file(s) [attempted 5887/8248 = 71%, 4485 KB/s], Decompressed: 608
+2026-11-17T09:14:26.8710212Z Downloaded: 6096 file(s) [attempted 6096/8248 = 73%, 509 KB/s], Decompressed: 608
+2026-11-17T09:14:26.9716947Z Downloaded: 6275 file(s) [attempted 6275/8248 = 76%, 655 KB/s], Decompressed: 608
+2026-11-17T09:14:27.0778068Z Downloaded: 6496 file(s) [attempted 6496/8248 = 78%, 1628 KB/s], Decompressed: 608
+2026-11-17T09:14:27.1784689Z Downloaded: 6699 file(s) [attempted 6699/8248 = 81%, 3339 KB/s], Decompressed: 608
+2026-11-17T09:14:27.2777152Z Downloaded: 6919 file(s) [attempted 6919/8248 = 83%, 2149 KB/s], Decompressed: 608
+2026-11-17T09:14:27.3814159Z Downloaded: 7106 file(s) [attempted 7106/8248 = 86%, 7439 KB/s], Decompressed: 608
+2026-11-17T09:14:27.4789035Z Downloaded: 7303 file(s) [attempted 7303/8248 = 88%, 2607 KB/s], Decompressed: 608
+2026-11-17T09:14:27.5797508Z Downloaded: 7519 file(s) [attempted 7519/8248 = 91%, 20313 KB/s], Decompressed: 608
+2026-11-17T09:14:27.6802808Z Downloaded: 7726 file(s) [attempted 7726/8248 = 93%, 958 KB/s], Decompressed: 608
+2026-11-17T09:14:27.7858316Z Downloaded: 7947 file(s) [attempted 7947/8248 = 96%, 440 KB/s], Decompressed: 608
+2026-11-17T09:14:27.8827561Z Downloaded: 8086 file(s) [attempted 8086/8248 = 98%, 1406 KB/s], Decompressed: 608
+2026-11-17T09:14:27.9663246Z Downloaded: 8245 file(s) [attempted 8245/8248 = 99%, 669 KB/s], Decompressed: 608
+2026-11-17T09:14:27.9664435Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 669 KB/s], Decompressed: 608
+2026-11-17T09:14:48.9173653Z Decompressed 8248 file(s)
+2026-11-17T09:14:48.9176655Z Already decompressed 8248 file(s)
+
+===== kernel-certificate/6_lake build.txt
+﻿2026-11-17T09:14:48.9875426Z ##[group]Run set -o pipefail
+2026-11-17T09:14:48.9875764Z [36;1mset -o pipefail[0m
+2026-11-17T09:14:48.9876041Z [36;1mlake build 2>&1 | tee cert-out/build.log[0m
+2026-11-17T09:14:48.9902943Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:14:48.9903201Z ##[endgroup]
+2026-11-17T09:14:54.3577798Z ✔ [2642/2650] Built FeffermanClayNS.Stage6Calculus (3.9s)
+2026-11-17T09:15:17.1935226Z ⚠ [2643/2650] Built FeffermanClayNS.Defs (26s)
+2026-11-17T09:15:17.1935758Z info: FeffermanClayNS/Defs.lean:2527:2: Try this:
+2026-11-17T09:15:17.1936413Z   [apply] abel_nf
+2026-11-17T09:15:17.1936980Z warning: FeffermanClayNS/Defs.lean:3676:9: unused variable `T`
+2026-11-17T09:15:17.1937673Z 
+2026-11-17T09:15:17.1937992Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-17T09:15:17.1938944Z info: FeffermanClayNS/Defs.lean:3678:0: 'NavierStokes3D.curl_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1940124Z info: FeffermanClayNS/Defs.lean:3679:0: 'NavierStokes3D.local_existence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1941439Z info: FeffermanClayNS/Defs.lean:3680:0: 'NavierStokes3D.smoothness_of_Tstar_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1942645Z info: FeffermanClayNS/Defs.lean:3681:0: 'NavierStokes3D.beale_kato_majda' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1943824Z info: FeffermanClayNS/Defs.lean:3682:0: 'NavierStokes3D.beale_kato_majda_scaffold_integrability_unused' depends on axioms: [propext,
+2026-11-17T09:15:17.1944477Z  Classical.choice,
+2026-11-17T09:15:17.1944704Z  Quot.sound]
+2026-11-17T09:15:17.1945320Z info: FeffermanClayNS/Defs.lean:3683:0: 'NavierStokes3D.bkm_criterion_without_integrability_not_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1946582Z info: FeffermanClayNS/Defs.lean:3684:0: 'NavierStokes3D.Tstar_eq_top_of_bkm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1947514Z info: FeffermanClayNS/Defs.lean:3685:0: 'NavierStokes3D.energy_zero_of_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1948489Z info: FeffermanClayNS/Defs.lean:3686:0: 'NavierStokes3D.Tstar_eq_top_of_unbounded_existenceTimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1949481Z info: FeffermanClayNS/Defs.lean:3687:0: 'NavierStokes3D.Tstar_eq_top_of_uniform_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1950444Z info: FeffermanClayNS/Defs.lean:3688:0: 'NavierStokes3D.Tstar_eq_top_of_katoRestartTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1951384Z info: FeffermanClayNS/Defs.lean:3689:0: 'NavierStokes3D.katoRestartTime_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1952276Z info: FeffermanClayNS/Defs.lean:3690:0: 'NavierStokes3D.katoSobolevIndex_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1953157Z info: FeffermanClayNS/Defs.lean:3691:0: 'NavierStokes3D.strain_sup_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1954021Z info: FeffermanClayNS/Defs.lean:3692:0: 'NavierStokes3D.one_add_log_le_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1954923Z info: FeffermanClayNS/Defs.lean:3693:0: 'NavierStokes3D.kato_ponce_implies_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1955877Z info: FeffermanClayNS/Defs.lean:3694:0: 'NavierStokes3D.kato_ponce_of_uniform_vorticity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1957089Z info: FeffermanClayNS/Defs.lean:3695:0: 'NavierStokes3D.kato_Hs_bound_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1958103Z info: FeffermanClayNS/Defs.lean:3696:0: 'NavierStokes3D.exists_mem_existenceTimes_gt_of_lt_Tstar' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1959278Z info: FeffermanClayNS/Defs.lean:3697:0: 'NavierStokes3D.navier_stokes_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1960153Z info: FeffermanClayNS/Defs.lean:3698:0: 'NavierStokes3D.kato_witness_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1961025Z info: FeffermanClayNS/Defs.lean:3699:0: 'NavierStokes3D.local_existence_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1961932Z info: FeffermanClayNS/Defs.lean:3700:0: 'NavierStokes3D.Tstar_pos_of_kato_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1962941Z info: FeffermanClayNS/Defs.lean:3701:0: 'NavierStokes3D.eq_of_l2_energy_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1963844Z info: FeffermanClayNS/Defs.lean:3702:0: 'NavierStokes3D.ns_cauchy_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1964786Z info: FeffermanClayNS/Defs.lean:3703:0: 'NavierStokes3D.ns_cauchy_eq_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1965728Z info: FeffermanClayNS/Defs.lean:3704:0: 'NavierStokes3D.energy_zero_of_gronwall_Icc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1967066Z info: FeffermanClayNS/Defs.lean:3705:0: 'NavierStokes3D.ns_cauchy_on_Icc_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1968022Z info: FeffermanClayNS/Defs.lean:3706:0: 'NavierStokes3D.uniqueness_of_existence_times_of_energy_gronwall' depends on axioms: [propext,
+2026-11-17T09:15:17.1968604Z  Classical.choice,
+2026-11-17T09:15:17.1968808Z  Quot.sound]
+2026-11-17T09:15:17.1969313Z info: FeffermanClayNS/Defs.lean:3707:0: 'NavierStokes3D.time_deriv_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1970164Z info: FeffermanClayNS/Defs.lean:3708:0: 'NavierStokes3D.ns_pde_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1971166Z info: FeffermanClayNS/Defs.lean:3709:0: 'NavierStokes3D.smoothness_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1972155Z info: FeffermanClayNS/Defs.lean:3710:0: 'NavierStokes3D.mem_existenceTimes_add_of_kato_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1973143Z info: FeffermanClayNS/Defs.lean:3711:0: 'NavierStokes3D.restart_of_kato_quantitative' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1974121Z info: FeffermanClayNS/Defs.lean:3712:0: 'NavierStokes3D.smoothness_below_Tstar_of_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1975030Z info: FeffermanClayNS/Defs.lean:3713:0: 'NavierStokes3D.curl_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1975896Z info: FeffermanClayNS/Defs.lean:3714:0: 'NavierStokes3D.mem_existenceTimes_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1977035Z info: FeffermanClayNS/Defs.lean:3715:0: 'NavierStokes3D.Tstar_zero_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1977874Z info: FeffermanClayNS/Defs.lean:3716:0: 'NavierStokes3D.div_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1978700Z info: FeffermanClayNS/Defs.lean:3717:0: 'NavierStokes3D.div_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1979541Z info: FeffermanClayNS/Defs.lean:3718:0: 'NavierStokes3D.div_smul_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1980353Z info: FeffermanClayNS/Defs.lean:3719:0: 'NavierStokes3D.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1981189Z info: FeffermanClayNS/Defs.lean:3720:0: 'NavierStokes3D.convective_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1982266Z info: FeffermanClayNS/Defs.lean:3721:0: 'NavierStokes3D.inner_convective_product_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1983214Z info: FeffermanClayNS/Defs.lean:3722:0: 'NavierStokes3D.cyclicLiePairing_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1984141Z info: FeffermanClayNS/Defs.lean:3723:0: 'NavierStokes3D.convective_norm_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1985030Z info: FeffermanClayNS/Defs.lean:3724:0: 'NavierStokes3D.stretching_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1986043Z info: FeffermanClayNS/Defs.lean:3725:0: 'NavierStokes3D.stretching_inner_le_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1987192Z info: FeffermanClayNS/Defs.lean:3726:0: 'NavierStokes3D.stretching_quartic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1988154Z info: FeffermanClayNS/Defs.lean:3727:0: 'NavierStokes3D.transport_inner_vanishes_of_grad_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1989125Z info: FeffermanClayNS/Defs.lean:3728:0: 'NavierStokes3D.vorticity_transport_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1990101Z info: FeffermanClayNS/Defs.lean:3729:0: 'NavierStokes3D.stretching_pairing_le_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1991100Z info: FeffermanClayNS/Defs.lean:3730:0: 'NavierStokes3D.stretching_enstrophy_di_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1992061Z info: FeffermanClayNS/Defs.lean:3731:0: 'NavierStokes3D.pressureGradient_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1992959Z info: FeffermanClayNS/Defs.lean:3732:0: 'NavierStokes3D.ns_momentum_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1993933Z info: FeffermanClayNS/Defs.lean:3733:0: 'NavierStokes3D.inner_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1994977Z info: FeffermanClayNS/Defs.lean:3734:0: 'NavierStokes3D.transported_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1996041Z info: FeffermanClayNS/Defs.lean:3735:0: 'NavierStokes3D.convective_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1997196Z info: FeffermanClayNS/Defs.lean:3736:0: 'NavierStokes3D.inner_convective_le_strain' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1998104Z info: FeffermanClayNS/Defs.lean:3737:0: 'NavierStokes3D.time_deriv_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.1999059Z info: FeffermanClayNS/Defs.lean:3738:0: 'NavierStokes3D.transported_scalar_along_characteristic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2000087Z info: FeffermanClayNS/Defs.lean:3739:0: 'NavierStokes3D.transported_scalar_maximum_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2001076Z info: FeffermanClayNS/Defs.lean:3740:0: 'NavierStokes3D.reciprocal_of_quadratic_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2002003Z info: FeffermanClayNS/Defs.lean:3741:0: 'NavierStokes3D.le_vorticity_sup_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2002886Z info: FeffermanClayNS/Defs.lean:3742:0: 'NavierStokes3D.convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2003797Z info: FeffermanClayNS/Defs.lean:3743:0: 'NavierStokes3D.convective_eq_sum_directional' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2004763Z info: FeffermanClayNS/Defs.lean:3744:0: 'NavierStokes3D.directionalCoord_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2005812Z info: FeffermanClayNS/Defs.lean:3745:0: 'NavierStokes3D.curl_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2006964Z info: FeffermanClayNS/Defs.lean:3746:0: 'NavierStokes3D.curl_convective_div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2007848Z info: FeffermanClayNS/Defs.lean:3747:0: 'NavierStokes3D.curl_add3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2008841Z info: FeffermanClayNS/Defs.lean:3748:0: 'NavierStokes3D.fderiv_prod_snd_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2009748Z info: FeffermanClayNS/Defs.lean:3749:0: 'NavierStokes3D.deriv_prod_fst_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2010664Z info: FeffermanClayNS/Defs.lean:3750:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2011574Z info: FeffermanClayNS/Defs.lean:3751:0: 'NavierStokes3D.deriv_euclidean_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2012442Z info: FeffermanClayNS/Defs.lean:3752:0: 'NavierStokes3D.curl_time_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2013306Z info: FeffermanClayNS/Defs.lean:3753:0: 'NavierStokes3D.fderiv_field_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2014174Z info: FeffermanClayNS/Defs.lean:3754:0: 'NavierStokes3D.laplacian_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2015057Z info: FeffermanClayNS/Defs.lean:3755:0: 'NavierStokes3D.fderiv_apply_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2016010Z info: FeffermanClayNS/Defs.lean:3756:0: 'NavierStokes3D.contDiffAt_directionalCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2017271Z info: FeffermanClayNS/Defs.lean:3757:0: 'NavierStokes3D.directionalCoord_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2018186Z info: FeffermanClayNS/Defs.lean:3758:0: 'NavierStokes3D.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2019109Z info: FeffermanClayNS/Defs.lean:3759:0: 'NavierStokes3D.differentiableAt_time_deriv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2020103Z info: FeffermanClayNS/Defs.lean:3760:0: 'NavierStokes3D.differentiableAt_convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2021131Z info: FeffermanClayNS/Defs.lean:3761:0: 'NavierStokes3D.differentiableAt_pressureGradient_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2022113Z info: FeffermanClayNS/Defs.lean:3762:0: 'NavierStokes3D.vorticity_transport_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2023015Z info: FeffermanClayNS/Defs.lean:3763:0: 'NavierStokes3D.vorticity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2023933Z info: FeffermanClayNS/Defs.lean:3764:0: 'NavierStokes3D.vorticity_transport_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2024863Z info: FeffermanClayNS/Defs.lean:3765:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2025780Z info: FeffermanClayNS/Defs.lean:3766:0: 'NavierStokes3D.differentiableAt_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2026915Z info: FeffermanClayNS/Defs.lean:3767:0: 'NavierStokes3D.fderiv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2027841Z info: FeffermanClayNS/Defs.lean:3768:0: 'NavierStokes3D.integration_by_parts_of_vanishing_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2028967Z info: FeffermanClayNS/Defs.lean:3769:0: 'NavierStokes3D.inner_self_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext,
+2026-11-17T09:15:17.2029541Z  Classical.choice,
+2026-11-17T09:15:17.2029738Z  Quot.sound]
+2026-11-17T09:15:17.2030244Z info: FeffermanClayNS/Defs.lean:3770:0: 'NavierStokes3D.differentiableAt_coord_of_differentiableAt_field' depends on axioms: [propext,
+2026-11-17T09:15:17.2030823Z  Classical.choice,
+2026-11-17T09:15:17.2031011Z  Quot.sound]
+2026-11-17T09:15:17.2031554Z info: FeffermanClayNS/Defs.lean:3771:0: 'NavierStokes3D.differentiableAt_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2032700Z info: FeffermanClayNS/Defs.lean:3772:0: 'NavierStokes3D.convective_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:17.2033689Z info: FeffermanClayNS/Defs.lean:3773:0: 'NavierStokes3D.pressure_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:20.4965522Z ✔ [2644/2650] Built FeffermanClayNS.FeffermanStatements (3.3s)
+2026-11-17T09:15:23.5013076Z ✔ [2645/2650] Built FeffermanClayNS.TorusStrainExclusion (3.0s)
+2026-11-17T09:15:27.4103154Z ✔ [2646/2650] Built FeffermanClayNS.HighSetDepletionAndBKM (3.9s)
+2026-11-17T09:15:29.1137050Z ✔ [2647/2650] Built FeffermanClayNS.MainTheorem (1.7s)
+2026-11-17T09:15:31.1158509Z ℹ [2648/2650] Built FeffermanClayNS.FinalProductTheorem (3.6s)
+2026-11-17T09:15:31.1159960Z info: FeffermanClayNS/FinalProductTheorem.lean:483:0: 'FeffermanClayNS.unitCube_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1161974Z info: FeffermanClayNS/FinalProductTheorem.lean:484:0: 'FeffermanClayNS.bddAbove_range_norm_of_attained_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1164018Z info: FeffermanClayNS/FinalProductTheorem.lean:485:0: 'FeffermanClayNS.vorticity_sup_norm_eq_of_isSpatialMax' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1166018Z info: FeffermanClayNS/FinalProductTheorem.lean:486:0: 'FeffermanClayNS.AttainedSpatialMaximum.vorticity_sup_norm_eq' depends on axioms: [propext,
+2026-11-17T09:15:31.1167438Z  Classical.choice,
+2026-11-17T09:15:31.1167771Z  Quot.sound]
+2026-11-17T09:15:31.1168892Z info: FeffermanClayNS/FinalProductTheorem.lean:487:0: 'FeffermanClayNS.polar_pythagoras_directional_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1170986Z info: FeffermanClayNS/FinalProductTheorem.lean:488:0: 'FeffermanClayNS.polar_pythagoras_3d_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1172932Z info: FeffermanClayNS/FinalProductTheorem.lean:489:0: 'FeffermanClayNS.bochner_laplacian_3d_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1174830Z info: FeffermanClayNS/FinalProductTheorem.lean:490:0: 'FeffermanClayNS.first_remaining_gap_bochner_polar_damping_at_max' depends on axioms: [propext,
+2026-11-17T09:15:31.1175978Z  Classical.choice,
+2026-11-17T09:15:31.1176483Z  Quot.sound]
+2026-11-17T09:15:31.1177481Z info: FeffermanClayNS/FinalProductTheorem.lean:491:0: 'FeffermanClayNS.concrete_bochner_polar_viscous_damping_at_max' depends on axioms: [propext,
+2026-11-17T09:15:31.1178603Z  Classical.choice,
+2026-11-17T09:15:31.1178925Z  Quot.sound]
+2026-11-17T09:15:31.1179957Z info: FeffermanClayNS/FinalProductTheorem.lean:492:0: 'FeffermanClayNS.constVelocity_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1181882Z info: FeffermanClayNS/FinalProductTheorem.lean:493:0: 'FeffermanClayNS.constVelocity_isZ3Periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1183849Z info: FeffermanClayNS/FinalProductTheorem.lean:494:0: 'FeffermanClayNS.constVelocity_convective_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1185822Z info: FeffermanClayNS/FinalProductTheorem.lean:495:0: 'FeffermanClayNS.constVelocity_laplacian_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1188425Z info: FeffermanClayNS/FinalProductTheorem.lean:496:0: 'FeffermanClayNS.constVelocity_isPeriodicSmoothInitialData' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1190601Z info: FeffermanClayNS/FinalProductTheorem.lean:497:0: 'FeffermanClayNS.constVelocity_isPeriodicSmoothSolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1192787Z info: FeffermanClayNS/FinalProductTheorem.lean:498:0: 'FeffermanClayNS.nonzero_periodic_smooth_solution_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1195066Z info: FeffermanClayNS/FinalProductTheorem.lean:499:0: 'FeffermanClayNS.beltrami_lamb_vector_cross3_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1197250Z info: FeffermanClayNS/FinalProductTheorem.lean:500:0: 'FeffermanClayNS.beltrami_amplitude_pos_and_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1199243Z info: FeffermanClayNS/FinalProductTheorem.lean:501:0: 'FeffermanClayNS.near_field_stretching_absorbed_by_viscous_direction_damping' depends on axioms: [propext,
+2026-11-17T09:15:31.1200452Z  Classical.choice,
+2026-11-17T09:15:31.1200777Z  Quot.sound]
+2026-11-17T09:15:31.1201948Z info: FeffermanClayNS/FinalProductTheorem.lean:502:0: 'FeffermanClayNS.constantin_fefferman_near_far_cutoff_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-17T09:15:31.1203983Z info: FeffermanClayNS/FinalProductTheorem.lean:503:0: 'FeffermanClayNS.fefferman_periodic_ns_exact_reduction_product_theorem' depends on axioms: [propext,
+2026-11-17T09:15:31.1205148Z  Classical.choice,
+2026-11-17T09:15:31.1205475Z  Quot.sound]
+2026-11-17T09:15:33.1162094Z ✔ [2649/2650] Built FeffermanClayNS (1.0s)
+2026-11-17T09:15:33.1291522Z Build completed successfully (2650 jobs).
+
+===== kernel-certificate/7_sorry _ admit _ native_decide _ axiom scan.txt
+﻿2026-11-17T09:15:33.1708634Z ##[group]Run set -o pipefail
+2026-11-17T09:15:33.1708992Z [36;1mset -o pipefail[0m
+2026-11-17T09:15:33.1709435Z [36;1mpython3 certificates/tools/sorry_scan.py 2>&1 | tee cert-out/sorry-scan.txt[0m
+2026-11-17T09:15:33.1730426Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:15:33.1730700Z ##[endgroup]
+2026-11-17T09:15:33.2980535Z Scanned 10 tracked .lean files for sorry / admit / native_decide / axiom declarations (comments and strings ignored).
+2026-11-17T09:15:33.2981412Z RESULT: 0 hits
+
+===== kernel-certificate/8_#print axioms (collectAxioms) for every theorem in the built modules.txt
+﻿2026-11-17T09:15:33.3066814Z ##[group]Run set -o pipefail
+2026-11-17T09:15:33.3067198Z [36;1mset -o pipefail[0m
+2026-11-17T09:15:33.3067758Z [36;1mpython3 certificates/tools/gen_audit.py cert-out/KernelCertificateAudit.lean cert-out/modules.txt[0m
+2026-11-17T09:15:33.3068623Z [36;1mlake env lean cert-out/KernelCertificateAudit.lean > cert-out/axioms.raw.txt 2>&1 || { cat cert-out/axioms.raw.txt; exit 1; }[0m
+2026-11-17T09:15:33.3070032Z [36;1mpython3 certificates/tools/check_audit.py cert-out/axioms.raw.txt > cert-out/axioms.txt || { tail -50 cert-out/axioms.txt; exit 1; }[0m
+2026-11-17T09:15:33.3070721Z [36;1mtail -1 cert-out/axioms.txt[0m
+2026-11-17T09:15:33.3090996Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:15:33.3091254Z ##[endgroup]
+2026-11-17T09:15:33.3405534Z 8 modules
+2026-11-17T09:15:36.1808792Z AUDIT PASS: 260 theorems in 7 modules depend only on propext, Classical.choice, Quot.sound (or on no axioms)
+
+===== kernel-certificate/9_External kernel re-check of every module (leanchecker _ lean4checker, one module per run).txt
+﻿2026-11-17T09:15:36.1860145Z ##[group]Run set -o pipefail
+2026-11-17T09:15:36.1860728Z [36;1mset -o pipefail[0m
+2026-11-17T09:15:36.1861223Z [36;1mLEANBIN="$(dirname "$(elan which lean)")"[0m
+2026-11-17T09:15:36.1861817Z [36;1mPREFIX="$(dirname "$LEANBIN")"[0m
+2026-11-17T09:15:36.1862442Z [36;1mVER="$(sed 's/.*://' lean-toolchain | tr -d '[:space:]')"[0m
+2026-11-17T09:15:36.1863251Z [36;1mif [ -f "$PREFIX/src/lean/LeanChecker.lean" ]; then[0m
+2026-11-17T09:15:36.1864362Z [36;1m  sed 's/target\.isPrefixOf m/target == m/' "$PREFIX/src/lean/LeanChecker.lean" > /tmp/LeanCheckerExact.lean[0m
+2026-11-17T09:15:36.1866017Z [36;1m  echo "checker: leanchecker source shipped with $VER (src/lean/LeanChecker.lean), prefix match -> exact match, run with lean --run" > cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1868090Z [36;1m  diff "$PREFIX/src/lean/LeanChecker.lean" /tmp/LeanCheckerExact.lean | sed 's/^/  patch: /' >> cert-out/leanchecker.txt || true[0m
+2026-11-17T09:15:36.1869339Z [36;1m  check() { lake env lean --run /tmp/LeanCheckerExact.lean -v "$1"; }[0m
+2026-11-17T09:15:36.1870586Z [36;1melif git ls-remote --exit-code --tags https://github.com/leanprover/lean4checker "refs/tags/$VER" >/dev/null; then[0m
+2026-11-17T09:15:36.1872266Z [36;1m  git clone -q --depth 1 --branch "$VER" https://github.com/leanprover/lean4checker /tmp/lean4checker[0m
+2026-11-17T09:15:36.1873285Z [36;1m  cp /tmp/lean4checker/Main.lean /tmp/Main.orig.lean[0m
+2026-11-17T09:15:36.1874108Z [36;1m  sed -i 's/target\.isPrefixOf m/target == m/' /tmp/lean4checker/Main.lean[0m
+2026-11-17T09:15:36.1874932Z [36;1m  (cd /tmp/lean4checker && lake build lean4checker)[0m
+2026-11-17T09:15:36.1876445Z [36;1m  echo "checker: lean4checker tag $VER ($(git -C /tmp/lean4checker rev-parse HEAD)), Main.lean prefix match -> exact match" > cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1878105Z [36;1m  diff /tmp/Main.orig.lean /tmp/lean4checker/Main.lean | sed 's/^/  patch: /' >> cert-out/leanchecker.txt || true[0m
+2026-11-17T09:15:36.1879312Z [36;1m  check() { lake env /tmp/lean4checker/.lake/build/bin/lean4checker -v "$1"; }[0m
+2026-11-17T09:15:36.1880074Z [36;1melse[0m
+2026-11-17T09:15:36.1880912Z [36;1m  echo "NOT RUN: toolchain $VER ships no leanchecker and lean4checker has no tag $VER" | tee cert-out/leanchecker.txt; exit 0[0m
+2026-11-17T09:15:36.1881943Z [36;1mfi[0m
+2026-11-17T09:15:36.1882318Z [36;1mwhile read -r m; do[0m
+2026-11-17T09:15:36.1882762Z [36;1m  [ -n "$m" ] || continue[0m
+2026-11-17T09:15:36.1883813Z [36;1m  if out=$(check "$m" 2>&1); then echo "$m: OK ($(echo "$out" | grep -c '^replaying') module replayed)"; else echo "$m: FAILED"; echo "$out" | tail -20; fi[0m
+2026-11-17T09:15:36.1885074Z [36;1mdone < cert-out/modules.txt | tee -a cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1885908Z [36;1mif grep -q ': FAILED$' cert-out/leanchecker.txt; then exit 1; fi[0m
+2026-11-17T09:15:36.1887673Z [36;1mecho "RESULT: $(grep -c ': OK (' cert-out/leanchecker.txt) of $(grep -c . cert-out/modules.txt) modules replayed through the kernel, 0 failures" | tee -a cert-out/leanchecker.txt[0m
+2026-11-17T09:15:36.1913201Z shell: /usr/bin/bash -e {0}
+2026-11-17T09:15:36.1913480Z ##[endgroup]
+2026-11-17T09:15:43.5892161Z FeffermanClayNS: OK (1 module replayed)
+2026-11-17T09:15:53.5718142Z FeffermanClayNS.Defs: OK (1 module replayed)
+2026-11-17T09:16:01.3728741Z FeffermanClayNS.FeffermanStatements: OK (1 module replayed)
+2026-11-17T09:16:09.1503835Z FeffermanClayNS.FinalProductTheorem: OK (1 module replayed)
+2026-11-17T09:16:17.0171360Z FeffermanClayNS.HighSetDepletionAndBKM: OK (1 module replayed)
+2026-11-17T09:16:24.4294683Z FeffermanClayNS.MainTheorem: OK (1 module replayed)
+2026-11-17T09:16:31.9678262Z FeffermanClayNS.Stage6Calculus: OK (1 module replayed)
+2026-11-17T09:16:39.6296450Z FeffermanClayNS.TorusStrainExclusion: OK (1 module replayed)
+2026-11-17T09:16:39.6366737Z RESULT: 8 of 8 modules replayed through the kernel, 0 failures
+
+===== kernel-certificate/system.txt
+2026-11-17T08:56:47.0770000Z Requested labels: ubuntu-latest
+2026-11-17T08:56:47.0770000Z Job defined at: BenFrohman/fefferman-clay-navier-stokes/.github/workflows/kernel-certificate.yml@refs/heads/chore/certificate-manifest-elan-20261117
+2026-11-17T08:56:47.0770000Z Waiting for a runner to pick up this job...
+2026-11-17T08:56:47.0750000Z Evaluating kernel-certificate.if
+2026-11-17T08:56:47.0750000Z Evaluating: success()
+2026-11-17T08:56:47.0750000Z Result: true
+2026-11-17T08:56:47.3480000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-17T09:13:21.0840000Z Job is waiting for a hosted runner to come online.
+2026-11-17T09:13:21.0840000Z Job is about to start running on the hosted runner: GitHub Actions 1000005464

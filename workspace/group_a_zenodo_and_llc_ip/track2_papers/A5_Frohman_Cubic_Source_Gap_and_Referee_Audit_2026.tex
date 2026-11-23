@@ -1,0 +1,64 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{A Cubic Source for the Vorticity Maximum, the Unmodified-to-Tether Pairing Reduction, and the Recorded Analytical Gap in 3D Navier-Stokes}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/NS_Millennium_Proof}}
+\date{\textbf{Origin Provenance:} 2026-10-07 15:30:00 CDT (UTC-5) (BenFrohman/NS\_Millennium\_Proof/certs/CubicSourceGap.tex \& artifacts/Lean\_NS\_Module\_Referee\_2026.tex)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632784}{10.5281/zenodo.23632784} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Proved Conditional Reduction in Lean 4 + Explicit Open Rate Discharge Audit\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent Combining the technical audit certificates CubicSourceGap.tex and Lean\_NS\_Module\_Referee\_2026.tex from BenFrohman/NS\_Millennium\_Proof, this paper isolates the exact analytical relationship between the unmodified 3D Navier-Stokes vortex-stretching term at a spatial vorticity maximum x\_*(t) and the cubic damping term -kappa'' M(t)\textasciicircum{}3 in the Frohmanian Symplectic Tether inequality. We prove the algebraic pairing reduction in Lean 4 (Modules/StretchingAtMax.lean) and document the historical referee audit that eliminated the pre-October 24 step-field uniqueness obstruction.
+\end{abstract}
+
+
+\section{Pointwise Vorticity Evolution at a Spatial Maximum}
+Let $M(t) = \max_{x \in \mathbb{T}^3} |\omega(x,t)| = |\omega(x_*(t),t)|$. At a spatial maximum $x_*(t)$, $\nabla |\omega|^2(x_*) = 0$ and $\Delta |\omega|^2(x_*) \le 0$, so Rademacher's theorem and the vorticity equation yield
+\begin{equation}
+\frac{d}{dt} M(t) \le \frac{\omega(x_*) \cdot S(x_*)\omega(x_*)}{M(t)} + \nu\,\frac{\omega(x_*) \cdot \Delta \omega(x_*)}{M(t)}.
+\end{equation}
+
+\begin{theorem}[Pairing Decomposition (\texttt{Modules/StretchingAtMax.lean})]
+If the strain-vorticity pairing at $x_*(t)$ decomposes as a Calder\'on--Zygmund quadratic bound $C_{\mathrm{CZ}} M(t)^2$ minus a non-local symplectic tether restoring term $\kappa'' M(t)^3$ ($\kappa'' > 0$), then $M(t)$ satisfies the globally bounded Riccati barrier inequality. In unmodified Navier--Stokes, deriving $-\kappa'' M(t)^3$ without an exogenous tether modifier remains the single isolated open analytical step.
+\end{theorem}
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-10-07 15:30:00 CDT (UTC-5) (BenFrohman/NS\_Millennium\_Proof/certs/CubicSourceGap.tex \& artifacts/Lean\_NS\_Module\_Referee\_2026.tex).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/NS_Millennium_Proof}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632784}{\texttt{10.5281/zenodo.23632784}} (Zenodo Record \texttt{23632784}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,66 @@
+Modules/CeilingFromRate.lean:36:62: error: Application type mismatch: The argument
+  hpde
+has type
+  NS_PDE u p ν
+but is expected to have type
+  IsPeriodicSmoothSolution ν u₀ (fun x x_1 => 0) u p
+in the application
+  hR u p hν hpde
+Modules/CeilingFromRate.lean:36:9: error: Tactic `rcases` failed: `x✝ : ?m.17` is not an inductive datatype
+Modules/CeilingFromRate.lean:67:60: error: Application type mismatch: The argument
+  heq
+has type
+  navier_stokes_eq u p ν
+but is expected to have type
+  IsPeriodicSmoothSolution ν (u0 0) (fun x x_1 => 0) u p
+in the application
+  hR u p h_ν_pos heq
+Modules/CeilingFromRate.lean:67:9: error: Tactic `rcases` failed: `x✝ : ?m.179` is not an inductive datatype
+Modules/CeilingFromRate.lean:82:4: error(lean.unknownIdentifier): Unknown identifier `frohmanianTetherRate_zero`
+Modules/CeilingFromRate.lean:106:4: error: Application type mismatch: The argument
+  conditional_global_regularity_with_ceiling
+has type
+  ∀ (u0 : TimeDependentVelocity),
+    (∀ (t : ℝ) (x : T3), div (u0 t) x = 0) →
+      ConditionalRegularity.IsSmooth (u0 0) →
+        Integrable (fun x => ‖u0 0 x‖ ^ 2) MeasureTheory.volume →
+          ∀ ν > 0,
+            ∀ (w : KatoLocalWitness (u0 0) ν),
+              FrohmanianTetherRate (u0 0) ν →
+                TetheredLyapunov.PhysicalBKMContinuationCriterionFor (u0 0) ν →
+                  TetheredLyapunov.KatoUniquenessOnExistenceTimes (u0 0) ν w →
+                    ∃ u,
+                      (∀ t ≥ 0, ConditionalRegularity.IsSmooth (u t)) ∧
+                        u 0 = u0 0 ∧
+                          (∀ t ≥ 0, ConditionalRegularity.satisfies_NavierStokes u ν) ∧
+                            (∃ C κ'',
+                                0 < C ∧
+                                  0 < κ'' ∧
+                                    ∀ t ≥ 0,
+                                      vorticity_sup_norm (vorticity (u t)) ≤
+                                        max (vorticity_sup_norm (vorticity (u 0))) (C / κ'')) ∧
+                              ∀ (v : TimeDependentVelocity),
+                                (∀ t ≥ 0, ConditionalRegularity.IsSmooth (v t)) →
+                                  v 0 = u0 0 →
+                                    (∀ t ≥ 0, ConditionalRegularity.satisfies_NavierStokes v ν) → ∀ t ≥ 0, v t = u t
+but is expected to have type
+  NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.formal_claim
+in the application
+  NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity.intended_correspondence.mp
+    conditional_global_regularity_with_ceiling
+'CeilingFromRate.frohmanianTetherBound_of_rate' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'CeilingFromRate.conditional_global_regularity_with_ceiling' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'CeilingFromRate.hypotheses_jointly_satisfiable_at_zero' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'CeilingFromRate.conditional_global_regularity_with_ceiling_at_zero' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'CeilingFromRate.theorem_1_1' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+[exit 1]

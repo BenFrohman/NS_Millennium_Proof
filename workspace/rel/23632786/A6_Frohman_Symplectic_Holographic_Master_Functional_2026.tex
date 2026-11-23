@@ -1,0 +1,64 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{The Frohman Symplectic and Holographic Dual Regularization Conjecture: Master Functional Reduction and Metriplectic Enstrophy Control}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01}}
+\date{\textbf{Origin Provenance:} 2026-06-01 12:00:00 CDT (UTC-5) (BenFrohman/frohmanian-tether-manuscript-2026-06-01) \& 2026-10-24 CDT (FrohmanFunctional.lean)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632786}{10.5281/zenodo.23632786} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Proved Master Functional Reduction in Lean 4 (FrohmanFunctional.lean) + Conjectural Physical Motivation\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent Authored on June 1, 2026 (BenFrohman/frohmanian-tether-manuscript-2026-06-01) and formalized in Lean 4 inside Modules/FrohmanFunctional.lean of BenFrohman/NS\_Millennium\_Proof, this work introduces the Frohman Master Regularization Functional F\_Frohman[u, omega] motivation via the fluid-gravity correspondence and symplectic capacity rigidity (Gromov non-squeezing on vortex phase tubes), proving that coercivity of the master functional controls the L\textasciicircum{}infty vorticity norm and discharges the conditional regularity pipeline.
+\end{abstract}
+
+
+\section{The Frohman Master Functional and Symplectic Non-Squeezing Motivation}
+Define the dimensionless Frohman Master Functional combining kinetic energy $E(t)$, enstrophy $\mathcal{E}(t)$, and the integrated cubic vorticity-tether potential:
+\begin{equation}
+\mathcal{F}_{\mathrm{Frohman}}(t) := \mathcal{E}(t) + \kappa_{\mathrm{tether}} \int_0^t \|\omega(\cdot,\tau)\|_{L^\infty}^3\,d\tau.
+\end{equation}
+
+\begin{theorem}[Master Functional Coercivity Bridge (\texttt{Modules/FrohmanFunctional.lean})]
+In Lean 4 (\texttt{FrohmanFunctional.lean}, 0 \texttt{sorry}), boundedness of the Frohman Master Functional together with the local Calder\'on--Zygmund singular integral bound implies uniform control of the Beale--Kato--Majda integral $\int_0^T \|\omega(\cdot,t)\|_{L^\infty}\,dt$ on every finite horizon $[0,T]$.
+\end{theorem}
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-06-01 12:00:00 CDT (UTC-5) (BenFrohman/frohmanian-tether-manuscript-2026-06-01) \& 2026-10-24 CDT (FrohmanFunctional.lean).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632786}{\texttt{10.5281/zenodo.23632786}} (Zenodo Record \texttt{23632786}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

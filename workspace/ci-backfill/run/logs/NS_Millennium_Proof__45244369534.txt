@@ -1,0 +1,1623 @@
+
+===== 0_Truth Gate (semantics lock).txt
+﻿2026-11-23T19:07:45.5920573Z Current runner version: '2.338.2'
+2026-11-23T19:07:45.5942096Z ##[group]Runner Image Provisioner
+2026-11-23T19:07:45.5942958Z Hosted Compute Agent
+2026-11-23T19:07:45.5943545Z Version: 20261111.635
+2026-11-23T19:07:45.5944093Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:07:45.5944675Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:07:45.5945310Z Worker ID: {749a6ee6-1a54-4bb9-8150-7b699be8f952}
+2026-11-23T19:07:45.5945896Z Region: westus3
+2026-11-23T19:07:45.5946381Z Cloud: Azure
+2026-11-23T19:07:45.5946842Z ##[endgroup]
+2026-11-23T19:07:45.5947941Z ##[group]Operating System
+2026-11-23T19:07:45.5948509Z Ubuntu
+2026-11-23T19:07:45.5948943Z 26.04.1
+2026-11-23T19:07:45.5949451Z LTS
+2026-11-23T19:07:45.5949922Z ##[endgroup]
+2026-11-23T19:07:45.5950385Z ##[group]Runner Image
+2026-11-23T19:07:45.5950917Z Image: ubuntu-26.04
+2026-11-23T19:07:45.5951400Z Version: 20261116.202.1
+2026-11-23T19:07:45.5952491Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:07:45.5953855Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:07:45.5954678Z ##[endgroup]
+2026-11-23T19:07:45.5955583Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:07:45.5957219Z Contents: read
+2026-11-23T19:07:45.5957736Z Metadata: read
+2026-11-23T19:07:45.5958313Z ##[endgroup]
+2026-11-23T19:07:45.5960199Z Secret source: Actions
+2026-11-23T19:07:45.5961382Z Cache mode: write
+2026-11-23T19:07:45.5961992Z Prepare workflow directory
+2026-11-23T19:07:45.6277858Z Prepare all required actions
+2026-11-23T19:07:45.6337277Z Getting action download info
+2026-11-23T19:07:45.9497946Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-23T19:07:46.0255639Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:07:46.2348320Z Complete job name: Truth Gate (semantics lock)
+2026-11-23T19:07:46.3048101Z ##[group]Run actions/checkout@v7
+2026-11-23T19:07:46.3048815Z with:
+2026-11-23T19:07:46.3049207Z   repository: BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:46.3052406Z   token: ***
+2026-11-23T19:07:46.3052900Z   ssh-strict: true
+2026-11-23T19:07:46.3053276Z   ssh-user: git
+2026-11-23T19:07:46.3053646Z   persist-credentials: true
+2026-11-23T19:07:46.3054037Z   clean: true
+2026-11-23T19:07:46.3054401Z   sparse-checkout-cone-mode: true
+2026-11-23T19:07:46.3054820Z   fetch-depth: 1
+2026-11-23T19:07:46.3055171Z   fetch-tags: false
+2026-11-23T19:07:46.3055532Z   show-progress: true
+2026-11-23T19:07:46.3055895Z   lfs: false
+2026-11-23T19:07:46.3056228Z   submodules: false
+2026-11-23T19:07:46.3056591Z   set-safe-directory: true
+2026-11-23T19:07:46.3057006Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:07:46.3057576Z ##[endgroup]
+2026-11-23T19:07:46.5624402Z Syncing repository: BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:46.5626313Z ##[group]Getting Git version info
+2026-11-23T19:07:46.5627598Z Working directory is '/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof'
+2026-11-23T19:07:46.5629055Z [command]/usr/bin/git version
+2026-11-23T19:07:46.5640810Z git version 2.56.1
+2026-11-23T19:07:46.5658966Z ##[endgroup]
+2026-11-23T19:07:46.5669515Z Temporarily overriding HOME='/home/runner/work/_temp/fe3003f4-8040-4446-bdb6-3a4e39f020a3' before making global git config changes
+2026-11-23T19:07:46.5671801Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:07:46.5674208Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof
+2026-11-23T19:07:46.5741636Z Deleting the contents of '/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof'
+2026-11-23T19:07:46.5745440Z ##[group]Determining repository object format
+2026-11-23T19:07:46.5747162Z ##[endgroup]
+2026-11-23T19:07:46.5748662Z ##[group]Initializing the repository
+2026-11-23T19:07:46.5751197Z [command]/usr/bin/git init /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof
+2026-11-23T19:07:46.6270622Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:07:46.6272099Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:07:46.6273276Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:07:46.6274242Z hint: call:
+2026-11-23T19:07:46.6274730Z hint:
+2026-11-23T19:07:46.6275340Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:07:46.6276182Z hint:
+2026-11-23T19:07:46.6276829Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:07:46.6277788Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:07:46.6278911Z hint:
+2026-11-23T19:07:46.6279796Z hint: 	git branch -m <name>
+2026-11-23T19:07:46.6280667Z hint:
+2026-11-23T19:07:46.6281717Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:07:46.6283735Z Initialized empty Git repository in /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/
+2026-11-23T19:07:46.6295056Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:46.6344175Z ##[endgroup]
+2026-11-23T19:07:46.6344936Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:07:46.6346400Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:07:46.6376902Z ##[endgroup]
+2026-11-23T19:07:46.6377977Z ##[group]Setting up auth
+2026-11-23T19:07:46.6378837Z Removing SSH command configuration
+2026-11-23T19:07:46.6382577Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:07:46.6415985Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:07:46.6847471Z Removing HTTP extra header
+2026-11-23T19:07:46.6854466Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:07:46.6888167Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:07:46.7125652Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:07:46.7130375Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:07:46.7161790Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:07:46.7404545Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:07:46.7442353Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7472525Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7504744Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7533356Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7559737Z ##[endgroup]
+2026-11-23T19:07:46.7560404Z ##[group]Fetching the repository
+2026-11-23T19:07:46.7566239Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ee053fb43e1b32bef0ce0293f5cb37a52070f9eb:refs/remotes/origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9525336Z From https://github.com/BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:47.9527592Z  * [new ref]         ee053fb43e1b32bef0ce0293f5cb37a52070f9eb -> origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9539127Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9564387Z   origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9571165Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9591958Z ee053fb43e1b32bef0ce0293f5cb37a52070f9eb
+2026-11-23T19:07:47.9596197Z ##[endgroup]
+2026-11-23T19:07:47.9597258Z ##[group]Determining the checkout info
+2026-11-23T19:07:47.9598600Z ##[endgroup]
+2026-11-23T19:07:47.9599712Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:07:47.9671856Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:07:47.9699213Z ##[group]Checking out the ref
+2026-11-23T19:07:47.9702078Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/ee053fb refs/remotes/origin/ci-backfill/ee053fb
+2026-11-23T19:07:48.0680770Z Switched to a new branch 'ci-backfill/ee053fb'
+2026-11-23T19:07:48.0685046Z branch 'ci-backfill/ee053fb' set up to track 'origin/ci-backfill/ee053fb'.
+2026-11-23T19:07:48.0695922Z ##[endgroup]
+2026-11-23T19:07:48.0744530Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:07:48.0769250Z ee053fb43e1b32bef0ce0293f5cb37a52070f9eb
+2026-11-23T19:07:48.1007294Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+2026-11-23T19:07:48.1009701Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \[0m
+2026-11-23T19:07:48.1011518Z [36;1m  | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:07:48.1012893Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:07:48.1047799Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:07:48.1048757Z ##[endgroup]
+2026-11-23T19:07:48.1718791Z info: downloading installer
+2026-11-23T19:07:48.5598688Z ##[group]Run lake exe cache get
+2026-11-23T19:07:48.5598965Z [36;1mlake exe cache get[0m
+2026-11-23T19:07:48.5630388Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:07:48.5630612Z ##[endgroup]
+2026-11-23T19:07:49.0648916Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:07:56.7226227Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:08:02.4271969Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:08:28.5469666Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:08:30.1706665Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:08:30.7180922Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:08:30.7305550Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:08:31.2154733Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:08:31.2266169Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:08:32.4349623Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:08:32.4783558Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:08:33.6448127Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:08:34.2152180Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:08:35.1198340Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:08:35.1427970Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:08:35.6728809Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:08:35.6845914Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:08:38.9814631Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:08:39.0133066Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:08:39.5344426Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:08:39.8554289Z ✔ [4/22] Built Cache.Init (263ms)
+2026-11-23T19:08:39.9487849Z ✔ [5/22] Built Cache.Lean (382ms)
+2026-11-23T19:08:39.9513783Z ✔ [6/22] Built Cache.Init:c.o (112ms)
+2026-11-23T19:08:40.1490089Z ✔ [7/22] Built Cache.Lean:c.o (146ms)
+2026-11-23T19:08:40.2515404Z ✔ [8/22] Built Batteries.Data.String.Basic (421ms)
+2026-11-23T19:08:40.3517048Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (126ms)
+2026-11-23T19:08:40.5554639Z ✔ [10/22] Built Batteries.Data.Array.Match (742ms)
+2026-11-23T19:08:40.8564259Z ✔ [11/22] Built Batteries.Data.String.Matcher (305ms)
+2026-11-23T19:08:40.8564908Z ✔ [12/22] Built Batteries.Data.Array.Match:c.o (275ms)
+2026-11-23T19:08:41.0563507Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (168ms)
+2026-11-23T19:08:41.2565320Z ✔ [14/22] Built Cache.IO (1.2s)
+2026-11-23T19:08:41.8575686Z ✔ [15/22] Built Cache.Hashing (628ms)
+2026-11-23T19:08:42.1580019Z ✔ [16/22] Built Cache.Hashing:c.o (329ms)
+2026-11-23T19:08:42.5584318Z ✔ [17/22] Built Cache.IO:c.o (1.3s)
+2026-11-23T19:08:43.4598291Z ✔ [18/22] Built Cache.Requests (1.6s)
+2026-11-23T19:08:44.1600538Z ✔ [19/22] Built Cache.Main (656ms)
+2026-11-23T19:08:44.5607525Z ✔ [20/22] Built Cache.Main:c.o (462ms)
+2026-11-23T19:08:45.0638698Z ✔ [21/22] Built Cache.Requests:c.o (1.6s)
+2026-11-23T19:08:45.7657846Z ✔ [22/22] Built cache:exe (615ms)
+2026-11-23T19:08:48.0960639Z Current branch: HEAD
+2026-11-23T19:08:48.0960969Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:08:48.0961350Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:08:48.6325249Z 
+2026-11-23T19:08:48.7349097Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 76 KB/s], Decompressed: 0
+2026-11-23T19:08:48.8336001Z Downloaded: 72 file(s) [attempted 72/8248 = 0%, 761 KB/s], Decompressed: 14
+2026-11-23T19:08:48.9353948Z Downloaded: 156 file(s) [attempted 156/8248 = 1%, 788 KB/s], Decompressed: 30
+2026-11-23T19:08:49.0364001Z Downloaded: 250 file(s) [attempted 250/8248 = 3%, 601 KB/s], Decompressed: 81
+2026-11-23T19:08:49.1495466Z Downloaded: 356 file(s) [attempted 356/8248 = 4%, 3434 KB/s], Decompressed: 81
+2026-11-23T19:08:49.2503842Z Downloaded: 453 file(s) [attempted 453/8248 = 5%, 2756 KB/s], Decompressed: 81
+2026-11-23T19:08:49.3597404Z Downloaded: 553 file(s) [attempted 553/8248 = 6%, 2493 KB/s], Decompressed: 81
+2026-11-23T19:08:49.4595037Z Downloaded: 661 file(s) [attempted 661/8248 = 8%, 1208 KB/s], Decompressed: 81
+2026-11-23T19:08:49.5649104Z Downloaded: 765 file(s) [attempted 765/8248 = 9%, 475 KB/s], Decompressed: 225
+2026-11-23T19:08:49.6763680Z Downloaded: 875 file(s) [attempted 875/8248 = 10%, 3858 KB/s], Decompressed: 225
+2026-11-23T19:08:49.7854310Z Downloaded: 977 file(s) [attempted 977/8248 = 11%, 703 KB/s], Decompressed: 225
+2026-11-23T19:08:49.8855113Z Downloaded: 1096 file(s) [attempted 1096/8248 = 13%, 1258 KB/s], Decompressed: 225
+2026-11-23T19:08:49.9886034Z Downloaded: 1202 file(s) [attempted 1202/8248 = 14%, 860 KB/s], Decompressed: 225
+2026-11-23T19:08:50.0893425Z Downloaded: 1310 file(s) [attempted 1310/8248 = 15%, 155 KB/s], Decompressed: 225
+2026-11-23T19:08:50.1926774Z Downloaded: 1423 file(s) [attempted 1423/8248 = 17%, 373 KB/s], Decompressed: 225
+2026-11-23T19:08:50.2943878Z Downloaded: 1531 file(s) [attempted 1531/8248 = 18%, 1864 KB/s], Decompressed: 225
+2026-11-23T19:08:50.4024373Z Downloaded: 1662 file(s) [attempted 1662/8248 = 20%, 905 KB/s], Decompressed: 225
+2026-11-23T19:08:50.5010501Z Downloaded: 1775 file(s) [attempted 1775/8248 = 21%, 3031 KB/s], Decompressed: 225
+2026-11-23T19:08:50.6076599Z Downloaded: 1882 file(s) [attempted 1882/8248 = 22%, 1455 KB/s], Decompressed: 225
+2026-11-23T19:08:50.7081163Z Downloaded: 1993 file(s) [attempted 1993/8248 = 24%, 270 KB/s], Decompressed: 225
+2026-11-23T19:08:50.8098353Z Downloaded: 2108 file(s) [attempted 2108/8248 = 25%, 1871 KB/s], Decompressed: 225
+2026-11-23T19:08:50.9135537Z Downloaded: 2226 file(s) [attempted 2226/8248 = 26%, 226 KB/s], Decompressed: 225
+2026-11-23T19:08:51.0293927Z Downloaded: 2347 file(s) [attempted 2347/8248 = 28%, 123 KB/s], Decompressed: 711
+2026-11-23T19:08:51.1295406Z Downloaded: 2451 file(s) [attempted 2451/8248 = 29%, 522 KB/s], Decompressed: 711
+2026-11-23T19:08:51.2329392Z Downloaded: 2558 file(s) [attempted 2558/8248 = 31%, 857 KB/s], Decompressed: 711
+2026-11-23T19:08:51.3334648Z Downloaded: 2690 file(s) [attempted 2690/8248 = 32%, 1994 KB/s], Decompressed: 711
+2026-11-23T19:08:51.4355823Z Downloaded: 2770 file(s) [attempted 2770/8248 = 33%, 325 KB/s], Decompressed: 711
+2026-11-23T19:08:51.5335139Z Downloaded: 2875 file(s) [attempted 2875/8248 = 34%, 375 KB/s], Decompressed: 711
+2026-11-23T19:08:51.6375380Z Downloaded: 2981 file(s) [attempted 2981/8248 = 36%, 92 KB/s], Decompressed: 711
+2026-11-23T19:08:51.7367856Z Downloaded: 3096 file(s) [attempted 3096/8248 = 37%, 1897 KB/s], Decompressed: 711
+2026-11-23T19:08:51.8404487Z Downloaded: 3215 file(s) [attempted 3215/8248 = 38%, 290 KB/s], Decompressed: 711
+2026-11-23T19:08:51.9543947Z Downloaded: 3328 file(s) [attempted 3328/8248 = 40%, 621 KB/s], Decompressed: 711
+2026-11-23T19:08:52.0567811Z Downloaded: 3447 file(s) [attempted 3447/8248 = 41%, 1806 KB/s], Decompressed: 711
+2026-11-23T19:08:52.1563346Z Downloaded: 3562 file(s) [attempted 3562/8248 = 43%, 413 KB/s], Decompressed: 711
+2026-11-23T19:08:52.2724131Z Downloaded: 3695 file(s) [attempted 3695/8248 = 44%, 291 KB/s], Decompressed: 711
+2026-11-23T19:08:52.3695829Z Downloaded: 3799 file(s) [attempted 3799/8248 = 46%, 624 KB/s], Decompressed: 711
+2026-11-23T19:08:52.4706372Z Downloaded: 3914 file(s) [attempted 3914/8248 = 47%, 440 KB/s], Decompressed: 711
+2026-11-23T19:08:52.5748890Z Downloaded: 4022 file(s) [attempted 4022/8248 = 48%, 6823 KB/s], Decompressed: 711
+2026-11-23T19:08:52.8190447Z Downloaded: 4126 file(s) [attempted 4126/8248 = 50%, 235 KB/s], Decompressed: 711
+2026-11-23T19:08:52.9344170Z Downloaded: 4221 file(s) [attempted 4221/8248 = 51%, 368 KB/s], Decompressed: 711
+2026-11-23T19:08:53.0347826Z Downloaded: 4302 file(s) [attempted 4302/8248 = 52%, 65 KB/s], Decompressed: 711
+2026-11-23T19:08:53.1336333Z Downloaded: 4397 file(s) [attempted 4397/8248 = 53%, 394 KB/s], Decompressed: 711
+2026-11-23T19:08:53.2342749Z Downloaded: 4501 file(s) [attempted 4501/8248 = 54%, 1189 KB/s], Decompressed: 711
+2026-11-23T19:08:53.3351944Z Downloaded: 4611 file(s) [attempted 4611/8248 = 55%, 1115 KB/s], Decompressed: 711
+2026-11-23T19:08:53.4365544Z Downloaded: 4730 file(s) [attempted 4730/8248 = 57%, 355 KB/s], Decompressed: 711
+2026-11-23T19:08:53.5344336Z Downloaded: 4836 file(s) [attempted 4836/8248 = 58%, 172 KB/s], Decompressed: 711
+2026-11-23T19:08:53.6404120Z Downloaded: 4957 file(s) [attempted 4957/8248 = 60%, 965 KB/s], Decompressed: 711
+2026-11-23T19:08:53.7390532Z Downloaded: 5067 file(s) [attempted 5067/8248 = 61%, 2243 KB/s], Decompressed: 711
+2026-11-23T19:08:53.8397793Z Downloaded: 5192 file(s) [attempted 5192/8248 = 62%, 1496 KB/s], Decompressed: 711
+2026-11-23T19:08:54.0271439Z Downloaded: 5303 file(s) [attempted 5303/8248 = 64%, 606 KB/s], Decompressed: 711
+2026-11-23T19:08:54.1397652Z Downloaded: 5415 file(s) [attempted 5415/8248 = 65%, 825 KB/s], Decompressed: 711
+2026-11-23T19:08:54.2456044Z Downloaded: 5512 file(s) [attempted 5512/8248 = 66%, 1797 KB/s], Decompressed: 711
+2026-11-23T19:08:54.3466205Z Downloaded: 5609 file(s) [attempted 5609/8248 = 68%, 1133 KB/s], Decompressed: 711
+2026-11-23T19:08:54.4476775Z Downloaded: 5718 file(s) [attempted 5718/8248 = 69%, 414 KB/s], Decompressed: 711
+2026-11-23T19:08:54.5770998Z Downloaded: 5837 file(s) [attempted 5837/8248 = 70%, 1278 KB/s], Decompressed: 711
+2026-11-23T19:08:54.6883632Z Downloaded: 5860 file(s) [attempted 5860/8248 = 71%, 657 KB/s], Decompressed: 711
+2026-11-23T19:08:54.8075677Z Downloaded: 5910 file(s) [attempted 5910/8248 = 71%, 1645 KB/s], Decompressed: 711
+2026-11-23T19:08:54.9145442Z Downloaded: 5993 file(s) [attempted 5993/8248 = 72%, 3104 KB/s], Decompressed: 711
+2026-11-23T19:08:55.0137069Z Downloaded: 6086 file(s) [attempted 6086/8248 = 73%, 2008 KB/s], Decompressed: 711
+2026-11-23T19:08:55.1241558Z Downloaded: 6193 file(s) [attempted 6193/8248 = 75%, 183 KB/s], Decompressed: 711
+2026-11-23T19:08:55.2233788Z Downloaded: 6294 file(s) [attempted 6294/8248 = 76%, 1627 KB/s], Decompressed: 711
+2026-11-23T19:08:55.3263876Z Downloaded: 6405 file(s) [attempted 6405/8248 = 77%, 215 KB/s], Decompressed: 711
+2026-11-23T19:08:55.4263898Z Downloaded: 6533 file(s) [attempted 6533/8248 = 79%, 1205 KB/s], Decompressed: 711
+2026-11-23T19:08:55.5272819Z Downloaded: 6639 file(s) [attempted 6639/8248 = 80%, 734 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.6337881Z Downloaded: 6752 file(s) [attempted 6752/8248 = 81%, 603 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.7674184Z Downloaded: 6856 file(s) [attempted 6856/8248 = 83%, 777 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.8711855Z Downloaded: 6959 file(s) [attempted 6959/8248 = 84%, 3352 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.9691768Z Downloaded: 7061 file(s) [attempted 7061/8248 = 85%, 123 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.0685303Z Downloaded: 7176 file(s) [attempted 7176/8248 = 87%, 947 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.4485041Z Downloaded: 7280 file(s) [attempted 7280/8248 = 88%, 219 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.5641291Z Downloaded: 7360 file(s) [attempted 7360/8248 = 89%, 604 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.6821171Z Downloaded: 7408 file(s) [attempted 7408/8248 = 89%, 43 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.7829897Z Downloaded: 7492 file(s) [attempted 7492/8248 = 90%, 58 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.8860275Z Downloaded: 7585 file(s) [attempted 7585/8248 = 91%, 1962 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.9870116Z Downloaded: 7683 file(s) [attempted 7683/8248 = 93%, 264 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.0887462Z Downloaded: 7793 file(s) [attempted 7793/8248 = 94%, 3982 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.3253905Z Downloaded: 7899 file(s) [attempted 7899/8248 = 95%, 173 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.4900791Z Downloaded: 7951 file(s) [attempted 7951/8248 = 96%, 236 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.6083843Z Downloaded: 8048 file(s) [attempted 8048/8248 = 97%, 88 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.7102989Z Downloaded: 8135 file(s) [attempted 8135/8248 = 98%, 66 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.8373865Z Downloaded: 8213 file(s) [attempted 8213/8248 = 99%, 426 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.9184265Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 131 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.9193331Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 131 KB/s], Decompressed: 2336
+2026-11-23T19:09:23.9178552Z Decompressed 8248 file(s)
+2026-11-23T19:09:23.9178876Z Already decompressed 8248 file(s)
+2026-11-23T19:09:23.9913233Z ##[group]Run mods=$(grep '^import NS_Millennium_Proof\.' scripts/SemanticsLock.lean | sed 's/^import //')
+2026-11-23T19:09:23.9913820Z [36;1mmods=$(grep '^import NS_Millennium_Proof\.' scripts/SemanticsLock.lean | sed 's/^import //')[0m
+2026-11-23T19:09:23.9914185Z [36;1mlake build $mods[0m
+2026-11-23T19:09:23.9944681Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:09:23.9944899Z ##[endgroup]
+2026-11-23T19:09:26.1074556Z ✔ [2690/2711] Built NS_Millennium_Proof.Modules.Assumptions (578ms)
+2026-11-23T19:09:27.8151158Z ✔ [2691/2712] Built NS_Millennium_Proof.Modules.CubicSourceCertificate (1.7s)
+2026-11-23T19:09:29.8244180Z ✔ [4425/4563] Built NS_Millennium_Proof.TruthGate (4.2s)
+2026-11-23T19:09:33.0428955Z ✔ [7783/7862] Built NS_Millennium_Proof.Modules.Stage6Calculus (7.5s)
+2026-11-23T19:09:49.9594202Z ⚠ [8268/8293] Built NS_Millennium_Proof.Modules.NS_Equations (24s)
+2026-11-23T19:09:49.9623731Z warning: NS_Millennium_Proof/Modules/NS_Equations.lean:2481:15: declaration uses `sorry`
+2026-11-23T19:09:49.9695069Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:2578:2: Try this:
+2026-11-23T19:09:49.9743351Z   [apply] abel_nf
+2026-11-23T19:09:49.9773300Z warning: NS_Millennium_Proof/Modules/NS_Equations.lean:3761:9: unused variable `T`
+2026-11-23T19:09:49.9832796Z 
+2026-11-23T19:09:49.9843706Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:09:49.9863738Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3763:0: 'NavierStokes3D.curl_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9934240Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3764:0: 'NavierStokes3D.local_existence' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9944161Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3765:0: 'NavierStokes3D.smoothness_of_Tstar_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9945634Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3766:0: 'NavierStokes3D.beale_kato_majda' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9947064Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3767:0: 'NavierStokes3D.beale_kato_majda_scaffold_integrability_unused' depends on axioms: [propext,
+2026-11-23T19:09:49.9948114Z  Classical.choice,
+2026-11-23T19:09:49.9948573Z  Quot.sound]
+2026-11-23T19:09:49.9949596Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3768:0: 'NavierStokes3D.bkm_criterion_without_integrability_not_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9951099Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3769:0: 'NavierStokes3D.Tstar_eq_top_of_bkm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9952501Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3770:0: 'NavierStokes3D.energy_zero_of_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9954181Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3771:0: 'NavierStokes3D.Tstar_eq_top_of_unbounded_existenceTimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9955713Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3772:0: 'NavierStokes3D.Tstar_eq_top_of_uniform_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9957265Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3773:0: 'NavierStokes3D.Tstar_eq_top_of_katoRestartTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9958728Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3774:0: 'NavierStokes3D.katoRestartTime_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9960135Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3775:0: 'NavierStokes3D.katoSobolevIndex_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9961901Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3776:0: 'NavierStokes3D.strain_sup_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9963445Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3777:0: 'NavierStokes3D.one_add_log_le_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9964852Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3778:0: 'NavierStokes3D.kato_ponce_implies_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9966307Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3779:0: 'NavierStokes3D.kato_ponce_of_uniform_vorticity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9967794Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3780:0: 'NavierStokes3D.kato_Hs_bound_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9969328Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3781:0: 'NavierStokes3D.exists_mem_existenceTimes_gt_of_lt_Tstar' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9970998Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3782:0: 'NavierStokes3D.navier_stokes_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9972388Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3783:0: 'NavierStokes3D.kato_witness_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9973900Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3784:0: 'NavierStokes3D.local_existence_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9975360Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3785:0: 'NavierStokes3D.Tstar_pos_of_kato_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9976757Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3786:0: 'NavierStokes3D.eq_of_l2_energy_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9978194Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3787:0: 'NavierStokes3D.ns_cauchy_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9979661Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3788:0: 'NavierStokes3D.ns_cauchy_eq_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9981094Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3789:0: 'NavierStokes3D.energy_zero_of_gronwall_Icc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9982565Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3790:0: 'NavierStokes3D.ns_cauchy_on_Icc_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9984302Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3791:0: 'NavierStokes3D.uniqueness_of_existence_times_of_energy_gronwall' depends on axioms: [propext,
+2026-11-23T19:09:49.9985252Z  Classical.choice,
+2026-11-23T19:09:49.9985652Z  Quot.sound]
+2026-11-23T19:09:49.9986508Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3792:0: 'NavierStokes3D.time_deriv_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9987854Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3793:0: 'NavierStokes3D.ns_pde_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9989250Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3794:0: 'NavierStokes3D.smoothness_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9990740Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3795:0: 'NavierStokes3D.mem_existenceTimes_add_of_kato_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9992268Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3796:0: 'NavierStokes3D.restart_of_kato_quantitative' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9994137Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3797:0: 'NavierStokes3D.smoothness_below_Tstar_of_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9995586Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3798:0: 'NavierStokes3D.curl_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9997005Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3799:0: 'NavierStokes3D.mem_existenceTimes_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9998413Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3800:0: 'NavierStokes3D.Tstar_zero_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9999742Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3801:0: 'NavierStokes3D.div_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0001058Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3802:0: 'NavierStokes3D.div_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0002564Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3803:0: 'NavierStokes3D.div_smul_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0004032Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3804:0: 'NavierStokes3D.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0005358Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3805:0: 'NavierStokes3D.convective_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0006803Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3806:0: 'NavierStokes3D.inner_convective_product_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0008281Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3807:0: 'NavierStokes3D.cyclicLiePairing_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0009728Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3808:0: 'NavierStokes3D.convective_norm_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0011152Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3809:0: 'NavierStokes3D.stretching_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0012563Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3810:0: 'NavierStokes3D.stretching_inner_le_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0014144Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3811:0: 'NavierStokes3D.stretching_quartic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0015648Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3812:0: 'NavierStokes3D.transport_inner_vanishes_of_grad_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0017158Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3813:0: 'NavierStokes3D.vorticity_transport_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0019118Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3814:0: 'NavierStokes3D.stretching_pairing_le_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0021143Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3815:0: 'NavierStokes3D.stretching_enstrophy_di_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0023190Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3816:0: 'NavierStokes3D.pressureGradient_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0024635Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3817:0: 'NavierStokes3D.ns_momentum_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0026129Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3818:0: 'NavierStokes3D.inner_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0027883Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3819:0: 'NavierStokes3D.transported_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0029405Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3820:0: 'NavierStokes3D.convective_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0030837Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3821:0: 'NavierStokes3D.inner_convective_le_strain' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0032233Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3822:0: 'NavierStokes3D.time_deriv_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0033845Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3823:0: 'NavierStokes3D.transported_scalar_along_characteristic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0035424Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3824:0: 'NavierStokes3D.transported_scalar_maximum_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0037150Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3825:0: 'NavierStokes3D.reciprocal_of_quadratic_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0038602Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3826:0: 'NavierStokes3D.le_vorticity_sup_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0040489Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3827:0: 'NavierStokes3D.convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0041896Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3828:0: 'NavierStokes3D.convective_eq_sum_directional' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0043609Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3829:0: 'NavierStokes3D.directionalCoord_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0045022Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3830:0: 'NavierStokes3D.curl_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0046391Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3831:0: 'NavierStokes3D.curl_convective_div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0047734Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3832:0: 'NavierStokes3D.curl_add3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0049143Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3833:0: 'NavierStokes3D.fderiv_prod_snd_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0050652Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3834:0: 'NavierStokes3D.deriv_prod_fst_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0052093Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3835:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0053631Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3836:0: 'NavierStokes3D.deriv_euclidean_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0055013Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3837:0: 'NavierStokes3D.curl_time_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0056354Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3838:0: 'NavierStokes3D.fderiv_field_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0057696Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3839:0: 'NavierStokes3D.laplacian_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0059236Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3840:0: 'NavierStokes3D.fderiv_apply_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0060654Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3841:0: 'NavierStokes3D.contDiffAt_directionalCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0062122Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3842:0: 'NavierStokes3D.directionalCoord_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0063654Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3843:0: 'NavierStokes3D.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0065081Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3844:0: 'NavierStokes3D.differentiableAt_time_deriv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0066583Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3845:0: 'NavierStokes3D.differentiableAt_convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0068159Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3846:0: 'NavierStokes3D.differentiableAt_pressureGradient_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0069850Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3847:0: 'NavierStokes3D.vorticity_transport_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0071252Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3848:0: 'NavierStokes3D.vorticity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0072812Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3849:0: 'NavierStokes3D.vorticity_transport_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0074279Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3850:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0075695Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3851:0: 'NavierStokes3D.differentiableAt_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0077075Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3852:0: 'NavierStokes3D.fderiv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0078497Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3853:0: 'NavierStokes3D.integration_by_parts_of_vanishing_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0079972Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3854:0: 'NavierStokes3D.inner_self_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext,
+2026-11-23T19:09:50.0080868Z  Classical.choice,
+2026-11-23T19:09:50.0081243Z  Quot.sound]
+2026-11-23T19:09:50.0082083Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3855:0: 'NavierStokes3D.differentiableAt_coord_of_differentiableAt_field' depends on axioms: [propext,
+2026-11-23T19:09:50.0083114Z  Classical.choice,
+2026-11-23T19:09:50.0083453Z  Quot.sound]
+2026-11-23T19:09:50.0084384Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3856:0: 'NavierStokes3D.differentiableAt_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0085884Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3857:0: 'NavierStokes3D.convective_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0087406Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3858:0: 'NavierStokes3D.pressure_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:52.0604073Z ⚠ [8269/8293] Built NS_Millennium_Proof.Modules.ScalingIdentities (2.1s)
+2026-11-23T19:09:52.0605007Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T19:09:52.0605593Z 
+2026-11-23T19:09:52.0605733Z Note: The updated constant has a different type:
+2026-11-23T19:09:52.0606905Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0607494Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0607848Z instead of
+2026-11-23T19:09:52.0608363Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0608967Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0609270Z 
+2026-11-23T19:09:52.0609647Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T19:09:52.0610380Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T19:09:52.0610789Z 
+2026-11-23T19:09:52.0610885Z Note: The updated constant has a different type:
+2026-11-23T19:09:52.0611349Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0612189Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0612437Z instead of
+2026-11-23T19:09:52.0629503Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0630070Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0630342Z 
+2026-11-23T19:09:52.0630829Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T19:09:52.0631905Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T19:09:52.0632533Z 
+2026-11-23T19:09:52.0632962Z Note: The updated constant has a different type:
+2026-11-23T19:09:52.0633687Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0634284Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0634606Z instead of
+2026-11-23T19:09:52.0635076Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0635608Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0635883Z 
+2026-11-23T19:09:52.0636349Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T19:09:52.0637210Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: This simp argument is unused:
+2026-11-23T19:09:52.0637740Z   EuclideanSpace.single_apply
+2026-11-23T19:09:52.0637931Z 
+2026-11-23T19:09:52.0638043Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:52.0638571Z   simp ̵[̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵
+2026-11-23T19:09:52.0638881Z 
+2026-11-23T19:09:52.0639157Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:52.0640117Z info: NS_Millennium_Proof/Modules/ScalingIdentities.lean:49:0: 'ScalingIdentities.directionalCoord_rescale' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:52.0641382Z info: NS_Millennium_Proof/Modules/ScalingIdentities.lean:50:0: 'ScalingIdentities.vorticity_rescale' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:52.1587568Z ✔ [8270/8293] Built NS_Millennium_Proof.Modules.AssemblyGap (2.2s)
+2026-11-23T19:09:56.3701072Z ⚠ [8271/8293] Built NS_Millennium_Proof.Modules.ArnoldGeometric (6.5s)
+2026-11-23T19:09:56.3702488Z warning: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:437:6: This simp argument is unused:
+2026-11-23T19:09:56.3703491Z   PiLp.single_apply
+2026-11-23T19:09:56.3703841Z 
+2026-11-23T19:09:56.3704162Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:56.3705562Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 2), fderiv_const_mul (hd 1),
+2026-11-23T19:09:56.3706873Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:09:56.3707983Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:09:56.3732456Z 
+2026-11-23T19:09:56.3733441Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:56.3734592Z warning: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:443:6: This simp argument is unused:
+2026-11-23T19:09:56.3735513Z   PiLp.single_apply
+2026-11-23T19:09:56.3735911Z 
+2026-11-23T19:09:56.3736256Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:56.3737166Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 0), fderiv_const_mul (hd 2),
+2026-11-23T19:09:56.3738326Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:09:56.3739397Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:09:56.3740473Z 
+2026-11-23T19:09:56.3740951Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:56.3742033Z warning: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:449:6: This simp argument is unused:
+2026-11-23T19:09:56.3742974Z   PiLp.single_apply
+2026-11-23T19:09:56.3743320Z 
+2026-11-23T19:09:56.3743585Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:56.3744214Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 1), fderiv_const_mul (hd 0),
+2026-11-23T19:09:56.3745016Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:09:56.3745774Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:09:56.3746287Z 
+2026-11-23T19:09:56.3746677Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:56.3748024Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1097:0: 'ArnoldGeometric.velocity_from_vorticity_eq_BiotSavart' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3749648Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1098:0: 'ArnoldGeometric.classical_bracket_reproduces_Euler' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3751150Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1099:0: 'ArnoldGeometric.BiotSavart_zero' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3752734Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1100:0: 'ArnoldGeometric.BiotSavart_smul' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3754061Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1101:0: 'ArnoldGeometric.BiotSavart_add' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3755340Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1102:0: 'ArnoldGeometric.BiotSavart_affine' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3756659Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1103:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3758008Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1104:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3759323Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1105:0: 'ArnoldGeometric.pairing_cross_self_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3760609Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1106:0: 'ArnoldGeometric.cross_smul_left' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3761958Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1107:0: 'ArnoldGeometric.FunctionalDerivative_eq_zero_of_not' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3763727Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1108:0: 'ArnoldGeometric.FunctionalDerivative_eq_choose' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3765229Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1109:0: 'ArnoldGeometric.kineticEnergy_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3766793Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1110:0: 'ArnoldGeometric.biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3768143Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1111:0: 'ArnoldGeometric.cross_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3769408Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1112:0: 'ArnoldGeometric.div_cross_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3770667Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1113:0: 'ArnoldGeometric.div_cross_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3772007Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1114:0: 'ArnoldGeometric.differentiableAt_cross_offset_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3773744Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1115:0: 'ArnoldGeometric.hasFDerivAt_norm_sq_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3775155Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1116:0: 'ArnoldGeometric.hasFDerivAt_biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3776644Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1117:0: 'ArnoldGeometric.differentiableAt_biotSavartKernel_off_diag' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3778146Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1118:0: 'ArnoldGeometric.div_biotSavart_integrand' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3779435Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1119:0: 'ArnoldGeometric.div_biotSavart_integrand_ae' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3780682Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1120:0: 'ArnoldGeometric.div_BiotSavart_of_interchange' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3782033Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1121:0: 'ArnoldGeometric.functional_derivative_eq_velocity_of_unique_repr' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3783497Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1122:0: 'ArnoldGeometric.gateaux_representative_unique' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3784901Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1123:0: 'ArnoldGeometric.kineticEnergyHamiltonian_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3786411Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1124:0: 'ArnoldGeometric.isVelocityGateauxRepresentative_kineticEnergy_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3787813Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1150:0: 'ArnoldGeometric.classicalBracket_antisymm' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3789069Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1151:0: 'ArnoldGeometric.classicalBracket_self' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3790314Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1152:0: 'ArnoldGeometric.classicalBracket_H_H' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:58.9793945Z ✔ [8272/8293] Built NS_Millennium_Proof.Modules.ForMathlib.Projection (2.6s)
+2026-11-23T19:09:59.0775022Z ✔ [8273/8293] Built NS_Millennium_Proof.Modules.PlanSteps (2.7s)
+2026-11-23T19:09:59.5780335Z ℹ [8274/8293] Built NS_Millennium_Proof.Modules.ConcreteSDiff (3.3s)
+2026-11-23T19:09:59.5781507Z info: NS_Millennium_Proof/Modules/ConcreteSDiff.lean:107:0: 'ConcreteSDiff.casimir_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:59.5782576Z info: NS_Millennium_Proof/Modules/ConcreteSDiff.lean:108:0: 'ConcreteSDiff.enstrophy_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:59.5783785Z info: NS_Millennium_Proof/Modules/ConcreteSDiff.lean:109:0: 'ConcreteSDiff.sdiffActionHyp_of_transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5834505Z ℹ [8275/8293] Built NS_Millennium_Proof.Modules.SymplecticTether (3.7s)
+2026-11-23T19:10:02.5835627Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1291:0: 'FrohmanianTether.tethered_jacobi_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5837010Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1292:0: 'FrohmanianTether.tetherKernel_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5838479Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1293:0: 'FrohmanianTether.antisymmetric_correction_diagonal_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5840382Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1294:0: 'FrohmanianTether.tetherKernel_C2_of_no_gateaux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5841852Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1295:0: 'FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5843515Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1296:0: 'FrohmanianTether.tetherKernel_C2_of_identifications' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5844941Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1297:0: 'FrohmanianTether.functional_derivative_of_kinetic_energy_of_unique_repr' depends on axioms: [propext,
+2026-11-23T19:10:02.5845795Z  Classical.choice,
+2026-11-23T19:10:02.5846042Z  Quot.sound]
+2026-11-23T19:10:02.5846807Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1298:0: 'FrohmanianTether.div_biot_savart_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5848221Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1299:0: 'FrohmanianTether.div_biot_savart_velocity_of_interchange' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5849876Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1300:0: '_private.NS_Millennium_Proof.Modules.SymplecticTether.0.FrohmanianTether.degeneracy_for_mollified_sup_norm_proxy' depends on axioms: [propext,
+2026-11-23T19:10:02.5850936Z  Classical.choice,
+2026-11-23T19:10:02.5851180Z  Quot.sound]
+2026-11-23T19:10:05.2886587Z ℹ [8276/8293] Built NS_Millennium_Proof.Modules.Uniqueness (2.7s)
+2026-11-23T19:10:05.2887687Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:668:0: 'FrohmanianTether.uniqueness_of_kernel_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2889124Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:669:0: 'FrohmanianTether.uniqueness_of_kernel_density_fun' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2890798Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:670:0: 'FrohmanianTether.tetherKernel_has_canonical_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2892367Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:671:0: 'FrohmanianTether.uniqueness_of_minimal_tether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2894053Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:672:0: 'FrohmanianTether.step2_degree_of_canonical_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2895526Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:673:0: 'FrohmanianTether.step2_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2897418Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:674:0: 'FrohmanianTether.step5_higher_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7902248Z ⚠ [8277/8293] Built NS_Millennium_Proof.Modules.AnalyticPipeline (4.2s)
+2026-11-23T19:10:06.7903189Z warning: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:253:11: unused variable `x`
+2026-11-23T19:10:06.7903715Z 
+2026-11-23T19:10:06.7904014Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:06.7905096Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:466:0: 'AnalyticPipeline.holderConjugate_three_halves_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7906456Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:467:0: 'AnalyticPipeline.holder_I4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7907741Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:468:0: 'AnalyticPipeline.holder_I4_le_sobolev' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7909362Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:469:0: 'AnalyticPipeline.stretching_bound_of_holder' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7910233Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:470:0: 'AnalyticPipeline.vorticity_sup_norm_riccati_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:18.0068676Z ⚠ [8278/8293] Built NS_Millennium_Proof.Modules.TetheredLyapunov (11s)
+2026-11-23T19:10:18.0069838Z warning: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2004:5: unused variable `w`
+2026-11-23T19:10:18.0070478Z 
+2026-11-23T19:10:18.0070888Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:18.0072295Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2304:0: 'TetheredLyapunov.hasDerivAt_norm_sq_of_hasDerivAt' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0073983Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2305:0: 'TetheredLyapunov.hasDerivAt_norm_pow_four' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0075544Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2306:0: 'TetheredLyapunov.hasDerivAt_quartic_tether_weight' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0077082Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2307:0: 'TetheredLyapunov.hasDerivAt_lyapunov_density' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0078744Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2308:0: 'TetheredLyapunov.lyapunovSε_eq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0080206Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2309:0: 'TetheredLyapunov.lyapunovSminus_eq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0081661Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2310:0: 'TetheredLyapunov.quartic_weight_source_eq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0083293Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2311:0: 'TetheredLyapunov.lyapunovSminus_source_density' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0084909Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2312:0: 'TetheredLyapunov.hasDerivAt_lyapunov_plus_of_enstrophy_source' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0086559Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2313:0: 'TetheredLyapunov.hasDerivAt_lyapunov_minus_of_enstrophy_source' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0088192Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2314:0: 'TetheredLyapunov.lyapunovSminus_density_le_half_norm_sq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0089802Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2315:0: 'TetheredLyapunov.lyapunovSminus_density_ge_of_abs_phi' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0091722Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2316:0: 'TetheredLyapunov.lyapunovSminus_density_neg_of_large_weight' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0093493Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2317:0: 'TetheredLyapunov.hasDerivAt_lyapunov_density_unweighted' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0095040Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2318:0: 'TetheredLyapunov.majorantField_factor' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0096513Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2319:0: 'TetheredLyapunov.conditional_regularity_zero' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0098002Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2320:0: 'TetheredLyapunov.conditional_regularity_of_restart' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0099509Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2321:0: 'TetheredLyapunov.conditional_regularity_of_kato_estimates' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0101258Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2322:0: 'TetheredLyapunov.finiteTimeVorticityBound_of_uniform' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0102959Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2323:0: 'TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0104516Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2324:0: 'TetheredLyapunov.bkmIntegrability_of_finiteTime' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0106022Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2325:0: 'TetheredLyapunov.physicalBKMIntegrability_of_finiteTime' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0107660Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2326:0: 'TetheredLyapunov.conditional_regularity_of_bkmIntegrability' depends on axioms: [propext, sorryAx, choice, Quot.sound]
+2026-11-23T19:10:18.0109355Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2327:0: 'TetheredLyapunov.conditional_regularity_of_bkm_uniqueness' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0110970Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2328:0: 'TetheredLyapunov.Tstar_top_of_restart_without_vorticity_bound' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0112595Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2329:0: 'TetheredLyapunov.conditional_regularity' depends on axioms: [propext, sorryAx, choice, Quot.sound]
+2026-11-23T19:10:18.0114271Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2330:0: 'TetheredLyapunov.riccati_ceiling_of_vorticity_di' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0115886Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2331:0: 'TetheredLyapunov.conditional_regularity_of_constructions' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0117500Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2332:0: 'TetheredLyapunov.enstrophy_di_of_spatial_max' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0119098Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2333:0: 'TetheredLyapunov.lyapunov_density_unweighted_di_at_spatial_max' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:20.1084174Z ✔ [8279/8293] Built NS_Millennium_Proof.Modules.IndependentMajorant (2.1s)
+2026-11-23T19:10:20.4086652Z ⚠ [8280/8293] Built NS_Millennium_Proof.Modules.ClosureBlueprint (2.4s)
+2026-11-23T19:10:20.4087434Z warning: NS_Millennium_Proof/Modules/ClosureBlueprint.lean:268:5: unused variable `h_divfree`
+2026-11-23T19:10:20.4087898Z 
+2026-11-23T19:10:20.4088164Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:20.4089336Z warning: NS_Millennium_Proof/Modules/ClosureBlueprint.lean:269:5: unused variable `h_smooth`
+2026-11-23T19:10:20.4089805Z 
+2026-11-23T19:10:20.4090062Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:20.4090763Z warning: NS_Millennium_Proof/Modules/ClosureBlueprint.lean:270:5: unused variable `h_finite_energy`
+2026-11-23T19:10:20.4091250Z 
+2026-11-23T19:10:20.4091502Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9134274Z ⚠ [8281/8293] Built NS_Millennium_Proof.Modules.ConditionalRegularity (1.9s)
+2026-11-23T19:10:21.9135343Z warning: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:172:5: unused variable `h_div_free`
+2026-11-23T19:10:21.9136055Z 
+2026-11-23T19:10:21.9136431Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9137267Z warning: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:173:5: unused variable `h_smooth`
+2026-11-23T19:10:21.9137830Z 
+2026-11-23T19:10:21.9138241Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9139381Z warning: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:174:5: unused variable `h_finite_energy`
+2026-11-23T19:10:21.9139965Z 
+2026-11-23T19:10:21.9140348Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9141562Z info: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:337:0: 'ConditionalRegularity.frohmanian_tether_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:21.9143266Z info: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:338:0: 'ConditionalRegularity.conditional_regularity_of_open_hyps' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:22.5123434Z ℹ [8282/8293] Built NS_Millennium_Proof.Modules.LyapunovDIStatus (4.5s)
+2026-11-23T19:10:22.5124557Z info: NS_Millennium_Proof/Modules/LyapunovDIStatus.lean:56:0: 'LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:23.5133099Z ✔ [8283/8293] Built NS_Millennium_Proof.Definitions.FrohmanianTether (1.6s)
+2026-11-23T19:10:25.0207891Z ℹ [8284/8293] Built NS_Millennium_Proof.Modules.ClayStatements (3.1s)
+2026-11-23T19:10:25.0209780Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:551:0: 'FrohmanianTether.ClayStatements.conditional_regularity_nonvacuous_at_zero' depends on axioms: [propext,
+2026-11-23T19:10:25.0210510Z  Classical.choice,
+2026-11-23T19:10:25.0210946Z  Quot.sound]
+2026-11-23T19:10:25.0211772Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:552:0: 'NavierStokes3D.zero_isPeriodicSmoothSolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0213383Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:553:0: 'FrohmanianTether.ClayStatements.frohmanianTetherBound_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0214867Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:554:0: 'FrohmanianTether.ClayStatements.repaired_hInt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0216289Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:555:0: 'FrohmanianTether.ClayStatements.repaired_huniq_at_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0217691Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:556:0: 'FrohmanianTether.ClayStatements.stepField_not_physical' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0219081Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:557:0: 'FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound_formal' depends on axioms: [propext,
+2026-11-23T19:10:25.0219899Z  Classical.choice,
+2026-11-23T19:10:25.0220133Z  Quot.sound]
+2026-11-23T19:10:27.6281403Z ✔ [8285/8293] Built NS_Millennium_Proof.Modules.TorusStrainExclusion (2.6s)
+2026-11-23T19:10:29.6310371Z ℹ [8286/8293] Built NS_Millennium_Proof.Modules.HighSetDepletionAndBKM (2.0s)
+2026-11-23T19:10:29.6311727Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:309:0: 'FrohmanianTether.HighSetDepletionAndBKM.unmodified_max_rate_of_cubic_source' depends on axioms: [propext,
+2026-11-23T19:10:29.6312975Z  Classical.choice,
+2026-11-23T19:10:29.6313355Z  Quot.sound]
+2026-11-23T19:10:29.6314356Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:310:0: 'FrohmanianTether.HighSetDepletionAndBKM.viscous_direction_dissipation_bridge' depends on axioms: [propext,
+2026-11-23T19:10:29.6315424Z  Classical.choice,
+2026-11-23T19:10:29.6315803Z  Quot.sound]
+2026-11-23T19:10:29.6316878Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:311:0: 'FrohmanianTether.HighSetDepletionAndBKM.scale_invariant_cubic_rate_of_direction_coercivity' depends on axioms: [propext,
+2026-11-23T19:10:29.6317957Z  Classical.choice,
+2026-11-23T19:10:29.6318305Z  Quot.sound]
+2026-11-23T19:10:29.6319184Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:312:0: 'FrohmanianTether.HighSetDepletionAndBKM.comparison_ode_ceiling' depends on axioms: [propext,
+2026-11-23T19:10:29.6320609Z  Classical.choice,
+2026-11-23T19:10:29.6326866Z  Quot.sound]
+2026-11-23T19:10:29.6328001Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:313:0: 'FrohmanianTether.HighSetDepletionAndBKM.periodicTetherClosingBound_of_directionDepletion' depends on axioms: [propext,
+2026-11-23T19:10:29.6329163Z  Classical.choice,
+2026-11-23T19:10:29.6329526Z  Quot.sound]
+2026-11-23T19:10:29.6330476Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:314:0: 'FrohmanianTether.HighSetDepletionAndBKM.clay_B_exact_of_torus_direction_depletion' depends on axioms: [propext,
+2026-11-23T19:10:29.6331509Z  Classical.choice,
+2026-11-23T19:10:29.6331857Z  Quot.sound]
+2026-11-23T19:10:32.2424162Z ✔ [8287/8293] Built NS_Millennium_Proof.Semantics (2.6s)
+2026-11-23T19:10:36.2544613Z ⚠ [8288/8293] Built NS_Millennium_Proof.Modules.ShearSolution (6.6s)
+2026-11-23T19:10:36.2583767Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:92:33: This simp argument is unused:
+2026-11-23T19:10:36.2603548Z   Fin.sum_univ_three
+2026-11-23T19:10:36.2643099Z 
+2026-11-23T19:10:36.2673327Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.2703843Z   simp [fderiv_F_coord_apply hg, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵e0_apply, single_apply_two]
+2026-11-23T19:10:36.2732846Z 
+2026-11-23T19:10:36.2763510Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.2793390Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:92:63: This simp argument is unused:
+2026-11-23T19:10:36.2823295Z   single_apply_two
+2026-11-23T19:10:36.2852872Z 
+2026-11-23T19:10:36.2883244Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.2913825Z   simp [fderiv_F_coord_apply hg, Fin.sum_univ_three, e0_apply,̵ ̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵_̵t̵w̵o̵]
+2026-11-23T19:10:36.3003063Z 
+2026-11-23T19:10:36.3033668Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.3057266Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:105:8: This simp argument is unused:
+2026-11-23T19:10:36.3063113Z   Fin.sum_univ_three
+2026-11-23T19:10:36.3092958Z 
+2026-11-23T19:10:36.3113539Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.3133636Z   simp [̵F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵_̵t̵w̵o̵]̵[̲s̲i̲n̲g̲l̲e̲_̲a̲p̲p̲l̲y̲_̲t̲w̲o̲]̲
+2026-11-23T19:10:36.3134082Z 
+2026-11-23T19:10:36.3183527Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.3213407Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:105:28: This simp argument is unused:
+2026-11-23T19:10:36.3243051Z   single_apply_two
+2026-11-23T19:10:36.3272914Z 
+2026-11-23T19:10:36.3303264Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.3333699Z   simp [Fin.sum_univ_three,̵ ̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵_̵t̵w̵o̵]
+2026-11-23T19:10:36.3362856Z 
+2026-11-23T19:10:36.3394001Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.3423438Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:111:24: This simp argument is unused:
+2026-11-23T19:10:36.3424059Z   PiLp.single_apply
+2026-11-23T19:10:36.3452934Z 
+2026-11-23T19:10:36.3453278Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.3453903Z   simp ̵[̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵
+2026-11-23T19:10:36.3454137Z 
+2026-11-23T19:10:36.3454368Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:37.5573985Z ℹ [8289/8293] Built NS_Millennium_Proof.Modules.SymplecticConstraint (7.9s)
+2026-11-23T19:10:37.5603901Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:859:0: 'Symplectori.SymplecticConstraint.kksPointwiseIntegrand_skew' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.5633651Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:860:0: 'Symplectori.SymplecticConstraint.kksSymplecticForm_skew' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.5663604Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:861:0: 'Symplectori.SymplecticConstraint.kksSymplecticForm_self_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.5693024Z  Classical.choice,
+2026-11-23T19:10:37.5722925Z  Quot.sound]
+2026-11-23T19:10:37.5763911Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:862:0: 'Symplectori.SymplecticConstraint.cross_jacobi_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.5773677Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:863:0: 'Symplectori.SymplecticConstraint.kksPointwise_cyclic_jacobi_identity' depends on axioms: [propext,
+2026-11-23T19:10:37.5812964Z  Classical.choice,
+2026-11-23T19:10:37.5843050Z  Quot.sound]
+2026-11-23T19:10:37.5873506Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:864:0: 'Symplectori.SymplecticConstraint.kksSymplecticForm_functional_skew' depends on axioms: [propext,
+2026-11-23T19:10:37.5903107Z  Classical.choice,
+2026-11-23T19:10:37.5933079Z  Quot.sound]
+2026-11-23T19:10:37.5963732Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:865:0: 'Symplectori.SymplecticConstraint.volumePreservingCoadjointAction_preserves_TetherKernel' depends on axioms: [propext,
+2026-11-23T19:10:37.5993088Z  Classical.choice,
+2026-11-23T19:10:37.6023092Z  Quot.sound]
+2026-11-23T19:10:37.6053787Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:866:0: 'Symplectori.SymplecticConstraint.Pi_u_idempotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6073834Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:867:0: 'Symplectori.SymplecticConstraint.Pi_u_self_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6113524Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:868:0: 'Symplectori.SymplecticConstraint.TetherKernel_eq_tetherMetricForm' depends on axioms: [propext,
+2026-11-23T19:10:37.6133324Z  Classical.choice,
+2026-11-23T19:10:37.6173094Z  Quot.sound]
+2026-11-23T19:10:37.6203726Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:869:0: 'Symplectori.SymplecticConstraint.tetherMetricForm_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6225715Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:870:0: 'Symplectori.SymplecticConstraint.FrohmanianMetriplecticPairing_diag_eq_metric' depends on axioms: [propext,
+2026-11-23T19:10:37.6253082Z  Classical.choice,
+2026-11-23T19:10:37.6283050Z  Quot.sound]
+2026-11-23T19:10:37.6313789Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:871:0: 'Symplectori.SymplecticConstraint.periodicCellPhysical_implies_IsPeriodicSmoothSolution' depends on axioms: [propext,
+2026-11-23T19:10:37.6343401Z  Classical.choice,
+2026-11-23T19:10:37.6373179Z  Quot.sound]
+2026-11-23T19:10:37.6404296Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:872:0: 'Symplectori.SymplecticConstraint.unmodified_envelope_yields_classical_quadratic_rate' depends on axioms: [propext,
+2026-11-23T19:10:37.6433044Z  Classical.choice,
+2026-11-23T19:10:37.6454271Z  Quot.sound]
+2026-11-23T19:10:37.6493662Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:873:0: 'Symplectori.SymplecticConstraint.symplectic_constraint_yields_cubic_damping_and_ceiling' depends on axioms: [propext,
+2026-11-23T19:10:37.6513083Z  Classical.choice,
+2026-11-23T19:10:37.6553039Z  Quot.sound]
+2026-11-23T19:10:37.6583632Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:874:0: 'Symplectori.SymplecticConstraint.first_remaining_gap_bochner_polar_damping_at_max' depends on axioms: [propext,
+2026-11-23T19:10:37.6613237Z  Classical.choice,
+2026-11-23T19:10:37.6643132Z  Quot.sound]
+2026-11-23T19:10:37.6673716Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:875:0: 'Symplectori.SymplecticConstraint.bddAbove_range_norm_of_attained_max' depends on axioms: [propext,
+2026-11-23T19:10:37.6703098Z  Classical.choice,
+2026-11-23T19:10:37.6733057Z  Quot.sound]
+2026-11-23T19:10:37.6752240Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:876:0: 'Symplectori.SymplecticConstraint.vorticity_sup_norm_eq_of_isSpatialMax' depends on axioms: [propext,
+2026-11-23T19:10:37.6793466Z  Classical.choice,
+2026-11-23T19:10:37.6833453Z  Quot.sound]
+2026-11-23T19:10:37.6834535Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:877:0: 'Symplectori.SymplecticConstraint.polar_pythagoras_directional_deriv' depends on axioms: [propext,
+2026-11-23T19:10:37.6835565Z  Classical.choice,
+2026-11-23T19:10:37.6835976Z  Quot.sound]
+2026-11-23T19:10:37.6837032Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:878:0: 'Symplectori.SymplecticConstraint.polar_pythagoras_3d_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6838649Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:879:0: 'Symplectori.SymplecticConstraint.bochner_laplacian_3d_identity' depends on axioms: [propext,
+2026-11-23T19:10:37.6839650Z  Classical.choice,
+2026-11-23T19:10:37.6840075Z  Quot.sound]
+2026-11-23T19:10:37.6840955Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:880:0: 'Symplectori.SymplecticConstraint.concrete_bochner_polar_viscous_damping_at_max' depends on axioms: [propext,
+2026-11-23T19:10:37.6842063Z  Classical.choice,
+2026-11-23T19:10:37.6842492Z  Quot.sound]
+2026-11-23T19:10:37.6843552Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:881:0: 'Symplectori.SymplecticConstraint.beltrami_lamb_vector_cross_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.6844460Z  Classical.choice,
+2026-11-23T19:10:37.6844820Z  Quot.sound]
+2026-11-23T19:10:37.6845676Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:882:0: 'Symplectori.SymplecticConstraint.beltrami_casimir_projection_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.6846673Z  Classical.choice,
+2026-11-23T19:10:37.6847043Z  Quot.sound]
+2026-11-23T19:10:37.6847899Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:883:0: 'Symplectori.SymplecticConstraint.beltrami_tetherPointwiseDensity_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.6848818Z  Classical.choice,
+2026-11-23T19:10:37.6849168Z  Quot.sound]
+2026-11-23T19:10:37.6850206Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:884:0: 'Symplectori.SymplecticConstraint.constVelocity_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6851730Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:885:0: 'Symplectori.SymplecticConstraint.navier_stokes_eq_constVelocity' depends on axioms: [propext,
+2026-11-23T19:10:37.6852767Z  Classical.choice,
+2026-11-23T19:10:37.6853118Z  Quot.sound]
+2026-11-23T19:10:37.6853928Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:886:0: 'Symplectori.SymplecticConstraint.nonzero_smooth_ns_solution_exists' depends on axioms: [propext,
+2026-11-23T19:10:37.6854845Z  Classical.choice,
+2026-11-23T19:10:37.6855196Z  Quot.sound]
+2026-11-23T19:10:37.6856559Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:887:0: 'Symplectori.SymplecticConstraint.near_field_stretching_absorbed_by_viscous_direction_damping' depends on axioms: [propext,
+2026-11-23T19:10:37.6857683Z  Classical.choice,
+2026-11-23T19:10:37.6858035Z  Quot.sound]
+2026-11-23T19:10:37.6858911Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:888:0: 'Symplectori.SymplecticConstraint.constantin_fefferman_near_far_cutoff_bridge' depends on axioms: [propext,
+2026-11-23T19:10:37.6859857Z  Classical.choice,
+2026-11-23T19:10:37.6860216Z  Quot.sound]
+2026-11-23T19:10:38.5567219Z ✔ [8290/8293] Built NS_Millennium_Proof.Modules.MainTheorem (2.3s)
+2026-11-23T19:10:39.0593985Z ℹ [8291/8293] Built NS_Millennium_Proof.Modules.CeilingFromRate (6.8s)
+2026-11-23T19:10:39.0614116Z info: NS_Millennium_Proof/Modules/CeilingFromRate.lean:56:0: 'CeilingFromRate.classical_vorticity_ceiling' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:39.0623786Z info: NS_Millennium_Proof/Modules/CeilingFromRate.lean:57:0: 'CeilingFromRate.theorem_1_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4597205Z ℹ [8292/8293] Built NS_Millennium_Proof.Modules.Combined (2.9s)
+2026-11-23T19:10:40.4613561Z info: NS_Millennium_Proof/Modules/Combined.lean:147:0: 'Combined.tetherKernel_C1_of_casimir' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4624008Z info: NS_Millennium_Proof/Modules/Combined.lean:148:0: 'Combined.tetherKernel_C1_of_volumePreserving' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4629390Z info: NS_Millennium_Proof/Modules/Combined.lean:149:0: 'Combined.tetherKernel_C2_of_KEDeriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4630835Z info: NS_Millennium_Proof/Modules/Combined.lean:150:0: 'Combined.tetherKernel_C3'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4632237Z info: NS_Millennium_Proof/Modules/Combined.lean:151:0: 'Combined.left_H_zero_of_C2_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4633794Z info: NS_Millennium_Proof/Modules/Combined.lean:152:0: 'Combined.tetherKernel_left_H_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4635125Z info: NS_Millennium_Proof/Modules/Combined.lean:153:0: 'Combined.combined_conditional_capstone' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:47.9681676Z ℹ [8293/8293] Built NS_Millennium_Proof.Modules.TetherRateCounterexample (15s)
+2026-11-23T19:10:48.0155637Z info: NS_Millennium_Proof/Modules/TetherRateCounterexample.lean:636:0: 'TetherRateCounterexample.zero_classical_periodic_solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:48.0157060Z info: NS_Millennium_Proof/Modules/TetherRateCounterexample.lean:637:0: 'TetherRateCounterexample.not_frohmanianTetherBound_U' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:48.0158435Z info: NS_Millennium_Proof/Modules/TetherRateCounterexample.lean:638:0: 'NavierStokes3D.zero_isPeriodicSmoothSolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:48.0159277Z Build completed successfully (8293 jobs).
+2026-11-23T19:10:48.0534801Z ##[group]Run python3 scripts/truth_gate_check.py
+2026-11-23T19:10:48.0535125Z [36;1mpython3 scripts/truth_gate_check.py[0m
+2026-11-23T19:10:48.0564920Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:10:48.0565151Z ##[endgroup]
+2026-11-23T19:10:48.1795177Z TRUTH GATE FAIL: forbidden token `sorry` at NS_Millennium_Proof/Modules/NS_Equations.lean:2405
+2026-11-23T19:10:48.1795807Z TRUTH GATE STATIC: scanned roots ['NS_Millennium_Proof', 'NS_Millennium_Proof.lean'] (draft dirs exempt: []); 1 forbidden tokens
+2026-11-23T19:10:48.1796266Z TRUTH GATE STATIC FAIL (1 problems)
+2026-11-23T19:10:48.1848762Z ##[error]Process completed with exit code 1.
+2026-11-23T19:10:48.1925963Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:10:48.1926221Z with:
+2026-11-23T19:10:48.1926407Z   name: truth-gate-report
+2026-11-23T19:10:48.1926658Z   path: semantics-lock.txt
+truth-gate-report/
+
+2026-11-23T19:10:48.1926910Z   if-no-files-found: warn
+2026-11-23T19:10:48.1927107Z   compression-level: 6
+2026-11-23T19:10:48.1927286Z   overwrite: false
+2026-11-23T19:10:48.1927471Z   include-hidden-files: false
+2026-11-23T19:10:48.1927667Z ##[endgroup]
+2026-11-23T19:10:48.3320430Z (node:3027) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:10:48.3321327Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:10:48.3354160Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-23T19:10:48.3360689Z The least common ancestor is /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof. This will be the root directory of the artifact
+2026-11-23T19:10:48.3373222Z ##[warning]No files were found with the provided path: semantics-lock.txt
+truth-gate-report/. No artifacts will be uploaded.
+2026-11-23T19:10:48.3594973Z Post job cleanup.
+2026-11-23T19:10:48.4379160Z [command]/usr/bin/git version
+2026-11-23T19:10:48.4427025Z git version 2.56.1
+2026-11-23T19:10:48.4455909Z Temporarily overriding HOME='/home/runner/work/_temp/04c22e82-4d8d-455e-9b9a-db4e5a556a27' before making global git config changes
+2026-11-23T19:10:48.4457048Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:10:48.4459767Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof
+2026-11-23T19:10:48.4492370Z Removing SSH command configuration
+2026-11-23T19:10:48.4498071Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:10:48.4539646Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:10:48.4803267Z Removing HTTP extra header
+2026-11-23T19:10:48.4810931Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:10:48.4843378Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:10:48.5100043Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:10:48.5105630Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:10:48.5129481Z includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path
+2026-11-23T19:10:48.5130066Z includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path
+2026-11-23T19:10:48.5130468Z includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:10:48.5130752Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:10:48.5135805Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path
+2026-11-23T19:10:48.5157103Z /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5165456Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5196644Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path
+2026-11-23T19:10:48.5217199Z /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5231120Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5259767Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:10:48.5279388Z /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5286044Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5314687Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:10:48.5334159Z /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5341385Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5371755Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:10:48.5603785Z Removing credentials config '/home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config'
+2026-11-23T19:10:48.5761320Z Cleaning up orphan processes
+2026-11-23T19:10:48.6102359Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== Truth Gate (semantics lock)/10_Upload reports.txt
+﻿2026-11-23T19:10:48.1925950Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:10:48.1926218Z with:
+2026-11-23T19:10:48.1926405Z   name: truth-gate-report
+2026-11-23T19:10:48.1926653Z   path: semantics-lock.txt
+truth-gate-report/
+
+2026-11-23T19:10:48.1926908Z   if-no-files-found: warn
+2026-11-23T19:10:48.1927106Z   compression-level: 6
+2026-11-23T19:10:48.1927284Z   overwrite: false
+2026-11-23T19:10:48.1927470Z   include-hidden-files: false
+2026-11-23T19:10:48.1927664Z ##[endgroup]
+2026-11-23T19:10:48.3320394Z (node:3027) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:10:48.3321322Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:10:48.3354137Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-23T19:10:48.3360679Z The least common ancestor is /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof. This will be the root directory of the artifact
+2026-11-23T19:10:48.3373106Z ##[warning]No files were found with the provided path: semantics-lock.txt
+truth-gate-report/. No artifacts will be uploaded.
+
+===== Truth Gate (semantics lock)/1_Set up job.txt
+﻿2026-11-23T19:07:45.5919807Z Current runner version: '2.338.2'
+2026-11-23T19:07:45.5942072Z ##[group]Runner Image Provisioner
+2026-11-23T19:07:45.5942954Z Hosted Compute Agent
+2026-11-23T19:07:45.5943497Z Version: 20261111.635
+2026-11-23T19:07:45.5944089Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:07:45.5944670Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:07:45.5945306Z Worker ID: {749a6ee6-1a54-4bb9-8150-7b699be8f952}
+2026-11-23T19:07:45.5945891Z Region: westus3
+2026-11-23T19:07:45.5946379Z Cloud: Azure
+2026-11-23T19:07:45.5946839Z ##[endgroup]
+2026-11-23T19:07:45.5947936Z ##[group]Operating System
+2026-11-23T19:07:45.5948504Z Ubuntu
+2026-11-23T19:07:45.5948939Z 26.04.1
+2026-11-23T19:07:45.5949348Z LTS
+2026-11-23T19:07:45.5949918Z ##[endgroup]
+2026-11-23T19:07:45.5950380Z ##[group]Runner Image
+2026-11-23T19:07:45.5950912Z Image: ubuntu-26.04
+2026-11-23T19:07:45.5951396Z Version: 20261116.202.1
+2026-11-23T19:07:45.5952249Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:07:45.5953849Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:07:45.5954674Z ##[endgroup]
+2026-11-23T19:07:45.5955579Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:07:45.5957204Z Contents: read
+2026-11-23T19:07:45.5957733Z Metadata: read
+2026-11-23T19:07:45.5958309Z ##[endgroup]
+2026-11-23T19:07:45.5960185Z Secret source: Actions
+2026-11-23T19:07:45.5961377Z Cache mode: write
+2026-11-23T19:07:45.5961987Z Prepare workflow directory
+2026-11-23T19:07:45.6277808Z Prepare all required actions
+2026-11-23T19:07:45.6337211Z Getting action download info
+2026-11-23T19:07:45.9497911Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-11-23T19:07:46.0255616Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:07:46.2348289Z Complete job name: Truth Gate (semantics lock)
+
+===== Truth Gate (semantics lock)/20_Post Checkout.txt
+﻿2026-11-23T19:10:48.3594959Z Post job cleanup.
+2026-11-23T19:10:48.4379121Z [command]/usr/bin/git version
+2026-11-23T19:10:48.4427002Z git version 2.56.1
+2026-11-23T19:10:48.4455891Z Temporarily overriding HOME='/home/runner/work/_temp/04c22e82-4d8d-455e-9b9a-db4e5a556a27' before making global git config changes
+2026-11-23T19:10:48.4457044Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:10:48.4459762Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof
+2026-11-23T19:10:48.4492352Z Removing SSH command configuration
+2026-11-23T19:10:48.4498059Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:10:48.4539630Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:10:48.4803224Z Removing HTTP extra header
+2026-11-23T19:10:48.4810822Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:10:48.4843358Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:10:48.5100006Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:10:48.5105624Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:10:48.5129467Z includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path
+2026-11-23T19:10:48.5130051Z includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path
+2026-11-23T19:10:48.5130466Z includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:10:48.5130749Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:10:48.5135772Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path
+2026-11-23T19:10:48.5157091Z /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5165443Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5196633Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path
+2026-11-23T19:10:48.5217187Z /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5231087Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5259757Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-23T19:10:48.5279376Z /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5286035Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5314674Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-23T19:10:48.5334148Z /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:10:48.5341373Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-05fed847\-6613\-49fc\-bc2e\-5df69017c950\.config
+2026-11-23T19:10:48.5371465Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:10:48.5603762Z Removing credentials config '/home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config'
+
+===== Truth Gate (semantics lock)/21_Complete job.txt
+﻿2026-11-23T19:10:48.5761308Z Cleaning up orphan processes
+2026-11-23T19:10:48.6102340Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== Truth Gate (semantics lock)/2_Checkout.txt
+﻿2026-11-23T19:07:46.3048074Z ##[group]Run actions/checkout@v7
+2026-11-23T19:07:46.3048811Z with:
+2026-11-23T19:07:46.3049203Z   repository: BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:46.3052401Z   token: ***
+2026-11-23T19:07:46.3052898Z   ssh-strict: true
+2026-11-23T19:07:46.3053273Z   ssh-user: git
+2026-11-23T19:07:46.3053643Z   persist-credentials: true
+2026-11-23T19:07:46.3054034Z   clean: true
+2026-11-23T19:07:46.3054398Z   sparse-checkout-cone-mode: true
+2026-11-23T19:07:46.3054817Z   fetch-depth: 1
+2026-11-23T19:07:46.3055169Z   fetch-tags: false
+2026-11-23T19:07:46.3055528Z   show-progress: true
+2026-11-23T19:07:46.3055892Z   lfs: false
+2026-11-23T19:07:46.3056226Z   submodules: false
+2026-11-23T19:07:46.3056588Z   set-safe-directory: true
+2026-11-23T19:07:46.3057003Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:07:46.3057573Z ##[endgroup]
+2026-11-23T19:07:46.5624328Z Syncing repository: BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:46.5626296Z ##[group]Getting Git version info
+2026-11-23T19:07:46.5627483Z Working directory is '/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof'
+2026-11-23T19:07:46.5629048Z [command]/usr/bin/git version
+2026-11-23T19:07:46.5640780Z git version 2.56.1
+2026-11-23T19:07:46.5658941Z ##[endgroup]
+2026-11-23T19:07:46.5669470Z Temporarily overriding HOME='/home/runner/work/_temp/fe3003f4-8040-4446-bdb6-3a4e39f020a3' before making global git config changes
+2026-11-23T19:07:46.5671787Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:07:46.5674188Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof
+2026-11-23T19:07:46.5741583Z Deleting the contents of '/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof'
+2026-11-23T19:07:46.5745398Z ##[group]Determining repository object format
+2026-11-23T19:07:46.5747146Z ##[endgroup]
+2026-11-23T19:07:46.5748637Z ##[group]Initializing the repository
+2026-11-23T19:07:46.5751137Z [command]/usr/bin/git init /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof
+2026-11-23T19:07:46.6270490Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:07:46.6272092Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:07:46.6273269Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:07:46.6274233Z hint: call:
+2026-11-23T19:07:46.6274725Z hint:
+2026-11-23T19:07:46.6275334Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:07:46.6276178Z hint:
+2026-11-23T19:07:46.6276824Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:07:46.6277782Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:07:46.6278902Z hint:
+2026-11-23T19:07:46.6279787Z hint: 	git branch -m <name>
+2026-11-23T19:07:46.6280659Z hint:
+2026-11-23T19:07:46.6281705Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:07:46.6283664Z Initialized empty Git repository in /home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/
+2026-11-23T19:07:46.6295028Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:46.6344151Z ##[endgroup]
+2026-11-23T19:07:46.6344932Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:07:46.6346391Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:07:46.6376878Z ##[endgroup]
+2026-11-23T19:07:46.6377968Z ##[group]Setting up auth
+2026-11-23T19:07:46.6378831Z Removing SSH command configuration
+2026-11-23T19:07:46.6382550Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:07:46.6415949Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:07:46.6847397Z Removing HTTP extra header
+2026-11-23T19:07:46.6854040Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:07:46.6888131Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:07:46.7125552Z Removing includeIf entries pointing to credentials config files
+2026-11-23T19:07:46.7130332Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:07:46.7161748Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:07:46.7404441Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:07:46.7442182Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git.path /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7472477Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/NS_Millennium_Proof/NS_Millennium_Proof/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7504706Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7533320Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-05fed847-6613-49fc-bc2e-5df69017c950.config
+2026-11-23T19:07:46.7559714Z ##[endgroup]
+2026-11-23T19:07:46.7560400Z ##[group]Fetching the repository
+2026-11-23T19:07:46.7566158Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ee053fb43e1b32bef0ce0293f5cb37a52070f9eb:refs/remotes/origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9525226Z From https://github.com/BenFrohman/NS_Millennium_Proof
+2026-11-23T19:07:47.9527579Z  * [new ref]         ee053fb43e1b32bef0ce0293f5cb37a52070f9eb -> origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9539101Z [command]/usr/bin/git branch --list --remote origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9564367Z   origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9571151Z [command]/usr/bin/git rev-parse refs/remotes/origin/ci-backfill/ee053fb
+2026-11-23T19:07:47.9591929Z ee053fb43e1b32bef0ce0293f5cb37a52070f9eb
+2026-11-23T19:07:47.9596186Z ##[endgroup]
+2026-11-23T19:07:47.9597238Z ##[group]Determining the checkout info
+2026-11-23T19:07:47.9598594Z ##[endgroup]
+2026-11-23T19:07:47.9599706Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:07:47.9671831Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:07:47.9699198Z ##[group]Checking out the ref
+2026-11-23T19:07:47.9701985Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/ee053fb refs/remotes/origin/ci-backfill/ee053fb
+2026-11-23T19:07:48.0680702Z Switched to a new branch 'ci-backfill/ee053fb'
+2026-11-23T19:07:48.0685005Z branch 'ci-backfill/ee053fb' set up to track 'origin/ci-backfill/ee053fb'.
+2026-11-23T19:07:48.0695888Z ##[endgroup]
+2026-11-23T19:07:48.0744507Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:07:48.0769222Z ee053fb43e1b32bef0ce0293f5cb37a52070f9eb
+
+===== Truth Gate (semantics lock)/3_Install elan.txt
+﻿2026-11-23T19:07:48.1007274Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+2026-11-23T19:07:48.1009695Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \[0m
+2026-11-23T19:07:48.1011513Z [36;1m  | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:07:48.1012887Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:07:48.1047783Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:07:48.1048751Z ##[endgroup]
+2026-11-23T19:07:48.1718736Z info: downloading installer
+
+===== Truth Gate (semantics lock)/4_Fetch Mathlib build cache (Mathlib is never rebuilt here).txt
+﻿2026-11-23T19:07:48.5598676Z ##[group]Run lake exe cache get
+2026-11-23T19:07:48.5598963Z [36;1mlake exe cache get[0m
+2026-11-23T19:07:48.5630378Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:07:48.5630609Z ##[endgroup]
+2026-11-23T19:07:49.0648875Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T19:07:56.7226187Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T19:08:02.4271926Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T19:08:28.5469623Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T19:08:30.1706619Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T19:08:30.7180849Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T19:08:30.7305505Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T19:08:31.2154612Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T19:08:31.2266133Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T19:08:32.4349580Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T19:08:32.4783517Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T19:08:33.6448084Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T19:08:34.2152142Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T19:08:35.1198300Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T19:08:35.1427935Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T19:08:35.6728767Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T19:08:35.6845832Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T19:08:38.9814586Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T19:08:39.0133022Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T19:08:39.5344390Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T19:08:39.8554231Z ✔ [4/22] Built Cache.Init (263ms)
+2026-11-23T19:08:39.9487805Z ✔ [5/22] Built Cache.Lean (382ms)
+2026-11-23T19:08:39.9513755Z ✔ [6/22] Built Cache.Init:c.o (112ms)
+2026-11-23T19:08:40.1490045Z ✔ [7/22] Built Cache.Lean:c.o (146ms)
+2026-11-23T19:08:40.2515362Z ✔ [8/22] Built Batteries.Data.String.Basic (421ms)
+2026-11-23T19:08:40.3517005Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (126ms)
+2026-11-23T19:08:40.5554596Z ✔ [10/22] Built Batteries.Data.Array.Match (742ms)
+2026-11-23T19:08:40.8564213Z ✔ [11/22] Built Batteries.Data.String.Matcher (305ms)
+2026-11-23T19:08:40.8564904Z ✔ [12/22] Built Batteries.Data.Array.Match:c.o (275ms)
+2026-11-23T19:08:41.0563414Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (168ms)
+2026-11-23T19:08:41.2565277Z ✔ [14/22] Built Cache.IO (1.2s)
+2026-11-23T19:08:41.8575637Z ✔ [15/22] Built Cache.Hashing (628ms)
+2026-11-23T19:08:42.1579969Z ✔ [16/22] Built Cache.Hashing:c.o (329ms)
+2026-11-23T19:08:42.5584277Z ✔ [17/22] Built Cache.IO:c.o (1.3s)
+2026-11-23T19:08:43.4598244Z ✔ [18/22] Built Cache.Requests (1.6s)
+2026-11-23T19:08:44.1600490Z ✔ [19/22] Built Cache.Main (656ms)
+2026-11-23T19:08:44.5607478Z ✔ [20/22] Built Cache.Main:c.o (462ms)
+2026-11-23T19:08:45.0638657Z ✔ [21/22] Built Cache.Requests:c.o (1.6s)
+2026-11-23T19:08:45.7657792Z ✔ [22/22] Built cache:exe (615ms)
+2026-11-23T19:08:48.0960607Z Current branch: HEAD
+2026-11-23T19:08:48.0960966Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T19:08:48.0961347Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T19:08:48.6325195Z 
+2026-11-23T19:08:48.7348711Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 76 KB/s], Decompressed: 0
+2026-11-23T19:08:48.8335956Z Downloaded: 72 file(s) [attempted 72/8248 = 0%, 761 KB/s], Decompressed: 14
+2026-11-23T19:08:48.9353900Z Downloaded: 156 file(s) [attempted 156/8248 = 1%, 788 KB/s], Decompressed: 30
+2026-11-23T19:08:49.0363955Z Downloaded: 250 file(s) [attempted 250/8248 = 3%, 601 KB/s], Decompressed: 81
+2026-11-23T19:08:49.1495419Z Downloaded: 356 file(s) [attempted 356/8248 = 4%, 3434 KB/s], Decompressed: 81
+2026-11-23T19:08:49.2503796Z Downloaded: 453 file(s) [attempted 453/8248 = 5%, 2756 KB/s], Decompressed: 81
+2026-11-23T19:08:49.3597359Z Downloaded: 553 file(s) [attempted 553/8248 = 6%, 2493 KB/s], Decompressed: 81
+2026-11-23T19:08:49.4594990Z Downloaded: 661 file(s) [attempted 661/8248 = 8%, 1208 KB/s], Decompressed: 81
+2026-11-23T19:08:49.5649041Z Downloaded: 765 file(s) [attempted 765/8248 = 9%, 475 KB/s], Decompressed: 225
+2026-11-23T19:08:49.6763642Z Downloaded: 875 file(s) [attempted 875/8248 = 10%, 3858 KB/s], Decompressed: 225
+2026-11-23T19:08:49.7854222Z Downloaded: 977 file(s) [attempted 977/8248 = 11%, 703 KB/s], Decompressed: 225
+2026-11-23T19:08:49.8855068Z Downloaded: 1096 file(s) [attempted 1096/8248 = 13%, 1258 KB/s], Decompressed: 225
+2026-11-23T19:08:49.9885985Z Downloaded: 1202 file(s) [attempted 1202/8248 = 14%, 860 KB/s], Decompressed: 225
+2026-11-23T19:08:50.0893333Z Downloaded: 1310 file(s) [attempted 1310/8248 = 15%, 155 KB/s], Decompressed: 225
+2026-11-23T19:08:50.1926729Z Downloaded: 1423 file(s) [attempted 1423/8248 = 17%, 373 KB/s], Decompressed: 225
+2026-11-23T19:08:50.2943827Z Downloaded: 1531 file(s) [attempted 1531/8248 = 18%, 1864 KB/s], Decompressed: 225
+2026-11-23T19:08:50.4024326Z Downloaded: 1662 file(s) [attempted 1662/8248 = 20%, 905 KB/s], Decompressed: 225
+2026-11-23T19:08:50.5010451Z Downloaded: 1775 file(s) [attempted 1775/8248 = 21%, 3031 KB/s], Decompressed: 225
+2026-11-23T19:08:50.6076553Z Downloaded: 1882 file(s) [attempted 1882/8248 = 22%, 1455 KB/s], Decompressed: 225
+2026-11-23T19:08:50.7080968Z Downloaded: 1993 file(s) [attempted 1993/8248 = 24%, 270 KB/s], Decompressed: 225
+2026-11-23T19:08:50.8098302Z Downloaded: 2108 file(s) [attempted 2108/8248 = 25%, 1871 KB/s], Decompressed: 225
+2026-11-23T19:08:50.9135491Z Downloaded: 2226 file(s) [attempted 2226/8248 = 26%, 226 KB/s], Decompressed: 225
+2026-11-23T19:08:51.0293881Z Downloaded: 2347 file(s) [attempted 2347/8248 = 28%, 123 KB/s], Decompressed: 711
+2026-11-23T19:08:51.1295360Z Downloaded: 2451 file(s) [attempted 2451/8248 = 29%, 522 KB/s], Decompressed: 711
+2026-11-23T19:08:51.2329342Z Downloaded: 2558 file(s) [attempted 2558/8248 = 31%, 857 KB/s], Decompressed: 711
+2026-11-23T19:08:51.3334580Z Downloaded: 2690 file(s) [attempted 2690/8248 = 32%, 1994 KB/s], Decompressed: 711
+2026-11-23T19:08:51.4355781Z Downloaded: 2770 file(s) [attempted 2770/8248 = 33%, 325 KB/s], Decompressed: 711
+2026-11-23T19:08:51.5335097Z Downloaded: 2875 file(s) [attempted 2875/8248 = 34%, 375 KB/s], Decompressed: 711
+2026-11-23T19:08:51.6375307Z Downloaded: 2981 file(s) [attempted 2981/8248 = 36%, 92 KB/s], Decompressed: 711
+2026-11-23T19:08:51.7367810Z Downloaded: 3096 file(s) [attempted 3096/8248 = 37%, 1897 KB/s], Decompressed: 711
+2026-11-23T19:08:51.8404442Z Downloaded: 3215 file(s) [attempted 3215/8248 = 38%, 290 KB/s], Decompressed: 711
+2026-11-23T19:08:51.9543896Z Downloaded: 3328 file(s) [attempted 3328/8248 = 40%, 621 KB/s], Decompressed: 711
+2026-11-23T19:08:52.0567763Z Downloaded: 3447 file(s) [attempted 3447/8248 = 41%, 1806 KB/s], Decompressed: 711
+2026-11-23T19:08:52.1563305Z Downloaded: 3562 file(s) [attempted 3562/8248 = 43%, 413 KB/s], Decompressed: 711
+2026-11-23T19:08:52.2724086Z Downloaded: 3695 file(s) [attempted 3695/8248 = 44%, 291 KB/s], Decompressed: 711
+2026-11-23T19:08:52.3695785Z Downloaded: 3799 file(s) [attempted 3799/8248 = 46%, 624 KB/s], Decompressed: 711
+2026-11-23T19:08:52.4706322Z Downloaded: 3914 file(s) [attempted 3914/8248 = 47%, 440 KB/s], Decompressed: 711
+2026-11-23T19:08:52.5748848Z Downloaded: 4022 file(s) [attempted 4022/8248 = 48%, 6823 KB/s], Decompressed: 711
+2026-11-23T19:08:52.8190119Z Downloaded: 4126 file(s) [attempted 4126/8248 = 50%, 235 KB/s], Decompressed: 711
+2026-11-23T19:08:52.9344125Z Downloaded: 4221 file(s) [attempted 4221/8248 = 51%, 368 KB/s], Decompressed: 711
+2026-11-23T19:08:53.0347787Z Downloaded: 4302 file(s) [attempted 4302/8248 = 52%, 65 KB/s], Decompressed: 711
+2026-11-23T19:08:53.1336285Z Downloaded: 4397 file(s) [attempted 4397/8248 = 53%, 394 KB/s], Decompressed: 711
+2026-11-23T19:08:53.2342567Z Downloaded: 4501 file(s) [attempted 4501/8248 = 54%, 1189 KB/s], Decompressed: 711
+2026-11-23T19:08:53.3351901Z Downloaded: 4611 file(s) [attempted 4611/8248 = 55%, 1115 KB/s], Decompressed: 711
+2026-11-23T19:08:53.4365470Z Downloaded: 4730 file(s) [attempted 4730/8248 = 57%, 355 KB/s], Decompressed: 711
+2026-11-23T19:08:53.5344292Z Downloaded: 4836 file(s) [attempted 4836/8248 = 58%, 172 KB/s], Decompressed: 711
+2026-11-23T19:08:53.6404078Z Downloaded: 4957 file(s) [attempted 4957/8248 = 60%, 965 KB/s], Decompressed: 711
+2026-11-23T19:08:53.7390447Z Downloaded: 5067 file(s) [attempted 5067/8248 = 61%, 2243 KB/s], Decompressed: 711
+2026-11-23T19:08:53.8397747Z Downloaded: 5192 file(s) [attempted 5192/8248 = 62%, 1496 KB/s], Decompressed: 711
+2026-11-23T19:08:54.0271391Z Downloaded: 5303 file(s) [attempted 5303/8248 = 64%, 606 KB/s], Decompressed: 711
+2026-11-23T19:08:54.1397607Z Downloaded: 5415 file(s) [attempted 5415/8248 = 65%, 825 KB/s], Decompressed: 711
+2026-11-23T19:08:54.2455999Z Downloaded: 5512 file(s) [attempted 5512/8248 = 66%, 1797 KB/s], Decompressed: 711
+2026-11-23T19:08:54.3466159Z Downloaded: 5609 file(s) [attempted 5609/8248 = 68%, 1133 KB/s], Decompressed: 711
+2026-11-23T19:08:54.4476729Z Downloaded: 5718 file(s) [attempted 5718/8248 = 69%, 414 KB/s], Decompressed: 711
+2026-11-23T19:08:54.5770958Z Downloaded: 5837 file(s) [attempted 5837/8248 = 70%, 1278 KB/s], Decompressed: 711
+2026-11-23T19:08:54.6883601Z Downloaded: 5860 file(s) [attempted 5860/8248 = 71%, 657 KB/s], Decompressed: 711
+2026-11-23T19:08:54.8075591Z Downloaded: 5910 file(s) [attempted 5910/8248 = 71%, 1645 KB/s], Decompressed: 711
+2026-11-23T19:08:54.9145400Z Downloaded: 5993 file(s) [attempted 5993/8248 = 72%, 3104 KB/s], Decompressed: 711
+2026-11-23T19:08:55.0137020Z Downloaded: 6086 file(s) [attempted 6086/8248 = 73%, 2008 KB/s], Decompressed: 711
+2026-11-23T19:08:55.1241511Z Downloaded: 6193 file(s) [attempted 6193/8248 = 75%, 183 KB/s], Decompressed: 711
+2026-11-23T19:08:55.2233747Z Downloaded: 6294 file(s) [attempted 6294/8248 = 76%, 1627 KB/s], Decompressed: 711
+2026-11-23T19:08:55.3263834Z Downloaded: 6405 file(s) [attempted 6405/8248 = 77%, 215 KB/s], Decompressed: 711
+2026-11-23T19:08:55.4263851Z Downloaded: 6533 file(s) [attempted 6533/8248 = 79%, 1205 KB/s], Decompressed: 711
+2026-11-23T19:08:55.5272777Z Downloaded: 6639 file(s) [attempted 6639/8248 = 80%, 734 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.6337835Z Downloaded: 6752 file(s) [attempted 6752/8248 = 81%, 603 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.7674087Z Downloaded: 6856 file(s) [attempted 6856/8248 = 83%, 777 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.8711811Z Downloaded: 6959 file(s) [attempted 6959/8248 = 84%, 3352 KB/s], Decompressed: 2336
+2026-11-23T19:08:55.9691722Z Downloaded: 7061 file(s) [attempted 7061/8248 = 85%, 123 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.0685264Z Downloaded: 7176 file(s) [attempted 7176/8248 = 87%, 947 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.4485007Z Downloaded: 7280 file(s) [attempted 7280/8248 = 88%, 219 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.5641248Z Downloaded: 7360 file(s) [attempted 7360/8248 = 89%, 604 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.6821113Z Downloaded: 7408 file(s) [attempted 7408/8248 = 89%, 43 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.7829848Z Downloaded: 7492 file(s) [attempted 7492/8248 = 90%, 58 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.8860235Z Downloaded: 7585 file(s) [attempted 7585/8248 = 91%, 1962 KB/s], Decompressed: 2336
+2026-11-23T19:08:56.9869769Z Downloaded: 7683 file(s) [attempted 7683/8248 = 93%, 264 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.0887414Z Downloaded: 7793 file(s) [attempted 7793/8248 = 94%, 3982 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.3253860Z Downloaded: 7899 file(s) [attempted 7899/8248 = 95%, 173 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.4900748Z Downloaded: 7951 file(s) [attempted 7951/8248 = 96%, 236 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.6083796Z Downloaded: 8048 file(s) [attempted 8048/8248 = 97%, 88 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.7102940Z Downloaded: 8135 file(s) [attempted 8135/8248 = 98%, 66 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.8373817Z Downloaded: 8213 file(s) [attempted 8213/8248 = 99%, 426 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.9184213Z Downloaded: 8246 file(s) [attempted 8246/8248 = 99%, 131 KB/s], Decompressed: 2336
+2026-11-23T19:08:57.9193319Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 131 KB/s], Decompressed: 2336
+2026-11-23T19:09:23.9178511Z Decompressed 8248 file(s)
+2026-11-23T19:09:23.9178842Z Already decompressed 8248 file(s)
+
+===== Truth Gate (semantics lock)/5_Build every module except the root (the gate's inputs).txt
+﻿2026-11-23T19:09:23.9913219Z ##[group]Run mods=$(grep '^import NS_Millennium_Proof\.' scripts/SemanticsLock.lean | sed 's/^import //')
+2026-11-23T19:09:23.9913817Z [36;1mmods=$(grep '^import NS_Millennium_Proof\.' scripts/SemanticsLock.lean | sed 's/^import //')[0m
+2026-11-23T19:09:23.9914182Z [36;1mlake build $mods[0m
+2026-11-23T19:09:23.9944678Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:09:23.9944896Z ##[endgroup]
+2026-11-23T19:09:26.1074510Z ✔ [2690/2711] Built NS_Millennium_Proof.Modules.Assumptions (578ms)
+2026-11-23T19:09:27.8151093Z ✔ [2691/2712] Built NS_Millennium_Proof.Modules.CubicSourceCertificate (1.7s)
+2026-11-23T19:09:29.8244128Z ✔ [4425/4563] Built NS_Millennium_Proof.TruthGate (4.2s)
+2026-11-23T19:09:33.0428898Z ✔ [7783/7862] Built NS_Millennium_Proof.Modules.Stage6Calculus (7.5s)
+2026-11-23T19:09:49.9594157Z ⚠ [8268/8293] Built NS_Millennium_Proof.Modules.NS_Equations (24s)
+2026-11-23T19:09:49.9623575Z warning: NS_Millennium_Proof/Modules/NS_Equations.lean:2481:15: declaration uses `sorry`
+2026-11-23T19:09:49.9695015Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:2578:2: Try this:
+2026-11-23T19:09:49.9743311Z   [apply] abel_nf
+2026-11-23T19:09:49.9773284Z warning: NS_Millennium_Proof/Modules/NS_Equations.lean:3761:9: unused variable `T`
+2026-11-23T19:09:49.9832774Z 
+2026-11-23T19:09:49.9843692Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:09:49.9863725Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3763:0: 'NavierStokes3D.curl_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9934202Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3764:0: 'NavierStokes3D.local_existence' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9944148Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3765:0: 'NavierStokes3D.smoothness_of_Tstar_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9945586Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3766:0: 'NavierStokes3D.beale_kato_majda' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9947048Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3767:0: 'NavierStokes3D.beale_kato_majda_scaffold_integrability_unused' depends on axioms: [propext,
+2026-11-23T19:09:49.9948110Z  Classical.choice,
+2026-11-23T19:09:49.9948570Z  Quot.sound]
+2026-11-23T19:09:49.9949592Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3768:0: 'NavierStokes3D.bkm_criterion_without_integrability_not_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9951094Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3769:0: 'NavierStokes3D.Tstar_eq_top_of_bkm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9952497Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3770:0: 'NavierStokes3D.energy_zero_of_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9954162Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3771:0: 'NavierStokes3D.Tstar_eq_top_of_unbounded_existenceTimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9955709Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3772:0: 'NavierStokes3D.Tstar_eq_top_of_uniform_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9957261Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3773:0: 'NavierStokes3D.Tstar_eq_top_of_katoRestartTime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9958725Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3774:0: 'NavierStokes3D.katoRestartTime_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9960132Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3775:0: 'NavierStokes3D.katoSobolevIndex_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9961493Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3776:0: 'NavierStokes3D.strain_sup_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9963440Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3777:0: 'NavierStokes3D.one_add_log_le_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9964849Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3778:0: 'NavierStokes3D.kato_ponce_implies_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9966304Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3779:0: 'NavierStokes3D.kato_ponce_of_uniform_vorticity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9967791Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3780:0: 'NavierStokes3D.kato_Hs_bound_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9969313Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3781:0: 'NavierStokes3D.exists_mem_existenceTimes_gt_of_lt_Tstar' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9970994Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3782:0: 'NavierStokes3D.navier_stokes_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9972384Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3783:0: 'NavierStokes3D.kato_witness_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9973896Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3784:0: 'NavierStokes3D.local_existence_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9975356Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3785:0: 'NavierStokes3D.Tstar_pos_of_kato_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9976754Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3786:0: 'NavierStokes3D.eq_of_l2_energy_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9978180Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3787:0: 'NavierStokes3D.ns_cauchy_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9979658Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3788:0: 'NavierStokes3D.ns_cauchy_eq_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9981091Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3789:0: 'NavierStokes3D.energy_zero_of_gronwall_Icc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9982560Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3790:0: 'NavierStokes3D.ns_cauchy_on_Icc_of_energy_gronwall' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9984295Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3791:0: 'NavierStokes3D.uniqueness_of_existence_times_of_energy_gronwall' depends on axioms: [propext,
+2026-11-23T19:09:49.9985249Z  Classical.choice,
+2026-11-23T19:09:49.9985650Z  Quot.sound]
+2026-11-23T19:09:49.9986497Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3792:0: 'NavierStokes3D.time_deriv_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9987842Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3793:0: 'NavierStokes3D.ns_pde_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9989246Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3794:0: 'NavierStokes3D.smoothness_on_restart_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9990737Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3795:0: 'NavierStokes3D.mem_existenceTimes_add_of_kato_restart' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9992264Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3796:0: 'NavierStokes3D.restart_of_kato_quantitative' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9993904Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3797:0: 'NavierStokes3D.smoothness_below_Tstar_of_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9995580Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3798:0: 'NavierStokes3D.curl_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9997001Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3799:0: 'NavierStokes3D.mem_existenceTimes_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9998408Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3800:0: 'NavierStokes3D.Tstar_zero_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:49.9999738Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3801:0: 'NavierStokes3D.div_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0001044Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3802:0: 'NavierStokes3D.div_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0002555Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3803:0: 'NavierStokes3D.div_smul_field' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0004028Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3804:0: 'NavierStokes3D.curl_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0005353Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3805:0: 'NavierStokes3D.convective_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0006799Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3806:0: 'NavierStokes3D.inner_convective_product_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0008278Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3807:0: 'NavierStokes3D.cyclicLiePairing_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0009717Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3808:0: 'NavierStokes3D.convective_norm_le_of_CZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0011148Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3809:0: 'NavierStokes3D.stretching_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0012559Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3810:0: 'NavierStokes3D.stretching_inner_le_at_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0014141Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3811:0: 'NavierStokes3D.stretching_quartic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0015643Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3812:0: 'NavierStokes3D.transport_inner_vanishes_of_grad_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0017148Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3813:0: 'NavierStokes3D.vorticity_transport_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0019114Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3814:0: 'NavierStokes3D.stretching_pairing_le_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0021140Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3815:0: 'NavierStokes3D.stretching_enstrophy_di_at_spatial_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0023185Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3816:0: 'NavierStokes3D.pressureGradient_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0024631Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3817:0: 'NavierStokes3D.ns_momentum_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0026125Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3818:0: 'NavierStokes3D.inner_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0027667Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3819:0: 'NavierStokes3D.transported_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0029392Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3820:0: 'NavierStokes3D.convective_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0030834Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3821:0: 'NavierStokes3D.inner_convective_le_strain' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0032230Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3822:0: 'NavierStokes3D.time_deriv_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0033841Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3823:0: 'NavierStokes3D.transported_scalar_along_characteristic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0035411Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3824:0: 'NavierStokes3D.transported_scalar_maximum_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0037146Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3825:0: 'NavierStokes3D.reciprocal_of_quadratic_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0038598Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3826:0: 'NavierStokes3D.le_vorticity_sup_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0040481Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3827:0: 'NavierStokes3D.convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0041892Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3828:0: 'NavierStokes3D.convective_eq_sum_directional' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0043594Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3829:0: 'NavierStokes3D.directionalCoord_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0045018Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3830:0: 'NavierStokes3D.curl_convective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0046387Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3831:0: 'NavierStokes3D.curl_convective_div_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0047730Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3832:0: 'NavierStokes3D.curl_add3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0049139Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3833:0: 'NavierStokes3D.fderiv_prod_snd_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0050649Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3834:0: 'NavierStokes3D.deriv_prod_fst_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0052082Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3835:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0053627Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3836:0: 'NavierStokes3D.deriv_euclidean_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0055009Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3837:0: 'NavierStokes3D.curl_time_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0056350Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3838:0: 'NavierStokes3D.fderiv_field_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0057692Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3839:0: 'NavierStokes3D.laplacian_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0059031Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3840:0: 'NavierStokes3D.fderiv_apply_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0060651Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3841:0: 'NavierStokes3D.contDiffAt_directionalCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0062117Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3842:0: 'NavierStokes3D.directionalCoord_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0063650Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3843:0: 'NavierStokes3D.curl_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0065077Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3844:0: 'NavierStokes3D.differentiableAt_time_deriv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0066580Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3845:0: 'NavierStokes3D.differentiableAt_convective_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0068148Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3846:0: 'NavierStokes3D.differentiableAt_pressureGradient_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0069846Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3847:0: 'NavierStokes3D.vorticity_transport_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0071248Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3848:0: 'NavierStokes3D.vorticity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0072809Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3849:0: 'NavierStokes3D.vorticity_transport_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0074265Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3850:0: 'NavierStokes3D.time_space_mixed_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0075684Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3851:0: 'NavierStokes3D.differentiableAt_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0077071Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3852:0: 'NavierStokes3D.fderiv_coord' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0078492Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3853:0: 'NavierStokes3D.integration_by_parts_of_vanishing_flux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0079969Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3854:0: 'NavierStokes3D.inner_self_convective_eq_inner_grad_half_norm_sq' depends on axioms: [propext,
+2026-11-23T19:09:50.0080864Z  Classical.choice,
+2026-11-23T19:09:50.0081241Z  Quot.sound]
+2026-11-23T19:09:50.0082078Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3855:0: 'NavierStokes3D.differentiableAt_coord_of_differentiableAt_field' depends on axioms: [propext,
+2026-11-23T19:09:50.0083110Z  Classical.choice,
+2026-11-23T19:09:50.0083451Z  Quot.sound]
+2026-11-23T19:09:50.0084373Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3856:0: 'NavierStokes3D.differentiableAt_half_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0085870Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3857:0: 'NavierStokes3D.convective_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:50.0087399Z info: NS_Millennium_Proof/Modules/NS_Equations.lean:3858:0: 'NavierStokes3D.pressure_energy_pairing_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:52.0604020Z ⚠ [8269/8293] Built NS_Millennium_Proof.Modules.ScalingIdentities (2.1s)
+2026-11-23T19:09:52.0605003Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T19:09:52.0605586Z 
+2026-11-23T19:09:52.0605730Z Note: The updated constant has a different type:
+2026-11-23T19:09:52.0606368Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0607489Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0607844Z instead of
+2026-11-23T19:09:52.0608358Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0608963Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0609266Z 
+2026-11-23T19:09:52.0609645Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T19:09:52.0610378Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T19:09:52.0610787Z 
+2026-11-23T19:09:52.0610883Z Note: The updated constant has a different type:
+2026-11-23T19:09:52.0611326Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0612186Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0612428Z instead of
+2026-11-23T19:09:52.0629493Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0630067Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0630339Z 
+2026-11-23T19:09:52.0630826Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T19:09:52.0631903Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+2026-11-23T19:09:52.0632530Z 
+2026-11-23T19:09:52.0632959Z Note: The updated constant has a different type:
+2026-11-23T19:09:52.0633662Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0634280Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0634603Z instead of
+2026-11-23T19:09:52.0635071Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+2026-11-23T19:09:52.0635605Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+2026-11-23T19:09:52.0635880Z 
+2026-11-23T19:09:52.0636345Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+2026-11-23T19:09:52.0637207Z warning: NS_Millennium_Proof/Modules/ScalingIdentities.lean:47:24: This simp argument is unused:
+2026-11-23T19:09:52.0637738Z   EuclideanSpace.single_apply
+2026-11-23T19:09:52.0637929Z 
+2026-11-23T19:09:52.0638041Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:52.0638567Z   simp ̵[̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵
+2026-11-23T19:09:52.0638878Z 
+2026-11-23T19:09:52.0639144Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:52.0640114Z info: NS_Millennium_Proof/Modules/ScalingIdentities.lean:49:0: 'ScalingIdentities.directionalCoord_rescale' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:52.0641380Z info: NS_Millennium_Proof/Modules/ScalingIdentities.lean:50:0: 'ScalingIdentities.vorticity_rescale' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:52.1587524Z ✔ [8270/8293] Built NS_Millennium_Proof.Modules.AssemblyGap (2.2s)
+2026-11-23T19:09:56.3701026Z ⚠ [8271/8293] Built NS_Millennium_Proof.Modules.ArnoldGeometric (6.5s)
+2026-11-23T19:09:56.3702466Z warning: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:437:6: This simp argument is unused:
+2026-11-23T19:09:56.3703487Z   PiLp.single_apply
+2026-11-23T19:09:56.3703836Z 
+2026-11-23T19:09:56.3704158Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:56.3705001Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 2), fderiv_const_mul (hd 1),
+2026-11-23T19:09:56.3706868Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:09:56.3707963Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:09:56.3732388Z 
+2026-11-23T19:09:56.3733421Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:56.3734589Z warning: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:443:6: This simp argument is unused:
+2026-11-23T19:09:56.3735510Z   PiLp.single_apply
+2026-11-23T19:09:56.3735908Z 
+2026-11-23T19:09:56.3736254Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:56.3737162Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 0), fderiv_const_mul (hd 2),
+2026-11-23T19:09:56.3738322Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:09:56.3739335Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:09:56.3740470Z 
+2026-11-23T19:09:56.3740948Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:56.3742012Z warning: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:449:6: This simp argument is unused:
+2026-11-23T19:09:56.3742972Z   PiLp.single_apply
+2026-11-23T19:09:56.3743318Z 
+2026-11-23T19:09:56.3743582Z Hint: Omit it from the simp argument list.
+2026-11-23T19:09:56.3744210Z   simp [ContinuousLinearMap.sub_apply, fderiv_const_mul (hd 1), fderiv_const_mul (hd 0),
+2026-11-23T19:09:56.3745011Z   ̲  ̲ ̲ ̲ ̲ ̲fderiv_coord, E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵,̵
+2026-11-23T19:09:56.3745771Z   ̵ ̵ ̵ ̵ ̵ ̵ ̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵E̲u̲c̲l̲i̲d̲e̲a̲n̲S̲p̲a̲c̲e̲.̲s̲i̲n̲g̲l̲e̲]̲
+2026-11-23T19:09:56.3746285Z 
+2026-11-23T19:09:56.3746673Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:09:56.3748001Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1097:0: 'ArnoldGeometric.velocity_from_vorticity_eq_BiotSavart' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3749644Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1098:0: 'ArnoldGeometric.classical_bracket_reproduces_Euler' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3751147Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1099:0: 'ArnoldGeometric.BiotSavart_zero' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3752731Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1100:0: 'ArnoldGeometric.BiotSavart_smul' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3754058Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1101:0: 'ArnoldGeometric.BiotSavart_add' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3755337Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1102:0: 'ArnoldGeometric.BiotSavart_affine' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3756644Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1103:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3758004Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1104:0: 'ArnoldGeometric.hasDerivAt_half_norm_sq_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3759320Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1105:0: 'ArnoldGeometric.pairing_cross_self_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3760591Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1106:0: 'ArnoldGeometric.cross_smul_left' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3761953Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1107:0: 'ArnoldGeometric.FunctionalDerivative_eq_zero_of_not' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3763486Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1108:0: 'ArnoldGeometric.FunctionalDerivative_eq_choose' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3765208Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1109:0: 'ArnoldGeometric.kineticEnergy_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3766790Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1110:0: 'ArnoldGeometric.biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3768139Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1111:0: 'ArnoldGeometric.cross_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3769390Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1112:0: 'ArnoldGeometric.div_cross_right' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3770663Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1113:0: 'ArnoldGeometric.div_cross_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3771997Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1114:0: 'ArnoldGeometric.differentiableAt_cross_offset_coord' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3773740Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1115:0: 'ArnoldGeometric.hasFDerivAt_norm_sq_offset' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3775152Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1116:0: 'ArnoldGeometric.hasFDerivAt_biotSavartKernel_of_ne' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3776640Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1117:0: 'ArnoldGeometric.differentiableAt_biotSavartKernel_off_diag' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3778142Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1118:0: 'ArnoldGeometric.div_biotSavart_integrand' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3779425Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1119:0: 'ArnoldGeometric.div_biotSavart_integrand_ae' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3780671Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1120:0: 'ArnoldGeometric.div_BiotSavart_of_interchange' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3782029Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1121:0: 'ArnoldGeometric.functional_derivative_eq_velocity_of_unique_repr' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3783493Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1122:0: 'ArnoldGeometric.gateaux_representative_unique' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3784897Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1123:0: 'ArnoldGeometric.kineticEnergyHamiltonian_hasDerivAt_velocity_pairing' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3786402Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1124:0: 'ArnoldGeometric.isVelocityGateauxRepresentative_kineticEnergy_at' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3787810Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1150:0: 'ArnoldGeometric.classicalBracket_antisymm' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3789066Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1151:0: 'ArnoldGeometric.classicalBracket_self' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:56.3790311Z info: NS_Millennium_Proof/Modules/ArnoldGeometric.lean:1152:0: 'ArnoldGeometric.classicalBracket_H_H' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:09:58.9793898Z ✔ [8272/8293] Built NS_Millennium_Proof.Modules.ForMathlib.Projection (2.6s)
+2026-11-23T19:09:59.0774974Z ✔ [8273/8293] Built NS_Millennium_Proof.Modules.PlanSteps (2.7s)
+2026-11-23T19:09:59.5780287Z ℹ [8274/8293] Built NS_Millennium_Proof.Modules.ConcreteSDiff (3.3s)
+2026-11-23T19:09:59.5781175Z info: NS_Millennium_Proof/Modules/ConcreteSDiff.lean:107:0: 'ConcreteSDiff.casimir_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:59.5782572Z info: NS_Millennium_Proof/Modules/ConcreteSDiff.lean:108:0: 'ConcreteSDiff.enstrophy_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:09:59.5783779Z info: NS_Millennium_Proof/Modules/ConcreteSDiff.lean:109:0: 'ConcreteSDiff.sdiffActionHyp_of_transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5834456Z ℹ [8275/8293] Built NS_Millennium_Proof.Modules.SymplecticTether (3.7s)
+2026-11-23T19:10:02.5835621Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1291:0: 'FrohmanianTether.tethered_jacobi_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5837005Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1292:0: 'FrohmanianTether.tetherKernel_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5838435Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1293:0: 'FrohmanianTether.antisymmetric_correction_diagonal_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5840378Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1294:0: 'FrohmanianTether.tetherKernel_C2_of_no_gateaux' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5841846Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1295:0: 'FrohmanianTether.tetherKernel_degenerates_on_kinetic_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5843509Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1296:0: 'FrohmanianTether.tetherKernel_C2_of_identifications' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5844938Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1297:0: 'FrohmanianTether.functional_derivative_of_kinetic_energy_of_unique_repr' depends on axioms: [propext,
+2026-11-23T19:10:02.5845792Z  Classical.choice,
+2026-11-23T19:10:02.5846038Z  Quot.sound]
+2026-11-23T19:10:02.5846786Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1298:0: 'FrohmanianTether.div_biot_savart_of_eq_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5848218Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1299:0: 'FrohmanianTether.div_biot_savart_velocity_of_interchange' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:02.5849864Z info: NS_Millennium_Proof/Modules/SymplecticTether.lean:1300:0: '_private.NS_Millennium_Proof.Modules.SymplecticTether.0.FrohmanianTether.degeneracy_for_mollified_sup_norm_proxy' depends on axioms: [propext,
+2026-11-23T19:10:02.5850933Z  Classical.choice,
+2026-11-23T19:10:02.5851177Z  Quot.sound]
+2026-11-23T19:10:05.2886539Z ℹ [8276/8293] Built NS_Millennium_Proof.Modules.Uniqueness (2.7s)
+2026-11-23T19:10:05.2887667Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:668:0: 'FrohmanianTether.uniqueness_of_kernel_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2889075Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:669:0: 'FrohmanianTether.uniqueness_of_kernel_density_fun' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2890790Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:670:0: 'FrohmanianTether.tetherKernel_has_canonical_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2892359Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:671:0: 'FrohmanianTether.uniqueness_of_minimal_tether' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2894044Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:672:0: 'FrohmanianTether.step2_degree_of_canonical_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2895519Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:673:0: 'FrohmanianTether.step2_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:05.2896919Z info: NS_Millennium_Proof/Modules/Uniqueness.lean:674:0: 'FrohmanianTether.step5_higher_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7902208Z ⚠ [8277/8293] Built NS_Millennium_Proof.Modules.AnalyticPipeline (4.2s)
+2026-11-23T19:10:06.7903185Z warning: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:253:11: unused variable `x`
+2026-11-23T19:10:06.7903705Z 
+2026-11-23T19:10:06.7904010Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:06.7905088Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:466:0: 'AnalyticPipeline.holderConjugate_three_halves_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7906452Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:467:0: 'AnalyticPipeline.holder_I4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7907737Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:468:0: 'AnalyticPipeline.holder_I4_le_sobolev' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7909340Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:469:0: 'AnalyticPipeline.stretching_bound_of_holder' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:06.7910230Z info: NS_Millennium_Proof/Modules/AnalyticPipeline.lean:470:0: 'AnalyticPipeline.vorticity_sup_norm_riccati_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:18.0068633Z ⚠ [8278/8293] Built NS_Millennium_Proof.Modules.TetheredLyapunov (11s)
+2026-11-23T19:10:18.0069833Z warning: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2004:5: unused variable `w`
+2026-11-23T19:10:18.0070472Z 
+2026-11-23T19:10:18.0070885Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:18.0072290Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2304:0: 'TetheredLyapunov.hasDerivAt_norm_sq_of_hasDerivAt' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0073937Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2305:0: 'TetheredLyapunov.hasDerivAt_norm_pow_four' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0075539Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2306:0: 'TetheredLyapunov.hasDerivAt_quartic_tether_weight' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0077078Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2307:0: 'TetheredLyapunov.hasDerivAt_lyapunov_density' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0078740Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2308:0: 'TetheredLyapunov.lyapunovSε_eq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0080199Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2309:0: 'TetheredLyapunov.lyapunovSminus_eq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0081647Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2310:0: 'TetheredLyapunov.quartic_weight_source_eq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0083289Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2311:0: 'TetheredLyapunov.lyapunovSminus_source_density' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0084905Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2312:0: 'TetheredLyapunov.hasDerivAt_lyapunov_plus_of_enstrophy_source' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0086555Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2313:0: 'TetheredLyapunov.hasDerivAt_lyapunov_minus_of_enstrophy_source' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0088188Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2314:0: 'TetheredLyapunov.lyapunovSminus_density_le_half_norm_sq' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0089798Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2315:0: 'TetheredLyapunov.lyapunovSminus_density_ge_of_abs_phi' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0091432Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2316:0: 'TetheredLyapunov.lyapunovSminus_density_neg_of_large_weight' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0093479Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2317:0: 'TetheredLyapunov.hasDerivAt_lyapunov_density_unweighted' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0095035Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2318:0: 'TetheredLyapunov.majorantField_factor' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0096509Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2319:0: 'TetheredLyapunov.conditional_regularity_zero' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0097998Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2320:0: 'TetheredLyapunov.conditional_regularity_of_restart' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0099497Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2321:0: 'TetheredLyapunov.conditional_regularity_of_kato_estimates' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0101254Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2322:0: 'TetheredLyapunov.finiteTimeVorticityBound_of_uniform' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0102955Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2323:0: 'TetheredLyapunov.physicalFiniteTimeVorticityBound_of_uniform' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0104513Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2324:0: 'TetheredLyapunov.bkmIntegrability_of_finiteTime' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0106018Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2325:0: 'TetheredLyapunov.physicalBKMIntegrability_of_finiteTime' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0107649Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2326:0: 'TetheredLyapunov.conditional_regularity_of_bkmIntegrability' depends on axioms: [propext, sorryAx, choice, Quot.sound]
+2026-11-23T19:10:18.0109351Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2327:0: 'TetheredLyapunov.conditional_regularity_of_bkm_uniqueness' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0110965Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2328:0: 'TetheredLyapunov.Tstar_top_of_restart_without_vorticity_bound' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0112590Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2329:0: 'TetheredLyapunov.conditional_regularity' depends on axioms: [propext, sorryAx, choice, Quot.sound]
+2026-11-23T19:10:18.0114259Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2330:0: 'TetheredLyapunov.riccati_ceiling_of_vorticity_di' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0115874Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2331:0: 'TetheredLyapunov.conditional_regularity_of_constructions' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0117496Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2332:0: 'TetheredLyapunov.enstrophy_di_of_spatial_max' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:18.0119094Z info: NS_Millennium_Proof/Modules/TetheredLyapunov.lean:2333:0: 'TetheredLyapunov.lyapunov_density_unweighted_di_at_spatial_max' depends on axioms: [propext, choice, Quot.sound]
+2026-11-23T19:10:20.1084124Z ✔ [8279/8293] Built NS_Millennium_Proof.Modules.IndependentMajorant (2.1s)
+2026-11-23T19:10:20.4086601Z ⚠ [8280/8293] Built NS_Millennium_Proof.Modules.ClosureBlueprint (2.4s)
+2026-11-23T19:10:20.4087430Z warning: NS_Millennium_Proof/Modules/ClosureBlueprint.lean:268:5: unused variable `h_divfree`
+2026-11-23T19:10:20.4087892Z 
+2026-11-23T19:10:20.4088161Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:20.4088850Z warning: NS_Millennium_Proof/Modules/ClosureBlueprint.lean:269:5: unused variable `h_smooth`
+2026-11-23T19:10:20.4089802Z 
+2026-11-23T19:10:20.4090059Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:20.4090758Z warning: NS_Millennium_Proof/Modules/ClosureBlueprint.lean:270:5: unused variable `h_finite_energy`
+2026-11-23T19:10:20.4091247Z 
+2026-11-23T19:10:20.4091499Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9134228Z ⚠ [8281/8293] Built NS_Millennium_Proof.Modules.ConditionalRegularity (1.9s)
+2026-11-23T19:10:21.9135339Z warning: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:172:5: unused variable `h_div_free`
+2026-11-23T19:10:21.9136050Z 
+2026-11-23T19:10:21.9136427Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9137263Z warning: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:173:5: unused variable `h_smooth`
+2026-11-23T19:10:21.9137828Z 
+2026-11-23T19:10:21.9138196Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9139376Z warning: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:174:5: unused variable `h_finite_energy`
+2026-11-23T19:10:21.9139962Z 
+2026-11-23T19:10:21.9140342Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-11-23T19:10:21.9141558Z info: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:337:0: 'ConditionalRegularity.frohmanian_tether_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:21.9143262Z info: NS_Millennium_Proof/Modules/ConditionalRegularity.lean:338:0: 'ConditionalRegularity.conditional_regularity_of_open_hyps' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:22.5123390Z ℹ [8282/8293] Built NS_Millennium_Proof.Modules.LyapunovDIStatus (4.5s)
+2026-11-23T19:10:22.5124510Z info: NS_Millennium_Proof/Modules/LyapunovDIStatus.lean:56:0: 'LyapunovDIStatus.key_di_h1_hypothesis_unsatisfiable' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:23.5133055Z ✔ [8283/8293] Built NS_Millennium_Proof.Definitions.FrohmanianTether (1.6s)
+2026-11-23T19:10:25.0207831Z ℹ [8284/8293] Built NS_Millennium_Proof.Modules.ClayStatements (3.1s)
+2026-11-23T19:10:25.0209766Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:551:0: 'FrohmanianTether.ClayStatements.conditional_regularity_nonvacuous_at_zero' depends on axioms: [propext,
+2026-11-23T19:10:25.0210508Z  Classical.choice,
+2026-11-23T19:10:25.0210930Z  Quot.sound]
+2026-11-23T19:10:25.0211766Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:552:0: 'NavierStokes3D.zero_isPeriodicSmoothSolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0213378Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:553:0: 'FrohmanianTether.ClayStatements.frohmanianTetherBound_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0214823Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:554:0: 'FrohmanianTether.ClayStatements.repaired_hInt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0216277Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:555:0: 'FrohmanianTether.ClayStatements.repaired_huniq_at_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0217689Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:556:0: 'FrohmanianTether.ClayStatements.stepField_not_physical' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:25.0219078Z info: NS_Millennium_Proof/Modules/ClayStatements.lean:557:0: 'FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound_formal' depends on axioms: [propext,
+2026-11-23T19:10:25.0219896Z  Classical.choice,
+2026-11-23T19:10:25.0220130Z  Quot.sound]
+2026-11-23T19:10:27.6281360Z ✔ [8285/8293] Built NS_Millennium_Proof.Modules.TorusStrainExclusion (2.6s)
+2026-11-23T19:10:29.6309912Z ℹ [8286/8293] Built NS_Millennium_Proof.Modules.HighSetDepletionAndBKM (2.0s)
+2026-11-23T19:10:29.6311721Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:309:0: 'FrohmanianTether.HighSetDepletionAndBKM.unmodified_max_rate_of_cubic_source' depends on axioms: [propext,
+2026-11-23T19:10:29.6312971Z  Classical.choice,
+2026-11-23T19:10:29.6313352Z  Quot.sound]
+2026-11-23T19:10:29.6314352Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:310:0: 'FrohmanianTether.HighSetDepletionAndBKM.viscous_direction_dissipation_bridge' depends on axioms: [propext,
+2026-11-23T19:10:29.6315421Z  Classical.choice,
+2026-11-23T19:10:29.6315801Z  Quot.sound]
+2026-11-23T19:10:29.6316854Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:311:0: 'FrohmanianTether.HighSetDepletionAndBKM.scale_invariant_cubic_rate_of_direction_coercivity' depends on axioms: [propext,
+2026-11-23T19:10:29.6317954Z  Classical.choice,
+2026-11-23T19:10:29.6318303Z  Quot.sound]
+2026-11-23T19:10:29.6319165Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:312:0: 'FrohmanianTether.HighSetDepletionAndBKM.comparison_ode_ceiling' depends on axioms: [propext,
+2026-11-23T19:10:29.6320606Z  Classical.choice,
+2026-11-23T19:10:29.6326850Z  Quot.sound]
+2026-11-23T19:10:29.6327997Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:313:0: 'FrohmanianTether.HighSetDepletionAndBKM.periodicTetherClosingBound_of_directionDepletion' depends on axioms: [propext,
+2026-11-23T19:10:29.6329160Z  Classical.choice,
+2026-11-23T19:10:29.6329524Z  Quot.sound]
+2026-11-23T19:10:29.6330473Z info: NS_Millennium_Proof/Modules/HighSetDepletionAndBKM.lean:314:0: 'FrohmanianTether.HighSetDepletionAndBKM.clay_B_exact_of_torus_direction_depletion' depends on axioms: [propext,
+2026-11-23T19:10:29.6331506Z  Classical.choice,
+2026-11-23T19:10:29.6331855Z  Quot.sound]
+2026-11-23T19:10:32.2424114Z ✔ [8287/8293] Built NS_Millennium_Proof.Semantics (2.6s)
+2026-11-23T19:10:36.2544563Z ⚠ [8288/8293] Built NS_Millennium_Proof.Modules.ShearSolution (6.6s)
+2026-11-23T19:10:36.2583689Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:92:33: This simp argument is unused:
+2026-11-23T19:10:36.2603520Z   Fin.sum_univ_three
+2026-11-23T19:10:36.2643066Z 
+2026-11-23T19:10:36.2673306Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.2703817Z   simp [fderiv_F_coord_apply hg, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵e0_apply, single_apply_two]
+2026-11-23T19:10:36.2732830Z 
+2026-11-23T19:10:36.2763481Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.2793373Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:92:63: This simp argument is unused:
+2026-11-23T19:10:36.2823271Z   single_apply_two
+2026-11-23T19:10:36.2852849Z 
+2026-11-23T19:10:36.2883226Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.2913804Z   simp [fderiv_F_coord_apply hg, Fin.sum_univ_three, e0_apply,̵ ̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵_̵t̵w̵o̵]
+2026-11-23T19:10:36.3003023Z 
+2026-11-23T19:10:36.3033635Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.3057210Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:105:8: This simp argument is unused:
+2026-11-23T19:10:36.3063098Z   Fin.sum_univ_three
+2026-11-23T19:10:36.3092907Z 
+2026-11-23T19:10:36.3113522Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.3133619Z   simp [̵F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵_̵t̵w̵o̵]̵[̲s̲i̲n̲g̲l̲e̲_̲a̲p̲p̲l̲y̲_̲t̲w̲o̲]̲
+2026-11-23T19:10:36.3134077Z 
+2026-11-23T19:10:36.3183502Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.3213390Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:105:28: This simp argument is unused:
+2026-11-23T19:10:36.3243041Z   single_apply_two
+2026-11-23T19:10:36.3272895Z 
+2026-11-23T19:10:36.3303246Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.3333677Z   simp [Fin.sum_univ_three,̵ ̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵_̵t̵w̵o̵]
+2026-11-23T19:10:36.3362840Z 
+2026-11-23T19:10:36.3393444Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:36.3423410Z warning: NS_Millennium_Proof/Modules/ShearSolution.lean:111:24: This simp argument is unused:
+2026-11-23T19:10:36.3424054Z   PiLp.single_apply
+2026-11-23T19:10:36.3452916Z 
+2026-11-23T19:10:36.3453274Z Hint: Omit it from the simp argument list.
+2026-11-23T19:10:36.3453900Z   simp ̵[̵P̵i̵L̵p̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵
+2026-11-23T19:10:36.3454134Z 
+2026-11-23T19:10:36.3454365Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T19:10:37.5573935Z ℹ [8289/8293] Built NS_Millennium_Proof.Modules.SymplecticConstraint (7.9s)
+2026-11-23T19:10:37.5603886Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:859:0: 'Symplectori.SymplecticConstraint.kksPointwiseIntegrand_skew' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.5633595Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:860:0: 'Symplectori.SymplecticConstraint.kksSymplecticForm_skew' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.5663593Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:861:0: 'Symplectori.SymplecticConstraint.kksSymplecticForm_self_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.5693013Z  Classical.choice,
+2026-11-23T19:10:37.5722919Z  Quot.sound]
+2026-11-23T19:10:37.5763896Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:862:0: 'Symplectori.SymplecticConstraint.cross_jacobi_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.5773665Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:863:0: 'Symplectori.SymplecticConstraint.kksPointwise_cyclic_jacobi_identity' depends on axioms: [propext,
+2026-11-23T19:10:37.5812956Z  Classical.choice,
+2026-11-23T19:10:37.5843041Z  Quot.sound]
+2026-11-23T19:10:37.5873497Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:864:0: 'Symplectori.SymplecticConstraint.kksSymplecticForm_functional_skew' depends on axioms: [propext,
+2026-11-23T19:10:37.5903081Z  Classical.choice,
+2026-11-23T19:10:37.5933071Z  Quot.sound]
+2026-11-23T19:10:37.5963716Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:865:0: 'Symplectori.SymplecticConstraint.volumePreservingCoadjointAction_preserves_TetherKernel' depends on axioms: [propext,
+2026-11-23T19:10:37.5993080Z  Classical.choice,
+2026-11-23T19:10:37.6023087Z  Quot.sound]
+2026-11-23T19:10:37.6053777Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:866:0: 'Symplectori.SymplecticConstraint.Pi_u_idempotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6073818Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:867:0: 'Symplectori.SymplecticConstraint.Pi_u_self_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6113514Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:868:0: 'Symplectori.SymplecticConstraint.TetherKernel_eq_tetherMetricForm' depends on axioms: [propext,
+2026-11-23T19:10:37.6133264Z  Classical.choice,
+2026-11-23T19:10:37.6173065Z  Quot.sound]
+2026-11-23T19:10:37.6203703Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:869:0: 'Symplectori.SymplecticConstraint.tetherMetricForm_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6225698Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:870:0: 'Symplectori.SymplecticConstraint.FrohmanianMetriplecticPairing_diag_eq_metric' depends on axioms: [propext,
+2026-11-23T19:10:37.6253066Z  Classical.choice,
+2026-11-23T19:10:37.6283039Z  Quot.sound]
+2026-11-23T19:10:37.6313769Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:871:0: 'Symplectori.SymplecticConstraint.periodicCellPhysical_implies_IsPeriodicSmoothSolution' depends on axioms: [propext,
+2026-11-23T19:10:37.6343388Z  Classical.choice,
+2026-11-23T19:10:37.6373162Z  Quot.sound]
+2026-11-23T19:10:37.6403748Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:872:0: 'Symplectori.SymplecticConstraint.unmodified_envelope_yields_classical_quadratic_rate' depends on axioms: [propext,
+2026-11-23T19:10:37.6433027Z  Classical.choice,
+2026-11-23T19:10:37.6454241Z  Quot.sound]
+2026-11-23T19:10:37.6493644Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:873:0: 'Symplectori.SymplecticConstraint.symplectic_constraint_yields_cubic_damping_and_ceiling' depends on axioms: [propext,
+2026-11-23T19:10:37.6513068Z  Classical.choice,
+2026-11-23T19:10:37.6553020Z  Quot.sound]
+2026-11-23T19:10:37.6583613Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:874:0: 'Symplectori.SymplecticConstraint.first_remaining_gap_bochner_polar_damping_at_max' depends on axioms: [propext,
+2026-11-23T19:10:37.6613208Z  Classical.choice,
+2026-11-23T19:10:37.6643106Z  Quot.sound]
+2026-11-23T19:10:37.6673697Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:875:0: 'Symplectori.SymplecticConstraint.bddAbove_range_norm_of_attained_max' depends on axioms: [propext,
+2026-11-23T19:10:37.6703081Z  Classical.choice,
+2026-11-23T19:10:37.6733010Z  Quot.sound]
+2026-11-23T19:10:37.6752225Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:876:0: 'Symplectori.SymplecticConstraint.vorticity_sup_norm_eq_of_isSpatialMax' depends on axioms: [propext,
+2026-11-23T19:10:37.6793453Z  Classical.choice,
+2026-11-23T19:10:37.6833443Z  Quot.sound]
+2026-11-23T19:10:37.6834531Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:877:0: 'Symplectori.SymplecticConstraint.polar_pythagoras_directional_deriv' depends on axioms: [propext,
+2026-11-23T19:10:37.6835561Z  Classical.choice,
+2026-11-23T19:10:37.6835973Z  Quot.sound]
+2026-11-23T19:10:37.6837026Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:878:0: 'Symplectori.SymplecticConstraint.polar_pythagoras_3d_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6838643Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:879:0: 'Symplectori.SymplecticConstraint.bochner_laplacian_3d_identity' depends on axioms: [propext,
+2026-11-23T19:10:37.6839612Z  Classical.choice,
+2026-11-23T19:10:37.6840072Z  Quot.sound]
+2026-11-23T19:10:37.6840952Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:880:0: 'Symplectori.SymplecticConstraint.concrete_bochner_polar_viscous_damping_at_max' depends on axioms: [propext,
+2026-11-23T19:10:37.6842060Z  Classical.choice,
+2026-11-23T19:10:37.6842490Z  Quot.sound]
+2026-11-23T19:10:37.6843548Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:881:0: 'Symplectori.SymplecticConstraint.beltrami_lamb_vector_cross_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.6844457Z  Classical.choice,
+2026-11-23T19:10:37.6844818Z  Quot.sound]
+2026-11-23T19:10:37.6845673Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:882:0: 'Symplectori.SymplecticConstraint.beltrami_casimir_projection_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.6846671Z  Classical.choice,
+2026-11-23T19:10:37.6847041Z  Quot.sound]
+2026-11-23T19:10:37.6847882Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:883:0: 'Symplectori.SymplecticConstraint.beltrami_tetherPointwiseDensity_zero' depends on axioms: [propext,
+2026-11-23T19:10:37.6848815Z  Classical.choice,
+2026-11-23T19:10:37.6849165Z  Quot.sound]
+2026-11-23T19:10:37.6850199Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:884:0: 'Symplectori.SymplecticConstraint.constVelocity_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:37.6851726Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:885:0: 'Symplectori.SymplecticConstraint.navier_stokes_eq_constVelocity' depends on axioms: [propext,
+2026-11-23T19:10:37.6852764Z  Classical.choice,
+2026-11-23T19:10:37.6853116Z  Quot.sound]
+2026-11-23T19:10:37.6853925Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:886:0: 'Symplectori.SymplecticConstraint.nonzero_smooth_ns_solution_exists' depends on axioms: [propext,
+2026-11-23T19:10:37.6854843Z  Classical.choice,
+2026-11-23T19:10:37.6855194Z  Quot.sound]
+2026-11-23T19:10:37.6856180Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:887:0: 'Symplectori.SymplecticConstraint.near_field_stretching_absorbed_by_viscous_direction_damping' depends on axioms: [propext,
+2026-11-23T19:10:37.6857680Z  Classical.choice,
+2026-11-23T19:10:37.6858032Z  Quot.sound]
+2026-11-23T19:10:37.6858908Z info: NS_Millennium_Proof/Modules/SymplecticConstraint.lean:888:0: 'Symplectori.SymplecticConstraint.constantin_fefferman_near_far_cutoff_bridge' depends on axioms: [propext,
+2026-11-23T19:10:37.6859854Z  Classical.choice,
+2026-11-23T19:10:37.6860214Z  Quot.sound]
+2026-11-23T19:10:38.5567175Z ✔ [8290/8293] Built NS_Millennium_Proof.Modules.MainTheorem (2.3s)
+2026-11-23T19:10:39.0593942Z ℹ [8291/8293] Built NS_Millennium_Proof.Modules.CeilingFromRate (6.8s)
+2026-11-23T19:10:39.0614091Z info: NS_Millennium_Proof/Modules/CeilingFromRate.lean:56:0: 'CeilingFromRate.classical_vorticity_ceiling' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:39.0623711Z info: NS_Millennium_Proof/Modules/CeilingFromRate.lean:57:0: 'CeilingFromRate.theorem_1_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4597168Z ℹ [8292/8293] Built NS_Millennium_Proof.Modules.Combined (2.9s)
+2026-11-23T19:10:40.4613533Z info: NS_Millennium_Proof/Modules/Combined.lean:147:0: 'Combined.tetherKernel_C1_of_casimir' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4623987Z info: NS_Millennium_Proof/Modules/Combined.lean:148:0: 'Combined.tetherKernel_C1_of_volumePreserving' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4629375Z info: NS_Millennium_Proof/Modules/Combined.lean:149:0: 'Combined.tetherKernel_C2_of_KEDeriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4630829Z info: NS_Millennium_Proof/Modules/Combined.lean:150:0: 'Combined.tetherKernel_C3'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4632189Z info: NS_Millennium_Proof/Modules/Combined.lean:151:0: 'Combined.left_H_zero_of_C2_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4633788Z info: NS_Millennium_Proof/Modules/Combined.lean:152:0: 'Combined.tetherKernel_left_H_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:40.4635120Z info: NS_Millennium_Proof/Modules/Combined.lean:153:0: 'Combined.combined_conditional_capstone' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:47.9681636Z ℹ [8293/8293] Built NS_Millennium_Proof.Modules.TetherRateCounterexample (15s)
+2026-11-23T19:10:48.0155592Z info: NS_Millennium_Proof/Modules/TetherRateCounterexample.lean:636:0: 'TetherRateCounterexample.zero_classical_periodic_solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:48.0157056Z info: NS_Millennium_Proof/Modules/TetherRateCounterexample.lean:637:0: 'TetherRateCounterexample.not_frohmanianTetherBound_U' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:48.0158395Z info: NS_Millennium_Proof/Modules/TetherRateCounterexample.lean:638:0: 'NavierStokes3D.zero_isPeriodicSmoothSolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T19:10:48.0159273Z Build completed successfully (8293 jobs).
+
+===== Truth Gate (semantics lock)/6_Static lock-region check (shared Truth Gate format).txt
+﻿2026-11-23T19:10:48.0534787Z ##[group]Run python3 scripts/truth_gate_check.py
+2026-11-23T19:10:48.0535123Z [36;1mpython3 scripts/truth_gate_check.py[0m
+2026-11-23T19:10:48.0564911Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:10:48.0565149Z ##[endgroup]
+2026-11-23T19:10:48.1795141Z TRUTH GATE FAIL: forbidden token `sorry` at NS_Millennium_Proof/Modules/NS_Equations.lean:2405
+2026-11-23T19:10:48.1795794Z TRUTH GATE STATIC: scanned roots ['NS_Millennium_Proof', 'NS_Millennium_Proof.lean'] (draft dirs exempt: []); 1 forbidden tokens
+2026-11-23T19:10:48.1796264Z TRUTH GATE STATIC FAIL (1 problems)
+2026-11-23T19:10:48.1848741Z ##[error]Process completed with exit code 1.
+
+===== Truth Gate (semantics lock)/system.txt
+2026-11-23T19:00:40.3940000Z Requested labels: ubuntu-latest
+2026-11-23T19:00:40.3940000Z Job defined at: BenFrohman/NS_Millennium_Proof/.github/workflows/truth-gate.yml@refs/heads/ci-backfill/ee053fb
+2026-11-23T19:00:40.3940000Z Waiting for a runner to pick up this job...
+2026-11-23T19:00:40.3880000Z Evaluating truth-gate.if
+2026-11-23T19:00:40.3880000Z Evaluating: success()
+2026-11-23T19:00:40.3880000Z Result: true
+2026-11-23T19:00:40.7230000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-23T19:07:43.4270000Z Job is waiting for a hosted runner to come online.
+2026-11-23T19:07:43.4280000Z Job is about to start running on the hosted runner: GitHub Actions 1000006300

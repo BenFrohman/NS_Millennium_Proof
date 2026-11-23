@@ -1,0 +1,375 @@
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\renewcommand{\thetheorem}{\Alph{theorem}}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{hypothesis}[lemma]{Hypothesis}
+\theoremstyle{definition}
+\newtheorem{definition}[lemma]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[lemma]{Remark}
+
+\newcommand{\T}{\mathbb{T}^3}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Bz}{B^0_{\infty,\infty}}
+\newcommand{\dH}[1]{\dot H^{#1}}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\Pu}{\Pi_u}
+
+\title[Conditional continuation, small data, and the tether on $\mathbb{T}^3$]{Conditional Continuation and Small-Data Regularity for 3D Navier--Stokes on $\mathbb{T}^3$, with the Frohmanian Symplectic Tether as a Metric (Non-Poisson) Correction}
+
+\author{Benjamin Stanley Frohman}
+\address{Independent Researcher}
+\email{frohmanbenjamin@gmail.com}
+\urladdr{https://orcid.org/0009-0006-7068-3718}
+\thanks{\copyright\ 2026 Benjamin Stanley Frohman. This work is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).}
+
+\subjclass[2020]{35Q30, 76D05, 35B65, 35B44}
+\keywords{Navier--Stokes equations, Beale--Kato--Majda criterion, Kozono--Taniuchi criterion, Kato local existence, Fujita--Kato small data, Bony paraproduct, metriplectic bracket}
+\date{November 9, 2026}
+
+\begin{document}
+
+\begin{abstract}
+We give a self-contained account, on the periodic torus $\T$, of three classical results for the 3D incompressible Navier--Stokes equations:
+(A)~the Beale--Kato--Majda / Kozono--Taniuchi continuation criterion, in the one-directional form ``if $T^*<\infty$ then $\int_0^{T^*}\norm{\omega}_{\Bz}\,dt=\infty$'';
+(B)~Kato's local existence theorem with lifespan $T^*\ge 1/(C_s\norm{u_0}_{H^s})$, $s>5/2$; and
+(C)~Fujita--Kato global regularity for mean-zero data with $\norm{u_0}_{\dH{1/2}}\le\varepsilon_0\nu$.
+These theorems are known; they are cited to their original sources and given here only as proof sketches, with the logarithmic estimate, the double Gr\"onwall argument, the Bony paraproduct bound and the continuity argument written out. None of them is new and none is a consequence of the tether.
+We then define the Frohmanian Symplectic Tether in its velocity-slot form. It is a symmetric, negative semidefinite bilinear form, so it is a metric (metriplectic-type) term and not a Poisson correction, and we make no Jacobi claim. It vanishes identically against the energy, so it leaves the Navier--Stokes dynamics exactly unchanged.
+\textbf{The paper is conditional.} Large-data global regularity for 3D Navier--Stokes remains \textbf{open}, and nothing here proves Clay Millennium Problem Statement~(B). The cubic damping inequality $M'\le CM^2-\kappa''M^3$ for $M=\norm{\omega}_{L^\infty}$ (the ``FrohmanianTetherRate'' hypothesis) is stated as an open hypothesis; it is not proved.
+\end{abstract}
+
+\maketitle
+
+\section{Setting, notation and scope}\label{sec:setting}
+
+Let $\T=\R^3/(2\pi\Z)^3$ and $\nu>0$. We consider
+\begin{equation}\label{eq:NS}
+\partial_t u+(u\cdot\nabla)u+\nabla p=\nu\Delta u,\qquad \nabla\cdot u=0,\qquad u(0)=u_0,
+\end{equation}
+with vorticity $\omega=\curl u$, which satisfies $\partial_t\omega=\curl(u\times\omega)+\nu\Delta\omega$. The spatial mean of $u$ is conserved; by a Galilean change of frame we assume throughout that $\int_{\T}u_0\,dx=0$, hence $\int_{\T}u(t)\,dx=0$. For mean-zero divergence-free fields, $\norm{u}_{\dH{s}}=\norm{\omega}_{\dH{s-1}}$ and $\norm{u}_{H^s}\simeq\norm{u}_{\dH{s}}$; in particular $\norm{\omega}_{H^{s-1}}\le C\norm{u}_{H^s}$ and $\norm{\nabla u}_{L^2}=\norm{\omega}_{L^2}$. We write $\Lambda=(-\Delta)^{1/2}$ and $\mathbb P$ for the Leray projection.
+
+\subsection*{Littlewood--Paley blocks}
+Fix a smooth radial $\varphi$ supported in $\{3/4\le\abs\xi\le 8/3\}$ with $\sum_{j\in\Z}\varphi(2^{-j}\xi)=1$ for $\xi\neq0$. On $\T$ set $\widehat{\Delta_j f}(k)=\varphi(2^{-j}k)\hat f(k)$ for $j\ge0$, and let $\Delta_{-1}$ be the Fourier multiplier by $\chi(k)=1-\sum_{j\ge0}\varphi(2^{-j}k)$ (on $\Z^3$ it keeps only $k=0$ and finitely many low modes). Put $S_j=\sum_{j'<j}\Delta_{j'}$. Then $\norm{f}_{\Bz}=\sup_{j\ge-1}\norm{\Delta_jf}_{L^\infty}$ and, for mean-zero $f$, $\norm{f}_{\dH{s}}^2\simeq\sum_{j\ge0}2^{2js}\norm{\Delta_jf}_{L^2}^2$. Bernstein's inequality on $\T$: if $\hat f$ is supported in $\{\abs k\le\lambda\}$, $\lambda\ge1$, then $\norm{f}_{L^\infty}\le C\lambda^{3/2}\norm{f}_{L^2}$ and $\norm{\nabla f}_{L^p}\le C\lambda\norm{f}_{L^p}$. Clearly $\norm{f}_{\Bz}\le C\norm{f}_{L^\infty}$.
+
+\subsection*{Kato solutions}
+For $s>5/2$ and divergence-free mean-zero $u_0\in H^s$, the \emph{maximal Kato solution} is the unique $u\in C([0,T^*);H^s)$ solving \eqref{eq:NS} on its maximal interval; by parabolic smoothing $u\in C^\infty(\T\times(0,T^*))$. Smoothness is asserted only for $t>0$: for $H^s$ data one cannot expect $C^\infty$ up to $t=0$.
+
+\subsection*{Scope}
+Sections~\ref{sec:A}--\ref{sec:C} record classical theorems (A, B, C). Their proofs are standard and are given as sketches marked as such; full proofs are in the cited works \cite{BKM1984,KT2000,KOT2002,Kato1972,FujitaKato1964,KatoPonce1988,Bony1981,BCD2011,MajdaBertozzi2002}. Section~\ref{sec:tether} defines the tether and proves only elementary algebraic facts about it. Section~\ref{sec:open} isolates an \emph{open} hypothesis and records what would follow from it.
+
+\section{Theorem B: Kato local existence}\label{sec:B}
+
+\begin{theorem}[Kato {\cite{Kato1972}}; see also {\cite{KatoPonce1988,MajdaBertozzi2002}}]\label{thm:B}
+Let $s>5/2$. There is $C_s<\infty$, depending only on $s$, such that for every divergence-free mean-zero $u_0\in H^s(\T)$ the maximal Kato solution satisfies
+\[
+T^*\ge\frac{1}{C_s\norm{u_0}_{H^s}},\qquad
+\norm{u(t)}_{H^s}\le\frac{\norm{u_0}_{H^s}}{1-C_st\norm{u_0}_{H^s}}\quad\bigl(0\le t<1/(C_s\norm{u_0}_{H^s})\bigr).
+\]
+Moreover, if $T^*<\infty$ then $\limsup_{t\uparrow T^*}\norm{u(t)}_{H^s}=\infty$. The constant $C_s$ is independent of $\nu$.
+\end{theorem}
+
+\begin{proof}[Proof sketch (standard)]
+Apply $\Lambda^s$ to \eqref{eq:NS} and pair with $\Lambda^su$. The pressure drops out ($\Lambda^s u$ is divergence-free), the viscous term contributes $-\nu\norm{u}_{\dH{s+1}}^2\le0$, and $\ip{u\cdot\nabla\Lambda^su}{\Lambda^su}=0$. The Kato--Ponce commutator estimate \cite{KatoPonce1988}
+\[
+\norm{\Lambda^s(fg)-f\Lambda^sg}_{L^2}\le C_s\bigl(\norm{\nabla f}_{L^\infty}\norm{\Lambda^{s-1}g}_{L^2}+\norm{\Lambda^sf}_{L^2}\norm{g}_{L^\infty}\bigr),
+\]
+applied with $f=u_k$, $g=\partial_ku$, gives
+\begin{equation}\label{eq:Hs}
+\frac{d}{dt}\norm{u}_{H^s}^2\le C_s\norm{\nabla u}_{L^\infty}\norm{u}_{H^s}^2 .
+\end{equation}
+Since $s>5/2$, $\norm{\nabla u}_{L^\infty}\le C\norm{u}_{H^s}$, so $\frac{d}{dt}\norm{u}_{H^s}\le C_s\norm{u}_{H^s}^2$, and comparison with the Riccati ODE gives the stated bound. Existence follows by Galerkin (or mollifier) approximation, which satisfies the same a~priori bound uniformly, plus compactness; uniqueness follows from the $L^2$ energy estimate for the difference of two solutions and Gr\"onwall. Continuity in time with values in $H^s$ is the standard Kato argument. If $T^*<\infty$ but $\norm{u(t)}_{H^s}\le K$ on $[0,T^*)$, restarting at $t_0=T^*-1/(2C_sK)$ extends the solution past $T^*$, contradicting maximality.
+\end{proof}
+
+\section{Theorem A: Beale--Kato--Majda / Kozono--Taniuchi continuation}\label{sec:A}
+
+\begin{lemma}[Logarithmic Sobolev bound with low-frequency term]\label{lem:KT}
+Let $\sigma>3/2$. There is $C=C_\sigma$ such that for every divergence-free mean-zero $u$ with $\omega=\curl u\in H^\sigma(\T)$,
+\begin{equation}\label{eq:KT}
+\norm{\nabla u}_{L^\infty}\le C\Bigl(1+\norm{\omega}_{L^2}+\norm{\omega}_{\Bz}\log\bigl(e+\norm{\omega}_{H^\sigma}\bigr)\Bigr).
+\end{equation}
+With $\sigma=s-1$ this applies to $u\in H^s$, $s>5/2$, and $\norm{\omega}_{H^{s-1}}\le C\norm{u}_{H^s}$.
+\end{lemma}
+
+\begin{proof}[Proof (standard; cf. {\cite{BKM1984,KT2000,KOT2002}})]
+We have $\nabla u=\nabla\curl(-\Delta)^{-1}\omega=:m(D)\omega$ with $m$ smooth and homogeneous of degree $0$ away from the origin. Split $\nabla u=\Delta_{-1}\nabla u+\sum_{0\le j\le N}\Delta_j\nabla u+\sum_{j>N}\Delta_j\nabla u$.
+
+\emph{Low frequencies.} $\Delta_{-1}\nabla u$ has finitely many Fourier modes, so by Bernstein $\norm{\Delta_{-1}\nabla u}_{L^\infty}\le C\norm{\nabla u}_{L^2}=C\norm{\omega}_{L^2}$. This is where the $\norm{\omega}_{L^2}$ term enters.
+
+\emph{Middle frequencies.} For each $j\ge0$ the operator $m(D)\Delta_j$ is convolution with an $L^1$ kernel whose norm does not depend on $j$, so
+\[
+\norm{\Delta_j\nabla u}_{L^\infty}\le C\norm{\Delta_j\omega}_{L^\infty}\le C\norm{\omega}_{\Bz},
+\]
+and the middle sum is at most $C(N+1)\norm{\omega}_{\Bz}$.
+
+\emph{High-frequency Bernstein tail.} By Bernstein and $\abs{m}\le C$,
+\[
+\sum_{j>N}\norm{\Delta_j\nabla u}_{L^\infty}\le C\sum_{j>N}2^{3j/2}\norm{\Delta_j\omega}_{L^2}\le C\sum_{j>N}2^{-j(\sigma-3/2)}\norm{\omega}_{H^\sigma}\le C_\sigma2^{-N(\sigma-3/2)}\norm{\omega}_{H^\sigma},
+\]
+which converges precisely because $\sigma>3/2$. Choose $N$ the least integer with $2^{N(\sigma-3/2)}\ge e+\norm{\omega}_{H^\sigma}$. Then the tail is at most $C_\sigma$ and $N+1\le C_\sigma\log(e+\norm{\omega}_{H^\sigma})$. Adding the three pieces gives \eqref{eq:KT}.
+\end{proof}
+
+\begin{theorem}[Beale--Kato--Majda {\cite{BKM1984}}; Kozono--Taniuchi {\cite{KT2000}}; Kozono--Ogawa--Taniuchi {\cite{KOT2002}}]\label{thm:A}
+Let $s>5/2$ and let $u$ be the maximal Kato solution with data $u_0\in H^s(\T)$. If $T^*<\infty$, then
+\[
+\int_0^{T^*}\norm{\omega(t)}_{\Bz}\,dt=\infty .
+\]
+Equivalently: if $\int_0^{\min(T,T^*)}\norm{\omega(t)}_{\Bz}\,dt<\infty$ for every finite $T>0$, then $T^*=\infty$, and then $u\in C^\infty(\T\times(0,\infty))$.
+\end{theorem}
+
+\begin{remark}[Only one direction]\label{rem:onedir}
+Theorem~\ref{thm:A} is not an ``if and only if'' over $[0,T^*)$. When $T^*=\infty$ the integral over $[0,\infty)$ may well diverge, so divergence of $\int_0^{T^*}\norm{\omega}_{\Bz}\,dt$ does not imply $T^*<\infty$. The correct converse is local: the integral over every compact subinterval of $[0,T^*)$ is finite, because $\omega\in C([0,T^*);H^{s-1})\subset C([0,T^*);L^\infty)$. Since $\norm{\omega}_{\Bz}\le C\norm{\omega}_{L^\infty}$, the theorem contains the original BKM criterion with $L^\infty$, and since $\mathrm{BMO}\hookrightarrow\Bz$ it contains the $\mathrm{BMO}$ criterion of \cite{KT2000}.
+\end{remark}
+
+\begin{proof}[Proof sketch (standard)]
+Suppose $T^*<\infty$ and $I:=\int_0^{T^*}\norm{\omega}_{\Bz}\,dt<\infty$; we derive a contradiction.
+
+\emph{Energy.} The $L^2$ energy identity gives $\norm{u(t)}_{L^2}^2+2\nu\int_0^t\norm{\omega}_{L^2}^2\,d\tau=\norm{u_0}_{L^2}^2$, so by Cauchy--Schwarz
+\[
+J:=\int_0^{T^*}\norm{\omega}_{L^2}\,dt\le\Bigl(\frac{T^*}{2\nu}\Bigr)^{1/2}\norm{u_0}_{L^2}<\infty .
+\]
+
+\emph{Double Gr\"onwall, with one consistent logarithm.} Put
+\[
+X(t)=e+\norm{u(t)}_{H^s}^2,\qquad Y(t)=\log X(t)\ge1 .
+\]
+By Lemma~\ref{lem:KT} with $\sigma=s-1$ and $\norm{\omega}_{H^{s-1}}\le C\norm{u}_{H^s}\le CX^{1/2}$ we have $\log(e+\norm{\omega}_{H^{s-1}})\le C\log X=CY$ (as $X\ge e$). Inserting \eqref{eq:KT} into \eqref{eq:Hs} and dividing by $X$,
+\[
+Y'(t)=\frac{X'}{X}\le C\bigl(1+\norm{\omega}_{L^2}+\norm{\omega}_{\Bz}Y\bigr)\le C\bigl(1+\norm{\omega}_{L^2}+\norm{\omega}_{\Bz}\bigr)\,Y,
+\]
+using $Y\ge1$. Gr\"onwall gives, for $0\le t<T^*$,
+\[
+Y(t)\le Y(0)\exp\bigl(C(T^*+J+I)\bigr),\qquad\text{i.e.}\qquad
+\norm{u(t)}_{H^s}^2\le\bigl(e+\norm{u_0}_{H^s}^2\bigr)^{\exp(C(T^*+J+I))}.
+\]
+\emph{Continuation.} Thus $\sup_{[0,T^*)}\norm{u}_{H^s}<\infty$, contradicting the blow-up alternative of Theorem~\ref{thm:B}. Hence $T^*=\infty$ whenever the integral is finite on finite intervals. Smoothness on $\T\times(0,\infty)$ follows from Duhamel's formula $u(t)=e^{\nu t\Delta}u_0-\int_0^te^{\nu(t-\tau)\Delta}\mathbb P\nabla\cdot(u\otimes u)(\tau)\,d\tau$ and heat-kernel smoothing, by induction on the number of derivatives, on every interval $[t_0,T]$ with $t_0>0$.
+\end{proof}
+
+\section{Theorem C: Fujita--Kato small data}\label{sec:C}
+
+\begin{lemma}[Bony paraproduct product estimate]\label{lem:Bony}
+Let $\sigma>0$. There is $C_\sigma$ such that for mean-zero $f,g$ on $\T$,
+\[
+\norm{fg}_{\dH{\sigma}}\le C_\sigma\bigl(\norm{f}_{\dH{1/2}}\norm{g}_{\dH{\sigma+1}}+\norm{g}_{\dH{1/2}}\norm{f}_{\dH{\sigma+1}}\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Bony's decomposition \cite{Bony1981} (see \cite[Ch.~2]{BCD2011}) writes
+\[
+fg=T_fg+T_gf+R(f,g),\qquad T_fg=\sum_{j'}S_{j'-1}f\,\Delta_{j'}g,\qquad R(f,g)=\sum_{\abs{k-k'}\le1}\Delta_kf\,\Delta_{k'}g .
+\]
+\emph{Low-frequency factor.} By Bernstein and the definition of $\dH{1/2}$,
+\[
+\norm{S_{j'-1}f}_{L^\infty}\le\sum_{k<j'-1}C2^{3k/2}\norm{\Delta_kf}_{L^2}=C\sum_{k<j'-1}2^k\bigl(2^{k/2}\norm{\Delta_kf}_{L^2}\bigr)\le C2^{j'}\norm{f}_{\dH{1/2}} .
+\]
+\emph{Paraproducts.} The spectrum of $S_{j'-1}f\,\Delta_{j'}g$ lies in an annulus of size $2^{j'}$, so $\Delta_j(T_fg)$ only involves $\abs{j'-j}\le4$, and
+\[
+2^{j\sigma}\norm{\Delta_jT_fg}_{L^2}\le C\sum_{\abs{j'-j}\le4}2^{j'\sigma}\,2^{j'}\norm{f}_{\dH{1/2}}\norm{\Delta_{j'}g}_{L^2}.
+\]
+Taking $\ell^2_j$ norms gives $\norm{T_fg}_{\dH{\sigma}}\le C\norm{f}_{\dH{1/2}}\norm{g}_{\dH{\sigma+1}}$; symmetrically for $T_gf$.
+
+\emph{Remainder.} Each term $\Delta_kf\,\Delta_{k'}g$ has spectrum in a ball of radius $C2^k$, so $\Delta_jR$ only involves $k\ge j-N_0$ for a fixed $N_0$. Using $\norm{\Delta_kf}_{L^\infty}\le C2^{3k/2}\norm{\Delta_kf}_{L^2}$,
+\[
+2^{j\sigma}\norm{\Delta_jR}_{L^2}\le C\sum_{k\ge j-N_0}2^{(j-k)\sigma}\bigl(2^{k/2}\norm{\Delta_kf}_{L^2}\bigr)\bigl(2^{k'(\sigma+1)}\norm{\Delta_{k'}g}_{L^2}\bigr).
+\]
+The first bracket is bounded by $\norm{f}_{\dH{1/2}}$, and since $\sigma>0$ the kernel $2^{m\sigma}\mathbf 1_{m\le N_0}$ is summable, so Young's inequality in $\ell^2$ gives $\norm{R}_{\dH{\sigma}}\le C_\sigma\norm{f}_{\dH{1/2}}\norm{g}_{\dH{\sigma+1}}$. (The mean of $fg$ is invisible to $\dH{\sigma}$.)
+\end{proof}
+
+\begin{theorem}[Fujita--Kato {\cite{FujitaKato1964}}]\label{thm:C}
+Let $s>5/2$. There is $\varepsilon_0>0$ (depending on $s$ in the form proved below; see Remark~\ref{rem:eps}) such that if $u_0\in H^s(\T)$ is divergence-free, mean-zero and
+\[
+\norm{u_0}_{\dH{1/2}}\le\varepsilon_0\,\nu,
+\]
+then the Kato solution is global, $T^*=\infty$, $u\in C^\infty(\T\times(0,\infty))$, and for all $t\ge0$
+\[
+\norm{u(t)}_{\dH{1/2}}^2+\nu\int_0^t\norm{u}_{\dH{3/2}}^2\,d\tau\le\norm{u_0}_{\dH{1/2}}^2,\qquad \norm{u(t)}_{\dH{s}}\le\norm{u_0}_{\dH{s}} .
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch (standard)]
+\emph{Step 1: the $\dH{1/2}$ energy test.} Pair \eqref{eq:NS} with $\Lambda u$ (not with $-\Delta u$). Since $\Lambda u$ is divergence-free the pressure drops out, $\ip{\nu\Delta u}{\Lambda u}=-\nu\norm{u}_{\dH{3/2}}^2$, and $u\cdot\nabla u=\nabla\cdot(u\otimes u)$, so with $E(t)=\norm{u(t)}_{\dH{1/2}}^2$ and $D(t)=\norm{u(t)}_{\dH{3/2}}^2$,
+\[
+\tfrac12E'+\nu D=\ip{u\otimes u}{\nabla\Lambda u}\le\norm{u\otimes u}_{\dH{1/2}}\norm{\nabla\Lambda u}_{\dH{-1/2}}\le C_{1/2}\,E^{1/2}D,
+\]
+by Lemma~\ref{lem:Bony} with $\sigma=1/2$ (applied componentwise). This is the inequality $\frac{d}{dt}\norm{u}_{\dH{1/2}}^2+\nu\norm{u}_{\dH{3/2}}^2\le C\norm{u}_{\dH{1/2}}\norm{u}_{\dH{3/2}}^2$, up to the value of $C$.
+
+\emph{Step 2: the $\dH{s}$ test.} Pairing $\Lambda^s$\eqref{eq:NS} with $\Lambda^su$ and using Lemma~\ref{lem:Bony} with $\sigma=s$ in the same way,
+\[
+\tfrac12\frac{d}{dt}\norm{u}_{\dH{s}}^2+\nu\norm{u}_{\dH{s+1}}^2\le\norm{u\otimes u}_{\dH{s}}\norm{u}_{\dH{s+1}}\le C_s\,E^{1/2}\norm{u}_{\dH{s+1}}^2 .
+\]
+\emph{Step 3: continuity (bootstrap) argument.} Set
+\[
+\varepsilon_0=\min\bigl\{1/(4C_{1/2}),\,1/(2C_s)\bigr\}
+\]
+and assume $E(0)^{1/2}\le\varepsilon_0\nu$. Let
+\[
+T_1=\sup\bigl\{t\in[0,T^*):\ E(\tau)^{1/2}\le2\varepsilon_0\nu\ \text{for all }\tau\in[0,t]\bigr\}.
+\]
+Since $u\in C([0,T^*);H^s)$, $E$ is continuous, so $T_1>0$. On $[0,T_1)$ we have $C_{1/2}E^{1/2}\le\nu/2$, so Step~1 gives $\tfrac12E'+\tfrac{\nu}{2}D\le0$; hence $E$ is non-increasing and $E(t)^{1/2}\le E(0)^{1/2}\le\varepsilon_0\nu<2\varepsilon_0\nu$. If $T_1<T^*$, then by continuity $E(T_1)^{1/2}\le\varepsilon_0\nu<2\varepsilon_0\nu$, so the bound $E^{1/2}\le2\varepsilon_0\nu$ persists on $[0,T_1+\delta]$ for some $\delta>0$, contradicting the definition of $T_1$. Hence $T_1=T^*$. Integrating, $E(t)+\nu\int_0^tD\le E(0)$ on $[0,T^*)$.
+
+\emph{Step 4: globality.} On $[0,T^*)$ we now have $C_sE^{1/2}\le C_s\varepsilon_0\nu\le\nu/2$, so Step~2 gives $\frac{d}{dt}\norm{u}_{\dH{s}}^2\le0$. Thus $\norm{u(t)}_{H^s}\simeq\norm{u(t)}_{\dH{s}}\le\norm{u_0}_{\dH{s}}$ is bounded on $[0,T^*)$, and the blow-up alternative of Theorem~\ref{thm:B} forces $T^*=\infty$. Smoothness for $t>0$ is as in Theorem~\ref{thm:A}.
+\end{proof}
+
+\begin{remark}[The scaling of the smallness condition]\label{rem:scaling}
+The threshold is \emph{linear} in $\nu$. Dimensionally, $[u]=L/T$ and $[\nu]=L^2/T$, while $\norm{u}_{\dH{1/2}}^2=\ip{u}{\Lambda u}$ has dimension $(L/T)^2\cdot L^{-1}\cdot L^3=L^4/T^2$, so $\norm{u}_{\dH{1/2}}$ has the dimension of $\nu$. In Step~1 each term has dimension $L^4/T^3$ and $C$ is dimensionless, and the absorption condition is $C\norm{u}_{\dH{1/2}}\le\nu/2$. The rescaling $u(x,t)=\nu\,v(x,\nu t)$ maps \eqref{eq:NS} to the same system with $\nu=1$ and turns the hypothesis into $\norm{v_0}_{\dH{1/2}}\le\varepsilon_0$. A condition of the form $\nu^{-2}\norm{u_0}_{\dH{1/2}}\le\varepsilon$ would be dimensionally inconsistent. The factor $\nu^{-2}$ is correct only in other normalizations: (i) for the \emph{squared} norm, $\nu^{-2}\norm{u_0}_{\dH{1/2}}^2\le\varepsilon_0^2$, which is the same condition; and (ii) in the subcritical Leray-type form $\nu^{-2}\norm{u_0}_{L^2}\norm{\nabla u_0}_{L^2}\le c$, which implies the $\dH{1/2}$ condition by the interpolation $\norm{u}_{\dH{1/2}}^2\le\norm{u}_{L^2}\norm{u}_{\dH{1}}$. In a mild (Duhamel) formulation with $X=\norm{u}_{L^\infty_t\dH{1/2}}+\nu^{1/2}\norm{u}_{L^2_t\dH{3/2}}$ the quadratic term carries a factor $C/\nu$, again consistent with a threshold $\sim\nu$.
+\end{remark}
+
+\begin{remark}[On $\varepsilon_0$ and on Besov data]\label{rem:eps}
+The $s$-dependence of $\varepsilon_0$ above is an artifact of using the $\dH{s}$ estimate in Step~4. The classical Fujita--Kato theorem \cite{FujitaKato1964} gives an $s$-independent threshold, for data merely in $\dH{1/2}$, by a fixed-point argument for the mild formulation; propagation of higher regularity then follows from Theorem~\ref{thm:A}. The same scheme in the critical Besov spaces $\dot B^{-1+3/p}_{p,q}$, $1\le p<\infty$, with mean-zero data on $\T$, is presented in \cite[Ch.~5]{BCD2011}.
+\end{remark}
+
+\section{The Frohmanian Symplectic Tether: a metric, non-Poisson term}\label{sec:tether}
+
+\subsection{Phase space and brackets}
+Let $\mathcal V$ be the space of smooth divergence-free mean-zero vorticity fields on $\T$. For a smooth functional $F:\mathcal V\to\R$, its variational derivative $\delta F/\delta\omega$ is determined only modulo gradients (admissible variations are divergence-free), so the \emph{velocity slot}
+\[
+v_F:=\curl\frac{\delta F}{\delta\omega}
+\]
+is gauge-invariant. The kinetic energy $H(\omega)=\tfrac12\int_{\T}\abs{u}^2\,dx=\tfrac12\ip{\omega}{(-\Delta)^{-1}\omega}$ has $\delta H/\delta\omega=\psi:=(-\Delta)^{-1}\omega$, the stream function (not $u$), and
+\begin{equation}\label{eq:vH}
+v_H=\curl\psi=u,
+\end{equation}
+since $\curl\curl=-\Delta+\nabla(\nabla\cdot)$ and $\nabla\cdot u=0$. Arnold's Lie--Poisson bracket \cite{Arnold1966} is
+\[
+\{F,G\}_{\mathrm{LP}}(\omega)=\int_{\T}\omega\cdot(v_F\times v_G)\,dx,
+\]
+with the sign convention for which $\dot F=\{F,H\}_{\mathrm{LP}}$ is the Euler equation: indeed $\int\frac{\delta F}{\delta\omega}\cdot\curl(u\times\omega)=\int v_F\cdot(u\times\omega)=\int\omega\cdot(v_F\times u)$. The viscous term is generated by the symmetric, negative semidefinite form
+\[
+[F,G]_{\mathrm{diss}}(\omega)=-\nu\int_{\T}\nabla v_F:\nabla v_G\,dx,
+\]
+since $[F,H]_{\mathrm{diss}}=-\nu\int\nabla v_F:\nabla u=\nu\int v_F\cdot\Delta u=\nu\int\frac{\delta F}{\delta\omega}\cdot\Delta\omega$. Hence
+\begin{equation}\label{eq:NSbracket}
+\frac{dF}{dt}=\{F,H\}_{\mathrm{LP}}+[F,H]_{\mathrm{diss}}\quad\text{for all }F\iff\partial_t\omega=\curl(u\times\omega)+\nu\Delta\omega,
+\end{equation}
+and $[H,H]_{\mathrm{diss}}=-\nu\norm{\nabla u}_{L^2}^2=-\nu\norm{\omega}_{L^2}^2$ is the energy dissipation rate.
+
+\subsection{The tether}
+\begin{definition}[Velocity-slot tether]\label{def:tether}
+For $\omega\neq0$ (so $u\neq0$) let $\Pu$ be the $L^2$-orthogonal projection onto $\{u\}^\perp$,
+\[
+\Pu\Phi=\Phi-\frac{\ip{\Phi}{u}_{L^2}}{\norm{u}_{L^2}^2}\,u .
+\]
+For $\kappa\ge0$ (for instance $\kappa=C_{\mathrm{CZ}}(3)$, but any $\kappa\ge0$ is allowed) define
+\[
+B(F,G)(\omega)=-\kappa\int_{\T}\abs{\omega}^2\,\bigl(\Pu v_F\bigr)\cdot\bigl(\Pu v_G\bigr)\,dx,\qquad B(F,G)(0)=0 .
+\]
+\end{definition}
+
+\begin{proposition}[Elementary properties]\label{prop:tether}
+For all admissible $F,G$:
+\begin{enumerate}
+\item $B(F,G)=B(G,F)$, and $B(F,F)=-\kappa\int\abs{\omega}^2\abs{\Pu v_F}^2\le0$.
+\item $B(F,H)\equiv0$.
+\item Consequently, for the extended evolution $\dot F=\{F,H\}_{\mathrm{LP}}+B(F,H)+[F,H]_{\mathrm{diss}}$, the vorticity obeys exactly the Navier--Stokes vorticity equation, and $\frac{d}{dt}H=-\nu\norm{\omega}_{L^2}^2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) is immediate from the definition. (2): by \eqref{eq:vH}, $\Pu v_H=\Pu u=0$, so the integrand vanishes pointwise. (3) follows from (2) and \eqref{eq:NSbracket}, and the energy law from $\{H,H\}_{\mathrm{LP}}=0$ and $[H,H]_{\mathrm{diss}}=-\nu\norm{\omega}_{L^2}^2$.
+\end{proof}
+
+\begin{remark}[Metric, not Poisson]\label{rem:metric}
+A Poisson bracket is antisymmetric; $B$ is symmetric and, for $\kappa>0$, not identically zero (take $F(\omega)=\ip{\phi}{\omega}$ with $v_F=\curl\phi$ not parallel to $u$ on the support of $\omega$). Thus $\{\cdot,\cdot\}_{\mathrm{LP}}+B$ is not a Poisson bracket, and we make no claim about a Jacobi identity for it. $B$ is a symmetric, negative semidefinite form satisfying the degeneracy $B(\cdot,H)=0$, which is the condition imposed on the symmetric bracket in Morrison's metriplectic formalism \cite{Morrison1986}; in that sense it is a metric, metriplectic-type term. (The viscous form $[\cdot,\cdot]_{\mathrm{diss}}$ is \emph{not} degenerate in this sense, since $[H,H]_{\mathrm{diss}}\neq0$; it is a gradient-type metric term generated by $H$.)
+\end{remark}
+
+\begin{remark}[What the tether does not do]\label{rem:nothing}
+Because $B(\cdot,H)\equiv0$, adding $B$ changes the evolution of no observable. The tether therefore supplies no a~priori estimate, and Theorems~\ref{thm:A}--\ref{thm:C} hold whether or not it is introduced. Any regularity mechanism would have to come from elsewhere.
+\end{remark}
+
+\begin{remark}[The stream-function slot fails]\label{rem:psislot}
+The earlier form $B_\psi(F,G)=-\kappa\int\abs{\omega}^2(\Pu\frac{\delta F}{\delta\omega})\cdot(\Pu\frac{\delta G}{\delta\omega})$ does not satisfy $B_\psi(\cdot,H)=0$, because $\delta H/\delta\omega=\psi$ and $\Pu\psi\neq0$ in general (it vanishes, for example, on Beltrami fields, where $\psi\parallel u$). It is also not gauge-invariant. Explicitly, for the two-mode shear
+\begin{align*}
+u&=(\sin z+\sin2z,\ \cos z+\cos2z,\ 0),\\
+\psi&=(\sin z+\tfrac12\sin2z,\ \cos z+\tfrac12\cos2z,\ 0),\\
+\omega&=(\sin z+2\sin2z,\ \cos z+2\cos2z,\ 0),
+\end{align*}
+one has $\curl\psi=u$, $\curl u=\omega$, $\ip{\psi}{u}/\norm{u}^2=3/4$, and
+\[
+B_\psi(H,H)=-\kappa\int_{\T}\abs{\omega}^2\abs{\Pu\psi}^2\,dx=-\tfrac34\kappa\pi\cdot(2\pi)^2=-3\kappa\pi^3\neq0\quad(\kappa>0),
+\]
+that is, $-\frac34\kappa\pi$ per unit area of the $(x,y)$ cell. This computation, the Beltrami case, and the velocity-slot repair are formalized in Lean~4 with Mathlib in commit \texttt{a52c6af} of the GitHub repository
+\begin{center}
+\texttt{BenFrohman/frohmanian-symplectic-tether-regularity},
+\end{center}
+in the module \path{FrohmanianSymplecticTether/C2Analysis.lean}. The relevant theorems are \path{shear_C2_fails} (the failure above), \path{tetherKernel_C2_of_parallel} (the Beltrami case) and \path{tetherKernelVel_C2} (the velocity-slot repair). We also checked the value $-\frac34\kappa\pi$ independently by numerical quadrature.
+\end{remark}
+
+\section{An open hypothesis and what would follow from it}\label{sec:open}
+
+Let $M(t)=\norm{\omega(t)}_{L^\infty}$, which is continuous on $[0,T^*)$. The classical pointwise estimate from the vorticity equation is only a growth bound, $D^+M\le\norm{\nabla u}_{L^\infty}M$, and by Lemma~\ref{lem:KT} this is of order $M^2\log(\cdots)$. No negative term is known.
+
+\begin{hypothesis}[FrohmanianTetherRate --- \textbf{open}]\label{hyp:rate}
+There are constants $C\ge0$ and $\kappa''>0$, depending only on the data and $\nu$, such that along the maximal Kato solution
+\[
+D^+M(t)\le C\,M(t)^2-\kappa''\,M(t)^3\qquad\text{for }0<t<T^* .
+\]
+\end{hypothesis}
+
+\noindent\textbf{Status.} Hypothesis~\ref{hyp:rate} is \emph{not proved} in this paper, nor, to our knowledge, anywhere else. It does not follow from the tether: by Proposition~\ref{prop:tether}(2) the tether contributes nothing to $dM/dt$. A previously proposed Lyapunov-functional derivation of an inequality of this type was examined and rejected. Among its gaps were a sign error in the auxiliary-field term, the false bound $\norm{\nabla u}_{L^\infty}\le C\norm{\omega}_{L^\infty}$ (the correct bound is logarithmic, Lemma~\ref{lem:KT}), and an unjustified lower bound on $\int\abs{\omega}^6$.
+
+\begin{proposition}[Conditional consequence]\label{prop:cond}
+Assume Hypothesis~\ref{hyp:rate}. Then $T^*=\infty$, and
+\[
+M(t)\le\max\{M(0),\,C/\kappa''\}\qquad\text{for all }t\ge0 .
+\]
+\end{proposition}
+
+\begin{proof}
+Whenever $M(t)>C/\kappa''$ we have $D^+M(t)<0$, so $M$ cannot exceed $\max\{M(0),C/\kappa''\}$. If $T^*<\infty$, then $\int_0^{T^*}\norm{\omega}_{\Bz}\,dt\le C\int_0^{T^*}M\,dt<\infty$, contradicting Theorem~\ref{thm:A}.
+\end{proof}
+
+\begin{remark}[Strain form]\label{rem:strain}
+Similarly, if $\int_0^{T}\norm{S(t)}_{L^\infty}\,dt<\infty$ for every finite $T\le T^*$, where $S$ is the symmetric part of $\nabla u$, then $D^+M\le\norm{S}_{L^\infty}M$ and Gr\"onwall give $\sup_{[0,T^*)}M<\infty$ when $T^*<\infty$, and Theorem~\ref{thm:A} again yields $T^*=\infty$. This is a conditional criterion of the same classical type as \cite{BKM1984} and \cite{CF1993}. It is not a proof that the hypothesis holds.
+\end{remark}
+
+\section{Conclusion}\label{sec:conclusion}
+
+Theorems~\ref{thm:A}, \ref{thm:B} and \ref{thm:C} are classical results \cite{BKM1984,KT2000,KOT2002,Kato1972,FujitaKato1964}, recorded here with corrected statements. The continuation criterion is one-directional, the logarithmic bound carries its low-frequency $\norm{\omega}_{L^2}$ term, the indices satisfy $\norm{\omega}_{H^{s-1}}\simeq\norm{u}_{H^s}$ with $s>5/2$, and the small-data threshold is $\norm{u_0}_{\dH{1/2}}\le\varepsilon_0\nu$. The velocity-slot Frohmanian Symplectic Tether is a symmetric metric (metriplectic-type) term, not a Poisson correction. It satisfies $B(\cdot,H)\equiv0$ and therefore leaves the Navier--Stokes dynamics unchanged.
+
+\textbf{This paper is conditional.} Global regularity for large data in 3D Navier--Stokes remains \textbf{open}. Nothing here proves Statement~(B) of the Clay Millennium Problem \cite{Fefferman2000}. The cubic inequality $M'\le CM^2-\kappa''M^3$ (Hypothesis~\ref{hyp:rate}, FrohmanianTetherRate) is an open hypothesis and is not proved. Proposition~\ref{prop:cond} only records what would follow if it were established.
+
+\begin{thebibliography}{99}
+
+\bibitem{Arnold1966} V.~I. Arnold, \emph{Sur la g\'eom\'etrie diff\'erentielle des groupes de Lie de dimension infinie et ses applications \`a l'hydrodynamique des fluides parfaits}, Ann. Inst. Fourier (Grenoble) \textbf{16} (1966), 319--361.
+
+\bibitem{BCD2011} H.~Bahouri, J.-Y. Chemin, and R.~Danchin, \emph{Fourier Analysis and Nonlinear Partial Differential Equations}, Grundlehren der mathematischen Wissenschaften \textbf{343}, Springer, Berlin, 2011.
+
+\bibitem{BKM1984} J.~T. Beale, T.~Kato, and A.~Majda, \emph{Remarks on the breakdown of smooth solutions for the 3-D Euler equations}, Comm. Math. Phys. \textbf{94} (1984), 61--66.
+
+\bibitem{Bony1981} J.-M. Bony, \emph{Calcul symbolique et propagation des singularit\'es pour les \'equations aux d\'eriv\'ees partielles non lin\'eaires}, Ann. Sci. \'Ec. Norm. Sup\'er. (4) \textbf{14} (1981), 209--246.
+
+\bibitem{CF1993} P.~Constantin and C.~Fefferman, \emph{Direction of vorticity and the problem of global regularity for the Navier--Stokes equations}, Indiana Univ. Math. J. \textbf{42} (1993), 775--789.
+
+\bibitem{Fefferman2000} C.~L. Fefferman, \emph{Existence and smoothness of the Navier--Stokes equation}, official problem description, Clay Mathematics Institute Millennium Prize Problems, 2000.
+
+\bibitem{FujitaKato1964} H.~Fujita and T.~Kato, \emph{On the Navier--Stokes initial value problem.~I}, Arch. Ration. Mech. Anal. \textbf{16} (1964), 269--315.
+
+\bibitem{Kato1972} T.~Kato, \emph{Nonstationary flows of viscous and ideal fluids in $\mathbb R^3$}, J. Funct. Anal. \textbf{9} (1972), 296--305.
+
+\bibitem{KatoPonce1988} T.~Kato and G.~Ponce, \emph{Commutator estimates and the Euler and Navier--Stokes equations}, Comm. Pure Appl. Math. \textbf{41} (1988), 891--907.
+
+\bibitem{KOT2002} H.~Kozono, T.~Ogawa, and Y.~Taniuchi, \emph{The critical Sobolev inequalities in Besov spaces and regularity criterion to some semi-linear evolution equations}, Math. Z. \textbf{242} (2002), 251--278.
+
+\bibitem{KT2000} H.~Kozono and Y.~Taniuchi, \emph{Bilinear estimates in BMO and the Navier--Stokes equations}, Math. Z. \textbf{235} (2000), 173--194.
+
+\bibitem{MajdaBertozzi2002} A.~J. Majda and A.~L. Bertozzi, \emph{Vorticity and Incompressible Flow}, Cambridge Texts in Applied Mathematics, Cambridge University Press, Cambridge, 2002.
+
+\bibitem{Morrison1986} P.~J. Morrison, \emph{A paradigm for joined Hamiltonian and dissipative systems}, Phys. D \textbf{18} (1986), 410--419.
+
+\end{thebibliography}
+
+\end{document}

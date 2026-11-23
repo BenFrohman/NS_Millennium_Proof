@@ -1,0 +1,65 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved.
+% Released under the Apache License, Version 2.0.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{\textbf{Viscous Vortex Tube Reconnection, Writhe-Twist Helicity Conversion, and Local Strain-Alignment Regularity Criteria in 3D Incompressible Fluids}}
+\author{\textbf{Benjamin Stanley Frohman}\\
+Independent Researcher \quad|\quad ORCID: \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\\
+\texttt{frohmanbenjamin@gmail.com} \quad|\quad \url{https://github.com/BenFrohman/symplectohydronamics}}
+\date{\textbf{Origin Provenance:} 2026-08-22 12:49:03 PM CDT (UTC-5) (BenFrohman/symplectohydronamics commit 8f7db79b5786f3a59a0696a48a675f8a1fe410ca)\\
+\textbf{Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632780}{10.5281/zenodo.23632780} \quad|\quad \textbf{License:} Apache License 2.0}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{\small
+\textbf{Verification \& Claim Status:} Analytical / Conditional Regularity Criterion (Coupled to BenFrohman/ns-i11-conditional-criterion \& two-point-strain-coercivity)\\[2pt]
+\textbf{Copyright \& Open-Access License:} Copyright \copyright\ 2026 Benjamin Stanley Frohman (ORCID: \texttt{0009-0006-7068-3718}). All rights reserved. Released under the Apache License, Version 2.0 (\url{http://www.apache.org/licenses/LICENSE-2.0}).
+}}
+\end{center}
+
+\begin{abstract}
+\noindent We analyze antiparallel vortex tube reconnection in 3D viscous incompressible fluids, linking topological writhe-to-twist helicity conversion with the Constantin-Fefferman vorticity-direction singular integral kernel and the two-point strain-alignment identity. We show how local antiparallel vortex pairing cancels the leading singular dipole contribution in the Biot-Savart strain tensor provided the direction field xi = omega/|omega| satisfies the scale-sharp I\_11 / Campanato regularity criterion on the high-vorticity set.
+\end{abstract}
+
+
+\section{Biot--Savart Strain Alignment During Antiparallel Vortex Reconnection}
+On the high-vorticity region $\Omega_M(t) = \{x \in \mathbb{R}^3 : |\omega(x,t)| > M\}$, let $\xi(x,t) = \omega(x,t)/|\omega(x,t)|$ denote the unit vorticity direction. By the Constantin--Fefferman singular integral representation, the vortex-stretching rate along $\xi$ satisfies
+\begin{equation}
+\alpha(x,t) := \xi(x,t) \cdot S(x,t)\xi(x,t) = \frac{3}{4\pi}\,\mathrm{P.V.}\int_{\mathbb{R}^3} D(\hat{y}, \xi(x+y), \xi(x))\,\frac{|\omega(x+y)|}{|y|^3}\,dy,
+\end{equation}
+where $D(\hat{y}, \xi_1, \xi_2) = (\hat{y} \cdot \xi_1)(\hat{y} \times \xi_1) \cdot (\xi_2 \times \xi_1)$ vanishes identically both when $\xi(x+y) = \xi(x)$ (parallel alignment) and when $\xi(x+y) = -\xi(x)$ (exact antiparallel reconnection symmetry).
+
+\begin{theorem}[Reconnection Dipole Cancellation Under High-Set Direction H\"older Continuity]
+If the projective angle $\sin\theta(\xi(x+y),\xi(x)) = |\xi(x+y) \times \xi(x)|$ satisfies the scale-sharp Campanato/H\"older bound $|\xi(x+y) \times \xi(x)| \le C |y|^{1/2}$ on $\Omega_M(t) \times \Omega_M(t)$, then the singular integral kernel $|D(\hat{y},\xi(x+y),\xi(x))|/|y|^3 \le C |y|^{-5/2}$ is locally integrable and prevents finite-time blow-up.
+\end{theorem}
+
+
+\section*{Provenance, Repository Link, and Citation}
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Author:} Benjamin Stanley Frohman (\texttt{ORCID: 0009-0006-7068-3718}).
+  \item \textbf{Origin Provenance (`America/Chicago`, CDT / UTC-5):} 2026-08-22 12:49:03 PM CDT (UTC-5) (BenFrohman/symplectohydronamics commit 8f7db79b5786f3a59a0696a48a675f8a1fe410ca).
+  \item \textbf{Primary GitHub Repository:} \url{https://github.com/BenFrohman/symplectohydronamics}.
+  \item \textbf{Permanent DataCite Zenodo DOI:} \href{https://doi.org/10.5281/zenodo.23632780}{\texttt{10.5281/zenodo.23632780}} (Zenodo Record \texttt{23632780}).
+  \item \textbf{Copyright:} Copyright (c) 2026 Benjamin Stanley Frohman (ORCID: 0009-0006-7068-3718). All rights reserved. Released under the Apache License, Version 2.0.
+\end{itemize}
+
+\end{document}

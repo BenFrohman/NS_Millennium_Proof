@@ -1,0 +1,436 @@
+
+===== 0_kernel-certificate.txt
+﻿2026-11-23T19:26:11.9671012Z Current runner version: '2.338.2'
+2026-11-23T19:26:11.9695740Z ##[group]Runner Image Provisioner
+2026-11-23T19:26:11.9696585Z Hosted Compute Agent
+2026-11-23T19:26:11.9697287Z Version: 20261111.635
+2026-11-23T19:26:11.9697929Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:26:11.9698741Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:26:11.9699435Z Worker ID: {0f21d720-1ea9-453d-b008-dc02675bff55}
+2026-11-23T19:26:11.9700133Z Region: westus2
+2026-11-23T19:26:11.9700730Z Cloud: Azure
+2026-11-23T19:26:11.9701334Z ##[endgroup]
+2026-11-23T19:26:11.9702780Z ##[group]Operating System
+2026-11-23T19:26:11.9703437Z Ubuntu
+2026-11-23T19:26:11.9704195Z 26.04.1
+2026-11-23T19:26:11.9704774Z LTS
+2026-11-23T19:26:11.9705285Z ##[endgroup]
+2026-11-23T19:26:11.9705858Z ##[group]Runner Image
+2026-11-23T19:26:11.9706532Z Image: ubuntu-26.04
+2026-11-23T19:26:11.9707098Z Version: 20261116.202.1
+2026-11-23T19:26:11.9708418Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:26:11.9710000Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:26:11.9711043Z ##[endgroup]
+2026-11-23T19:26:11.9712203Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:26:11.9714745Z Contents: read
+2026-11-23T19:26:11.9715431Z Metadata: read
+2026-11-23T19:26:11.9716119Z Packages: read
+2026-11-23T19:26:11.9716692Z ##[endgroup]
+2026-11-23T19:26:11.9719133Z Secret source: Actions
+2026-11-23T19:26:11.9720214Z Cache mode: write
+2026-11-23T19:26:11.9721132Z Prepare workflow directory
+2026-11-23T19:26:12.0069985Z Prepare all required actions
+2026-11-23T19:26:12.0119015Z Getting action download info
+2026-11-23T19:26:12.3242973Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:26:12.4323400Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:26:12.6272571Z Complete job name: kernel-certificate
+2026-11-23T19:26:12.7189643Z ##[group]Run actions/checkout@v4
+2026-11-23T19:26:12.7190546Z with:
+2026-11-23T19:26:12.7191020Z   repository: BenFrohman/CubicFourfold
+2026-11-23T19:26:12.7195200Z   token: ***
+2026-11-23T19:26:12.7195660Z   ssh-strict: true
+2026-11-23T19:26:12.7196107Z   ssh-user: git
+2026-11-23T19:26:12.7196561Z   persist-credentials: true
+2026-11-23T19:26:12.7197099Z   clean: true
+2026-11-23T19:26:12.7197546Z   sparse-checkout-cone-mode: true
+2026-11-23T19:26:12.7198083Z   fetch-depth: 1
+2026-11-23T19:26:12.7198541Z   fetch-tags: false
+2026-11-23T19:26:12.7198999Z   show-progress: true
+2026-11-23T19:26:12.7199463Z   lfs: false
+2026-11-23T19:26:12.7199880Z   submodules: false
+2026-11-23T19:26:12.7200346Z   set-safe-directory: true
+2026-11-23T19:26:12.7200862Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:26:12.7201635Z ##[endgroup]
+2026-11-23T19:26:13.0232460Z Syncing repository: BenFrohman/CubicFourfold
+2026-11-23T19:26:13.0235055Z ##[group]Getting Git version info
+2026-11-23T19:26:13.0236095Z Working directory is '/home/runner/work/CubicFourfold/CubicFourfold'
+2026-11-23T19:26:13.0238454Z [command]/usr/bin/git version
+2026-11-23T19:26:13.0272663Z git version 2.56.1
+2026-11-23T19:26:13.0316772Z ##[endgroup]
+2026-11-23T19:26:13.0327359Z Temporarily overriding HOME='/home/runner/work/_temp/0dabf993-a72f-4d87-806b-202a6de6b75b' before making global git config changes
+2026-11-23T19:26:13.0330837Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:26:13.0334517Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CubicFourfold/CubicFourfold
+2026-11-23T19:26:13.0415930Z Deleting the contents of '/home/runner/work/CubicFourfold/CubicFourfold'
+2026-11-23T19:26:13.0420785Z ##[group]Initializing the repository
+2026-11-23T19:26:13.0426936Z [command]/usr/bin/git init /home/runner/work/CubicFourfold/CubicFourfold
+2026-11-23T19:26:13.0579034Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:26:13.0581609Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:26:13.0585479Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:26:13.0587623Z hint: call:
+2026-11-23T19:26:13.0588536Z hint:
+2026-11-23T19:26:13.0589661Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:26:13.0591418Z hint:
+2026-11-23T19:26:13.0592722Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:26:13.0600738Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:26:13.0602417Z hint:
+2026-11-23T19:26:13.0603324Z hint: 	git branch -m <name>
+2026-11-23T19:26:13.0604790Z hint:
+2026-11-23T19:26:13.0606238Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:26:13.0608771Z Initialized empty Git repository in /home/runner/work/CubicFourfold/CubicFourfold/.git/
+2026-11-23T19:26:13.0613421Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/CubicFourfold
+2026-11-23T19:26:13.0692539Z ##[endgroup]
+2026-11-23T19:26:13.0694352Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:26:13.0697503Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:26:13.0751518Z ##[endgroup]
+2026-11-23T19:26:13.0753026Z ##[group]Setting up auth
+2026-11-23T19:26:13.0762336Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:26:13.0819397Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:26:13.1362240Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:26:13.1402140Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:26:13.1693559Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:26:13.1733162Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:26:13.2029244Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:26:13.2072605Z ##[endgroup]
+2026-11-23T19:26:13.2074689Z ##[group]Fetching the repository
+2026-11-23T19:26:13.2086004Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f29d0a9bbfe1eb4f718d6d5a016fb808799125e4:refs/remotes/origin/ci-backfill/f29d0a9
+2026-11-23T19:26:13.5093581Z From https://github.com/BenFrohman/CubicFourfold
+2026-11-23T19:26:13.5095413Z  * [new ref]         f29d0a9bbfe1eb4f718d6d5a016fb808799125e4 -> origin/ci-backfill/f29d0a9
+2026-11-23T19:26:13.5099380Z ##[endgroup]
+2026-11-23T19:26:13.5100859Z ##[group]Determining the checkout info
+2026-11-23T19:26:13.5102479Z ##[endgroup]
+2026-11-23T19:26:13.5108746Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:26:13.5170130Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:26:13.5211254Z ##[group]Checking out the ref
+2026-11-23T19:26:13.5212512Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/f29d0a9 refs/remotes/origin/ci-backfill/f29d0a9
+2026-11-23T19:26:13.5308632Z Switched to a new branch 'ci-backfill/f29d0a9'
+2026-11-23T19:26:13.5314780Z branch 'ci-backfill/f29d0a9' set up to track 'origin/ci-backfill/f29d0a9'.
+2026-11-23T19:26:13.5321105Z ##[endgroup]
+2026-11-23T19:26:13.5379745Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:26:13.5411671Z f29d0a9bbfe1eb4f718d6d5a016fb808799125e4
+2026-11-23T19:26:13.5667513Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T19:26:13.5669299Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:26:13.5670657Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:26:13.5708650Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:13.5709205Z ##[endgroup]
+2026-11-23T19:26:13.6269032Z info: downloading installer
+2026-11-23T19:26:14.0844577Z ##[group]Run mkdir -p cert-out
+2026-11-23T19:26:14.0846108Z [36;1mmkdir -p cert-out[0m
+2026-11-23T19:26:14.0847402Z [36;1m{[0m
+2026-11-23T19:26:14.0848620Z [36;1m  echo "commit: $(git rev-parse HEAD)"[0m
+2026-11-23T19:26:14.0850392Z [36;1m  echo "lean-toolchain: $(cat lean-toolchain)"[0m
+2026-11-23T19:26:14.0852181Z [36;1m  echo "lean --version: $(lean --version)"[0m
+2026-11-23T19:26:14.0854027Z [36;1m  echo "lake --version: $(lake --version)"[0m
+2026-11-23T19:26:14.0855742Z [36;1m  echo "date (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"[0m
+2026-11-23T19:26:14.0857943Z [36;1m  echo "run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"[0m
+2026-11-23T19:26:14.0860092Z [36;1m} | tee cert-out/environment.txt[0m
+2026-11-23T19:26:14.0898619Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:14.0899837Z ##[endgroup]
+2026-11-23T19:26:14.1033118Z commit: f29d0a9bbfe1eb4f718d6d5a016fb808799125e4
+2026-11-23T19:26:14.1049974Z cat: lean-toolchain: No such file or directory
+2026-11-23T19:26:14.1053577Z lean-toolchain: 
+2026-11-23T19:26:14.1080505Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1083202Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1086202Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1167794Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1171711Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1175020Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1178705Z error: no default toolchain configured. run `elan default stable` to install & configure the latest Lean 4 stable release.
+2026-11-23T19:26:14.1181904Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1184458Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1186676Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1188900Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1191139Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1193334Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1196519Z error: no default toolchain configured. run `elan default stable` to install & configure the latest Lean 4 stable release.
+2026-11-23T19:26:14.1199030Z lean --version: 
+2026-11-23T19:26:14.1200039Z lake --version: 
+2026-11-23T19:26:14.1201063Z date (UTC): 2026-11-23T19:26:14Z
+2026-11-23T19:26:14.1202749Z run: https://github.com/BenFrohman/CubicFourfold/actions/runs/45248907050
+2026-11-23T19:26:14.1283452Z ##[group]Run if grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi
+2026-11-23T19:26:14.1287564Z [36;1mif grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi[0m
+2026-11-23T19:26:14.1324635Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:14.1325740Z ##[endgroup]
+2026-11-23T19:26:14.1417064Z no mathlib dependency
+2026-11-23T19:26:14.1495425Z ##[group]Run set -o pipefail
+2026-11-23T19:26:14.1496611Z [36;1mset -o pipefail[0m
+2026-11-23T19:26:14.1497802Z [36;1mlake build 2>&1 | tee cert-out/build.log[0m
+2026-11-23T19:26:14.1533152Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:14.1534418Z ##[endgroup]
+2026-11-23T19:26:14.1638950Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1641331Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1644764Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1647420Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1649616Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1651765Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1655081Z error: no default toolchain configured. run `elan default stable` to install & configure the latest Lean 4 stable release.
+2026-11-23T19:26:14.1669285Z ##[error]Process completed with exit code 1.
+2026-11-23T19:26:14.1872643Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:26:14.1874291Z with:
+2026-11-23T19:26:14.1875260Z   name: kernel-certificate
+2026-11-23T19:26:14.1876348Z   path: cert-out/
+2026-11-23T19:26:14.1877343Z   if-no-files-found: warn
+2026-11-23T19:26:14.1878649Z   compression-level: 6
+2026-11-23T19:26:14.1879835Z   overwrite: false
+2026-11-23T19:26:14.1880887Z   include-hidden-files: false
+2026-11-23T19:26:14.1882035Z ##[endgroup]
+2026-11-23T19:26:14.3677387Z (node:2892) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:26:14.3680307Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:26:14.3795875Z With the provided path, there will be 2 files uploaded
+2026-11-23T19:26:14.3799477Z Artifact name is valid!
+2026-11-23T19:26:14.3801253Z Root directory input is valid!
+2026-11-23T19:26:14.7553647Z Beginning upload of artifact content to blob storage
+2026-11-23T19:26:14.7824261Z (node:2892) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:26:15.0648700Z Uploaded bytes 556
+2026-11-23T19:26:15.1431341Z Finished uploading artifact content to blob storage!
+2026-11-23T19:26:15.1434558Z SHA256 digest of uploaded artifact zip is 45cb3cdaa83ce59f31da51cbfa8dcc789b5dd7c34c90fd666919cc33e35a17fd
+2026-11-23T19:26:15.1437151Z Finalizing artifact upload
+2026-11-23T19:26:15.5430939Z Artifact kernel-certificate.zip successfully finalized. Artifact ID 14856315063
+2026-11-23T19:26:15.5442194Z Artifact kernel-certificate has been successfully uploaded! Final size is 556 bytes. Artifact ID is 14856315063
+2026-11-23T19:26:15.5444361Z Artifact download URL: https://github.com/BenFrohman/CubicFourfold/actions/runs/45248907050/artifacts/14856315063
+2026-11-23T19:26:15.5683269Z Post job cleanup.
+2026-11-23T19:26:15.6606557Z [command]/usr/bin/git version
+2026-11-23T19:26:15.6655136Z git version 2.56.1
+2026-11-23T19:26:15.6699590Z Temporarily overriding HOME='/home/runner/work/_temp/bd9f4d3c-20c8-4194-a1bd-61ad7939f6f0' before making global git config changes
+2026-11-23T19:26:15.6701551Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:26:15.6706582Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CubicFourfold/CubicFourfold
+2026-11-23T19:26:15.6755388Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:26:15.6796767Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:26:15.7205282Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:26:15.7245201Z http.https://github.com/.extraheader
+2026-11-23T19:26:15.7265099Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:26:15.7326135Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:26:15.7676493Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:26:15.7725196Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:26:15.8179203Z Cleaning up orphan processes
+2026-11-23T19:26:15.8624878Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== kernel-certificate/10_Upload certificate files.txt
+﻿2026-11-23T19:26:14.1872611Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T19:26:14.1874276Z with:
+2026-11-23T19:26:14.1875254Z   name: kernel-certificate
+2026-11-23T19:26:14.1876344Z   path: cert-out/
+2026-11-23T19:26:14.1877339Z   if-no-files-found: warn
+2026-11-23T19:26:14.1878637Z   compression-level: 6
+2026-11-23T19:26:14.1879829Z   overwrite: false
+2026-11-23T19:26:14.1880883Z   include-hidden-files: false
+2026-11-23T19:26:14.1882031Z ##[endgroup]
+2026-11-23T19:26:14.3677308Z (node:2892) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T19:26:14.3680294Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T19:26:14.3795790Z With the provided path, there will be 2 files uploaded
+2026-11-23T19:26:14.3799447Z Artifact name is valid!
+2026-11-23T19:26:14.3801233Z Root directory input is valid!
+2026-11-23T19:26:14.7553572Z Beginning upload of artifact content to blob storage
+2026-11-23T19:26:14.7824076Z (node:2892) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T19:26:15.0648625Z Uploaded bytes 556
+2026-11-23T19:26:15.1431285Z Finished uploading artifact content to blob storage!
+2026-11-23T19:26:15.1434534Z SHA256 digest of uploaded artifact zip is 45cb3cdaa83ce59f31da51cbfa8dcc789b5dd7c34c90fd666919cc33e35a17fd
+2026-11-23T19:26:15.1437084Z Finalizing artifact upload
+2026-11-23T19:26:15.5430886Z Artifact kernel-certificate.zip successfully finalized. Artifact ID 14856315063
+2026-11-23T19:26:15.5442168Z Artifact kernel-certificate has been successfully uploaded! Final size is 556 bytes. Artifact ID is 14856315063
+2026-11-23T19:26:15.5444343Z Artifact download URL: https://github.com/BenFrohman/CubicFourfold/actions/runs/45248907050/artifacts/14856315063
+
+===== kernel-certificate/1_Set up job.txt
+﻿2026-11-23T19:26:11.9670166Z Current runner version: '2.338.2'
+2026-11-23T19:26:11.9695717Z ##[group]Runner Image Provisioner
+2026-11-23T19:26:11.9696581Z Hosted Compute Agent
+2026-11-23T19:26:11.9697283Z Version: 20261111.635
+2026-11-23T19:26:11.9697925Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T19:26:11.9698737Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T19:26:11.9699431Z Worker ID: {0f21d720-1ea9-453d-b008-dc02675bff55}
+2026-11-23T19:26:11.9700130Z Region: westus2
+2026-11-23T19:26:11.9700727Z Cloud: Azure
+2026-11-23T19:26:11.9701331Z ##[endgroup]
+2026-11-23T19:26:11.9702766Z ##[group]Operating System
+2026-11-23T19:26:11.9703434Z Ubuntu
+2026-11-23T19:26:11.9704190Z 26.04.1
+2026-11-23T19:26:11.9704771Z LTS
+2026-11-23T19:26:11.9705282Z ##[endgroup]
+2026-11-23T19:26:11.9705855Z ##[group]Runner Image
+2026-11-23T19:26:11.9706528Z Image: ubuntu-26.04
+2026-11-23T19:26:11.9707095Z Version: 20261116.202.1
+2026-11-23T19:26:11.9708219Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T19:26:11.9709996Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T19:26:11.9711038Z ##[endgroup]
+2026-11-23T19:26:11.9712199Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T19:26:11.9714724Z Contents: read
+2026-11-23T19:26:11.9715428Z Metadata: read
+2026-11-23T19:26:11.9716115Z Packages: read
+2026-11-23T19:26:11.9716689Z ##[endgroup]
+2026-11-23T19:26:11.9719112Z Secret source: Actions
+2026-11-23T19:26:11.9720209Z Cache mode: write
+2026-11-23T19:26:11.9721126Z Prepare workflow directory
+2026-11-23T19:26:12.0069947Z Prepare all required actions
+2026-11-23T19:26:12.0118989Z Getting action download info
+2026-11-23T19:26:12.3242937Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T19:26:12.4323368Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T19:26:12.6272523Z Complete job name: kernel-certificate
+
+===== kernel-certificate/20_Post Run actions_checkout@v4.txt
+﻿2026-11-23T19:26:15.5683241Z Post job cleanup.
+2026-11-23T19:26:15.6606499Z [command]/usr/bin/git version
+2026-11-23T19:26:15.6655081Z git version 2.56.1
+2026-11-23T19:26:15.6699552Z Temporarily overriding HOME='/home/runner/work/_temp/bd9f4d3c-20c8-4194-a1bd-61ad7939f6f0' before making global git config changes
+2026-11-23T19:26:15.6701539Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:26:15.6706561Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CubicFourfold/CubicFourfold
+2026-11-23T19:26:15.6755332Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:26:15.6796726Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:26:15.7205229Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:26:15.7245010Z http.https://github.com/.extraheader
+2026-11-23T19:26:15.7265050Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T19:26:15.7326069Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:26:15.7676441Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:26:15.7725158Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== kernel-certificate/21_Complete job.txt
+﻿2026-11-23T19:26:15.8179180Z Cleaning up orphan processes
+2026-11-23T19:26:15.8624847Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== kernel-certificate/2_Run actions_checkout@v4.txt
+﻿2026-11-23T19:26:12.7189615Z ##[group]Run actions/checkout@v4
+2026-11-23T19:26:12.7190538Z with:
+2026-11-23T19:26:12.7191017Z   repository: BenFrohman/CubicFourfold
+2026-11-23T19:26:12.7195195Z   token: ***
+2026-11-23T19:26:12.7195650Z   ssh-strict: true
+2026-11-23T19:26:12.7196103Z   ssh-user: git
+2026-11-23T19:26:12.7196557Z   persist-credentials: true
+2026-11-23T19:26:12.7197095Z   clean: true
+2026-11-23T19:26:12.7197543Z   sparse-checkout-cone-mode: true
+2026-11-23T19:26:12.7198080Z   fetch-depth: 1
+2026-11-23T19:26:12.7198538Z   fetch-tags: false
+2026-11-23T19:26:12.7198996Z   show-progress: true
+2026-11-23T19:26:12.7199460Z   lfs: false
+2026-11-23T19:26:12.7199877Z   submodules: false
+2026-11-23T19:26:12.7200343Z   set-safe-directory: true
+2026-11-23T19:26:12.7200859Z   allow-unsafe-pr-checkout: false
+2026-11-23T19:26:12.7201629Z ##[endgroup]
+2026-11-23T19:26:13.0232404Z Syncing repository: BenFrohman/CubicFourfold
+2026-11-23T19:26:13.0235029Z ##[group]Getting Git version info
+2026-11-23T19:26:13.0236038Z Working directory is '/home/runner/work/CubicFourfold/CubicFourfold'
+2026-11-23T19:26:13.0238437Z [command]/usr/bin/git version
+2026-11-23T19:26:13.0272627Z git version 2.56.1
+2026-11-23T19:26:13.0316715Z ##[endgroup]
+2026-11-23T19:26:13.0327322Z Temporarily overriding HOME='/home/runner/work/_temp/0dabf993-a72f-4d87-806b-202a6de6b75b' before making global git config changes
+2026-11-23T19:26:13.0330808Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T19:26:13.0334465Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CubicFourfold/CubicFourfold
+2026-11-23T19:26:13.0415837Z Deleting the contents of '/home/runner/work/CubicFourfold/CubicFourfold'
+2026-11-23T19:26:13.0420754Z ##[group]Initializing the repository
+2026-11-23T19:26:13.0426903Z [command]/usr/bin/git init /home/runner/work/CubicFourfold/CubicFourfold
+2026-11-23T19:26:13.0578938Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T19:26:13.0581578Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T19:26:13.0585444Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T19:26:13.0587605Z hint: call:
+2026-11-23T19:26:13.0588527Z hint:
+2026-11-23T19:26:13.0589649Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T19:26:13.0591402Z hint:
+2026-11-23T19:26:13.0592711Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T19:26:13.0600709Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T19:26:13.0602407Z hint:
+2026-11-23T19:26:13.0603315Z hint: 	git branch -m <name>
+2026-11-23T19:26:13.0604774Z hint:
+2026-11-23T19:26:13.0606225Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T19:26:13.0608756Z Initialized empty Git repository in /home/runner/work/CubicFourfold/CubicFourfold/.git/
+2026-11-23T19:26:13.0613359Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/CubicFourfold
+2026-11-23T19:26:13.0692448Z ##[endgroup]
+2026-11-23T19:26:13.0694338Z ##[group]Disabling automatic garbage collection
+2026-11-23T19:26:13.0697482Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T19:26:13.0751434Z ##[endgroup]
+2026-11-23T19:26:13.0753010Z ##[group]Setting up auth
+2026-11-23T19:26:13.0762301Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T19:26:13.0819304Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T19:26:13.1362140Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T19:26:13.1401381Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T19:26:13.1693451Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T19:26:13.1733067Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T19:26:13.2029111Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T19:26:13.2072551Z ##[endgroup]
+2026-11-23T19:26:13.2074660Z ##[group]Fetching the repository
+2026-11-23T19:26:13.2085946Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f29d0a9bbfe1eb4f718d6d5a016fb808799125e4:refs/remotes/origin/ci-backfill/f29d0a9
+2026-11-23T19:26:13.5093469Z From https://github.com/BenFrohman/CubicFourfold
+2026-11-23T19:26:13.5095391Z  * [new ref]         f29d0a9bbfe1eb4f718d6d5a016fb808799125e4 -> origin/ci-backfill/f29d0a9
+2026-11-23T19:26:13.5099331Z ##[endgroup]
+2026-11-23T19:26:13.5100788Z ##[group]Determining the checkout info
+2026-11-23T19:26:13.5102469Z ##[endgroup]
+2026-11-23T19:26:13.5108715Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T19:26:13.5170064Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T19:26:13.5211213Z ##[group]Checking out the ref
+2026-11-23T19:26:13.5212506Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/f29d0a9 refs/remotes/origin/ci-backfill/f29d0a9
+2026-11-23T19:26:13.5308567Z Switched to a new branch 'ci-backfill/f29d0a9'
+2026-11-23T19:26:13.5314755Z branch 'ci-backfill/f29d0a9' set up to track 'origin/ci-backfill/f29d0a9'.
+2026-11-23T19:26:13.5321085Z ##[endgroup]
+2026-11-23T19:26:13.5379647Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T19:26:13.5411598Z f29d0a9bbfe1eb4f718d6d5a016fb808799125e4
+
+===== kernel-certificate/3_Install elan (toolchain from lean-toolchain).txt
+﻿2026-11-23T19:26:13.5667485Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T19:26:13.5669295Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T19:26:13.5670652Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T19:26:13.5708624Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:13.5709201Z ##[endgroup]
+2026-11-23T19:26:13.6268960Z info: downloading installer
+
+===== kernel-certificate/4_Toolchain and revision.txt
+﻿2026-11-23T19:26:14.0844546Z ##[group]Run mkdir -p cert-out
+2026-11-23T19:26:14.0846103Z [36;1mmkdir -p cert-out[0m
+2026-11-23T19:26:14.0847398Z [36;1m{[0m
+2026-11-23T19:26:14.0848614Z [36;1m  echo "commit: $(git rev-parse HEAD)"[0m
+2026-11-23T19:26:14.0850388Z [36;1m  echo "lean-toolchain: $(cat lean-toolchain)"[0m
+2026-11-23T19:26:14.0852177Z [36;1m  echo "lean --version: $(lean --version)"[0m
+2026-11-23T19:26:14.0854022Z [36;1m  echo "lake --version: $(lake --version)"[0m
+2026-11-23T19:26:14.0855737Z [36;1m  echo "date (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"[0m
+2026-11-23T19:26:14.0857938Z [36;1m  echo "run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"[0m
+2026-11-23T19:26:14.0860088Z [36;1m} | tee cert-out/environment.txt[0m
+2026-11-23T19:26:14.0898602Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:14.0899833Z ##[endgroup]
+2026-11-23T19:26:14.1033043Z commit: f29d0a9bbfe1eb4f718d6d5a016fb808799125e4
+2026-11-23T19:26:14.1049832Z cat: lean-toolchain: No such file or directory
+2026-11-23T19:26:14.1053554Z lean-toolchain: 
+2026-11-23T19:26:14.1080470Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1083193Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1086177Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1167691Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1171693Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1174997Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1178693Z error: no default toolchain configured. run `elan default stable` to install & configure the latest Lean 4 stable release.
+2026-11-23T19:26:14.1181897Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1184447Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1186661Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1188896Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1191135Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1193330Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1196512Z error: no default toolchain configured. run `elan default stable` to install & configure the latest Lean 4 stable release.
+2026-11-23T19:26:14.1199025Z lean --version: 
+2026-11-23T19:26:14.1200036Z lake --version: 
+2026-11-23T19:26:14.1201059Z date (UTC): 2026-11-23T19:26:14Z
+2026-11-23T19:26:14.1202744Z run: https://github.com/BenFrohman/CubicFourfold/actions/runs/45248907050
+
+===== kernel-certificate/5_Get Mathlib cache (never rebuilds Mathlib from source).txt
+﻿2026-11-23T19:26:14.1283421Z ##[group]Run if grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi
+2026-11-23T19:26:14.1287555Z [36;1mif grep -q '"name": *"mathlib"' lake-manifest.json 2>/dev/null; then lake exe cache get; else echo "no mathlib dependency"; fi[0m
+2026-11-23T19:26:14.1324618Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:14.1325736Z ##[endgroup]
+2026-11-23T19:26:14.1417011Z no mathlib dependency
+
+===== kernel-certificate/6_lake build.txt
+﻿2026-11-23T19:26:14.1495401Z ##[group]Run set -o pipefail
+2026-11-23T19:26:14.1496599Z [36;1mset -o pipefail[0m
+2026-11-23T19:26:14.1497796Z [36;1mlake build 2>&1 | tee cert-out/build.log[0m
+2026-11-23T19:26:14.1533137Z shell: /usr/bin/bash -e {0}
+2026-11-23T19:26:14.1534413Z ##[endgroup]
+2026-11-23T19:26:14.1638889Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1641326Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1644743Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1647413Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1649611Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1651760Z warning: could not canonicalize path: '/home/runner/.elan/toolchains'
+2026-11-23T19:26:14.1654990Z error: no default toolchain configured. run `elan default stable` to install & configure the latest Lean 4 stable release.
+2026-11-23T19:26:14.1669256Z ##[error]Process completed with exit code 1.
+
+===== kernel-certificate/system.txt
+2026-11-23T19:26:09.1890000Z Evaluating kernel-certificate.if
+2026-11-23T19:26:09.1890000Z Evaluating: success()
+2026-11-23T19:26:09.1890000Z Result: true
+2026-11-23T19:26:09.2880000Z Requested labels: ubuntu-latest
+2026-11-23T19:26:09.2880000Z Job defined at: BenFrohman/CubicFourfold/.github/workflows/kernel-certificate.yml@refs/heads/ci-backfill/f29d0a9
+2026-11-23T19:26:09.2880000Z Waiting for a runner to pick up this job...
+2026-11-23T19:26:09.4400000Z Job is waiting for a hosted runner to come online.
+2026-11-23T19:26:09.4410000Z Job is about to start running on the hosted runner: GitHub Actions 1000006393

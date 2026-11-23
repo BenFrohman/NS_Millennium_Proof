@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\title{A cubic source for the vorticity maximum,\\ and a recorded gap in the periodic continuation criterion}
+\author{Benjamin Stanley Frohman}
+\date{7 October 2026}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+\maketitle
+\begin{center}
+Copyright \copyright\ 2026 Benjamin Stanley Frohman.\\
+This note is released under the Creative Commons Attribution 4.0 International license (CC BY 4.0).\\
+This document does not claim a solution of the Navier--Stokes Millennium Problem.
+\end{center}
+
+\begin{abstract}
+For a smooth divergence-free solution of the unforced periodic Navier--Stokes equations with viscosity $\nu>0$, the vorticity maximum $M(t)=\|\omega(t)\|_{L^\infty}$ satisfies $D^+M\le\|\nabla u\|_{L^\infty}M$ at a spatial maximum. Combined with the known logarithmic estimate for $\|\nabla u\|_{L^\infty}$, this is the mechanism behind the Beale--Kato--Majda criterion; it is not a closed bound in $M$ alone. Under the explicit hypothesis $\|\nabla u\|_{L^\infty}\le C_*\|\omega\|_{L^\infty}$, which is not known to hold, the rate becomes the cubic-source bound $D^+M\le C_* M^2$. The comparison equation $y'=C y^2$ can become infinite in finite time, so even this conditional bound does not close the Beale--Kato--Majda integral. A quadratic reduction of the strain would replace the pairing $C_* M^3$ by $C_* M^3-\kappa M^4$ and the rate by $C_* M^2-\kappa M^3$. That reduction is recorded here as an open identity. It is not derived from the unmodified vorticity equation.
+\end{abstract}
+
+\section{Setting}
+Let $u$ be a smooth divergence-free solution of the unforced periodic Navier--Stokes equations on $\mathbb{T}^3$, with viscosity $\nu>0$, and let $\omega=\nabla\times u$. Write $M(t)=\|\omega(t)\|_{L^\infty}$. The vorticity equation is
+\[
+\partial_t\omega+(u\cdot\nabla)\omega=(\omega\cdot\nabla)u+\nu\Delta\omega.
+\]
+Fix a time at which $|\omega|$ attains a spatial maximum at $x$, and write $M=|\omega(x)|$. Since $M$ is a supremum of smooth functions it need not be differentiable; $D^+M$ denotes its upper Dini derivative, and the computation below is the standard one at a maximizing point.
+
+\section{The proved pairing}
+At a critical point of $|\omega|^2$, the transport pairing vanishes:
+\[
+\omega\cdot(u\cdot\nabla)\omega=\tfrac12 u\cdot\nabla(|\omega|^2)=0.
+\]
+The identity $\omega\cdot\Delta\omega=\tfrac12\Delta(|\omega|^2)-|\nabla\omega|^2$ and $\Delta(|\omega|^2)\le 0$ at a maximum give $\omega\cdot\nu\Delta\omega\le 0$.
+
+\begin{remark}
+The transport and viscosity steps do not use $\nu>0$; they hold for $\nu\ge0$. The restriction to $\nu>0$ is made so that the note concerns Navier--Stokes and not Euler.
+\end{remark}
+
+For the stretching term, $\omega\cdot(\omega\cdot\nabla)u=\omega\cdot S\omega$ with $S=\tfrac12(\nabla u+\nabla u^{T})$, so pointwise
+\begin{equation}
+\label{eq:source}
+\omega(x)\cdot\bigl((\omega(x)\cdot\nabla)u(x)\bigr)\le |S(x)|\,M^2\le\|\nabla u\|_{L^\infty} M^2.
+\end{equation}
+Thus $\omega(x)\cdot\partial_t\omega(x)\le\|\nabla u\|_{L^\infty} M^2$, and for $M>0$, in the upper Dini sense,
+\begin{equation}
+\label{eq:rate-proved}
+D^+M\le\|\nabla u\|_{L^\infty}\, M.
+\end{equation}
+
+\paragraph{Why this is not cubic in $M$ alone.} Biot--Savart recovers $\nabla u$ from $\omega$ by a Calder\'on--Zygmund operator, which is bounded from $L^\infty$ into $\mathrm{BMO}$ and \emph{not} on $L^\infty$. Hence $\|\nabla u\|_{L^\infty}\le C\|\omega\|_{L^\infty}$ fails in general. What is known (Beale--Kato--Majda 1984 \cite{BKM}, Kato--Ponce 1988 \cite{KP}; Brezis--Wainger type) is the logarithmic estimate, for $s>5/2$ on $\mathbb{T}^3$,
+\begin{equation}
+\label{eq:log}
+\|\nabla u\|_{L^\infty}\le C\Bigl(1+\|\omega\|_{L^\infty}\bigl(1+\log^+\|u\|_{H^s}\bigr)+\|\omega\|_{L^2}\Bigr).
+\end{equation}
+This is cited, not proved here. Inserted in \eqref{eq:rate-proved} it gives a bound on $D^+M$ that involves $\|u\|_{H^s}$, which is the route to the Beale--Kato--Majda criterion, not a closed differential inequality for $M$.
+
+\paragraph{The conditional cubic source.} Introduce the hypothesis
+\begin{equation}
+\label{eq:H}
+\tag{H}
+\|\nabla u(t)\|_{L^\infty}\le C_*\,\|\omega(t)\|_{L^\infty}\quad\text{on the time interval considered,}
+\end{equation}
+with a constant $C_*$. \emph{This is an assumption, not a theorem.} Under \eqref{eq:H}, \eqref{eq:source} becomes $\omega\cdot\partial_t\omega\le C_* M^3$ and
+\begin{equation}
+\label{eq:rate-source}
+D^+M\le C_* M^2.
+\end{equation}
+The comparison equation $y'=C y^2$ has the solution $y(t)=y_0/(1-C y_0 t)$ for $C y_0 t<1$, which becomes infinite at $t=1/(C y_0)$. The Beale--Kato--Majda continuation criterion requires $\int\|\omega\|_{L^\infty}\,dt<\infty$. Even under \eqref{eq:H}, the bound \eqref{eq:rate-source} does not make that integral finite.
+
+\section{The missing identity}
+The open line is a quadratic reduction of the same pairing, stated relative to \eqref{eq:H}. It asserts that there exists $\kappa>0$, depending only on the initial datum and on $\nu$, and not on $M(t)$, such that
+\begin{equation}
+\label{eq:missing}
+\omega(x)\cdot\bigl((\omega(x)\cdot\nabla)u(x)\bigr)
+\le\bigl(C_* M-\kappa M^2\bigr)M^2.
+\end{equation}
+The right-hand side expands by algebra:
+\begin{equation}
+\label{eq:expand}
+\bigl(C_* M-\kappa M^2\bigr)M^2=C_* M^3-\kappa M^4.
+\end{equation}
+The subtracted term is $\kappa M^4$. It is not $\kappa M^5$. If \eqref{eq:missing} held, transport and viscosity would give
+\[
+\omega(x)\cdot\partial_t\omega(x)\le C_* M^3-\kappa M^4,
+\]
+and, for $M>0$,
+\begin{equation}
+\label{eq:sink}
+D^+M\le C_* M^2-\kappa M^3=M^2\bigl(C_*-\kappa M\bigr).
+\end{equation}
+For $y>C_*/\kappa$ the field $C y^2-\kappa y^3$ is negative, so a trajectory obeying \eqref{eq:sink} cannot rise above $\max(M(0),C_*/\kappa)$. A bounded continuous maximum has finite integral on every finite time interval, and Beale--Kato--Majda would continue the solution. Equation \eqref{eq:missing} is not an identity of the unmodified vorticity equation, and neither it nor \eqref{eq:H} is derived here.
+
+\section{What the hypothesis is}
+Write $\mathrm{rate}$ for an upper bound on $D^+M$. The rate form of \eqref{eq:sink} is the assumption
+\begin{equation}
+\label{eq:hypothesis}
+\mathrm{rate}\le M\bigl(C_* M-\kappa M^2\bigr).
+\end{equation}
+Expanding \eqref{eq:hypothesis} is ring arithmetic and returns $C_* M^2-\kappa M^3$. The assumption already contains the reduced factor. It does not derive \eqref{eq:missing}.
+
+The weight $1+\kappa M^2\ge 0$ multiplies the conditional source and produces another source,
+\[
+C_* M^3\bigl(1+\kappa M^2\bigr)=C_* M^3+C_*\kappa M^5.
+\]
+The term of degree five is not the sink. A degeneracy $B(F,H)\equiv 0$ on a kinetic-energy Hamiltonian leaves the energy field classical and does not insert $-\kappa M^2$ into the strain. The logarithmic estimate \eqref{eq:log} assumes control of a higher norm and leads to an integral criterion, not to a derivation of \eqref{eq:H} or \eqref{eq:missing}.
+
+\section{Record}
+The checked statement is \eqref{eq:rate-proved}, $D^+M\le\|\nabla u\|_{L^\infty}M$, together with the cited estimate \eqref{eq:log}. The cubic-source bound \eqref{eq:rate-source} holds only under the assumption \eqref{eq:H}. The open statement is, relative to \eqref{eq:H}, the reduction of the pairing from $C_* M^3$ to $C_* M^3-\kappa M^4$. No theorem in this note proves \eqref{eq:H} or closes that reduction. A formal certificate that expands \eqref{eq:hypothesis} is an expansion of a hypothesis. It is not a proof of global regularity for the periodic Navier--Stokes equations.
+
+\begin{thebibliography}{9}
+\bibitem{BKM} J.~T.~Beale, T.~Kato, A.~Majda, Remarks on the breakdown of smooth solutions for the 3-D Euler equations, \emph{Comm. Math. Phys.} 94 (1984), 61--66.
+\bibitem{KP} T.~Kato, G.~Ponce, Commutator estimates and the Euler and Navier--Stokes equations, \emph{Comm. Pure Appl. Math.} 41 (1988), 891--907.
+\end{thebibliography}
+
+\end{document}

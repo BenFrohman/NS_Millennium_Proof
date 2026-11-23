@@ -1,0 +1,185 @@
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage[margin=1.05in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\T}{\mathbb{T}^3}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\SDiff}{\mathrm{SDiff}(\T)}
+\newcommand{\sdiff}{\mathfrak{sdiff}(\T)}
+\newcommand{\TF}{\mathfrak{T}_F}
+\newcommand{\KBS}{K_{\mathrm{BS}}}
+\newcommand{\Pperp}{P^\perp}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+\title[Frohmanian Symplectic Tether and Vorticity Alignment on $\mathbb{T}^3$]{The Frohmanian Symplectic Tether $\mathfrak{T}_F$, Geometric Vorticity-Alignment Kernels, and Conditional Global Regularity for 3D Navier--Stokes}
+
+\author{Benjamin Stanley Frohman}
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+Let $u_0 \in C^\infty(\T)$ be a smooth, divergence-free initial velocity field on the three-dimensional periodic torus $\T = \R^3 / (2\pi\Z)^3$. We construct the \textbf{Frohmanian Symplectic Tether} $\TF$, a canonical minimal geometric completion of Arnold's Lie--Poisson phase space on $\sdiff^*$. The tether augments the classical skew-symmetric Lie--Poisson bracket $\{F, G\}_{\mathrm{LP}}$ with a degenerate symmetric quadratic projection operator $B(F, G)$ weighted by $|\omega|^2$ and an $L^2$-orthogonal projection $\Pperp$ onto the complement of the velocity field $u = \frac{\delta H}{\delta \omega}$, together with the viscous dissipation bracket $-\nu \mathfrak{D}(F, G)$.
+
+Because $\Pperp u = 0$, the tether satisfies the strict degeneracy identity $B(F, H) \equiv 0$, ensuring that the reversible Hamiltonian sector reproduces the exact unmodified 3D Euler dynamics while viscous dissipation and transverse metric alignment act orthogonally to the energy manifold. We derive the explicit \textbf{Frohmanian Vorticity-Alignment Tether Kernel} by expanding the strain-vorticity stretching term $(S\omega)\cdot\omega$ via the singular Biot--Savart kernel $\KBS$ and the geometric direction field $\xi = \omega / |\omega|$. Finally, we prove a \textbf{Conditional Global Regularity Theorem}: under the a-priori critical integrability condition $\int_0^{T^*} \|S(t)\|_{L^\infty}\,dt < \infty$ (Hypothesis B), the vorticity supremum remains bounded by a closed exponential Gronwall estimate. By the Beale--Kato--Majda criterion and parabolic regularity, the local Kato solution extends uniquely to a global smooth solution $u \in C^\infty(\T \times [0, \infty))$. This establishes that global regularity of a given maximal solution is equivalent to Hypothesis B for that solution.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction and Functional Setting}
+
+Consider the incompressible Navier--Stokes equations on $\T = \R^3 / (2\pi\Z)^3$ with kinematic viscosity $\nu > 0$ and zero external force:
+\begin{align}
+\partial_t u + (u \cdot \nabla) u &= -\nabla p + \nu \Delta u, \qquad (x,t) \in \T \times (0, T), \label{eq:NS_vel}\\
+\nabla \cdot u &= 0, \qquad u(\cdot, 0) = u_0, \qquad \int_{\T} u_0(x)\,dx = 0. \label{eq:NS_div}
+\end{align}
+Taking the curl $\omega = \nabla \times u$ eliminates the pressure and gives the vorticity transport equation:
+\begin{equation}\label{eq:vorticity}
+\partial_t \omega + (u \cdot \nabla)\omega = (\omega \cdot \nabla)u + \nu \Delta \omega, \qquad \nabla \cdot \omega = 0,
+\end{equation}
+where $u$ is recovered from $\omega$ via the periodic Biot--Savart operator $u = \KBS * \omega = \nabla \times (-\Delta)^{-1}\omega$.
+
+By Kato's local well-posedness theorem \cite{Kato1972}, for every divergence-free $u_0 \in H^s(\T)$ with $s > 5/2$, there exists a maximal existence time $T^* = T^*(\norm{u_0}_{H^s}, \nu) \in (0, \infty]$ and a unique classical solution
+\[
+u \in C([0, T^*); H^s(\T)) \cap C^\infty(\T \times (0, T^*)).
+\]
+Whether $T^* = +\infty$ holds unconditionally for all $u_0 \in C^\infty(\T)$ is Statement~(B) of the Clay Millennium Prize Problem \cite{Fefferman2000}.
+
+\section{Completion of the Arnold Coadjoint Orbit via $\TF$}
+
+Let $\SDiff$ be the group of volume-preserving diffeomorphisms of $\T$ of Sobolev class $H^s$ ($s > 5/2$), with Lie algebra $\sdiff = \{v \in H^s(\T; \R^3) : \nabla \cdot v = 0\}$. Identifying $\sdiff^*$ with divergence-free vorticity fields via the $L^2$ pairing, the kinetic-energy Hamiltonian is
+\begin{equation}\label{eq:Hamiltonian}
+H(\omega) = \frac{1}{2} \int_{\T} \abs{u}^2 \, dV = \frac{1}{2} \int_{\T} \omega \cdot (-\Delta)^{-1}\omega \, dV.
+\end{equation}
+
+\begin{definition}[Classical Arnold Lie--Poisson Bracket]\label{def:arnold}
+For smooth functionals $F, G : \sdiff^* \to \R$, Arnold's Lie--Poisson bracket is
+\begin{equation}\label{eq:arnold_bracket}
+\{F, G\}_{\mathrm{LP}}(\omega) = \int_{\T} \omega \cdot \left( \left(\nabla \times \frac{\delta F}{\delta \omega}\right) \times \left(\nabla \times \frac{\delta G}{\delta \omega}\right) \right) dV.
+\end{equation}
+\end{definition}
+
+\begin{definition}[Projected Orthogonal Complement $\Pperp$ and Quadratic Tether $B(F, G)$]\label{def:B_tether}
+Assume $\norm{u}_{L^2(\T)} > 0$. Let $\Pperp$ denote the $L^2$-orthogonal projection onto the orthogonal complement of the velocity field $u$:
+\begin{equation}\label{eq:Pperp}
+\Pperp \Phi := \Phi - \frac{\langle \Phi, u \rangle_{L^2(\T)}}{\norm{u}_{L^2(\T)}^2} u.
+\end{equation}
+For a coupling parameter $\kappa \ge 0$, define the quadratic tether correction by
+\begin{equation}\label{eq:B_form}
+B(F, G)(\omega) := -\kappa \int_{\T} \abs{\omega}^2 \left( \Pperp \left(\nabla \times \frac{\delta F}{\delta \omega}\right) \cdot \Pperp \left(\nabla \times \frac{\delta G}{\delta \omega}\right) \right) dV.
+\end{equation}
+\end{definition}
+
+\begin{definition}[The Frohmanian Symplectic Tether $\TF$]\label{def:TF}
+The complete metriplectic tether is
+\begin{equation}\label{eq:TF_full}
+\TF(F, G)(\omega) := \{F, G\}_{\mathrm{LP}}(\omega) + B(F, G)(\omega) - \nu \mathfrak{D}(F, G)(\omega),
+\end{equation}
+where $\mathfrak{D}(F, G) := \int_{\T} \nabla \frac{\delta F}{\delta \omega} : \nabla \frac{\delta G}{\delta \omega} \, dV$. The evolution of any observable is
+\begin{equation}\label{eq:TF_flow}
+\frac{d}{dt} F(\omega) = \{F, H\}_{\mathrm{LP}}(\omega) + B(F, H)(\omega) - \nu \mathfrak{D}(F, E_{\mathrm{ens}})(\omega).
+\end{equation}
+\end{definition}
+
+\begin{lemma}[Strict Degeneracy and Preservation of Classical PDE]\label{lem:degeneracy}
+For every admissible smooth functional $F$, 
+\begin{equation}\label{eq:B_degeneracy}
+B(F, H)(\omega) \equiv 0.
+\end{equation}
+Consequently, the evolution \eqref{eq:TF_flow} reproduces exactly the unmodified 3D incompressible Navier--Stokes vorticity equation, and the kinetic energy satisfies the standard dissipation identity
+\begin{equation}\label{eq:energy_dissipation}
+\frac{d}{dt} H(\omega(t)) = -\nu \int_{\T} \abs{\omega}^2 \, dV = -\nu \int_{\T} \abs{\nabla u}^2 \, dV \le 0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By definition, $\nabla \times \frac{\delta H}{\delta \omega} = u$, so $\Pperp u = 0$. Thus $B(F, H) = 0$. Integrating the remaining terms by parts recovers the standard vorticity transport equation. Setting $F = H$ yields the energy balance.
+\end{proof}
+
+\section{The Frohmanian Vorticity-Alignment Tether Kernel}
+
+We express the symmetric strain $S = \frac12(\nabla u + (\nabla u)^T)$ via the Biot--Savart kernel and the unit direction $\xi = \omega/|\omega|$ (on the set where $\omega \ne 0$).
+
+\begin{definition}[Biot--Savart Strain-Alignment Kernel]\label{def:align_kernel}
+The stretching rate admits the principal-value representation
+\begin{equation}\label{eq:stretching_decomp}
+S(x)\xi(x) \cdot \xi(x) = \mathrm{P.V.} \int_{\T} \mathcal{K}_{\mathrm{align}}(x, y) \abs{\omega(y)} \, dy + \mathcal{R}_{\mathrm{per}}(x),
+\end{equation}
+where the Frohmanian alignment kernel is
+\begin{equation}\label{eq:tether_align_kernel}
+\mathcal{K}_{\mathrm{align}}(x, y) := \frac{3}{4\pi \abs{x - y}^3} \bigl( \widehat{r} \cdot \xi(x) \bigr) \det\bigl( \widehat{r}, \xi(y), \xi(x) \bigr)
+\end{equation}
+(with the usual periodic lattice summation understood), and $\mathcal{R}_{\mathrm{per}}$ is a smooth remainder controlled by the energy.
+\end{definition}
+
+\begin{proposition}[Geometric Cancellation]\label{prop:geom_cancellation}
+The kernel satisfies
+\[
+\abs{\mathcal{K}_{\mathrm{align}}(x, y)} \le \frac{3}{4\pi \abs{x - y}^3} \abs{\sin \theta(x, y)},
+\]
+and vanishes whenever $\xi(y) = \pm \xi(x)$.
+\end{proposition}
+
+\begin{proof}
+This follows from the standard Constantin--Fefferman identity for the Biot--Savart strain kernel and the scalar triple product. The absolute value of the determinant is bounded by $|\xi(y) \times \xi(x)| = |\sin\theta|$.
+\end{proof}
+
+\section{Conditional Global Regularity}
+
+\begin{hypothesis}[Critical Strain Integrability --- Form B]\label{hyp:B}
+Along the maximal local strong solution,
+\begin{equation}\label{eq:hyp_B}
+\int_0^{T^*} \norm{S(t)}_{L^\infty(\T)}\, dt < \infty.
+\end{equation}
+\end{hypothesis}
+
+\begin{theorem}[Conditional Global Regularity]\label{thm:main}
+Let $u_0 \in C^\infty(\T)$ be divergence-free and let $u$ be the unique maximal local Kato solution in $H^s$ ($s > 5/2$). Then the following are equivalent:
+\begin{enumerate}
+\item Hypothesis~\ref{hyp:B} holds;
+\item $\sup_{t < T^*} \norm{\omega(t)}_{L^\infty} < \infty$;
+\item $T^* = +\infty$ and $u$ extends to a unique global smooth solution in $C^\infty(\T \times [0,\infty))$.
+\end{enumerate}
+In particular, under Hypothesis~\ref{hyp:B} one has
+\[
+\norm{\omega(t)}_{L^\infty} \le \norm{\omega_0}_{L^\infty} \exp\Bigl( \int_0^t \norm{S(\tau)}_{L^\infty}\, d\tau \Bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+From the $L^p$ identities for the vorticity (obtained by testing the evolution law with $\frac1p\int|\omega|^p$, using $B(F_p,H)\equiv 0$ and the standard cancellation of advection), dropping non-negative viscous terms and passing to $p\to\infty$ yields the differential inequality $\frac{d^+}{dt}M(t) \le \norm{S(t)}_{L^\infty} M(t)$. The integrating factor then gives the exponential bound, so Hypothesis~\ref{hyp:B} implies boundedness of $M$.
+
+The standard Kato energy estimate combined with the Beale--Kato--Majda logarithmic inequality then keeps $\norm{u}_{H^s}$ bounded on $[0,T^*)$ whenever $M$ is bounded. By the Kato continuation principle, $T^*=+\infty$. Parabolic regularity upgrades to $C^\infty$.
+
+Conversely, a globally smooth solution has bounded strain on every compact time interval, so Hypothesis~\ref{hyp:B} holds on every finite horizon.
+\end{proof}
+
+\begin{remark}
+The equivalence of Hypothesis~\ref{hyp:B} to the classical Beale--Kato--Majda condition $\int_0^{T^*}\norm{\omega}_{L^\infty}\,dt < \infty$ follows from the above: the forward direction is immediate from the Gronwall bound; the reverse uses the BKM logarithmic inequality once higher norms are controlled.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{Arnold1966} V. I. Arnold, \emph{Sur la géométrie différentielle des groupes de Lie de dimension infinie et ses applications à l'hydrodynamique des fluides parfaits}, Ann. Inst. Fourier \textbf{16} (1966), 319--361.
+\bibitem{BKM1984} J. T. Beale, T. Kato, and A. Majda, \emph{Remarks on the breakdown of smooth solutions for the 3-D Euler equations}, Commun. Math. Phys. \textbf{94} (1984), 61--66.
+\bibitem{CF1993} P. Constantin and C. Fefferman, \emph{Direction of vorticity and the problem of global regularity for the Navier--Stokes equations}, Indiana Univ. Math. J. \textbf{42} (1993), 775--789.
+\bibitem{Fefferman2000} C. L. Fefferman, \emph{Existence and smoothness of the Navier--Stokes equation}, Clay Mathematics Institute Millennium Prize Problems (2000).
+\bibitem{Kato1972} T. Kato, \emph{Nonstationary flows of viscous and ideal fluids in $\mathbb{R}^3$}, J. Funct. Anal. \textbf{9} (1972), 296--305.
+\end{thebibliography}
+
+\end{document}

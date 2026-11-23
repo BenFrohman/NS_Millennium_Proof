@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.SymplecticTether
+#print axioms FrohmanianTether.tethered_stretching_of_weight

@@ -1,0 +1,518 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmonofont{DejaVu Sans Mono}[Scale=0.80]
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{fancyvrb}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\NSMPPR}{\#30}
+\newcommand{\NSMPCOMMIT}{80a4aa32e2a6ae68763c7badff6b234db7176f6e}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\lean}[1]{\texttt{#1}}
+\DefineVerbatimEnvironment{leancode}{Verbatim}{fontsize=\small,frame=single,framesep=2mm}
+
+\title{A Kernel-Checked Conditional Reduction of the Fefferman Navier--Stokes Problem~(A) to a Smooth Tether Rate and BKM Continuation, with Refutations of Earlier Tether Formulations}
+\author{Frohman, Benjamin Stanley\thanks{ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}. Email: \href{mailto:frohmanbenjamin@gmail.com}{frohmanbenjamin@gmail.com}.}\\[2pt]
+\small Independent Researcher, Texas, United States}
+\date{Draft of November 11, 2026 --- preprint, not peer-reviewed}
+
+\sloppy\setlength{\emergencystretch}{3em}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We report three groups of results, all checked by the Lean~4 kernel (Lean \lean{v4.30.0-rc1}, Mathlib rev \lean{0c154d67}) using only the axioms \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}.
+
+\textbf{(i) Refutation.} The proposition \lean{FrohmanianTetherRate} (a cubic differential inequality $M'\le CM^2-\kappa M^3$ for $M(t)=\|\omega(t)\|_\infty$ along every ``physically admissible'' solution) is false as stated in our earlier formalizations. So is its companion \lean{FrohmanianTetherBound}. The cause is a defect of the solution class: it imposes no spatial differentiability, and Mathlib's Fréchet derivative is $0$ at points of non-differentiability. A steady, finite-energy, continuous field with a nowhere-differentiable Takagi component therefore ``solves'' the formal equations for every viscosity, while its vorticity is unbounded. As a consequence, the main conditional theorem \lean{frohmanian\_tether\_theorem} of the repository \lean{NS\_Millennium\_Proof} holds only vacuously. On nonzero periodic data the rate holds, but only vacuously.
+
+\textbf{(ii) Faithful statement.} We state Fefferman's official Clay Problem~(A) on $\R^3$ literally in Lean (\lean{Clay\_A\_Fefferman}) and list how it differs from the repository's earlier \lean{Clay\_A}.
+
+\textbf{(iii) Conditional reduction.} We prove that a repaired tether rate, posed on local solutions in Fefferman's smooth class, together with a named classical Beale--Kato--Majda continuation hypothesis on $\R^3$, implies \lean{Clay\_A\_Fefferman}. Both hypotheses and the conclusion are shown to be satisfiable at $u_0=0$.
+
+\textbf{This paper does not resolve any Clay Millennium Problem.} Both hypotheses of the reduction are open for general data. The first carries the entire difficulty of Problem~(A).
+\end{abstract}
+
+\tableofcontents
+
+%======================================================================
+\section{Introduction}
+
+Formal statements of open analytic problems can fail in two quiet ways. A hypothesis can be \emph{unsatisfiable}, which makes every theorem that assumes it vacuously true. Or a conclusion can be \emph{weaker or stronger} than the informal problem it claims to encode. This paper audits both failure modes for the tether program in two of the author's Lean repositories, \lean{BenFrohman/frohmanian-tether-sdiff} and \lean{BenFrohman/NS\_Millennium\_Proof}, and then gives an honest conditional replacement.
+
+\paragraph{Contributions.}
+\begin{enumerate}[label=(\arabic*)]
+\item \lean{TetherRateCounterexample.not\_forall\_frohmanianTetherRate}: $\neg\,\forall u_0\,\nu,\ \lean{FrohmanianTetherRate}\ u_0\ \nu$. More precisely, the rate fails for one explicit $U$ at every $\nu>0$, and \lean{FrohmanianTetherBound} fails for the same $U$ at every $\nu$ (Section~\ref{sec:refute}).
+\item \lean{TetherRatePeriodicVacuity.frohmanianTetherRate\_of\_periodic}: on continuous $\Z^3$-periodic data the rate holds, and for nonzero data it holds only vacuously (Section~\ref{sec:periodic}).
+\item In \lean{NS\_Millennium\_Proof}, \lean{frohmanian\_tether\_theorem\_hDI\_unsatisfiable} shows that the binder \lean{hDI} of \lean{frohmanian\_tether\_theorem} cannot be inhabited (Section~\ref{sec:nsmp}).
+\item \lean{FeffermanClayA.Clay\_A\_Fefferman}: a literal formal statement of Fefferman's Problem~(A), with a line-by-line comparison against the earlier \lean{Clay\_A} (Section~\ref{sec:fefferman}).
+\item \lean{FeffermanClayA.clay\_A\_fefferman\_of\_frohmanianTetherRateSmooth}: a conditional reduction whose conclusion is exactly \lean{Clay\_A\_Fefferman}, with non-vacuity witnesses for every hypothesis (Section~\ref{sec:reduction}).
+\end{enumerate}
+
+%======================================================================
+\section{Setting and conventions}\label{sec:setting}
+
+In Lean, $\R^3$ is \lean{T3 := EuclideanSpace ℝ (Fin 3)}. Velocity fields are maps \lean{T3 → EuclideanSpace ℝ (Fin 3)}, and time-dependent fields are maps \lean{ℝ → T3 → ...}. Spatial operators (\lean{convective}, \lean{laplacian}, \lean{div}, \lean{curl}, \lean{pressureGradient}) are defined through Mathlib's \lean{fderiv}, and the time derivative \lean{time\_deriv} through \lean{deriv}. Mathlib follows the standard convention that \lean{fderiv ℝ f x = 0} and \lean{deriv f x = 0} when $f$ is not differentiable at $x$. Similarly, a real supremum $\sup_x\|\omega(x)\|$ (Lean \lean{iSup}) is $0$ on an unbounded range. This is why the tether propositions carry an explicit \lean{BddAbove} conjunct.
+
+The solution predicates used by the earlier tether statements are reproduced verbatim:
+
+\begin{leancode}
+def NS_PDE (u : ℝ → VelocityField) (p : ℝ → PressureField) (ν : ℝ) : Prop :=
+  navier_stokes_eq u p ν
+def navier_stokes_eq (u : TimeDependentVelocity) (p : TimeDependentPressure)
+    (ν : ℝ) : Prop :=
+  ∀ t ≥ (0 : ℝ), ∀ x : T3,
+    time_deriv u t x + convective (u t) (u t) x + pressureGradient (p t) x =
+        ν • laplacian (u t) x ∧
+      div (u t) x = 0
+def IsPhysicalNSSolution (u : TimeDependentVelocity) : Prop :=
+  (∀ t ≥ (0 : ℝ), ∀ x : T3, DifferentiableAt ℝ (fun s => u s x) t) ∧
+  (∀ t ≥ (0 : ℝ), Continuous (u t)) ∧
+  (∀ t ≥ (0 : ℝ), Integrable (fun x : T3 => ‖u t x‖ ^ 2)) ∧
+  (∀ t ≥ (0 : ℝ), (∫ x, ‖u t x‖ ^ 2 ∂volume) ≤ ∫ x, ‖u 0 x‖ ^ 2 ∂volume) ∧
+  (∃ v₀ : VelocityField, ∀ t ≤ (0 : ℝ), u t = u 0 + t • v₀)
+\end{leancode}
+
+\noindent Neither predicate requires $u(t)$ to be spatially differentiable.
+
+%======================================================================
+\section{The earlier tether formulations are refuted}\label{sec:refute}
+
+\subsection{Statements under audit}
+\begin{leancode}
+abbrev FrohmanianTetherRate (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    0 < ν → NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      ∃ C κ'' : ℝ, 0 < C ∧ 0 < κ'' ∧
+        (∀ s ≥ (0 : ℝ),
+          DifferentiableAt ℝ (fun τ => vorticity_sup_norm (vorticity (u τ))) s) ∧
+        (∀ s ≥ (0 : ℝ),
+          deriv (fun τ => vorticity_sup_norm (vorticity (u τ))) s ≤
+            C * vorticity_sup_norm (vorticity (u s)) ^ 2 -
+              κ'' * vorticity_sup_norm (vorticity (u s)) ^ 3) ∧
+        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) ∧
+        (∀ τ ≥ (0 : ℝ), BddAbove (Set.range fun x => ‖vorticity (u τ) x‖))
+
+abbrev FrohmanianTetherBound (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∀ u : ℝ → VelocityField, ∀ p : ℝ → PressureField,
+    NS_PDE u p ν → u 0 = u₀ → IsPhysicalNSSolution u →
+      ∃ Y : ℝ,
+        (∀ τ ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u τ)) ≤ Y) ∧
+        Continuous (fun τ : ℝ => vorticity_sup_norm (vorticity (u τ))) ∧
+        (∀ τ ≥ (0 : ℝ), BddAbove (Set.range fun x => ‖vorticity (u τ) x‖))
+\end{leancode}
+
+\subsection{The Takagi function}
+Let $\operatorname{tri}(x)=|x-\operatorname{round}(x)|$ and $\tau(x)=\sum_{n\ge0}2^{-n}\operatorname{tri}(2^nx)$.
+
+\begin{lemma}[\lean{Takagi.continuous\_takagi}, \lean{Takagi.not\_differentiableAt\_takagi}]
+$\tau$ is continuous and differentiable at no point of $\R$.
+\end{lemma}
+\begin{proof}[Proof idea (formalized)]
+Continuity follows from uniform convergence (Weierstrass $M$-test). Fix $x$, and let $[k/2^n,(k+1)/2^n]$ be the dyadic interval containing $x$. The scaled slope $2^n\bigl(\tau(\frac{k+1}{2^n})-\tau(\frac{k}{2^n})\bigr)$ is an integer with the parity of $n$ (\lean{dyadic\_slope}, \lean{parity\_sum}). Consecutive slopes therefore differ by at least $1$. If $\tau$ were differentiable at $x$, these slopes would converge to $\tau'(x)$ (\lean{slope\_close}), which is a contradiction.
+\end{proof}
+
+\subsection{The counterexample field}
+With $b(s)=(1+s^2)^{-1}$ and $a(s)=\sin(s^5)(1+s^2)^{-3}$, set
+\[
+U(y)=\bigl(a(y_0)\,b'(y_1)\,b(y_2),\; -a'(y_0)\,b(y_1)\,b(y_2),\; \tau(y_2)\,b(y_0)b(y_1)b(y_2)\bigr).
+\]
+In Lean:
+\begin{leancode}
+def c0 (y : T3) : ℝ := aa (y 0) * bb1 (y 1) * bb (y 2)
+def c1 (y : T3) : ℝ := -(aa1 (y 0) * bb (y 1) * bb (y 2))
+def c2 (y : T3) : ℝ := takagi (y 2) * (bb (y 0) * bb (y 1) * bb (y 2))
+def U : VelocityField := fun y => WithLp.toLp 2 ![c0 y, c1 y, c2 y]
+\end{leancode}
+
+\begin{proposition}[\lean{ns\_U}, \lean{phys\_U}, \lean{vorticity\_U\_unbounded}]
+For every $\nu\in\R$, the steady pair $(u\equiv U,\ p\equiv0)$ satisfies \lean{NS\_PDE} and \lean{IsPhysicalNSSolution}. Moreover, $x\mapsto\|\omega(U)(x)\|$ is unbounded.
+\end{proposition}
+\begin{proof}[Proof idea (formalized)]
+Since $c_2$ is nowhere differentiable (\lean{not\_diff\_c2}), $U$ is nowhere differentiable. Hence \lean{fderiv ℝ U = 0}, so the convective term and the Laplacian vanish identically. The divergence only uses the partial derivatives $\partial_0 c_0$, $\partial_1 c_1$ and $\partial_2 c_2$, each read off from the corresponding scalar component. The pair $(c_0,c_1)$ comes from the stream function $a(y_0)b(y_1)b(y_2)$, so $\partial_0c_0+\partial_1c_1=0$. Also $\partial_2 c_2=0$ in Mathlib's junk sense, because $c_2$ is nowhere differentiable. The time derivative of a steady path is $0$.
+
+The field is continuous, and $|U(y)|^2\le126(1+|y|^2)^{-2}$, which is integrable on $\R^3$ (\lean{integrable\_U}). The third component of $\omega=\operatorname{curl}U$ involves $\partial_0c_1-\partial_1c_0$, which contains $a''(y_0)$. Since $a''(s)-2a(s)$ is unbounded (from $\sin(s^5)$), \lean{curl\_U\_two} gives unbounded vorticity.
+\end{proof}
+
+\begin{theorem}[Refutation]\label{thm:refute}
+\begin{leancode}
+theorem not_frohmanianTetherRate_U (ν : ℝ) (hν : 0 < ν) :
+    ¬ FrohmanianTetherRate U ν
+theorem not_forall_frohmanianTetherRate :
+    ¬ ∀ (u₀ : VelocityField) (ν : ℝ), FrohmanianTetherRate u₀ ν
+theorem not_frohmanianTetherBound_U (ν : ℝ) : ¬ FrohmanianTetherBound U ν
+\end{leancode}
+\end{theorem}
+
+\begin{remark}[Scope]
+$U$ is not a Navier--Stokes solution in any classical or weak sense. Theorem~\ref{thm:refute} is a statement about the \emph{formal solution class}, not about fluids. It shows that the propositions as written cannot be proved, so any theorem assuming them for all data is vacuous. Propositions restricted to smooth data, such as \lean{FrohmanianTetherClosingBound}, \lean{LocalTetherRate} and \lean{PeriodicTetherClosingBound}, are unaffected.
+\end{remark}
+
+%======================================================================
+\section{Vacuity on periodic data}\label{sec:periodic}
+
+\begin{theorem}[\lean{TetherRatePeriodicVacuity}]
+\begin{leancode}
+theorem frohmanianTetherRate_of_periodic {u₀ : VelocityField} (ν : ℝ)
+    (hc : Continuous u₀) (hp : ClayStatements.IsZ3Periodic u₀) :
+    FrohmanianTetherRate u₀ ν
+\end{leancode}
+\end{theorem}
+\noindent A continuous, nonzero, $\Z^3$-periodic field is not in $L^2(\R^3)$ (\lean{ExplicitFlows.not\_integrable\_sq\_of\_periodic}). So no \lean{IsPhysicalNSSolution} path starts from such a field, and the rate holds vacuously. It therefore says nothing about \lean{PeriodicTetherClosingBound} or \lean{Clay\_B\_exact}.
+
+%======================================================================
+\section{Consequence for \texttt{NS\_Millennium\_Proof}}\label{sec:nsmp}
+
+The repository \lean{NS\_Millennium\_Proof} uses the same definitions of \lean{NS\_PDE}, \lean{IsPhysicalNSSolution} and \lean{FrohmanianTetherRate}. Its \lean{GlobalRegularity.frohmanian\_tether\_theorem} takes the binder \lean{hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν}. Porting the construction gives:
+\begin{leancode}
+theorem TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable :
+    ¬ ∀ (u₀ : NavierStokes3D.VelocityField) (ν : ℝ),
+      FrohmanianTether.FrohmanianTetherRate u₀ ν
+\end{leancode}
+Hence \lean{frohmanian\_tether\_theorem} is vacuously true. This corrects the description in the earlier record \emph{What Is Actually Proved in Lean~4, and What Fefferman's Clay Statements (A) and (B) Ask} (Zenodo 23632782), which presented it as a substantive conditional implication.
+
+%======================================================================
+\section{Fefferman's Problem (A), stated literally}\label{sec:fefferman}
+
+Fefferman's official problem description~\cite{Fefferman} poses Problem~(A) as follows. Take $\nu>0$ and $n=3$. Let $u^\circ$ be a smooth divergence-free vector field on $\R^3$ satisfying
+\[
+|\partial_x^\alpha u^\circ(x)|\le C_{\alpha K}(1+|x|)^{-K}\quad\text{on }\R^3,\text{ for any }\alpha,K. \tag{4}
+\]
+Take $f\equiv0$. Then there exist smooth functions $p(x,t)$ and $u_i(x,t)$ on $\R^3\times[0,\infty)$ that satisfy (1)~(the momentum equation), (2)~($\operatorname{div}u=0$), (3)~($u(x,0)=u^\circ(x)$), (6)~($p,u\in C^\infty(\R^3\times[0,\infty))$) and (7)~($\int_{\R^3}|u(x,t)|^2dx<C$ for all $t\ge0$).
+
+\begin{leancode}
+def FeffermanDecay (u₀ : VelocityField) : Prop :=
+  ∀ (k : ℕ) (α : Fin k → Fin 3) (K : ℝ), ∃ C : ℝ, ∀ x : T3,
+    ‖iteratedFDeriv ℝ k u₀ x (fun j => EuclideanSpace.single (α j) (1 : ℝ))‖ ≤
+      C * (1 + ‖x‖) ^ (-K)
+
+def FeffermanGlobalSolution (ν : ℝ) (u₀ : VelocityField)
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) : Prop :=
+  ContDiffOn ℝ ∞ (fun q : T3 × ℝ => u q.2 q.1) (Set.univ ×ˢ Set.Ici (0 : ℝ)) ∧
+  ContDiffOn ℝ ∞ (fun q : T3 × ℝ => p q.2 q.1) (Set.univ ×ˢ Set.Ici (0 : ℝ)) ∧
+  ClayStatements.navier_stokes_eq_Ici u p ν (fun _ _ => 0) ∧
+  (∀ x : T3, u 0 x = u₀ x) ∧
+  ∃ C : ℝ, ∀ t ≥ (0 : ℝ), ∫⁻ x, ‖u t x‖ₑ ^ 2 < ENNReal.ofReal C
+
+def navier_stokes_eq_Ici (u : TimeDependentVelocity) (p : TimeDependentPressure)
+    (ν : ℝ) (f : ℝ → T3 → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  ∀ t ≥ (0 : ℝ), ∀ x : T3,
+    derivWithin (fun s => u s x) (Set.Ici 0) t + convective (u t) (u t) x +
+        pressureGradient (p t) x = ν • laplacian (u t) x + f t x ∧
+      div (u t) x = 0
+
+def Clay_A_Fefferman : Prop :=
+  ∀ (ν : ℝ) (u₀ : VelocityField),
+    0 < ν → ContDiff ℝ ∞ u₀ → (∀ x, div u₀ x = 0) → FeffermanDecay u₀ →
+      ∃ (u : TimeDependentVelocity) (p : TimeDependentPressure),
+        FeffermanGlobalSolution ν u₀ u p
+\end{leancode}
+
+\subsection{Comparison with the repository's earlier \texttt{Clay\_A}}
+The earlier statement (\lean{FrohmanianTether.ClayStatements.Clay\_A}) is:
+\begin{leancode}
+def Clay_A : Prop :=
+  ∀ (ν : ℝ) (u₀ : VelocityField),
+    0 < ν →
+    ContDiff ℝ (⊤ : ℕ∞) u₀ →
+    (∀ x, div u₀ x = 0) →
+    (∀ k K : ℕ, ∃ C : ℝ, ∀ x : T3,
+      ‖iteratedFDeriv ℝ k u₀ x‖ ≤ C / (1 + ‖x‖) ^ K) →
+    ∃ (u : TimeDependentVelocity) (p : TimeDependentPressure),
+      ContDiffOn ℝ ∞ (fun q : ℝ × T3 => u q.1 q.2) (Set.Ici (0 : ℝ) ×ˢ Set.univ) ∧
+      ContDiffOn ℝ ∞ (fun q : ℝ × T3 => p q.1 q.2) (Set.Ici (0 : ℝ) ×ˢ Set.univ) ∧
+      navier_stokes_eq u p ν ∧
+      u 0 = u₀ ∧
+      ∃ E : ℝ, ∀ t ≥ (0 : ℝ),
+        Integrable (fun x : T3 => ‖u t x‖ ^ 2) ∧ ∫ x, ‖u t x‖ ^ 2 ≤ E
+\end{leancode}
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Item & Fefferman (official) & Earlier \lean{Clay\_A} & \lean{Clay\_A\_Fefferman} / effect \\
+\midrule
+Time derivative in (1) at $t=0$ & One-sided; the solution lives only on $\R^3\times[0,\infty)$ & \lean{time\_deriv} $=$ \lean{deriv}, two-sided. At $t=0$ it depends on values for $t<0$, which the statement leaves unconstrained. If the chosen extension is not differentiable at $0$, the junk value $0$ is used. & \lean{derivWithin … (Set.Ici 0)}: one-sided, independent of $t<0$. Removes the junk-derivative dependence. \\
+\addlinespace
+Decay (4) & Every multi-index $\alpha$, every $K$ & Operator norm of the whole $k$-th derivative, $K\in\mathbb{N}$, written as $C/(1+|x|)^K$ & Each $\partial^\alpha$ as \lean{iteratedFDeriv} on coordinate unit vectors, $K\in\R$, $C(1+|x|)^{-K}$. Literal transcription; equivalent in finite dimension, but the equivalence is not needed. \\
+\addlinespace
+Energy (7) & $\int_{\R^3}|u|^2\,dx<C$, strict, as a Lebesgue integral & \lean{Integrable} $\wedge$ Bochner $\int\le E$, non-strict & Lower Lebesgue integral \lean{∫⁻ … < ofReal C}. No ``nonintegrable $\mapsto 0$'' convention can be used. \\
+\addlinespace
+Smoothness (6) & $p,u\in C^\infty(\R^3\times[0,\infty))$ & \lean{ContDiffOn ℝ ∞} on \lean{Ici 0 ×ˢ univ} in the order $(t,x)$ & Same content, in Fefferman's order $(x,t)$. Cosmetic. \\
+\addlinespace
+$\nu$, $f$, (2), (3) & $\nu>0$, $f\equiv0$ & $\nu>0$, $f$ absent & $\nu>0$, $f\equiv0$ written explicitly. Same content. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Only the first row is a substantive formal difference. For classical solutions the two readings agree by continuity of $\partial_tu$ up to $t=0$, but proving this in Lean needs a smooth-extension argument that the earlier statement silently relied on.
+
+\paragraph{Sanity check.} \lean{clay\_A\_fefferman\_instance\_zero}: the conclusion is satisfiable at $u_0=0$ by the zero solution, and \lean{feffermanDecay\_zero} shows that $u_0=0$ satisfies (4).
+
+%======================================================================
+\section{A repaired rate and the conditional reduction}\label{sec:reduction}
+
+\subsection{Hypotheses}
+\begin{leancode}
+def IsFeffermanSolutionOn (ν T : ℝ) (u₀ : VelocityField)
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) : Prop :=
+  ContDiffOn ℝ ∞ (fun q : T3 × ℝ => u q.2 q.1) (Set.univ ×ˢ Set.Ico (0 : ℝ) T) ∧
+  ContDiffOn ℝ ∞ (fun q : T3 × ℝ => p q.2 q.1) (Set.univ ×ˢ Set.Ico (0 : ℝ) T) ∧
+  (∀ t ∈ Set.Ico (0 : ℝ) T, ∀ x : T3,
+    derivWithin (fun s => u s x) (Set.Ici 0) t + convective (u t) (u t) x +
+        pressureGradient (p t) x = ν • laplacian (u t) x + 0 ∧
+      div (u t) x = 0) ∧
+  (∀ x : T3, u 0 x = u₀ x) ∧
+  (∀ t ∈ Set.Ico (0 : ℝ) T, ∫⁻ x, ‖u t x‖ₑ ^ 2 ≤ ∫⁻ x, ‖u₀ x‖ₑ ^ 2)
+
+def Mω (u : TimeDependentVelocity) (t : ℝ) : ℝ :=
+  vorticity_sup_norm (vorticity (u t))
+
+def FrohmanianTetherRateSmooth (u₀ : VelocityField) (ν : ℝ) : Prop :=
+  ∃ C kap : ℝ, 0 < C ∧ 0 < kap ∧
+    ∀ (T : ℝ) (u : TimeDependentVelocity) (p : TimeDependentPressure),
+      IsFeffermanSolutionOn ν T u₀ u p →
+        ContinuousOn (Mω u) (Set.Ico (0 : ℝ) T) ∧
+        (∀ s ∈ Set.Ico (0 : ℝ) T, ∃ d : ℝ,
+          HasDerivWithinAt (Mω u) d (Set.Ici s) s ∧
+            d ≤ C * Mω u s ^ 2 - kap * Mω u s ^ 3) ∧
+        (∀ t ∈ Set.Ico (0 : ℝ) T, BddAbove (Set.range fun x => ‖vorticity (u t) x‖))
+
+def R3BKMContinuationAt (ν : ℝ) (u₀ : VelocityField) : Prop :=
+  (∃ Y : ℝ, ∀ (T : ℝ) (u : TimeDependentVelocity) (p : TimeDependentPressure),
+      IsFeffermanSolutionOn ν T u₀ u p → ∀ t ∈ Set.Ico (0 : ℝ) T,
+        BddAbove (Set.range fun x => ‖vorticity (u t) x‖) ∧ Mω u t ≤ Y) →
+    ∃ (u : TimeDependentVelocity) (p : TimeDependentPressure),
+      FeffermanGlobalSolution ν u₀ u p
+
+def R3BKMContinuation (ν : ℝ) : Prop :=
+  ∀ u₀ : VelocityField, ContDiff ℝ ∞ u₀ → (∀ x, div u₀ x = 0) → FeffermanDecay u₀ →
+    R3BKMContinuationAt ν u₀
+\end{leancode}
+
+\noindent The repaired rate quantifies only over spatially and temporally $C^\infty$ local solutions. This excludes the counterexample of Section~\ref{sec:refute}, whose datum is nowhere differentiable. It uses a right derivative, so the values of $u$ for $t<0$ play no role.
+
+\subsection{The theorem}
+\begin{theorem}[Conditional reduction]\label{thm:main}
+\begin{leancode}
+theorem clay_A_fefferman_of_frohmanianTetherRateSmooth
+    (hrate : ∀ ν > (0 : ℝ), ∀ u₀ : VelocityField, ContDiff ℝ ∞ u₀ →
+      (∀ x, div u₀ x = 0) → FeffermanDecay u₀ → FrohmanianTetherRateSmooth u₀ ν)
+    (hBKM : ∀ ν > (0 : ℝ), R3BKMContinuation ν) :
+    Clay_A_Fefferman
+\end{leancode}
+\end{theorem}
+\begin{proof}
+\lean{ceiling\_of\_rate} turns the rate into the uniform ceiling $\|\omega(t)\|_\infty\le\max(\|\omega(u_0)\|_\infty,\,C/\kappa)$ on every local solution. It does so through the right-derivative comparison lemma \lean{TetheredLyapunov.comparison\_ode\_stability\_Icc\_right}. The ceiling is exactly the premise of \lean{R3BKMContinuationAt}.
+\end{proof}
+
+\subsection{Non-vacuity}
+\begin{leancode}
+theorem frohmanianTetherRateSmooth_zero (ν : ℝ) : FrohmanianTetherRateSmooth 0 ν
+theorem r3BKMContinuationAt_zero (ν : ℝ) : R3BKMContinuationAt ν 0
+lemma feffermanDecay_zero : FeffermanDecay 0
+theorem clay_A_fefferman_instance_zero (ν : ℝ) :
+    ∃ (u : TimeDependentVelocity) (p : TimeDependentPressure),
+      FeffermanGlobalSolution ν 0 u p
+\end{leancode}
+\noindent The proof of \lean{frohmanianTetherRateSmooth\_zero} is not trivial in the sense that matters here. It shows, through the energy inequality and continuity, that every local Fefferman-class solution from $0$ vanishes (\lean{eq\_zero\_of\_isFeffermanSolutionOn\_zero}). So the hypothesis class is inhabited, and the rate is verified on it rather than holding by an empty quantifier.
+
+\subsection{Why the global form of the rate cannot be used}
+\begin{leancode}
+theorem frohmanianTetherRateSmoothGlobal_of_no_global_solution
+    {u₀ : VelocityField} {ν : ℝ}
+    (h : ¬ ∃ (u : ℝ → VelocityField) (p : ℝ → PressureField), NS_PDE u p ν ∧
+      u 0 = u₀ ∧ IsPhysicalNSSolution u ∧ ∀ t ≥ (0 : ℝ), ContDiff ℝ ∞ (u t)) :
+    FrohmanianTetherRateSmoothGlobal u₀ ν
+\end{leancode}
+A rate quantified over \emph{global} solutions holds automatically for any datum that blows up. It therefore carries no information about existence. This is why \lean{FrohmanianTetherRateSmooth} quantifies over local solutions on $[0,T)$.
+
+%======================================================================
+\section{Honest scope}\label{sec:scope}
+
+\begin{itemize}
+\item \textbf{No Clay resolution.} Neither \lean{Clay\_A\_Fefferman} nor any other Clay Millennium statement is proved here. Theorem~\ref{thm:main} is a conditional reduction only.
+\item \textbf{Open: \lean{FrohmanianTetherRateSmooth} for all Fefferman data.} Theorem~\ref{thm:main} assumes the repaired rate for every $\nu>0$ and every Fefferman datum $u_0$. This is a uniform, a priori cubic damping of $\|\omega\|_\infty$ along classical local solutions. With continuation it implies Problem~(A), so it is at least as hard as Problem~(A). No proof is known, and none is claimed. Any future argument must be checked against the refutation in Section~\ref{sec:refute} and against the known scaling obstructions.
+\item \textbf{Open: classical continuation on $\R^3$, reduced to two named inputs.} The second hypothesis of Theorem~\ref{thm:main} is \lean{R3BKMContinuation ν} for every $\nu>0$. This is the classical package of Kato local existence in $H^s$, uniqueness, the Beale--Kato--Majda criterion, parabolic smoothing and the energy equality on $\R^3$, specialized to Fefferman's class~\cite{BKM,Kato}. It is a known theorem of classical analysis. On the separate, unmerged scratch branch \lean{feat/r3-bkm-continuation} (milestone commit \lean{a9e132f090a35a6f86182b1bdf2cac214b9c7813}) it has been reduced to two precisely stated inputs that are \emph{not yet proved}:
+  \begin{enumerate}[label=(\alph*)]
+  \item \lean{BKMLogInequality}, the Beale--Kato--Majda logarithmic Sobolev inequality;
+  \item \lean{KatoMaximalSolution}, Kato local existence, smoothing, and the Kato--Ponce energy estimate, with the $H^3$ blow-up alternative.
+  \end{enumerate}
+  The same commit kernel-checks the core Beale--Kato--Majda argument (\lean{katoBKMMaximal\_of\_kato\_of\_log}), the logarithmic Gronwall step (\lean{log\_gronwall}), and the global-solution bridge (\lean{feffermanGlobalSolution\_of\_forall}), and assembles them as \lean{r3BKMContinuation\_of\_kato\_of\_log} and \lean{clay\_A\_fefferman\_of\_rate\_of\_kato\_of\_log}. Those results are not part of pull request \#4 and do not formalize \lean{R3BKMContinuation} itself. A later commit on the same branch (\lean{3aacf81}) adds an elementary $H^3\hookrightarrow L^\infty$ embedding used as a foundation; it does not prove either named input. Details are in Section~\ref{sec:continuation}.
+\item The refutations in Sections~\ref{sec:refute}--\ref{sec:nsmp} concern formal statements. They exploit Mathlib's total-function conventions and say nothing about the behaviour of real Navier--Stokes flows.
+\item Satisfiability at $u_0=0$ shows only that the hypotheses are not contradictory. It is not evidence that they hold for general data.
+\end{itemize}
+
+%======================================================================
+\section[Status of classical continuation on R3]{Status of classical continuation on $\R^3$}\label{sec:continuation}
+
+This section reports work in progress on branch \lean{feat/r3-bkm-continuation}, at milestone commit \lean{a9e132f}. It is not part of the kernel-checked pull request \#4. A periodic analogue on $\T^3$ exists in the separate repository \lean{BenFrohman/}\allowbreak\lean{periodic-ns-classical-continuation} (Zenodo 24091995). Its definitions are not yet aligned with this library's, and it does not cover $\R^3$.
+
+\subsection{Named classical inputs, stated and not proved}
+The following propositions are stated in \lean{Scratch/R3BKMContinuation.lean} at \lean{a9e132f}. They are not theorems.
+
+\begin{leancode}
+def BKMLogInequality : Prop :=
+  ∃ C : ℝ, 0 < C ∧ ∀ f : VelocityField, ContDiff ℝ ∞ f → (∀ x, div f x = 0) →
+    sobolevEnergy 3 f < ⊤ →
+      BddAbove (range fun x => ‖fderiv ℝ f x‖) ∧
+      gradSup f ≤ C * (1 + l2Sq f +
+        vorticity_sup_norm (vorticity f) * (1 + Real.log (1 + hsSq 3 f)))
+
+def KatoMaximalSolution (ν : ℝ) (u₀ : VelocityField) : Prop :=
+  ∃ (S : Set ℝ) (u : TimeDependentVelocity) (p : TimeDependentPressure) (Ck : ℝ),
+    0 ≤ Ck ∧
+    (∀ T : ℝ, Ico (0 : ℝ) T ⊆ S → IsFeffermanSolutionOn ν T u₀ u p) ∧
+    (∀ t ∈ S, sobolevEnergy 3 (u t) < ⊤) ∧
+    ContinuousOn (fun t => hsSq 3 (u t)) S ∧
+    (∀ s ∈ S, ∃ d : ℝ, HasDerivWithinAt (fun t => hsSq 3 (u t)) d (Ici s) s ∧
+      d ≤ Ck * gradSup (u s) * hsSq 3 (u s)) ∧
+    (S = Ici 0 ∨ ∃ Tstar : ℝ, 0 < Tstar ∧ S = Ico 0 Tstar ∧
+      ∀ B : ℝ, ∃ t ∈ S, B < hsSq 3 (u t))
+\end{leancode}
+
+\noindent Completing these two inputs requires analysis that Mathlib does not yet provide on $\R^3$: Sobolev spaces, the heat semigroup, the Leray projection and Calderón--Zygmund bounds.
+
+\subsection{What is already kernel-checked at \texttt{a9e132f}}
+\begin{leancode}
+theorem log_gronwall {y : ℝ → ℝ} {T K : ℝ} (hK : 0 ≤ K)
+    (hy0 : ∀ t ∈ Ico (0 : ℝ) T, 0 ≤ y t) (hc : ContinuousOn y (Ico (0 : ℝ) T))
+    (hd' : ∀ s ∈ Ico (0 : ℝ) T, ∃ d : ℝ, HasDerivWithinAt y d (Ici s) s ∧
+      d ≤ K * (1 + Real.log (1 + y s)) * y s) :
+    ∀ t ∈ Ico (0 : ℝ) T,
+      y t ≤ Real.exp ((1 + Real.log (1 + y 0)) * Real.exp (K * T))
+
+theorem katoBKMMaximal_of_kato_of_log {ν : ℝ} {u₀ : VelocityField}
+    (hdec : FeffermanDecay u₀)
+    (hlog : BKMLogInequality) (hK : KatoMaximalSolution ν u₀) :
+    KatoBKMMaximal ν u₀
+
+lemma feffermanGlobalSolution_of_forall {ν : ℝ} {u₀ : VelocityField}
+    {u : TimeDependentVelocity} {p : TimeDependentPressure}
+    (hdec : FeffermanDecay u₀)
+    (h : ∀ T : ℝ, IsFeffermanSolutionOn ν T u₀ u p) :
+    FeffermanGlobalSolution ν u₀ u p
+
+theorem r3BKMContinuation_of_kato_of_log {ν : ℝ} (hlog : BKMLogInequality)
+    (hK : ∀ u₀ : VelocityField, ContDiff ℝ ∞ u₀ → (∀ x, div u₀ x = 0) →
+      FeffermanDecay u₀ → KatoMaximalSolution ν u₀) :
+    R3BKMContinuation ν
+
+theorem clay_A_fefferman_of_rate_of_kato_of_log
+    (hrate : ∀ ν > (0 : ℝ), ∀ u₀ : VelocityField, ContDiff ℝ ∞ u₀ →
+      (∀ x, div u₀ x = 0) → FeffermanDecay u₀ → FrohmanianTetherRateSmooth u₀ ν)
+    (hlog : BKMLogInequality)
+    (hK : ∀ ν > (0 : ℝ), ∀ u₀ : VelocityField, ContDiff ℝ ∞ u₀ →
+      (∀ x, div u₀ x = 0) → FeffermanDecay u₀ → KatoMaximalSolution ν u₀) :
+    Clay_A_Fefferman
+\end{leancode}
+
+\noindent Thus a uniform vorticity bound rules out the $H^3$ blow-up alternative once the two inputs are granted, and local Fefferman-class solutions on every finite interval assemble into a global solution exactly as Problem~(A) requires. \lean{KatoMaximalSolution} is shown inhabited at $u_0=0$ (\lean{katoMaximalSolution\_zero}). A subsequent commit on the same branch, \lean{3aacf81}, adds an elementary Sobolev embedding $H^3(\R^3)\hookrightarrow L^\infty$ by unit-cube averaging (no decay assumed) and a bridge to \lean{R3BKM.sobolevEnergy}. That is foundation work, not a proof of \lean{BKMLogInequality} or \lean{KatoMaximalSolution}.
+
+%======================================================================
+\section{Relation to the author's earlier records}\label{sec:prior}
+
+A read-only search of the public Zenodo API on November~11, 2026, for creator ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718} (167 latest-version records) found these related records by the author. None of them states the same findings in the same format as this paper.
+\begin{itemize}
+\item Zenodo 23632782 (October~7, 2026), \emph{What Is Actually Proved in Lean~4, and What Fefferman's Clay Statements (A) and (B) Ask}. It discusses Fefferman's (A) and (B) and presents \lean{frohmanian\_tether\_theorem} as a conditional implication under \lean{FrohmanianTetherRate}. The present paper shows that this hypothesis is unsatisfiable, gives a literal (A), and supersedes that record's description.
+\item Zenodo 24122596 (v0.1.5 of the \lean{sdiff} library, November~10, 2026) and Zenodo 23971661 (November~5, 2026). Both record \lean{FrohmanianTetherRate} as an open hypothesis. That status is corrected here.
+\item Zenodo 24102969, \emph{Vacuity and model-adequacy findings\ldots}. It reports a different vacuity, a solution object that did not encode the equations, in a different repository. The method is related, but the defect is not the same.
+\item Zenodo 24144846 (v1.5.0, November~11, 2026). It reports a different junk-value vacuity: a two-sided time derivative at $t=0$ in a periodic direction-depletion hypothesis.
+\item Zenodo 24091995 and 24080310. These cover classical continuation theory on $\T^3$, which is relevant to Section~\ref{sec:continuation} but not to $\R^3$.
+\end{itemize}
+No record in that search states Fefferman's Problem~(A) literally in Lean, refutes \lean{FrohmanianTetherRate} through the spatial junk-derivative loophole (Takagi / Mathlib $0$-derivative), or proves the conditional reduction of Theorem~\ref{thm:main}. In particular, no title or description contains \lean{Takagi}, \lean{Clay\_A\_Fefferman}, or \lean{TetherRateCounterexample}.
+
+%======================================================================
+\section{Reproducibility}\label{sec:repro}
+
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Repository & \lean{github.com/BenFrohman/frohmanian-tether-sdiff} \\
+Branch / PR & \lean{feat/fefferman-clay-a-reduction}, PR \#4 (draft, unmerged) \\
+Verified commit & \lean{4010251510ebe00d866006227c60374efe487453} \\
+Lean & \lean{leanprover/lean4:v4.30.0-rc1} \\
+Mathlib & \lean{v4.30.0-rc1}, rev \lean{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7} \\
+Modules & \lean{FrohmanianTether.\{Takagi, TetherRateCounterexample,} \\
+ & \lean{\ TetherRatePeriodicVacuity, FeffermanClayA\}} \\
+Rebuild & \lean{bash scripts/verify.sh} \\
+Build & \lean{lake build}: 8317 jobs, success \\
+Audit & 895 theorems, 1237 declarations, 0 violations \\
+\midrule
+Repository & \lean{github.com/BenFrohman/NS\_Millennium\_Proof} \\
+Branch / PR & \lean{fix/frohmanian-tether-theorem-vacuous}, PR \NSMPPR{} (draft, unmerged) \\
+Verified commit & \lean{\NSMPCOMMIT} \\
+Module & \lean{NS\_Millennium\_Proof.Modules.TetherRateCounterexample} \\
+Rebuild & \lean{lake exe cache get \&\& lake build} \\
+\midrule
+In-progress branch & \lean{feat/r3-bkm-continuation} (not in PR \#4) \\
+Milestone commit & \lean{a9e132f090a35a6f86182b1bdf2cac214b9c7813} \\
+Later foundation & \lean{3aacf81} ($H^3\hookrightarrow L^\infty$; inputs still open) \\
+Module & \lean{Scratch/R3BKMContinuation.lean} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Appendix: axiom output}
+\lean{lake env lean scripts/PrintAxioms.lean} at commit \lean{4010251} prints the following for the theorems of this paper. Line breaks in the original output are joined.
+\begin{leancode}
+'Takagi.not_differentiableAt_takagi' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'TetherRateCounterexample.not_forall_frohmanianTetherRate' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'TetherRateCounterexample.not_frohmanianTetherRate_U' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'TetherRateCounterexample.not_frohmanianTetherBound_U' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'TetherRatePeriodicVacuity.frohmanianTetherRate_of_periodic' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'FeffermanClayA.clay_A_fefferman_of_frohmanianTetherRateSmooth' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'FeffermanClayA.frohmanianTetherRateSmooth_zero' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'FeffermanClayA.r3BKMContinuationAt_zero' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'FeffermanClayA.feffermanDecay_zero' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'FeffermanClayA.clay_A_fefferman_instance_zero' depends on axioms:
+    [propext, Classical.choice, Quot.sound]
+'FeffermanClayA.frohmanianTetherRateSmoothGlobal_of_no_global_solution'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{leancode}
+\noindent The strict audit \lean{lake env lean scripts/AxiomAudit.lean} reports:
+\begin{leancode}
+AUDIT SUMMARY: theorems audited: 895 (791 stated in the sources, 104
+  auto-generated equation/congruence/injectivity lemmas); declarations
+  audited: 1237; violations: 0
+AUDIT PASS: only propext, Classical.choice, Quot.sound; no sorryAx;
+  no axiom declarations
+\end{leancode}
+\noindent For \lean{NS\_Millennium\_Proof} at commit \lean{80a4aa3}, \lean{lake build} prints:
+\begin{leancode}
+'TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+TOTAL theorems=615 nonstandard=0
+\end{leancode}
+
+\begin{thebibliography}{9}
+\bibitem{Fefferman} C.~L. Fefferman, \emph{Existence and smoothness of the Navier--Stokes equation}, in: The Millennium Prize Problems, Clay Mathematics Institute, 2006, pp.~57--67.
+\bibitem{BKM} J.~T. Beale, T.~Kato, A.~Majda, Remarks on the breakdown of smooth solutions for the 3-D Euler equations, \emph{Comm. Math. Phys.} 94 (1984), 61--66.
+\bibitem{Kato} T.~Kato, Strong $L^p$-solutions of the Navier--Stokes equation in $\mathbb{R}^m$, with applications to weak solutions, \emph{Math. Z.} 187 (1984), 471--480.
+\bibitem{Takagi} T.~Takagi, A simple example of the continuous function without derivative, \emph{Proc. Phys.-Math. Soc. Japan} 1 (1903), 176--177.
+\end{thebibliography}
+\end{document}

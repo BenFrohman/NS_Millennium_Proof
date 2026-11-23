@@ -1,0 +1,57 @@
+diff --git a/docs/PROOF_BOUNDARY_FIX_2026-11-06.md b/docs/PROOF_BOUNDARY_FIX_2026-11-06.md
+new file mode 100644
+index 0000000..54525d8
+--- /dev/null
++++ b/docs/PROOF_BOUNDARY_FIX_2026-11-06.md
+@@ -0,0 +1,9 @@
++# Monograph/source synchronization
++
++The obsolete 60-theorem / 13-submodule paragraph is removed from the current monograph; the source tree has fourteen Clay submodules plus its root. The current audit inventory is 62 theorem declarations (including generated auxiliaries), not 62 independent analytical results.
++
++The global-existence result remains the implication from `PeriodicMaximalSolutionWithBKM` and `PeriodicBKMIntegrability` to `FeffermanStatementB`. The proof does not discharge either argument, and in particular does not establish the open BKM bound.
++
++`ConditionalRiccati.lean` is unchanged mathematically: `rate`, `C`, `kappa`, and `M` are integers, the hypothesis is `rate ≤ M * (C * M - kappa * M * M)`, and the conclusion is the expanded `rate ≤ C * M * M - kappa * M * M * M`. The prose no longer describes this as a proved real differential law or a vorticity/PDE estimate. Establishing such an analytical interpretation remains an unresolved mathematical input.
++
++The committed PDF is rebuilt from the corrected source with Tectonic. No theorem, hypothesis, or research branch is removed, and no publishing is performed.
+diff --git a/lean/Clay/Gaps/ConditionalRiccati.lean b/lean/Clay/Gaps/ConditionalRiccati.lean
+index 971ab26..2d9216c 100644
+--- a/lean/Clay/Gaps/ConditionalRiccati.lean
++++ b/lean/Clay/Gaps/ConditionalRiccati.lean
+@@ -2,9 +2,9 @@
+ Copyright (c) 2026 Benjamin Stanley Frohman. Apache-2.0.
+ Algebraic rearrangement on Int (closed by `ring`).
+ The minus sign is a hypothesis. Does not inhabit StatementB. No sorry.
+-`CorrectedMaxRate` is an OPEN hypothesis (a Riccati / kappa-matching max-rate law,
+-dM/dt <= C M - kappa M^2), not a classical result. The argument proposed for it is refuted:
+-stretching at the maximum is quadratic, <= C_CZ M^2, so the coefficient matching fails.
++`CorrectedMaxRate` is an integer inequality, not a differential max-rate law.
++`rate` is an Int variable; no trajectory or PDE interpretation is constructed.
++Any link to an analytical vorticity estimate is an additional, unproved input.
+ -/
+ 
+ import Mathlib.Tactic.Ring
+diff --git a/paper/Clay_Technical_Monograph_2026.pdf b/paper/Clay_Technical_Monograph_2026.pdf
+index 18610a3..afa0c67 100644
+Binary files a/paper/Clay_Technical_Monograph_2026.pdf and b/paper/Clay_Technical_Monograph_2026.pdf differ
+diff --git a/paper/Clay_Technical_Monograph_2026.tex b/paper/Clay_Technical_Monograph_2026.tex
+index 4f99330..3c7664e 100644
+--- a/paper/Clay_Technical_Monograph_2026.tex
++++ b/paper/Clay_Technical_Monograph_2026.tex
+@@ -87,10 +87,15 @@ \section{Ledger of missing inputs}
+ The former trivial definitions have been removed; the repository history retains them. For planar fields $v=(v_1(x_1,x_2),v_2(x_1,x_2),0)$ the vorticity is proved parallel to $e_3$. Kernel-checked elementary results include the identity $\Pi_u u=0$ for the pointwise tether projection, the unboundedness of the history integral $m^2t$ for $m>0$, and the conditional Riccati rearrangement.
+ 
+ \section{Build and axiom status}
+-\textbf{Proved (kernel-checked).} \texttt{lake build} of the full \texttt{Clay} library (root module and all 13 submodules) succeeds on Lean/Mathlib v4.16.0. The axiom report lists 60 theorem declarations (including compiler-generated auxiliary lemmas), none using \texttt{sorryAx}, and none using an axiom beyond \texttt{propext}, \lean{Classical.choice}, \lean{Quot.sound}. The substantive kernel-checked results are \lean{feffermanStatementB_of_bkm}, \lean{statementB_of_bkmIntegralFinite}, \lean{bkmIntegralFinite_of_holographic}, \lean{bkmIntegralFinite_of_vortSup_le}, the two-dimensional clock results \lean{steady_euler_clock}, \lean{alignment_does_not_delete_clock}, \lean{clock_fails_on_aligned_2d_solutions}, the planar-vorticity lemma \lean{curl_planar}, the tether identities \lean{tether_degeneracy}, \lean{tether_bracket_preservation}, and the integer rearrangement \lean{conditional_riccati}. This is a machine check of the Lean statements, not peer review.
+ \textbf{Proved (kernel-checked).} \texttt{lake build} of the full \texttt{Clay} library (root module and all 14 submodules, including the note \texttt{Clay.Notes.NotBlowup}) succeeds on Lean/Mathlib v4.16.0. The axiom report lists 62 theorem declarations (including compiler-generated auxiliary lemmas), none using \texttt{sorryAx}, and none using an axiom beyond \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}. The substantive kernel-checked results are \texttt{feffermanStatementB\_of\_bkm}, \texttt{statementB\_of\_bkmIntegralFinite}, \texttt{bkmIntegralFinite\_of\_holographic}, \texttt{bkmIntegralFinite\_of\_vortSup\_le}, the two-dimensional clock results \texttt{steady\_euler\_clock}, \texttt{alignment\_does\_not\_delete\_clock}, \texttt{clock\_fails\_on\_aligned\_2d\_solutions}, the planar-vorticity lemma \texttt{curl\_planar}, the tether identities \texttt{tether\_degeneracy}, \texttt{tether\_bracket\_preservation}, and the integer rearrangement \texttt{conditional\_riccati}. This is a machine check of the Lean statements, not peer review.
+ 
+-\textbf{Conditional on.} \lean{PeriodicMaximalSolutionWithBKM} (classical, not formalized here), \lean{PeriodicBKMIntegrability} (open), and, for \lean{conditional_riccati}, \lean{CorrectedMaxRate}, an \emph{open hypothesis} and not a classical result: it is a Riccati / $\kappa$-matching max-rate law $\dot M\le CM-\kappa M^2$ at the vorticity maximum. The argument proposed for it is refuted, since the stretching at the maximum is quadratic, $\omega\cdot S\omega\le C_{CZ}M^2$ (up to a logarithm), and nothing in unmodified Navier--Stokes supplies a matching $-\kappa M^2$ term; \lean{conditional_riccati} only rearranges this hypothesis. Finer decompositions of the open input (for example tame $H^s$ and log-Sobolev BKM bounds) belong to the continuation repository and are not formalized here.
++\textbf{Conditional on.} The global-existence reduction takes \lean{PeriodicMaximalSolutionWithBKM} (classical local theory and continuation, not proved here) and \lean{PeriodicBKMIntegrability} (the still-undischarged BKM integrability assumption) as arguments. Neither is supplied by the reduction.
++
++The separate declaration \lean{conditional_riccati} is an algebraic implication over integers. For $\mathrm{rate},C,\kappa,M\in\mathbb Z$, \lean{CorrectedMaxRate} is exactly
++\[
++  \mathrm{rate}\le M(CM-\kappa M^2),
++\]
++and the theorem rewrites its right-hand side as $CM^2-\kappa M^3$. Here \texttt{rate} is an integer variable, not a time derivative. No real-valued trajectory, differential inequality, vorticity maximum principle, or connection of this predicate to Navier--Stokes is proved. An analytical max-rate law and its PDE bridge remain separate missing inputs; this rearrangement does not supply them. Finer decompositions of the open BKM input belong to the continuation repository and are not formalized here.
+ 
+ \textbf{Open.} \lean{PeriodicBKMIntegrability}; every item of the ledger above marked open; and therefore Statement~(B) itself. The Clay Millennium Problem is not solved by this work.
+ 

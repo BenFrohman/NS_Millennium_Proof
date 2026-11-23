@@ -1,0 +1,20 @@
+﻿2026-11-17T08:30:21.1267438Z ##[group]Run mkdir -p cert-out
+2026-11-17T08:30:21.1267759Z [36;1mmkdir -p cert-out[0m
+2026-11-17T08:30:21.1268039Z [36;1m{[0m
+2026-11-17T08:30:21.1268283Z [36;1m  echo "commit: $(git rev-parse HEAD)"[0m
+2026-11-17T08:30:21.1268598Z [36;1m  echo "lean-toolchain: $(cat lean-toolchain)"[0m
+2026-11-17T08:30:21.1269116Z [36;1m  if command -v elan >/dev/null 2>&1; then echo "elan --version: $(elan --version)"; else echo "elan --version: not printed; elan was not on PATH"; fi[0m
+2026-11-17T08:30:21.1269801Z [36;1m  if command -v lean >/dev/null 2>&1; then echo "lean --version: $(lean --version)"; else echo "lean --version: not printed; lean was not on PATH"; fi[0m
+2026-11-17T08:30:21.1270519Z [36;1m  if command -v lake >/dev/null 2>&1; then echo "lake --version: $(lake --version)"; else echo "lake --version: not printed; lake was not on PATH"; fi[0m
+2026-11-17T08:30:21.1271247Z [36;1m  echo "date (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"[0m
+2026-11-17T08:30:21.1271636Z [36;1m  echo "run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"[0m
+2026-11-17T08:30:21.1272080Z [36;1m} | tee cert-out/environment.txt[0m
+2026-11-17T08:30:21.1299002Z shell: /usr/bin/bash -e {0}
+2026-11-17T08:30:21.1299333Z ##[endgroup]
+2026-11-17T08:30:21.1378082Z commit: 1ea649e495b5e06fafec75a05bb8ec07f13dae80
+2026-11-17T08:30:21.1386016Z lean-toolchain: leanprover/lean4:v4.30.0-rc1
+2026-11-17T08:30:21.1401178Z elan --version: elan 4.2.4 (227caca13 2026-08-25)
+2026-11-17T08:30:21.1691566Z lean --version: Lean (version 4.30.0-rc1, x86_64-unknown-linux-gnu, commit 714601baf118066cbf3f282361339c6d06665b2a, Release)
+2026-11-17T08:30:21.1971189Z lake --version: Lake version 5.0.0-src+714601b (Lean version 4.30.0-rc1)
+2026-11-17T08:30:21.1978067Z date (UTC): 2026-11-17T08:30:21Z
+2026-11-17T08:30:21.1978940Z run: https://github.com/BenFrohman/frohmanian-tether-sdiff/actions/runs/44047249332

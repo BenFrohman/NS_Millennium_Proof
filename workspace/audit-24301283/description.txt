@@ -1,0 +1,62 @@
+Changes in this version. Notation-only update so the primary manuscript uses textbook symbols: vorticity written as ω = ∇×u, enstrophy / vorticity norms as ‖ω‖_{L²} and ‖ω‖_{L∞}, together with ν, u, p, and the strain S = ½(∇u + (∇u)ᵀ). No statement is changed. The Unified PDF and TeX include the leftover notation fix from GitHub PR #8 (https://github.com/BenFrohman/frohmanian-tether-conditional-regularity/pull/8, commit dc5f3d284bf5514408eee33e25c5c766ed2ad7fa): the stand-in M(t) := ‖ω‖_{L∞} is written as ‖ω‖_{L∞}, and the vorticity tensor in ∇u = S + Ω is defined by Ω = ½(∇u − (∇u)ᵀ). Source: GitHub commit 212e4e4726fce56a92a4c93c94a4b8cb4423fb30 (17 Nov 2026, America/Chicago), on which Lean header, lake build, and the kernel and axiom check were green (Actions run 44036193219). This work is strictly conditional and does not resolve the Clay Millennium Problem on Navier–Stokes existence and smoothness.
+
+
+Correction retained from the 10 Nov 2026 metadata update on 10.5281/zenodo.24079623. An audit of the Lean formalization found vacuity / model-adequacy defects in the legacy encoding (see the companion note 10.5281/zenodo.24102969). Those findings are unchanged by this notation-only version.
+
+
+Conditional geometric reformulation of 3D incompressible Navier–Stokes on 𝕋³ via the Frohmanian Symplectic Tether. No unconditional large-data claim is made; the Clay Millennium problem remains open.
+
+
+
+Status summary (audited).
+
+
+
+Architecture: skew-symmetric Arnold Lie–Poisson transport {F,G}LP, plus a symmetric metriplectic sector [F,G]total = [F,G]diss + B(F,G). B is not claimed to be Poisson; there is no Jacobi identity claim for B. The Jacobi identity for the LP bracket is cited as a theorem of Marsden–Weinstein coadjoint-orbit reduction (Arnold1966, MW1983, AK1998); the paper retains its written LP convention without curls.
+Strict degeneracy B(F,H) ≡ 0 (projection on the velocity slot ∇×δF/δω) recovers the exact unmodified Navier–Stokes vorticity equation.
+Theorem A: Form B (∫ ‖S‖∞ dt bounded on every finite interval) ⇒ global smoothness for t>0; converse on finite horizons. BKM continuation stated one-directional.
+Theorem B: unconditional local Kato lifespan, with expanded sketch (full Kato–Ponce both terms + absorb; mollified/Galerkin + Aubin–Lions; L² uniqueness with ∇v; smoothness for t>0).
+Theorem C: unconditional global regularity for small critical data ‖u0‖Ḣ1/2 ≤ ε ν; smoothness for t>0.
+The three classical pillars are also recorded in the companion paper 10.5281/zenodo.24080310.
+Repaired weighted Lyapunov (author's audited status; not present as a file in this deposit): with a damped weight ϕ (0 < ϕ ≤ 1), one obtains a sign-consistent conditional energy inequality under Form B. It is no stronger than classical BKM and does not prove Form B a priori.
+
+
+Note on an examined unconditional attempt (five flaws; rejected). A proposed Lyapunov-functional argument for unconditional global regularity, using a mollified functional with an auxiliary field ϕ, was examined and rejected. Its gaps: (1) a sign error, since ∂tϕε ≥ 0 makes the term (κ/4)∫|ωε|⁴∂tϕε positive, adding growth of order ∫|ω|⁶ rather than quartic absorption; (2) the bound ‖∇u‖∞ ≤ CCZ‖ω‖∞ is false, because Calderón–Zygmund operators are unbounded on L∞ and the correct estimate carries a logarithm; (3) Gagliardo–Nirenberg gives no lower bound ∫|ω|⁶ ≥ cM⁶/E0, as tall thin spikes show; (4) the comparison ODE is not autonomous, since residual powers of ‖ϕε‖∞ grow with ∫M²; (5) mollification commutators were dropped. The argument assumes rather than derives a closed cubic inequality for the vorticity supremum and does not resolve Clay Statement (B).
+
+
+
+Primary manuscript — Frohmanian_Tether_Unified.tex / .pdf (plus references.bib with keys MW1983, AK1998, and companions). Includes Jacobi coadjoint-reduction remark (§2.1), expanded Theorem B three pillars, status matrix (A Conditional / B Unconditional Local / C Small-Data Global / geometry Exact / BKM one-directional / Lean scope / Clay Open), and amsplain BibTeX. Earlier Frohmanian_Tether_Full_Expanded.tex/.pdf is retained (referee-audited: BKM one-directional; smoothness for t>0).
+
+
+
+Supplementary notes
+
+
+
+Conditional_BKM_Continuation.tex/.pdf — classical BKM continuation in one-directional form; smoothness for t>0; log bound includes +‖ω‖L²; indices s>5/2.
+Littlewood_Paley_Conditional_and_SmallData.tex/.pdf — Kozono–Taniuchi continuation one-directional with +‖ω‖L²; Chemin/Fujita–Kato for 1≤p≤∞ with smallness linear in ν (proof scaling C/ν, not C/ν²); smoothness for t>0.
+
+
+Lean 4 modules (Lean / Mathlib v4.30.0-rc1; all three Lean files presently on this deposit now compile under lake env lean in NS_Millennium_Proof):
+
+
+
+FrohmanianTripleArchitecture.lean — compiles (0 sorry; axioms [propext, Classical.choice, Quot.sound]). Also builds green in CI on the private companion repo frohmanian-tether-conditional-regularity (run 42614257456: 14 declarations, three standard axioms).
+FrohmanianTetherComplete.lean — compiles (corrected; BKM interface one-directional; 0 sorry; axioms [propext, Classical.choice, Quot.sound]). Prior name conditional_global_regularity_iff_clay_B replaced by one-directional hypothesisB_implies_clayStatementB / clayStatementB_implies_hypothesisB.
+ConditionalNavierStokesTetherFull.lean — compiles (corrected; BKM interface one-directional; 0 sorry; axioms [propext, Classical.choice, Quot.sound]). Prior three_way_equivalence renamed to hypothesisB_clay_continuation (one-directional package).
+Scope for all three: metriplectic / degeneracy / alignment / Gronwall logic over abstract PDE input types; Clay/BKM remain assumed structure fields. No unconditional Clay resolution is claimed.
+FrohmanianTetherUnified.lean was not received.
+
+
+Python check — verify_tether_tg.py + verify_tether_tg_output.txt (rerun confirmed matching output).
+
+
+
+Related identifiers: isSupplementedBy NS_Millennium_Proof; isSupplementedBy frohmanian-tether-conditional-regularity (private).
+
+
+
+
+
+Version note: adds/updates AnalyticBridgeTarget.lean and the Unified manuscript so Form B is stated in both versions: (B-grad) full-gradient integrability ∫₀ᵀ ‖∇u‖_{L^∞} dt ≤ C_*(T) giving the direct bound ‖u(t)‖_{Hˢ} ≤ ‖u₀‖_{Hˢ} exp(C_s C_*(T)) via cited Kato–Ponce + Grönwall; and (B-strain) strain-only integrability of ‖S‖_{L^∞}, which still implies continuation (Ponce 1985 / BKM 1984) but only with a log-Sobolev loss and a double-exponential Hˢ majorant. Lean formalizes the ∇u (B-grad) path with exactly one sorry on the open Clay Statement (B) target (analytic_bridge_unconditional); proved theorems use only [propext, Classical.choice, Quot.sound]. Companion commit c299ae7 on frohmanian-tether-conditional-regularity. Nothing claims an unconditional Clay resolution.
+

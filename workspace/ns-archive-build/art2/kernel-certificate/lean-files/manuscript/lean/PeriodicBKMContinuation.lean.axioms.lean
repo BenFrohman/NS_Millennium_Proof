@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.ClayStatements
+#print axioms FrohmanianTether.ClayStatements.PeriodicBKMContinuation

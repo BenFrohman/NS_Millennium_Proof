@@ -1,0 +1,65 @@
+PR #11 status notes (America/Chicago)
+Updated: 2026-11-23 1:12 PM CT
+
+PR: https://github.com/BenFrohman/frohmanian-tether-conditional-regularity/pull/11
+Head: 9f21bfb66b3911004d7e4b714ac6df42c96975bd
+Branch: chore/zero-sorry-truth-gate-20261117
+Base: origin/main 81b5e7f (still has sorry in ClassicalNSOpenTarget.lean)
+
+Green on 9f21bfb:
+- header (push 45244211752, PR 45244220461)
+- lake build (push 45244211590 job 137936617786, PR 45244220242 job 137936649054)
+- kernel-certificate (push 45244211543)
+- truth-gate (PR 45244220384)
+
+Red:
+- kernel and axiom check, both push 45244211590 job 137938426803 and PR 45244220242 job 137937828978
+
+Cause (real, not cancelled):
+Coverage at the end of scripts/kernel_check.sh failed with:
+  FAIL: these tracked .lean files were not built (or, for scripts/, not elaborated):
+    scripts/PrintAxioms.lean
+    scripts/PrintAxiomsBridge.lean
+
+Those files WERE elaborated in the same job (lake env lean; #print axioms all standard).
+The logs were written as certificates/axioms.log and certificates/axioms-bridge.log.
+check_lean_coverage.py only treats a scripts/*.lean file as elaborated if a top-level
+certificates/* filename contains the stem or the first 400 bytes of a cert file do.
+"axioms.log" contains neither "PrintAxioms" nor "PrintAxiomsBridge".
+
+Fix plan (honest, no skip lists, no --scripts-source-scan-ok exemption):
+- Write ELABORATED scripts/<file> headers and certificates/PrintAxioms.log plus
+  PrintAxiomsBridge.log (keep axioms.log / axioms-bridge.log copies for artifacts).
+- Require that evidence (named log/txt or ELABORATED line), not a 400-byte substring.
+- Run StrictAxiom audits inside kernel_check.sh before coverage so every scripts/
+  file is elaborated first.
+- Drop --scripts-source-scan-ok from kernel-certificate.yml; run kernel_check.sh
+  there so those scripts are actually elaborated.
+
+Do not merge until every check is green. Then official main artifact only for
+Zenodo drafts (update 24303097; new versions of Vacuity 24102968 and Three Pillars
+24080309). Do not publish.
+
+Pushed fix 88dad7c at 2026-11-23 01:15 PM CT. Waiting on CI.
+
+Merged PR #11 at 2026-11-23 1:29:59 PM CT as 86336a9e7d9a3da117b271d23ee7c05848d5de61 (America/Chicago).
+Head was 88dad7c. All PR/push checks were green. Waiting on official main CI.
+
+Completed 2026-11-23 about 1:52 PM CT (America/Chicago).
+
+Merged PR #11 as 86336a9e7d9a3da117b271d23ee7c05848d5de61 at 1:29:59 PM CT.
+Official main CI all green:
+  header 45249570819
+  truth-gate 45249570289
+  Kernel certificate 45249569955 (leanchecker 12/12)
+  Lean build and kernel check 45249571059 (certifying run)
+
+Drafts, unsubmitted, not published:
+  Unified Tether concept 24079622: updated existing draft 24303097 (v1.3)
+    https://zenodo.org/deposit/24303097
+  Vacuity concept 24102968: corrective new version draft 24480427 (v1.3.1) from published 24303108
+    https://zenodo.org/deposit/24480427
+  Three Pillars concept 24080309: corrective new version draft 24480435 (v1.3.1) from published 24303111
+    https://zenodo.org/deposit/24480435
+
+Published records 24303108, 24303111, 24301283 were not altered. Nothing was published.

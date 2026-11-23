@@ -1,0 +1,196 @@
+Modules/Uniqueness.lean:92:43: error: Application type mismatch: The argument
+  B
+has type
+  CoadjointOrbit → Functional → Functional → ℝ
+of sort `Type` but is expected to have type
+  Type ?u.43
+of sort `Type (?u.43 + 1)` in the application
+  @InvariantUnderCoadjointAction B
+Modules/Uniqueness.lean:93:34: error: Application type mismatch: The argument
+  B
+has type
+  CoadjointOrbit → Functional → Functional → ℝ
+of sort `Type` but is expected to have type
+  Type ?u.761
+of sort `Type (?u.761 + 1)` in the application
+  @InvariantUnderCoadjointAction B
+Modules/Uniqueness.lean:167:30: error: unsolved goals
+B : CoadjointOrbit → Functional → Functional → ℝ
+α : CoadjointOrbit → T3 → ℝ
+h_repr : HasTetherKernelDensity B α
+hα : ∀ (ω : CoadjointOrbit) (x : T3), α ω x = canonicalTetherDensity ω x
+ω : CoadjointOrbit
+F G : Functional
+hB :
+  B ω F G =
+    ∫ (x : T3),
+      α ω x *
+        ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+          Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ ∂NavierStokes3D.volume
+KFG : T3 → ℝ :=
+  fun x => ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x, Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ
+hfun : (fun x => α ω x * KFG x) = fun x => -κ * (‖ω.val x‖ ^ 2 * KFG x)
+⊢ κ *
+      ∫ (x : T3),
+        ‖ω.val x‖ ^ 2 *
+          ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+            Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ ∂NavierStokes3D.volume =
+    κ * Enstrophy ω *
+      ∫ (x : T3),
+        ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+          Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ ∂NavierStokes3D.volume
+Modules/Uniqueness.lean:185:66: error: unsolved goals
+ω : CoadjointOrbit
+F G : Functional
+hf :
+  (fun x =>
+      -κ * ‖ω.val x‖ ^ 2 *
+        ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x, Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ) =
+    fun x =>
+    -κ *
+      (‖ω.val x‖ ^ 2 * ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x, Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ)
+⊢ -κ * Enstrophy ω *
+      ∫ (x : T3),
+        ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+          Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ ∂NavierStokes3D.volume =
+    -κ *
+      ∫ (a : T3),
+        ‖ω.val a‖ ^ 2 *
+          ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) a,
+            Pi_u (velocity_from_vorticity ω) (δ G/δω ω) a⟫_ℝ ∂NavierStokes3D.volume
+Modules/Uniqueness.lean:258:23: error: unsolved goals
+B : CoadjointOrbit → Functional → Functional → ℝ
+α : CoadjointOrbit → T3 → ℝ
+h_repr : HasTetherKernelDensity B α
+hα : ∀ (ω : CoadjointOrbit) (x : T3), α ω x = canonicalTetherDensity ω x
+F G : Functional
+ω : CoadjointOrbit
+c : ℝ
+hB : ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G
+ωc : CoadjointOrbit := { val := fun x => c • ω.val x, property := ⋯ }
+hFD_F : δ F/δω ωc = δ F/δω ω
+hFD_G : δ G/δω ωc = δ G/δω ω
+hPi : Pi_u (velocity_from_vorticity ωc) = Pi_u (velocity_from_vorticity ω)
+hTc : B ωc F G = TetherKernel ωc F G
+hT : B ω F G = TetherKernel ω F G
+hfun :
+  (fun x =>
+      ‖ωc.val x‖ ^ 2 *
+        ⟪Pi_u (velocity_from_vorticity ωc) (δ F/δω ωc) x, Pi_u (velocity_from_vorticity ωc) (δ G/δω ωc) x⟫_ℝ) =
+    fun x =>
+    c ^ 2 *
+      (‖ω.val x‖ ^ 2 * ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x, Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ)
+⊢ κ * Enstrophy ωc *
+      ∫ (x : T3),
+        ⟪Pi_u (velocity_from_vorticity ωc) (δ F/δω ωc) x,
+          Pi_u (velocity_from_vorticity ωc) (δ G/δω ωc) x⟫_ℝ ∂NavierStokes3D.volume =
+    κ *
+      ∫ (x : T3),
+        ‖ωc.val x‖ ^ 2 *
+          ⟪Pi_u (velocity_from_vorticity ωc) (δ F/δω ωc) x,
+            Pi_u (velocity_from_vorticity ωc) (δ G/δω ωc) x⟫_ℝ ∂NavierStokes3D.volume
+Modules/Uniqueness.lean:277:39: error: Ambiguous term
+  volume
+Possible interpretations:
+  MeasureTheory.volume : Measure ?m.497
+  
+  NavierStokes3D.volume : Measure T3
+Modules/Uniqueness.lean:276:26: error: unsolved goals
+B : CoadjointOrbit → Functional → Functional → ℝ
+α : CoadjointOrbit → T3 → ℝ
+h_repr : HasTetherKernelDensity B α
+hα : ∀ (ω : CoadjointOrbit) (x : T3), α ω x = canonicalTetherDensity ω x
+F G : Functional
+ω : CoadjointOrbit
+c : ℝ
+hB : ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G
+ωc : CoadjointOrbit := { val := fun x => c • ω.val x, property := ⋯ }
+hFD_F : δ F/δω ωc = δ F/δω ω
+hFD_G : δ G/δω ωc = δ G/δω ω
+hPi : Pi_u (velocity_from_vorticity ωc) = Pi_u (velocity_from_vorticity ω)
+hTc : B ωc F G = TetherKernel ωc F G
+hT : B ω F G = TetherKernel ω F G
+hfun :
+  (fun x =>
+      ‖ωc.val x‖ ^ 2 *
+        ⟪Pi_u (velocity_from_vorticity ωc) (δ F/δω ωc) x, Pi_u (velocity_from_vorticity ωc) (δ G/δω ωc) x⟫_ℝ) =
+    fun x =>
+    c ^ 2 *
+      (‖ω.val x‖ ^ 2 * ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x, Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ)
+⊢ -κ *
+      ∫ (x : T3),
+        c ^ 2 *
+          (‖ω.val x‖ ^ 2 *
+            ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+              Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ) ∂NavierStokes3D.volume =
+    c ^ 2 *
+      (-κ *
+        ∫ (x : T3),
+          ‖ω.val x‖ ^ 2 *
+            ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+              Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ ∂NavierStokes3D.volume)
+Modules/Uniqueness.lean:279:38: error: unsolved goals
+B : CoadjointOrbit → Functional → Functional → ℝ
+α : CoadjointOrbit → T3 → ℝ
+h_repr : HasTetherKernelDensity B α
+hα : ∀ (ω : CoadjointOrbit) (x : T3), α ω x = canonicalTetherDensity ω x
+F G : Functional
+ω : CoadjointOrbit
+c : ℝ
+hB : ∀ (ω : CoadjointOrbit) (F G : Functional), B ω F G = TetherKernel ω F G
+ωc : CoadjointOrbit := { val := fun x => c • ω.val x, property := ⋯ }
+hFD_F : δ F/δω ωc = δ F/δω ω
+hFD_G : δ G/δω ωc = δ G/δω ω
+hPi : Pi_u (velocity_from_vorticity ωc) = Pi_u (velocity_from_vorticity ω)
+hTc : B ωc F G = TetherKernel ωc F G
+hT : B ω F G = TetherKernel ω F G
+hfun :
+  (fun x =>
+      ‖ωc.val x‖ ^ 2 *
+        ⟪Pi_u (velocity_from_vorticity ωc) (δ F/δω ωc) x, Pi_u (velocity_from_vorticity ωc) (δ G/δω ωc) x⟫_ℝ) =
+    fun x =>
+    c ^ 2 *
+      (‖ω.val x‖ ^ 2 * ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x, Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ)
+⊢ κ *
+        ∫ (x : T3),
+          ‖ω.val x‖ ^ 2 *
+            ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+              Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ ∂NavierStokes3D.volume =
+      κ * Enstrophy ω *
+        ∫ (x : T3),
+          ⟪Pi_u (velocity_from_vorticity ω) (δ F/δω ω) x,
+            Pi_u (velocity_from_vorticity ω) (δ G/δω ω) x⟫_ℝ ∂NavierStokes3D.volume ∨
+    c = 0
+Modules/Uniqueness.lean:404:41: error: Application type mismatch: The argument
+  B
+has type
+  CoadjointOrbit → Functional → Functional → ℝ
+of sort `Type` but is expected to have type
+  Type ?u.8393
+of sort `Type (?u.8393 + 1)` in the application
+  @InvariantUnderCoadjointAction B
+Modules/Uniqueness.lean:401:15: error: (kernel) unknown constant '_private.Modules.Uniqueness.0.FrohmanianTether.step1_locality'
+Modules/Uniqueness.lean:435:42: error: Application type mismatch: The argument
+  B
+has type
+  CoadjointOrbit → Functional → Functional → ℝ
+of sort `Type` but is expected to have type
+  Type ?u.9207
+of sort `Type (?u.9207 + 1)` in the application
+  @InvariantUnderCoadjointAction B
+'FrohmanianTether.uniqueness_of_kernel_density' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'FrohmanianTether.uniqueness_of_kernel_density_fun' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'FrohmanianTether.tetherKernel_has_canonical_density' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'FrohmanianTether.uniqueness_of_minimal_tether' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ uniqueness_of_minimal_tether,
+ Quot.sound]
+'FrohmanianTether.step2_degree_of_canonical_density' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'FrohmanianTether.step2_degree' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'FrohmanianTether.step5_higher_order' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+[exit 1]

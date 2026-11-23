@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}\newtheorem{remark}[theorem]{Remark}
+\title{Vorticity-Direction Regularity Criteria and the Projection Gap of the Frohmanian Tether: A Conditional Note}
+\author{Frohman, Benjamin Stanley\\ ORCID 0009-0006-7068-3718 \\ \texttt{frohmanbenjamin@gmail.com}}
+\date{November 5, 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We state precisely the classical vorticity-direction regularity criteria of Constantin and Fefferman (Lipschitz direction) and of Beir\~ao da Veiga and Berselli ($\tfrac12$-H\"older direction) for the three-dimensional incompressible Navier--Stokes equations, record elementary lemmas about the direction field that we have kernel-checked in Lean~4, and explain how these criteria relate to the velocity projection $\Pi_u$ used in the Frohmanian tether, in particular the projection gap where $\omega\parallel u$. \textbf{This note does not prove global regularity and makes no claim on the Clay Millennium problem.} The criteria themselves are classical and are \emph{assumed}, not formalized.
+\end{abstract}
+
+\section{Setting}
+Let $u$ be a solution of $\partial_t u+(u\cdot\nabla)u-\nu\Delta u+\nabla p=0$, $\nabla\cdot u=0$, with smooth divergence-free finite-energy data, and $\omega=\nabla\times u$. Where $\omega\neq0$ define the vorticity direction $\xi=\omega/|\omega|$. For $\Lambda>0$ let $\Omega_\Lambda(t)=\{x:|\omega(x,t)|\ge\Lambda\}$.
+
+\section{Classical criteria (assumed)}
+\begin{theorem}[Constantin--Fefferman 1993 \cite{CF}]
+Suppose there exist $\Lambda>0$ and $L<\infty$ such that for all $t\in[0,T]$ and $x,y\in\Omega_\Lambda(t)$,
+$|\xi(x,t)-\xi(y,t)|\le L|x-y|$. Then the solution remains smooth on $[0,T]$.
+\end{theorem}
+(The original hypothesis is the slightly weaker $|\sin\angle(\xi(x),\xi(y))|\le L|x-y|$; Lipschitz continuity of $\xi$ implies it.)
+\begin{theorem}[Beir\~ao da Veiga--Berselli 2002 \cite{BB}]
+The same conclusion holds if instead $|\xi(x,t)-\xi(y,t)|\le L|x-y|^{1/2}$ on $\Omega_\Lambda(t)$ for $t\in[0,T]$.
+\end{theorem}
+These are deep results relying on the geometric structure of vortex stretching $\xi\cdot S\xi\,|\omega|^2$; we do not reprove them.
+
+\section{Elementary facts (proved, Lean-checked)}
+\begin{lemma}$|\xi(x)|=1$ wherever $\omega(x)\neq0$.\end{lemma}
+\begin{lemma}For $c>0$, $\xi[c\omega]=\xi[\omega]$; hence the Lipschitz condition for $\omega$ at threshold $\Lambda$ is equivalent to that for $c\omega$ at threshold $c\Lambda$.\end{lemma}
+\begin{proof}$|c\omega|^{-1}c\omega=(c|\omega|)^{-1}c\,\omega=|\omega|^{-1}\omega$, and $c\Lambda\le|c\omega|\iff\Lambda\le|\omega|$.\end{proof}
+\begin{proposition}If $\xi$ is $L$-Lipschitz on $\Omega_\Lambda$, $\Lambda>0$, then it is $\tfrac12$-H\"older there with constant $\max(L,2)$. Consequently the Beir\~ao da Veiga--Berselli criterion implies the Constantin--Fefferman criterion.\end{proposition}
+\begin{proof}Let $d=|x-y|$. If $d\le1$ then $d\le\sqrt d$ so $|\xi(x)-\xi(y)|\le Ld\le\max(L,2)\sqrt d$. If $d\ge1$, then since $|\xi|=1$ on $\Omega_\Lambda$, $|\xi(x)-\xi(y)|\le2\le2\sqrt d$.\end{proof}
+In Lean (\texttt{FrohmanianTether/DirectionCondition.lean}, repository \texttt{BenFrohman/frohmanian-tether-geometric}) these are \texttt{norm\_vorticityDirection}, \texttt{vorticityDirection\_smul}, \texttt{directionLipschitz\_smul\_iff}, \texttt{halfHolder\_of\_lipschitz} and \texttt{constantinFefferman\_of\_beiraoDaVeigaBerselli}; the regularity statements \texttt{regularity\_of\_direction\_condition} and \texttt{regularity\_of\_halfHolder\_direction\_condition} are modus ponens from the named Props \texttt{ConstantinFeffermanCriterion} and \texttt{BeiraoDaVeigaBerselliCriterion}. All depend only on \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}, with no \texttt{sorry}.
+
+\section{Relation to the tether projection}
+The tether uses $\Pi_u v=v-\frac{\langle v,u\rangle}{\|u\|^2}u$ (an $L^2$ projection off $u$). Its action on vorticity has no lower bound: where $\omega\parallel u$ (Beltrami-type regions) the pointwise component of $\omega$ orthogonal to $u$ vanishes, and the tether kernel with $\Pi_u$ cannot see vortex stretching there. Since $B(F,H)\equiv0$ for the velocity-slot kernel, the tether contributes nothing to the enstrophy balance in any case. The direction criteria are complementary: they control regularity through the \emph{geometry} of $\xi$ on high-vorticity sets, not through any bracket. A natural, open, question in this programme is whether the tether framework can be used to \emph{express} or \emph{propagate} direction regularity; no such result is claimed here.
+
+\section{What is and is not claimed}
+Classical (assumed): Theorems 1--2. Proved here: Lemmas 3--4, Proposition 5 and the conditional chaining. Open: whether solutions with general smooth data satisfy either direction condition; this would imply regularity and is not known.
+
+\begin{thebibliography}{9}
+\bibitem{CF} P.~Constantin and C.~Fefferman, Direction of vorticity and the problem of global regularity for the Navier--Stokes equations, \emph{Indiana Univ. Math. J.} \textbf{42} (1993), 775--789.
+\bibitem{BB} H.~Beir\~ao da Veiga and L.~C.~Berselli, On the regularizing effect of the vorticity direction in incompressible viscous flows, \emph{Differential Integral Equations} \textbf{15} (2002), 345--356.
+\end{thebibliography}
+\end{document}

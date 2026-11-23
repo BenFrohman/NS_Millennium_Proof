@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.ConditionalRegularity
+#print axioms ConditionalRegularity.conditional_regularity_of_open_hyps

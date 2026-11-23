@@ -1,0 +1,13 @@
+import TripleArchitectureBuild.FrohmanianTripleArchitecture
+
+open FrohmanianTripleArchitecture
+
+#print axioms projPerp_self
+#print axioms inner_projPerp_self
+#print axioms tether_degenerate_H
+#print axioms tether_symmetric
+#print axioms totalMetriplectic_symm
+#print axioms totalMetriplectic_flow_equals_unmodified_NS
+#print axioms gronwall_differential_bound
+#print axioms hypothesisB_implies_clayStatementB
+#print axioms three_way_equivalence

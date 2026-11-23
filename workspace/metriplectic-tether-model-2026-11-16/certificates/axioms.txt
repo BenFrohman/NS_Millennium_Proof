@@ -1,0 +1,124 @@
+intended_correspondence : formal_claim ↔ paper_claim
+def MetriplecticTetherModel.paper_claim : Prop :=
+∀ (κ ν : ℝ),
+  (∀ (u w a : R3 → R3), Continuous u → -κ * ∫ (x : R3), dot (w x) (w x) * dot (proj u a x) (proj u u x) ∂μ = 0) ∧
+    (∀ (u v : R3 → R3),
+        Continuous u →
+          Continuous v →
+            HasDerivAt (fun ε => 1 / 2 * ∫ (x : R3), dot (u x + ε • v x) (u x + ε • v x) ∂μ)
+              (∫ (x : R3), dot (u x) (v x) ∂μ) 0) ∧
+      (∀ (u : FlowField) (a : TestField),
+          -l2 (convective u.u) a.v + ν * l2 (laplacian u.u) a.v +
+              -κ * ∫ (x : R3), dot (curl u.u x) (curl u.u x) * dot (proj u.u a.v x) (proj u.u u.u x) ∂μ =
+            -l2 (convective u.u) a.v + ν * l2 (laplacian u.u) a.v) ∧
+        {U |
+              IsSolution
+                (fun u a =>
+                  -l2 (convective u.u) a.v + ν * l2 (laplacian u.u) a.v +
+                    -κ * ∫ (x : R3), dot (curl u.u x) (curl u.u x) * dot (proj u.u a.v x) (proj u.u u.u x) ∂μ)
+                U} =
+            {U | IsSolution (nsRHS ν) U} ∧
+          ((∀ (u₀ : FlowField),
+                ∃ U,
+                  (U 0).u = u₀.u ∧
+                    IsSolution
+                      (fun u a =>
+                        -l2 (convective u.u) a.v + ν * l2 (laplacian u.u) a.v +
+                          -κ * ∫ (x : R3), dot (curl u.u x) (curl u.u x) * dot (proj u.u a.v x) (proj u.u u.u x) ∂μ)
+                      U) ↔
+              ∀ (u₀ : FlowField), ∃ U, (U 0).u = u₀.u ∧ IsSolution (nsRHS ν) U) ∧
+            (∀ (P : (ℝ → FlowField) → Prop),
+                (∀ (U : ℝ → FlowField),
+                    IsSolution
+                        (fun u a =>
+                          -l2 (convective u.u) a.v + ν * l2 (laplacian u.u) a.v +
+                            -κ * ∫ (x : R3), dot (curl u.u x) (curl u.u x) * dot (proj u.u a.v x) (proj u.u u.u x) ∂μ)
+                        U →
+                      P U) ↔
+                  ∀ (U : ℝ → FlowField), IsSolution (nsRHS ν) U → P U) ∧
+              (0 ≤ κ → ∀ (w u a : R3 → R3), -κ * ∫ (x : R3), dot (w x) (w x) * dot (proj u a x) (proj u a x) ∂μ ≤ 0) ∧
+                -κ *
+                      ∫ (x : R3),
+                        dot (curl (fun y => ![0, Real.sin (2 * Real.pi * y 0), Real.cos (2 * Real.pi * y 0)]) x)
+                            (curl (fun y => ![0, Real.sin (2 * Real.pi * y 0), Real.cos (2 * Real.pi * y 0)]) x) *
+                          dot
+                            (proj (fun y => ![0, Real.sin (2 * Real.pi * y 0), Real.cos (2 * Real.pi * y 0)])
+                              (fun x => ![1, 0, 0]) x)
+                            (proj (fun y => ![0, Real.sin (2 * Real.pi * y 0), Real.cos (2 * Real.pi * y 0)])
+                              (fun x => ![1, 0, 0]) x) ∂μ =
+                    -(4 * Real.pi ^ 2 * κ) ∧
+                  (0 < κ →
+                      ¬∀ (u : FlowField) (a : TestField),
+                          0 ≤
+                            -κ * ∫ (x : R3), dot (curl u.u x) (curl u.u x) * dot (proj u.u a.v x) (proj u.u a.v x) ∂μ) ∧
+                    (∀ (w u a : R3 → R3),
+                        Continuous u →
+                          Continuous a →
+                            (-κ * ∫ (x : R3), dot (w x) (w x) ∂μ) * ∫ (x : R3), dot (proj u a x) (proj u u x) ∂μ = 0) ∧
+                      (0 ≤ κ →
+                        ∀ (w u a : R3 → R3),
+                          (-κ * ∫ (x : R3), dot (w x) (w x) ∂μ) * ∫ (x : R3), dot (proj u a x) (proj u a x) ∂μ ≤ 0)
+def MetriplecticTetherModel.formal_claim : Prop :=
+∀ (κ ν : ℝ),
+  (∀ (w a u : R3 → R3), Continuous u → tether κ w u a u = 0) ∧
+    (∀ (u v : R3 → R3), Continuous u → Continuous v → HasDerivAt (fun ε => energy fun x => u x + ε • v x) (l2 u v) 0) ∧
+      (∀ (u : FlowField) (a : TestField), tetheredRHS κ ν u a = nsRHS ν u a) ∧
+        (∀ (U : ℝ → FlowField), IsSolution (tetheredRHS κ ν) U ↔ IsSolution (nsRHS ν) U) ∧
+          (GlobalRegularity (tetheredRHS κ ν) ↔ GlobalRegularity (nsRHS ν)) ∧
+            (∀ (P : (ℝ → FlowField) → Prop),
+                (∀ (U : ℝ → FlowField), IsSolution (tetheredRHS κ ν) U → P U) ↔
+                  ∀ (U : ℝ → FlowField), IsSolution (nsRHS ν) U → P U) ∧
+              (0 ≤ κ → ∀ (w u a : R3 → R3), tether κ w u a a ≤ 0) ∧
+                tether κ (curl beltrami.u) beltrami.u e0.v e0.v = -(4 * Real.pi ^ 2 * κ) ∧
+                  (0 < κ → ¬∀ (u : FlowField) (a : TestField), 0 ≤ tether κ (curl u.u) u.u a.v a.v) ∧
+                    (∀ (w u a : R3 → R3), Continuous u → Continuous a → tetherFactorized κ w u a u = 0) ∧
+                      (0 ≤ κ → ∀ (w u a : R3 → R3), tetherFactorized κ w u a a ≤ 0)
+'MetriplecticTetherModel.FlowField.continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_term_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tetheredRHS_eq_nsRHS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tetheredRHS_fun_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.isSolution_tethered_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.globalRegularity_tethered_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.solution_property_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.dot_add_smul_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.l2_add_smul_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.energy_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.pd_comp_coord0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.hasDerivAt_beltramiProfile' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.beltramiProfile_add_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.contDiff_beltramiProfile' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.pd_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.curl_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.dot_curl_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.l2_e0_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.proj_beltrami_e0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.mu_univ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_diag_neg_somewhere' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_not_psd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.paper_rhs_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.beltrami_u_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.e0_v_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.intended_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.formal_claim_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.dot_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.dot_self_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.dot_self_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.dot_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.dot_sub_smul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.continuous_dot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.isCompact_cell' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.integrable_of_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.l2_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.l2_self_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.ae_eq_zero_of_l2_self_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.proj_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.l2_proj_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_diag_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_energy_slot_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tether_energy_slot_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.l2_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tetherFactorized_energy_slot_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MetriplecticTetherModel.tetherFactorized_diag_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]

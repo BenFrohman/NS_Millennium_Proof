@@ -1,0 +1,3 @@
+import NS_Millennium_Proof.Modules.SymplecticTether
+#print axioms FrohmanianTether.ConjecturedUnmodifiedTetherPairing
+#print axioms FrohmanianTether.reduced_pairing_of_unmodified_and_tether

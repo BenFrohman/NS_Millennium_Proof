@@ -1,0 +1,823 @@
+
+===== 0_certify.txt
+﻿2026-11-23T20:12:07.0693161Z Current runner version: '2.338.2'
+2026-11-23T20:12:07.0717531Z ##[group]Runner Image Provisioner
+2026-11-23T20:12:07.0718377Z Hosted Compute Agent
+2026-11-23T20:12:07.0718959Z Version: 20261111.635
+2026-11-23T20:12:07.0719589Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T20:12:07.0720693Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T20:12:07.0721404Z Worker ID: {da068d62-cb44-4b8d-abf7-e5ef97fd2239}
+2026-11-23T20:12:07.0722179Z Region: eastus3
+2026-11-23T20:12:07.0722704Z Cloud: Azure
+2026-11-23T20:12:07.0723237Z ##[endgroup]
+2026-11-23T20:12:07.0724579Z ##[group]Operating System
+2026-11-23T20:12:07.0725148Z Ubuntu
+2026-11-23T20:12:07.0725672Z 26.04.1
+2026-11-23T20:12:07.0726186Z LTS
+2026-11-23T20:12:07.0726684Z ##[endgroup]
+2026-11-23T20:12:07.0727210Z ##[group]Runner Image
+2026-11-23T20:12:07.0727803Z Image: ubuntu-26.04
+2026-11-23T20:12:07.0728398Z Version: 20261116.202.1
+2026-11-23T20:12:07.0729584Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T20:12:07.0731466Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T20:12:07.0732565Z ##[endgroup]
+2026-11-23T20:12:07.0733948Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T20:12:07.0736369Z Contents: read
+2026-11-23T20:12:07.0736973Z Metadata: read
+2026-11-23T20:12:07.0737501Z Packages: read
+2026-11-23T20:12:07.0738033Z ##[endgroup]
+2026-11-23T20:12:07.0740363Z Secret source: Actions
+2026-11-23T20:12:07.0741288Z Cache mode: write
+2026-11-23T20:12:07.0742269Z Prepare workflow directory
+2026-11-23T20:12:07.1048810Z Prepare all required actions
+2026-11-23T20:12:07.1096876Z Getting action download info
+2026-11-23T20:12:07.3170684Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T20:12:07.4901352Z Complete job name: certify
+2026-11-23T20:12:07.5726186Z ##[group]Run actions/checkout@v4
+2026-11-23T20:12:07.5726993Z with:
+2026-11-23T20:12:07.5727611Z   repository: BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:07.5731637Z   token: ***
+2026-11-23T20:12:07.5732181Z   ssh-strict: true
+2026-11-23T20:12:07.5732750Z   ssh-user: git
+2026-11-23T20:12:07.5733434Z   persist-credentials: true
+2026-11-23T20:12:07.5734012Z   clean: true
+2026-11-23T20:12:07.5734647Z   sparse-checkout-cone-mode: true
+2026-11-23T20:12:07.5735376Z   fetch-depth: 1
+2026-11-23T20:12:07.5735994Z   fetch-tags: false
+2026-11-23T20:12:07.5736562Z   show-progress: true
+2026-11-23T20:12:07.5737102Z   lfs: false
+2026-11-23T20:12:07.5737722Z   submodules: false
+2026-11-23T20:12:07.5738471Z   set-safe-directory: true
+2026-11-23T20:12:07.5739217Z   allow-unsafe-pr-checkout: false
+2026-11-23T20:12:07.5740481Z ##[endgroup]
+2026-11-23T20:12:07.8423405Z Syncing repository: BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:07.8426831Z ##[group]Getting Git version info
+2026-11-23T20:12:07.8428047Z Working directory is '/home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities'
+2026-11-23T20:12:07.8429759Z [command]/usr/bin/git version
+2026-11-23T20:12:07.8462213Z git version 2.56.1
+2026-11-23T20:12:07.8482073Z ##[endgroup]
+2026-11-23T20:12:07.8499304Z Temporarily overriding HOME='/home/runner/work/_temp/95075ff1-f6eb-4a62-8a05-2e9c7b6ec086' before making global git config changes
+2026-11-23T20:12:07.8502001Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:12:07.8504984Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities
+2026-11-23T20:12:07.8575678Z Deleting the contents of '/home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities'
+2026-11-23T20:12:07.8578778Z ##[group]Initializing the repository
+2026-11-23T20:12:07.8585157Z [command]/usr/bin/git init /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities
+2026-11-23T20:12:07.8703178Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T20:12:07.8706997Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T20:12:07.8709063Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T20:12:07.8710750Z hint: call:
+2026-11-23T20:12:07.8711494Z hint:
+2026-11-23T20:12:07.8712301Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T20:12:07.8713257Z hint:
+2026-11-23T20:12:07.8714171Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T20:12:07.8715416Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T20:12:07.8716414Z hint:
+2026-11-23T20:12:07.8717084Z hint: 	git branch -m <name>
+2026-11-23T20:12:07.8718543Z hint:
+2026-11-23T20:12:07.8719457Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T20:12:07.8721553Z Initialized empty Git repository in /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities/.git/
+2026-11-23T20:12:07.8729151Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:07.8785510Z ##[endgroup]
+2026-11-23T20:12:07.8786903Z ##[group]Disabling automatic garbage collection
+2026-11-23T20:12:07.8789361Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T20:12:07.8824843Z ##[endgroup]
+2026-11-23T20:12:07.8826119Z ##[group]Setting up auth
+2026-11-23T20:12:07.8832786Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:12:07.8865854Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:12:07.9292608Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:12:07.9330356Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:12:07.9561036Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:12:07.9592924Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:12:07.9821188Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T20:12:07.9983371Z ##[endgroup]
+2026-11-23T20:12:07.9984457Z ##[group]Fetching the repository
+2026-11-23T20:12:07.9993817Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b7b2a5029af481b5d9952eb80821418f10776f9e:refs/remotes/origin/ci-backfill/b7b2a50
+2026-11-23T20:12:08.3182751Z From https://github.com/BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:08.3184292Z  * [new ref]         b7b2a5029af481b5d9952eb80821418f10776f9e -> origin/ci-backfill/b7b2a50
+2026-11-23T20:12:08.3187281Z ##[endgroup]
+2026-11-23T20:12:08.3188599Z ##[group]Determining the checkout info
+2026-11-23T20:12:08.3190250Z ##[endgroup]
+2026-11-23T20:12:08.3195386Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T20:12:08.3253323Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T20:12:08.3285839Z ##[group]Checking out the ref
+2026-11-23T20:12:08.3289892Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/b7b2a50 refs/remotes/origin/ci-backfill/b7b2a50
+2026-11-23T20:12:08.3402128Z Switched to a new branch 'ci-backfill/b7b2a50'
+2026-11-23T20:12:08.3406210Z branch 'ci-backfill/b7b2a50' set up to track 'origin/ci-backfill/b7b2a50'.
+2026-11-23T20:12:08.3411400Z ##[endgroup]
+2026-11-23T20:12:08.3459195Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T20:12:08.3474664Z b7b2a5029af481b5d9952eb80821418f10776f9e
+2026-11-23T20:12:08.3714150Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T20:12:08.3716385Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T20:12:08.3717551Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T20:12:08.3743296Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:12:08.3743945Z ##[endgroup]
+2026-11-23T20:12:08.4409385Z info: downloading installer
+2026-11-23T20:12:08.8498794Z ##[group]Run lake exe cache get
+2026-11-23T20:12:08.8499590Z [36;1mlake exe cache get[0m
+2026-11-23T20:12:08.8525915Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:12:08.8526648Z ##[endgroup]
+2026-11-23T20:12:09.4877530Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T20:12:14.8346190Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T20:12:21.1271944Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T20:12:55.0095406Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T20:12:56.5367468Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T20:12:56.9057883Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T20:12:56.9290210Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T20:12:57.1918412Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T20:12:57.2009868Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T20:12:57.4971496Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T20:12:57.5122387Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T20:12:58.0173592Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T20:12:58.7402001Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T20:12:59.2279057Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T20:12:59.2497061Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T20:12:59.5750830Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T20:12:59.5855531Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T20:13:02.1738776Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T20:13:02.2039360Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T20:13:02.4962568Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T20:13:02.8097126Z ✔ [4/22] Built Cache.Init (254ms)
+2026-11-23T20:13:02.9088533Z ✔ [5/22] Built Cache.Lean (350ms)
+2026-11-23T20:13:02.9122836Z ✔ [6/22] Built Cache.Init:c.o (88ms)
+2026-11-23T20:13:03.1087081Z ✔ [7/22] Built Cache.Lean:c.o (224ms)
+2026-11-23T20:13:03.2092045Z ✔ [8/22] Built Batteries.Data.String.Basic (374ms)
+2026-11-23T20:13:03.4116321Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (140ms)
+2026-11-23T20:13:03.7132774Z ✔ [10/22] Built Batteries.Data.Array.Match (846ms)
+2026-11-23T20:13:04.0125257Z ✔ [11/22] Built Batteries.Data.String.Matcher (358ms)
+2026-11-23T20:13:04.0162741Z ✔ [12/22] Built Batteries.Data.Array.Match:c.o (301ms)
+2026-11-23T20:13:04.2127497Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (185ms)
+2026-11-23T20:13:04.3129110Z ✔ [14/22] Built Cache.IO (1.4s)
+2026-11-23T20:13:04.9152005Z ✔ [15/22] Built Cache.Hashing (645ms)
+2026-11-23T20:13:05.3147528Z ✔ [16/22] Built Cache.Hashing:c.o (396ms)
+2026-11-23T20:13:05.8152974Z ✔ [17/22] Built Cache.IO:c.o (1.5s)
+2026-11-23T20:13:06.7181483Z ✔ [18/22] Built Cache.Requests (1.8s)
+2026-11-23T20:13:07.5190213Z ✔ [19/22] Built Cache.Main (723ms)
+2026-11-23T20:13:08.0189715Z ✔ [20/22] Built Cache.Main:c.o (549ms)
+2026-11-23T20:13:08.7197137Z ✔ [21/22] Built Cache.Requests:c.o (1.9s)
+2026-11-23T20:13:09.3204508Z ✔ [22/22] Built cache:exe (580ms)
+2026-11-23T20:13:11.1767509Z Current branch: HEAD
+2026-11-23T20:13:11.1768425Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T20:13:11.1769313Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T20:13:11.7151283Z 
+2026-11-23T20:13:11.8152514Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 75 KB/s], Decompressed: 0
+2026-11-23T20:13:11.9153853Z Downloaded: 72 file(s) [attempted 72/8248 = 0%, 93 KB/s], Decompressed: 29
+2026-11-23T20:13:12.0142785Z Downloaded: 179 file(s) [attempted 179/8248 = 2%, 469 KB/s], Decompressed: 59
+2026-11-23T20:13:12.1199868Z Downloaded: 301 file(s) [attempted 301/8248 = 3%, 2600 KB/s], Decompressed: 59
+2026-11-23T20:13:12.2204311Z Downloaded: 428 file(s) [attempted 428/8248 = 5%, 416 KB/s], Decompressed: 59
+2026-11-23T20:13:12.3210619Z Downloaded: 562 file(s) [attempted 562/8248 = 6%, 1763 KB/s], Decompressed: 162
+2026-11-23T20:13:12.4272147Z Downloaded: 699 file(s) [attempted 699/8248 = 8%, 1788 KB/s], Decompressed: 162
+2026-11-23T20:13:12.5290841Z Downloaded: 828 file(s) [attempted 828/8248 = 10%, 214 KB/s], Decompressed: 162
+2026-11-23T20:13:12.6283607Z Downloaded: 956 file(s) [attempted 956/8248 = 11%, 5151 KB/s], Decompressed: 162
+2026-11-23T20:13:12.7338367Z Downloaded: 1079 file(s) [attempted 1079/8248 = 13%, 812 KB/s], Decompressed: 162
+2026-11-23T20:13:12.8439378Z Downloaded: 1213 file(s) [attempted 1213/8248 = 14%, 1586 KB/s], Decompressed: 162
+2026-11-23T20:13:12.9472281Z Downloaded: 1337 file(s) [attempted 1337/8248 = 16%, 548 KB/s], Decompressed: 162
+2026-11-23T20:13:13.0509455Z Downloaded: 1457 file(s) [attempted 1457/8248 = 17%, 182 KB/s], Decompressed: 162
+2026-11-23T20:13:13.1523026Z Downloaded: 1601 file(s) [attempted 1601/8248 = 19%, 1991 KB/s], Decompressed: 162
+2026-11-23T20:13:13.2552908Z Downloaded: 1730 file(s) [attempted 1730/8248 = 20%, 356 KB/s], Decompressed: 162
+2026-11-23T20:13:13.3547048Z Downloaded: 1851 file(s) [attempted 1851/8248 = 22%, 470 KB/s], Decompressed: 162
+2026-11-23T20:13:13.4651980Z Downloaded: 1978 file(s) [attempted 1978/8248 = 23%, 1024 KB/s], Decompressed: 162
+2026-11-23T20:13:13.5633446Z Downloaded: 2111 file(s) [attempted 2111/8248 = 25%, 2774 KB/s], Decompressed: 162
+2026-11-23T20:13:13.6640583Z Downloaded: 2246 file(s) [attempted 2246/8248 = 27%, 79 KB/s], Decompressed: 562
+2026-11-23T20:13:13.7641459Z Downloaded: 2381 file(s) [attempted 2381/8248 = 28%, 474 KB/s], Decompressed: 562
+2026-11-23T20:13:13.8649394Z Downloaded: 2516 file(s) [attempted 2516/8248 = 30%, 383 KB/s], Decompressed: 562
+2026-11-23T20:13:13.9634175Z Downloaded: 2645 file(s) [attempted 2645/8248 = 32%, 1319 KB/s], Decompressed: 562
+2026-11-23T20:13:14.0654073Z Downloaded: 2773 file(s) [attempted 2773/8248 = 33%, 486 KB/s], Decompressed: 562
+2026-11-23T20:13:14.1657781Z Downloaded: 2897 file(s) [attempted 2897/8248 = 35%, 737 KB/s], Decompressed: 562
+2026-11-23T20:13:14.2681672Z Downloaded: 3014 file(s) [attempted 3014/8248 = 36%, 888 KB/s], Decompressed: 562
+2026-11-23T20:13:14.3721697Z Downloaded: 3134 file(s) [attempted 3134/8248 = 37%, 614 KB/s], Decompressed: 562
+2026-11-23T20:13:14.4722448Z Downloaded: 3258 file(s) [attempted 3258/8248 = 39%, 212 KB/s], Decompressed: 562
+2026-11-23T20:13:14.5713190Z Downloaded: 3395 file(s) [attempted 3395/8248 = 41%, 484 KB/s], Decompressed: 562
+2026-11-23T20:13:14.6721588Z Downloaded: 3517 file(s) [attempted 3517/8248 = 42%, 1397 KB/s], Decompressed: 562
+2026-11-23T20:13:14.7721969Z Downloaded: 3634 file(s) [attempted 3634/8248 = 44%, 988 KB/s], Decompressed: 562
+2026-11-23T20:13:14.8720016Z Downloaded: 3770 file(s) [attempted 3770/8248 = 45%, 975 KB/s], Decompressed: 562
+2026-11-23T20:13:14.9738888Z Downloaded: 3900 file(s) [attempted 3900/8248 = 47%, 1125 KB/s], Decompressed: 562
+2026-11-23T20:13:15.0721700Z Downloaded: 4031 file(s) [attempted 4031/8248 = 48%, 359 KB/s], Decompressed: 562
+2026-11-23T20:13:15.1726115Z Downloaded: 4164 file(s) [attempted 4164/8248 = 50%, 179 KB/s], Decompressed: 562
+2026-11-23T20:13:15.2741526Z Downloaded: 4286 file(s) [attempted 4286/8248 = 51%, 1389 KB/s], Decompressed: 562
+2026-11-23T20:13:15.3764421Z Downloaded: 4428 file(s) [attempted 4428/8248 = 53%, 183 KB/s], Decompressed: 562
+2026-11-23T20:13:15.4761871Z Downloaded: 4547 file(s) [attempted 4547/8248 = 55%, 603 KB/s], Decompressed: 562
+2026-11-23T20:13:15.5811766Z Downloaded: 4671 file(s) [attempted 4671/8248 = 56%, 668 KB/s], Decompressed: 562
+2026-11-23T20:13:15.6833885Z Downloaded: 4813 file(s) [attempted 4813/8248 = 58%, 3386 KB/s], Decompressed: 562
+2026-11-23T20:13:15.8751578Z Downloaded: 4937 file(s) [attempted 4937/8248 = 59%, 833 KB/s], Decompressed: 562
+2026-11-23T20:13:15.9727870Z Downloaded: 5052 file(s) [attempted 5052/8248 = 61%, 429 KB/s], Decompressed: 562
+2026-11-23T20:13:16.0761394Z Downloaded: 5181 file(s) [attempted 5181/8248 = 62%, 172 KB/s], Decompressed: 562
+2026-11-23T20:13:16.1752612Z Downloaded: 5302 file(s) [attempted 5302/8248 = 64%, 872 KB/s], Decompressed: 562
+2026-11-23T20:13:16.2881704Z Downloaded: 5422 file(s) [attempted 5422/8248 = 65%, 3737 KB/s], Decompressed: 562
+2026-11-23T20:13:16.3878568Z Downloaded: 5534 file(s) [attempted 5534/8248 = 67%, 4406 KB/s], Decompressed: 562
+2026-11-23T20:13:16.4873849Z Downloaded: 5667 file(s) [attempted 5667/8248 = 68%, 1851 KB/s], Decompressed: 562
+2026-11-23T20:13:16.5862853Z Downloaded: 5794 file(s) [attempted 5794/8248 = 70%, 7985 KB/s], Decompressed: 562
+2026-11-23T20:13:16.6951640Z Downloaded: 5909 file(s) [attempted 5909/8248 = 71%, 244 KB/s], Decompressed: 562
+2026-11-23T20:13:16.7961747Z Downloaded: 6026 file(s) [attempted 6026/8248 = 73%, 582 KB/s], Decompressed: 562
+2026-11-23T20:13:16.9603236Z Downloaded: 6163 file(s) [attempted 6163/8248 = 74%, 1669 KB/s], Decompressed: 562
+2026-11-23T20:13:17.0623525Z Downloaded: 6278 file(s) [attempted 6278/8248 = 76%, 4228 KB/s], Decompressed: 562
+2026-11-23T20:13:17.1641428Z Downloaded: 6384 file(s) [attempted 6384/8248 = 77%, 289 KB/s], Decompressed: 562
+2026-11-23T20:13:17.2622125Z Downloaded: 6517 file(s) [attempted 6517/8248 = 79%, 515 KB/s], Decompressed: 562
+2026-11-23T20:13:17.3654517Z Downloaded: 6641 file(s) [attempted 6641/8248 = 80%, 1814 KB/s], Decompressed: 562
+2026-11-23T20:13:17.4689533Z Downloaded: 6781 file(s) [attempted 6781/8248 = 82%, 285 KB/s], Decompressed: 562
+2026-11-23T20:13:17.5941229Z Downloaded: 6921 file(s) [attempted 6921/8248 = 83%, 4026 KB/s], Decompressed: 562
+2026-11-23T20:13:17.7291522Z Downloaded: 6991 file(s) [attempted 6991/8248 = 84%, 1664 KB/s], Decompressed: 562
+2026-11-23T20:13:17.8291541Z Downloaded: 7042 file(s) [attempted 7042/8248 = 85%, 1756 KB/s], Decompressed: 562
+2026-11-23T20:13:17.9281432Z Downloaded: 7130 file(s) [attempted 7130/8248 = 86%, 68 KB/s], Decompressed: 562
+2026-11-23T20:13:18.0271518Z Downloaded: 7256 file(s) [attempted 7256/8248 = 87%, 387 KB/s], Decompressed: 562
+2026-11-23T20:13:18.1275361Z Downloaded: 7350 file(s) [attempted 7350/8248 = 89%, 2119 KB/s], Decompressed: 562
+2026-11-23T20:13:18.2321825Z Downloaded: 7490 file(s) [attempted 7490/8248 = 90%, 803 KB/s], Decompressed: 562
+2026-11-23T20:13:18.3377635Z Downloaded: 7598 file(s) [attempted 7598/8248 = 92%, 544 KB/s], Decompressed: 562
+2026-11-23T20:13:18.4402209Z Downloaded: 7718 file(s) [attempted 7718/8248 = 93%, 1407 KB/s], Decompressed: 562
+2026-11-23T20:13:18.5488401Z Downloaded: 7841 file(s) [attempted 7841/8248 = 95%, 624 KB/s], Decompressed: 562
+2026-11-23T20:13:18.6478022Z Downloaded: 7979 file(s) [attempted 7979/8248 = 96%, 1918 KB/s], Decompressed: 562
+2026-11-23T20:13:18.7486664Z Downloaded: 8110 file(s) [attempted 8110/8248 = 98%, 662 KB/s], Decompressed: 562
+2026-11-23T20:13:18.8423667Z Downloaded: 8236 file(s) [attempted 8236/8248 = 99%, 606 KB/s], Decompressed: 562
+2026-11-23T20:13:18.8440792Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 606 KB/s], Decompressed: 2183
+2026-11-23T20:13:48.0555537Z Decompressed 8248 file(s)
+2026-11-23T20:13:48.0555985Z Already decompressed 8248 file(s)
+2026-11-23T20:13:48.1836482Z ##[group]Run lake build
+2026-11-23T20:13:48.1836852Z [36;1mlake build[0m
+2026-11-23T20:13:48.1859870Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:13:48.1860415Z ##[endgroup]
+2026-11-23T20:13:58.7541733Z ✔ [8264/8273] Built WeightedEnstrophy.TorusCalculus (6.2s)
+2026-11-23T20:13:59.2541806Z ✔ [8265/8273] Built WeightedEnstrophy.Fourier.Basic (6.6s)
+2026-11-23T20:14:00.4576141Z ⚠ [8266/8273] Built WeightedEnstrophy.Abstract (7.9s)
+2026-11-23T20:14:00.4577461Z warning: WeightedEnstrophy/Abstract.lean:64:23: This simp argument is unused:
+2026-11-23T20:14:00.4578199Z   map_add
+2026-11-23T20:14:00.4578413Z 
+2026-11-23T20:14:00.4578703Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:00.4579708Z   simp only [adv, div, m̵a̵p̵_̵a̵d̵d̵,̵ ̵Derivation.leibniz, smul_eq_mul, Fin.sum_univ_three]
+2026-11-23T20:14:00.4580568Z 
+2026-11-23T20:14:00.4580966Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:00.4582158Z warning: WeightedEnstrophy/Abstract.lean:74:33: This simp argument is unused:
+2026-11-23T20:14:00.4582844Z   map_sum
+2026-11-23T20:14:00.4583085Z 
+2026-11-23T20:14:00.4583320Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:00.4584289Z   simp only [wLapW, lap, gradSq, map_s̵u̵m̵,̵ ̵m̵ap̵_̵a̵dd, Derivation.leibniz, smul_eq_mul, Fin.sum_univ_three]
+2026-11-23T20:14:00.4584876Z 
+2026-11-23T20:14:00.4585265Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:00.4586079Z warning: WeightedEnstrophy/Abstract.lean:80:23: This simp argument is unused:
+2026-11-23T20:14:00.4586692Z   map_sum
+2026-11-23T20:14:00.4586860Z 
+2026-11-23T20:14:00.4587061Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:00.4588400Z   simp only [adv, vsq, map_s̵u̵m̵,̵ ̵m̵ap̵_̵a̵dd, Derivation.leibniz, smul_eq_mul, Fin.sum_univ_three]
+2026-11-23T20:14:00.4589056Z 
+2026-11-23T20:14:00.4589844Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:06.2690972Z ⚠ [8267/8273] Built WeightedEnstrophy.Fourier.Strain (7.1s)
+2026-11-23T20:14:06.2701621Z warning: WeightedEnstrophy/Fourier/Strain.lean:131:40: This simp argument is unused:
+2026-11-23T20:14:06.2702851Z   ← Complex.ofReal_pow
+2026-11-23T20:14:06.2703397Z 
+2026-11-23T20:14:06.2703759Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:06.2705049Z   simp [Complex.mul_re, Complex.mul_im,̵ ̵←̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵o̵f̵R̵e̵a̵l̵_̵p̵o̵w̵]
+2026-11-23T20:14:06.2705874Z 
+2026-11-23T20:14:06.2715688Z Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+2026-11-23T20:14:06.2717205Z 
+2026-11-23T20:14:06.2717848Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:08.0757035Z ✔ [8268/8273] Built WeightedEnstrophy.TrigModel (7.7s)
+2026-11-23T20:14:11.2807125Z ✔ [8269/8273] Built WeightedEnstrophy.Smooth (10s)
+2026-11-23T20:14:16.9881846Z ✔ [8270/8273] Built WeightedEnstrophy.Lyapunov (5.7s)
+2026-11-23T20:14:24.0033632Z ✔ [8271/8273] Built WeightedEnstrophy.CalderonZygmund (6.0s)
+2026-11-23T20:14:27.2064548Z ✔ [8272/8273] Built WeightedEnstrophy (3.1s)
+2026-11-23T20:14:27.2339615Z Build completed successfully (8273 jobs).
+2026-11-23T20:14:27.2597623Z ##[group]Run set -o pipefail
+2026-11-23T20:14:27.2598041Z [36;1mset -o pipefail[0m
+2026-11-23T20:14:27.2598635Z [36;1mlake env lean AxiomAudit.lean 2>&1 | awk '/^[ \t]/{sub(/^[ \t]+/," ");printf "%s",$0;next} NR>1{print ""} {printf "%s",$0} END{print ""}' | tee axioms.txt[0m
+2026-11-23T20:14:27.2619875Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:14:27.2620560Z ##[endgroup]
+2026-11-23T20:14:31.1541291Z 'WeightedEnstrophy.I_sum_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1542926Z 'WeightedEnstrophy.PeriodicSetting.int_d' depends on axioms: [propext, Quot.sound]
+2026-11-23T20:14:31.1544024Z 'WeightedEnstrophy.PeriodicSetting.int_dt' depends on axioms: [propext, Quot.sound]
+2026-11-23T20:14:31.1546775Z 'WeightedEnstrophy.adv_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1548516Z 'WeightedEnstrophy.dt_half_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1550201Z 'WeightedEnstrophy.dt_vsq_div' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1551364Z 'WeightedEnstrophy.dt_weighted' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1552808Z 'WeightedEnstrophy.dt_weighted_div' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1553899Z 'WeightedEnstrophy.enstrophy_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1554955Z 'WeightedEnstrophy.int_adv_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1555892Z 'WeightedEnstrophy.stretch_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1556913Z 'WeightedEnstrophy.two_w_adv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1557861Z 'WeightedEnstrophy.wLapW_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1558873Z 'WeightedEnstrophy.weighted_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1560106Z 'WeightedEnstrophy.Fourier.coeff_eq_mFourierCoeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1561225Z 'WeightedEnstrophy.Fourier.coeff_multiplier' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1562359Z 'WeightedEnstrophy.Fourier.ext_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1563719Z 'WeightedEnstrophy.Fourier.memℓp_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1564808Z 'WeightedEnstrophy.Fourier.norm_multiplier_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1565876Z 'WeightedEnstrophy.Fourier.nsq_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1566934Z 'WeightedEnstrophy.Fourier.parseval_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1568127Z 'WeightedEnstrophy.Fourier.summable_coeff_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1569177Z 'WeightedEnstrophy.Fourier.two_toReal' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1570526Z 'WeightedEnstrophy.Fourier.L2_strain_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1571595Z 'WeightedEnstrophy.Fourier.L2_strain_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1572611Z 'WeightedEnstrophy.Fourier.curl_deltaH_eq_u' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1573785Z 'WeightedEnstrophy.Fourier.curl_sq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1574855Z 'WeightedEnstrophy.Fourier.curl_stream_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1576649Z 'WeightedEnstrophy.Fourier.modeEnergy_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1578094Z 'WeightedEnstrophy.Fourier.modeEnergy_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1579170Z 'WeightedEnstrophy.Fourier.normsq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1580452Z 'WeightedEnstrophy.Fourier.strain_sq_eq_half_curl_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1581517Z 'WeightedEnstrophy.Fourier.strain_sq_le_curl_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1582686Z 'WeightedEnstrophy.Lyapunov.dS_identity_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1583766Z 'WeightedEnstrophy.Lyapunov.le_integral_sq_of_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1585000Z 'WeightedEnstrophy.Lyapunov.ode_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1586013Z 'WeightedEnstrophy.Lyapunov.ode_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1587062Z 'WeightedEnstrophy.Lyapunov.ode_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1588090Z 'WeightedEnstrophy.Smooth.D_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1589120Z 'WeightedEnstrophy.Smooth.enstrophy_identity_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1590360Z 'WeightedEnstrophy.Smooth.fderiv_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1591528Z 'WeightedEnstrophy.Smooth.hasDerivAt_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1592623Z 'WeightedEnstrophy.Smooth.int_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1593701Z 'WeightedEnstrophy.Smooth.int_dt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1594778Z 'WeightedEnstrophy.Smooth.line_deriv'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1595877Z 'WeightedEnstrophy.Smooth.periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1596983Z 'WeightedEnstrophy.Smooth.smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1598193Z 'WeightedEnstrophy.Smooth.weighted_identity_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1599394Z 'WeightedEnstrophy.Torus.cont_i2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1600556Z 'WeightedEnstrophy.Torus.cont_i3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1601655Z 'WeightedEnstrophy.Torus.cont_torusIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1602855Z 'WeightedEnstrophy.Torus.hasDerivAt_integral01' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1604093Z 'WeightedEnstrophy.Torus.hasDerivAt_torusIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1605345Z 'WeightedEnstrophy.Torus.i2_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1606421Z 'WeightedEnstrophy.Torus.i3_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1607559Z 'WeightedEnstrophy.Torus.integral01_deriv_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1608798Z 'WeightedEnstrophy.Torus.torusIntegral_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1610187Z 'WeightedEnstrophy.Torus.torusIntegral_deriv_a' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1611394Z 'WeightedEnstrophy.Torus.torusIntegral_deriv_b' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1612713Z 'WeightedEnstrophy.Torus.torusIntegral_deriv_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1614269Z 'WeightedEnstrophy.Torus.torusIntegral_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1615533Z 'WeightedEnstrophy.Trig.enstrophy_identity_T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1616741Z 'WeightedEnstrophy.Trig.integral_dt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1617858Z 'WeightedEnstrophy.Trig.integral_dx' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1618968Z 'WeightedEnstrophy.Trig.leibniz_of_singles' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1620323Z 'WeightedEnstrophy.Trig.mapCoeff_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1621715Z 'WeightedEnstrophy.Trig.mapCoeff_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1623013Z 'WeightedEnstrophy.Trig.mulSym_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1624129Z 'WeightedEnstrophy.Trig.mulSym_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1625225Z 'WeightedEnstrophy.Trig.sym_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1626374Z 'WeightedEnstrophy.Trig.sym_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1627465Z 'WeightedEnstrophy.Trig.weighted_identity_T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1628596Z 'WeightedEnstrophy.gradU_sq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1629718Z 'WeightedEnstrophy.int_gradU_sq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1631483Z 'WeightedEnstrophy.Lyapunov.calderonZygmundLp_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1632887Z 'WeightedEnstrophy.Lyapunov.cz_hypotheses_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1633779Z 'WeightedEnstrophy.Lyapunov.fderiv_sinB' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1634606Z 'WeightedEnstrophy.Lyapunov.sinB_line' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1635382Z 'WeightedEnstrophy.Smooth.D_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1636036Z 'WeightedEnstrophy.Smooth.d_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1636793Z 'WeightedEnstrophy.Smooth.int_gradU_sq_eq_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1637495Z 'WeightedEnstrophy.Smooth.coe_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.3277093Z 'WeightedEnstrophy.Smooth.coe_vsq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.3278235Z 'WeightedEnstrophy.Smooth.coe_gradUSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.3279587Z 'WeightedEnstrophy.Torus.torusIntegral_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.3348602Z ##[group]Run test -s axioms.txt
+2026-11-23T20:14:31.3349085Z [36;1mtest -s axioms.txt[0m
+2026-11-23T20:14:31.3349728Z [36;1mOK='depends on axioms: \[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$|does not depend on any axioms$'[0m
+2026-11-23T20:14:31.3350743Z [36;1mn=$(grep -c "^#print axioms" AxiomAudit.lean); m=$(grep -E "^'" axioms.txt | grep -cE "$OK" || true)[0m
+2026-11-23T20:14:31.3351328Z [36;1mecho "audited $n declarations, $m with standard axioms only"[0m
+2026-11-23T20:14:31.3351834Z [36;1mif [ "$n" -ne "$m" ] || grep -iE "error|warning: declaration uses" axioms.txt; then[0m
+2026-11-23T20:14:31.3352388Z [36;1m  echo "Non-standard axiom output:"; cat axioms.txt; exit 1; fi[0m
+2026-11-23T20:14:31.3374675Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:14:31.3375071Z ##[endgroup]
+2026-11-23T20:14:31.3451870Z audited 85 declarations, 85 with standard axioms only
+2026-11-23T20:14:31.3497921Z ##[group]Run python3 scripts/check_no_sorry.py
+2026-11-23T20:14:31.3498415Z [36;1mpython3 scripts/check_no_sorry.py[0m
+2026-11-23T20:14:31.3518140Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:14:31.3518496Z ##[endgroup]
+2026-11-23T20:14:31.3888053Z OK: no sorry/admit/native_decide, no axiom declarations
+2026-11-23T20:14:31.4055331Z Post job cleanup.
+2026-11-23T20:14:31.4911316Z [command]/usr/bin/git version
+2026-11-23T20:14:31.4959641Z git version 2.56.1
+2026-11-23T20:14:31.5003582Z Temporarily overriding HOME='/home/runner/work/_temp/bf7f069f-8097-4d8f-9117-931c2e23a443' before making global git config changes
+2026-11-23T20:14:31.5004836Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:14:31.5007868Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities
+2026-11-23T20:14:31.5050304Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:14:31.5084463Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:14:31.5337393Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:14:31.5377441Z http.https://github.com/.extraheader
+2026-11-23T20:14:31.5381967Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T20:14:31.5417020Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:14:31.5686798Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:14:31.5751761Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:14:31.6104710Z Cleaning up orphan processes
+2026-11-23T20:14:31.6416550Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== certify/16_Post Run actions_checkout@v4.txt
+﻿2026-11-23T20:14:31.4055313Z Post job cleanup.
+2026-11-23T20:14:31.4911270Z [command]/usr/bin/git version
+2026-11-23T20:14:31.4959597Z git version 2.56.1
+2026-11-23T20:14:31.5003558Z Temporarily overriding HOME='/home/runner/work/_temp/bf7f069f-8097-4d8f-9117-931c2e23a443' before making global git config changes
+2026-11-23T20:14:31.5004828Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:14:31.5007857Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities
+2026-11-23T20:14:31.5050276Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:14:31.5084439Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:14:31.5337236Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:14:31.5377399Z http.https://github.com/.extraheader
+2026-11-23T20:14:31.5381924Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T20:14:31.5416955Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:14:31.5686733Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:14:31.5751574Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== certify/17_Complete job.txt
+﻿2026-11-23T20:14:31.6104692Z Cleaning up orphan processes
+2026-11-23T20:14:31.6416522Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== certify/1_Set up job.txt
+﻿2026-11-23T20:12:07.0692728Z Current runner version: '2.338.2'
+2026-11-23T20:12:07.0717489Z ##[group]Runner Image Provisioner
+2026-11-23T20:12:07.0718373Z Hosted Compute Agent
+2026-11-23T20:12:07.0718956Z Version: 20261111.635
+2026-11-23T20:12:07.0719586Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T20:12:07.0720683Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T20:12:07.0721400Z Worker ID: {da068d62-cb44-4b8d-abf7-e5ef97fd2239}
+2026-11-23T20:12:07.0722176Z Region: eastus3
+2026-11-23T20:12:07.0722701Z Cloud: Azure
+2026-11-23T20:12:07.0723234Z ##[endgroup]
+2026-11-23T20:12:07.0724574Z ##[group]Operating System
+2026-11-23T20:12:07.0725144Z Ubuntu
+2026-11-23T20:12:07.0725668Z 26.04.1
+2026-11-23T20:12:07.0726183Z LTS
+2026-11-23T20:12:07.0726682Z ##[endgroup]
+2026-11-23T20:12:07.0727206Z ##[group]Runner Image
+2026-11-23T20:12:07.0727799Z Image: ubuntu-26.04
+2026-11-23T20:12:07.0728394Z Version: 20261116.202.1
+2026-11-23T20:12:07.0729396Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T20:12:07.0731408Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T20:12:07.0732560Z ##[endgroup]
+2026-11-23T20:12:07.0733944Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T20:12:07.0736353Z Contents: read
+2026-11-23T20:12:07.0736969Z Metadata: read
+2026-11-23T20:12:07.0737498Z Packages: read
+2026-11-23T20:12:07.0738031Z ##[endgroup]
+2026-11-23T20:12:07.0740350Z Secret source: Actions
+2026-11-23T20:12:07.0741284Z Cache mode: write
+2026-11-23T20:12:07.0742256Z Prepare workflow directory
+2026-11-23T20:12:07.1048780Z Prepare all required actions
+2026-11-23T20:12:07.1096834Z Getting action download info
+2026-11-23T20:12:07.3170645Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T20:12:07.4901312Z Complete job name: certify
+
+===== certify/2_Run actions_checkout@v4.txt
+﻿2026-11-23T20:12:07.5726139Z ##[group]Run actions/checkout@v4
+2026-11-23T20:12:07.5726988Z with:
+2026-11-23T20:12:07.5727606Z   repository: BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:07.5731628Z   token: ***
+2026-11-23T20:12:07.5732178Z   ssh-strict: true
+2026-11-23T20:12:07.5732746Z   ssh-user: git
+2026-11-23T20:12:07.5733423Z   persist-credentials: true
+2026-11-23T20:12:07.5734007Z   clean: true
+2026-11-23T20:12:07.5734639Z   sparse-checkout-cone-mode: true
+2026-11-23T20:12:07.5735368Z   fetch-depth: 1
+2026-11-23T20:12:07.5735985Z   fetch-tags: false
+2026-11-23T20:12:07.5736551Z   show-progress: true
+2026-11-23T20:12:07.5737098Z   lfs: false
+2026-11-23T20:12:07.5737714Z   submodules: false
+2026-11-23T20:12:07.5738461Z   set-safe-directory: true
+2026-11-23T20:12:07.5739207Z   allow-unsafe-pr-checkout: false
+2026-11-23T20:12:07.5740471Z ##[endgroup]
+2026-11-23T20:12:07.8423323Z Syncing repository: BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:07.8426629Z ##[group]Getting Git version info
+2026-11-23T20:12:07.8428041Z Working directory is '/home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities'
+2026-11-23T20:12:07.8429703Z [command]/usr/bin/git version
+2026-11-23T20:12:07.8462151Z git version 2.56.1
+2026-11-23T20:12:07.8482031Z ##[endgroup]
+2026-11-23T20:12:07.8499247Z Temporarily overriding HOME='/home/runner/work/_temp/95075ff1-f6eb-4a62-8a05-2e9c7b6ec086' before making global git config changes
+2026-11-23T20:12:07.8501982Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T20:12:07.8504912Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities
+2026-11-23T20:12:07.8575617Z Deleting the contents of '/home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities'
+2026-11-23T20:12:07.8578767Z ##[group]Initializing the repository
+2026-11-23T20:12:07.8585092Z [command]/usr/bin/git init /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities
+2026-11-23T20:12:07.8703103Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T20:12:07.8706976Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T20:12:07.8709052Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T20:12:07.8710727Z hint: call:
+2026-11-23T20:12:07.8711482Z hint:
+2026-11-23T20:12:07.8712295Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T20:12:07.8713249Z hint:
+2026-11-23T20:12:07.8714152Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T20:12:07.8715409Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T20:12:07.8716408Z hint:
+2026-11-23T20:12:07.8717079Z hint: 	git branch -m <name>
+2026-11-23T20:12:07.8718524Z hint:
+2026-11-23T20:12:07.8719449Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T20:12:07.8721494Z Initialized empty Git repository in /home/runner/work/weighted-enstrophy-identities/weighted-enstrophy-identities/.git/
+2026-11-23T20:12:07.8729109Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:07.8785462Z ##[endgroup]
+2026-11-23T20:12:07.8786892Z ##[group]Disabling automatic garbage collection
+2026-11-23T20:12:07.8789338Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T20:12:07.8824801Z ##[endgroup]
+2026-11-23T20:12:07.8826103Z ##[group]Setting up auth
+2026-11-23T20:12:07.8832750Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T20:12:07.8865792Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T20:12:07.9292494Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T20:12:07.9329521Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T20:12:07.9560931Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T20:12:07.9592840Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T20:12:07.9821078Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T20:12:07.9983295Z ##[endgroup]
+2026-11-23T20:12:07.9984446Z ##[group]Fetching the repository
+2026-11-23T20:12:07.9993790Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b7b2a5029af481b5d9952eb80821418f10776f9e:refs/remotes/origin/ci-backfill/b7b2a50
+2026-11-23T20:12:08.3182591Z From https://github.com/BenFrohman/weighted-enstrophy-identities
+2026-11-23T20:12:08.3184278Z  * [new ref]         b7b2a5029af481b5d9952eb80821418f10776f9e -> origin/ci-backfill/b7b2a50
+2026-11-23T20:12:08.3187266Z ##[endgroup]
+2026-11-23T20:12:08.3188583Z ##[group]Determining the checkout info
+2026-11-23T20:12:08.3190235Z ##[endgroup]
+2026-11-23T20:12:08.3195369Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T20:12:08.3253250Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T20:12:08.3285785Z ##[group]Checking out the ref
+2026-11-23T20:12:08.3289877Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/b7b2a50 refs/remotes/origin/ci-backfill/b7b2a50
+2026-11-23T20:12:08.3402058Z Switched to a new branch 'ci-backfill/b7b2a50'
+2026-11-23T20:12:08.3406174Z branch 'ci-backfill/b7b2a50' set up to track 'origin/ci-backfill/b7b2a50'.
+2026-11-23T20:12:08.3411381Z ##[endgroup]
+2026-11-23T20:12:08.3459144Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T20:12:08.3474566Z b7b2a5029af481b5d9952eb80821418f10776f9e
+
+===== certify/3_Install elan (toolchain pinned by lean-toolchain = leanprover_lean4v4.30.0-rc1).txt
+﻿2026-11-23T20:12:08.3714068Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T20:12:08.3716373Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T20:12:08.3717547Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T20:12:08.3743264Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:12:08.3743941Z ##[endgroup]
+2026-11-23T20:12:08.4409308Z info: downloading installer
+
+===== certify/4_Get Mathlib cache.txt
+﻿2026-11-23T20:12:08.8498744Z ##[group]Run lake exe cache get
+2026-11-23T20:12:08.8499586Z [36;1mlake exe cache get[0m
+2026-11-23T20:12:08.8525887Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:12:08.8526643Z ##[endgroup]
+2026-11-23T20:12:09.4877410Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T20:12:14.8346063Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T20:12:21.1271813Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T20:12:55.0095308Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T20:12:56.5367363Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T20:12:56.9057776Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T20:12:56.9290090Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T20:12:57.1918069Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T20:12:57.2009794Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T20:12:57.4971416Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T20:12:57.5122288Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T20:12:58.0173529Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T20:12:58.7401936Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T20:12:59.2278993Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T20:12:59.2496996Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T20:12:59.5750764Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T20:12:59.5855448Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T20:13:02.1738708Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T20:13:02.2039306Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T20:13:02.4962500Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T20:13:02.8097057Z ✔ [4/22] Built Cache.Init (254ms)
+2026-11-23T20:13:02.9088453Z ✔ [5/22] Built Cache.Lean (350ms)
+2026-11-23T20:13:02.9122795Z ✔ [6/22] Built Cache.Init:c.o (88ms)
+2026-11-23T20:13:03.1087010Z ✔ [7/22] Built Cache.Lean:c.o (224ms)
+2026-11-23T20:13:03.2091989Z ✔ [8/22] Built Batteries.Data.String.Basic (374ms)
+2026-11-23T20:13:03.4116233Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (140ms)
+2026-11-23T20:13:03.7132715Z ✔ [10/22] Built Batteries.Data.Array.Match (846ms)
+2026-11-23T20:13:04.0125207Z ✔ [11/22] Built Batteries.Data.String.Matcher (358ms)
+2026-11-23T20:13:04.0162698Z ✔ [12/22] Built Batteries.Data.Array.Match:c.o (301ms)
+2026-11-23T20:13:04.2127383Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (185ms)
+2026-11-23T20:13:04.3129053Z ✔ [14/22] Built Cache.IO (1.4s)
+2026-11-23T20:13:04.9151948Z ✔ [15/22] Built Cache.Hashing (645ms)
+2026-11-23T20:13:05.3147475Z ✔ [16/22] Built Cache.Hashing:c.o (396ms)
+2026-11-23T20:13:05.8152920Z ✔ [17/22] Built Cache.IO:c.o (1.5s)
+2026-11-23T20:13:06.7181429Z ✔ [18/22] Built Cache.Requests (1.8s)
+2026-11-23T20:13:07.5190168Z ✔ [19/22] Built Cache.Main (723ms)
+2026-11-23T20:13:08.0189670Z ✔ [20/22] Built Cache.Main:c.o (549ms)
+2026-11-23T20:13:08.7197091Z ✔ [21/22] Built Cache.Requests:c.o (1.9s)
+2026-11-23T20:13:09.3204464Z ✔ [22/22] Built cache:exe (580ms)
+2026-11-23T20:13:11.1767459Z Current branch: HEAD
+2026-11-23T20:13:11.1768419Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T20:13:11.1769308Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T20:13:11.7151222Z 
+2026-11-23T20:13:11.8152201Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 75 KB/s], Decompressed: 0
+2026-11-23T20:13:11.9153793Z Downloaded: 72 file(s) [attempted 72/8248 = 0%, 93 KB/s], Decompressed: 29
+2026-11-23T20:13:12.0142732Z Downloaded: 179 file(s) [attempted 179/8248 = 2%, 469 KB/s], Decompressed: 59
+2026-11-23T20:13:12.1199810Z Downloaded: 301 file(s) [attempted 301/8248 = 3%, 2600 KB/s], Decompressed: 59
+2026-11-23T20:13:12.2204252Z Downloaded: 428 file(s) [attempted 428/8248 = 5%, 416 KB/s], Decompressed: 59
+2026-11-23T20:13:12.3210559Z Downloaded: 562 file(s) [attempted 562/8248 = 6%, 1763 KB/s], Decompressed: 162
+2026-11-23T20:13:12.4272088Z Downloaded: 699 file(s) [attempted 699/8248 = 8%, 1788 KB/s], Decompressed: 162
+2026-11-23T20:13:12.5290715Z Downloaded: 828 file(s) [attempted 828/8248 = 10%, 214 KB/s], Decompressed: 162
+2026-11-23T20:13:12.6283556Z Downloaded: 956 file(s) [attempted 956/8248 = 11%, 5151 KB/s], Decompressed: 162
+2026-11-23T20:13:12.7338304Z Downloaded: 1079 file(s) [attempted 1079/8248 = 13%, 812 KB/s], Decompressed: 162
+2026-11-23T20:13:12.8439281Z Downloaded: 1213 file(s) [attempted 1213/8248 = 14%, 1586 KB/s], Decompressed: 162
+2026-11-23T20:13:12.9472232Z Downloaded: 1337 file(s) [attempted 1337/8248 = 16%, 548 KB/s], Decompressed: 162
+2026-11-23T20:13:13.0509352Z Downloaded: 1457 file(s) [attempted 1457/8248 = 17%, 182 KB/s], Decompressed: 162
+2026-11-23T20:13:13.1522956Z Downloaded: 1601 file(s) [attempted 1601/8248 = 19%, 1991 KB/s], Decompressed: 162
+2026-11-23T20:13:13.2552842Z Downloaded: 1730 file(s) [attempted 1730/8248 = 20%, 356 KB/s], Decompressed: 162
+2026-11-23T20:13:13.3546948Z Downloaded: 1851 file(s) [attempted 1851/8248 = 22%, 470 KB/s], Decompressed: 162
+2026-11-23T20:13:13.4651921Z Downloaded: 1978 file(s) [attempted 1978/8248 = 23%, 1024 KB/s], Decompressed: 162
+2026-11-23T20:13:13.5633394Z Downloaded: 2111 file(s) [attempted 2111/8248 = 25%, 2774 KB/s], Decompressed: 162
+2026-11-23T20:13:13.6640518Z Downloaded: 2246 file(s) [attempted 2246/8248 = 27%, 79 KB/s], Decompressed: 562
+2026-11-23T20:13:13.7641360Z Downloaded: 2381 file(s) [attempted 2381/8248 = 28%, 474 KB/s], Decompressed: 562
+2026-11-23T20:13:13.8649331Z Downloaded: 2516 file(s) [attempted 2516/8248 = 30%, 383 KB/s], Decompressed: 562
+2026-11-23T20:13:13.9634120Z Downloaded: 2645 file(s) [attempted 2645/8248 = 32%, 1319 KB/s], Decompressed: 562
+2026-11-23T20:13:14.0654001Z Downloaded: 2773 file(s) [attempted 2773/8248 = 33%, 486 KB/s], Decompressed: 562
+2026-11-23T20:13:14.1657711Z Downloaded: 2897 file(s) [attempted 2897/8248 = 35%, 737 KB/s], Decompressed: 562
+2026-11-23T20:13:14.2681611Z Downloaded: 3014 file(s) [attempted 3014/8248 = 36%, 888 KB/s], Decompressed: 562
+2026-11-23T20:13:14.3721642Z Downloaded: 3134 file(s) [attempted 3134/8248 = 37%, 614 KB/s], Decompressed: 562
+2026-11-23T20:13:14.4722390Z Downloaded: 3258 file(s) [attempted 3258/8248 = 39%, 212 KB/s], Decompressed: 562
+2026-11-23T20:13:14.5713113Z Downloaded: 3395 file(s) [attempted 3395/8248 = 41%, 484 KB/s], Decompressed: 562
+2026-11-23T20:13:14.6721494Z Downloaded: 3517 file(s) [attempted 3517/8248 = 42%, 1397 KB/s], Decompressed: 562
+2026-11-23T20:13:14.7721913Z Downloaded: 3634 file(s) [attempted 3634/8248 = 44%, 988 KB/s], Decompressed: 562
+2026-11-23T20:13:14.8719849Z Downloaded: 3770 file(s) [attempted 3770/8248 = 45%, 975 KB/s], Decompressed: 562
+2026-11-23T20:13:14.9738816Z Downloaded: 3900 file(s) [attempted 3900/8248 = 47%, 1125 KB/s], Decompressed: 562
+2026-11-23T20:13:15.0721639Z Downloaded: 4031 file(s) [attempted 4031/8248 = 48%, 359 KB/s], Decompressed: 562
+2026-11-23T20:13:15.1726062Z Downloaded: 4164 file(s) [attempted 4164/8248 = 50%, 179 KB/s], Decompressed: 562
+2026-11-23T20:13:15.2741469Z Downloaded: 4286 file(s) [attempted 4286/8248 = 51%, 1389 KB/s], Decompressed: 562
+2026-11-23T20:13:15.3764362Z Downloaded: 4428 file(s) [attempted 4428/8248 = 53%, 183 KB/s], Decompressed: 562
+2026-11-23T20:13:15.4761812Z Downloaded: 4547 file(s) [attempted 4547/8248 = 55%, 603 KB/s], Decompressed: 562
+2026-11-23T20:13:15.5811472Z Downloaded: 4671 file(s) [attempted 4671/8248 = 56%, 668 KB/s], Decompressed: 562
+2026-11-23T20:13:15.6833828Z Downloaded: 4813 file(s) [attempted 4813/8248 = 58%, 3386 KB/s], Decompressed: 562
+2026-11-23T20:13:15.8751519Z Downloaded: 4937 file(s) [attempted 4937/8248 = 59%, 833 KB/s], Decompressed: 562
+2026-11-23T20:13:15.9727811Z Downloaded: 5052 file(s) [attempted 5052/8248 = 61%, 429 KB/s], Decompressed: 562
+2026-11-23T20:13:16.0761330Z Downloaded: 5181 file(s) [attempted 5181/8248 = 62%, 172 KB/s], Decompressed: 562
+2026-11-23T20:13:16.1752548Z Downloaded: 5302 file(s) [attempted 5302/8248 = 64%, 872 KB/s], Decompressed: 562
+2026-11-23T20:13:16.2881642Z Downloaded: 5422 file(s) [attempted 5422/8248 = 65%, 3737 KB/s], Decompressed: 562
+2026-11-23T20:13:16.3878515Z Downloaded: 5534 file(s) [attempted 5534/8248 = 67%, 4406 KB/s], Decompressed: 562
+2026-11-23T20:13:16.4873781Z Downloaded: 5667 file(s) [attempted 5667/8248 = 68%, 1851 KB/s], Decompressed: 562
+2026-11-23T20:13:16.5862803Z Downloaded: 5794 file(s) [attempted 5794/8248 = 70%, 7985 KB/s], Decompressed: 562
+2026-11-23T20:13:16.6951545Z Downloaded: 5909 file(s) [attempted 5909/8248 = 71%, 244 KB/s], Decompressed: 562
+2026-11-23T20:13:16.7961673Z Downloaded: 6026 file(s) [attempted 6026/8248 = 73%, 582 KB/s], Decompressed: 562
+2026-11-23T20:13:16.9603184Z Downloaded: 6163 file(s) [attempted 6163/8248 = 74%, 1669 KB/s], Decompressed: 562
+2026-11-23T20:13:17.0623474Z Downloaded: 6278 file(s) [attempted 6278/8248 = 76%, 4228 KB/s], Decompressed: 562
+2026-11-23T20:13:17.1641370Z Downloaded: 6384 file(s) [attempted 6384/8248 = 77%, 289 KB/s], Decompressed: 562
+2026-11-23T20:13:17.2622068Z Downloaded: 6517 file(s) [attempted 6517/8248 = 79%, 515 KB/s], Decompressed: 562
+2026-11-23T20:13:17.3654413Z Downloaded: 6641 file(s) [attempted 6641/8248 = 80%, 1814 KB/s], Decompressed: 562
+2026-11-23T20:13:17.4689465Z Downloaded: 6781 file(s) [attempted 6781/8248 = 82%, 285 KB/s], Decompressed: 562
+2026-11-23T20:13:17.5941164Z Downloaded: 6921 file(s) [attempted 6921/8248 = 83%, 4026 KB/s], Decompressed: 562
+2026-11-23T20:13:17.7291431Z Downloaded: 6991 file(s) [attempted 6991/8248 = 84%, 1664 KB/s], Decompressed: 562
+2026-11-23T20:13:17.8291487Z Downloaded: 7042 file(s) [attempted 7042/8248 = 85%, 1756 KB/s], Decompressed: 562
+2026-11-23T20:13:17.9281315Z Downloaded: 7130 file(s) [attempted 7130/8248 = 86%, 68 KB/s], Decompressed: 562
+2026-11-23T20:13:18.0271469Z Downloaded: 7256 file(s) [attempted 7256/8248 = 87%, 387 KB/s], Decompressed: 562
+2026-11-23T20:13:18.1275309Z Downloaded: 7350 file(s) [attempted 7350/8248 = 89%, 2119 KB/s], Decompressed: 562
+2026-11-23T20:13:18.2321761Z Downloaded: 7490 file(s) [attempted 7490/8248 = 90%, 803 KB/s], Decompressed: 562
+2026-11-23T20:13:18.3377579Z Downloaded: 7598 file(s) [attempted 7598/8248 = 92%, 544 KB/s], Decompressed: 562
+2026-11-23T20:13:18.4402134Z Downloaded: 7718 file(s) [attempted 7718/8248 = 93%, 1407 KB/s], Decompressed: 562
+2026-11-23T20:13:18.5488350Z Downloaded: 7841 file(s) [attempted 7841/8248 = 95%, 624 KB/s], Decompressed: 562
+2026-11-23T20:13:18.6477903Z Downloaded: 7979 file(s) [attempted 7979/8248 = 96%, 1918 KB/s], Decompressed: 562
+2026-11-23T20:13:18.7486611Z Downloaded: 8110 file(s) [attempted 8110/8248 = 98%, 662 KB/s], Decompressed: 562
+2026-11-23T20:13:18.8423603Z Downloaded: 8236 file(s) [attempted 8236/8248 = 99%, 606 KB/s], Decompressed: 562
+2026-11-23T20:13:18.8440775Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 606 KB/s], Decompressed: 2183
+2026-11-23T20:13:48.0555496Z Decompressed 8248 file(s)
+2026-11-23T20:13:48.0555979Z Already decompressed 8248 file(s)
+
+===== certify/5_Build.txt
+﻿2026-11-23T20:13:48.1836463Z ##[group]Run lake build
+2026-11-23T20:13:48.1836850Z [36;1mlake build[0m
+2026-11-23T20:13:48.1859863Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:13:48.1860375Z ##[endgroup]
+2026-11-23T20:13:58.7541675Z ✔ [8264/8273] Built WeightedEnstrophy.TorusCalculus (6.2s)
+2026-11-23T20:13:59.2541747Z ✔ [8265/8273] Built WeightedEnstrophy.Fourier.Basic (6.6s)
+2026-11-23T20:14:00.4576080Z ⚠ [8266/8273] Built WeightedEnstrophy.Abstract (7.9s)
+2026-11-23T20:14:00.4577454Z warning: WeightedEnstrophy/Abstract.lean:64:23: This simp argument is unused:
+2026-11-23T20:14:00.4578195Z   map_add
+2026-11-23T20:14:00.4578406Z 
+2026-11-23T20:14:00.4578699Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:00.4579701Z   simp only [adv, div, m̵a̵p̵_̵a̵d̵d̵,̵ ̵Derivation.leibniz, smul_eq_mul, Fin.sum_univ_three]
+2026-11-23T20:14:00.4580560Z 
+2026-11-23T20:14:00.4580961Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:00.4581869Z warning: WeightedEnstrophy/Abstract.lean:74:33: This simp argument is unused:
+2026-11-23T20:14:00.4582841Z   map_sum
+2026-11-23T20:14:00.4583082Z 
+2026-11-23T20:14:00.4583316Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:00.4584283Z   simp only [wLapW, lap, gradSq, map_s̵u̵m̵,̵ ̵m̵ap̵_̵a̵dd, Derivation.leibniz, smul_eq_mul, Fin.sum_univ_three]
+2026-11-23T20:14:00.4584873Z 
+2026-11-23T20:14:00.4585262Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:00.4586076Z warning: WeightedEnstrophy/Abstract.lean:80:23: This simp argument is unused:
+2026-11-23T20:14:00.4586688Z   map_sum
+2026-11-23T20:14:00.4586857Z 
+2026-11-23T20:14:00.4587057Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:00.4588391Z   simp only [adv, vsq, map_s̵u̵m̵,̵ ̵m̵ap̵_̵a̵dd, Derivation.leibniz, smul_eq_mul, Fin.sum_univ_three]
+2026-11-23T20:14:00.4589049Z 
+2026-11-23T20:14:00.4589836Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:06.2690852Z ⚠ [8267/8273] Built WeightedEnstrophy.Fourier.Strain (7.1s)
+2026-11-23T20:14:06.2701599Z warning: WeightedEnstrophy/Fourier/Strain.lean:131:40: This simp argument is unused:
+2026-11-23T20:14:06.2702844Z   ← Complex.ofReal_pow
+2026-11-23T20:14:06.2703392Z 
+2026-11-23T20:14:06.2703743Z Hint: Omit it from the simp argument list.
+2026-11-23T20:14:06.2705041Z   simp [Complex.mul_re, Complex.mul_im,̵ ̵←̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵o̵f̵R̵e̵a̵l̵_̵p̵o̵w̵]
+2026-11-23T20:14:06.2705869Z 
+2026-11-23T20:14:06.2715655Z Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+2026-11-23T20:14:06.2717199Z 
+2026-11-23T20:14:06.2717844Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-11-23T20:14:08.0756975Z ✔ [8268/8273] Built WeightedEnstrophy.TrigModel (7.7s)
+2026-11-23T20:14:11.2807031Z ✔ [8269/8273] Built WeightedEnstrophy.Smooth (10s)
+2026-11-23T20:14:16.9881797Z ✔ [8270/8273] Built WeightedEnstrophy.Lyapunov (5.7s)
+2026-11-23T20:14:24.0033553Z ✔ [8271/8273] Built WeightedEnstrophy.CalderonZygmund (6.0s)
+2026-11-23T20:14:27.2064493Z ✔ [8272/8273] Built WeightedEnstrophy (3.1s)
+2026-11-23T20:14:27.2339556Z Build completed successfully (8273 jobs).
+
+===== certify/6_Axiom audit.txt
+﻿2026-11-23T20:14:27.2597606Z ##[group]Run set -o pipefail
+2026-11-23T20:14:27.2598039Z [36;1mset -o pipefail[0m
+2026-11-23T20:14:27.2598631Z [36;1mlake env lean AxiomAudit.lean 2>&1 | awk '/^[ \t]/{sub(/^[ \t]+/," ");printf "%s",$0;next} NR>1{print ""} {printf "%s",$0} END{print ""}' | tee axioms.txt[0m
+2026-11-23T20:14:27.2619867Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:14:27.2620553Z ##[endgroup]
+2026-11-23T20:14:31.1541227Z 'WeightedEnstrophy.I_sum_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1542921Z 'WeightedEnstrophy.PeriodicSetting.int_d' depends on axioms: [propext, Quot.sound]
+2026-11-23T20:14:31.1544020Z 'WeightedEnstrophy.PeriodicSetting.int_dt' depends on axioms: [propext, Quot.sound]
+2026-11-23T20:14:31.1546739Z 'WeightedEnstrophy.adv_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1548506Z 'WeightedEnstrophy.dt_half_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1549794Z 'WeightedEnstrophy.dt_vsq_div' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1551357Z 'WeightedEnstrophy.dt_weighted' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1552800Z 'WeightedEnstrophy.dt_weighted_div' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1553893Z 'WeightedEnstrophy.enstrophy_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1554949Z 'WeightedEnstrophy.int_adv_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1555886Z 'WeightedEnstrophy.stretch_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1556907Z 'WeightedEnstrophy.two_w_adv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1557856Z 'WeightedEnstrophy.wLapW_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1558856Z 'WeightedEnstrophy.weighted_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1560100Z 'WeightedEnstrophy.Fourier.coeff_eq_mFourierCoeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1561218Z 'WeightedEnstrophy.Fourier.coeff_multiplier' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1562353Z 'WeightedEnstrophy.Fourier.ext_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1563708Z 'WeightedEnstrophy.Fourier.memℓp_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1564802Z 'WeightedEnstrophy.Fourier.norm_multiplier_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1565870Z 'WeightedEnstrophy.Fourier.nsq_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1566927Z 'WeightedEnstrophy.Fourier.parseval_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1568109Z 'WeightedEnstrophy.Fourier.summable_coeff_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1569171Z 'WeightedEnstrophy.Fourier.two_toReal' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1570520Z 'WeightedEnstrophy.Fourier.L2_strain_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1571589Z 'WeightedEnstrophy.Fourier.L2_strain_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1572605Z 'WeightedEnstrophy.Fourier.curl_deltaH_eq_u' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1573736Z 'WeightedEnstrophy.Fourier.curl_sq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1574849Z 'WeightedEnstrophy.Fourier.curl_stream_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1576643Z 'WeightedEnstrophy.Fourier.modeEnergy_curl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1577754Z 'WeightedEnstrophy.Fourier.modeEnergy_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1579164Z 'WeightedEnstrophy.Fourier.normsq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1580403Z 'WeightedEnstrophy.Fourier.strain_sq_eq_half_curl_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1581510Z 'WeightedEnstrophy.Fourier.strain_sq_le_curl_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1582680Z 'WeightedEnstrophy.Lyapunov.dS_identity_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1583761Z 'WeightedEnstrophy.Lyapunov.le_integral_sq_of_deriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1584994Z 'WeightedEnstrophy.Lyapunov.ode_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1586006Z 'WeightedEnstrophy.Lyapunov.ode_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1587048Z 'WeightedEnstrophy.Lyapunov.ode_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1588084Z 'WeightedEnstrophy.Smooth.D_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1589113Z 'WeightedEnstrophy.Smooth.enstrophy_identity_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1590355Z 'WeightedEnstrophy.Smooth.fderiv_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1591522Z 'WeightedEnstrophy.Smooth.hasDerivAt_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1592617Z 'WeightedEnstrophy.Smooth.int_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1593694Z 'WeightedEnstrophy.Smooth.int_dt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1594771Z 'WeightedEnstrophy.Smooth.line_deriv'' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1595859Z 'WeightedEnstrophy.Smooth.periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1596978Z 'WeightedEnstrophy.Smooth.smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1598186Z 'WeightedEnstrophy.Smooth.weighted_identity_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1599385Z 'WeightedEnstrophy.Torus.cont_i2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1600551Z 'WeightedEnstrophy.Torus.cont_i3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1601646Z 'WeightedEnstrophy.Torus.cont_torusIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1602848Z 'WeightedEnstrophy.Torus.hasDerivAt_integral01' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1604064Z 'WeightedEnstrophy.Torus.hasDerivAt_torusIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1605324Z 'WeightedEnstrophy.Torus.i2_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1606414Z 'WeightedEnstrophy.Torus.i3_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1607552Z 'WeightedEnstrophy.Torus.integral01_deriv_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1608791Z 'WeightedEnstrophy.Torus.torusIntegral_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1610090Z 'WeightedEnstrophy.Torus.torusIntegral_deriv_a' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1611388Z 'WeightedEnstrophy.Torus.torusIntegral_deriv_b' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1612699Z 'WeightedEnstrophy.Torus.torusIntegral_deriv_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1614025Z 'WeightedEnstrophy.Torus.torusIntegral_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1615525Z 'WeightedEnstrophy.Trig.enstrophy_identity_T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1616643Z 'WeightedEnstrophy.Trig.integral_dt' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1617851Z 'WeightedEnstrophy.Trig.integral_dx' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1618962Z 'WeightedEnstrophy.Trig.leibniz_of_singles' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1620316Z 'WeightedEnstrophy.Trig.mapCoeff_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1621664Z 'WeightedEnstrophy.Trig.mapCoeff_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1623006Z 'WeightedEnstrophy.Trig.mulSym_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1624111Z 'WeightedEnstrophy.Trig.mulSym_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1625217Z 'WeightedEnstrophy.Trig.sym_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1626368Z 'WeightedEnstrophy.Trig.sym_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1627459Z 'WeightedEnstrophy.Trig.weighted_identity_T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1628588Z 'WeightedEnstrophy.gradU_sq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1629704Z 'WeightedEnstrophy.int_gradU_sq_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1631423Z 'WeightedEnstrophy.Lyapunov.calderonZygmundLp_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1632880Z 'WeightedEnstrophy.Lyapunov.cz_hypotheses_nonvacuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1633766Z 'WeightedEnstrophy.Lyapunov.fderiv_sinB' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1634603Z 'WeightedEnstrophy.Lyapunov.sinB_line' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1635380Z 'WeightedEnstrophy.Smooth.D_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1636034Z 'WeightedEnstrophy.Smooth.d_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1636755Z 'WeightedEnstrophy.Smooth.int_gradU_sq_eq_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.1637493Z 'WeightedEnstrophy.Smooth.coe_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.3277037Z 'WeightedEnstrophy.Smooth.coe_vsq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.3278228Z 'WeightedEnstrophy.Smooth.coe_gradUSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T20:14:31.3279558Z 'WeightedEnstrophy.Torus.torusIntegral_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+===== certify/7_Check axioms are standard only.txt
+﻿2026-11-23T20:14:31.3348585Z ##[group]Run test -s axioms.txt
+2026-11-23T20:14:31.3349049Z [36;1mtest -s axioms.txt[0m
+2026-11-23T20:14:31.3349725Z [36;1mOK='depends on axioms: \[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$|does not depend on any axioms$'[0m
+2026-11-23T20:14:31.3350738Z [36;1mn=$(grep -c "^#print axioms" AxiomAudit.lean); m=$(grep -E "^'" axioms.txt | grep -cE "$OK" || true)[0m
+2026-11-23T20:14:31.3351326Z [36;1mecho "audited $n declarations, $m with standard axioms only"[0m
+2026-11-23T20:14:31.3351832Z [36;1mif [ "$n" -ne "$m" ] || grep -iE "error|warning: declaration uses" axioms.txt; then[0m
+2026-11-23T20:14:31.3352386Z [36;1m  echo "Non-standard axiom output:"; cat axioms.txt; exit 1; fi[0m
+2026-11-23T20:14:31.3374663Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:14:31.3375068Z ##[endgroup]
+2026-11-23T20:14:31.3451826Z audited 85 declarations, 85 with standard axioms only
+
+===== certify/8_No sorry _ no axiom declarations.txt
+﻿2026-11-23T20:14:31.3497906Z ##[group]Run python3 scripts/check_no_sorry.py
+2026-11-23T20:14:31.3498413Z [36;1mpython3 scripts/check_no_sorry.py[0m
+2026-11-23T20:14:31.3518129Z shell: /usr/bin/bash -e {0}
+2026-11-23T20:14:31.3518493Z ##[endgroup]
+2026-11-23T20:14:31.3888007Z OK: no sorry/admit/native_decide, no axiom declarations
+
+===== certify/system.txt
+2026-11-23T20:08:58.3410000Z Evaluating certify.if
+2026-11-23T20:08:58.3410000Z Evaluating: success()
+2026-11-23T20:08:58.3410000Z Result: true
+2026-11-23T20:08:58.3800000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-23T20:08:58.3520000Z Requested labels: ubuntu-latest
+2026-11-23T20:08:58.3520000Z Job defined at: BenFrohman/weighted-enstrophy-identities/.github/workflows/certify.yml@refs/heads/ci-backfill/b7b2a50
+2026-11-23T20:08:58.3520000Z Waiting for a runner to pick up this job...
+2026-11-23T20:12:05.2960000Z Job is waiting for a hosted runner to come online.
+2026-11-23T20:12:05.2970000Z Job is about to start running on the hosted runner: GitHub Actions 1000006565

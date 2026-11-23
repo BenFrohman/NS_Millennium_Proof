@@ -1,0 +1,541 @@
+The Frohmanian Symplectic Tether: Canonical
+Uniqueness on Coadjoint Orbits of SDiﬀ(T3),
+Non-Degenerate Casimir Coupling, and Conditional
+Global Regularity via Quartic Young Absorption in
+Lean 4
+Benjamin Stanley Frohman
+ORCID: 0009-0006-7068-3718
+frohmanbenjamin@gmail.com
+October 25, 2026
+
+Abstract
+We construct and formalize in Lean 4 (leanprover/lean4:v4.30.0-rc1, Mathlib 4, 341
+kernel-veriﬁed theorems across 12 modules with zero sorry and zero non-standard axioms
+outside [propext, Classical.choice, Quot.sound]) the Frohmanian Symplectic Tether,
+a canonical Casimir-coupled metriplectic extension of Arnold’s Lie–Poisson bracket on the
+dual Lie algebra g∗ = Ω1 (T3 )/dΩ0 (T3 ) of volume-preserving diﬀeomorphisms SDiﬀ(T3 ):
+{F, G}FT (ω) = {F, G}LP (ω) − κ KFT (δF, δG; ω),
+
+κ=
+
+4
+2187
+27CCZ
+=
+> 0,
+3
+4ν
+64 ν 3
+
+∫
+⊥
+⊥
+⊥
+where KFT (v, w; ω) = T3 kω(x)k2 hPδC
+v(x), PδC
+w(x)i dx and PδC
+is the pointwise orthogonal projection onto the hyperplane orthogonal to the helicity Casimir gradient δC(ω) = ω.
+Main Unconditional and Conditional Results:
+
+1. Unconditional Casimir Non-Degeneracy: We prove that the Frohmanian tether
+kernel is negative semideﬁnite along the diagonal (tetherKernel_diagonal_nonpos),
+vanishes identically on Casimir-aligned directions v k ω (tether_preserves_casimirs),
+⊥
+and is strictly negative deﬁnite whenever PδC
+v(x0 ) 6= 0 at any point with ω(x0 ) 6= 0
+(tetherPointwiseDensity_strict_neg_of_noncasimir, tetherKernel_strict_neg_of_orthogonal_comp
+tetherKernel_nondegenerate_on_casimir_defect).
+
+2. Unconditional Five-Step Canonical Uniqueness: We prove that KFT is the
+unique minimal-degree, bilinear, symmetric, local, gauge-invariant, Casimir-annihilating,
+negative-semideﬁnite metriplectic kernel on g∗ up to a single positive scalar multiple
+κ > 0 (uniqueness_of_minimal_tether, uniqueness_of_kernel_density, tetherKernel_has_canonical_
+step2_degree, step5_higher_order).
+3. Unconditional Quartic 4 = 4 Young Absorption and Comparison
+ODE Ceil∫
+ing: Along the quartic tethered Lyapunov functional Sε (t) = ( 12 |ωε |2 + κ4 |ωε |4 φε ) dx
+with material enstrophy accumulation (∂t + u · ∇)φ = |ω|2 , the product rule generates
+− κ4 |ω|6 , and Young’s inequality with dual exponents (p, q) = (4/3, 4) (3/4 + 1/4 = 1,
+4 = 4) absorbs the cubic vortex-stretching term CCZ |ω|3 into Viscous Stage I (− ν3 |ω|2 )
+4
+plus Tether Stage II (− κ4 |ω|6 ) when κ = 27CCZ
+/(4ν 3 ) (youngs_absorption_elimination,
+comparison_ode_stability).
+4. Conditional Global Regularity for Flows Satisfying the Tether Rate or
+Bound: We prove that for ﬂows that satisfy the Frohmanian tether rate or
+bound (frohmanianTetherRate / frohmanianTetherBound) together with local Kato
+existence, quantitative restart, and energy-Grönwall uniqueness, the maximal existence
+horizon is T ∗ (u0 , ν) = > and u(t) ∈ C ∞ for all t ≥ 0 (frohmanian_tether_theorem,
+
+1
+
+global_regularity_for_NS). We also prove unconditionally that the physical hypothesis bundle is non-vacuously satisﬁed by the zero equilibrium ﬂow (global_regularity_for_NS_nonvacuous_a
+and excludes discontinuous step-jump ﬁelds (stepField_not_physical).
+
+Contents
+1 Introduction and Summary of Proved vs. Conditional Results
+
+2
+
+2 Construction and Non-Degenerate Casimir Coupling of KFT
+
+2
+
+3 Five-Step Canonical Uniqueness of the Minimal Tether
+
+4
+
+4 Quartic 4 = 4 Young Absorption and Conditional Global Regularity
+4.1 Global Regularity for Flows Satisfying the Tether Rate or Bound . . . . . . . . .
+
+5
+5
+
+5 Verbatim Lean 4 Kernel Audit and Cryptographic Attestation
+
+5
+
+1
+
+Introduction and Summary of Proved vs. Conditional Results
+
+In Arnold’s geometric formulation of ideal incompressible hydrodynamics [1], Euler’s equation on
+the 3-torus T3 is a Hamiltonian ﬂow on dual coadjoint orbits of the volume-preserving
+diﬀeomor∫
+phism group SDiﬀ(T3 ) with respect to the Lie–Poisson bracket {F, G}LP (ω) = T3 hω, [δF, δG]i dx.
+While
+the Lie–Poisson bracket preserves all Casimir invariants (such as the helicity C(ω) =
+1∫
+hu,
+ωi dx with variational derivative δC(ω) = ω), standard Navier–Stokes viscosity ν∆ω
+3
+2 T
+breaks symplectic leaf invariance without selectively damping non-Casimir transverse stretching
+modes at high vorticity amplitude.
+In this paper and its companion Lean 4 repository (BenFrohman/frohmanian-symplectic-tether-regular
+we introduce the Frohmanian Symplectic Tether {F, G}FT = {F, G}LP − κKFT (δF, δG; ω) and
+establish its algebraic, geometric, and Lyapunov properties in Lean 4. Table 1 summarizes the
+exact distinction between unconditionally proved theorems and the ﬂow-level hypotheses of our
+conditional regularity theorems.
+
+2
+
+Construction and Non-Degenerate Casimir Coupling of KFT
+
+Let g = Xdiv (T3 ) denote the Lie algebra of smooth divergence-free vector ﬁelds on T3 , and
+identify g∗ with vorticity ﬁelds ω = ∇ × u. At each point x ∈ T3 , the orthogonal projection onto
+the subspace orthogonal to δC(ω)(x) = ω(x) ∈ R3 is deﬁned in ForMathlib/Projection.lean
+and SymplecticTether.lean by
+⊥
+PδC
+(v)(x) = v(x) −
+
+hv(x), ω(x)i
+ω(x)
+kω(x)k2
+
+⊥
+(with PδC
+(v)(x) = v(x) if ω(x) = 0).
+
+(1)
+
+⊥ )2 = P ⊥ ), self-adjoint (hP ⊥ v, wi = hv, P ⊥ wi), and Casimirveriﬁed to be idempotent ((PδC
+δC
+δC
+δC
+⊥ ω = 0).
+annihilating (PδC
+
+Deﬁnition 2.1 (Frohmanian Symplectic Tether Bracket and Kernel). For ν > 0 and CCZ = 3/2,
+deﬁne the canonical coupling constant and symmetric bilinear kernel:
+κ(ν) =
+KFT (v, w; ω) =
+
+4
+2187
+27CCZ
+=
+> 0,
+3
+64ν 3
+∫ 4ν
+
+⟨
+
+T3
+
+(2)
+⟩
+
+⊥
+⊥
+kω(x)k2 PδC
+v(x), PδC
+w(x) dx,
+
+{F, G}FT (ω) = {F, G}LP (ω) − κ(ν) KFT (δF (ω), δG(ω); ω).
+2
+
+(3)
+(4)
+
+Table 1: Summary of Unconditionally Proved Theorems vs. Conditional Flow Hypotheses in
+FrohmanianSymplecticTether.
+Declaration
+Item
+
+/
+
+Mathematical
+
+Status
+
+Mathematical Meaning & Scope
+27C 4
+
+CalderonZygmundConstant3D_eq_three_halves,
+PROVED (Unconkappa_pos
+ditional)
+
+=
+Exact coupling constant κ = 4ν CZ
+3
+2187
+>
+0
+at
+C
+=
+3/2
+for
+ν
+>
+0.
+CZ
+64ν 3
+
+tether_preserves_casimirs,
+PROVED (UncontetherPointwiseDensity_nonpos,
+ditional)
+tetherPointwiseDensity_strict_neg_of_noncasimir,
+tetherKernel_nondegenerate_on_casimir_defect
+
+The tether kernel KFT annihilates
+⊥
+Casimir gradients (PδC
+ω = 0), is
+non-positive on the diagonal, and is
+⊥
+strictly negative whenever PδC
+v 6= 0
+and ω 6= 0.
+
+uniqueness_of_minimal_tether,
+PROVED (Unconuniqueness_of_kernel_density,
+ditional)
+tetherKernel_has_canonical_density,
+step2_degree, step5_higher_order
+
+Five-step canonical classiﬁcation
+proving that KFT is the unique
+minimal-degree (degree 2 in ω)
+Casimir-preserving metriplectic kernel up to a positive scalar κ > 0.
+
+PROVED (Unconditional)
+
+Quartic 4 = 4 Young absorption (p =
+4/3, q = 4) eliminating cubic stretching CCZ |ω|3 into − ν3 |ω|2 − κ4 |ω|6 , and
+comparison ODE stability on [0, T ].
+
+hasDerivAt_quartic_tether_weight, PROVED (Unconquartic_weight_source_eq
+ditional)
+
+Exact diﬀerentiation of the quartic
+tethered weight κ4 |ω|4 φ along the material enstrophy accumulation equation (∂t + u · ∇)φ = |ω|2 , producing
++ κ4 |ω|6 .
+
+stepField_not_physical,
+PROVED (Unconrepaired_hInt,
+ditional)
+repaired_huniq_at_zero,
+frohmanianTetherBound_zero,
+frohmanianTetherRate_zero,
+global_regularity_for_NS_nonvacuous_at_zero
+
+Step-jump ﬁelds are excluded
+by
+IsPhysicalNSSolution;
+the full hypothesis bundle of
+global_regularity_for_NS
+is
+non-vacuously inhabited at u0 ≡ 0,
+yielding T ∗ (0, ν) = >.
+
+frohmanianTetherRate,
+frohmanianTetherBound
+
+CONDITIONAL
+FLOW
+HYPOTHESES
+
+Hypotheses restricting to ﬂows whose
+vorticity supremum M (t) = kω(t)k∞
+obeys the Riccati/tether rate M 0 ≤
+CCZ M 2 − κ00 M 4 or ceiling M (t) ≤ Y
+on every local horizon [0, T ].
+
+frohmanian_tether_theorem,
+global_regularity_for_NS
+
+PROVED
+FOR
+FLOWS SATISFYING TETHER
+RATE/BOUND
+
+Global regularity (T ∗ (u0 , ν) = > and
+u(t) ∈ C ∞ (T3 ) for all t ≥ 0) proved
+for ﬂows satisfying the tether rate
+or bound and local Kato/restart/uniqueness hypotheses.
+
+youngs_absorption_elimination,
+comparison_ode_stability,
+comparison_ode_nonneg
+
+3
+
+In SymplecticTether.lean, we prove ﬁve unconditional Casimir non-degeneracy theorems
+establishing that the tether dissipation −κKFT (v, v; ω) vanishes if and only if the variational
+vector ﬁeld v is pointwise collinear with the Casimir gradient ω:
+Theorem 2.2 (Unconditional Casimir Non-Degeneracy of KFT ). Let κ > 0, ω ∈ g∗ , and
+⊥ v(x)k2 .
+v : T3 → R3 . Deﬁne the pointwise tether density dFT (κ, ω, v, x) = −κkω(x)k2 kPδC
+Then:
+1. Diagonal non-positivity (tetherPointwiseDensity_nonpos, tetherKernel_diagonal_nonpos):
+dFT (κ, ω, v, x) ≤ 0 for all x ∈ T3 , and −κ KFT (v, v; ω) ≤ 0.
+2. Casimir invariance (tether_preserves_casimirs): For any Casimir functional C
+with δC(ω) k ω, {F, C}FT = {F, C}LP = 0.
+
+3. Strict negativity on non-Casimir modes (tetherPointwiseDensity_strict_neg_of_noncasimir,
+tetherKernel_strict_neg_of_orthogonal_component, tetherKernel_nondegenerate_on_casimir_d
+⊥ v(x) 6= 0, we have d
+Whenever ω(x) 6= 0 and PδC
+FT (κ, ω, v, x) < 0. Moreover, if the inte∫
+⊥ v(x)k2 dx > 0, then −κ K
+grated orthogonal Casimir defect T3 kω(x)k2 kPδC
+FT (v, v; ω) < 0.
+Speciﬁcally, for any unit transverse vector e⊥ (x) ⊥ ω(x) with ke⊥ (x)k = 1 and v(x) =
+c ω(x) + α e⊥ (x) (α 6= 0), we have dFT (κ, ω, v, x) = −κkω(x)k2 α2 < 0.
+
+3
+
+Five-Step Canonical Uniqueness of the Minimal Tether
+
+In FrohmanianSymplecticTether/Uniqueness.lean, we formalize a 5-step classiﬁcation theorem proving that KFT is not an ad-hoc ansatz, but is uniquely forced by the geometry of
+coadjoint orbits:
+
+Theorem 3.1 (Canonical
+Uniqueness: uniqueness_of_minimal_tether and uniqueness_of_kernel_density
+∫
+Let K(v, w; ω) = T3 k(ω(x), v(x), w(x)) dx be any local bilinear symmetric form on g∗ whose
+pointwise density k(ω, v, w) satisﬁes:
+1. Step 1 (Casimir Kernel Annihilation): k(ω, ω, w) = 0 for all ω, w ∈ R3 , so k factors
+⊥.
+through PδC
+2. Step 2 (Minimal Polynomial Degree & Parabolic Scaling, step2_degree): Homogeneous polynomial dependence on ω of minimal positive even degree 2m = 2 (since degree
+0 is independent of vorticity and odd degrees violate ω 7→ −ω parity / semi-deﬁniteness).
+3. Step 3 (SO(3) Isotropy on the Transverse Plane W = ω ⊥ ): By Schur’s lemma on
+the 2-dimensional transverse subspace ω ⊥ ⊂ R3 , any SO(2)-invariant symmetric bilinear
+⊥ v, P ⊥ wi.
+form on ω ⊥ is a scalar multiple of the Euclidean inner product hPδC
+δC
+4. Step 4 (Negative Semi-Deﬁniteness): Coercivity of the dissipative bracket requires
+κ > 0.
+5. Step 5 (Minimality Over Higher-Order Terms, step5_higher_order): Higherorder polynomial weights kωk2m with m ≥ 2 have strictly higher degree 2m ≥ 4 > 2.
+⊥ v, P ⊥ wi, i.e., K =
+Then there exists a unique scalar α > 0 such that k(ω, v, w) = αkωk2 hPδC
+δC
+α KFT .
+
+4
+
+4
+
+Quartic 4 = 4 Young Absorption and Conditional Global Regularity
+
+To couple the quadratic tether density kωk2 to the cubic vortex-stretching nonlinearity h(ω ·
+∇)u, ωi ≤ CCZ kωk3 , we deﬁne in TetheredLyapunov.lean the molliﬁed quartic Lyapunov
+functional
+)
+∫ (
+1
+κ
+2
+4
+Sε (t) =
+|ωε (t, x)| + |ωε (t, x)| φε (t, x) dx,
+(5)
+4
+T3 2
+where φ solves the material enstrophy accumulation equation (∂t +u·∇)φ = |ω|2 . Diﬀerentiating
+the quartic weight κ4 |ω|4 φ along the material derivative (hasDerivAt_quartic_tether_weight,
+quartic_weight_source_eq) produces the sixth-degree damping source − κ4 |ω|6 in the modiﬁed
+enstrophy balance.
+Theorem 4.1 (Quartic 4 = 4 Young Absorption, youngs_absorption_elimination). For
+every ν > 0, CCZ > 0, and x = |ω| ≥ 0, with κ =
+
+4
+27CCZ
+,
+4ν 3
+
+ν
+κ
+CCZ x3 − x2 − x6 ≤ 0.
+3
+4
+(
+
+)(
+
+(6)
+
+)
+
+3/4 x3/2 C ( 9 )3/4 x3/2 and apply Young’s inequality ab ≤ 3 a4/3 +
+Proof. Write CCZ x3 = ( 4ν
+CZ 4ν
+9 )
+4
+1 4
+3
+1
+4 3
+3
+4 b with conjugate exponents p = 4/3 and q = 4 ( 4 + 4 = 1). Since 3 · 2 = 2 and 4 · 2 = 6,
+
+the two terms equal ν3 x2 and
+constant.
+
+4.1
+
+4
+27CCZ
+x6 = κ4 x6 , cancelling CCZ x3 identically with zero residual
+16ν 3
+
+Global Regularity for Flows Satisfying the Tether Rate or Bound
+
+In GlobalRegularity.lean, we state plainly that our global regularity theorems apply to ﬂows
+that satisfy the Frohmanian tether rate or bound:
+Theorem 4.2 (frohmanian_tether_theorem and global_regularity_for_NS). Let ν > 0
+and let u0 ∈ C ∞ (T3 ) be divergence-free initial data. For any ﬂow that satisﬁes:
+
+1. the Frohmanian tether bound (frohmanianTetherBound): a uniform ceiling kω(t)k∞ ≤
+Y on every ﬁnite existence horizon [0, T ] (or in global_regularity_for_NS, the Frohmanian tether rate frohmanianTetherRate: M 0 (t) ≤√CCZ M (t)2 − κ00 M (t)4 on every
+[0, T ], which implies the uniform ceiling Y = max(kω0 k∞ , CCZ /κ00 ) via riccati_ceiling_of_vorticity
+and
+2. the classical local PDE package (local Kato witness hKato, quantitative H s Kato–Ponce
+continuation step hstep, and local L2 energy-Grönwall uniqueness hInt),
+the maximal existence time is T ∗ (u0 , ν) = > and u(t) ∈ C ∞ (T3 ) for all t ≥ 0. Moreover,
+global_regularity_for_NS_nonvacuous_at_zero proves unconditionally that all hypotheses
+of global_regularity_for_NS are jointly satisﬁed at u0 ≡ 0.
+
+5
+
+Verbatim Lean 4 Kernel Audit and Cryptographic Attestation
+
+Running lake build && lake env lean AxiomAudit.lean veriﬁes all 341 theorems across
+the 12 modules of FrohmanianSymplecticTether:
+Listing
+1:
+Verbatim
+output
+of
+frohmanian-symplectic-tether-regularity.
+5
+
+lake env lean AxiomAudit.lean
+
+on
+
+FrohmanianSymplecticTether.ForMathlib.Projection: theorems=7 nonstandard=0
+FrohmanianSymplecticTether.AnalyticPipeline: theorems=14 nonstandard=0
+FrohmanianSymplecticTether.TetheredLyapunov: theorems=45 nonstandard=0
+FrohmanianSymplecticTether.Uniqueness: theorems=16 nonstandard=0
+FrohmanianSymplecticTether.SymplecticTether: theorems=38 nonstandard=0
+FrohmanianSymplecticTether.IndependentMajorant: theorems=2 nonstandard=0
+FrohmanianSymplecticTether.ClosureBlueprint: theorems=22 nonstandard=0
+FrohmanianSymplecticTether.GlobalRegularity: theorems=11 nonstandard=0
+FrohmanianSymplecticTether.ArnoldGeometric: theorems=43 nonstandard=0
+FrohmanianSymplecticTether.NS_Equations: theorems=143 nonstandard=0
+TOTAL theorems=341 nonstandard=0
+’FrohmanianTether.CalderonZygmundConstant3D_eq_three_halves’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.kappa_pos’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.tetherKernel_quadratic_form’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FrohmanianTether.tetherKernel_comm’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.tetherPointwiseDensity_nonpos’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FrohmanianTether.tetherPointwiseDensity_strict_neg_of_noncasimir’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.tetherKernel_diagonal_nonpos’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FrohmanianTether.tetherKernel_strict_neg_of_orthogonal_component’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.tetherKernel_nondegenerate_on_casimir_defect’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+’FrohmanianTether.uniqueness_of_minimal_tether’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FrohmanianTether.uniqueness_of_kernel_density’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’FrohmanianTether.uniqueness_of_kernel_density_fun’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FrohmanianTether.tetherKernel_has_canonical_density’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FrohmanianTether.step2_degree_of_canonical_density’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’FrohmanianTether.step2_degree’ depends on axioms: [propext, Classical.choice, Quot.sound]
+’FrohmanianTether.step5_higher_order’ depends on axioms: [propext, Classical.choice, Quot.sound
+]
+’AnalyticPipeline.youngs_absorption_elimination’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’AnalyticPipeline.comparison_ode_stability’ depends on axioms: [propext, Classical.choice, Quot
+.sound]
+’AnalyticPipeline.comparison_ode_nonneg’ depends on axioms: [propext, Classical.choice, Quot.
+sound]
+’TetheredLyapunov.hasDerivAt_quartic_tether_weight’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’TetheredLyapunov.quartic_weight_source_eq’ depends on axioms: [propext, Classical.choice, Quot
+.sound]
+’TetheredLyapunov.global_regularity_of_restart’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’TetheredLyapunov.global_regularity_of_constructions’ depends on axioms: [propext, Classical.
+choice, Quot.sound]
+’GlobalRegularity.frohmanian_tether_theorem’ depends on axioms: [propext, Classical.choice,
+Quot.sound]
+’GlobalRegularity.global_regularity_for_NS’ depends on axioms: [propext, Classical.choice, Quot
+.sound]
+’GlobalRegularity.global_regularity_for_NS_nonvacuous_at_zero’ depends on axioms: [propext,
+Classical.choice, Quot.sound]
+
+6
+
+References
+[1] V. I. Arnold, Sur la géométrie diﬀérentielle des groupes de Lie de dimension inﬁnie et ses
+applications à l’hydrodynamique des ﬂuides parfaits, Ann. Inst. Fourier 16 (1966), 319–361.
+[2] T. Kato, Nonstationary ﬂows of viscous and ideal ﬂuids in R3 , J. Funct. Anal. 9 (1972),
+296–305.
+[3] J. T. Beale, T. Kato, and A. Majda, Remarks on the breakdown of smooth solutions for the
+3-D Euler equations, Commun. Math. Phys. 94 (1984), 61–66.
+[4] P. J. Morrison, A paradigm for joined Hamiltonian and dissipative systems, Physica D 18
+(1986), 410–419.
+[5] B. S. Frohman, Titan Audit: Speciﬁcation Gaming and Semantic Vacuity Detection for
+Formal Veriﬁcation in Lean 4, Zenodo, DOI: 10.5281/zenodo.23630648 (2026).
+[6] B. S. Frohman, SealGuard: Cryptographic Containment, Capability-Attested Boundary Enforcement, and Runtime Integrity Architecture, Zenodo, DOI: 10.5281/zenodo.23631670
+(2026).
+
+7
+
+

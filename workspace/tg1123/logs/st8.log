@@ -1,0 +1,205 @@
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	﻿2026-11-23T18:34:36.1357866Z ##[group]Run bash scripts/verify-lock.sh
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.1358379Z ^[[36;1mbash scripts/verify-lock.sh^[[0m
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.1381191Z shell: /usr/bin/bash -e {0}
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.1381571Z ##[endgroup]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.1514589Z == 1/6 static lock checks (lock form, paper hash, forbidden tokens)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.2099184Z TRUTH GATE FAIL: this lock is NOT certifying (reopened by the re-audit of 2026-11-16): Not whole-paper. Theorem thm:routeA is now locked in full (all three sentences, with Definition def:routeA), but 15 other stated results of paper/companion.tex sit outside any lock: Lemma (Basic properties), thm:unique, thm:jacobi, Theorem (Metriplectic split), prop:ce, prop:shear, thm:fieldjacobi, Theorem (Curl of forced NS), Theorem (Biot-Savart on trigonometric polynomials), Corollary (Velocity form => vorticity form), the L2 tether-term Lemma, thm:L2, Lemma (Tether is sign-definite at H^1), thm:H1, Theorem (Global smoothness, conditional). No theorem stated in the paper may sit outside a lock.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.2104424Z TRUTH GATE STATIC: scanned roots ['TetherMayForm', 'TetherMayForm.lean'] (draft dirs exempt: ['TetherMayForm/Draft']); 0 forbidden tokens
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.2105480Z TRUTH GATE STATIC FAIL (1 problems)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.2106106Z == 2/6 lock-form lint (paper_claim must not reuse repository Props)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.3001718Z TRUTH GATE LINT PASS: paper_claim uses no repository name outside paper_vocabulary and no hypothesis or conclusion Prop of formal_claim
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:36.3302431Z == 3/6 lake build (default targets)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:40.0326030Z ✔ [2659/2683] Built TetherMayForm.Layer2 (2.5s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:43.1456073Z ✔ [2660/2683] Built TetherMayForm.RiccatiComparison (3.1s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:43.2445919Z ✔ [2661/2683] Built TetherMayForm.EnstrophyL2 (5.7s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:44.2476654Z ⚠ [2662/2683] Built TetherMayForm.Basic (6.7s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:44.2495694Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:44.2510877Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:44.2535664Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:45.4500061Z ✔ [2663/2683] Built TetherMayForm.CitedProps (2.2s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:46.8566818Z ⚠ [2664/2683] Built TetherMayForm.Jacobi (2.6s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:46.8597697Z warning: TetherMayForm/Jacobi.lean:85:0: automatically included section variable(s) unused in theorem `Frohman.Tether.jacobi_classical_cancel`:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:46.8625993Z   [InnerProductSpace ℝ H]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:46.8640223Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:46.8664887Z   omit [InnerProductSpace ℝ H] in theorem ...
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:46.8695230Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:46.8705536Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:47.6572262Z ✔ [2665/2683] Built TetherMayForm.Metriplectic (3.5s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.3606666Z ✔ [2666/2683] Built TetherMayForm.RouteA (2.6s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9612952Z ⚠ [2667/2683] Built TetherMayForm.JacobiWitness (4.2s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9614324Z warning: TetherMayForm/JacobiWitness.lean:40:19: This simp argument is unused:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9615179Z   LinearMap.map_add₂
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9615429Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9615668Z Hint: Omit it from the simp argument list.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9616486Z   simp [crossBr,̵ ̵L̵i̵n̵e̵a̵r̵M̵a̵p̵.̵m̵a̵p̵_̵a̵d̵d̵₂̵]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9616864Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9617301Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9618200Z warning: TetherMayForm/JacobiWitness.lean:52:15: This simp argument is unused:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9618894Z   WithLp.ofLp_toLp
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9619209Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9619399Z Hint: Omit it from the simp argument list.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9620273Z   simp only [W̵i̵t̵h̵L̵p̵.̵o̵f̵L̵p̵_̵t̵o̵L̵p̵,̵ ̵e1, e2, e3, PiLp.add_apply, PiLp.zero_apply] at *
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9620862Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9621633Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9622946Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9623713Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9623997Z Note: The updated constant has a different type:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9625245Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9626107Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9626660Z instead of
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9627381Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9628220Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9628652Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9629399Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9630912Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9631689Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9631924Z Note: The updated constant has a different type:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9632874Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9633731Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9634484Z instead of
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9635196Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9636008Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9636427Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9637108Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9638584Z warning: TetherMayForm/JacobiWitness.lean:68:68: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9639409Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9639660Z Note: The updated constant has a different type:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9640613Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9641470Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9642017Z instead of
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9642720Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9643578Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9644020Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9644807Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9645995Z warning: TetherMayForm/JacobiWitness.lean:68:17: This simp argument is unused:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9646824Z   EuclideanSpace.norm_eq
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9647073Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9647303Z Hint: Omit it from the simp argument list.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9648182Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9649618Z   ̲  ̲ ̲ ̲E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵n̵o̵r̵m̵_̵e̵q̵,̵ ̵inner, Fin.sum_univ_three, EuclideanSpace.single_apply]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9650254Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9650581Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9651481Z warning: TetherMayForm/JacobiWitness.lean:68:48: This simp argument is unused:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9652187Z   Fin.sum_univ_three
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9652442Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9652757Z Hint: Omit it from the simp argument list.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9653480Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3,
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9654332Z   ̵  ̵ ̵ ̵cross_apply,
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9655555Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵EuclideanSpace.single_apply]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9656188Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9656569Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9657455Z warning: TetherMayForm/JacobiWitness.lean:68:68: This simp argument is unused:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9658174Z   EuclideanSpace.single_apply
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9658496Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9658714Z Hint: Omit it from the simp argument list.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9659540Z   simp [mixedTerm, tetherVec, frohmanianTether_apply, piU_apply, crossBr, e1, e2, e3, cross_apply,
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9660983Z   ̲  ̲ ̲ ̲EuclideanSpace.norm_eq, inner, F̵i̵n̵.̵s̵u̵m̵_̵u̵n̵i̵v̵_̵t̵h̵r̵e̵e̵,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]̵F̲i̲n̲.̲s̲u̲m̲_̲u̲n̲i̲v̲_̲t̲h̲r̲e̲e̲]̲
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9661792Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9662158Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9663365Z warning: TetherMayForm/JacobiWitness.lean:76:12: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9664306Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9664543Z Note: The updated constant has a different type:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9665557Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9666408Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9666950Z instead of
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9667680Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9668489Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9668939Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9669612Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9670828Z warning: TetherMayForm/JacobiWitness.lean:76:12: This simp argument is unused:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9671604Z   EuclideanSpace.single_apply
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9671898Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9672128Z Hint: Omit it from the simp argument list.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9672872Z   simp [e2,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵] at this
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9673474Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:50.9673825Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:52.2627320Z ✔ [2668/2683] Built TetherMayForm.Main (1.9s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:53.9648172Z ✔ [2669/2683] Built TetherMayForm.TetheredLyapunov (1.8s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.2748135Z ✔ [2670/2683] Built TetherMayForm.Torus (2.3s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.4750924Z ✔ [2671/2683] Built TetherMayForm.GlobalRegularity (2.5s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.8754646Z ⚠ [2672/2683] Built TetherMayForm.Enstrophy (2.9s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.8755541Z warning: TetherMayForm/Enstrophy.lean:116:50: unused variable `hC`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.8755837Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.8756173Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.8756847Z warning: TetherMayForm/Enstrophy.lean:116:63: unused variable `hκ`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.8757124Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:56.8757390Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3786933Z ⚠ [2673/2683] Built TetherMayForm.Final (2.5s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3787658Z warning: TetherMayForm/Final.lean:69:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3788334Z If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3788858Z ```
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3789208Z open Lean.Parser.Tactic in
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3789608Z macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3790053Z   `(tactic| push $cfg:optConfig Not $[$loc]?)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3790414Z ```
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3790981Z warning: TetherMayForm/Final.lean:180:35: `EuclideanSpace.single_apply` has been deprecated: Use `PiLp.single_apply` instead
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3791911Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3792106Z Note: The updated constant has a different type:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3792821Z   ∀ (p : ENNReal) (𝕜 : Type u_1) {ι : Type u_2} [inst : DecidableEq ι] [inst_1 : Zero 𝕜] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3793426Z     (PiLp.single p i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3793818Z instead of
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3794675Z   ∀ {ι : Type u_1} {𝕜 : Type u_3} [inst : RCLike 𝕜] [inst_1 : DecidableEq ι] (i : ι) (a : 𝕜) (j : ι),
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3795248Z     (EuclideanSpace.single i a).ofLp j = if j = i then a else 0
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3795557Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3796019Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.single_apply` to `PiLp.single_apply x`).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3796785Z warning: TetherMayForm/Final.lean:180:35: This simp argument is unused:
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3797242Z   EuclideanSpace.single_apply
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3797468Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3797678Z Hint: Omit it from the simp argument list.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3798248Z   simp [y, Fin.sum_univ_three,̵ ̵E̵u̵c̵l̵i̵d̵e̵a̵n̵S̵p̵a̵c̵e̵.̵s̵i̵n̵g̵l̵e̵_̵a̵p̵p̵l̵y̵]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3798619Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:34:59.3798839Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:02.9807388Z ⚠ [2674/2683] Built TetherMayForm.LogLoss (3.6s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:02.9808552Z warning: TetherMayForm/LogLoss.lean:95:50: unused variable `hy0`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:02.9808916Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:02.9809271Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:05.5851990Z ✔ [2675/2683] Built TetherMayForm.PalinstrophyH1 (2.6s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:07.7872741Z ✔ [2676/2683] Built TetherMayForm.VorticityTether (2.2s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:13.1940462Z ✔ [2677/2683] Built TetherMayForm.CurlNS (5.4s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:16.3977295Z ✔ [2678/2683] Built TetherMayForm.BiotSavart (3.2s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:18.9076531Z ✔ [2679/2683] Built TetherMayForm.ChevalleyEilenberg (2.5s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:21.7085029Z ⚠ [2680/2683] Built TetherMayForm.FieldJacobi (5.3s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:21.7086233Z warning: TetherMayForm/FieldJacobi.lean:195:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:21.7086627Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:21.7086932Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:23.9125416Z ✔ [2681/2683] Built TetherMayForm.FieldMetriplectic (2.3s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:25.6142570Z ✔ [2682/2683] Built TetherMayForm (1.6s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:25.6232195Z Build completed successfully (2683 jobs).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:25.6437904Z == 4/6 lake build TetherMayForm.Semantics
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:26.7071905Z ⚠ [2270/2338] Replayed TetherMayForm.Basic
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:26.7072769Z warning: TetherMayForm/Basic.lean:252:45: unused variable `hu`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:26.7073540Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:26.7073869Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:28.8102166Z ✔ [2338/2338] Built TetherMayForm.Semantics (2.1s)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:28.8142874Z Build completed successfully (2338 jobs).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:28.8572344Z build: no sorry outside draft dirs
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:28.8573014Z == 5/6 kernel audit of the lock (axioms, non-vacuity, transport)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4153207Z scripts/TruthGateAudit.lean:117:75: warning: `Lean.levelZero` has been deprecated: Use `Lean.Level.zero` instead
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4153963Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4154814Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.levelZero` to `Level.zero x`).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4155535Z AXIOMS TruthGate.formal_claim: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4156131Z AXIOMS TruthGate.paper_claim: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4156722Z AXIOMS TruthGate.intended_correspondence: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4157297Z AXIOMS TruthGate.formal_claim_holds: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4158727Z AXIOMS TruthGate.paper_claim_holds: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4159423Z AXIOMS Frohman.Tether.routeA_determines_kappa_of_matching: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4160103Z AXIOMS Frohman.Tether.routeA_admissible_iff: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4160744Z TRUTH GATE AUDIT PASS: main theorems [Frohman.Tether.routeA_determines_kappa_of_matching,
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4161657Z  Frohman.Tether.routeA_admissible_iff]; formal_claim ↔ paper_claim locked, standard axioms only
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4162319Z 'TruthGate.intended_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4162987Z 'TruthGate.paper_claim_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4180216Z == 6/6 additional locks (build, sorry scan, kernel audit)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.4381623Z (none)
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5126314Z ========================================================================
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5127575Z TRUTH GATE VERDICT
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5128834Z Evaluated 93541f0df6c9: PR merge ref on base 33b0df104377 (current base tip 33b0df104377).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5130062Z Kernel/proof checks: PASS (lake build, no sorry outside draft dirs, kernel audit: standard axioms only).
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5130759Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5131074Z [LOCK-FORM: lock wording/form problem, not a math failure]
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5136272Z   - the lock is marked non-certifying (not independently transcribed). paper_claim reuses repository definitions where the paper gives its own definition. Rewrite paper_claim from the paper's words and symbols. Recorded reason: Not whole-paper. Theorem thm:routeA is now locked in full (all three sentences, with Definition def:routeA), but 15 other stated results of paper/companion.tex sit outside any lock: Lemma (Basic properties), thm:unique, thm:jacobi, Theorem (Metriplectic split), prop:ce, prop:shear, thm:fieldjacobi, Theorem (Curl of forced NS), Theorem (Biot-Savart on trigonometric polynomials), Corollary (Velocity form => vorticity form), the L2 tether-term Lemma, thm:L2, Lemma (Tether is sign-definite at H^1), thm:H1, Theorem (Global smoothness, conditional). No theorem stated in the paper may sit outside a lock.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5143281Z   Required: write the paper side as an independent transcription of the paper's own definition (quote it in PAPER_QUOTE_BEGIN/END, use the paper's symbols), using only Mathlib and basic repository vocabulary listed with a reason in TRUTH_GATE.vocabulary.json. Never reuse a Prop that is a hypothesis or the conclusion of formal_claim. Then prove intended_correspondence with real reasoning (no sorry, no rfl) and get the author's sign-off on the new lock.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5146407Z 
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5147022Z VERDICT: FAIL (LOCK-FORM). Kernel checks passed: no math was found false.
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5148318Z ========================================================================
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5178466Z ##[error]see the TRUTH GATE VERDICT block in this log
+truth-gate	verify-lock (every phase runs; classified TRUTH GATE VERDICT at the end)	2026-11-23T18:35:31.5221967Z ##[error]Process completed with exit code 1.

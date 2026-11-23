@@ -1,0 +1,605 @@
+
+===== 0_verify.txt
+﻿2026-11-23T21:25:30.7609390Z Current runner version: '2.338.2'
+2026-11-23T21:25:30.7625194Z ##[group]Runner Image Provisioner
+2026-11-23T21:25:30.7625824Z Hosted Compute Agent
+2026-11-23T21:25:30.7626379Z Version: 20261111.635
+2026-11-23T21:25:30.7626814Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:25:30.7627339Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:25:30.7627750Z Worker ID: {7f8f17f6-368a-4594-a621-493a1121f9e1}
+2026-11-23T21:25:30.7628159Z Region: centralus
+2026-11-23T21:25:30.7628578Z Cloud: Azure
+2026-11-23T21:25:30.7628914Z ##[endgroup]
+2026-11-23T21:25:30.7629774Z ##[group]Operating System
+2026-11-23T21:25:30.7630192Z Ubuntu
+2026-11-23T21:25:30.7630545Z 26.04.1
+2026-11-23T21:25:30.7630912Z LTS
+2026-11-23T21:25:30.7631235Z ##[endgroup]
+2026-11-23T21:25:30.7631607Z ##[group]Runner Image
+2026-11-23T21:25:30.7632033Z Image: ubuntu-26.04
+2026-11-23T21:25:30.7632381Z Version: 20261116.202.1
+2026-11-23T21:25:30.7633177Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:25:30.7634126Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T21:25:30.7634705Z ##[endgroup]
+2026-11-23T21:25:30.7635508Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:25:30.7637029Z Contents: read
+2026-11-23T21:25:30.7637391Z Metadata: read
+2026-11-23T21:25:30.7638054Z Packages: read
+2026-11-23T21:25:30.7638396Z ##[endgroup]
+2026-11-23T21:25:30.7639744Z Secret source: Actions
+2026-11-23T21:25:30.7640290Z Cache mode: write
+2026-11-23T21:25:30.7640728Z Prepare workflow directory
+2026-11-23T21:25:30.7852140Z Prepare all required actions
+2026-11-23T21:25:30.7883205Z Getting action download info
+2026-11-23T21:25:30.9991183Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:25:31.0721902Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T21:25:31.2324804Z Complete job name: verify
+2026-11-23T21:25:31.2848207Z ##[group]Run actions/checkout@v4
+2026-11-23T21:25:31.2848621Z with:
+2026-11-23T21:25:31.2848953Z   repository: BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.2851083Z   token: ***
+2026-11-23T21:25:31.2851317Z   ssh-strict: true
+2026-11-23T21:25:31.2851565Z   ssh-user: git
+2026-11-23T21:25:31.2851818Z   persist-credentials: true
+2026-11-23T21:25:31.2852091Z   clean: true
+2026-11-23T21:25:31.2852346Z   sparse-checkout-cone-mode: true
+2026-11-23T21:25:31.2852637Z   fetch-depth: 1
+2026-11-23T21:25:31.2852880Z   fetch-tags: false
+2026-11-23T21:25:31.2853127Z   show-progress: true
+2026-11-23T21:25:31.2853377Z   lfs: false
+2026-11-23T21:25:31.2853612Z   submodules: false
+2026-11-23T21:25:31.2853863Z   set-safe-directory: true
+2026-11-23T21:25:31.2854146Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:25:31.2854492Z ##[endgroup]
+2026-11-23T21:25:31.5378862Z Syncing repository: BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5380254Z ##[group]Getting Git version info
+2026-11-23T21:25:31.5380935Z Working directory is '/home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness'
+2026-11-23T21:25:31.5381778Z [command]/usr/bin/git version
+2026-11-23T21:25:31.5395652Z git version 2.56.1
+2026-11-23T21:25:31.5408285Z ##[endgroup]
+2026-11-23T21:25:31.5417952Z Temporarily overriding HOME='/home/runner/work/_temp/fe81e9c2-d7ea-4274-8258-ab2a0e6cd756' before making global git config changes
+2026-11-23T21:25:31.5419298Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:25:31.5422691Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5488299Z Deleting the contents of '/home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness'
+2026-11-23T21:25:31.5499522Z ##[group]Initializing the repository
+2026-11-23T21:25:31.5502679Z [command]/usr/bin/git init /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5594698Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:25:31.5595508Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:25:31.5596377Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:25:31.5596961Z hint: call:
+2026-11-23T21:25:31.5597212Z hint:
+2026-11-23T21:25:31.5597547Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:25:31.5597922Z hint:
+2026-11-23T21:25:31.5598266Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:25:31.5598822Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:25:31.5599262Z hint:
+2026-11-23T21:25:31.5599519Z hint: 	git branch -m <name>
+2026-11-23T21:25:31.5599811Z hint:
+2026-11-23T21:25:31.5600241Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:25:31.5608428Z Initialized empty Git repository in /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness/.git/
+2026-11-23T21:25:31.5616126Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5662612Z ##[endgroup]
+2026-11-23T21:25:31.5663394Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:25:31.5665205Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:25:31.5691492Z ##[endgroup]
+2026-11-23T21:25:31.5692181Z ##[group]Setting up auth
+2026-11-23T21:25:31.5695937Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:25:31.5723812Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:25:31.6096730Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:25:31.6123255Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:25:31.6328802Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:25:31.6354370Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:25:31.6555636Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:25:31.6586364Z ##[endgroup]
+2026-11-23T21:25:31.6586943Z ##[group]Fetching the repository
+2026-11-23T21:25:31.6592424Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bc976c4000fcb2804ed30f31707d70efcd999b94:refs/remotes/origin/ci-backfill/aaabf41
+2026-11-23T21:25:31.9757715Z From https://github.com/BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.9759112Z  * [new ref]         bc976c4000fcb2804ed30f31707d70efcd999b94 -> origin/ci-backfill/aaabf41
+2026-11-23T21:25:31.9762669Z ##[endgroup]
+2026-11-23T21:25:31.9763430Z ##[group]Determining the checkout info
+2026-11-23T21:25:31.9764666Z ##[endgroup]
+2026-11-23T21:25:31.9769107Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:25:31.9816115Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:25:31.9840068Z ##[group]Checking out the ref
+2026-11-23T21:25:31.9842979Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/aaabf41 refs/remotes/origin/ci-backfill/aaabf41
+2026-11-23T21:25:31.9917580Z Switched to a new branch 'ci-backfill/aaabf41'
+2026-11-23T21:25:31.9922552Z branch 'ci-backfill/aaabf41' set up to track 'origin/ci-backfill/aaabf41'.
+2026-11-23T21:25:31.9927001Z ##[endgroup]
+2026-11-23T21:25:31.9963913Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:25:31.9983990Z bc976c4000fcb2804ed30f31707d70efcd999b94
+2026-11-23T21:25:32.0183186Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T21:25:32.0185222Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T21:25:32.0186669Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T21:25:32.0216822Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:32.0217279Z ##[endgroup]
+2026-11-23T21:25:32.1002841Z info: downloading installer
+2026-11-23T21:25:32.4348335Z ##[group]Run bash scripts/verify.sh
+2026-11-23T21:25:32.4349147Z [36;1mbash scripts/verify.sh[0m
+2026-11-23T21:25:32.4378325Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:32.4379006Z ##[endgroup]
+2026-11-23T21:25:32.4479121Z == commit: bc976c4000fcb2804ed30f31707d70efcd999b94
+2026-11-23T21:25:32.4501095Z == toolchain: leanprover/lean4:v4.30.0-rc1
+2026-11-23T21:25:32.4638402Z == mathlib rev: 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7
+2026-11-23T21:25:32.9133794Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T21:25:38.3393348Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T21:25:43.7968475Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T21:26:07.5196069Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T21:26:08.8467008Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T21:26:09.2454658Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T21:26:09.2555210Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T21:26:09.6173999Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T21:26:09.6274121Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T21:26:10.0453874Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T21:26:10.0606373Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T21:26:10.5660494Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T21:26:10.9782872Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T21:26:11.5287355Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T21:26:11.5489878Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T21:26:11.9487063Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T21:26:11.9590782Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T21:26:13.9400007Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T21:26:13.9679875Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T21:26:14.2890943Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T21:26:14.6027984Z ✔ [4/22] Built Cache.Lean (276ms)
+2026-11-23T21:26:14.6069384Z ✔ [5/22] Built Cache.Init (220ms)
+2026-11-23T21:26:14.7009912Z ✔ [6/22] Built Cache.Lean:c.o (117ms)
+2026-11-23T21:26:14.7057103Z ✔ [7/22] Built Cache.Init:c.o (89ms)
+2026-11-23T21:26:14.9013095Z ✔ [8/22] Built Batteries.Data.String.Basic (280ms)
+2026-11-23T21:26:15.0014229Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (75ms)
+2026-11-23T21:26:15.2017213Z ✔ [10/22] Built Batteries.Data.Array.Match (592ms)
+2026-11-23T21:26:15.4018895Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (208ms)
+2026-11-23T21:26:15.5037916Z ✔ [12/22] Built Batteries.Data.String.Matcher (251ms)
+2026-11-23T21:26:15.6031340Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (119ms)
+2026-11-23T21:26:15.7032100Z ✔ [14/22] Built Cache.IO (1.0s)
+2026-11-23T21:26:16.2043650Z ✔ [15/22] Built Cache.Hashing (499ms)
+2026-11-23T21:26:16.5042596Z ✔ [16/22] Built Cache.Hashing:c.o (328ms)
+2026-11-23T21:26:16.6043431Z ✔ [17/22] Built Cache.IO:c.o (900ms)
+2026-11-23T21:26:17.4041400Z ✔ [18/22] Built Cache.Requests (1.2s)
+2026-11-23T21:26:17.9067636Z ✔ [19/22] Built Cache.Main (539ms)
+2026-11-23T21:26:18.3057905Z ✔ [20/22] Built Cache.Main:c.o (354ms)
+2026-11-23T21:26:18.6051368Z ✔ [21/22] Built Cache.Requests:c.o (1.2s)
+2026-11-23T21:26:19.2070808Z ✔ [22/22] Built cache:exe (534ms)
+2026-11-23T21:26:21.0850575Z Current branch: HEAD
+2026-11-23T21:26:21.0851529Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T21:26:21.0856784Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T21:26:21.3323418Z 
+2026-11-23T21:26:21.4798119Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 380 KB/s], Decompressed: 0
+2026-11-23T21:26:21.5787368Z Downloaded: 329 file(s) [attempted 329/8248 = 3%, 3204 KB/s], Decompressed: 15
+2026-11-23T21:26:21.6817605Z Downloaded: 535 file(s) [attempted 535/8248 = 6%, 4271 KB/s], Decompressed: 67
+2026-11-23T21:26:21.7877494Z Downloaded: 843 file(s) [attempted 843/8248 = 10%, 4197 KB/s], Decompressed: 67
+2026-11-23T21:26:21.9127654Z Downloaded: 1004 file(s) [attempted 1004/8248 = 12%, 17735 KB/s], Decompressed: 67
+2026-11-23T21:26:22.0249568Z Downloaded: 1293 file(s) [attempted 1293/8248 = 15%, 2230 KB/s], Decompressed: 67
+2026-11-23T21:26:22.1233828Z Downloaded: 1468 file(s) [attempted 1468/8248 = 17%, 1624 KB/s], Decompressed: 67
+2026-11-23T21:26:22.2219702Z Downloaded: 1791 file(s) [attempted 1791/8248 = 21%, 6342 KB/s], Decompressed: 67
+2026-11-23T21:26:22.3267338Z Downloaded: 2004 file(s) [attempted 2004/8248 = 24%, 768 KB/s], Decompressed: 67
+2026-11-23T21:26:22.4277639Z Downloaded: 2229 file(s) [attempted 2229/8248 = 27%, 2864 KB/s], Decompressed: 370
+2026-11-23T21:26:22.5281695Z Downloaded: 2424 file(s) [attempted 2424/8248 = 29%, 11100 KB/s], Decompressed: 370
+2026-11-23T21:26:22.6357975Z Downloaded: 2787 file(s) [attempted 2787/8248 = 33%, 16875 KB/s], Decompressed: 370
+2026-11-23T21:26:22.7330856Z Downloaded: 2925 file(s) [attempted 2925/8248 = 35%, 513 KB/s], Decompressed: 370
+2026-11-23T21:26:22.8553138Z Downloaded: 3061 file(s) [attempted 3061/8248 = 37%, 306 KB/s], Decompressed: 370
+2026-11-23T21:26:22.9637522Z Downloaded: 3252 file(s) [attempted 3252/8248 = 39%, 667 KB/s], Decompressed: 370
+2026-11-23T21:26:23.0825074Z Downloaded: 3560 file(s) [attempted 3560/8248 = 43%, 2836 KB/s], Decompressed: 370
+2026-11-23T21:26:23.1857983Z Downloaded: 3748 file(s) [attempted 3748/8248 = 45%, 668 KB/s], Decompressed: 370
+2026-11-23T21:26:23.2852381Z Downloaded: 3967 file(s) [attempted 3967/8248 = 48%, 7224 KB/s], Decompressed: 370
+2026-11-23T21:26:23.3977596Z Downloaded: 4132 file(s) [attempted 4132/8248 = 50%, 2895 KB/s], Decompressed: 370
+2026-11-23T21:26:23.4974760Z Downloaded: 4321 file(s) [attempted 4321/8248 = 52%, 7559 KB/s], Decompressed: 370
+2026-11-23T21:26:23.5989589Z Downloaded: 4507 file(s) [attempted 4507/8248 = 54%, 12342 KB/s], Decompressed: 370
+2026-11-23T21:26:23.7021177Z Downloaded: 4795 file(s) [attempted 4795/8248 = 58%, 5861 KB/s], Decompressed: 370
+2026-11-23T21:26:23.8021062Z Downloaded: 4992 file(s) [attempted 4992/8248 = 60%, 4644 KB/s], Decompressed: 370
+2026-11-23T21:26:23.9387901Z Downloaded: 5209 file(s) [attempted 5209/8248 = 63%, 2570 KB/s], Decompressed: 370
+2026-11-23T21:26:24.0358538Z Downloaded: 5369 file(s) [attempted 5369/8248 = 65%, 774 KB/s], Decompressed: 370
+2026-11-23T21:26:24.1367557Z Downloaded: 5612 file(s) [attempted 5612/8248 = 68%, 310 KB/s], Decompressed: 370
+2026-11-23T21:26:24.2417364Z Downloaded: 5711 file(s) [attempted 5711/8248 = 69%, 3464 KB/s], Decompressed: 370
+2026-11-23T21:26:24.3807327Z Downloaded: 5900 file(s) [attempted 5900/8248 = 71%, 9537 KB/s], Decompressed: 370
+2026-11-23T21:26:24.4863473Z Downloaded: 6096 file(s) [attempted 6096/8248 = 73%, 12670 KB/s], Decompressed: 370
+2026-11-23T21:26:24.5863923Z Downloaded: 6328 file(s) [attempted 6328/8248 = 76%, 4937 KB/s], Decompressed: 370
+2026-11-23T21:26:24.6883759Z Downloaded: 6515 file(s) [attempted 6515/8248 = 78%, 11826 KB/s], Decompressed: 370
+2026-11-23T21:26:24.7897481Z Downloaded: 6657 file(s) [attempted 6657/8248 = 80%, 1437 KB/s], Decompressed: 370
+2026-11-23T21:26:24.8913436Z Downloaded: 6834 file(s) [attempted 6834/8248 = 82%, 1792 KB/s], Decompressed: 370
+2026-11-23T21:26:25.0027568Z Downloaded: 7086 file(s) [attempted 7086/8248 = 85%, 5227 KB/s], Decompressed: 370
+2026-11-23T21:26:25.0989033Z Downloaded: 7418 file(s) [attempted 7418/8248 = 89%, 7995 KB/s], Decompressed: 370
+2026-11-23T21:26:25.1997863Z Downloaded: 7551 file(s) [attempted 7551/8248 = 91%, 4151 KB/s], Decompressed: 370
+2026-11-23T21:26:25.3007979Z Downloaded: 7733 file(s) [attempted 7733/8248 = 93%, 2441 KB/s], Decompressed: 370
+2026-11-23T21:26:25.4405426Z Downloaded: 7903 file(s) [attempted 7903/8248 = 95%, 4101 KB/s], Decompressed: 370
+2026-11-23T21:26:25.5557838Z Downloaded: 7997 file(s) [attempted 7997/8248 = 96%, 3573 KB/s], Decompressed: 370
+2026-11-23T21:26:25.7567244Z Downloaded: 8168 file(s) [attempted 8168/8248 = 99%, 575 KB/s], Decompressed: 370
+2026-11-23T21:26:25.7710533Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 3719 KB/s], Decompressed: 370
+2026-11-23T21:26:25.7711245Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 3719 KB/s], Decompressed: 370
+2026-11-23T21:26:55.5129297Z Decompressed 8248 file(s)
+2026-11-23T21:26:55.5129596Z Already decompressed 8248 file(s)
+2026-11-23T21:27:02.7914714Z ✔ [8264/8274] Built NSTorusUniqueness.IteratedIntegral (4.3s)
+2026-11-23T21:27:03.1918210Z ✔ [8265/8274] Built NSTorusUniqueness.Defs (4.7s)
+2026-11-23T21:27:03.1918511Z ✔ [8266/8274] Built NSTorusUniqueness.Clamp (4.7s)
+2026-11-23T21:27:07.4963953Z ✔ [8267/8274] Built NSTorusUniqueness.CellIntegral (4.3s)
+2026-11-23T21:27:11.1048296Z ✔ [8268/8274] Built NSTorusUniqueness.CellLebesgue (3.6s)
+2026-11-23T21:27:12.3041282Z ✔ [8269/8274] Built NSTorusUniqueness.FieldIdentities (4.8s)
+2026-11-23T21:27:18.4161193Z ✔ [8270/8274] Built NSTorusUniqueness.Energy (6.2s)
+2026-11-23T21:27:22.1226357Z ✔ [8271/8274] Built NSTorusUniqueness.Uniqueness (3.8s)
+2026-11-23T21:27:26.0261405Z ✔ [8272/8274] Built NSTorusUniqueness.Main (3.9s)
+2026-11-23T21:27:28.9289138Z ✔ [8273/8274] Built NSTorusUniqueness (2.8s)
+2026-11-23T21:27:28.9739668Z Build completed successfully (8274 jobs).
+2026-11-23T21:27:29.0107887Z == source scan
+2026-11-23T21:27:29.0128090Z OK: no sorry/admit/native_decide/axiom declarations
+2026-11-23T21:27:29.0128382Z == axiom audit
+2026-11-23T21:27:33.4556935Z 'NSTorus.IsPeriodicSmoothSolutionOn.eq_of_same_data' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4557589Z 'NSTorus.IsPeriodicSmoothSolutionOn.pressureGradient_eq_of_same_data' depends on axioms: [propext,
+2026-11-23T21:27:33.4557864Z  Classical.choice,
+2026-11-23T21:27:33.4557986Z  Quot.sound]
+2026-11-23T21:27:33.4558219Z 'NSTorus.IsPeriodicSmoothSolutionOn.pressure_sub_const_of_same_data' depends on axioms: [propext,
+2026-11-23T21:27:33.4558489Z  Classical.choice,
+2026-11-23T21:27:33.4558605Z  Quot.sound]
+2026-11-23T21:27:33.4558840Z 'NSTorus.IsPeriodicSmoothSolutionIcc.eq_of_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4559224Z 'NSTorus.IsPeriodicSmoothSolutionOn.toIcc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4559566Z 'NSTorus.le_zero_of_deriv_le_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4559873Z 'NSTorus.exists_bound_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4560186Z 'NSTorus.cellEnergy_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4560505Z 'NSTorus.hasDerivWithinAt_cellEnergy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4560842Z 'NSTorus.cellIntegral_fderiv_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4561554Z 'NSTorus.cellIntegral_inner_convective_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4561931Z 'NSTorus.cellIntegral_inner_pressureGradient_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4562290Z 'NSTorus.cellIntegral_inner_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4562634Z 'NSTorus.cellIntegral_inner_laplacian_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4562995Z 'NSTorus.cellIntegral_eq_setIntegral_unitCube' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4563521Z 'NSTorus.setIntegral_unitCube_fderiv_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4563892Z 'NSTorus.setIntegral_unitCube_inner_convective_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4564289Z 'NSTorus.setIntegral_unitCube_inner_pressureGradient_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4564682Z 'NSTorus.setIntegral_unitCube_inner_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4565049Z 'NSTorus.setIntegral_unitCube_inner_laplacian_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4565442Z 'NSTorus.hasDerivWithinAt_setIntegral_unitCube_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4565812Z 'NSTorus.setIntegral_unitCube_energy_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4566278Z AUDIT PASS: 168 NSTorus declarations; only propext, Classical.choice, Quot.sound
+2026-11-23T21:27:33.6808289Z AXIOM AUDIT PASS: 22 theorems, only propext, Classical.choice, Quot.sound
+2026-11-23T21:27:33.6832661Z VERIFY OK
+2026-11-23T21:27:33.6888384Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T21:27:33.6888546Z with:
+2026-11-23T21:27:33.6888665Z   name: axioms
+2026-11-23T21:27:33.6888809Z   path: axioms.txt
+2026-11-23T21:27:33.6888936Z   if-no-files-found: warn
+2026-11-23T21:27:33.6889070Z   compression-level: 6
+2026-11-23T21:27:33.6889194Z   overwrite: false
+2026-11-23T21:27:33.6889317Z   include-hidden-files: false
+2026-11-23T21:27:33.6889459Z ##[endgroup]
+2026-11-23T21:27:33.8020717Z (node:2794) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T21:27:33.8021203Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T21:27:33.8051936Z With the provided path, there will be 1 file uploaded
+2026-11-23T21:27:33.8055365Z Artifact name is valid!
+2026-11-23T21:27:33.8055991Z Root directory input is valid!
+2026-11-23T21:27:34.0488829Z Beginning upload of artifact content to blob storage
+2026-11-23T21:27:34.0635405Z (node:2794) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T21:27:34.2654145Z Uploaded bytes 483
+2026-11-23T21:27:34.3077596Z Finished uploading artifact content to blob storage!
+2026-11-23T21:27:34.3078135Z SHA256 digest of uploaded artifact zip is 0f77d4c254bb3773c6d0d22eab9f277fa3b4d68af088f46a6c2e5e1470c8e032
+2026-11-23T21:27:34.3078949Z Finalizing artifact upload
+2026-11-23T21:27:34.7291706Z Artifact axioms.zip successfully finalized. Artifact ID 14864946067
+2026-11-23T21:27:34.7292340Z Artifact axioms has been successfully uploaded! Final size is 483 bytes. Artifact ID is 14864946067
+2026-11-23T21:27:34.7297506Z Artifact download URL: https://github.com/BenFrohman/periodic-navier-stokes-smooth-uniqueness/actions/runs/45269105296/artifacts/14864946067
+2026-11-23T21:27:34.7493669Z Post job cleanup.
+2026-11-23T21:27:34.8074482Z [command]/usr/bin/git version
+2026-11-23T21:27:34.8089774Z git version 2.56.1
+2026-11-23T21:27:34.8113519Z Temporarily overriding HOME='/home/runner/work/_temp/6ccf1073-e128-44ad-b2f2-8f6ac400dcf2' before making global git config changes
+2026-11-23T21:27:34.8114517Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:27:34.8117148Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:27:34.8152344Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:27:34.8185502Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:27:34.8438720Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:27:34.8463514Z http.https://github.com/.extraheader
+2026-11-23T21:27:34.8477581Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:27:34.8506085Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:27:34.8744566Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:27:34.8776106Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:27:34.9129938Z Cleaning up orphan processes
+2026-11-23T21:27:34.9425797Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== verify/10_Post Run actions_checkout@v4.txt
+﻿2026-11-23T21:27:34.7493658Z Post job cleanup.
+2026-11-23T21:27:34.8074435Z [command]/usr/bin/git version
+2026-11-23T21:27:34.8089765Z git version 2.56.1
+2026-11-23T21:27:34.8113509Z Temporarily overriding HOME='/home/runner/work/_temp/6ccf1073-e128-44ad-b2f2-8f6ac400dcf2' before making global git config changes
+2026-11-23T21:27:34.8114514Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:27:34.8117144Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:27:34.8152336Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:27:34.8185486Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:27:34.8438534Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:27:34.8463496Z http.https://github.com/.extraheader
+2026-11-23T21:27:34.8477568Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:27:34.8506072Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:27:34.8744538Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:27:34.8776067Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== verify/11_Complete job.txt
+﻿2026-11-23T21:27:34.9129924Z Cleaning up orphan processes
+2026-11-23T21:27:34.9425775Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== verify/1_Set up job.txt
+﻿2026-11-23T21:25:30.7608937Z Current runner version: '2.338.2'
+2026-11-23T21:25:30.7625176Z ##[group]Runner Image Provisioner
+2026-11-23T21:25:30.7625822Z Hosted Compute Agent
+2026-11-23T21:25:30.7626377Z Version: 20261111.635
+2026-11-23T21:25:30.7626812Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:25:30.7627337Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:25:30.7627748Z Worker ID: {7f8f17f6-368a-4594-a621-493a1121f9e1}
+2026-11-23T21:25:30.7628157Z Region: centralus
+2026-11-23T21:25:30.7628577Z Cloud: Azure
+2026-11-23T21:25:30.7628912Z ##[endgroup]
+2026-11-23T21:25:30.7629771Z ##[group]Operating System
+2026-11-23T21:25:30.7630190Z Ubuntu
+2026-11-23T21:25:30.7630543Z 26.04.1
+2026-11-23T21:25:30.7630910Z LTS
+2026-11-23T21:25:30.7631233Z ##[endgroup]
+2026-11-23T21:25:30.7631605Z ##[group]Runner Image
+2026-11-23T21:25:30.7632030Z Image: ubuntu-26.04
+2026-11-23T21:25:30.7632379Z Version: 20261116.202.1
+2026-11-23T21:25:30.7633037Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:25:30.7634123Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-23T21:25:30.7634703Z ##[endgroup]
+2026-11-23T21:25:30.7635506Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:25:30.7637022Z Contents: read
+2026-11-23T21:25:30.7637389Z Metadata: read
+2026-11-23T21:25:30.7638053Z Packages: read
+2026-11-23T21:25:30.7638395Z ##[endgroup]
+2026-11-23T21:25:30.7639739Z Secret source: Actions
+2026-11-23T21:25:30.7640288Z Cache mode: write
+2026-11-23T21:25:30.7640727Z Prepare workflow directory
+2026-11-23T21:25:30.7852124Z Prepare all required actions
+2026-11-23T21:25:30.7883188Z Getting action download info
+2026-11-23T21:25:30.9991154Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:25:31.0721881Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T21:25:31.2324763Z Complete job name: verify
+
+===== verify/2_Run actions_checkout@v4.txt
+﻿2026-11-23T21:25:31.2848184Z ##[group]Run actions/checkout@v4
+2026-11-23T21:25:31.2848619Z with:
+2026-11-23T21:25:31.2848950Z   repository: BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.2851076Z   token: ***
+2026-11-23T21:25:31.2851316Z   ssh-strict: true
+2026-11-23T21:25:31.2851563Z   ssh-user: git
+2026-11-23T21:25:31.2851815Z   persist-credentials: true
+2026-11-23T21:25:31.2852089Z   clean: true
+2026-11-23T21:25:31.2852344Z   sparse-checkout-cone-mode: true
+2026-11-23T21:25:31.2852635Z   fetch-depth: 1
+2026-11-23T21:25:31.2852878Z   fetch-tags: false
+2026-11-23T21:25:31.2853125Z   show-progress: true
+2026-11-23T21:25:31.2853376Z   lfs: false
+2026-11-23T21:25:31.2853610Z   submodules: false
+2026-11-23T21:25:31.2853861Z   set-safe-directory: true
+2026-11-23T21:25:31.2854144Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:25:31.2854490Z ##[endgroup]
+2026-11-23T21:25:31.5378805Z Syncing repository: BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5380158Z ##[group]Getting Git version info
+2026-11-23T21:25:31.5380932Z Working directory is '/home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness'
+2026-11-23T21:25:31.5381775Z [command]/usr/bin/git version
+2026-11-23T21:25:31.5395629Z git version 2.56.1
+2026-11-23T21:25:31.5408266Z ##[endgroup]
+2026-11-23T21:25:31.5417927Z Temporarily overriding HOME='/home/runner/work/_temp/fe81e9c2-d7ea-4274-8258-ab2a0e6cd756' before making global git config changes
+2026-11-23T21:25:31.5419288Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:25:31.5422685Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5488270Z Deleting the contents of '/home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness'
+2026-11-23T21:25:31.5499499Z ##[group]Initializing the repository
+2026-11-23T21:25:31.5502663Z [command]/usr/bin/git init /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5594639Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:25:31.5595500Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:25:31.5596359Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:25:31.5596958Z hint: call:
+2026-11-23T21:25:31.5597210Z hint:
+2026-11-23T21:25:31.5597544Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:25:31.5597920Z hint:
+2026-11-23T21:25:31.5598263Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:25:31.5598819Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:25:31.5599260Z hint:
+2026-11-23T21:25:31.5599517Z hint: 	git branch -m <name>
+2026-11-23T21:25:31.5599809Z hint:
+2026-11-23T21:25:31.5600181Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:25:31.5608412Z Initialized empty Git repository in /home/runner/work/periodic-navier-stokes-smooth-uniqueness/periodic-navier-stokes-smooth-uniqueness/.git/
+2026-11-23T21:25:31.5616120Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.5662589Z ##[endgroup]
+2026-11-23T21:25:31.5663390Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:25:31.5665197Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:25:31.5691470Z ##[endgroup]
+2026-11-23T21:25:31.5692176Z ##[group]Setting up auth
+2026-11-23T21:25:31.5695921Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:25:31.5723790Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:25:31.6095710Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:25:31.6123224Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:25:31.6328751Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:25:31.6354327Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:25:31.6555611Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:25:31.6586341Z ##[endgroup]
+2026-11-23T21:25:31.6586940Z ##[group]Fetching the repository
+2026-11-23T21:25:31.6592379Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bc976c4000fcb2804ed30f31707d70efcd999b94:refs/remotes/origin/ci-backfill/aaabf41
+2026-11-23T21:25:31.9757662Z From https://github.com/BenFrohman/periodic-navier-stokes-smooth-uniqueness
+2026-11-23T21:25:31.9759109Z  * [new ref]         bc976c4000fcb2804ed30f31707d70efcd999b94 -> origin/ci-backfill/aaabf41
+2026-11-23T21:25:31.9762665Z ##[endgroup]
+2026-11-23T21:25:31.9763422Z ##[group]Determining the checkout info
+2026-11-23T21:25:31.9764663Z ##[endgroup]
+2026-11-23T21:25:31.9769102Z [command]/usr/bin/git sparse-checkout disable
+2026-11-23T21:25:31.9816081Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-23T21:25:31.9840050Z ##[group]Checking out the ref
+2026-11-23T21:25:31.9842967Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/aaabf41 refs/remotes/origin/ci-backfill/aaabf41
+2026-11-23T21:25:31.9917557Z Switched to a new branch 'ci-backfill/aaabf41'
+2026-11-23T21:25:31.9922546Z branch 'ci-backfill/aaabf41' set up to track 'origin/ci-backfill/aaabf41'.
+2026-11-23T21:25:31.9926946Z ##[endgroup]
+2026-11-23T21:25:31.9963900Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:25:31.9983969Z bc976c4000fcb2804ed30f31707d70efcd999b94
+
+===== verify/3_Install elan (toolchain pinned by lean-toolchain = leanprover_lean4v4.30.0-rc1).txt
+﻿2026-11-23T21:25:32.0183168Z ##[group]Run curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+2026-11-23T21:25:32.0185219Z [36;1mcurl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none[0m
+2026-11-23T21:25:32.0186666Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-23T21:25:32.0216811Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:32.0217276Z ##[endgroup]
+2026-11-23T21:25:32.1002811Z info: downloading installer
+
+===== verify/4_One-command verification (build, source scan, strict axiom audit).txt
+﻿2026-11-23T21:25:32.4348305Z ##[group]Run bash scripts/verify.sh
+2026-11-23T21:25:32.4349145Z [36;1mbash scripts/verify.sh[0m
+2026-11-23T21:25:32.4378317Z shell: /usr/bin/bash -e {0}
+2026-11-23T21:25:32.4379004Z ##[endgroup]
+2026-11-23T21:25:32.4479100Z == commit: bc976c4000fcb2804ed30f31707d70efcd999b94
+2026-11-23T21:25:32.4501087Z == toolchain: leanprover/lean4:v4.30.0-rc1
+2026-11-23T21:25:32.4638392Z == mathlib rev: 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7
+2026-11-23T21:25:32.9133734Z info: downloading https://releases.lean-lang.org/lean4/v4.30.0-rc1/lean-4.30.0-rc1-linux.tar.zst
+2026-11-23T21:25:38.3393268Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.30.0-rc1
+2026-11-23T21:25:43.7968386Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-23T21:26:07.5195997Z info: mathlib: checking out revision '0c154d67103f74be3a0f2c509f72ccbf5be9f2a7'
+2026-11-23T21:26:08.8466928Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-23T21:26:09.2454488Z info: plausible: checking out revision 'f449eabb8f7e3feef0366856c20e28a6d2c97ee3'
+2026-11-23T21:26:09.2555181Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-23T21:26:09.6173938Z info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+2026-11-23T21:26:09.6274093Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-23T21:26:10.0453804Z info: importGraph: checking out revision '86503d416c875fdcf3b6b6c54c22581e96c6bda7'
+2026-11-23T21:26:10.0606327Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-23T21:26:10.5660428Z info: proofwidgets: checking out revision '82d457fb3bdd9efadbae06608ff337d689efdddf'
+2026-11-23T21:26:10.9782814Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-23T21:26:11.5287307Z info: aesop: checking out revision 'f74c7555aaa94eadd7b7bff9170f7983f92aac21'
+2026-11-23T21:26:11.5489805Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-23T21:26:11.9487012Z info: Qq: checking out revision '7aa86cb20b8458748dc24d55dab2d7ea01161057'
+2026-11-23T21:26:11.9590757Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-23T21:26:13.9399964Z info: batteries: checking out revision 'bf597c77bf9b8e66720d724928207f5911533113'
+2026-11-23T21:26:13.9679839Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-23T21:26:14.2890900Z info: Cli: checking out revision 'f7d0ca7c926cdde0562af20394dd25d028b839a5'
+2026-11-23T21:26:14.6027932Z ✔ [4/22] Built Cache.Lean (276ms)
+2026-11-23T21:26:14.6069340Z ✔ [5/22] Built Cache.Init (220ms)
+2026-11-23T21:26:14.7009864Z ✔ [6/22] Built Cache.Lean:c.o (117ms)
+2026-11-23T21:26:14.7057076Z ✔ [7/22] Built Cache.Init:c.o (89ms)
+2026-11-23T21:26:14.9013039Z ✔ [8/22] Built Batteries.Data.String.Basic (280ms)
+2026-11-23T21:26:15.0014174Z ✔ [9/22] Built Batteries.Data.String.Basic:c.o (75ms)
+2026-11-23T21:26:15.2017114Z ✔ [10/22] Built Batteries.Data.Array.Match (592ms)
+2026-11-23T21:26:15.4018846Z ✔ [11/22] Built Batteries.Data.Array.Match:c.o (208ms)
+2026-11-23T21:26:15.5037860Z ✔ [12/22] Built Batteries.Data.String.Matcher (251ms)
+2026-11-23T21:26:15.6031292Z ✔ [13/22] Built Batteries.Data.String.Matcher:c.o (119ms)
+2026-11-23T21:26:15.7032050Z ✔ [14/22] Built Cache.IO (1.0s)
+2026-11-23T21:26:16.2043598Z ✔ [15/22] Built Cache.Hashing (499ms)
+2026-11-23T21:26:16.5042544Z ✔ [16/22] Built Cache.Hashing:c.o (328ms)
+2026-11-23T21:26:16.6043384Z ✔ [17/22] Built Cache.IO:c.o (900ms)
+2026-11-23T21:26:17.4041344Z ✔ [18/22] Built Cache.Requests (1.2s)
+2026-11-23T21:26:17.9067587Z ✔ [19/22] Built Cache.Main (539ms)
+2026-11-23T21:26:18.3057851Z ✔ [20/22] Built Cache.Main:c.o (354ms)
+2026-11-23T21:26:18.6051325Z ✔ [21/22] Built Cache.Requests:c.o (1.2s)
+2026-11-23T21:26:19.2070755Z ✔ [22/22] Built cache:exe (534ms)
+2026-11-23T21:26:21.0850526Z Current branch: HEAD
+2026-11-23T21:26:21.0851076Z Using cache (Azure) from origin: leanprover-community/mathlib4
+2026-11-23T21:26:21.0856772Z Attempting to download 8248 file(s) from leanprover-community/mathlib4 cache
+2026-11-23T21:26:21.3323365Z 
+2026-11-23T21:26:21.4798064Z Downloaded: 1 file(s) [attempted 1/8248 = 0%, 380 KB/s], Decompressed: 0
+2026-11-23T21:26:21.5787314Z Downloaded: 329 file(s) [attempted 329/8248 = 3%, 3204 KB/s], Decompressed: 15
+2026-11-23T21:26:21.6817551Z Downloaded: 535 file(s) [attempted 535/8248 = 6%, 4271 KB/s], Decompressed: 67
+2026-11-23T21:26:21.7877434Z Downloaded: 843 file(s) [attempted 843/8248 = 10%, 4197 KB/s], Decompressed: 67
+2026-11-23T21:26:21.9127587Z Downloaded: 1004 file(s) [attempted 1004/8248 = 12%, 17735 KB/s], Decompressed: 67
+2026-11-23T21:26:22.0249511Z Downloaded: 1293 file(s) [attempted 1293/8248 = 15%, 2230 KB/s], Decompressed: 67
+2026-11-23T21:26:22.1233772Z Downloaded: 1468 file(s) [attempted 1468/8248 = 17%, 1624 KB/s], Decompressed: 67
+2026-11-23T21:26:22.2219618Z Downloaded: 1791 file(s) [attempted 1791/8248 = 21%, 6342 KB/s], Decompressed: 67
+2026-11-23T21:26:22.3267280Z Downloaded: 2004 file(s) [attempted 2004/8248 = 24%, 768 KB/s], Decompressed: 67
+2026-11-23T21:26:22.4277579Z Downloaded: 2229 file(s) [attempted 2229/8248 = 27%, 2864 KB/s], Decompressed: 370
+2026-11-23T21:26:22.5281644Z Downloaded: 2424 file(s) [attempted 2424/8248 = 29%, 11100 KB/s], Decompressed: 370
+2026-11-23T21:26:22.6357917Z Downloaded: 2787 file(s) [attempted 2787/8248 = 33%, 16875 KB/s], Decompressed: 370
+2026-11-23T21:26:22.7330799Z Downloaded: 2925 file(s) [attempted 2925/8248 = 35%, 513 KB/s], Decompressed: 370
+2026-11-23T21:26:22.8553082Z Downloaded: 3061 file(s) [attempted 3061/8248 = 37%, 306 KB/s], Decompressed: 370
+2026-11-23T21:26:22.9637459Z Downloaded: 3252 file(s) [attempted 3252/8248 = 39%, 667 KB/s], Decompressed: 370
+2026-11-23T21:26:23.0825008Z Downloaded: 3560 file(s) [attempted 3560/8248 = 43%, 2836 KB/s], Decompressed: 370
+2026-11-23T21:26:23.1857921Z Downloaded: 3748 file(s) [attempted 3748/8248 = 45%, 668 KB/s], Decompressed: 370
+2026-11-23T21:26:23.2852293Z Downloaded: 3967 file(s) [attempted 3967/8248 = 48%, 7224 KB/s], Decompressed: 370
+2026-11-23T21:26:23.3977537Z Downloaded: 4132 file(s) [attempted 4132/8248 = 50%, 2895 KB/s], Decompressed: 370
+2026-11-23T21:26:23.4974710Z Downloaded: 4321 file(s) [attempted 4321/8248 = 52%, 7559 KB/s], Decompressed: 370
+2026-11-23T21:26:23.5989537Z Downloaded: 4507 file(s) [attempted 4507/8248 = 54%, 12342 KB/s], Decompressed: 370
+2026-11-23T21:26:23.7021123Z Downloaded: 4795 file(s) [attempted 4795/8248 = 58%, 5861 KB/s], Decompressed: 370
+2026-11-23T21:26:23.8021011Z Downloaded: 4992 file(s) [attempted 4992/8248 = 60%, 4644 KB/s], Decompressed: 370
+2026-11-23T21:26:23.9387846Z Downloaded: 5209 file(s) [attempted 5209/8248 = 63%, 2570 KB/s], Decompressed: 370
+2026-11-23T21:26:24.0358486Z Downloaded: 5369 file(s) [attempted 5369/8248 = 65%, 774 KB/s], Decompressed: 370
+2026-11-23T21:26:24.1367502Z Downloaded: 5612 file(s) [attempted 5612/8248 = 68%, 310 KB/s], Decompressed: 370
+2026-11-23T21:26:24.2417276Z Downloaded: 5711 file(s) [attempted 5711/8248 = 69%, 3464 KB/s], Decompressed: 370
+2026-11-23T21:26:24.3807272Z Downloaded: 5900 file(s) [attempted 5900/8248 = 71%, 9537 KB/s], Decompressed: 370
+2026-11-23T21:26:24.4863421Z Downloaded: 6096 file(s) [attempted 6096/8248 = 73%, 12670 KB/s], Decompressed: 370
+2026-11-23T21:26:24.5863864Z Downloaded: 6328 file(s) [attempted 6328/8248 = 76%, 4937 KB/s], Decompressed: 370
+2026-11-23T21:26:24.6883704Z Downloaded: 6515 file(s) [attempted 6515/8248 = 78%, 11826 KB/s], Decompressed: 370
+2026-11-23T21:26:24.7897422Z Downloaded: 6657 file(s) [attempted 6657/8248 = 80%, 1437 KB/s], Decompressed: 370
+2026-11-23T21:26:24.8913381Z Downloaded: 6834 file(s) [attempted 6834/8248 = 82%, 1792 KB/s], Decompressed: 370
+2026-11-23T21:26:25.0027516Z Downloaded: 7086 file(s) [attempted 7086/8248 = 85%, 5227 KB/s], Decompressed: 370
+2026-11-23T21:26:25.0988980Z Downloaded: 7418 file(s) [attempted 7418/8248 = 89%, 7995 KB/s], Decompressed: 370
+2026-11-23T21:26:25.1997565Z Downloaded: 7551 file(s) [attempted 7551/8248 = 91%, 4151 KB/s], Decompressed: 370
+2026-11-23T21:26:25.3007898Z Downloaded: 7733 file(s) [attempted 7733/8248 = 93%, 2441 KB/s], Decompressed: 370
+2026-11-23T21:26:25.4405376Z Downloaded: 7903 file(s) [attempted 7903/8248 = 95%, 4101 KB/s], Decompressed: 370
+2026-11-23T21:26:25.5557786Z Downloaded: 7997 file(s) [attempted 7997/8248 = 96%, 3573 KB/s], Decompressed: 370
+2026-11-23T21:26:25.7567191Z Downloaded: 8168 file(s) [attempted 8168/8248 = 99%, 575 KB/s], Decompressed: 370
+2026-11-23T21:26:25.7710484Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 3719 KB/s], Decompressed: 370
+2026-11-23T21:26:25.7711242Z Downloaded: 8248 file(s) [attempted 8248/8248 = 100%, 3719 KB/s], Decompressed: 370
+2026-11-23T21:26:55.5129250Z Decompressed 8248 file(s)
+2026-11-23T21:26:55.5129592Z Already decompressed 8248 file(s)
+2026-11-23T21:27:02.7914656Z ✔ [8264/8274] Built NSTorusUniqueness.IteratedIntegral (4.3s)
+2026-11-23T21:27:03.1918130Z ✔ [8265/8274] Built NSTorusUniqueness.Defs (4.7s)
+2026-11-23T21:27:03.1918508Z ✔ [8266/8274] Built NSTorusUniqueness.Clamp (4.7s)
+2026-11-23T21:27:07.4963904Z ✔ [8267/8274] Built NSTorusUniqueness.CellIntegral (4.3s)
+2026-11-23T21:27:11.1048242Z ✔ [8268/8274] Built NSTorusUniqueness.CellLebesgue (3.6s)
+2026-11-23T21:27:12.3041236Z ✔ [8269/8274] Built NSTorusUniqueness.FieldIdentities (4.8s)
+2026-11-23T21:27:18.4161148Z ✔ [8270/8274] Built NSTorusUniqueness.Energy (6.2s)
+2026-11-23T21:27:22.1226304Z ✔ [8271/8274] Built NSTorusUniqueness.Uniqueness (3.8s)
+2026-11-23T21:27:26.0261349Z ✔ [8272/8274] Built NSTorusUniqueness.Main (3.9s)
+2026-11-23T21:27:28.9289087Z ✔ [8273/8274] Built NSTorusUniqueness (2.8s)
+2026-11-23T21:27:28.9739620Z Build completed successfully (8274 jobs).
+2026-11-23T21:27:29.0107846Z == source scan
+2026-11-23T21:27:29.0128067Z OK: no sorry/admit/native_decide/axiom declarations
+2026-11-23T21:27:29.0128379Z == axiom audit
+2026-11-23T21:27:33.4556835Z 'NSTorus.IsPeriodicSmoothSolutionOn.eq_of_same_data' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4557586Z 'NSTorus.IsPeriodicSmoothSolutionOn.pressureGradient_eq_of_same_data' depends on axioms: [propext,
+2026-11-23T21:27:33.4557861Z  Classical.choice,
+2026-11-23T21:27:33.4557984Z  Quot.sound]
+2026-11-23T21:27:33.4558217Z 'NSTorus.IsPeriodicSmoothSolutionOn.pressure_sub_const_of_same_data' depends on axioms: [propext,
+2026-11-23T21:27:33.4558488Z  Classical.choice,
+2026-11-23T21:27:33.4558604Z  Quot.sound]
+2026-11-23T21:27:33.4558838Z 'NSTorus.IsPeriodicSmoothSolutionIcc.eq_of_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4559223Z 'NSTorus.IsPeriodicSmoothSolutionOn.toIcc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4559564Z 'NSTorus.le_zero_of_deriv_le_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4559872Z 'NSTorus.exists_bound_fderiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4560180Z 'NSTorus.cellEnergy_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4560503Z 'NSTorus.hasDerivWithinAt_cellEnergy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4560841Z 'NSTorus.cellIntegral_fderiv_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4561552Z 'NSTorus.cellIntegral_inner_convective_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4561929Z 'NSTorus.cellIntegral_inner_pressureGradient_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4562288Z 'NSTorus.cellIntegral_inner_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4562633Z 'NSTorus.cellIntegral_inner_laplacian_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4562993Z 'NSTorus.cellIntegral_eq_setIntegral_unitCube' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4563346Z 'NSTorus.setIntegral_unitCube_fderiv_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4563891Z 'NSTorus.setIntegral_unitCube_inner_convective_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4564287Z 'NSTorus.setIntegral_unitCube_inner_pressureGradient_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4564680Z 'NSTorus.setIntegral_unitCube_inner_laplacian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4565047Z 'NSTorus.setIntegral_unitCube_inner_laplacian_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4565436Z 'NSTorus.hasDerivWithinAt_setIntegral_unitCube_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4565810Z 'NSTorus.setIntegral_unitCube_energy_deriv_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-11-23T21:27:33.4566272Z AUDIT PASS: 168 NSTorus declarations; only propext, Classical.choice, Quot.sound
+2026-11-23T21:27:33.6808253Z AXIOM AUDIT PASS: 22 theorems, only propext, Classical.choice, Quot.sound
+2026-11-23T21:27:33.6832655Z VERIFY OK
+
+===== verify/5_Upload axiom report.txt
+﻿2026-11-23T21:27:33.6888375Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T21:27:33.6888544Z with:
+2026-11-23T21:27:33.6888663Z   name: axioms
+2026-11-23T21:27:33.6888808Z   path: axioms.txt
+2026-11-23T21:27:33.6888934Z   if-no-files-found: warn
+2026-11-23T21:27:33.6889068Z   compression-level: 6
+2026-11-23T21:27:33.6889192Z   overwrite: false
+2026-11-23T21:27:33.6889315Z   include-hidden-files: false
+2026-11-23T21:27:33.6889457Z ##[endgroup]
+2026-11-23T21:27:33.8020663Z (node:2794) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T21:27:33.8021200Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T21:27:33.8051921Z With the provided path, there will be 1 file uploaded
+2026-11-23T21:27:33.8055355Z Artifact name is valid!
+2026-11-23T21:27:33.8055987Z Root directory input is valid!
+2026-11-23T21:27:34.0488795Z Beginning upload of artifact content to blob storage
+2026-11-23T21:27:34.0635303Z (node:2794) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T21:27:34.2654099Z Uploaded bytes 483
+2026-11-23T21:27:34.3077567Z Finished uploading artifact content to blob storage!
+2026-11-23T21:27:34.3078132Z SHA256 digest of uploaded artifact zip is 0f77d4c254bb3773c6d0d22eab9f277fa3b4d68af088f46a6c2e5e1470c8e032
+2026-11-23T21:27:34.3078947Z Finalizing artifact upload
+2026-11-23T21:27:34.7291668Z Artifact axioms.zip successfully finalized. Artifact ID 14864946067
+2026-11-23T21:27:34.7292338Z Artifact axioms has been successfully uploaded! Final size is 483 bytes. Artifact ID is 14864946067
+2026-11-23T21:27:34.7297503Z Artifact download URL: https://github.com/BenFrohman/periodic-navier-stokes-smooth-uniqueness/actions/runs/45269105296/artifacts/14864946067
+
+===== verify/system.txt
+2026-11-23T21:23:09.4040000Z Requested labels: ubuntu-latest
+2026-11-23T21:23:09.4040000Z Job defined at: BenFrohman/periodic-navier-stokes-smooth-uniqueness/.github/workflows/verify.yml@refs/heads/ci-backfill/aaabf41
+2026-11-23T21:23:09.4040000Z Waiting for a runner to pick up this job...
+2026-11-23T21:23:09.4010000Z Evaluating verify.if
+2026-11-23T21:23:09.4010000Z Evaluating: success()
+2026-11-23T21:23:09.4010000Z Result: true
+2026-11-23T21:23:09.6830000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-23T21:25:29.2740000Z Job is waiting for a hosted runner to come online.
+2026-11-23T21:25:29.2740000Z Job is about to start running on the hosted runner: GitHub Actions 1000006734

@@ -1,0 +1,199 @@
+diff --git a/NS_Millennium_Proof.lean b/NS_Millennium_Proof.lean
+index ec337af..142c9f9 100644
+--- a/NS_Millennium_Proof.lean
++++ b/NS_Millennium_Proof.lean
+@@ -24,6 +24,7 @@ import NS_Millennium_Proof.Modules.AnalyticPipeline
+ import NS_Millennium_Proof.Modules.ClosureBlueprint
+ import NS_Millennium_Proof.Modules.IndependentMajorant
+ import NS_Millennium_Proof.Modules.GlobalRegularity
++import NS_Millennium_Proof.Modules.HonestReduction
+ import NS_Millennium_Proof.Definitions.FrohmanianTether
+ 
+ export FrohmanianTether (TetheredBracket TetherKernel kappa)
+diff --git a/NS_Millennium_Proof/Modules/GlobalRegularity.lean b/NS_Millennium_Proof/Modules/GlobalRegularity.lean
+index f26bd60..ea43b42 100644
+--- a/NS_Millennium_Proof/Modules/GlobalRegularity.lean
++++ b/NS_Millennium_Proof/Modules/GlobalRegularity.lean
+@@ -65,9 +65,13 @@ open NavierStokes3D MeasureTheory
+ 
+ /-! ## Main Theorem — Frohmanian Symplectic Tether Theorem -/
+ 
+-/-- High-level statement of the full theorem.
++/-- **Conditional** statement (not an unconditional Clay solution).
++The NS-regularity conjunct holds *given* the hypothesis `hDI`, the rate
++`M' ≤ C M² - κ'' M³`, which is NOT derived from the unmodified equation in this
++repository (the attempted derivation `reduced_pairing_of_unmodified_and_tether` was
++false as stated; see `HWEIGHT_OBSTRUCTION.md` and `HonestReduction.lean`).
+ The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
+-and TetheredLyapunov.lean (unconditional global regularity via independent majorant).
++and TetheredLyapunov.lean (global regularity conditional on the rate hypothesis).
+ Editor green ticks only mean this declaration elaborated. The certificate is
+ `#print axioms frohmanian_tether_theorem`: it must list `propext`,
+ `Classical.choice`, `Quot.sound` and must **not** list `sorryAx`. -/
+@@ -186,9 +190,11 @@ This is linked directly to the exact form `navier_stokes_eq` from Sections 1–2
+ public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
+   ∃ p : TimeDependentPressure, navier_stokes_eq u p ν
+ 
+-/-- Main theorem (Abstract, formalized).
++/-- Main theorem (Abstract, formalized) — **CONDITIONAL on `hRiccati`**, a T-uniform
++`L^∞` vorticity bound (`HonestReduction.TetherCoefficientBounded`), which is open and
++equivalent in strength to the Clay problem. Not an unconditional Clay solution.
+ 
+-Every smooth, divergence-free initial velocity field on the three-torus generates
++Given that bound (and the classical local theory hypotheses), every smooth, divergence-free initial velocity field on the three-torus generates
+ a unique globally smooth solution to the 3D incompressible Navier–Stokes equations.
+ 
+ This is the top-level statement whose proof proceeds via the Frohmanian Symplectic Tether
+diff --git a/NS_Millennium_Proof/Modules/SymplecticTether.lean b/NS_Millennium_Proof/Modules/SymplecticTether.lean
+index 8e2a9bb..6916b0e 100644
+--- a/NS_Millennium_Proof/Modules/SymplecticTether.lean
++++ b/NS_Millennium_Proof/Modules/SymplecticTether.lean
+@@ -581,35 +581,44 @@ public theorem max_rate_of_reduced_pairing
+       (C * M - k * M ^ 2) * M ^ 2 = (C * M ^ 2 - k * M ^ 3) * M := by ring
+   exact hpair.trans_eq hrew
+ 
+-/-- Reduced pairing at a spatial maximum from the unmodified equation + tether.
+-`IsSpatialMaximum`, `SatisfiesUnmodifiedVorticity`, and `pairingAtMax` are not
+-declarations in this module. The maximum is `‖ω(x)‖ = M = ‖ω‖_∞`, the
+-unmodified equation is `NS_PDE` together with the transport and viscosity facts
+-at that point, and the tether hypothesis is (C3) for `TetherKernel`.
+-Does not assume `CorrectedMaxRate` or `ReducedStrain`.
+-Not used by `frohmanian_tether_theorem` or `global_regularity_for_NS`. -/
+-public theorem reduced_pairing_of_unmodified_and_tether
+-    (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
+-    (t : ℝ) (ht : 0 ≤ t) (x : T3)
+-    (hNS : NS_PDE u p ν)
+-    (hreg : VorticityTransportRegularity u p t x)
+-    (hu : DifferentiableAt ℝ (u t) x)
+-    (C M : ℝ)
+-    (hCZ : ‖fderiv ℝ (u t) x‖ ≤ C * vorticity_sup_norm (vorticity (u t)))
+-    (htransp : inner ℝ (vorticity (u t) x)
+-      (convective (u t) (vorticity (u t)) x) = 0)
+-    (hvisc : inner ℝ (vorticity (u t) x)
+-      (laplacian (vorticity (u t)) x) ≤ 0)
+-    (hν : 0 ≤ ν)
+-    (hmax : ‖vorticity (u t) x‖ = M ∧
+-      M = vorticity_sup_norm (vorticity (u t)))
+-    (htether : ProducesControllableNegativeFeedback TetherKernel)
+-    (hκ : kappa = CalderonZygmundConstant3D) :
+-    inner ℝ (vorticity (u t) x)
+-        (convective (vorticity (u t)) (u t) x) ≤
+-      (C * M - kappa * M ^ 2) * M ^ 2 := by
+-  clear ht hNS hreg hu hCZ htransp hvisc hν hmax htether hκ
+-  sorry
++-- ### Removed: `reduced_pairing_of_unmodified_and_tether` (FALSE AS STATED, 2026-10-13)
++--
++-- DEPRECATED / removed from the build: false as stated, see `HWEIGHT_OBSTRUCTION.md`.
++-- The target `⟨ω, (ω·∇)u⟩ ≤ (C M - κ M²) M²` with dimensionless `κ` is not scale
++-- invariant (stretching and `C M³` scale like `λ⁶` under Navier–Stokes scaling, `κ M⁴`
++-- like `λ⁸`) and fails on explicit flows (Burgers vortex at every amplitude,
++-- Lamb–Oseen, shear layer). Nothing depended on it (`frohmanian_tether_theorem` and
++-- `global_regularity_for_NS` never used it). The original statement is kept below as a
++-- comment for the record; it carried the only `sorry` in this module.
++-- (doc)  Reduced pairing at a spatial maximum from the unmodified equation + tether.
++-- `IsSpatialMaximum`, `SatisfiesUnmodifiedVorticity`, and `pairingAtMax` are not
++-- declarations in this module. The maximum is `‖ω(x)‖ = M = ‖ω‖_∞`, the
++-- unmodified equation is `NS_PDE` together with the transport and viscosity facts
++-- at that point, and the tether hypothesis is (C3) for `TetherKernel`.
++-- Does not assume `CorrectedMaxRate` or `ReducedStrain`.
++-- Not used by `frohmanian_tether_theorem` or `global_regularity_for_NS`. -/
++-- public theorem reduced_pairing_of_unmodified_and_tether
++--     (u : TimeDependentVelocity) (p : TimeDependentPressure) (ν : ℝ)
++--     (t : ℝ) (ht : 0 ≤ t) (x : T3)
++--     (hNS : NS_PDE u p ν)
++--     (hreg : VorticityTransportRegularity u p t x)
++--     (hu : DifferentiableAt ℝ (u t) x)
++--     (C M : ℝ)
++--     (hCZ : ‖fderiv ℝ (u t) x‖ ≤ C * vorticity_sup_norm (vorticity (u t)))
++--     (htransp : inner ℝ (vorticity (u t) x)
++--       (convective (u t) (vorticity (u t)) x) = 0)
++--     (hvisc : inner ℝ (vorticity (u t) x)
++--       (laplacian (vorticity (u t)) x) ≤ 0)
++--     (hν : 0 ≤ ν)
++--     (hmax : ‖vorticity (u t) x‖ = M ∧
++--       M = vorticity_sup_norm (vorticity (u t)))
++--     (htether : ProducesControllableNegativeFeedback TetherKernel)
++--     (hκ : kappa = CalderonZygmundConstant3D) :
++--     inner ℝ (vorticity (u t) x)
++--         (convective (vorticity (u t)) (u t) x) ≤
++--       (C * M - kappa * M ^ 2) * M ^ 2 := by
++--   clear ht hNS hreg hu hCZ htransp hvisc hν hmax htether hκ
++--   sorry
+ 
+ /-- At a spatial maximum the transport pairing vanishes and `ν ⟨ω, Δω⟩ ≤ 0`,
+ so neither term adds a positive remainder above `⟨ω, (ω·∇)u⟩`. -/
+@@ -1068,7 +1077,7 @@ While the Jacobi crack is still in progress they will show `sorryAx` — this is
+ #print axioms div_biot_savart_of_eq_curl
+ #print axioms div_biot_savart_velocity_of_interchange
+ #print axioms degeneracy_for_mollified_sup_norm_proxy
+-#print axioms reduced_pairing_of_unmodified_and_tether
++-- (removed: reduced_pairing_of_unmodified_and_tether, false as stated)
+ -- (step* and uniqueness_of_minimal_tether moved to Uniqueness.lean / FrohmanianTether namespace per modular cleanup.
+ -- Validation prints live there now; see Uniqueness.lean end for #print axioms on the 5-step.)
+ -- #print axioms step1_locality
+diff --git a/README.md b/README.md
+index 18e04d6..06c7598 100644
+--- a/README.md
++++ b/README.md
+@@ -5,6 +5,13 @@
+ [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
+ [![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
+ 
++> ### Status (2026-10-13) — conditional result, not a Clay solution
++> - **Proved:** conditional regularity given a T-uniform tether coefficient bound
++>   (`HonestReduction.conditional_global_regularity`, sorry-free).
++> - **Open:** that bound (`HonestReduction.TetherCoefficientBounded`), equivalent in strength to the Clay problem.
++> - **Disproved as stated:** the `reduced_pairing_of_unmodified_and_tether` estimate
++>   (see [`HWEIGHT_OBSTRUCTION.md`](HWEIGHT_OBSTRUCTION.md)); removed from the build.
++
+ A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem**,
+ together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
+ a construction on coadjoint orbits that produces controllable negative feedback at maxima of the vorticity,
+@@ -27,8 +34,8 @@ The proof is organized as a **two-layer, non-circular** architecture:
+    and a degeneracy result with respect to the kinetic-energy Hamiltonian (`Modules/SymplecticTether.lean`,
+    `Modules/ArnoldGeometric.lean`).
+ 2. **Analytic layer** — a tethered Lyapunov / enstrophy differential inequality in which higher-order
+-   dissipation absorbs the nonlinear vorticity-stretching term (`Modules/TetheredLyapunov.lean`,
+-   `Modules/IndependentMajorant.lean`), closing to global regularity (`Modules/GlobalRegularity.lean`).
++   dissipation is meant to absorb the nonlinear vorticity-stretching term (`Modules/TetheredLyapunov.lean`,
++   `Modules/IndependentMajorant.lean`), giving global regularity *conditional on* the open rate/bound hypothesis (`Modules/GlobalRegularity.lean`).
+ 
+ Reusable, potentially upstreamable lemmas live under [`ForMathlib/`](ForMathlib/README.md) following the
+ hygiene pattern used in Tao's PFR project.
+diff --git a/STATUS-2026-10-13.md b/STATUS-2026-10-13.md
+index d46b867..8fc97b9 100644
+--- a/STATUS-2026-10-13.md
++++ b/STATUS-2026-10-13.md
+@@ -2,6 +2,19 @@
+ 
+ Current state of the Frohmanian Symplectic Tether formalization (Lean 4).
+ 
++## Headline (revised 13 Oct 2026)
++
++- **Proved:** conditional regularity given T-uniform tether coefficient bound
++  (`HonestReduction.conditional_global_regularity`, no `sorryAx`).
++- **Open:** that bound, `HonestReduction.TetherCoefficientBounded`
++  (equivalent in strength to the Clay problem). Stated as a `Prop`, not an axiom.
++  The converse direction is stated as `HonestReduction.ConverseReduction` and not proved.
++- **Disproved as stated:** the `reduced_pairing_of_unmodified_and_tether` estimate
++  (scaling mismatch λ⁸ vs λ⁶; fails on Burgers, Lamb–Oseen, shear layer —
++  see `HWEIGHT_OBSTRUCTION.md`). Removed from the build; kept as a comment.
++
++This is a reduction, not a solution of the Clay problem.
++
+ ## Claimed result (proved conditionally)
+ 
+ The conditional form of Clay’s Navier–Stokes global-regularity statement is proved.
+@@ -22,7 +35,7 @@ Both `frohmanian_tether_theorem` and the companion global-regularity statements
+ ## Remaining obligation
+ 
+ Derivation of the rate itself from the unmodified vorticity transport equation remains open.
+-`reduced_pairing_of_unmodified_and_tether` still carries a `sorry` for the target inequality at a spatial maximum.
++`reduced_pairing_of_unmodified_and_tether` (the proposed route) is false as stated and has been removed from the build; the rate cannot be derived in that form.
+ The tether axioms supply the ReducedStrain improvement, but the reduction to the cubic differential inequality is not yet discharged from first principles.
+ 
+ Author: Benjamin Stanley Frohman
+diff --git a/historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc b/historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc
+deleted file mode 100644
+index fd379c2..0000000
+Binary files a/historical/scripts/__pycache__/living_pde_visuals.cpython-314.pyc and /dev/null differ

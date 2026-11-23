@@ -1,0 +1,1277 @@
+
+===== 0_build.txt
+﻿2026-11-23T21:06:54.6557722Z Current runner version: '2.338.2'
+2026-11-23T21:06:54.6576277Z ##[group]Runner Image Provisioner
+2026-11-23T21:06:54.6576921Z Hosted Compute Agent
+2026-11-23T21:06:54.6577362Z Version: 20261111.635
+2026-11-23T21:06:54.6577814Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:06:54.6578349Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:06:54.6578875Z Worker ID: {15781e3e-3ffb-4077-ae9e-cb4b522ee7a7}
+2026-11-23T21:06:54.6579380Z Region: us-west-2
+2026-11-23T21:06:54.6579764Z Cloud: AWS
+2026-11-23T21:06:54.6580145Z ##[endgroup]
+2026-11-23T21:06:54.6581027Z ##[group]Operating System
+2026-11-23T21:06:54.6581467Z Ubuntu
+2026-11-23T21:06:54.6581830Z 26.04.1
+2026-11-23T21:06:54.6582173Z LTS
+2026-11-23T21:06:54.6582560Z ##[endgroup]
+2026-11-23T21:06:54.6583239Z ##[group]Runner Image
+2026-11-23T21:06:54.6583725Z Image: ubuntu-26.04
+2026-11-23T21:06:54.6584122Z Version: 20261116.88.1
+2026-11-23T21:06:54.6585127Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:06:54.6586362Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+2026-11-23T21:06:54.6587101Z ##[endgroup]
+2026-11-23T21:06:54.6587955Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:06:54.6589566Z Contents: read
+2026-11-23T21:06:54.6589972Z Metadata: read
+2026-11-23T21:06:54.6590348Z Packages: read
+2026-11-23T21:06:54.6590755Z ##[endgroup]
+2026-11-23T21:06:54.6592224Z Secret source: Actions
+2026-11-23T21:06:54.6592879Z Cache mode: write
+2026-11-23T21:06:54.6593628Z Prepare workflow directory
+2026-11-23T21:06:54.6820329Z Prepare all required actions
+2026-11-23T21:06:54.6856862Z Getting action download info
+2026-11-23T21:06:55.0189063Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:06:56.5491505Z Download action repository 'xu-cheng/latex-action@v3' (SHA:e2f99d4b3685b0da93f97e1b86ad8fab81105098)
+2026-11-23T21:06:56.7432777Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T21:06:57.1426161Z Complete job name: build
+2026-11-23T21:06:57.2116463Z ##[group]Run actions/checkout@v4
+2026-11-23T21:06:57.2117535Z with:
+2026-11-23T21:06:57.2118280Z   sparse-checkout: two_part
+2026-11-23T21:06:57.2119341Z   repository: BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:06:57.2126788Z   token: ***
+2026-11-23T21:06:57.2127543Z   ssh-strict: true
+2026-11-23T21:06:57.2128234Z   ssh-user: git
+2026-11-23T21:06:57.2128985Z   persist-credentials: true
+2026-11-23T21:06:57.2129755Z   clean: true
+2026-11-23T21:06:57.2130467Z   sparse-checkout-cone-mode: true
+2026-11-23T21:06:57.2131327Z   fetch-depth: 1
+2026-11-23T21:06:57.2132024Z   fetch-tags: false
+2026-11-23T21:06:57.2132744Z   show-progress: true
+2026-11-23T21:06:57.2133632Z   lfs: false
+2026-11-23T21:06:57.2134318Z   submodules: false
+2026-11-23T21:06:57.2135045Z   set-safe-directory: true
+2026-11-23T21:06:57.2135857Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:06:57.2136917Z ##[endgroup]
+2026-11-23T21:06:59.9244722Z Syncing repository: BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:06:59.9246109Z ##[group]Getting Git version info
+2026-11-23T21:06:59.9246932Z Working directory is '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01'
+2026-11-23T21:06:59.9247946Z [command]/usr/bin/git version
+2026-11-23T21:06:59.9265226Z git version 2.56.1
+2026-11-23T21:06:59.9278123Z ##[endgroup]
+2026-11-23T21:06:59.9288992Z Temporarily overriding HOME='/home/runner/work/_temp/4a801f7a-e671-4d99-a09c-e3d5fd8ef02a' before making global git config changes
+2026-11-23T21:06:59.9290133Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:06:59.9292827Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:06:59.9764928Z Deleting the contents of '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01'
+2026-11-23T21:06:59.9777875Z ##[group]Initializing the repository
+2026-11-23T21:06:59.9783464Z [command]/usr/bin/git init /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:07:00.0652074Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:07:00.0652816Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:07:00.0653621Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:07:00.0654143Z hint: call:
+2026-11-23T21:07:00.0654401Z hint:
+2026-11-23T21:07:00.0654771Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:07:00.0655114Z hint:
+2026-11-23T21:07:00.0655444Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:07:00.0655957Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:07:00.0656397Z hint:
+2026-11-23T21:07:00.0656659Z hint: 	git branch -m <name>
+2026-11-23T21:07:00.0656955Z hint:
+2026-11-23T21:07:00.0657286Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:07:00.0674754Z Initialized empty Git repository in /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01/.git/
+2026-11-23T21:07:00.0683856Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:07:00.0747508Z ##[endgroup]
+2026-11-23T21:07:00.0747996Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:07:00.0750543Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:07:00.0771871Z ##[endgroup]
+2026-11-23T21:07:00.0772337Z ##[group]Setting up auth
+2026-11-23T21:07:00.0776897Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:07:00.0798505Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:07:00.5371229Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:07:00.5395059Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:07:00.5573964Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:07:00.5595830Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:07:00.5770281Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:07:00.5795112Z ##[endgroup]
+2026-11-23T21:07:00.5795506Z ##[group]Fetching the repository
+2026-11-23T21:07:00.5800651Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin +0243ed0ea29d8acb9a00daafaadca9c5f726cf46:refs/remotes/origin/ci-backfill/0243ed0
+2026-11-23T21:07:01.1456832Z From https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:07:01.1458572Z  * [new ref]         0243ed0ea29d8acb9a00daafaadca9c5f726cf46 -> origin/ci-backfill/0243ed0
+2026-11-23T21:07:01.1460196Z ##[endgroup]
+2026-11-23T21:07:01.1460824Z ##[group]Determining the checkout info
+2026-11-23T21:07:01.1462844Z ##[endgroup]
+2026-11-23T21:07:01.1463803Z ##[group]Setting up sparse checkout
+2026-11-23T21:07:01.1468419Z [command]/usr/bin/git sparse-checkout set two_part
+2026-11-23T21:07:01.1528936Z ##[endgroup]
+2026-11-23T21:07:01.1529359Z ##[group]Checking out the ref
+2026-11-23T21:07:01.1531773Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/0243ed0 refs/remotes/origin/ci-backfill/0243ed0
+2026-11-23T21:07:01.4710062Z Switched to a new branch 'ci-backfill/0243ed0'
+2026-11-23T21:07:01.4718346Z branch 'ci-backfill/0243ed0' set up to track 'origin/ci-backfill/0243ed0'.
+2026-11-23T21:07:01.4724904Z ##[endgroup]
+2026-11-23T21:07:01.4773814Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:07:01.4793104Z 0243ed0ea29d8acb9a00daafaadca9c5f726cf46
+2026-11-23T21:07:01.5002231Z ##[group]Run xu-cheng/latex-action@v3
+2026-11-23T21:07:01.5002557Z with:
+2026-11-23T21:07:01.5002812Z   root_file: tether_two_part.tex
+2026-11-23T21:07:01.5003488Z   working_directory: two_part
+2026-11-23T21:07:01.5003755Z   work_in_root_file_dir: false
+2026-11-23T21:07:01.5004007Z   continue_on_error: false
+2026-11-23T21:07:01.5004317Z   compiler: latexmk
+2026-11-23T21:07:01.5004670Z   args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+2026-11-23T21:07:01.5005003Z   latexmk_shell_escape: false
+2026-11-23T21:07:01.5005456Z   latexmk_use_lualatex: false
+2026-11-23T21:07:01.5005699Z   latexmk_use_xelatex: false
+2026-11-23T21:07:01.5006019Z ##[endgroup]
+2026-11-23T21:07:01.5058792Z ##[start-action display=Run "${GITHUB_ACTION_PATH}/action.sh";id=__xu-cheng_latex-action.__run]
+2026-11-23T21:07:01.5090496Z ##[group]Run "${GITHUB_ACTION_PATH}/action.sh"
+2026-11-23T21:07:01.5090932Z [36;1m"${GITHUB_ACTION_PATH}/action.sh"[0m
+2026-11-23T21:07:01.5114269Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-23T21:07:01.5114594Z env:
+2026-11-23T21:07:01.5114811Z   INPUT_TEXLIVE_VERSION: 
+2026-11-23T21:07:01.5115078Z   INPUT_DOCKER_IMAGE: 
+2026-11-23T21:07:01.5115350Z   INPUT_ROOT_FILE: tether_two_part.tex
+2026-11-23T21:07:01.5115622Z   INPUT_WORKING_DIRECTORY: two_part
+2026-11-23T21:07:01.5115889Z   INPUT_WORK_IN_ROOT_FILE_DIR: false
+2026-11-23T21:07:01.5116146Z   INPUT_CONTINUE_ON_ERROR: false
+2026-11-23T21:07:01.5116412Z   INPUT_COMPILER: latexmk
+2026-11-23T21:07:01.5116731Z   INPUT_ARGS: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+2026-11-23T21:07:01.5117053Z   INPUT_EXTRA_SYSTEM_PACKAGES: 
+2026-11-23T21:07:01.5117327Z   INPUT_EXTRA_FONTS: 
+2026-11-23T21:07:01.5117542Z   INPUT_PRE_COMPILE: 
+2026-11-23T21:07:01.5117805Z   INPUT_POST_COMPILE: 
+2026-11-23T21:07:01.5118036Z   INPUT_LATEXMK_SHELL_ESCAPE: false
+2026-11-23T21:07:01.5118278Z   INPUT_LATEXMK_USE_LUALATEX: false
+2026-11-23T21:07:01.5118668Z   INPUT_LATEXMK_USE_XELATEX: false
+2026-11-23T21:07:01.5118907Z ##[endgroup]
+2026-11-23T21:07:01.5239528Z ::stop-commands::***
+2026-11-23T21:07:01.5247658Z [1;34m'docker' 'run' '--rm' '-e' 'BIBINPUTS' '-e' 'BSTINPUTS' '-e' 'MFINPUTS' '-e' 'TEXINPUTS' '-e' 'TFMFONTS' '-e' 'HOME' '-e' 'INPUT_ROOT_FILE' '-e' 'INPUT_WORKING_DIRECTORY' '-e' 'INPUT_WORK_IN_ROOT_FILE_DIR' '-e' 'INPUT_CONTINUE_ON_ERROR' '-e' 'INPUT_COMPILER' '-e' 'INPUT_ARGS' '-e' 'INPUT_EXTRA_SYSTEM_PACKAGES' '-e' 'INPUT_EXTRA_FONTS' '-e' 'INPUT_PRE_COMPILE' '-e' 'INPUT_POST_COMPILE' '-e' 'INPUT_LATEXMK_SHELL_ESCAPE' '-e' 'INPUT_LATEXMK_USE_LUALATEX' '-e' 'INPUT_LATEXMK_USE_XELATEX' '-e' 'INPUT_TLMGR_REPO' '-e' 'GITHUB_JOB' '-e' 'GITHUB_REF' '-e' 'GITHUB_SHA' '-e' 'GITHUB_REPOSITORY' '-e' 'GITHUB_REPOSITORY_OWNER' '-e' 'GITHUB_REPOSITORY_OWNER_ID' '-e' 'GITHUB_RUN_ID' '-e' 'GITHUB_RUN_NUMBER' '-e' 'GITHUB_RETENTION_DAYS' '-e' 'GITHUB_RUN_ATTEMPT' '-e' 'GITHUB_REPOSITORY_ID' '-e' 'GITHUB_ACTOR_ID' '-e' 'GITHUB_ACTOR' '-e' 'GITHUB_TRIGGERING_ACTOR' '-e' 'GITHUB_WORKFLOW' '-e' 'GITHUB_HEAD_REF' '-e' 'GITHUB_BASE_REF' '-e' 'GITHUB_EVENT_NAME' '-e' 'GITHUB_SERVER_URL' '-e' 'GITHUB_API_URL' '-e' 'GITHUB_GRAPHQL_URL' '-e' 'GITHUB_REF_NAME' '-e' 'GITHUB_REF_PROTECTED' '-e' 'GITHUB_REF_TYPE' '-e' 'GITHUB_WORKFLOW_REF' '-e' 'GITHUB_WORKFLOW_SHA' '-e' 'GITHUB_WORKSPACE' '-e' 'GITHUB_ACTION' '-e' 'GITHUB_EVENT_PATH' '-e' 'GITHUB_ACTION_REPOSITORY' '-e' 'GITHUB_ACTION_REF' '-e' 'GITHUB_PATH' '-e' 'GITHUB_ENV' '-e' 'GITHUB_STEP_SUMMARY' '-e' 'GITHUB_STATE' '-e' 'GITHUB_OUTPUT' '-e' 'RUNNER_OS' '-e' 'RUNNER_ARCH' '-e' 'RUNNER_NAME' '-e' 'RUNNER_ENVIRONMENT' '-e' 'RUNNER_TOOL_CACHE' '-e' 'RUNNER_TEMP' '-e' 'RUNNER_WORKSPACE' '-e' 'ACTIONS_RUNTIME_URL' '-e' 'ACTIONS_RUNTIME_TOKEN' '-e' 'ACTIONS_CACHE_URL' '-e' 'GITHUB_ACTIONS=true' '-e' 'CI=true' '-v' '/var/run/docker.sock:/var/run/docker.sock' '-v' '/home/runner:/home/runner' '-v' '/home/runner/work/_temp/_runner_file_commands/set_env_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/set_env_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/_temp/_runner_file_commands/set_output_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/set_output_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/_temp/_runner_file_commands/step_summary_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/step_summary_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/_temp/_runner_file_commands/add_path_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/add_path_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01:/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01' '-v' '/home/runner/work/_actions/xu-cheng/latex-action/v3/entrypoint.sh:/entrypoint.sh' '-w' '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01' '--entrypoint' '/entrypoint.sh' 'ghcr.io/xu-cheng/texlive-full:latest'[0m
+2026-11-23T21:07:01.5254715Z ::***::
+2026-11-23T21:07:04.0245332Z Unable to find image 'ghcr.io/xu-cheng/texlive-full:latest' locally
+2026-11-23T21:07:04.5510485Z latest: Pulling from xu-cheng/texlive-full
+2026-11-23T21:07:05.1270538Z 44136fa355b3: Already exists
+2026-11-23T21:07:05.1475772Z 8c7bdee3f91f: Pulling fs layer
+2026-11-23T21:07:05.1479823Z a4d366ca9d39: Pulling fs layer
+2026-11-23T21:07:05.1480538Z 7e14dd475591: Pulling fs layer
+2026-11-23T21:07:05.1480969Z 3ce7d9dd60f0: Pulling fs layer
+2026-11-23T21:07:05.3272345Z 6ee87d171816: Download complete
+2026-11-23T21:07:05.4275370Z 3ce7d9dd60f0: Download complete
+2026-11-23T21:07:05.4276221Z 7e14dd475591: Download complete
+2026-11-23T21:07:05.5278013Z a4d366ca9d39: Download complete
+2026-11-23T21:07:05.6283357Z 3ce7d9dd60f0: Pull complete
+2026-11-23T21:07:05.6288996Z 7e14dd475591: Pull complete
+2026-11-23T21:07:05.6296739Z a4d366ca9d39: Pull complete
+2026-11-23T21:07:58.5272252Z 8c7bdee3f91f: Download complete
+2026-11-23T21:08:22.1908587Z 8c7bdee3f91f: Pull complete
+2026-11-23T21:08:22.1909129Z Digest: sha256:c06416ebbc69c8e90e07d1f1a6f7a3f9b334e773daa3543ce879ea533317c3a7
+2026-11-23T21:08:22.1909880Z Status: Downloaded newer image for ghcr.io/xu-cheng/texlive-full:latest
+2026-11-23T21:08:31.4586393Z [1;34mCompile tether_two_part.tex[0m
+2026-11-23T21:08:31.5306242Z Rc files read (in order):
+2026-11-23T21:08:31.5306631Z   NONE
+2026-11-23T21:08:31.5307105Z Latexmk: This is Latexmk, John Collins, 9 March 2026. Version 4.88.
+2026-11-23T21:08:31.5326548Z No existing .aux file, so I'll make a simple one, and require run of *latex.
+2026-11-23T21:08:31.5327215Z Latexmk: applying rule 'pdflatex'...
+2026-11-23T21:08:31.5327533Z Rule 'pdflatex':  Reasons for rerun
+2026-11-23T21:08:31.5327782Z Category 'other':
+2026-11-23T21:08:31.5328075Z   Rerun of 'pdflatex' forced or previously required:
+2026-11-23T21:08:31.5328377Z     Reason or flag: 'Initial setup'
+2026-11-23T21:08:31.5328560Z 
+2026-11-23T21:08:31.5328660Z ------------
+2026-11-23T21:08:31.5328947Z Run number 1 of rule 'pdflatex'
+2026-11-23T21:08:31.5329168Z ------------
+2026-11-23T21:08:31.5329387Z ------------
+2026-11-23T21:08:31.5329795Z Running 'pdflatex  -file-line-error -halt-on-error -interaction=nonstopmode -recorder  "tether_two_part.tex"'
+2026-11-23T21:08:31.5330209Z ------------
+2026-11-23T21:08:31.6141156Z This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex)
+2026-11-23T21:08:31.6142476Z  restricted \write18 enabled.
+2026-11-23T21:08:31.6673365Z entering extended mode
+2026-11-23T21:08:31.6686064Z (./tether_two_part.tex
+2026-11-23T21:08:31.6686614Z LaTeX2e <2026-06-01>
+2026-11-23T21:08:31.6690807Z L3 programming layer <2026-09-09>
+2026-11-23T21:08:31.6714871Z (/opt/texlive/texdir/texmf-dist/tex/latex/amscls/amsart.cls
+2026-11-23T21:08:31.6715613Z Document Class: amsart 2020/05/29 v2.20.6
+2026-11-23T21:08:31.6729166Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsmath.sty
+2026-11-23T21:08:31.6730043Z For additional information on amsmath, use the `?' option.
+2026-11-23T21:08:31.6739238Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amstext.sty
+2026-11-23T21:08:31.6756429Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsgen.sty))
+2026-11-23T21:08:31.6769926Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+2026-11-23T21:08:31.6818658Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsopn.sty))
+2026-11-23T21:08:31.6829962Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:31.6888991Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+2026-11-23T21:08:31.6919162Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+2026-11-23T21:08:31.6934848Z (/opt/texlive/texdir/texmf-dist/tex/latex/booktabs/booktabs.sty)
+2026-11-23T21:08:31.6943792Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hyperref.sty
+2026-11-23T21:08:31.6957417Z (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/iftex.sty)
+2026-11-23T21:08:31.6970789Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/keyval.sty)
+2026-11-23T21:08:31.6986822Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+2026-11-23T21:08:31.7000943Z (/opt/texlive/texdir/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+2026-11-23T21:08:31.7012311Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+2026-11-23T21:08:31.7030042Z (/opt/texlive/texdir/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+2026-11-23T21:08:31.7042206Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+2026-11-23T21:08:31.7067506Z (/opt/texlive/texdir/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+2026-11-23T21:08:31.7100610Z (/opt/texlive/texdir/texmf-dist/tex/latex/hycolor/hycolor.sty)
+2026-11-23T21:08:31.7110140Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/nameref.sty
+2026-11-23T21:08:31.7130424Z (/opt/texlive/texdir/texmf-dist/tex/latex/refcount/refcount.sty)
+2026-11-23T21:08:31.7140941Z (/opt/texlive/texdir/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+2026-11-23T21:08:31.7212832Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+2026-11-23T21:08:31.7243860Z (/opt/texlive/texdir/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+2026-11-23T21:08:31.7266908Z (/opt/texlive/texdir/texmf-dist/tex/generic/stringenc/stringenc.sty)
+2026-11-23T21:08:31.7292038Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/pd1enc.def)
+2026-11-23T21:08:31.7312350Z (/opt/texlive/texdir/texmf-dist/tex/generic/intcalc/intcalc.sty)
+2026-11-23T21:08:31.7431239Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/puenc.def)
+2026-11-23T21:08:31.7449688Z (/opt/texlive/texdir/texmf-dist/tex/latex/url/url.sty)
+2026-11-23T21:08:31.7464462Z (/opt/texlive/texdir/texmf-dist/tex/generic/bitset/bitset.sty
+2026-11-23T21:08:31.7560516Z (/opt/texlive/texdir/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)))
+2026-11-23T21:08:31.7580905Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hpdftex.def
+2026-11-23T21:08:31.7610342Z (/opt/texlive/texdir/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+2026-11-23T21:08:31.7718795Z (/opt/texlive/texdir/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+2026-11-23T21:08:31.7726741Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def)
+2026-11-23T21:08:31.7739579Z (./tether_two_part.aux)
+2026-11-23T21:08:31.7745306Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:31.7863494Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsb.fd)
+2026-11-23T21:08:31.7863987Z Overfull \hbox (19.75905pt too wide) in paragraph at lines 15--26
+2026-11-23T21:08:31.7864387Z \OT1/cmr/m/n/9 sym-plec-tic tether''. Part I places the con-struc-tion on the E
+2026-11-23T21:08:31.7864922Z uler--Poincar^^Se/Lie--
+2026-11-23T21:08:31.7873654Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/ueuf.fd)
+2026-11-23T21:08:31.7874152Z 
+2026-11-23T21:08:31.7874425Z LaTeX Warning: Reference `lem:sym' on page 1 undefined on input line 36.
+2026-11-23T21:08:31.7874818Z 
+2026-11-23T21:08:31.7874822Z 
+2026-11-23T21:08:31.7875231Z Underfull \hbox (badness 5578) in paragraph at lines 36--37
+2026-11-23T21:08:31.7875837Z []$\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 ^^T [] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/
+2026-11-23T21:08:31.7876371Z 10 !\OMS/cmsy/m/n/10 j[]\OML/cmm/m/it/10 ^^Nu \OMS/cmsy/m/n/10 ^^A \OML/cmm/m/i
+2026-11-23T21:08:31.7876868Z t/10 ^^Nv$ \OT1/cmr/m/n/10 is sym-met-ric
+2026-11-23T21:08:31.7877205Z 
+2026-11-23T21:08:31.7877442Z Underfull \hbox (badness 1859) in paragraph at lines 39--39
+2026-11-23T21:08:31.7877915Z []\OT1/cmr/m/n/10 Proved (for
+2026-11-23T21:08:31.7878107Z 
+2026-11-23T21:08:31.7878379Z Underfull \hbox (badness 10000) in paragraph at lines 39--39
+2026-11-23T21:08:31.7878847Z \OT1/cmr/m/n/10 the lo-cal
+2026-11-23T21:08:31.7879082Z 
+2026-11-23T21:08:31.7879304Z LaTeX Warning: Reference `prop:inv' on page 1 undefined on input line 39.
+2026-11-23T21:08:31.7879804Z 
+2026-11-23T21:08:31.7879809Z 
+2026-11-23T21:08:31.7880040Z Underfull \hbox (badness 1400) in paragraph at lines 39--40
+2026-11-23T21:08:31.7880579Z \OML/cmm/m/it/10 K[]$ \OT1/cmr/m/n/10 form with-out ex-tra ar-gu-
+2026-11-23T21:08:31.7880862Z 
+2026-11-23T21:08:31.7881105Z Underfull \hbox (badness 10000) in paragraph at lines 40--40
+2026-11-23T21:08:31.7881543Z []\OT1/cmr/m/n/10 Uniqueness/minimality,
+2026-11-23T21:08:31.7881790Z 
+2026-11-23T21:08:31.7881949Z Underfull \hbox (badness 10000) in paragraph at lines 41--41
+2026-11-23T21:08:31.7882465Z []\OT1/cmr/m/n/10 False as
+2026-11-23T21:08:31.7882640Z 
+2026-11-23T21:08:31.7882852Z Underfull \hbox (badness 1342) in paragraph at lines 42--42
+2026-11-23T21:08:31.7883574Z []\OT1/cmr/m/n/10 Gap (cir-cu-
+2026-11-23T21:08:31.7883803Z 
+2026-11-23T21:08:31.7889266Z Underfull \hbox (badness 10000) in paragraph at lines 43--44
+2026-11-23T21:08:31.7889849Z \OT1/cmr/m/n/10 oth-er-wise $[]$ branch (still
+2026-11-23T21:08:31.7890095Z 
+2026-11-23T21:08:31.7890295Z Underfull \hbox (badness 10000) in paragraph at lines 45--46
+2026-11-23T21:08:31.7890713Z []\OT1/cmr/m/n/10 Brezis--Gallou^^Set/Kozono--
+2026-11-23T21:08:31.7890914Z 
+2026-11-23T21:08:31.7891094Z LaTeX Warning: Reference `thm:cond' on page 1 undefined on input line 46.
+2026-11-23T21:08:31.7891366Z 
+2026-11-23T21:08:31.7891369Z 
+2026-11-23T21:08:31.7891529Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:31.7891866Z []\OT1/cmr/m/n/10 Proved
+2026-11-23T21:08:31.7892004Z 
+2026-11-23T21:08:31.7892158Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:31.7892454Z \OT1/cmr/m/n/10 (con-di-
+2026-11-23T21:08:31.7892614Z 
+2026-11-23T21:08:31.7892781Z LaTeX Warning: Reference `thm:model' on page 1 undefined on input line 47.
+2026-11-23T21:08:31.7893210Z 
+2026-11-23T21:08:31.7893213Z 
+2026-11-23T21:08:31.7893392Z Underfull \hbox (badness 10000) in paragraph at lines 47--48
+2026-11-23T21:08:31.7893747Z []\OT1/cmr/m/n/10 Maximum prin-ci-ple; mod-i-fied
+2026-11-23T21:08:31.7893924Z 
+2026-11-23T21:08:31.7894095Z Overfull \hbox (19.96854pt too wide) in paragraph at lines 31--50
+2026-11-23T21:08:31.7894395Z  [] 
+2026-11-23T21:08:31.7894519Z 
+2026-11-23T21:08:31.7894703Z Underfull \vbox (badness 10000) has occurred while \output is active [1{/opt/te
+2026-11-23T21:08:31.8627556Z xlive/texdir/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+2026-11-23T21:08:31.8627937Z 
+2026-11-23T21:08:31.8628485Z LaTeX Warning: Citation `Poincare1901' on page 2 undefined on input line 55.
+2026-11-23T21:08:31.8628856Z 
+2026-11-23T21:08:31.8628861Z 
+2026-11-23T21:08:31.8629128Z LaTeX Warning: Citation `Arnold1966' on page 2 undefined on input line 56.
+2026-11-23T21:08:31.8629454Z 
+2026-11-23T21:08:31.8629458Z 
+2026-11-23T21:08:31.8629714Z LaTeX Warning: Citation `HMR1998' on page 2 undefined on input line 57.
+2026-11-23T21:08:31.8630173Z 
+2026-11-23T21:08:31.8630400Z 
+2026-11-23T21:08:31.8630654Z LaTeX Warning: Citation `MarsdenRatiu' on page 2 undefined on input line 57.
+2026-11-23T21:08:31.8631051Z 
+2026-11-23T21:08:31.8714283Z [2]
+2026-11-23T21:08:31.8714478Z 
+2026-11-23T21:08:31.8714966Z LaTeX Warning: Citation `MarsdenWeinstein1983' on page 3 undefined on input lin
+2026-11-23T21:08:31.8715646Z e 62.
+2026-11-23T21:08:31.8715820Z 
+2026-11-23T21:08:31.8715825Z 
+2026-11-23T21:08:31.8716076Z LaTeX Warning: Citation `Morrison1986' on page 3 undefined on input line 73.
+2026-11-23T21:08:31.8716512Z 
+2026-11-23T21:08:31.8716517Z 
+2026-11-23T21:08:31.8716811Z LaTeX Warning: Citation `Morrison1986' on page 3 undefined on input line 98.
+2026-11-23T21:08:31.8717179Z 
+2026-11-23T21:08:31.8717182Z 
+2026-11-23T21:08:31.8717475Z LaTeX Warning: Citation `Grmela' on page 3 undefined on input line 98.
+2026-11-23T21:08:31.8717862Z 
+2026-11-23T21:08:31.8813929Z [3]
+2026-11-23T21:08:31.8814142Z 
+2026-11-23T21:08:31.8814359Z LaTeX Warning: Citation `Morrison1986' on page 4 undefined on input line 103.
+2026-11-23T21:08:31.8814658Z 
+2026-11-23T21:08:31.8814662Z 
+2026-11-23T21:08:31.8814954Z LaTeX Warning: Citation `Kaufman1984' on page 4 undefined on input line 103.
+2026-11-23T21:08:31.8815187Z 
+2026-11-23T21:08:31.8815190Z 
+2026-11-23T21:08:31.8815379Z LaTeX Warning: Citation `Grmela' on page 4 undefined on input line 103.
+2026-11-23T21:08:31.8815612Z 
+2026-11-23T21:08:31.8815615Z 
+2026-11-23T21:08:31.8815758Z Overfull \hbox (2.0049pt too wide) in paragraph at lines 103--106
+2026-11-23T21:08:31.8816174Z []\OT1/cmr/m/n/10.95 Following Mor-ri-son [[]], Kauf-man [[]] and Grmela--[]Ott
+2026-11-23T21:08:31.8816612Z inger [[]], a metriplec-
+2026-11-23T21:08:31.8816774Z 
+2026-11-23T21:08:31.8817031Z LaTeX Warning: Reference `prop:degen' on page 4 undefined on input line 119.
+2026-11-23T21:08:31.8817311Z 
+2026-11-23T21:08:31.8817349Z 
+2026-11-23T21:08:31.8817511Z LaTeX Warning: Reference `eq:model' on page 4 undefined on input line 119.
+2026-11-23T21:08:31.8817772Z 
+2026-11-23T21:08:31.8874113Z [4]
+2026-11-23T21:08:31.8874430Z 
+2026-11-23T21:08:31.8874757Z LaTeX Warning: Reference `lem:sym' on page 5 undefined on input line 132.
+2026-11-23T21:08:31.8875086Z 
+2026-11-23T21:08:31.8875091Z 
+2026-11-23T21:08:31.8875361Z LaTeX Warning: Reference `prop:degen' on page 5 undefined on input line 132.
+2026-11-23T21:08:31.8875706Z 
+2026-11-23T21:08:31.8875726Z 
+2026-11-23T21:08:31.8875965Z LaTeX Warning: Reference `thm:cond' on page 5 undefined on input line 137.
+2026-11-23T21:08:31.8876312Z 
+2026-11-23T21:08:31.8876317Z 
+2026-11-23T21:08:31.8876571Z LaTeX Warning: Reference `eq:model' on page 5 undefined on input line 137.
+2026-11-23T21:08:31.8876851Z 
+2026-11-23T21:08:31.8876856Z 
+2026-11-23T21:08:31.8877112Z LaTeX Warning: Reference `thm:model' on page 5 undefined on input line 137.
+2026-11-23T21:08:31.8877476Z 
+2026-11-23T21:08:31.8877480Z 
+2026-11-23T21:08:31.8877742Z LaTeX Warning: Citation `BKM1984' on page 5 undefined on input line 144.
+2026-11-23T21:08:31.8878079Z 
+2026-11-23T21:08:31.8878092Z 
+2026-11-23T21:08:31.8878339Z LaTeX Warning: Citation `KozonoTaniuchi' on page 5 undefined on input line 144.
+2026-11-23T21:08:31.8878732Z 
+2026-11-23T21:08:31.8878737Z 
+2026-11-23T21:08:31.8878740Z 
+2026-11-23T21:08:31.8878999Z LaTeX Warning: Citation `BKM1984' on page 5 undefined on input line 156.
+2026-11-23T21:08:31.8879277Z 
+2026-11-23T21:08:31.8979678Z [5]
+2026-11-23T21:08:31.8979997Z 
+2026-11-23T21:08:31.8980448Z LaTeX Warning: Reference `eq:model' on page 6 undefined on input line 165.
+2026-11-23T21:08:31.8980937Z 
+2026-11-23T21:08:31.8981001Z 
+2026-11-23T21:08:31.8981313Z LaTeX Warning: Citation `CaiJiu' on page 6 undefined on input line 169.
+2026-11-23T21:08:31.8981698Z 
+2026-11-23T21:08:31.8981746Z 
+2026-11-23T21:08:31.8982089Z LaTeX Warning: Reference `eq:model' on page 6 undefined on input line 171.
+2026-11-23T21:08:31.8982674Z 
+2026-11-23T21:08:31.8982683Z 
+2026-11-23T21:08:31.8983354Z Overfull \hbox (125.50739pt too wide) in paragraph at lines 183--192
+2026-11-23T21:08:31.8983757Z  [] 
+2026-11-23T21:08:31.9011887Z [6]
+2026-11-23T21:08:31.9012112Z 
+2026-11-23T21:08:31.9012402Z LaTeX Warning: Reference `thm:model' on page 7 undefined on input line 193.
+2026-11-23T21:08:31.9012813Z 
+2026-11-23T21:08:31.9012817Z 
+2026-11-23T21:08:31.9013283Z Overfull \hbox (20.02629pt too wide) in paragraph at lines 193--194
+2026-11-23T21:08:31.9014138Z \OT1/cmr/m/n/10.95 log-Sobolev/Kozono--Taniuchi in-equal-ity, Beale--Kato--Majd
+2026-11-23T21:08:31.9014720Z a, par-a-bolic smooth-
+2026-11-23T21:08:31.9031133Z [7] (./tether_two_part.aux)
+2026-11-23T21:08:31.9031399Z 
+2026-11-23T21:08:31.9031566Z LaTeX Warning: There were undefined references.
+2026-11-23T21:08:31.9031861Z 
+2026-11-23T21:08:31.9031865Z 
+2026-11-23T21:08:31.9032164Z LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+2026-11-23T21:08:31.9032530Z 
+2026-11-23T21:08:31.9032534Z 
+2026-11-23T21:08:31.9032843Z Package rerunfilecheck Warning: File `tether_two_part.out' has changed.
+2026-11-23T21:08:31.9033594Z (rerunfilecheck)                Rerun to get outlines right
+2026-11-23T21:08:31.9034121Z (rerunfilecheck)                or use package `bookmark'.
+2026-11-23T21:08:31.9034428Z 
+2026-11-23T21:08:31.9034538Z  )
+2026-11-23T21:08:31.9034983Z (see the transcript file for additional information)</opt/texlive/texdir/texmf-
+2026-11-23T21:08:31.9042101Z dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/texlive/texdir/texmf-dist/
+2026-11-23T21:08:31.9048448Z fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt/texlive/texdir/texmf-dist/fonts/
+2026-11-23T21:08:31.9056207Z type1/public/amsfonts/cm/cmcsc10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:31.9067462Z 1/public/amsfonts/cm/cmex10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/pub
+2026-11-23T21:08:31.9075263Z lic/amsfonts/cm/cmmi10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/a
+2026-11-23T21:08:31.9081121Z msfonts/cm/cmmi5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfont
+2026-11-23T21:08:31.9086440Z s/cm/cmmi6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/c
+2026-11-23T21:08:31.9091595Z mmi7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.p
+2026-11-23T21:08:31.9102630Z fb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></o
+2026-11-23T21:08:31.9113444Z pt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/tex
+2026-11-23T21:08:31.9118829Z live/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/texlive/te
+2026-11-23T21:08:31.9124442Z xdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:31.9130994Z xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/texlive/texdir/texmf-dis
+2026-11-23T21:08:31.9140969Z t/fonts/type1/public/amsfonts/cm/cmr9.pfb></opt/texlive/texdir/texmf-dist/fonts
+2026-11-23T21:08:31.9147413Z /type1/public/amsfonts/cm/cmsy10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:31.9152831Z 1/public/amsfonts/cm/cmsy5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/publ
+2026-11-23T21:08:31.9158674Z ic/amsfonts/cm/cmsy6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/ams
+2026-11-23T21:08:31.9164053Z fonts/cm/cmsy7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/
+2026-11-23T21:08:31.9169825Z cm/cmsy8.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+2026-11-23T21:08:31.9175630Z y9.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pf
+2026-11-23T21:08:31.9190772Z b></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></op
+2026-11-23T21:08:31.9196990Z t/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></opt/texl
+2026-11-23T21:08:31.9204145Z ive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></opt/texlive/t
+2026-11-23T21:08:31.9209944Z exdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></opt/texlive/texdir/
+2026-11-23T21:08:31.9214016Z texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:31.9217347Z xmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:31.9223279Z -dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:31.9354112Z -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+2026-11-23T21:08:31.9354527Z Output written on tether_two_part.pdf (7 pages, 366917 bytes).
+2026-11-23T21:08:31.9355165Z Transcript written on tether_two_part.log.
+2026-11-23T21:08:31.9372890Z Latexmk: Getting log file 'tether_two_part.log'
+2026-11-23T21:08:31.9382088Z Latexmk: Examining 'tether_two_part.fls'
+2026-11-23T21:08:31.9405337Z Latexmk: Examining 'tether_two_part.log'
+2026-11-23T21:08:31.9640276Z Latexmk: References changed.
+2026-11-23T21:08:31.9641222Z Latexmk: References changed.
+2026-11-23T21:08:31.9884106Z Latexmk: Log file says output to 'tether_two_part.pdf'
+2026-11-23T21:08:32.0111966Z Latexmk: applying rule 'pdflatex'...
+2026-11-23T21:08:32.0112448Z Rule 'pdflatex':  Reasons for rerun
+2026-11-23T21:08:32.0113176Z Changed files or newly in use/created:
+2026-11-23T21:08:32.0113663Z   tether_two_part.aux
+2026-11-23T21:08:32.0113945Z   tether_two_part.out
+2026-11-23T21:08:32.0114140Z 
+2026-11-23T21:08:32.0114251Z ------------
+2026-11-23T21:08:32.0114539Z Run number 2 of rule 'pdflatex'
+2026-11-23T21:08:32.0114807Z ------------
+2026-11-23T21:08:32.0115608Z ------------
+2026-11-23T21:08:32.0116122Z Running 'pdflatex  -file-line-error -halt-on-error -interaction=nonstopmode -recorder  "tether_two_part.tex"'
+2026-11-23T21:08:32.0116631Z ------------
+2026-11-23T21:08:32.0792089Z This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex)
+2026-11-23T21:08:32.0792515Z  restricted \write18 enabled.
+2026-11-23T21:08:32.1314592Z entering extended mode
+2026-11-23T21:08:32.1327698Z (./tether_two_part.tex
+2026-11-23T21:08:32.1328254Z LaTeX2e <2026-06-01>
+2026-11-23T21:08:32.1328615Z L3 programming layer <2026-09-09>
+2026-11-23T21:08:32.1354411Z (/opt/texlive/texdir/texmf-dist/tex/latex/amscls/amsart.cls
+2026-11-23T21:08:32.1355053Z Document Class: amsart 2020/05/29 v2.20.6
+2026-11-23T21:08:32.1367907Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsmath.sty
+2026-11-23T21:08:32.1368378Z For additional information on amsmath, use the `?' option.
+2026-11-23T21:08:32.1376621Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amstext.sty
+2026-11-23T21:08:32.1392876Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsgen.sty))
+2026-11-23T21:08:32.1407180Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+2026-11-23T21:08:32.1455923Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsopn.sty))
+2026-11-23T21:08:32.1466565Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:32.1522580Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+2026-11-23T21:08:32.1555224Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+2026-11-23T21:08:32.1570471Z (/opt/texlive/texdir/texmf-dist/tex/latex/booktabs/booktabs.sty)
+2026-11-23T21:08:32.1579254Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hyperref.sty
+2026-11-23T21:08:32.1593127Z (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/iftex.sty)
+2026-11-23T21:08:32.1606212Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/keyval.sty)
+2026-11-23T21:08:32.1621945Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+2026-11-23T21:08:32.1636257Z (/opt/texlive/texdir/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+2026-11-23T21:08:32.1646564Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+2026-11-23T21:08:32.1663927Z (/opt/texlive/texdir/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+2026-11-23T21:08:32.1675253Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+2026-11-23T21:08:32.1699811Z (/opt/texlive/texdir/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+2026-11-23T21:08:32.1732595Z (/opt/texlive/texdir/texmf-dist/tex/latex/hycolor/hycolor.sty)
+2026-11-23T21:08:32.1742345Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/nameref.sty
+2026-11-23T21:08:32.1762382Z (/opt/texlive/texdir/texmf-dist/tex/latex/refcount/refcount.sty)
+2026-11-23T21:08:32.1772386Z (/opt/texlive/texdir/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+2026-11-23T21:08:32.1843599Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+2026-11-23T21:08:32.1873561Z (/opt/texlive/texdir/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+2026-11-23T21:08:32.1896042Z (/opt/texlive/texdir/texmf-dist/tex/generic/stringenc/stringenc.sty)
+2026-11-23T21:08:32.1920907Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/pd1enc.def)
+2026-11-23T21:08:32.1940513Z (/opt/texlive/texdir/texmf-dist/tex/generic/intcalc/intcalc.sty)
+2026-11-23T21:08:32.2058448Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/puenc.def)
+2026-11-23T21:08:32.2077836Z (/opt/texlive/texdir/texmf-dist/tex/latex/url/url.sty)
+2026-11-23T21:08:32.2093210Z (/opt/texlive/texdir/texmf-dist/tex/generic/bitset/bitset.sty
+2026-11-23T21:08:32.2190632Z (/opt/texlive/texdir/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)))
+2026-11-23T21:08:32.2211295Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hpdftex.def
+2026-11-23T21:08:32.2239078Z (/opt/texlive/texdir/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+2026-11-23T21:08:32.2348182Z (/opt/texlive/texdir/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+2026-11-23T21:08:32.2358038Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def)
+2026-11-23T21:08:32.2372769Z (./tether_two_part.aux)
+2026-11-23T21:08:32.2377862Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:32.2395609Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsb.fd)
+2026-11-23T21:08:32.2501209Z (./tether_two_part.out) (./tether_two_part.out)
+2026-11-23T21:08:32.2501734Z Overfull \hbox (19.75905pt too wide) in paragraph at lines 15--26
+2026-11-23T21:08:32.2502163Z \OT1/cmr/m/n/9 sym-plec-tic tether''. Part I places the con-struc-tion on the E
+2026-11-23T21:08:32.2502522Z uler--Poincar^^Se/Lie--
+2026-11-23T21:08:32.2509025Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/ueuf.fd)
+2026-11-23T21:08:32.2509574Z Underfull \hbox (badness 5578) in paragraph at lines 36--37
+2026-11-23T21:08:32.2510179Z []$\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 ^^T [] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/
+2026-11-23T21:08:32.2510724Z 10 !\OMS/cmsy/m/n/10 j[]\OML/cmm/m/it/10 ^^Nu \OMS/cmsy/m/n/10 ^^A \OML/cmm/m/i
+2026-11-23T21:08:32.2511260Z t/10 ^^Nv$ \OT1/cmr/m/n/10 is sym-met-ric
+2026-11-23T21:08:32.2511551Z 
+2026-11-23T21:08:32.2512047Z Underfull \hbox (badness 1859) in paragraph at lines 39--39
+2026-11-23T21:08:32.2512426Z []\OT1/cmr/m/n/10 Proved (for
+2026-11-23T21:08:32.2512642Z 
+2026-11-23T21:08:32.2512788Z Underfull \hbox (badness 10000) in paragraph at lines 39--39
+2026-11-23T21:08:32.2513285Z \OT1/cmr/m/n/10 the lo-cal
+2026-11-23T21:08:32.2513422Z 
+2026-11-23T21:08:32.2513588Z Underfull \hbox (badness 1400) in paragraph at lines 39--40
+2026-11-23T21:08:32.2513978Z \OML/cmm/m/it/10 K[]$ \OT1/cmr/m/n/10 form with-out ex-tra ar-gu-
+2026-11-23T21:08:32.2514201Z 
+2026-11-23T21:08:32.2514334Z Underfull \hbox (badness 10000) in paragraph at lines 40--40
+2026-11-23T21:08:32.2514665Z []\OT1/cmr/m/n/10 Uniqueness/minimality,
+2026-11-23T21:08:32.2514838Z 
+2026-11-23T21:08:32.2514997Z Underfull \hbox (badness 10000) in paragraph at lines 41--41
+2026-11-23T21:08:32.2515298Z []\OT1/cmr/m/n/10 False as
+2026-11-23T21:08:32.2515453Z 
+2026-11-23T21:08:32.2515610Z Underfull \hbox (badness 1342) in paragraph at lines 42--42
+2026-11-23T21:08:32.2515910Z []\OT1/cmr/m/n/10 Gap (cir-cu-
+2026-11-23T21:08:32.2516075Z 
+2026-11-23T21:08:32.2516220Z Underfull \hbox (badness 10000) in paragraph at lines 43--44
+2026-11-23T21:08:32.2516571Z \OT1/cmr/m/n/10 oth-er-wise $[]$ branch (still
+2026-11-23T21:08:32.2516736Z 
+2026-11-23T21:08:32.2516894Z Underfull \hbox (badness 10000) in paragraph at lines 45--46
+2026-11-23T21:08:32.2522264Z []\OT1/cmr/m/n/10 Brezis--Gallou^^Set/Kozono--
+2026-11-23T21:08:32.2522622Z 
+2026-11-23T21:08:32.2522839Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:32.2523895Z []\OT1/cmr/m/n/10 Proved
+2026-11-23T21:08:32.2524351Z 
+2026-11-23T21:08:32.2524579Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:32.2525042Z \OT1/cmr/m/n/10 (con-di-
+2026-11-23T21:08:32.2525263Z 
+2026-11-23T21:08:32.2525488Z Underfull \hbox (badness 10000) in paragraph at lines 47--48
+2026-11-23T21:08:32.2526091Z []\OT1/cmr/m/n/10 Maximum prin-ci-ple; mod-i-fied
+2026-11-23T21:08:32.2526391Z 
+2026-11-23T21:08:32.2526624Z Overfull \hbox (19.96854pt too wide) in paragraph at lines 31--50
+2026-11-23T21:08:32.2527101Z  [] 
+2026-11-23T21:08:32.2527238Z 
+2026-11-23T21:08:32.2527556Z Underfull \vbox (badness 10000) has occurred while \output is active [1{/opt/te
+2026-11-23T21:08:32.3455695Z xlive/texdir/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+2026-11-23T21:08:32.3456405Z Overfull \hbox (6.06569pt too wide) in paragraph at lines 103--106
+2026-11-23T21:08:32.3456987Z []\OT1/cmr/m/n/10.95 Following Mor-ri-son [[]], Kauf-man [[]] and Grmela--[]Ott
+2026-11-23T21:08:32.3457526Z inger [[]], a metriplec-
+2026-11-23T21:08:32.3620124Z [4] [5]
+2026-11-23T21:08:32.3620616Z Overfull \hbox (125.50739pt too wide) in paragraph at lines 183--192
+2026-11-23T21:08:32.3620977Z  [] 
+2026-11-23T21:08:32.3654952Z [6]
+2026-11-23T21:08:32.3655534Z Overfull \hbox (20.02629pt too wide) in paragraph at lines 193--194
+2026-11-23T21:08:32.3656206Z \OT1/cmr/m/n/10.95 log-Sobolev/Kozono--Taniuchi in-equal-ity, Beale--Kato--Majd
+2026-11-23T21:08:32.3656706Z a, par-a-bolic smooth-
+2026-11-23T21:08:32.3673624Z [7] (./tether_two_part.aux) )
+2026-11-23T21:08:32.3674252Z (see the transcript file for additional information)</opt/texlive/texdir/texmf-
+2026-11-23T21:08:32.3683751Z dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/texlive/texdir/texmf-dist/
+2026-11-23T21:08:32.3689662Z fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt/texlive/texdir/texmf-dist/fonts/
+2026-11-23T21:08:32.3697281Z type1/public/amsfonts/cm/cmcsc10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:32.3703083Z 1/public/amsfonts/cm/cmex10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/pub
+2026-11-23T21:08:32.3710307Z lic/amsfonts/cm/cmmi10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/a
+2026-11-23T21:08:32.3716380Z msfonts/cm/cmmi5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfont
+2026-11-23T21:08:32.3721730Z s/cm/cmmi6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/c
+2026-11-23T21:08:32.3727123Z mmi7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.p
+2026-11-23T21:08:32.3738442Z fb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></o
+2026-11-23T21:08:32.3749300Z pt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/tex
+2026-11-23T21:08:32.3754748Z live/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/texlive/te
+2026-11-23T21:08:32.3760273Z xdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:32.3767367Z xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/texlive/texdir/texmf-dis
+2026-11-23T21:08:32.3777400Z t/fonts/type1/public/amsfonts/cm/cmr9.pfb></opt/texlive/texdir/texmf-dist/fonts
+2026-11-23T21:08:32.3783475Z /type1/public/amsfonts/cm/cmsy10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:32.3790076Z 1/public/amsfonts/cm/cmsy5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/publ
+2026-11-23T21:08:32.3795847Z ic/amsfonts/cm/cmsy6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/ams
+2026-11-23T21:08:32.3801439Z fonts/cm/cmsy7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/
+2026-11-23T21:08:32.3807908Z cm/cmsy8.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+2026-11-23T21:08:32.3813252Z y9.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pf
+2026-11-23T21:08:32.3828182Z b></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></op
+2026-11-23T21:08:32.3834348Z t/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></opt/texl
+2026-11-23T21:08:32.3840529Z ive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></opt/texlive/t
+2026-11-23T21:08:32.3847162Z exdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></opt/texlive/texdir/
+2026-11-23T21:08:32.3850793Z texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:32.3854664Z xmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:32.3860688Z -dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:32.4004295Z -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+2026-11-23T21:08:32.4004836Z Output written on tether_two_part.pdf (7 pages, 369042 bytes).
+2026-11-23T21:08:32.4005385Z Transcript written on tether_two_part.log.
+2026-11-23T21:08:32.4023099Z Latexmk: Getting log file 'tether_two_part.log'
+2026-11-23T21:08:32.4031763Z Latexmk: Examining 'tether_two_part.fls'
+2026-11-23T21:08:32.4054025Z Latexmk: Examining 'tether_two_part.log'
+2026-11-23T21:08:32.4494235Z Latexmk: Log file says output to 'tether_two_part.pdf'
+2026-11-23T21:08:32.4543876Z Latexmk: All targets (tether_two_part.pdf) are up-to-date
+2026-11-23T21:08:32.4544198Z 
+2026-11-23T21:08:32.5152636Z ##[end-action id=__xu-cheng_latex-action.__run;outcome=success;conclusion=success;duration_ms=91009]
+2026-11-23T21:08:32.5207843Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T21:08:32.5208121Z with:
+2026-11-23T21:08:32.5208348Z   name: tether_two_part
+2026-11-23T21:08:32.5208622Z   path: two_part/tether_two_part.pdf
+2026-11-23T21:08:32.5208898Z   if-no-files-found: warn
+2026-11-23T21:08:32.5209131Z   compression-level: 6
+2026-11-23T21:08:32.5209356Z   overwrite: false
+2026-11-23T21:08:32.5209587Z   include-hidden-files: false
+2026-11-23T21:08:32.5209842Z ##[endgroup]
+2026-11-23T21:08:32.6518414Z (node:2512) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T21:08:32.6519081Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T21:08:32.6551646Z With the provided path, there will be 1 file uploaded
+2026-11-23T21:08:32.6574377Z Artifact name is valid!
+2026-11-23T21:08:32.6574686Z Root directory input is valid!
+2026-11-23T21:08:33.0892701Z Beginning upload of artifact content to blob storage
+2026-11-23T21:08:33.2802848Z (node:2512) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T21:08:33.9260164Z Uploaded bytes 357614
+2026-11-23T21:08:34.0168559Z Finished uploading artifact content to blob storage!
+2026-11-23T21:08:34.0169443Z SHA256 digest of uploaded artifact zip is ebe96bc6b1816b2a25f312e2a4f54384558ac64c7411b87e8caf864dc5e7d2de
+2026-11-23T21:08:34.0169880Z Finalizing artifact upload
+2026-11-23T21:08:34.4228733Z Artifact tether_two_part.zip successfully finalized. Artifact ID 14863136722
+2026-11-23T21:08:34.4229530Z Artifact tether_two_part has been successfully uploaded! Final size is 357614 bytes. Artifact ID is 14863136722
+2026-11-23T21:08:34.4234450Z Artifact download URL: https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01/actions/runs/45266109564/artifacts/14863136722
+2026-11-23T21:08:34.4390818Z Post job cleanup.
+2026-11-23T21:08:34.5041286Z [command]/usr/bin/git version
+2026-11-23T21:08:34.5072186Z git version 2.56.1
+2026-11-23T21:08:34.5097088Z Temporarily overriding HOME='/home/runner/work/_temp/08c3f0fb-6120-4db7-8c17-48cc647e8fbc' before making global git config changes
+2026-11-23T21:08:34.5098016Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:08:34.5101556Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:08:34.5132315Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:08:34.5161022Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:08:34.5370323Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:08:34.5387200Z http.https://github.com/.extraheader
+2026-11-23T21:08:34.5394320Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:08:34.5416476Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:08:34.5614176Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:08:34.5646485Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:08:34.5942489Z Cleaning up orphan processes
+2026-11-23T21:08:34.6224316Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/1_Set up job.txt
+﻿2026-11-23T21:06:54.6557227Z Current runner version: '2.338.2'
+2026-11-23T21:06:54.6576243Z ##[group]Runner Image Provisioner
+2026-11-23T21:06:54.6576917Z Hosted Compute Agent
+2026-11-23T21:06:54.6577360Z Version: 20261111.635
+2026-11-23T21:06:54.6577811Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-23T21:06:54.6578347Z Build Date: 2026-11-11T01:49:01Z
+2026-11-23T21:06:54.6578844Z Worker ID: {15781e3e-3ffb-4077-ae9e-cb4b522ee7a7}
+2026-11-23T21:06:54.6579378Z Region: us-west-2
+2026-11-23T21:06:54.6579762Z Cloud: AWS
+2026-11-23T21:06:54.6580144Z ##[endgroup]
+2026-11-23T21:06:54.6581023Z ##[group]Operating System
+2026-11-23T21:06:54.6581464Z Ubuntu
+2026-11-23T21:06:54.6581828Z 26.04.1
+2026-11-23T21:06:54.6582171Z LTS
+2026-11-23T21:06:54.6582557Z ##[endgroup]
+2026-11-23T21:06:54.6583232Z ##[group]Runner Image
+2026-11-23T21:06:54.6583723Z Image: ubuntu-26.04
+2026-11-23T21:06:54.6584119Z Version: 20261116.88.1
+2026-11-23T21:06:54.6584900Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-23T21:06:54.6586354Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+2026-11-23T21:06:54.6587099Z ##[endgroup]
+2026-11-23T21:06:54.6587952Z ##[group]GITHUB_TOKEN Permissions
+2026-11-23T21:06:54.6589560Z Contents: read
+2026-11-23T21:06:54.6589970Z Metadata: read
+2026-11-23T21:06:54.6590346Z Packages: read
+2026-11-23T21:06:54.6590753Z ##[endgroup]
+2026-11-23T21:06:54.6592220Z Secret source: Actions
+2026-11-23T21:06:54.6592876Z Cache mode: write
+2026-11-23T21:06:54.6593621Z Prepare workflow directory
+2026-11-23T21:06:54.6820307Z Prepare all required actions
+2026-11-23T21:06:54.6856827Z Getting action download info
+2026-11-23T21:06:55.0189025Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-23T21:06:56.5491478Z Download action repository 'xu-cheng/latex-action@v3' (SHA:e2f99d4b3685b0da93f97e1b86ad8fab81105098)
+2026-11-23T21:06:56.7432730Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-23T21:06:57.1426127Z Complete job name: build
+
+===== build/2_Run actions_checkout@v4.txt
+﻿2026-11-23T21:06:57.2116424Z ##[group]Run actions/checkout@v4
+2026-11-23T21:06:57.2117531Z with:
+2026-11-23T21:06:57.2118277Z   sparse-checkout: two_part
+2026-11-23T21:06:57.2119338Z   repository: BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:06:57.2126780Z   token: ***
+2026-11-23T21:06:57.2127540Z   ssh-strict: true
+2026-11-23T21:06:57.2128231Z   ssh-user: git
+2026-11-23T21:06:57.2128982Z   persist-credentials: true
+2026-11-23T21:06:57.2129752Z   clean: true
+2026-11-23T21:06:57.2130463Z   sparse-checkout-cone-mode: true
+2026-11-23T21:06:57.2131319Z   fetch-depth: 1
+2026-11-23T21:06:57.2132014Z   fetch-tags: false
+2026-11-23T21:06:57.2132741Z   show-progress: true
+2026-11-23T21:06:57.2133625Z   lfs: false
+2026-11-23T21:06:57.2134316Z   submodules: false
+2026-11-23T21:06:57.2135042Z   set-safe-directory: true
+2026-11-23T21:06:57.2135854Z   allow-unsafe-pr-checkout: false
+2026-11-23T21:06:57.2136914Z ##[endgroup]
+2026-11-23T21:06:59.9244495Z Syncing repository: BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:06:59.9246103Z ##[group]Getting Git version info
+2026-11-23T21:06:59.9246926Z Working directory is '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01'
+2026-11-23T21:06:59.9247941Z [command]/usr/bin/git version
+2026-11-23T21:06:59.9265164Z git version 2.56.1
+2026-11-23T21:06:59.9278083Z ##[endgroup]
+2026-11-23T21:06:59.9288940Z Temporarily overriding HOME='/home/runner/work/_temp/4a801f7a-e671-4d99-a09c-e3d5fd8ef02a' before making global git config changes
+2026-11-23T21:06:59.9290109Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:06:59.9292815Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:06:59.9764853Z Deleting the contents of '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01'
+2026-11-23T21:06:59.9777770Z ##[group]Initializing the repository
+2026-11-23T21:06:59.9783420Z [command]/usr/bin/git init /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:07:00.0652016Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-23T21:07:00.0652812Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-23T21:07:00.0653597Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-23T21:07:00.0654138Z hint: call:
+2026-11-23T21:07:00.0654399Z hint:
+2026-11-23T21:07:00.0654768Z hint: 	git config --global init.defaultBranch <name>
+2026-11-23T21:07:00.0655111Z hint:
+2026-11-23T21:07:00.0655441Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-23T21:07:00.0655953Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-23T21:07:00.0656394Z hint:
+2026-11-23T21:07:00.0656656Z hint: 	git branch -m <name>
+2026-11-23T21:07:00.0656919Z hint:
+2026-11-23T21:07:00.0657283Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-23T21:07:00.0674668Z Initialized empty Git repository in /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01/.git/
+2026-11-23T21:07:00.0683825Z [command]/usr/bin/git remote add origin https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:07:00.0747478Z ##[endgroup]
+2026-11-23T21:07:00.0747992Z ##[group]Disabling automatic garbage collection
+2026-11-23T21:07:00.0750488Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-23T21:07:00.0771846Z ##[endgroup]
+2026-11-23T21:07:00.0772334Z ##[group]Setting up auth
+2026-11-23T21:07:00.0776882Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:07:00.0798188Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:07:00.5371183Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:07:00.5395025Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:07:00.5573931Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:07:00.5595798Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-23T21:07:00.5770256Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-23T21:07:00.5795066Z ##[endgroup]
+2026-11-23T21:07:00.5795503Z ##[group]Fetching the repository
+2026-11-23T21:07:00.5800635Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin +0243ed0ea29d8acb9a00daafaadca9c5f726cf46:refs/remotes/origin/ci-backfill/0243ed0
+2026-11-23T21:07:01.1456772Z From https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:07:01.1458568Z  * [new ref]         0243ed0ea29d8acb9a00daafaadca9c5f726cf46 -> origin/ci-backfill/0243ed0
+2026-11-23T21:07:01.1460193Z ##[endgroup]
+2026-11-23T21:07:01.1460819Z ##[group]Determining the checkout info
+2026-11-23T21:07:01.1462839Z ##[endgroup]
+2026-11-23T21:07:01.1463796Z ##[group]Setting up sparse checkout
+2026-11-23T21:07:01.1468405Z [command]/usr/bin/git sparse-checkout set two_part
+2026-11-23T21:07:01.1528909Z ##[endgroup]
+2026-11-23T21:07:01.1529357Z ##[group]Checking out the ref
+2026-11-23T21:07:01.1531768Z [command]/usr/bin/git checkout --progress --force -B ci-backfill/0243ed0 refs/remotes/origin/ci-backfill/0243ed0
+2026-11-23T21:07:01.4709994Z Switched to a new branch 'ci-backfill/0243ed0'
+2026-11-23T21:07:01.4718267Z branch 'ci-backfill/0243ed0' set up to track 'origin/ci-backfill/0243ed0'.
+2026-11-23T21:07:01.4724877Z ##[endgroup]
+2026-11-23T21:07:01.4773791Z [command]/usr/bin/git log -1 --format=%H
+2026-11-23T21:07:01.4793077Z 0243ed0ea29d8acb9a00daafaadca9c5f726cf46
+
+===== build/3_Run xu-cheng_latex-action@v3.txt
+﻿2026-11-23T21:07:01.5002220Z ##[group]Run xu-cheng/latex-action@v3
+2026-11-23T21:07:01.5002554Z with:
+2026-11-23T21:07:01.5002809Z   root_file: tether_two_part.tex
+2026-11-23T21:07:01.5003483Z   working_directory: two_part
+2026-11-23T21:07:01.5003754Z   work_in_root_file_dir: false
+2026-11-23T21:07:01.5004005Z   continue_on_error: false
+2026-11-23T21:07:01.5004315Z   compiler: latexmk
+2026-11-23T21:07:01.5004668Z   args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+2026-11-23T21:07:01.5005001Z   latexmk_shell_escape: false
+2026-11-23T21:07:01.5005454Z   latexmk_use_lualatex: false
+2026-11-23T21:07:01.5005697Z   latexmk_use_xelatex: false
+2026-11-23T21:07:01.5006017Z ##[endgroup]
+2026-11-23T21:07:01.5058772Z ##[start-action display=Run "${GITHUB_ACTION_PATH}/action.sh";id=__xu-cheng_latex-action.__run]
+2026-11-23T21:07:01.5090478Z ##[group]Run "${GITHUB_ACTION_PATH}/action.sh"
+2026-11-23T21:07:01.5090929Z [36;1m"${GITHUB_ACTION_PATH}/action.sh"[0m
+2026-11-23T21:07:01.5114113Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-23T21:07:01.5114591Z env:
+2026-11-23T21:07:01.5114808Z   INPUT_TEXLIVE_VERSION: 
+2026-11-23T21:07:01.5115076Z   INPUT_DOCKER_IMAGE: 
+2026-11-23T21:07:01.5115318Z   INPUT_ROOT_FILE: tether_two_part.tex
+2026-11-23T21:07:01.5115620Z   INPUT_WORKING_DIRECTORY: two_part
+2026-11-23T21:07:01.5115887Z   INPUT_WORK_IN_ROOT_FILE_DIR: false
+2026-11-23T21:07:01.5116144Z   INPUT_CONTINUE_ON_ERROR: false
+2026-11-23T21:07:01.5116411Z   INPUT_COMPILER: latexmk
+2026-11-23T21:07:01.5116729Z   INPUT_ARGS: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+2026-11-23T21:07:01.5117051Z   INPUT_EXTRA_SYSTEM_PACKAGES: 
+2026-11-23T21:07:01.5117325Z   INPUT_EXTRA_FONTS: 
+2026-11-23T21:07:01.5117540Z   INPUT_PRE_COMPILE: 
+2026-11-23T21:07:01.5117803Z   INPUT_POST_COMPILE: 
+2026-11-23T21:07:01.5118034Z   INPUT_LATEXMK_SHELL_ESCAPE: false
+2026-11-23T21:07:01.5118276Z   INPUT_LATEXMK_USE_LUALATEX: false
+2026-11-23T21:07:01.5118666Z   INPUT_LATEXMK_USE_XELATEX: false
+2026-11-23T21:07:01.5118902Z ##[endgroup]
+2026-11-23T21:07:01.5239513Z ::stop-commands::***
+2026-11-23T21:07:01.5247459Z [1;34m'docker' 'run' '--rm' '-e' 'BIBINPUTS' '-e' 'BSTINPUTS' '-e' 'MFINPUTS' '-e' 'TEXINPUTS' '-e' 'TFMFONTS' '-e' 'HOME' '-e' 'INPUT_ROOT_FILE' '-e' 'INPUT_WORKING_DIRECTORY' '-e' 'INPUT_WORK_IN_ROOT_FILE_DIR' '-e' 'INPUT_CONTINUE_ON_ERROR' '-e' 'INPUT_COMPILER' '-e' 'INPUT_ARGS' '-e' 'INPUT_EXTRA_SYSTEM_PACKAGES' '-e' 'INPUT_EXTRA_FONTS' '-e' 'INPUT_PRE_COMPILE' '-e' 'INPUT_POST_COMPILE' '-e' 'INPUT_LATEXMK_SHELL_ESCAPE' '-e' 'INPUT_LATEXMK_USE_LUALATEX' '-e' 'INPUT_LATEXMK_USE_XELATEX' '-e' 'INPUT_TLMGR_REPO' '-e' 'GITHUB_JOB' '-e' 'GITHUB_REF' '-e' 'GITHUB_SHA' '-e' 'GITHUB_REPOSITORY' '-e' 'GITHUB_REPOSITORY_OWNER' '-e' 'GITHUB_REPOSITORY_OWNER_ID' '-e' 'GITHUB_RUN_ID' '-e' 'GITHUB_RUN_NUMBER' '-e' 'GITHUB_RETENTION_DAYS' '-e' 'GITHUB_RUN_ATTEMPT' '-e' 'GITHUB_REPOSITORY_ID' '-e' 'GITHUB_ACTOR_ID' '-e' 'GITHUB_ACTOR' '-e' 'GITHUB_TRIGGERING_ACTOR' '-e' 'GITHUB_WORKFLOW' '-e' 'GITHUB_HEAD_REF' '-e' 'GITHUB_BASE_REF' '-e' 'GITHUB_EVENT_NAME' '-e' 'GITHUB_SERVER_URL' '-e' 'GITHUB_API_URL' '-e' 'GITHUB_GRAPHQL_URL' '-e' 'GITHUB_REF_NAME' '-e' 'GITHUB_REF_PROTECTED' '-e' 'GITHUB_REF_TYPE' '-e' 'GITHUB_WORKFLOW_REF' '-e' 'GITHUB_WORKFLOW_SHA' '-e' 'GITHUB_WORKSPACE' '-e' 'GITHUB_ACTION' '-e' 'GITHUB_EVENT_PATH' '-e' 'GITHUB_ACTION_REPOSITORY' '-e' 'GITHUB_ACTION_REF' '-e' 'GITHUB_PATH' '-e' 'GITHUB_ENV' '-e' 'GITHUB_STEP_SUMMARY' '-e' 'GITHUB_STATE' '-e' 'GITHUB_OUTPUT' '-e' 'RUNNER_OS' '-e' 'RUNNER_ARCH' '-e' 'RUNNER_NAME' '-e' 'RUNNER_ENVIRONMENT' '-e' 'RUNNER_TOOL_CACHE' '-e' 'RUNNER_TEMP' '-e' 'RUNNER_WORKSPACE' '-e' 'ACTIONS_RUNTIME_URL' '-e' 'ACTIONS_RUNTIME_TOKEN' '-e' 'ACTIONS_CACHE_URL' '-e' 'GITHUB_ACTIONS=true' '-e' 'CI=true' '-v' '/var/run/docker.sock:/var/run/docker.sock' '-v' '/home/runner:/home/runner' '-v' '/home/runner/work/_temp/_runner_file_commands/set_env_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/set_env_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/_temp/_runner_file_commands/set_output_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/set_output_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/_temp/_runner_file_commands/step_summary_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/step_summary_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/_temp/_runner_file_commands/add_path_aa891c47-78f3-4d05-a66e-8a4d4f7d4919:/home/runner/work/_temp/_runner_file_commands/add_path_aa891c47-78f3-4d05-a66e-8a4d4f7d4919' '-v' '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01:/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01' '-v' '/home/runner/work/_actions/xu-cheng/latex-action/v3/entrypoint.sh:/entrypoint.sh' '-w' '/home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01' '--entrypoint' '/entrypoint.sh' 'ghcr.io/xu-cheng/texlive-full:latest'[0m
+2026-11-23T21:07:01.5254710Z ::***::
+2026-11-23T21:07:04.0245272Z Unable to find image 'ghcr.io/xu-cheng/texlive-full:latest' locally
+2026-11-23T21:07:04.5510428Z latest: Pulling from xu-cheng/texlive-full
+2026-11-23T21:07:05.1270486Z 44136fa355b3: Already exists
+2026-11-23T21:07:05.1475745Z 8c7bdee3f91f: Pulling fs layer
+2026-11-23T21:07:05.1479805Z a4d366ca9d39: Pulling fs layer
+2026-11-23T21:07:05.1480534Z 7e14dd475591: Pulling fs layer
+2026-11-23T21:07:05.1480967Z 3ce7d9dd60f0: Pulling fs layer
+2026-11-23T21:07:05.3272279Z 6ee87d171816: Download complete
+2026-11-23T21:07:05.4275318Z 3ce7d9dd60f0: Download complete
+2026-11-23T21:07:05.4275996Z 7e14dd475591: Download complete
+2026-11-23T21:07:05.5277958Z a4d366ca9d39: Download complete
+2026-11-23T21:07:05.6283302Z 3ce7d9dd60f0: Pull complete
+2026-11-23T21:07:05.6288962Z 7e14dd475591: Pull complete
+2026-11-23T21:07:05.6296725Z a4d366ca9d39: Pull complete
+2026-11-23T21:07:58.5272198Z 8c7bdee3f91f: Download complete
+2026-11-23T21:08:22.1908488Z 8c7bdee3f91f: Pull complete
+2026-11-23T21:08:22.1909126Z Digest: sha256:c06416ebbc69c8e90e07d1f1a6f7a3f9b334e773daa3543ce879ea533317c3a7
+2026-11-23T21:08:22.1909878Z Status: Downloaded newer image for ghcr.io/xu-cheng/texlive-full:latest
+2026-11-23T21:08:31.4586340Z [1;34mCompile tether_two_part.tex[0m
+2026-11-23T21:08:31.5306183Z Rc files read (in order):
+2026-11-23T21:08:31.5306629Z   NONE
+2026-11-23T21:08:31.5307103Z Latexmk: This is Latexmk, John Collins, 9 March 2026. Version 4.88.
+2026-11-23T21:08:31.5326526Z No existing .aux file, so I'll make a simple one, and require run of *latex.
+2026-11-23T21:08:31.5327212Z Latexmk: applying rule 'pdflatex'...
+2026-11-23T21:08:31.5327531Z Rule 'pdflatex':  Reasons for rerun
+2026-11-23T21:08:31.5327780Z Category 'other':
+2026-11-23T21:08:31.5328073Z   Rerun of 'pdflatex' forced or previously required:
+2026-11-23T21:08:31.5328375Z     Reason or flag: 'Initial setup'
+2026-11-23T21:08:31.5328557Z 
+2026-11-23T21:08:31.5328658Z ------------
+2026-11-23T21:08:31.5328934Z Run number 1 of rule 'pdflatex'
+2026-11-23T21:08:31.5329166Z ------------
+2026-11-23T21:08:31.5329386Z ------------
+2026-11-23T21:08:31.5329792Z Running 'pdflatex  -file-line-error -halt-on-error -interaction=nonstopmode -recorder  "tether_two_part.tex"'
+2026-11-23T21:08:31.5330207Z ------------
+2026-11-23T21:08:31.6141088Z This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex)
+2026-11-23T21:08:31.6142469Z  restricted \write18 enabled.
+2026-11-23T21:08:31.6673299Z entering extended mode
+2026-11-23T21:08:31.6686041Z (./tether_two_part.tex
+2026-11-23T21:08:31.6686610Z LaTeX2e <2026-06-01>
+2026-11-23T21:08:31.6690800Z L3 programming layer <2026-09-09>
+2026-11-23T21:08:31.6714841Z (/opt/texlive/texdir/texmf-dist/tex/latex/amscls/amsart.cls
+2026-11-23T21:08:31.6715574Z Document Class: amsart 2020/05/29 v2.20.6
+2026-11-23T21:08:31.6729143Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsmath.sty
+2026-11-23T21:08:31.6729800Z For additional information on amsmath, use the `?' option.
+2026-11-23T21:08:31.6739221Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amstext.sty
+2026-11-23T21:08:31.6756406Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsgen.sty))
+2026-11-23T21:08:31.6769857Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+2026-11-23T21:08:31.6818646Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsopn.sty))
+2026-11-23T21:08:31.6829914Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:31.6888966Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+2026-11-23T21:08:31.6919146Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+2026-11-23T21:08:31.6934834Z (/opt/texlive/texdir/texmf-dist/tex/latex/booktabs/booktabs.sty)
+2026-11-23T21:08:31.6943782Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hyperref.sty
+2026-11-23T21:08:31.6957409Z (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/iftex.sty)
+2026-11-23T21:08:31.6970761Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/keyval.sty)
+2026-11-23T21:08:31.6986815Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+2026-11-23T21:08:31.7000876Z (/opt/texlive/texdir/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+2026-11-23T21:08:31.7012285Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+2026-11-23T21:08:31.7030021Z (/opt/texlive/texdir/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+2026-11-23T21:08:31.7042183Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+2026-11-23T21:08:31.7067492Z (/opt/texlive/texdir/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+2026-11-23T21:08:31.7100599Z (/opt/texlive/texdir/texmf-dist/tex/latex/hycolor/hycolor.sty)
+2026-11-23T21:08:31.7110130Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/nameref.sty
+2026-11-23T21:08:31.7130414Z (/opt/texlive/texdir/texmf-dist/tex/latex/refcount/refcount.sty)
+2026-11-23T21:08:31.7140920Z (/opt/texlive/texdir/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+2026-11-23T21:08:31.7212793Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+2026-11-23T21:08:31.7243850Z (/opt/texlive/texdir/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+2026-11-23T21:08:31.7266897Z (/opt/texlive/texdir/texmf-dist/tex/generic/stringenc/stringenc.sty)
+2026-11-23T21:08:31.7292029Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/pd1enc.def)
+2026-11-23T21:08:31.7312330Z (/opt/texlive/texdir/texmf-dist/tex/generic/intcalc/intcalc.sty)
+2026-11-23T21:08:31.7431213Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/puenc.def)
+2026-11-23T21:08:31.7449677Z (/opt/texlive/texdir/texmf-dist/tex/latex/url/url.sty)
+2026-11-23T21:08:31.7464456Z (/opt/texlive/texdir/texmf-dist/tex/generic/bitset/bitset.sty
+2026-11-23T21:08:31.7560495Z (/opt/texlive/texdir/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)))
+2026-11-23T21:08:31.7580893Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hpdftex.def
+2026-11-23T21:08:31.7610322Z (/opt/texlive/texdir/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+2026-11-23T21:08:31.7718751Z (/opt/texlive/texdir/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+2026-11-23T21:08:31.7726728Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def)
+2026-11-23T21:08:31.7739568Z (./tether_two_part.aux)
+2026-11-23T21:08:31.7745298Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:31.7863474Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsb.fd)
+2026-11-23T21:08:31.7863984Z Overfull \hbox (19.75905pt too wide) in paragraph at lines 15--26
+2026-11-23T21:08:31.7864384Z \OT1/cmr/m/n/9 sym-plec-tic tether''. Part I places the con-struc-tion on the E
+2026-11-23T21:08:31.7864919Z uler--Poincar^^Se/Lie--
+2026-11-23T21:08:31.7873632Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/ueuf.fd)
+2026-11-23T21:08:31.7874147Z 
+2026-11-23T21:08:31.7874422Z LaTeX Warning: Reference `lem:sym' on page 1 undefined on input line 36.
+2026-11-23T21:08:31.7874815Z 
+2026-11-23T21:08:31.7874820Z 
+2026-11-23T21:08:31.7875047Z Underfull \hbox (badness 5578) in paragraph at lines 36--37
+2026-11-23T21:08:31.7875834Z []$\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 ^^T [] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/
+2026-11-23T21:08:31.7876368Z 10 !\OMS/cmsy/m/n/10 j[]\OML/cmm/m/it/10 ^^Nu \OMS/cmsy/m/n/10 ^^A \OML/cmm/m/i
+2026-11-23T21:08:31.7876865Z t/10 ^^Nv$ \OT1/cmr/m/n/10 is sym-met-ric
+2026-11-23T21:08:31.7877203Z 
+2026-11-23T21:08:31.7877439Z Underfull \hbox (badness 1859) in paragraph at lines 39--39
+2026-11-23T21:08:31.7877912Z []\OT1/cmr/m/n/10 Proved (for
+2026-11-23T21:08:31.7878104Z 
+2026-11-23T21:08:31.7878376Z Underfull \hbox (badness 10000) in paragraph at lines 39--39
+2026-11-23T21:08:31.7878843Z \OT1/cmr/m/n/10 the lo-cal
+2026-11-23T21:08:31.7879079Z 
+2026-11-23T21:08:31.7879300Z LaTeX Warning: Reference `prop:inv' on page 1 undefined on input line 39.
+2026-11-23T21:08:31.7879802Z 
+2026-11-23T21:08:31.7879807Z 
+2026-11-23T21:08:31.7880037Z Underfull \hbox (badness 1400) in paragraph at lines 39--40
+2026-11-23T21:08:31.7880571Z \OML/cmm/m/it/10 K[]$ \OT1/cmr/m/n/10 form with-out ex-tra ar-gu-
+2026-11-23T21:08:31.7880860Z 
+2026-11-23T21:08:31.7881102Z Underfull \hbox (badness 10000) in paragraph at lines 40--40
+2026-11-23T21:08:31.7881541Z []\OT1/cmr/m/n/10 Uniqueness/minimality,
+2026-11-23T21:08:31.7881788Z 
+2026-11-23T21:08:31.7881946Z Underfull \hbox (badness 10000) in paragraph at lines 41--41
+2026-11-23T21:08:31.7882462Z []\OT1/cmr/m/n/10 False as
+2026-11-23T21:08:31.7882638Z 
+2026-11-23T21:08:31.7882850Z Underfull \hbox (badness 1342) in paragraph at lines 42--42
+2026-11-23T21:08:31.7883569Z []\OT1/cmr/m/n/10 Gap (cir-cu-
+2026-11-23T21:08:31.7883801Z 
+2026-11-23T21:08:31.7889248Z Underfull \hbox (badness 10000) in paragraph at lines 43--44
+2026-11-23T21:08:31.7889845Z \OT1/cmr/m/n/10 oth-er-wise $[]$ branch (still
+2026-11-23T21:08:31.7890091Z 
+2026-11-23T21:08:31.7890291Z Underfull \hbox (badness 10000) in paragraph at lines 45--46
+2026-11-23T21:08:31.7890711Z []\OT1/cmr/m/n/10 Brezis--Gallou^^Set/Kozono--
+2026-11-23T21:08:31.7890912Z 
+2026-11-23T21:08:31.7891086Z LaTeX Warning: Reference `thm:cond' on page 1 undefined on input line 46.
+2026-11-23T21:08:31.7891364Z 
+2026-11-23T21:08:31.7891368Z 
+2026-11-23T21:08:31.7891528Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:31.7891864Z []\OT1/cmr/m/n/10 Proved
+2026-11-23T21:08:31.7892003Z 
+2026-11-23T21:08:31.7892156Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:31.7892453Z \OT1/cmr/m/n/10 (con-di-
+2026-11-23T21:08:31.7892613Z 
+2026-11-23T21:08:31.7892778Z LaTeX Warning: Reference `thm:model' on page 1 undefined on input line 47.
+2026-11-23T21:08:31.7893205Z 
+2026-11-23T21:08:31.7893212Z 
+2026-11-23T21:08:31.7893390Z Underfull \hbox (badness 10000) in paragraph at lines 47--48
+2026-11-23T21:08:31.7893745Z []\OT1/cmr/m/n/10 Maximum prin-ci-ple; mod-i-fied
+2026-11-23T21:08:31.7893923Z 
+2026-11-23T21:08:31.7894093Z Overfull \hbox (19.96854pt too wide) in paragraph at lines 31--50
+2026-11-23T21:08:31.7894393Z  [] 
+2026-11-23T21:08:31.7894517Z 
+2026-11-23T21:08:31.7894698Z Underfull \vbox (badness 10000) has occurred while \output is active [1{/opt/te
+2026-11-23T21:08:31.8627520Z xlive/texdir/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+2026-11-23T21:08:31.8627933Z 
+2026-11-23T21:08:31.8628437Z LaTeX Warning: Citation `Poincare1901' on page 2 undefined on input line 55.
+2026-11-23T21:08:31.8628854Z 
+2026-11-23T21:08:31.8628859Z 
+2026-11-23T21:08:31.8629125Z LaTeX Warning: Citation `Arnold1966' on page 2 undefined on input line 56.
+2026-11-23T21:08:31.8629452Z 
+2026-11-23T21:08:31.8629456Z 
+2026-11-23T21:08:31.8629712Z LaTeX Warning: Citation `HMR1998' on page 2 undefined on input line 57.
+2026-11-23T21:08:31.8630167Z 
+2026-11-23T21:08:31.8630398Z 
+2026-11-23T21:08:31.8630651Z LaTeX Warning: Citation `MarsdenRatiu' on page 2 undefined on input line 57.
+2026-11-23T21:08:31.8631050Z 
+2026-11-23T21:08:31.8714251Z [2]
+2026-11-23T21:08:31.8714475Z 
+2026-11-23T21:08:31.8714963Z LaTeX Warning: Citation `MarsdenWeinstein1983' on page 3 undefined on input lin
+2026-11-23T21:08:31.8715468Z e 62.
+2026-11-23T21:08:31.8715817Z 
+2026-11-23T21:08:31.8715823Z 
+2026-11-23T21:08:31.8716073Z LaTeX Warning: Citation `Morrison1986' on page 3 undefined on input line 73.
+2026-11-23T21:08:31.8716510Z 
+2026-11-23T21:08:31.8716515Z 
+2026-11-23T21:08:31.8716808Z LaTeX Warning: Citation `Morrison1986' on page 3 undefined on input line 98.
+2026-11-23T21:08:31.8717176Z 
+2026-11-23T21:08:31.8717181Z 
+2026-11-23T21:08:31.8717472Z LaTeX Warning: Citation `Grmela' on page 3 undefined on input line 98.
+2026-11-23T21:08:31.8717860Z 
+2026-11-23T21:08:31.8813902Z [3]
+2026-11-23T21:08:31.8814139Z 
+2026-11-23T21:08:31.8814357Z LaTeX Warning: Citation `Morrison1986' on page 4 undefined on input line 103.
+2026-11-23T21:08:31.8814656Z 
+2026-11-23T21:08:31.8814661Z 
+2026-11-23T21:08:31.8814951Z LaTeX Warning: Citation `Kaufman1984' on page 4 undefined on input line 103.
+2026-11-23T21:08:31.8815186Z 
+2026-11-23T21:08:31.8815189Z 
+2026-11-23T21:08:31.8815365Z LaTeX Warning: Citation `Grmela' on page 4 undefined on input line 103.
+2026-11-23T21:08:31.8815611Z 
+2026-11-23T21:08:31.8815614Z 
+2026-11-23T21:08:31.8815756Z Overfull \hbox (2.0049pt too wide) in paragraph at lines 103--106
+2026-11-23T21:08:31.8816172Z []\OT1/cmr/m/n/10.95 Following Mor-ri-son [[]], Kauf-man [[]] and Grmela--[]Ott
+2026-11-23T21:08:31.8816609Z inger [[]], a metriplec-
+2026-11-23T21:08:31.8816772Z 
+2026-11-23T21:08:31.8817029Z LaTeX Warning: Reference `prop:degen' on page 4 undefined on input line 119.
+2026-11-23T21:08:31.8817309Z 
+2026-11-23T21:08:31.8817345Z 
+2026-11-23T21:08:31.8817508Z LaTeX Warning: Reference `eq:model' on page 4 undefined on input line 119.
+2026-11-23T21:08:31.8817770Z 
+2026-11-23T21:08:31.8874089Z [4]
+2026-11-23T21:08:31.8874426Z 
+2026-11-23T21:08:31.8874754Z LaTeX Warning: Reference `lem:sym' on page 5 undefined on input line 132.
+2026-11-23T21:08:31.8875084Z 
+2026-11-23T21:08:31.8875089Z 
+2026-11-23T21:08:31.8875358Z LaTeX Warning: Reference `prop:degen' on page 5 undefined on input line 132.
+2026-11-23T21:08:31.8875704Z 
+2026-11-23T21:08:31.8875709Z 
+2026-11-23T21:08:31.8875963Z LaTeX Warning: Reference `thm:cond' on page 5 undefined on input line 137.
+2026-11-23T21:08:31.8876310Z 
+2026-11-23T21:08:31.8876315Z 
+2026-11-23T21:08:31.8876536Z LaTeX Warning: Reference `eq:model' on page 5 undefined on input line 137.
+2026-11-23T21:08:31.8876849Z 
+2026-11-23T21:08:31.8876854Z 
+2026-11-23T21:08:31.8877109Z LaTeX Warning: Reference `thm:model' on page 5 undefined on input line 137.
+2026-11-23T21:08:31.8877474Z 
+2026-11-23T21:08:31.8877478Z 
+2026-11-23T21:08:31.8877739Z LaTeX Warning: Citation `BKM1984' on page 5 undefined on input line 144.
+2026-11-23T21:08:31.8878078Z 
+2026-11-23T21:08:31.8878090Z 
+2026-11-23T21:08:31.8878336Z LaTeX Warning: Citation `KozonoTaniuchi' on page 5 undefined on input line 144.
+2026-11-23T21:08:31.8878730Z 
+2026-11-23T21:08:31.8878735Z 
+2026-11-23T21:08:31.8878739Z 
+2026-11-23T21:08:31.8878997Z LaTeX Warning: Citation `BKM1984' on page 5 undefined on input line 156.
+2026-11-23T21:08:31.8879275Z 
+2026-11-23T21:08:31.8979644Z [5]
+2026-11-23T21:08:31.8979994Z 
+2026-11-23T21:08:31.8980445Z LaTeX Warning: Reference `eq:model' on page 6 undefined on input line 165.
+2026-11-23T21:08:31.8980934Z 
+2026-11-23T21:08:31.8980999Z 
+2026-11-23T21:08:31.8981310Z LaTeX Warning: Citation `CaiJiu' on page 6 undefined on input line 169.
+2026-11-23T21:08:31.8981695Z 
+2026-11-23T21:08:31.8981744Z 
+2026-11-23T21:08:31.8982086Z LaTeX Warning: Reference `eq:model' on page 6 undefined on input line 171.
+2026-11-23T21:08:31.8982649Z 
+2026-11-23T21:08:31.8982681Z 
+2026-11-23T21:08:31.8983340Z Overfull \hbox (125.50739pt too wide) in paragraph at lines 183--192
+2026-11-23T21:08:31.8983755Z  [] 
+2026-11-23T21:08:31.9011862Z [6]
+2026-11-23T21:08:31.9012108Z 
+2026-11-23T21:08:31.9012399Z LaTeX Warning: Reference `thm:model' on page 7 undefined on input line 193.
+2026-11-23T21:08:31.9012811Z 
+2026-11-23T21:08:31.9012816Z 
+2026-11-23T21:08:31.9013203Z Overfull \hbox (20.02629pt too wide) in paragraph at lines 193--194
+2026-11-23T21:08:31.9013923Z \OT1/cmr/m/n/10.95 log-Sobolev/Kozono--Taniuchi in-equal-ity, Beale--Kato--Majd
+2026-11-23T21:08:31.9014716Z a, par-a-bolic smooth-
+2026-11-23T21:08:31.9031112Z [7] (./tether_two_part.aux)
+2026-11-23T21:08:31.9031396Z 
+2026-11-23T21:08:31.9031562Z LaTeX Warning: There were undefined references.
+2026-11-23T21:08:31.9031859Z 
+2026-11-23T21:08:31.9031864Z 
+2026-11-23T21:08:31.9032161Z LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+2026-11-23T21:08:31.9032528Z 
+2026-11-23T21:08:31.9032532Z 
+2026-11-23T21:08:31.9032841Z Package rerunfilecheck Warning: File `tether_two_part.out' has changed.
+2026-11-23T21:08:31.9033588Z (rerunfilecheck)                Rerun to get outlines right
+2026-11-23T21:08:31.9034119Z (rerunfilecheck)                or use package `bookmark'.
+2026-11-23T21:08:31.9034426Z 
+2026-11-23T21:08:31.9034536Z  )
+2026-11-23T21:08:31.9034980Z (see the transcript file for additional information)</opt/texlive/texdir/texmf-
+2026-11-23T21:08:31.9042079Z dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/texlive/texdir/texmf-dist/
+2026-11-23T21:08:31.9048436Z fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt/texlive/texdir/texmf-dist/fonts/
+2026-11-23T21:08:31.9056189Z type1/public/amsfonts/cm/cmcsc10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:31.9067437Z 1/public/amsfonts/cm/cmex10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/pub
+2026-11-23T21:08:31.9075243Z lic/amsfonts/cm/cmmi10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/a
+2026-11-23T21:08:31.9081102Z msfonts/cm/cmmi5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfont
+2026-11-23T21:08:31.9086431Z s/cm/cmmi6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/c
+2026-11-23T21:08:31.9091586Z mmi7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.p
+2026-11-23T21:08:31.9102624Z fb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></o
+2026-11-23T21:08:31.9113425Z pt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/tex
+2026-11-23T21:08:31.9118821Z live/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/texlive/te
+2026-11-23T21:08:31.9124346Z xdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:31.9130987Z xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/texlive/texdir/texmf-dis
+2026-11-23T21:08:31.9140962Z t/fonts/type1/public/amsfonts/cm/cmr9.pfb></opt/texlive/texdir/texmf-dist/fonts
+2026-11-23T21:08:31.9147406Z /type1/public/amsfonts/cm/cmsy10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:31.9152823Z 1/public/amsfonts/cm/cmsy5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/publ
+2026-11-23T21:08:31.9158667Z ic/amsfonts/cm/cmsy6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/ams
+2026-11-23T21:08:31.9164027Z fonts/cm/cmsy7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/
+2026-11-23T21:08:31.9169811Z cm/cmsy8.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+2026-11-23T21:08:31.9175609Z y9.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pf
+2026-11-23T21:08:31.9190763Z b></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></op
+2026-11-23T21:08:31.9196969Z t/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></opt/texl
+2026-11-23T21:08:31.9204128Z ive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></opt/texlive/t
+2026-11-23T21:08:31.9209934Z exdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></opt/texlive/texdir/
+2026-11-23T21:08:31.9214004Z texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:31.9217340Z xmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:31.9223256Z -dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:31.9354087Z -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+2026-11-23T21:08:31.9354508Z Output written on tether_two_part.pdf (7 pages, 366917 bytes).
+2026-11-23T21:08:31.9354987Z Transcript written on tether_two_part.log.
+2026-11-23T21:08:31.9372868Z Latexmk: Getting log file 'tether_two_part.log'
+2026-11-23T21:08:31.9382073Z Latexmk: Examining 'tether_two_part.fls'
+2026-11-23T21:08:31.9405320Z Latexmk: Examining 'tether_two_part.log'
+2026-11-23T21:08:31.9640248Z Latexmk: References changed.
+2026-11-23T21:08:31.9641218Z Latexmk: References changed.
+2026-11-23T21:08:31.9884067Z Latexmk: Log file says output to 'tether_two_part.pdf'
+2026-11-23T21:08:32.0111932Z Latexmk: applying rule 'pdflatex'...
+2026-11-23T21:08:32.0112445Z Rule 'pdflatex':  Reasons for rerun
+2026-11-23T21:08:32.0113172Z Changed files or newly in use/created:
+2026-11-23T21:08:32.0113659Z   tether_two_part.aux
+2026-11-23T21:08:32.0113943Z   tether_two_part.out
+2026-11-23T21:08:32.0114136Z 
+2026-11-23T21:08:32.0114248Z ------------
+2026-11-23T21:08:32.0114537Z Run number 2 of rule 'pdflatex'
+2026-11-23T21:08:32.0114805Z ------------
+2026-11-23T21:08:32.0115606Z ------------
+2026-11-23T21:08:32.0116104Z Running 'pdflatex  -file-line-error -halt-on-error -interaction=nonstopmode -recorder  "tether_two_part.tex"'
+2026-11-23T21:08:32.0116629Z ------------
+2026-11-23T21:08:32.0792043Z This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex)
+2026-11-23T21:08:32.0792512Z  restricted \write18 enabled.
+2026-11-23T21:08:32.1314533Z entering extended mode
+2026-11-23T21:08:32.1327591Z (./tether_two_part.tex
+2026-11-23T21:08:32.1328251Z LaTeX2e <2026-06-01>
+2026-11-23T21:08:32.1328612Z L3 programming layer <2026-09-09>
+2026-11-23T21:08:32.1354374Z (/opt/texlive/texdir/texmf-dist/tex/latex/amscls/amsart.cls
+2026-11-23T21:08:32.1355050Z Document Class: amsart 2020/05/29 v2.20.6
+2026-11-23T21:08:32.1367899Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsmath.sty
+2026-11-23T21:08:32.1368376Z For additional information on amsmath, use the `?' option.
+2026-11-23T21:08:32.1376616Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amstext.sty
+2026-11-23T21:08:32.1392847Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsgen.sty))
+2026-11-23T21:08:32.1407166Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+2026-11-23T21:08:32.1455905Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsopn.sty))
+2026-11-23T21:08:32.1466555Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:32.1522556Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+2026-11-23T21:08:32.1555201Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+2026-11-23T21:08:32.1570451Z (/opt/texlive/texdir/texmf-dist/tex/latex/booktabs/booktabs.sty)
+2026-11-23T21:08:32.1579245Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hyperref.sty
+2026-11-23T21:08:32.1593117Z (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/iftex.sty)
+2026-11-23T21:08:32.1606204Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/keyval.sty)
+2026-11-23T21:08:32.1621937Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+2026-11-23T21:08:32.1636231Z (/opt/texlive/texdir/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+2026-11-23T21:08:32.1646557Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+2026-11-23T21:08:32.1663919Z (/opt/texlive/texdir/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+2026-11-23T21:08:32.1675245Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+2026-11-23T21:08:32.1699757Z (/opt/texlive/texdir/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+2026-11-23T21:08:32.1732585Z (/opt/texlive/texdir/texmf-dist/tex/latex/hycolor/hycolor.sty)
+2026-11-23T21:08:32.1742340Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/nameref.sty
+2026-11-23T21:08:32.1762375Z (/opt/texlive/texdir/texmf-dist/tex/latex/refcount/refcount.sty)
+2026-11-23T21:08:32.1772380Z (/opt/texlive/texdir/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+2026-11-23T21:08:32.1843579Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+2026-11-23T21:08:32.1873387Z (/opt/texlive/texdir/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+2026-11-23T21:08:32.1896035Z (/opt/texlive/texdir/texmf-dist/tex/generic/stringenc/stringenc.sty)
+2026-11-23T21:08:32.1920898Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/pd1enc.def)
+2026-11-23T21:08:32.1940505Z (/opt/texlive/texdir/texmf-dist/tex/generic/intcalc/intcalc.sty)
+2026-11-23T21:08:32.2058417Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/puenc.def)
+2026-11-23T21:08:32.2077823Z (/opt/texlive/texdir/texmf-dist/tex/latex/url/url.sty)
+2026-11-23T21:08:32.2093203Z (/opt/texlive/texdir/texmf-dist/tex/generic/bitset/bitset.sty
+2026-11-23T21:08:32.2190611Z (/opt/texlive/texdir/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)))
+2026-11-23T21:08:32.2211289Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hpdftex.def
+2026-11-23T21:08:32.2239072Z (/opt/texlive/texdir/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+2026-11-23T21:08:32.2348151Z (/opt/texlive/texdir/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+2026-11-23T21:08:32.2357993Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def)
+2026-11-23T21:08:32.2372735Z (./tether_two_part.aux)
+2026-11-23T21:08:32.2377847Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-11-23T21:08:32.2395587Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsb.fd)
+2026-11-23T21:08:32.2501186Z (./tether_two_part.out) (./tether_two_part.out)
+2026-11-23T21:08:32.2501731Z Overfull \hbox (19.75905pt too wide) in paragraph at lines 15--26
+2026-11-23T21:08:32.2502161Z \OT1/cmr/m/n/9 sym-plec-tic tether''. Part I places the con-struc-tion on the E
+2026-11-23T21:08:32.2502520Z uler--Poincar^^Se/Lie--
+2026-11-23T21:08:32.2509015Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/ueuf.fd)
+2026-11-23T21:08:32.2509571Z Underfull \hbox (badness 5578) in paragraph at lines 36--37
+2026-11-23T21:08:32.2510177Z []$\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 ^^T [] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/
+2026-11-23T21:08:32.2510722Z 10 !\OMS/cmsy/m/n/10 j[]\OML/cmm/m/it/10 ^^Nu \OMS/cmsy/m/n/10 ^^A \OML/cmm/m/i
+2026-11-23T21:08:32.2511248Z t/10 ^^Nv$ \OT1/cmr/m/n/10 is sym-met-ric
+2026-11-23T21:08:32.2511547Z 
+2026-11-23T21:08:32.2512037Z Underfull \hbox (badness 1859) in paragraph at lines 39--39
+2026-11-23T21:08:32.2512423Z []\OT1/cmr/m/n/10 Proved (for
+2026-11-23T21:08:32.2512640Z 
+2026-11-23T21:08:32.2512786Z Underfull \hbox (badness 10000) in paragraph at lines 39--39
+2026-11-23T21:08:32.2513244Z \OT1/cmr/m/n/10 the lo-cal
+2026-11-23T21:08:32.2513420Z 
+2026-11-23T21:08:32.2513586Z Underfull \hbox (badness 1400) in paragraph at lines 39--40
+2026-11-23T21:08:32.2513976Z \OML/cmm/m/it/10 K[]$ \OT1/cmr/m/n/10 form with-out ex-tra ar-gu-
+2026-11-23T21:08:32.2514200Z 
+2026-11-23T21:08:32.2514332Z Underfull \hbox (badness 10000) in paragraph at lines 40--40
+2026-11-23T21:08:32.2514662Z []\OT1/cmr/m/n/10 Uniqueness/minimality,
+2026-11-23T21:08:32.2514837Z 
+2026-11-23T21:08:32.2514995Z Underfull \hbox (badness 10000) in paragraph at lines 41--41
+2026-11-23T21:08:32.2515296Z []\OT1/cmr/m/n/10 False as
+2026-11-23T21:08:32.2515451Z 
+2026-11-23T21:08:32.2515605Z Underfull \hbox (badness 1342) in paragraph at lines 42--42
+2026-11-23T21:08:32.2515908Z []\OT1/cmr/m/n/10 Gap (cir-cu-
+2026-11-23T21:08:32.2516073Z 
+2026-11-23T21:08:32.2516218Z Underfull \hbox (badness 10000) in paragraph at lines 43--44
+2026-11-23T21:08:32.2516541Z \OT1/cmr/m/n/10 oth-er-wise $[]$ branch (still
+2026-11-23T21:08:32.2516735Z 
+2026-11-23T21:08:32.2516892Z Underfull \hbox (badness 10000) in paragraph at lines 45--46
+2026-11-23T21:08:32.2522235Z []\OT1/cmr/m/n/10 Brezis--Gallou^^Set/Kozono--
+2026-11-23T21:08:32.2522618Z 
+2026-11-23T21:08:32.2522835Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:32.2523889Z []\OT1/cmr/m/n/10 Proved
+2026-11-23T21:08:32.2524347Z 
+2026-11-23T21:08:32.2524574Z Underfull \hbox (badness 10000) in paragraph at lines 46--46
+2026-11-23T21:08:32.2525040Z \OT1/cmr/m/n/10 (con-di-
+2026-11-23T21:08:32.2525260Z 
+2026-11-23T21:08:32.2525485Z Underfull \hbox (badness 10000) in paragraph at lines 47--48
+2026-11-23T21:08:32.2525976Z []\OT1/cmr/m/n/10 Maximum prin-ci-ple; mod-i-fied
+2026-11-23T21:08:32.2526388Z 
+2026-11-23T21:08:32.2526621Z Overfull \hbox (19.96854pt too wide) in paragraph at lines 31--50
+2026-11-23T21:08:32.2527099Z  [] 
+2026-11-23T21:08:32.2527237Z 
+2026-11-23T21:08:32.2527553Z Underfull \vbox (badness 10000) has occurred while \output is active [1{/opt/te
+2026-11-23T21:08:32.3455646Z xlive/texdir/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+2026-11-23T21:08:32.3456403Z Overfull \hbox (6.06569pt too wide) in paragraph at lines 103--106
+2026-11-23T21:08:32.3456985Z []\OT1/cmr/m/n/10.95 Following Mor-ri-son [[]], Kauf-man [[]] and Grmela--[]Ott
+2026-11-23T21:08:32.3457522Z inger [[]], a metriplec-
+2026-11-23T21:08:32.3620083Z [4] [5]
+2026-11-23T21:08:32.3620613Z Overfull \hbox (125.50739pt too wide) in paragraph at lines 183--192
+2026-11-23T21:08:32.3620975Z  [] 
+2026-11-23T21:08:32.3654928Z [6]
+2026-11-23T21:08:32.3655530Z Overfull \hbox (20.02629pt too wide) in paragraph at lines 193--194
+2026-11-23T21:08:32.3656178Z \OT1/cmr/m/n/10.95 log-Sobolev/Kozono--Taniuchi in-equal-ity, Beale--Kato--Majd
+2026-11-23T21:08:32.3656702Z a, par-a-bolic smooth-
+2026-11-23T21:08:32.3673603Z [7] (./tether_two_part.aux) )
+2026-11-23T21:08:32.3674248Z (see the transcript file for additional information)</opt/texlive/texdir/texmf-
+2026-11-23T21:08:32.3683732Z dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/texlive/texdir/texmf-dist/
+2026-11-23T21:08:32.3689633Z fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt/texlive/texdir/texmf-dist/fonts/
+2026-11-23T21:08:32.3697271Z type1/public/amsfonts/cm/cmcsc10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:32.3703076Z 1/public/amsfonts/cm/cmex10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/pub
+2026-11-23T21:08:32.3710298Z lic/amsfonts/cm/cmmi10.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/a
+2026-11-23T21:08:32.3716373Z msfonts/cm/cmmi5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfont
+2026-11-23T21:08:32.3721711Z s/cm/cmmi6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/c
+2026-11-23T21:08:32.3727115Z mmi7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.p
+2026-11-23T21:08:32.3738435Z fb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></o
+2026-11-23T21:08:32.3749292Z pt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/tex
+2026-11-23T21:08:32.3754739Z live/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/texlive/te
+2026-11-23T21:08:32.3760266Z xdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:32.3767360Z xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/texlive/texdir/texmf-dis
+2026-11-23T21:08:32.3777394Z t/fonts/type1/public/amsfonts/cm/cmr9.pfb></opt/texlive/texdir/texmf-dist/fonts
+2026-11-23T21:08:32.3783468Z /type1/public/amsfonts/cm/cmsy10.pfb></opt/texlive/texdir/texmf-dist/fonts/type
+2026-11-23T21:08:32.3790019Z 1/public/amsfonts/cm/cmsy5.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/publ
+2026-11-23T21:08:32.3795746Z ic/amsfonts/cm/cmsy6.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/ams
+2026-11-23T21:08:32.3801430Z fonts/cm/cmsy7.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/
+2026-11-23T21:08:32.3807896Z cm/cmsy8.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+2026-11-23T21:08:32.3813244Z y9.pfb></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pf
+2026-11-23T21:08:32.3828175Z b></opt/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></op
+2026-11-23T21:08:32.3834342Z t/texlive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></opt/texl
+2026-11-23T21:08:32.3840493Z ive/texdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></opt/texlive/t
+2026-11-23T21:08:32.3847137Z exdir/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></opt/texlive/texdir/
+2026-11-23T21:08:32.3850780Z texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></opt/texlive/texdir/te
+2026-11-23T21:08:32.3854437Z xmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:32.3860635Z -dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></opt/texlive/texdir/texmf
+2026-11-23T21:08:32.4004268Z -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+2026-11-23T21:08:32.4004834Z Output written on tether_two_part.pdf (7 pages, 369042 bytes).
+2026-11-23T21:08:32.4005383Z Transcript written on tether_two_part.log.
+2026-11-23T21:08:32.4023074Z Latexmk: Getting log file 'tether_two_part.log'
+2026-11-23T21:08:32.4031744Z Latexmk: Examining 'tether_two_part.fls'
+2026-11-23T21:08:32.4054016Z Latexmk: Examining 'tether_two_part.log'
+2026-11-23T21:08:32.4494200Z Latexmk: Log file says output to 'tether_two_part.pdf'
+2026-11-23T21:08:32.4543852Z Latexmk: All targets (tether_two_part.pdf) are up-to-date
+2026-11-23T21:08:32.4544195Z 
+2026-11-23T21:08:32.5152612Z ##[end-action id=__xu-cheng_latex-action.__run;outcome=success;conclusion=success;duration_ms=91009]
+
+===== build/4_Run actions_upload-artifact@v4.txt
+﻿2026-11-23T21:08:32.5207828Z ##[group]Run actions/upload-artifact@v4
+2026-11-23T21:08:32.5208119Z with:
+2026-11-23T21:08:32.5208346Z   name: tether_two_part
+2026-11-23T21:08:32.5208620Z   path: two_part/tether_two_part.pdf
+2026-11-23T21:08:32.5208896Z   if-no-files-found: warn
+2026-11-23T21:08:32.5209129Z   compression-level: 6
+2026-11-23T21:08:32.5209354Z   overwrite: false
+2026-11-23T21:08:32.5209585Z   include-hidden-files: false
+2026-11-23T21:08:32.5209840Z ##[endgroup]
+2026-11-23T21:08:32.6518371Z (node:2512) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-23T21:08:32.6519078Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-23T21:08:32.6551614Z With the provided path, there will be 1 file uploaded
+2026-11-23T21:08:32.6574343Z Artifact name is valid!
+2026-11-23T21:08:32.6574683Z Root directory input is valid!
+2026-11-23T21:08:33.0892656Z Beginning upload of artifact content to blob storage
+2026-11-23T21:08:33.2802670Z (node:2512) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-23T21:08:33.9260101Z Uploaded bytes 357614
+2026-11-23T21:08:34.0168503Z Finished uploading artifact content to blob storage!
+2026-11-23T21:08:34.0169440Z SHA256 digest of uploaded artifact zip is ebe96bc6b1816b2a25f312e2a4f54384558ac64c7411b87e8caf864dc5e7d2de
+2026-11-23T21:08:34.0169877Z Finalizing artifact upload
+2026-11-23T21:08:34.4228677Z Artifact tether_two_part.zip successfully finalized. Artifact ID 14863136722
+2026-11-23T21:08:34.4229526Z Artifact tether_two_part has been successfully uploaded! Final size is 357614 bytes. Artifact ID is 14863136722
+2026-11-23T21:08:34.4234429Z Artifact download URL: https://github.com/BenFrohman/frohmanian-tether-manuscript-2026-06-01/actions/runs/45266109564/artifacts/14863136722
+
+===== build/8_Post Run actions_checkout@v4.txt
+﻿2026-11-23T21:08:34.4390804Z Post job cleanup.
+2026-11-23T21:08:34.5041235Z [command]/usr/bin/git version
+2026-11-23T21:08:34.5072148Z git version 2.56.1
+2026-11-23T21:08:34.5097051Z Temporarily overriding HOME='/home/runner/work/_temp/08c3f0fb-6120-4db7-8c17-48cc647e8fbc' before making global git config changes
+2026-11-23T21:08:34.5098012Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-23T21:08:34.5101535Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/frohmanian-tether-manuscript-2026-06-01/frohmanian-tether-manuscript-2026-06-01
+2026-11-23T21:08:34.5132261Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-23T21:08:34.5160999Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-23T21:08:34.5369960Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-23T21:08:34.5387173Z http.https://github.com/.extraheader
+2026-11-23T21:08:34.5394301Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-23T21:08:34.5416456Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-23T21:08:34.5614145Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-23T21:08:34.5646463Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== build/9_Complete job.txt
+﻿2026-11-23T21:08:34.5942478Z Cleaning up orphan processes
+2026-11-23T21:08:34.6224293Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/system.txt
+2026-11-23T21:05:47.2210000Z Requested labels: ubuntu-latest
+2026-11-23T21:05:47.2210000Z Job defined at: BenFrohman/frohmanian-tether-manuscript-2026-06-01/.github/workflows/pdf.yml@refs/heads/ci-backfill/0243ed0
+2026-11-23T21:05:47.2210000Z Waiting for a runner to pick up this job...
+2026-11-23T21:05:47.3000000Z All GitHub-hosted runners with label [ubuntu-latest] are busy. For more information, see https://gh.io/job-concurrency-limits
+2026-11-23T21:05:47.2030000Z Evaluating build.if
+2026-11-23T21:05:47.2030000Z Evaluating: success()
+2026-11-23T21:05:47.2030000Z Result: true
+2026-11-23T21:06:52.1590000Z Job is waiting for a hosted runner to come online.
+2026-11-23T21:06:52.1600000Z Job is about to start running on the hosted runner: GitHub Actions 1000006669

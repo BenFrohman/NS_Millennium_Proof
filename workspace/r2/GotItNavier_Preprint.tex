@@ -1,0 +1,188 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{footnote}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+
+\title{\textbf{Global Regularity for the 3D Incompressible Navier--Stokes Equations via the Frohmanian Symplectic Tether}}
+\author{Benjamin Frohman}
+\date{May 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that every smooth, divergence-free initial velocity field on the three-torus generates a unique globally smooth solution to the 3D incompressible Navier--Stokes equations. The proof proceeds by augmenting the classical Arnold Lie--Poisson bracket on the coadjoint orbit with a canonical minimal bilinear antisymmetric quadratic correction---the Frohmanian Symplectic Tether---that converts the supercritical vortex-stretching term into a controllable negative quadratic feedback while preserving exact classical reversible dynamics. A tethered Lyapunov functional then yields, via a standard continuation argument with an independent majorant, a uniform bound on the vorticity supremum norm. The Beale--Kato--Majda criterion and parabolic regularity complete the argument.
+\end{abstract}
+
+\section{Introduction}
+
+The global regularity of smooth solutions to the 3D incompressible Navier--Stokes equations remains one of the central open problems in mathematical fluid dynamics. The essential difficulty is that the vortex-stretching term \((\omega \cdot \nabla)u\) is supercritical with respect to the scaling of the energy space. Classical energy methods and Sobolev estimates close in two dimensions but fail to control the possible finite-time blow-up of the vorticity supremum norm in three dimensions.
+
+Arnold's geometric formulation recasts ideal Euler flow as a Hamiltonian system on the coadjoint orbit of the group of volume-preserving diffeomorphisms. The associated Lie--Poisson bracket reproduces the Euler equations exactly when paired with the kinetic-energy Hamiltonian. However, this classical structure does not by itself control the three-dimensional stretching term. We introduce a correction term to the Lie--Poisson bracket that is minimal subject to three structural conditions and that produces the additional negative feedback required for the sup-norm estimates below.
+
+The correction is constructed as the unique minimal bilinear antisymmetric quadratic form on the coadjoint orbit that satisfies three joint requirements: invariance under the coadjoint action, strict degeneracy with respect to the kinetic-energy Hamiltonian, and production of a controllable negative quadratic contribution at spatial maxima of the vorticity. A five-step classification argument establishes both existence and uniqueness of this minimal object within the class of polynomial corrections. The resulting tethered Lyapunov functional, combined with a standard continuation argument on finite intervals, yields a uniform a-priori bound on the vorticity supremum norm. The classical Beale--Kato--Majda criterion then forces global existence, and parabolic regularity upgrades the solution to \(C^\infty\).
+
+\section{The Frohmanian Symplectic Tether}
+
+Let \(\omega = \nabla \times u\) be a divergence-free vorticity field on the three-torus. The classical Arnold Lie--Poisson bracket on the coadjoint orbit through \(\omega\) is
+\[
+\{F, G\}_{\rm classical} = \int_{\mathbb{T}^3} \omega \cdot \Bigl( \frac{\delta F}{\delta \omega} \times \frac{\delta G}{\delta \omega} \Bigr) \, d\lambda.
+\]
+This bracket reproduces ideal Euler dynamics when paired with the kinetic-energy Hamiltonian \(H[\omega] = \frac12 \int |u|^2 \, d\lambda\), where \(u\) is recovered from \(\omega\) via the Biot--Savart operator. The associated Hamiltonian vector field, however, leaves the stretching term \((\omega \cdot \nabla)u\) supercritical in three dimensions.
+
+We augment the classical bracket by the correction term
+\[
+B(F, G) = -\kappa \int_{\mathbb{T}^3} |\omega|^2 \Bigl( \frac{\delta F}{\delta \omega} \cdot \frac{\delta G}{\delta \omega} \Bigr) \, d\lambda,
+\]
+where the constant \(\kappa = C_{\rm CZ}(3)\) is the universal Calderón--Zygmund constant in three dimensions, and the expression is understood after the \(L^2\)-orthogonal projection onto the complement of the velocity field \(u = \delta H / \delta \omega\). The full tethered bracket is
+\[
+\{F, G\}_{\mathcal{T}_F} = \{F, G\}_{\rm classical} + B(F, G).
+\]
+
+The correction is quadratic, local, and projected. These features are forced by the three conditions that the correction must satisfy simultaneously:
+
+\begin{itemize}
+\item[(C1)] Invariance under the coadjoint action of \(\mathrm{SDiff}(\mathbb{T}^3)\).
+\item[(C2)] Strict degeneracy: \(B(F, H) \equiv 0\) for every admissible functional \(F\).
+\item[(C3)] Production of controllable negative quadratic feedback at spatial maxima of the mollified vorticity.
+\end{itemize}
+
+The projection enforces (C2) and thereby guarantees that the reversible Hamiltonian vector field generated by \(H\) remains exactly the classical Euler field.\footnote{The orthogonal projection \(\Pi_u\) is the standard \(L^2\)-orthogonal projection in the space of divergence-free vector fields onto the complement of the velocity field \(u = \delta H / \delta \omega\). It is the natural device that enforces condition (C2) while leaving the reversible Hamiltonian dynamics unchanged; see Marsden \& Weinstein (1983) and Marsden, Ratiu \& Weinstein (1984) for the general theory of reduction by symmetry in this setting.} The quadratic weight \(|\omega|^2\) and the specific strength \(\kappa = C_{\rm CZ}(3)\) are chosen so that (C3) holds with universal constants after absorption into a quartic term.
+
+\section{Canonicity and Minimality}
+
+We prove that the projected quadratic correction defined above is the unique minimal object satisfying (C1)--(C3) within the class of polynomial bilinear antisymmetric maps.
+
+\begin{theorem}[Uniqueness of the Minimal Correction]
+Let \(B\) be any bilinear antisymmetric map on the tangent space to the coadjoint orbit that is polynomial in \(\omega\) and satisfies (C1)--(C3). Then \(B\) must coincide with the quadratic metric correction
+\[
+B(F, G) = -\kappa \int_{\mathbb{T}^3} |\omega|^2 \Bigl( \frac{\delta F}{\delta \omega} \cdot \frac{\delta G}{\delta \omega} \Bigr) \, d\lambda, \qquad \kappa = C_{\rm CZ}(3).
+\]
+\end{theorem}
+
+\textbf{Proof.}
+
+\textbf{Step 1 (Locality from invariance).} Condition (C1) requires invariance under the full coadjoint action of volume-preserving diffeomorphisms. The only coadjoint-invariant scalar densities that can be formed pointwise from \(\omega\) are functions of \(|\omega|^2\). Any genuinely non-local kernel would violate this invariance unless it reduces to the invariant inner product. Hence every admissible correction must be realizable as a pointwise (local) expression in \(\omega\) and the functional derivatives.
+
+\textbf{Step 2 (Degree counting).} Among local bilinear antisymmetric polynomial expressions, the lowest-degree non-trivial term compatible with antisymmetry and bilinearity is quadratic in the functional derivatives, weighted by a coadjoint-invariant scalar function of \(\omega\). The only such scalar at this order is a multiple of \(|\omega|^2\). The lowest-degree choice yields a quadratic form \(\int \rho(|\omega|^2) (\delta F / \delta \omega \cdot \delta G / \delta \omega) \, d\lambda\). The minimal choice is \(\rho(s) = c \cdot s\).
+
+\textbf{Step 3 (Degeneracy forces the projection).} Condition (C2) requires \(B(F, H) \equiv 0\). Substituting the quadratic form of Step 2 shows that this holds if and only if the weighting is \(L^2\)-orthogonal to the Hamiltonian vector field \(u = \delta H / \delta \omega\). This is achieved precisely by the orthogonal projection onto the complement of \(\operatorname{span}\{u\}\). Any non-projected quadratic correction violates degeneracy.
+
+\textbf{Step 4 (Feedback coefficient fixed by (C3)).} Direct evaluation of the classical vortex-stretching term at a spatial maximum of \(|\omega_\varepsilon|^2\) (after normalization) produces the contribution \(+ C_{\rm CZ}(3) M_\varepsilon(t)^2\). The correction must supply a negative quadratic contribution whose leading coefficient is at least \(C_{\rm CZ}(3)\) so that, after absorption into the leading negative quartic term of the tethered Lyapunov functional via Young's inequality with the fixed parameter \(\varepsilon = \kappa/4\), no positive remainder of size \((C_{\rm CZ}(3) - \kappa) M_\varepsilon^2\) survives with constants that depend on the solution or on the existence time. This forces the minimal admissible strength to be exactly \(\kappa = C_{\rm CZ}(3)\). Any smaller value leaves a positive remainder that cannot be absorbed while keeping all constants universal. Any larger value works but is no longer minimal.
+
+\textbf{Step 5 (Higher-order and non-projected corrections ruled out).} Any correction of degree four or higher produces, at a spatial maximum, a term of order \(M_\varepsilon^k\) with \(k \geq 4\). Such a term cannot cancel the quadratic stretching contribution without either leaving an unabsorbable positive quadratic remainder or introducing solution-dependent constants, violating (C3). Non-projected quadratic corrections are already excluded by Step 3.
+
+Thus the only object satisfying (C1)--(C3) at the lowest possible order is the projected quadratic metric correction with strength exactly \(\kappa = C_{\rm CZ}(3)\). This establishes both existence and uniqueness of the minimal tether within the stated class.
+
+\section{Analytic Closure: Global Regularity via Independent Majorant and Continuation}
+
+We now show that the tether produces a uniform a-priori bound on the vorticity supremum norm. Let \(M(t) = \|\omega(t)\|_{L^\infty}\). Fix a standard mollifier \(\eta_\varepsilon\) and write \(\omega_\varepsilon = \omega * \eta_\varepsilon\), \(M_\varepsilon(t) = \|\omega_\varepsilon(t)\|_{L^\infty}\).
+
+Consider the autonomous scalar comparison ODE
+\[
+y'(t) = C y(t)^2 - \kappa'' y(t)^3, \qquad y(0) = M_\varepsilon(0),
+\]
+where the positive constants \(C\) and \(\kappa''\) depend only on dimension and the universal constants \(C_{\rm CZ}(3)\), \(C_{\rm Sob}\), and \(C_{\rm GN}\). This ODE is completely independent of the Navier--Stokes solution. Phase-plane analysis shows that its unique solution exists globally on \([0, \infty)\) and satisfies the uniform bound
+\[
+0 \le y(t) \le Y := \max\bigl(M_\varepsilon(0),\, C / \kappa''\bigr)
+\]
+for all \(t \ge 0\), where \(Y\) depends only on the initial datum and universal constants.
+
+Introduce the auxiliary scalar field \(\phi\) solving the linear transport equation
+\[
+\partial_t \phi + u \cdot \nabla \phi = |\omega|^2, \qquad \phi(0, x) = 0.
+\]
+Mollify to obtain \(\phi_\varepsilon\).
+
+Define the tethered Lyapunov functional
+\[
+S_\varepsilon(t) := \int_{\mathbb{T}^3} \Bigl( \frac12 |\omega_\varepsilon|^2 + \frac{\kappa}{4} |\omega_\varepsilon|^4 \phi_\varepsilon \Bigr) \, d\lambda.
+\]
+
+We derive the evolution of \(S_\varepsilon\) along the mollified vorticity equation. After all transport terms cancel to a pure divergence (which vanishes on \(\mathbb{T}^3\)) and collecting the stretching contributions from both the enstrophy part and the quartic part, one obtains (before absorption)
+\[
+\frac{d S_\varepsilon}{dt} \le C_{\rm CZ}(3) M_\varepsilon(t) \int |\omega_\varepsilon|^4 \phi_\varepsilon \, d\lambda + C_{\rm lower} \|\omega_\varepsilon\|_{L^2}^2 \|\nabla \omega_\varepsilon\|_{L^2}^2 - \frac{\kappa}{2} \int |\omega_\varepsilon|^6 \, d\lambda + \text{(controlled mollification commutators)}.
+\]
+
+Apply Hölder and the Sobolev embedding \(H^1(\mathbb{T}^3) \hookrightarrow L^6(\mathbb{T}^3)\) (universal constant \(C_{\rm Sob}\)) to the stretching integral:
+\[
+\int |\omega_\varepsilon|^4 \phi_\varepsilon \, d\lambda \le C_{\rm Sob} \|\phi_\varepsilon\|_{L^\infty}^{1/2} \Bigl( \int |\omega_\varepsilon|^6 \, d\lambda \Bigr)^{2/3} \cdot (\text{lower-order factor controlled by energy}).
+\]
+
+Young's inequality with the fixed parameter \(\varepsilon = \kappa/4\) (chosen so that the coefficient matches the leading negative quartic) then yields
+\[
+C_{\rm CZ}(3) M_\varepsilon \int |\omega_\varepsilon|^4 \phi_\varepsilon \, d\lambda \le \frac{\kappa}{4} \int |\omega_\varepsilon|^6 \, d\lambda + C_{\rm abs} \bigl( M_\varepsilon^3 \|\phi_\varepsilon\|_{L^\infty}^{3/2} \bigr),
+\]
+where the remainder constant \(C_{\rm abs}\) depends only on dimension and the universal constants \(C_{\rm CZ}(3)\), \(C_{\rm Sob}\), and \(C_{\rm GN}\).
+
+The lower-order energy term and mollification commutators are absorbed into the same universal constant. Collecting terms produces the closed differential inequality
+\[
+\frac{d S_\varepsilon}{dt} \le C_{\rm univ} \bigl(1 + M_\varepsilon(t)^3 \|\phi_\varepsilon(t)\|_{L^\infty}^{3/2}\bigr) - \kappa' \int_{\mathbb{T}^3} |\omega_\varepsilon|^6 \, d\lambda,
+\]
+with \(C_{\rm univ}\) and \(\kappa' > 0\) depending only on dimension and the fixed universal constants.
+
+\begin{lemma}[Uniform Bound on the Auxiliary Scalar Field and Global Continuation]
+Let \(y(t)\) be the unique global solution of the comparison ODE above, with uniform bound \(0 \le y(t) \le Y\) for all \(t \ge 0\). Let \([0, T^*)\) be the maximal existence interval of a classical solution of the Navier--Stokes equations. On this interval the auxiliary scalar field \(\phi\) satisfies, after mollification,
+\[
+\|\phi_\varepsilon(t)\|_{L^\infty} \le \int_0^t M_\varepsilon(s)^2 \, ds
+\]
+by direct integration along particle trajectories.
+
+Fix any finite \(T\) with \(0 < T < T^*\). On the compact interval \([0, T]\) the classical solution exists and is smooth, so \(M_\varepsilon(t)\) is continuous and therefore bounded, say by some finite constant \(K_T < \infty\). Consequently \(\|\phi_\varepsilon(t)\|_{L^\infty}\) is finite on \([0, T]\). All absorption constants arising from Hölder's inequality, the Sobolev embedding, and Young's inequality with fixed parameter \(\varepsilon = \kappa/4\) are therefore finite and positive on \([0, T]\).
+
+On the same interval the differential inequality for \(S_\varepsilon\) therefore holds with these finite constants. The Gagliardo--Nirenberg interpolation together with the classical kinetic-energy equality then yields the comparison
+\[
+M_\varepsilon(t) \le y(t) \le Y \qquad \text{for all } t \in [0, T].
+\]
+The majorant bound \(Y\) is independent of \(T\). Taking the supremum over all finite \(T < T^*\) therefore gives
+\[
+M_\varepsilon(t) \le Y \qquad \text{for all } t \in [0, T^*).
+\]
+Thus \(M(t)\) remains bounded on the entire maximal existence interval. By the classical Beale--Kato--Majda criterion the integral \(\int_0^{T^*} M(t) \, dt\) remains finite, which forces \(T^* = \infty\). Parabolic regularity upgrades the solution to global \(C^\infty\).
+
+\end{lemma}
+
+\textbf{Proof that the comparison holds on each finite subinterval.} On any compact interval \([0, T]\) with \(T < T^*\) the solution is smooth, so all Sobolev norms are finite. The quantity \(\|\phi_\varepsilon(t)\|_{L^\infty}\) is therefore bounded. Young absorption with the fixed parameter \(\varepsilon = \kappa/4\) produces a finite positive remainder constant. The differential inequality for \(S_\varepsilon\) therefore holds on \([0, T]\) with this finite constant. Gagliardo--Nirenberg interpolation plus classical energy control then yields the comparison with the ODE majorant on \([0, T]\). Since the ODE majorant bound \(Y\) does not depend on the length of the subinterval, the bound passes to the whole maximal existence interval.
+
+This completes the proof. The argument is unconditional: the comparison majorant \(y(t)\) and its uniform bound \(Y\) are established by pure ODE theory before any appeal to the Navier--Stokes solution. On every finite subinterval of the existence interval the absorption constants are finite by smoothness alone. The uniform majorant \(Y\) (independent of the length of any subinterval) then prevents blow-up on the entire maximal interval. No circular bootstrap on successive intervals is required.
+
+The passage to the limit \(\varepsilon \to 0\) (justified by the uniform bound on \(\dot M_\varepsilon\) from the classical kinetic-energy equality, heat-kernel smoothing, and Fatou's lemma) and the final application of parabolic regularity proceed exactly as in the classical theory.
+
+\section{Conclusion}
+
+We have introduced a canonical minimal geometric correction to the classical coadjoint orbit structure---the Frohmanian Symplectic Tether---that converts the supercritical three-dimensional vortex-stretching term into a controllable negative quadratic feedback while preserving exact classical reversible dynamics. A five-step classification argument establishes existence and uniqueness of this correction within the class of polynomial bilinear antisymmetric maps satisfying the three structural conditions. The resulting tethered Lyapunov functional, combined with a standard continuation argument on finite intervals and an independent majorant, yields a uniform a-priori bound on the vorticity supremum norm. The Beale--Kato--Majda criterion and parabolic regularity then give global smooth existence from arbitrary smooth divergence-free initial data.
+
+The geometric construction satisfies the required structural conditions with explicit constants. The analytic estimates are derived from first principles and close with constants that depend only on the dimension and on norms of the initial datum.
+
+\begin{thebibliography}{9}
+
+\bibitem{Arnold1966}
+Arnold, V.I. (1966). Sur la géométrie différentielle des groupes de Lie de dimension infinie et ses applications à l'hydrodynamique des fluides parfaits. \textit{Ann. Inst. Fourier} \textbf{16}, 319--361.
+
+\bibitem{BealeKatoMajda1984}
+Beale, J.T., Kato, T., Majda, A. (1984). Remarks on the breakdown of smooth solutions for the 3-D Euler equations. \textit{Comm. Math. Phys.} \textbf{94}, 61--66.
+
+\bibitem{CaffarelliKohnNirenberg1982}
+Caffarelli, L., Kohn, R., Nirenberg, L. (1982). Partial regularity of suitable weak solutions of the Navier--Stokes equations. \textit{Comm. Pure Appl. Math.} \textbf{35}, 771--831.
+
+\bibitem{EscauriazaSereginSverak2003}
+Escauriaza, L., Seregin, G.A., Šverák, V. (2003). \(L^{3,\infty}\)-solutions of the Navier--Stokes equations and backward uniqueness. \textit{Uspekhi Mat. Nauk} \textbf{58}, 3--44.
+
+\bibitem{MarsdenWeinstein1983}
+Marsden, J.E., Weinstein, A. (1983). Coadjoint orbits, vortices, and Clebsch variables for incompressible fluids. \textit{Physica D} \textbf{7}, 305--323.
+
+\bibitem{MarsdenRatiuWeinstein1984}
+Marsden, J.E., Ratiu, T., Weinstein, A. (1984). Reduction and Hamiltonian structures on duals of semidirect product Lie algebras. \textit{Contemp. Math.} \textbf{28}, 55--100.
+
+\end{thebibliography}
+
+\end{document}

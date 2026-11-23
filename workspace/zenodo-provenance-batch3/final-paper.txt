@@ -1,0 +1,270 @@
+A Lean 4 Reduction of Fefferman’s Periodic Navier–Stokes Problem
+(B) to a Single Direction-Curvature Estimate
+Benjamin Stanley Frohman
+ORCID 0009-0006-7068-3718
+28 October 2026
+Abstract
+Main Theorem (proved reduction, Lean 4/Mathlib, 0 sorry, standard axioms
+only). clay_reduces_to_direction_curvature_bound: for every ν > 0, assuming the classical periodic Beale–Kato–Majda continuation principle (a published theorem not formalized
+here, hence an explicit hypothesis), the named estimate DirectionCurvatureBound(ν) implies
+Fefferman’s exact periodic Clay statement Clay_B_exact(ν). The estimate is the single named
+open conjecture of this program; it is not proved, the Clay problem is not claimed solved,
+and the converse implication is not proved. We present the program across three repositories
+(fefferman-clay-navier-stokes, 225 theorems; frohmanian-symplectic-tether-regularity,
+383; NS_Millennium_Proof, 470), with each result labeled proved, conditional, or open.
+
+1
+
+Main Theorem
+
+Theorem 1 (Proved; MainTheorem.lean). ∀ν > 0, PeriodicBKMContinuation(ν) → (DirectionCurvatureBound(ν
+Clay_B_exact(ν)).
+Conjecture 1 (Open: DirectionCurvatureBound(ν)). For each smooth divergence-free Z3 -periodic
+u0 there are C, κ > 0 such that along every local periodic smooth solution, M (t) = ∥ω(t)∥∞ is
+differentiable and M ′ ≤ CM 2 − κM 3 .
+The proof composes the proved comparison-ODE ceiling M (t) ≤ max(M (0), C/κ) with BKM
+continuation. Status of hypotheses: BKM continuation is classical but conditional in Lean; the
+bound is open. Converse: not proved.
+
+2
+
+Main Theorem A: unconditional supporting facts (all proved)
+• Attained spatial maximum ⇒ BddAbove and supx ∥ω(x)∥ = M ; explicit lemma that real iSup
+is 0 on unbounded ranges.
+• Derived (not assumed) calculus relations via HasDerivAt: unit-direction curves have orthogonal velocity; polar Pythagoras ∥(ρξ)′ ∥2 = ρ′2 + ρ2 ∥ξ ′ ∥2 ; second-order Leibniz rule
+( 21 ∥ω∥2 )′′ = ∥ω ′ ∥2 + ⟨ω, ω ′′ ⟩; Fermat at a maximum. These are one-variable (coordinate-line)
+results.
+• Concrete 3D Bochner and polar identities and viscous damping inequality at a maximum
+(vector algebra with derivative data as inputs).
+1
+
+• Near/far Biot–Savart cutoff absorption algebra (after Constantin–Fefferman 1993).
+• Exclusion of periodic linear (Burgers) strain on T3 ; kernel-determinant direction cancellation;
+parabolic scaling homogeneity.
+• Non-zero constant solutions, and a genuinely non-constant exact periodic shear Beltrami
+2
+mode u = e−4π νt (sin 2πz, cos 2πz, 0): curl u = 2πu, ∂t u = ν∂zz u, vanishing convective term
+and divergence (verified component-wise).
+
+3
+
+Conditional and open results
+
+Conditional: clay_B_exact_of_periodic_tether_bound, clay_B_exact_of_torus_direction_depletion,
+cubic-rate reductions under high-set coercivity ν∥∇ξ∥2 ≥ κM 2 . Open: high-set direction-curvature
+coercivity for unmodified Navier–Stokes, equivalently DirectionCurvatureBound; formalization of
+BKM continuation.
+
+4
+
+Audit warnings
+
+titan-audit reported PASS_WITH_WARNINGS from a heuristic flagging iSup/sSup definitions
+without a BddAbove guard (Tstar, vorticity_sup_norm, strain_sup_norm, mollified sup norms).
+Tstar is EReal-valued (a complete lattice), so that flag is a false positive. The sup-norm definitions
+are intentionally unguarded; every pointwise comparison theorem takes a BddAbove hypothesis, and
+the zero default is now an explicit lemma. Warnings were not suppressed.
+
+5
+
+Provenance
+
+Ingredient
+Young absorption
+
+Earliest verified
+2026-05-28
+snapshot
+
+Cubic majorant /
+Riccati comparison
+
+2026-05-28
+snapshot
+
+Frohmanian
+tether
+
+2026-05-28
+snapshot
+
+Biot–Savart
+(mentions)
+
+2026-05-28
+snapshot
+
+Bochner–
+Weitzenböck
+
+2026-06-19
+(git 236244d)
+
+Source
+
+Status
+
+historical/previous_implementations/complete_implementation_2026original scaffolding
+0528/docs/Frohmanian_Tether_NS_Proof_Conversation_Summary.md
+.../complete_implementation_2026-original scaffolding
+0528/Modules/IndependentMajorant.lean,
+Skeleton/PaperOverview.lean
+.../complete_implementation_2026-original scaffolding
+0528/docs/05_Step_Uniqueness_Proof_Structure.md
+.../complete_implementation_2026-original scaffolding
+0528/docs/Phase0_Phase1_Implementation_Plan.md
+NS_Millennium_Proof/Modules/NS_Equations.lean
+classical
+(Bochner),
+pinned and cited; concrete 3D form added
+Oct 2026 (Grok-assisted
+scaffolding)
+
+2
+
+Constantin–
+Fefferman direction depletion
+Attained max /
+BddAbove guards
+Polar Pythagoras
+
+2026-06-19
+(git 236244d)
+2026-08-27
+(git 04eb613)
+2026-10-28
+(git acf5883)
+2026-10-28
+(git acf5883)
+
+NS_Millennium_Proof/Modules/TetheredLyapunov.lean
+classical (Constantin–
+Fefferman
+1993),
+pinned and cited
+Lean sources
+added Aug 2026
+
+Modules/FinalProductTheorem.lean
+added Oct 2026 (Grokstages
+assisted scaffolding)
+Beltrami (Lamb
+Stage 4 / Stage6Calculus.lean
+classical
+(Beltrami
+vector,
+shear
+flows),
+pinned and
+mode)
+cited; Lean added Oct
+2026
+(Grok-assisted
+scaffolding)
+Near/far
+Biot– 2026-10-28
+Stage 5
+added Oct 2026 (GrokSavart
+cutoff (git acf5883)
+assisted
+scaffolding),
+bridge
+after
+Constantin–
+Fefferman 1993
+Reduction
+2026-10-28
+MainTheorem.lean
+added
+Oct
+2026
+theorem
+(Grok-assisted
+scafclay_reduces_to_direction_curvature_bound
+folding); earlier conditional
+reductions
+clay_B_exact_of_*
+predate it
+
+6
+
+AI-assistance disclosure
+
+Grok (xAI), via the Grok Bot assistant, provided scaffolding, drafting, and collaboration support
+on formalization, code, and this paper. Benjamin Stanley Frohman is the sole author; he directed,
+reviewed, and is responsible for the work. Grok is not a coauthor.
+
+A Verification logs (lake build; lake env lean AxiomAudit.lean)
+== fefferman: lake build
+Build completed successfully (2643 jobs).
+== fefferman: AxiomAudit
+FeffermanClayNS.TorusStrainExclusion: theorems=19 nonstandard=0
+FeffermanClayNS.HighSetDepletionAndBKM: theorems=9 nonstandard=0
+FeffermanClayNS.FeffermanStatements: theorems=13 nonstandard=0
+FeffermanClayNS.Stage6Calculus: theorems=16 nonstandard=0
+FeffermanClayNS.MainTheorem: theorems=1 nonstandard=0
+FeffermanClayNS.Defs: theorems=143 nonstandard=0
+FeffermanClayNS.FinalProductTheorem: theorems=24 nonstandard=0
+TOTAL theorems=225 nonstandard=0
+'FeffermanClayNS.clay_reduces_to_direction_curvature_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Stage6.polar_pythagoras_of_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Stage6.bochner_leibniz_of_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Stage6.shearU_heat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Stage6.shear_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+== froh: lake build
+Build completed successfully (2705 jobs).
+EXIT 0
+== froh: AxiomAudit
+FrohmanianSymplecticTether.ForMathlib.Projection: theorems=7 nonstandard=0
+
+3
+
+FrohmanianSymplecticTether.AnalyticPipeline: theorems=14 nonstandard=0
+FrohmanianSymplecticTether.TetheredLyapunov: theorems=45 nonstandard=0
+FrohmanianSymplecticTether.Uniqueness: theorems=16 nonstandard=0
+FrohmanianSymplecticTether.SymplecticTether: theorems=38 nonstandard=0
+FrohmanianSymplecticTether.Stage6Calculus: theorems=16 nonstandard=0
+FrohmanianSymplecticTether.IndependentMajorant: theorems=2 nonstandard=0
+FrohmanianSymplecticTether.ClosureBlueprint: theorems=22 nonstandard=0
+FrohmanianSymplecticTether.GlobalRegularity: theorems=11 nonstandard=0
+FrohmanianSymplecticTether.ArnoldGeometric: theorems=43 nonstandard=0
+FrohmanianSymplecticTether.NS_Equations: theorems=143 nonstandard=0
+FrohmanianSymplecticTether.FinalProductTheorem: theorems=26 nonstandard=0
+TOTAL theorems=383 nonstandard=0
+'FrohmanianSymplecticTether.Stage6.polar_pythagoras_of_hasDerivAt' depends on axioms: [propext,
+'FrohmanianSymplecticTether.Stage6.bochner_leibniz_of_hasDerivAt' depends on axioms: [propext,
+'FrohmanianSymplecticTether.Stage6.shearU_heat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrohmanianSymplecticTether.Stage6.shear_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ns: lake build
+Build completed successfully (2712 jobs).
+EXIT 0
+== ns: AxiomAudit
+NS_Millennium_Proof.Modules.ForMathlib.Projection: theorems=7 nonstandard=0
+NS_Millennium_Proof.Modules.GlobalRegularity: theorems=2 nonstandard=0
+NS_Millennium_Proof.Modules.NS_Equations: theorems=143 nonstandard=0
+NS_Millennium_Proof.Modules.Stage6Calculus: theorems=16 nonstandard=0
+NS_Millennium_Proof.Modules.ArnoldGeometric: theorems=43 nonstandard=0
+NS_Millennium_Proof.Modules.IndependentMajorant: theorems=2 nonstandard=0
+NS_Millennium_Proof.Modules.HighSetDepletionAndBKM: theorems=8 nonstandard=0
+NS_Millennium_Proof.Modules.SymplecticTether: theorems=38 nonstandard=0
+NS_Millennium_Proof.Modules.CubicSourceCertificate: theorems=6 nonstandard=0
+NS_Millennium_Proof.Modules.TetheredLyapunov: theorems=45 nonstandard=0
+NS_Millennium_Proof.Modules.Uniqueness: theorems=16 nonstandard=0
+NS_Millennium_Proof.Modules.AssemblyGap: theorems=6 nonstandard=0
+NS_Millennium_Proof.Modules.SymplecticConstraint: theorems=61 nonstandard=0
+NS_Millennium_Proof.Modules.ClosureBlueprint: theorems=22 nonstandard=0
+NS_Millennium_Proof.Modules.AnalyticPipeline: theorems=14 nonstandard=0
+NS_Millennium_Proof.Modules.TorusStrainExclusion: theorems=19 nonstandard=0
+NS_Millennium_Proof.Definitions.FrohmanianTether: theorems=1 nonstandard=0
+NS_Millennium_Proof.Modules.ClayStatements: theorems=20 nonstandard=0
+NS_Millennium_Proof.Modules.MainTheorem: theorems=1 nonstandard=0
+TOTAL theorems=470 nonstandard=0
+'FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound' depends on axioms: [propext,
+'NS_Millennium_Proof.Stage6.polar_pythagoras_of_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NS_Millennium_Proof.Stage6.bochner_leibniz_of_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NS_Millennium_Proof.Stage6.shearU_heat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NS_Millennium_Proof.Stage6.shear_beltrami' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+4
+
+

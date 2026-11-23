@@ -1,0 +1,33 @@
+Certificate bundle for BenFrohman/frohmanian-tether-sdiff @ 1ea649e495b5e06fafec75a05bb8ec07f13dae80
+(main after PR #14; contains the PR #12 merge ad546216d56b5ab7514f1ed20fe168744ff9cf74 and PR #13).
+`git diff ad54621 1ea649e` touches only .github/workflows/{certify,kernel-certificate,lean,truth-gate}.yml
+and adds scripts/collect_lake_certificate.sh and scripts/finalize_lake_certificate.sh: no .lean file,
+lakefile.lean, lean-toolchain or lake-manifest.json changed, so the Lean sources are identical to ad54621.
+This file is an index only; it is not a certificate. The certificate is the official GitHub Actions
+material below, as downloaded from the GitHub API (artifact archive sha256 = GitHub's recorded digest).
+
+pinned/   lake-manifest.json (sha256 7d1ab35f9874f0c261e99ae06fe05446a8cec85dd4c9af79b016b73032bc0955,
+          git blob 0a1387d26aef7e78d6d1b507ee4e95ffa70aa131), lean-toolchain, lakefile.lean at 1ea649e.
+ci/run-44047249311  "Lean certificate" (push, success): elan install; lake exe cache get; lake build;
+          lake build Scratch; sorry scan; strict + Scratch axiom audits; scripts/verify.sh.
+          artifact 14313780277 lake-certificate-certify-push-44047249311
+            (digest a7eb68c0c7c6eb8d67ba140fa476380731fa06624daac379962ab02610755951):
+            lake-manifest.json + sha256, lean-toolchain, mathlib-rev, versions.txt (elan/lake/lean), commit,
+            lake-build.log (default targets), axioms outputs.
+          artifact 14312569404 axioms-push-44047249311
+            (digest 79af9fa7ffad1de3554eed757e6e6f90c3b12d68476fae6c67cc80fbc0f5c3b8)
+          The lake build Scratch output (with #print axioms for every KatoMaximal/KatoContinuation
+          theorem) is in github-run-logs-44047249311.zip, step "Build Scratch".
+ci/run-44047249332  "Kernel certificate" (push, success); artifact 14313080672 kernel-certificate
+            (digest 31a24e78410f0ec2dde0dbade5fdd70a908a0e31aa226da626e79c3e38ecb8f4); 43/43 modules replayed.
+ci/run-44047249293  "truth-gate" (push, success); artifacts 14313071586 truth-gate-report
+            (digest 2b81114462e15ff7384e118e2b4a2a0283f0e17d203674a81ff3274b7ef25923) and
+            14313076529 lake-certificate-truth-gate-push-44047249293
+            (digest 0e1092fbc66adf061b919db5463d515d2cb4a3bf534e4e07b28bc36ba36e5a0a).
+          Each run dir also has run-, job- and artifact-metadata JSON from the GitHub API.
+extracted/ Unmodified copies of single step logs of run 44047249311 (checkout, Mathlib cache, lake build,
+          lake build Scratch, verify.sh) and print-axioms-KatoMaximal-KatoContinuation.txt = the 70
+          "depends on axioms" lines of the Build Scratch step (grep, timestamps stripped).
+Versions (recorded by the runs): elan 4.2.4 (227caca13 2026-08-25); Lake 5.0.0-src+714601b;
+Lean 4.30.0-rc1 (commit 714601baf118066cbf3f282361339c6d06665b2a); toolchain leanprover/lean4:v4.30.0-rc1;
+Mathlib 0c154d67103f74be3a0f2c509f72ccbf5be9f2a7 (v4.30.0-rc1).

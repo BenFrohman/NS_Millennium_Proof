@@ -1,0 +1,366 @@
+ GEOMETRIC PHASE-SPACE COMPLETION AND CONDITIONAL GLOBAL
+    REGULARITY FOR THE 3D INCOMPRESSIBLE NAVIER–STOKES
+                        EQUATIONS
+
+                                        BENJAMIN STANLEY FROHMAN
+
+
+        Abstract. Let u0 ∈ C ∞ (T3 ; R3 ) be a smooth, divergence-free initial velocity field on the flat
+        three-dimensional torus T3 = R3 /(2πZ)3 . We formulate a geometric completion of Arnold’s Lie–
+        Poisson framework on SDiﬀ(T3 ) via a three-legged metriplectic architecture: (1) the skew-symmetric
+        Arnold Lie–Poisson bracket governing ideal transport, (2) a symmetric metriplectic dissipation sec-
+        tor incorporating viscous damping alongside a degenerate projected metric correction B(F, G) (the
+        Frohmanian Symplectic Tether), and (3) Marsden–Weinstein–Ratiu coadjoint orbit reduction. Be-
+        cause B(F, H) ≡ 0 for the kinetic-energy Hamiltonian H, the generated dynamics recover the exact,
+        unmodified 3D Navier–Stokes vorticity transport equation. Within this framework we record three
+        rigorous regularity results: a sharp conditional global continuation theorem via critical L1t L∞ x full-
+        gradient and strain integrability (Theorem A: Forms B-grad and B-strain), unconditional local-in-
+        time smoothness on the deterministic Kato lifespan (Theorem B), and unconditional global smooth-
+        ness for small critical Ḣ 1/2 data (Theorem C). Finally, we isolate the supercritical L2t L2x → L1t L∞
+                                                                                                              x
+        scaling gap as the precise open frontier for geometric vorticity-coherence analysis. No unconditional
+        large-data claim is made; Clay Statement (B) remains open.
+
+
+
+
+         1. Statement of the Problem: The Clay Millennium Problem and the
+                               Supercriticality Barrier
+1.1. Classical PDE Posing (Fefferman Formulation). Let T3 = R3 /(2πZ)3 denote the flat
+three-dimensional torus. The 3D incompressible Navier–Stokes equations in velocity-pressure form
+are                            
+                               
+                               ∂t u + (u · ∇)u + ∇p = ν∆u,
+                                 div u = 0,                                                 (1.1)
+                               
+                               
+                                 u(x, 0) = u0 (x),
+where u0 ∈ C ∞ (T3 ; R3 ) is smooth and divergence-free, p is the scalar pressure, and ν > 0 is
+the kinematic viscosity. Taking the curl of (1.1) eliminates the pressure gradient and yields the
+equivalent vorticity transport equation for ω = curl u:
+                            ∂t ω + (u · ∇)ω = (ω · ∇)u + ν∆ω,                 div ω = 0.                           (1.2)
+The Clay Millennium Prize Problem (Statement B) asks whether, for every smooth divergence-free
+u0 , there exists a unique global classical solution u ∈ C ∞ (T3 × [0, ∞); R3 ) (T ∗ = ∞), or whether
+a finite-time singularity (T ∗ < ∞) can form [5].
+1.2. The Analytical Supercriticality Obstruction. Testing (1.1) against u yields the uncon-
+ditional global energy inequality, providing an L∞       2                             2 2
+                                                    t Lx bound on velocity and an Lt Lx bound on
+vorticity:
+                                            ∫ t
+                        ∥u(t)∥L2 (T3 ) + 2ν
+                              2
+                                                ∥ω(τ )∥2L2 (T3 ) dτ ≤ ∥u0 ∥2L2 (T3 ) .      (1.3)
+                                                   0
+
+   Date: November 17, 2026.
+   © 2026 Benjamin Stanley Frohman. All rights reserved except as granted by the Apache-2.0 license under which
+this work is distributed.
+                                                           1
+2                                     BENJAMIN STANLEY FROHMAN
+
+
+Under the natural parabolic rescaling uλ (x, t) = λu(λx, λ2 t) on R3 , the kinetic energy scales as
+                        ∥uλ (t)∥2L2 (R3 ) = λ−1 ∥u(λ2 t)∥2L2 (R3 ) → 0   as λ → ∞.
+
+Because the scaling exponent is negative (−1 < 0), the L2 energy bound is supercritical. Preventing
+finite-time blow-up requires controlling a scale-invariant (λ0 ) critical norm, such as the L1t L∞
+                                                                                                 x
+integrability of the symmetric strain tensor S = 12 (∇u + (∇u)T ), leaving a fundamental analytical
+gap between available L2t L2x bounds and required L1t L∞
+                                                       x control.
+
+
+                          2. Geometric Completion of Phase Space
+   Rather than modifying the underlying PDE, we embed (1.2) into a geometrically complete
+infinite-dimensional phase space over the group of volume-preserving diffeomorphisms SDiﬀ(T3 )
+with Lie algebra g = sdiff(T3 ).
+
+2.1. Leg 1: Reversible Lie–Poisson Sector. On the dual space g∗ , ideal inviscid fluid motion is
+governed by Arnold’s skew-symmetric Lie–Poisson bracket [1], written here in the paper’s vorticity
+identification                           ∫       ( δF   δG )
+                             {F, G}LP =       ω·      ×      dV.                             (2.1)
+                                           T3      δω   δω
+Remark 2.1 (Jacobi identity by coadjoint reduction). We do not derive the Jacobi identity for (2.1)
+from scratch. The bracket is the canonical reduced Poisson structure on sdiff(T3 )∗ , obtained by
+infinite-dimensional Marsden–Weinstein reduction of the geodesic (kinetic-energy) Hamiltonian flow
+on T ∗ SDiﬀ(T3 ). Consequently the Jacobi identity holds as a theorem  ∫ of Lie–Poisson
+                                                                             (          / coadjoint-
+orbit reduction
+         )        [1, 11, 2].  (An  equivalent curl-form  presentation   ω ·   (∇ × δF/δω)  × (∇ ×
+δG/δω) dV appears under the usual identification of variational derivatives with divergence-free
+vector fields; we retain (2.1) as the paper’s written convention.)
+    Equipped with the kinetic-energy Hamiltonian
+                                        ∫
+                                      1
+                              H[ω] =       |u|2 dV,           u = KBS ∗ ω,
+                                      2 T3
+where KBS denotes the Biot–Savart kernel on T3 , one has ∇ × (δH/δω) = u (equivalently δH/δω =
+ψ with curl ψ = u). The bracket {F, H}LP generates the exact inviscid Euler dynamics tangent to
+coadjoint orbits O ⊂ g∗ .
+
+2.2. Leg 2: Symmetric Metriplectic Sector and the Tether Correction. To account for
+viscous dissipation (ν > 0) while preserving exact algebraic symmetry, we equip g∗ with a symmetric,
+negative-semidefinite metriplectic bracket
+                                   [F, G]total = [F, G]diss + B(F, G),
+defined by [12]
+                                      ∫ (
+                                            δF ) (    δG )
+                    [F, G]diss = −ν         ∇×  · ∇×        dV,                                  (2.2)
+                                   T3       δω        δω
+                                  ∫        ( (     δF )     (    δG ))
+                     B(F, G) = −κ      |ω|2 Πu ∇ ×      · Πu ∇ ×       dV,                       (2.3)
+                                    T3             δω            δω
+where κ = CCZ (3) > 0 is the 3D Calderón–Zygmund constant and Πu is the L2 -orthogonal projec-
+tion onto span{u}⊥ :
+                                           ⟨v, u⟩L2
+                                Πu v = v −          u (u ̸= 0).
+                                            ∥u∥2L2
+                  METRIPLECTIC PHASE-SPACE COMPLETION FOR 3D NAVIER–STOKES                         3
+
+
+Separating {F, G}LP (skew-symmetric) from [F, G]total (symmetric) leaves the Jacobi identity of
+the Poisson sector intact (Remark 2.1) while ensuring that B(F, G) satisfies strict degeneracy with
+respect to the kinetic-energy Hamiltonian H:
+                 ( δH )              (     δH )
+             ∇×          = u =⇒ Πu ∇ ×          = Πu (u) ≡ 0 =⇒ B(F, H) ≡ 0 ∀F.                (2.4)
+                   δω                      δω
+Consequently, the complete metriplectic evolution
+                         dF
+                            = {F, H}LP + [F, H]total = {F, H}LP + [F, H]diss                    (2.5)
+                         dt
+reproduces the exact, unmodified 3D Navier–Stokes vorticity transport equation (1.2) without
+introducing artificial forcing terms. The correction B is not claimed to be Poisson.
+
+2.3. Leg 3: Marsden–Weinstein–Ratiu Reduction. Because the volume form dV and the
+quadratic weight |ω|2 dV transform covariantly under the coadjoint action of SDiﬀ(T3 ), the re-
+versible bracket (2.1) descends to a canonical symplectic structure on each coadjoint orbit O via
+Marsden–Weinstein–Ratiu reduction [11, 10, 2], while [F, H]diss precisely parameterizes the trans-
+verse dissipative drift across orbits driven by kinematic viscosity.
+
+
+                3. Rigorous Regularity Theorems within the Framework
+   Within the metriplectic formulation (2.5), the regularity theory of 3D Navier–Stokes resolves
+into three complete theorems.
+
+Theorem 3.1 (Conditional Global Regularity — Forms B-grad and B-strain). Let u0 ∈ H s (T3 ; R3 )
+(s > 5/2) satisfy div u0 = 0, and let u ∈ C([0, T ∗ ); H s (T3 )) be the maximal local Kato solution
+generated by (2.5). We record two formulations of the conditional hypothesis (Form B). Both are
+one-directional: they imply T ∗ = +∞, but neither is claimed to follow from the energy inequality
+alone. Large-data Clay Statement (B) remains open.
+(B-grad) Full-gradient form (direct constant). Assume that for every finite T > 0 there exists a
+derived constant C∗ (∥u0 ∥H s , ν, T ) < ∞ such that
+                                ∫ T
+                                     ∥∇u(t)∥L∞ (T3 ) dt ≤ C∗ (∥u0 ∥H s , ν, T ).                (3.1)
+                                    0
+
+Then T ∗ = +∞, and the Kato–Ponce energy estimate [8]
+                                        d
+                                           ∥u(t)∥H s ≤ Cs ∥∇u(t)∥L∞ ∥u(t)∥H s
+                                        dt
+together with Gronwall’s lemma yields the direct bound
+                                                    (                        )
+                        sup ∥u(t)∥H s ≤ ∥u0 ∥H s exp Cs C∗ (∥u0 ∥H s , ν, T ) .                 (3.2)
+                         t∈[0,T ]
+
+(The same conclusion holds with the integrated form of Kato–Ponce as a cited input; see the
+companion Lean target formB_Hs_bound.) Smoothness for t > 0 follows by parabolic bootstrap. The
+Beale–Kato–Majda / Kato continuation implication in ∇u
+                             ∫ T
+                                 ∥∇u(t)∥L∞ dt < ∞ =⇒ T ∗ > T
+                                         0
+
+is cited [3, 8], not re-proved here.
+4                                  BENJAMIN STANLEY FROHMAN
+
+
+(B-strain) Strain-only form (log-Sobolev loss). Assume instead that for every finite T > 0 there
+exists C∗ (∥u0 ∥H s , ν, T ) < ∞ such that
+                                  ∫ T
+                                      ∥S(t)∥L∞ (T3 ) dt ≤ C∗ (∥u0 ∥H s , ν, T ),            (3.3)
+                               0
+
+where S =   1           T
+            2 (∇u + (∇u) ).    Then again T ∗ = +∞ and u ∈ C ∞ (T3 × (0, ∞)), by the classical
+Beale–Kato–Majda continuation criterion [3, 13] (one-directional). The H s bound is not the direct
+exponential (3.2): the Calderón–Zygmund / Riesz relation between ∇u and ω (equivalently S)
+introduces a logarithmic Sobolev factor [3, 9], and closing the Kato–Ponce estimate produces a
+double-exponential (or iterated-log) majorant rather than (3.2). We do not claim a direct C∗
+constant for the strain-only path.
+Remark 3.2 (Comparison of the two forms). Since ∥S∥L∞ ≤ ∥∇u∥L∞ , integrability of ∥∇u∥L∞
+implies integrability of ∥S∥L∞ : Form (B-grad) implies Form (B-strain). The converse fails at the
+level of constants: controlling S alone recovers ∇u only up to a logarithm, so the H s majorants
+differ. Both forms are conditional hypotheses; neither closes Clay Statement (B) unconditionally.
+Proof sketch. For (B-grad): the cited Kato–Ponce differential inequality integrates to
+                                              ∫ t
+                       ∥u(t)∥H s ≤ ∥u0 ∥H s +     Cs ∥∇u(τ )∥L∞ ∥u(τ )∥H s dτ.
+                                                0
+
+Integral Gronwall with (3.1) yields (3.2); the cited ∇u-continuation criterion then forces T ∗ = +∞.
+   For (B-strain): decomposing ∇u = S + Ω with Ω = 12 (∇u − (∇u)T ) gives (ω · ∇)u = Sω.
+Testing (1.2) against |ω|p−2 ω and letting p → ∞ produces dt
+                                                           d
+                                                              log ∥ω(t)∥L∞ ≤ ∥S(t)∥L∞ . Integrating
+and applying (3.3) bounds ∥ω∥L∞ exponentially. The log-Sobolev bound
+                                    (                 (             )            )
+                   ∥∇u(t)∥L∞ ≤ C 1 + ∥ω(t)∥L∞ log e + ∥u(t)∥H s + ∥ω(t)∥L2
+
+[3, 9] feeds into Kato–Ponce and yields only a double-exponential H s majorant; BKM continua-
+tion [3, 13] still gives T ∗ = +∞. Parabolic bootstrap upgrades to C ∞ for t > 0. The converse
+(smooth on [0, T ] ⇒ (3.1)/ (3.3)) is the trivial Sobolev embedding H s ,→ W 1,∞ for s > 5/2. □
+Theorem 3.3 (Unconditional Local-in-Time Regularity — Kato Lifespan). For arbitrary large
+divergence-free initial data u0 ∈ H s (T3 ; R3 ) (s > 5/2), there exists a deterministic lifespan
+                                                      1
+                                       Tloc ≥
+                                                Cs ∥u0 ∥H s (T3 )
+
+on which Form B holds unconditionally and u ∈ C ∞ (T3 × (0, Tloc )).
+Proof. We record the three standard pillars of the Kato theory [7].
+(a) Full Kato–Ponce commutator bound. Applying Λs = (I − ∆)s/2 to (1.1) and taking the L2
+pairing with Λs u produces, after the usual cancellation of the pressure and the divergence-free
+constraint,
+            1d                           (                                  )
+                 ∥u∥2H s + ν∥∇u∥2H s ≤ Cs ∥∇u∥L∞ ∥u∥H s + ∥∇u∥L∞ ∥∇u∥H s−1 ∥u∥H s .
+            2 dt
+For s > 5/2 the second summand is absorbed into the first by the Sobolev embedding H s−1 ,→ L∞
+on the gradient factor (or by interpolating ∥∇u∥H s−1 ≤ C∥u∥H s ), yielding the closed differential
+inequality
+                                       d
+                                          ∥u∥H s ≤ Cs ∥u∥2H s .                               (3.4)
+                                       dt
+                 METRIPLECTIC PHASE-SPACE COMPLETION FOR 3D NAVIER–STOKES                            5
+
+
+(b) Existence via mollified/Galerkin approximations. Let uε0 = Jε u0 be a family of smooth molli-
+fications (or finite-mode Galerkin projections) of the initial datum, with ∥uε0 ∥H s ≤ ∥u0 ∥H s . The
+corresponding approximate solutions uε satisfy (3.4) with constants independent of ε. Integrating
+the Riccati inequality on the common interval
+                                 [        )                 1
+                                   0, Tloc ,   Tloc =              ,
+                                                      2Cs ∥u0 ∥H s
+gives a uniform bound supt<Tloc ∥uε (t)∥H s ≤ 2∥u0 ∥H s . An Aubin–Lions compactness argument
+(boundedness in L∞                                                                     ∞
+                   t H and of ∂t u in a negative Sobolev space) produces a limit u ∈ L ([0, Tloc ); H )
+                       s           ε                                                                 s
+                                                                     s
+solving (1.1) distributionally; continuity in time with values in H follows by the standard energy-
+identity argument for strong solutions. Parabolic bootstrap then upgrades to u ∈ C ∞ (T3 ×(0, Tloc )).
+(c) L2 uniqueness. If u and v are two strong solutions on [0, T ] with the same initial datum, set
+w = u − v. Testing the difference of the momentum equations against w yields
+                                              ∫
+                1d                                 (         )
+                     ∥w∥L2 + ν∥∇w∥L2 = −
+                         2            2
+                                                     (w · ∇)v · w dV ≤ ∥∇v∥L∞ ∥w∥2L2 .
+                2 dt                            T3
+Gronwall’s lemma with w(0) = 0 forces w ≡ 0. (The gradient factor is that of the second solution
+v, consistent with the subtraction u − v.)
+   Via Sobolev embedding, Form B holds on every compact subinterval of [0, Tloc ) with
+                                                   Cemb    (                 )
+                       C∗ (∥u0 ∥H s , ν, T ) = −        log 1 − Cs T ∥u0 ∥H s < ∞.
+                                                    Cs
+                                                                                                    □
+Theorem 3.4 (Unconditional Global Regularity for Small Critical Data — Fujita–Kato). There
+exists an absolute dimensionless constant ε > 0 such that whenever u0 ∈ H s (T3 ; R3 ) (s > 5/2)
+satisfies the scale-invariant smallness condition
+                                           ∥u0 ∥Ḣ 1/2 (T3 ) ≤ εν,
+
+Form B holds globally on [0, ∞), yielding T ∗ = +∞ and u ∈ C ∞ (T3 × (0, ∞)).
+Proof. Testing (1.1) against (−∆)1/2 u and applying product estimates in homogeneous Sobolev
+spaces [6] gives
+                        1d
+                             ∥u(t)∥2Ḣ 1/2 + ν∥u(t)∥2Ḣ 3/2 ≤ CFK ∥u(t)∥Ḣ 1/2 ∥u(t)∥2Ḣ 3/2 .
+                        2 dt
+Choosing ε < 1/(2CFK ) ensures that (ν − CFK ∥u0 ∥Ḣ 1/2 ) > ν/2 > 0 at t = 0, trapping ∥u(t)∥Ḣ 1/2 ≤
+∥u0 ∥Ḣ 1/2 for all t ≥ 0 and forcing
+                                        ∫ ∞
+                                                               1
+                                             ∥u(t)∥2Ḣ 3/2 dt ≤ ∥u0 ∥2Ḣ 1/2 .
+                                          0                    ν
+Interpolating this global Ḣ 3/2 dissipation into higher-order H s norms yields control of ∥S(t)∥L∞ in
+L1 ([0, ∞)) by ∥u0 ∥H s and ν. Theorem 3.1 then yields global smoothness for t > 0.                 □
+
+                    4. Status Matrix, Lean Scope, and Open Frontier
+   The companion Lean module formalizes the metriplectic algebra, the degeneracy identity B(F, H) ≡
+0, the alignment-kernel / Constantin–Fefferman desingularization bounds, and the integrating-
+factor Gronwall logic over abstract solution-data interfaces. Analytic Navier–Stokes facts (Clay
+Statement (B), the BKM criterion, smooth-implies-bounded-strain, and the differential inequality)
+remain assumed structure fields; the Lean development does not claim an unconditional resolution
+of the Millennium problem.
+6                                           BENJAMIN STANLEY FROHMAN
+
+                    Table 1. Status matrix for the results recorded in this manuscript.
+
+Item                           Status                                    Content
+Theorem A                      Conditional            Forms (B-grad)/(B-strain) ⇒ T ∗ = ∞ (t >
+                                                      0); (B-grad) gives direct H s bound; (B-
+                                                      strain) double-exponential via log-Sobolev
+Theorem B             Unconditional Local             Kato lifespan; smoothness for t > 0
+Theorem C             Unconditional Small-Data Global ∥u0 ∥Ḣ 1/2 ≤ εν
+Metriplectic geometry Exact / Canonical               {F, G}LP skew; [F, G]diss + B symmetric;
+                                                      B(F, H) ≡ 0
+                                                      ∫T                            ∗
+BKM continuation      One-directional                  0 ∥∇u∥L dt < ∞ =⇒ T > T (also via
+                                                                  ∞
+
+                                                      ∥S∥L∞ , with log loss)
+Lean formalization    Machine-checked (conditional)   Metriplectic        algebra,       degeneracy,
+                                                      alignment        desingularization,     Gron-
+                                                      wall logic over abstract PDE input
+                                                      types; 0 sorry; axioms [propext,
+                                                      Classical.choice, Quot.sound];
+                                                      Lean / Mathlib v4.30.0-rc1
+Clay Statement (B)    Open                            The L2t L2x → L1t L∞x scaling gap
+
+
+4.1. Isolation of the L2t L2x → L1t L∞ x Scaling Gap. As demonstrated by Theorems 3.1–3.4,
+the large-data global regularity problem reduces to establishing a data-only a priori bound on
+∫T                    ∫T
+ 0 ∥∇u(t)∥L dt or 0 ∥S(t)∥L dt (Forms B-grad / B-strain). The phase-space geometry makes
+             ∞                  ∞
+
+transparent why standard energy methods cannot bridge this gap:
+    (1) Supercritical Dissipation vs. Critical Strain. The only coercive global bound gener-
+        ated unconditionally by [F, H]diss is the L2t L2x enstrophy dissipation (1.3), which scales as
+        λ−1 under parabolic rescaling. Forms B-grad / B-strain require L1t L∞               0
+                                                                               x control (λ ).
+    (2) Necessity of Viscous Coupling. Because B(F, H) ≡ 0 leaves the reversible Euler sector
+        untouched—and inviscid 3D Euler admits finite-time singularities in low-regularity classes—
+        no purely symplectic orbit invariant can close Form B-grad / B-strain without exploiting
+        viscous dissipation.
+
+4.2. Directions for Geometric-Coherence Analysis. While the current degenerate bracket
+B(F, G) preserves the unmodified flow without injecting artificial damping, its projected structure
+Πu points toward geometric regularity criteria. Expressing the strain via the Constantin–Fefferman
+singular integral kernel [4] shows that vortex stretching cancels when the vorticity direction ξ =
+ω/|ω| remains Lipschitz-coherent in intense regions. Whether localized coherence bounds on ξ can
+be coupled to [F, G]diss to bridge the scaling gap for arbitrary large data remains open.
+
+                                                     References
+    1. V. Arnold, Sur la géométrie différentielle des groupes de lie de dimension infinie et ses applications à
+       l’hydrodynamique des fluides parfaits, Ann. Inst. Fourier (Grenoble) 16 (1966), 319–361.
+    2. Vladimir I. Arnold and Boris A. Khesin, Topological methods in hydrodynamics, Applied Mathematical Sciences,
+       vol. 125, Springer-Verlag, New York, 1998.
+    3. J. T. Beale, T. Kato, and A. Majda, Remarks on the breakdown of smooth solutions for the 3-d euler equations,
+       Comm. Math. Phys. 94 (1984), 61–66.
+    4. P. Constantin and C. Fefferman, Direction of vorticity and the problem of global regularity for the navier–stokes
+       equations, Indiana Univ. Math. J. 42 (1993), 775–789.
+    5. C. Fefferman, Existence and smoothness of the navier–stokes equation, The Millennium Prize Problems, Clay
+       Math. Inst., 2000, pp. 57–67.
+                    METRIPLECTIC PHASE-SPACE COMPLETION FOR 3D NAVIER–STOKES                                         7
+
+
+ 6. H. Fujita and T. Kato, On the navier–stokes initial value problem. i, Arch. Rational Mech. Anal. 16 (1964),
+    269–315.
+ 7. T. Kato, Nonstationary flows of viscous and ideal fluids in R3 , J. Funct. Anal. 9 (1972), 296–305.
+ 8. T. Kato and G. Ponce, Commutator estimates and the Euler and Navier–Stokes equations, Comm. Pure Appl.
+    Math. 41 (1988), 891–907.
+ 9. H. Kozono and Y. Taniuchi, Bilinear estimates in BMO and the navier–stokes equations, Math. Z. 235 (2000),
+    173–194.
+10. J. E. Marsden, A. Weinstein, T. Ratiu, R. Schmid, and R. G. Spencer, Hamiltonian systems with symmetry,
+    coadjoint orbits and plasma physics, Proceedings of the IUTAM-ISIMM Symposium on Modern Developments in
+    Analytical Mechanics, 1984.
+11. Jerrold E. Marsden and Alan Weinstein, Coadjoint orbits, vortices, and Clebsch variables for incompressible fluids,
+    Physica D: Nonlinear Phenomena 7 (1983), no. 1–3, 305–323.
+12. P. J. Morrison, A paradigm for joined hamiltonian and dissipative systems, Physica D 18 (1986), 410–419.
+13. G. Ponce, Remarks on a paper by J. T. Beale, T. Kato and A. Majda, Comm. Math. Phys. 98 (1985), 349–353.
+

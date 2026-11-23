@@ -1,0 +1,27 @@
+$ git init
+exit=0
+Initialized empty Git repository in /workspace/ns-envelope-fix-20261106/patch-validation-v2/.git/
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint:
+hint: 	git config --global init.defaultBranch <name>
+hint:
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint: 	git branch -m <name>
+
+$ git apply --check /workspace/ns-envelope-fix-20261106/ns-envelope-correction.patch
+exit=0
+
+$ git apply /workspace/ns-envelope-fix-20261106/ns-envelope-correction.patch
+exit=0
+/workspace/ns-envelope-fix-20261106/ns-envelope-correction.patch:648: trailing whitespace.
+Author: Frohman, Benjamin Stanley <frohmanbenjamin@gmail.com>  
+warning: 1 line adds whitespace errors.
+
+$ git apply --reverse --check /workspace/ns-envelope-fix-20261106/ns-envelope-correction.patch
+exit=0
+
+PASS: every validated project file equals the final tested snapshot byte-for-byte

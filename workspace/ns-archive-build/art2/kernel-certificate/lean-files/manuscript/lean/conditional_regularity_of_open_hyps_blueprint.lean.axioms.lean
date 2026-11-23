@@ -1,0 +1,2 @@
+import NS_Millennium_Proof.Modules.ClosureBlueprint
+#print axioms ClosureBlueprint.conditional_regularity_of_open_hyps

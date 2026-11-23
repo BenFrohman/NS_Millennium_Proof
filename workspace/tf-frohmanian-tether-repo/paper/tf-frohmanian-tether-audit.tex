@@ -1,0 +1,292 @@
+% Copyright (c) 2026 Benjamin Stanley Frohman.
+% This paper is licensed under the Creative Commons Attribution 4.0
+% International License (CC-BY-4.0). The Lean code it describes is Apache-2.0.
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{underscore}
+\usepackage{newunicodechar}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{fancyvrb}
+\usepackage[hidelinks]{hyperref}
+\newunicodechar{ω}{\ensuremath{\omega}}
+\newunicodechar{κ}{\ensuremath{\kappa}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{∧}{\ensuremath{\wedge}}
+\newunicodechar{∨}{\ensuremath{\vee}}
+\newunicodechar{₁}{\ensuremath{_1}}
+\newunicodechar{₂}{\ensuremath{_2}}
+\newunicodechar{₃}{\ensuremath{_3}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\lean}[1]{\texttt{\upshape #1}}
+\fvset{fontshape=n,fontseries=m}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\TF}{\mathrm{TF}}
+\newcommand{\KFT}{\mathcal{K}_{\mathrm{FT}}}
+
+\title{The Frohmanian Tether kernels in Lean:\\
+non-antisymmetry, energy-direction degeneracy,\\
+and the Beltrami alignment zero set}
+\author{Benjamin Stanley Frohman\\
+\small Independent Researcher, Texas, United States\\
+\small ORCID \href{https://orcid.org/0009-0006-7068-3718}{0009-0006-7068-3718}\quad
+\href{mailto:frohmanbenjamin@gmail.com}{frohmanbenjamin@gmail.com}}
+\date{November 23, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record, with machine-checked Lean~4/Mathlib proofs, exact pointwise
+algebraic facts about the densities of the ``Frohmanian Symplectic Tether''
+($\TF$) kernels written in the author's May~2026 notes and the October~2026
+kernel $\KFT$. (i) The displayed associated 2-form density
+$\omega\cdot(\delta u\times\delta v)-\kappa|\omega|^2(\delta u\cdot\delta v)$ is
+not antisymmetric, so the claim that it is a bilinear antisymmetric correction
+to Arnold's Lie--Poisson bracket is false. (ii) In the projected-kernel reading,
+the tether term along the kinetic-energy direction $\delta H=u$ is identically
+zero, so it adds nothing to the Navier--Stokes equations. (iii) The October
+kernel satisfies $\KFT(\omega;u,u)=|\omega\times u|^2$, which vanishes exactly
+when $u\parallel\omega$ (Beltrami, i.e.\ velocity--vorticity, alignment) and is
+not identically zero. (iv) $|\sin\theta|$ and $|\tau-\eta|$ are different
+quantities for vorticity directions $\tau,\eta$. \emph{This is not a regularity
+result}: no bound, blow-up criterion, or regularity statement for Navier--Stokes
+solutions is proved.
+\end{abstract}
+
+\section{Notation and scope}
+We use textbook notation: $u$ is the velocity, $\omega=\nabla\times u$ the
+vorticity, $\nu$ the kinematic viscosity, $\|\omega\|_{L^2}^2$ the enstrophy,
+$H=\tfrac12\int|u|^2\,dx$ the kinetic energy (so its variational derivative is
+$\delta H=u$), $\tau=\omega/|\omega|$ the vorticity direction, and $\theta$ the
+angle between two vorticity vectors. The incompressible Navier--Stokes
+equations are $\partial_t u+(u\cdot\nabla)u=-\nabla p+\nu\Delta u$,
+$\nabla\cdot u=0$.
+
+Every Lean statement below concerns vectors in $\R^3$ (Lean type
+\lean{Fin 3 → ℝ}) at a single point; $a\cdot b$ is \lean{dot a b}, $a\times b$ is
+\lean{cross a b}, and $e_1,e_2,e_3$ are the standard basis vectors
+\lean{e₁}, \lean{e₂}, \lean{e₃}. No integral over $\R^3$ or $\mathbb{T}^3$
+is formalized. A pointwise density that fails a property (for example
+antisymmetry) at one point cannot acquire it after integration against every
+test field, which is why the pointwise statements suffice for the refutation in
+Section~\ref{sec:antisym}.
+
+\section{Definitions (Lean: \lean{TFFrohmanianTether/Basic.lean})}
+\begin{definition}[\lean{TF}]
+For $\kappa\in\R$ and $\omega,\delta u,\delta v\in\R^3$,
+\[\TF_\kappa(\omega;\delta u,\delta v)=\underbrace{\omega\cdot(\delta u\times\delta v)}_{\text{\lean{ω_KKS}}}
+-\kappa\underbrace{|\omega|^2(\delta u\cdot\delta v)}_{\text{\lean{omega_sq_dot}}}.\]
+\end{definition}
+\begin{definition}[\lean{Pi_u}, \lean{P_δC_perp}]
+$\Pi_u v=v-\dfrac{v\cdot u}{u\cdot u}\,u$ if $u\neq0$ and $\Pi_0v=v$.
+$P_\omega^\perp v=\Pi_\omega v$ is the projection off the Casimir direction
+$\omega$.
+\end{definition}
+\begin{definition}[\lean{K_FT}]
+$\KFT(\omega;v,w)=|\omega|^2\,\big(P_\omega^\perp v\big)\cdot\big(P_\omega^\perp w\big)$.
+\end{definition}
+
+\section{The displayed 2-form is not antisymmetric}\label{sec:antisym}
+The May~21, 2026 note (\texttt{vFinal.txt}, sha256
+\texttt{d5b6508e\ldots c6e05}) states: ``We derive the Frohmanian Symplectic
+Tether TF as the canonical minimal bilinear antisymmetric correction to Arnold's
+Lie--Poisson bracket'' and ``The associated 2-form is
+$\TF(\delta u,\delta v)=\int_{\mathbb{T}^3}\omega\cdot(\delta u\times\delta v)\,d\lambda
+-\kappa\int_{\mathbb{T}^3}|\omega|^2(\delta u\cdot\delta v)\,d\lambda$.''
+The same formula appears in the May~14 paper
+(sha256 \texttt{98717d94\ldots 026ff}).
+
+\begin{definition}[\lean{paper_claim}, \lean{TFFrohmanianTether/Semantics.lean}]
+The literal transcription of the antisymmetry claim is
+\begin{Verbatim}[fontsize=\small]
+def paper_claim : Prop :=
+  ∀ (κ : ℝ) (ω δu δv : Fin 3 → ℝ),
+    TF κ ω δu δv = - TF κ ω δv δu
+\end{Verbatim}
+\end{definition}
+
+\begin{theorem}[\lean{TF_not_antisymmetric}, \lean{paper_claim_refuted}]
+It is not true that $\TF_\kappa(\omega;\delta u,\delta v)=-\TF_\kappa(\omega;\delta v,\delta u)$
+for all $\kappa,\omega,\delta u,\delta v$. Witness: $\kappa=1$,
+$\omega=\delta u=\delta v=e_1$ gives $\TF=-1$ but $-\TF=1$.
+\begin{Verbatim}[fontsize=\small]
+theorem TF_not_antisymmetric :
+    ¬ (∀ (κ : ℝ) (ω δu δv : Fin 3 → ℝ),
+        TF κ ω δu δv = - TF κ ω δv δu)
+theorem paper_claim_refuted : ¬ paper_claim
+\end{Verbatim}
+\end{theorem}
+
+\begin{theorem}[\lean{TF_not_symmetric}]
+Nor is it symmetric: $\kappa=0$, $\omega=e_1$, $\delta u=e_2$, $\delta v=e_3$
+gives $\TF(\delta u,\delta v)=1$ and $\TF(\delta v,\delta u)=-1$.
+\end{theorem}
+
+\begin{proposition}[\lean{intended_correspondence}]
+With \lean{formal_claim := False}, \lean{formal_claim ↔ paper_claim}. The
+proof uses the witness of \lean{TF_not_antisymmetric}; it is not
+\lean{Iff.rfl}.
+\end{proposition}
+
+The supporting lemmas \lean{ω_KKS_antisymm}
+($\omega\cdot(\delta u\times\delta v)=-\omega\cdot(\delta v\times\delta u)$),
+\lean{omega_sq_dot_symm} (the metric term is symmetric), \lean{TF_split},
+\lean{cross_antisymm}, \lean{dot_comm}, \lean{dot_neg_right},
+\lean{dot_smul_right} and \lean{eq_zero_of_dot_self_eq_zero} ($a\cdot a=0\Rightarrow a=0$)
+are also proved. The failure is exactly the symmetric metric term
+$-\kappa|\omega|^2(\delta u\cdot\delta v)$, which is not alternating.
+
+\section{The projected tether adds nothing along the energy direction}
+\begin{theorem}[\lean{Pi_u_self}, \lean{Pi_u_pairing_with_u}]
+$\Pi_u u=0$, hence $(\Pi_u\,\delta F)\cdot(\Pi_u u)=0$ for all $u,\delta F$.
+\end{theorem}
+\begin{theorem}[\lean{projected_TF_adds_nothing_along_H}, \lean{Pi_u_tether_contribution_along_H}]
+For all $\kappa,\omega,u,\delta F$:
+$-\kappa\,|\omega|^2\,(\Pi_u\,\delta F)\cdot(\Pi_u u)=0$.
+\begin{Verbatim}[fontsize=\small]
+theorem projected_TF_adds_nothing_along_H (κ : ℝ) (ω u δF : Fin 3 → ℝ) :
+    -κ * omega_sq_dot ω (Pi_u u δF) (Pi_u u u) = 0
+\end{Verbatim}
+\end{theorem}
+\begin{remark}
+With $\delta H=u$, the tether contribution to $dF/dt=\{F,H\}$ in the
+projected-kernel reading is identically zero, so it adds no term to the
+Navier--Stokes vorticity equation from which a bound could be derived. The
+lemmas \lean{omega_sq_dot_Pi_u_self} and \lean{omega_sq_dot_Pi_u_self_weight}
+state the same vanishing with weight $u$ and with an independent weight
+$\omega$. Without the projection the term need not vanish:
+\lean{omega_sq_dot_not_degenerate_on_u} gives $\omega,u$ with
+$|\omega|^2(u\cdot u)\neq0$.
+\end{remark}
+
+\section{The October kernel is the Beltrami alignment defect}
+\begin{theorem}[\lean{P_δC_perp_self}, \lean{K_FT_vanishes_on_δC}, \lean{K_FT_vanishes_on_δC_right}]
+$P_\omega^\perp\omega=0$, so $\KFT(\omega;\omega,v)=\KFT(\omega;v,\omega)=0$.
+\end{theorem}
+\begin{theorem}[\lean{K_FT_uu_eq_cross_sq}]
+For all $\omega,u\in\R^3$, $\KFT(\omega;u,u)=|\omega\times u|^2$.
+\begin{Verbatim}[fontsize=\small]
+theorem K_FT_uu_eq_cross_sq (ω u : Fin 3 → ℝ) :
+    K_FT ω u u = dot (cross ω u) (cross ω u)
+\end{Verbatim}
+\end{theorem}
+\begin{proof}[Proof idea]
+If $\omega=0$ both sides vanish. Otherwise
+$|\omega|^2|P_\omega^\perp u|^2=|\omega|^2|u|^2-(u\cdot\omega)^2=|\omega\times u|^2$
+(Lagrange's identity), checked in Lean by \lean{field_simp} and \lean{ring}.
+\end{proof}
+\begin{theorem}[\lean{K_FT_uu_eq_zero_of_collinear}, \lean{K_FT_uu_eq_zero_iff}]
+$\KFT(\omega;u,u)=0$ if and only if $\omega=0$ or $u=c\,\omega$ for some
+$c\in\R$, i.e.\ exactly at velocity--vorticity (Beltrami) alignment
+$u\parallel\omega$.
+\begin{Verbatim}[fontsize=\small]
+theorem K_FT_uu_eq_zero_of_collinear (ω u : Fin 3 → ℝ) (c : ℝ)
+    (hu : u = fun i => c * ω i) : K_FT ω u u = 0
+theorem K_FT_uu_eq_zero_iff (ω u : Fin 3 → ℝ) :
+    K_FT ω u u = 0 ↔ (ω = fun _ => 0) ∨ ∃ c : ℝ, u = fun i => c * ω i
+\end{Verbatim}
+\end{theorem}
+\begin{theorem}[\lean{K_FT_uu_not_identically_zero}, \lean{K_FT_uu_nonneg}]
+There are $\omega,u$ with $\KFT(\omega;u,u)\neq0$ (take $\omega=e_1$, $u=e_2$),
+and $\KFT(\omega;u,u)\ge0$ always.
+\end{theorem}
+\begin{remark}
+Integrated over a domain, $\int|\omega\times u|^2\,dx$ is therefore a measure of
+how far a flow is from Beltrami alignment. That integrated equivalence is
+\emph{not} formalized here, and nothing here shows that Navier--Stokes
+solutions become or stay aligned.
+\end{remark}
+
+\section{Vorticity direction: $|\sin\theta|$ versus $|\tau-\eta|$}
+Constantin and Fefferman~\cite{CF93} proved regularity under a Lipschitz
+condition on the vorticity direction where $|\omega|$ is large, and
+Beirão da Veiga and Berselli~\cite{BVB02} showed that the Hölder-$\tfrac12$
+condition $|\sin\theta(x,y)|\le C|x-y|^{1/2}$ suffices. Here
+$|\sin\theta|=|\tau(x)\times\tau(y)|$ for unit $\tau$.
+\begin{theorem}[\lean{sin_theta_sq_of_parallel}, \lean{sin_theta_sq_of_antiparallel}]
+$|\tau\times\tau|^2=0$ and $|\tau\times(-\tau)|^2=0$ for every $\tau\in\R^3$.
+\end{theorem}
+\begin{theorem}[\lean{antiparallel_direction_gap}]
+For $\tau=e_1$ and $\eta=-e_1$: $|\tau\times\eta|^2=0$, so $\sin\theta=0$,
+while $|\tau-\eta|^2=4$.
+\begin{Verbatim}[fontsize=\small]
+theorem antiparallel_direction_gap :
+    sin_theta_sq e₁ (fun i => -e₁ i) = 0 ∧
+      dot (fun i => e₁ i - (-e₁ i)) (fun i => e₁ i - (-e₁ i)) = 4
+\end{Verbatim}
+\end{theorem}
+So a bound on $|\sin\theta|$ and a bound on $|\tau(x)-\tau(y)|$ are different
+conditions and cannot be substituted for one another.
+
+\section{What is not proved}
+No statement here is a regularity theorem. In particular, neither the
+Constantin--Fefferman / Beirão da Veiga--Berselli direction condition nor
+velocity--vorticity alignment is proved for every smooth divergence-free
+initial datum, and parts (A) and (B) of the Clay problem
+statement~\cite{Fef06} are not addressed.
+
+\section{Reproducibility and certificate}\label{sec:cert}
+Source: \url{https://github.com/BenFrohman/tf-frohmanian-tether-audit}.
+Pins:
+\begin{Verbatim}[fontsize=\small]
+lean-toolchain      leanprover/lean4:v4.30.0-rc1
+Mathlib rev         0c154d67103f74be3a0f2c509f72ccbf5be9f2a7
+lake-manifest.json  sha256 b81d814b7d2d2d2821b03ed679324d5e
+                           7ec7da674e0a977352d01c88cbe8ccb8
+\end{Verbatim}
+Build:
+\begin{Verbatim}[fontsize=\small]
+lake exe cache get
+lake build
+lake env lean TFFrohmanianTether/AxiomAudit.lean
+\end{Verbatim}
+The official certificate is the GitHub Actions run of
+\texttt{.github/workflows/lean-kernel.yml} on the exact commit and its artifact
+\texttt{lean-kernel-certificate}. A pass means \texttt{lake build} succeeds,
+there are 0 \texttt{sorry}, and every \texttt{\#print axioms} lists only
+\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}.
+
+%CERT-BEGIN
+\noindent\textbf{CI certificate run:} to be filled in from the first green CI run.
+%CERT-END
+
+\section*{License}
+This paper: CC-BY-4.0. Lean code: Apache-2.0. Copyright \copyright\ 2026
+Benjamin Stanley Frohman.
+
+\begin{thebibliography}{9}
+\bibitem{Arn66} V.~I.~Arnold, Sur la géométrie différentielle des groupes de
+Lie de dimension infinie et ses applications à l'hydrodynamique des fluides
+parfaits, \emph{Ann. Inst. Fourier} 16 (1966), 319--361.
+\bibitem{CF93} P.~Constantin, C.~Fefferman, Direction of vorticity and the
+problem of global regularity for the Navier--Stokes equations,
+\emph{Indiana Univ. Math. J.} 42(3) (1993), 775--789,
+doi:10.1512/iumj.1993.42.42034.
+\bibitem{BVB02} H.~Beirão da Veiga, L.~C.~Berselli, On the regularizing effect
+of the vorticity direction in incompressible viscous flows,
+\emph{Differential Integral Equations} 15(3) (2002), 345--356,
+doi:10.57262/die/1356060864.
+\bibitem{Fef06} C.~L.~Fefferman, Existence and smoothness of the
+Navier--Stokes equation, in \emph{The Millennium Prize Problems}, Clay Math.
+Inst., 2006, 57--67.
+\bibitem{Mathlib} The mathlib Community, The Lean mathematical library,
+\emph{CPP 2020}, 367--381.
+\end{thebibliography}
+\end{document}

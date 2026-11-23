@@ -1,0 +1,11 @@
+import Clay
+#check ContDiff.fderiv_right
+#check ContDiffAt.fderiv_right
+#check ContDiff.contDiffAt
+#check ContDiffAt.differentiableAt
+#check HasDerivWithinAt.hasDerivAt
+#check HasDerivWithinAt.hasDerivAt_of_mem_nhds
+#check HasDerivWithinAt.mono
+#check HasDerivWithinAt.continuousWithinAt
+#check ContDiffOn.comp
+#check contDiff_const.prodMk
