@@ -151,7 +151,7 @@ theorem exists_hasDerivAt (a₀ : K → d → ℂ) (t₀ : ℝ) :
     ∃ ε > (0 : ℝ), ∃ a : ℝ → K → d → ℂ, a t₀ = a₀ ∧
       ∀ t ∈ Ioo (t₀ - ε) (t₀ + ε), HasDerivAt a (vectorField ν K (a t)) t := by
   obtain ⟨a, ha₀, ε, hε, ha⟩ :=
-    IsPicardLindelof.exists_forall_mem_closedBall_exists_eq_forall_mem_Ioo_hasDerivAt₀
+    ContDiffAt.exists_forall_mem_closedBall_exists_eq_forall_mem_Ioo_hasDerivAt₀
       ((contDiff_vectorField ν K).contDiffAt.of_le le_top) t₀
   exact ⟨ε, hε, a, ha₀, ha⟩
 
