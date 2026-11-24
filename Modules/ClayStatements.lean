@@ -378,9 +378,9 @@ public theorem stepField_not_physical : ¬ IsPhysicalNSSolution stepField := by
   simp [stepField] at h2
 
 /-- With `IsPhysicalNSSolution v`, the `L²` integrability hypothesis `hInt` of
-`restart_of_kato_quantitative` and `conditional_regularity_of_constructions`
-holds **unconditionally** for every initial datum `u₀` and viscosity `ν`.
-`frohmanian_tether_theorem` does not take `hInt`. -/
+`restart_of_kato_quantitative`, `global_regularity_of_constructions_conditional`, and
+`frohmanian_tether_theorem` holds **unconditionally** for every initial datum
+`u₀` and viscosity `ν`. -/
 public theorem repaired_hInt (u₀ : VelocityField) (ν : ℝ) :
     ∀ (T : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
       T ∈ existenceTimes u₀ ν →
@@ -394,10 +394,10 @@ public theorem repaired_hInt (u₀ : VelocityField) (ν : ℝ) :
   exact hphys.2.2.1 t ht.1
 
 /-- With `IsPhysicalNSSolution v`, the shifted-restart uniqueness hypothesis
-`huniq_shift` of `restart_of_kato_quantitative` and
-`conditional_regularity_of_constructions` is **provably satisfied** at
-`u₀ = 0`: both `v` and any restart witness `w'` starting at `v t = 0` vanish
-identically on `[0, ∞)`. `frohmanian_tether_theorem` does not take `huniq_shift`. -/
+`huniq_shift` of `restart_of_kato_quantitative`,
+`global_regularity_of_constructions_conditional`, and `frohmanian_tether_theorem` is
+**provably satisfied** at `u₀ = 0`: both `v` and any restart witness `w'`
+starting at `v t = 0` vanish identically on `[0, ∞)`. -/
 public theorem repaired_huniq_shift_at_zero (ν : ℝ) :
     ∀ (T : ℝ) (v : TimeDependentVelocity) (q : TimeDependentPressure),
       T ∈ existenceTimes (0 : VelocityField) ν →

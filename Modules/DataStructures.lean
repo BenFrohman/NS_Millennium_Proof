@@ -26,7 +26,6 @@ def FieldArray : Type := Array ℝ³   -- flattened for T³ grid
 -- Equivalence theorems to the functional view in ArnoldGeometric etc.
 -/
 
-
 namespace DataStructures
 
 -- Placeholder for field representation using Array (for efficiency)
