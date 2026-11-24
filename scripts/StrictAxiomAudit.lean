@@ -6,6 +6,8 @@ Authors: Benjamin Stanley Frohman
 
 import NS_Millennium_Proof
 import ForMathlib.NS.Tether
+import NS_Millennium_Proof.Modules.Kato.Galerkin
+import ForMathlib.Analysis.Sobolev.Torus.Basic
 
 /-!
 # Strict whole-library axiom audit

@@ -2218,8 +2218,10 @@ public theorem conditional_regularity_of_kato_estimates
     h_pos_ν w hRiccati (katoRestartTime C C₀ (max R 1))
     (katoRestartTime_pos C C₀ (max R 1)) (hrestart C₀) huniq
 
-/-- Riccati construction: the vorticity-sup-norm differential inequality
-produces the uniform ceiling used by BKM. This discharges `hRiccati`. -/
+/-- Riccati comparison (conditional). If `M(τ) = ‖ω(τ)‖_∞` is continuous, differentiable and
+satisfies the cubic-rate inequality `M' ≤ C M² − κ'' M³` (the argument `hDI`, the hypothesis
+`CorrectedMaxRate`), then `M` has a uniform ceiling. `hDI` is an argument of this theorem and is
+not proved here; this theorem does not discharge `hRiccati`. -/
 public theorem riccati_ceiling_of_vorticity_di
     (u : TimeDependentVelocity) (C κ'' : ℝ)
     (hC : 0 < C) (hκ : 0 < κ'')

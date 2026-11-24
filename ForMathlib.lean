@@ -5,6 +5,7 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import ForMathlib.NS.Tether
+import ForMathlib.Analysis.Sobolev.Torus.Basic
 
 /-!
 # ForMathlib
