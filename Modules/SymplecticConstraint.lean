@@ -6,7 +6,7 @@ Authors: Benjamin Stanley Frohman
 
 module
 
-public import NS_Millennium_Proof.Modules.GlobalRegularity
+public import NS_Millennium_Proof.Modules.ConditionalRegularity
 public import NS_Millennium_Proof.Modules.SymplecticTether
 public import NS_Millennium_Proof.Modules.Uniqueness
 public import NS_Millennium_Proof.Modules.AssemblyGap
@@ -74,7 +74,7 @@ open FrohmanianTether.ClayStatements
 open FrohmanianTether.TorusStrainExclusion
 open FrohmanianTether.HighSetDepletionAndBKM
 open TetheredLyapunov
-open GlobalRegularity hiding vorticity_sup_norm
+open ConditionalRegularity hiding vorticity_sup_norm
 open Frohmanian.AssemblyGap
 open Frohmanian.CubicSourceAudit
 open MeasureTheory hiding volume
@@ -206,50 +206,51 @@ Replaces the identity stub `CoadjointAction _g ω := ω` with a coherent mathema
 representing the action of a group of volume-preserving diffeomorphisms on `CoadjointOrbit`:
 1. `act g ω` is a divergence-free vorticity field on the coadjoint orbit;
 2. Every diffeomorphism $g$ preserves spatial Bochner integrals (`integral_comp_eq`);
-3. For any isometric volume-preserving transformation $g$, the quadratic tether integrand
-   pulls back by composition with $g$. -/
-public structure VolumePreservingCoadjointAction where
-  act : (T3 → T3) → CoadjointOrbit → CoadjointOrbit
-  integral_comp_eq : ∀ (g : T3 → T3) (f : T3 → ℝ),
-    (∫ x : T3, f (g x) ∂NavierStokes3D.volume) = ∫ x : T3, f x ∂NavierStokes3D.volume
+3. For any isometric volume-preserving transformation $g$, the projected pairing
+   `⟨Π_u δF, Π_u δG⟩` (the integrand of `TetherKernel` after the global enstrophy factor) pulls back by composition with $g$. -/
+public structure VolumePreservingCoadjointAction (SDiff : Type*) [Group SDiff]
+    [MulAction SDiff CoadjointOrbit] where
+  /-- The underlying volume-preserving map of `g` (only these maps are required to
+  preserve integrals; the former `∀ g : T3 → T3` version was unsatisfiable, e.g. for a
+  constant map, so every theorem about the old structure was vacuous). -/
+  diffeo : SDiff → T3 → T3
+  integral_comp_eq : ∀ (g : SDiff) (f : T3 → ℝ),
+    (∫ x : T3, f (diffeo g x) ∂NavierStokes3D.volume) = ∫ x : T3, f x ∂NavierStokes3D.volume
   tether_integrand_pullback :
-    ∀ (g : T3 → T3) (F G : Functional) (ω : CoadjointOrbit) (x : T3),
-      ‖(act g ω).val x‖ ^ 2 *
+    ∀ (g : SDiff) (F G : Functional) (ω : CoadjointOrbit) (x : T3),
         inner ℝ
-          (Pi_u (velocity_from_vorticity (act g ω))
-            (FunctionalDerivative F (act g ω)) x)
-          (Pi_u (velocity_from_vorticity (act g ω))
-            (FunctionalDerivative G (act g ω)) x) =
-      ‖ω.val (g x)‖ ^ 2 *
+          (Pi_u (velocity_from_vorticity (g • ω))
+            (FunctionalDerivative F (g • ω)) x)
+          (Pi_u (velocity_from_vorticity (g • ω))
+            (FunctionalDerivative G (g • ω)) x) =
         inner ℝ
-          (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) (g x))
-          (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) (g x))
+          (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) (diffeo g x))
+          (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) (diffeo g x))
 
 /-- **Proved (`volumePreservingCoadjointAction_preserves_TetherKernel`):**
-Any `VolumePreservingCoadjointAction` automatically satisfies `ConjecturedSDiffPushforwardInvariance`:
+Any `VolumePreservingCoadjointAction SDiff` satisfies the C1 integral-preservation hypothesis `TetherIntegralPreserved SDiff`, hence (via `tether_satisfies_C1`) C1 for the tether:
 $B(\mathrm{act}_g \omega, F, G) = B(\omega, F, G)$. -/
 public theorem volumePreservingCoadjointAction_preserves_TetherKernel
-    (A : VolumePreservingCoadjointAction) :
-    ConjecturedSDiffPushforwardInvariance A.act := by
+    {SDiff : Type*} [Group SDiff] [MulAction SDiff CoadjointOrbit]
+    (A : VolumePreservingCoadjointAction SDiff) :
+    TetherIntegralPreserved SDiff := by
   intro g F G ω
-  unfold TetherKernel
-  congr 1
   let f : T3 → ℝ := fun y =>
-    ‖ω.val y‖ ^ 2 *
       inner ℝ
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative F ω) y)
         (Pi_u (velocity_from_vorticity ω) (FunctionalDerivative G ω) y)
   have hfun :
-      (fun x => ‖(A.act g ω).val x‖ ^ 2 *
+      (fun x =>
         inner ℝ
-          (Pi_u (velocity_from_vorticity (A.act g ω))
-            (FunctionalDerivative F (A.act g ω)) x)
-          (Pi_u (velocity_from_vorticity (A.act g ω))
-            (FunctionalDerivative G (A.act g ω)) x)) =
-      fun x => f (g x) := by
+          (Pi_u (velocity_from_vorticity (CoadjointAction g ω))
+            (FunctionalDerivative F (CoadjointAction g ω)) x)
+          (Pi_u (velocity_from_vorticity (CoadjointAction g ω))
+            (FunctionalDerivative G (CoadjointAction g ω)) x)) =
+      fun x => f (A.diffeo g x) := by
     funext x
     exact A.tether_integrand_pullback g F G ω x
-  rw [hfun, A.integral_comp_eq g f]
+  have hint := congrArg (fun φ : T3 → ℝ => ∫ x, φ x ∂NavierStokes3D.volume) hfun
+  exact hint.trans (A.integral_comp_eq g f)
 
 /-- **Ontological Correction 2b (`HelicityCasimir`):**
 The classical 3D hydrodynamic Casimir invariant on $\mathfrak{sdiff}(\mathbb{T}^3)^*$:
@@ -268,16 +269,17 @@ public noncomputable def kelvinLoopCirculation
 
 public structure VortexLineMonodromyCondition
     (u : TimeDependentVelocity)
-    (A : VolumePreservingCoadjointAction)
-    (g : ℝ → (T3 → T3)) : Prop where
+    {SDiff : Type*} [Group SDiff] [MulAction SDiff CoadjointOrbit]
+    (A : VolumePreservingCoadjointAction SDiff)
+    (g : ℝ → SDiff) : Prop where
   orbit_trajectory : ∀ t ≥ (0 : ℝ),
     ∃ ω_t : CoadjointOrbit, ω_t.val = vorticity (u t)
   coadjoint_monodromy : ∀ (t : ℝ) (ω₀ ω_t : CoadjointOrbit),
     0 ≤ t → ω₀.val = vorticity (u 0) → ω_t.val = vorticity (u t) →
-    A.act (g t) ω₀ = ω_t
+    CoadjointAction (g t) ω₀ = ω_t
   kelvin_circulation_preserved : ∀ (t : ℝ) (γ₀ : ℝ → T3),
     0 ≤ t → γ₀ 1 = γ₀ 0 →
-    kelvinLoopCirculation (u t) (fun s => g t (γ₀ s)) = kelvinLoopCirculation (u 0) γ₀
+    kelvinLoopCirculation (u t) (fun s => A.diffeo (g t) (γ₀ s)) = kelvinLoopCirculation (u 0) γ₀
   casimir_transverse_damping : ∀ (ωx ωy grad_orth : T3),
     grad_orth ≠ 0 → casimirTetherKernel ωx ωy grad_orth < 0
 
@@ -348,8 +350,7 @@ correction" (`main.tex` §3.3, lines 196–201) by explicitly separating:
 - the symmetric negative-semidefinite projected metric bilinear form `tetherMetricForm ω δu δv`. -/
 @[expose] public noncomputable def tetherMetricForm
     (ω : CoadjointOrbit) (δu δv : VelocityField) : ℝ :=
-  -kappa * ∫ x : T3,
-    ‖ω.val x‖ ^ 2 *
+  -kappa * Enstrophy ω * ∫ x : T3,
       inner ℝ
         (Pi_u (velocity_from_vorticity ω) δu x)
         (Pi_u (velocity_from_vorticity ω) δv x)
@@ -392,21 +393,21 @@ public theorem FrohmanianMetriplecticPairing_diag_eq_metric
     rw [kksSymplecticForm_self_zero, zero_add]
   · unfold tetherMetricForm
     have hnn : ∀ x : T3,
-        0 ≤ ‖ω.val x‖ ^ 2 *
+        0 ≤
           inner ℝ
             (Pi_u (velocity_from_vorticity ω) δu x)
             (Pi_u (velocity_from_vorticity ω) δu x) := by
       intro x
       rw [real_inner_self_eq_norm_sq]
-      exact mul_nonneg (sq_nonneg _) (sq_nonneg _)
+      exact sq_nonneg _
     have hint : 0 ≤ ∫ x : T3,
-        ‖ω.val x‖ ^ 2 *
           inner ℝ
             (Pi_u (velocity_from_vorticity ω) δu x)
             (Pi_u (velocity_from_vorticity ω) δu x) ∂NavierStokes3D.volume :=
       integral_nonneg hnn
     have hκ : -kappa ≤ 0 := neg_nonpos.mpr kappa_pos.le
-    exact mul_nonpos_of_nonpos_of_nonneg hκ hint
+    have hE : 0 ≤ Enstrophy ω := integral_nonneg fun y => sq_nonneg _
+    exact mul_nonpos_of_nonpos_of_nonneg (mul_nonpos_of_nonpos_of_nonneg hκ hE) hint
 
 /-! ## Section 4. In-Place Correction 4: Periodic Cell Energy on $\mathbb{T}^3 = [0,1]^3$ (`unitCube`)
 and One-Sided Smooth Time Derivatives (`main.tex` §2 & §6) -/

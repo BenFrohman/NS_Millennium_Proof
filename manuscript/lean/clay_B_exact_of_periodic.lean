@@ -10,7 +10,7 @@ Authors: Benjamin Stanley Frohman
 Machine-checked Lean 4 module.
 -/
 
-public theorem clay_B_exact_of_periodic_tether_bound
+public theorem clay_B_exact_of_periodic_tether_bound_formal
     (hclose : ∀ ν > (0 : ℝ), PeriodicTetherClosingBound ν)
     (hBKM : ∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) : Clay_B_exact :=
   fun ν u₀ hν hs hd hp => hBKM ν hν u₀ hd hs hp (hclose ν hν u₀ hd hs hp)

@@ -7,11 +7,10 @@ declaration in code (text inside `--` and `/- ... -/` comments and inside string
 literals is ignored).
 
 Usage:
-  python3 scripts/check_forbidden_tokens.py [--exclude FILE ...] [--require-imported-by AUDIT.lean] PATH [PATH ...]
+  python3 scripts/check_forbidden_tokens.py [--require-imported-by AUDIT.lean] PATH [PATH ...]
 
 Each PATH is a .lean file or a directory scanned recursively (`.lake` is skipped).
-Run from the Lake package root.  `--exclude FILE` skips one file (it is listed in the
-output so the exclusion is visible).  `--require-imported-by AUDIT.lean` (repeatable)
+Run from the Lake package root.  There is no option to leave a file out.  `--require-imported-by AUDIT.lean` (repeatable)
 additionally fails if some scanned file is not in the import closure of the AUDIT files, so the axiom
 audit cannot silently miss a module.
 """
@@ -88,12 +87,10 @@ def closure(audit: Path) -> set:
 
 
 def main(argv):
-    excludes, audits, paths = set(), [], []
+    audits, paths = [], []
     it = iter(argv)
     for a in it:
-        if a == '--exclude':
-            excludes.add(Path(next(it)))
-        elif a == '--require-imported-by':
+        if a == '--require-imported-by':
             audits.append(Path(next(it)))
         else:
             paths.append(a)
@@ -106,9 +103,6 @@ def main(argv):
     audit = ' + '.join(map(str, audits))
     bad, missing, count = [], [], 0
     for f in files(paths):
-        if f in excludes:
-            print(f'EXCLUDED (not scanned): {f}')
-            continue
         if reach is not None and module_of(f) not in reach:
             missing.append(str(f))
         count += 1

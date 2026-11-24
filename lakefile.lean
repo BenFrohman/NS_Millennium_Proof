@@ -31,7 +31,7 @@ require mathlib from git "https://github.com/leanprover-community/mathlib4.git" 
 --   lake build ForMathlib
 lean_lib ForMathlib where
   roots := #[`ForMathlib]
-  globs := #[.submodules `ForMathlib]
+  globs := #[.one `ForMathlib, .submodules `ForMathlib]
 
 @[default_target]
 lean_lib NS_Millennium_Proof where

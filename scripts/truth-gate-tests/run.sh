@@ -21,7 +21,7 @@ for f in scripts/truth-gate-tests/good.lean scripts/truth-gate-tests/neg_*.lean;
   IFS=',' read -ra codes <<<"$expect"
   for c in "${codes[@]}"; do c=$(echo "$c" | xargs); grep -q "TRUTH GATE FAIL $c " <<<"$out" || missing="$missing $c"; done
   if [ $rc -ne 0 ] && [ -z "$missing" ]; then
-    echo "ok   $case: gate RED as expected (exit $rc): $(grep -o 'TRUTH GATE FAIL [A-Z_]*' <<<"$out" | sed 's/TRUTH GATE FAIL //' | grep -v '^$' | sort -u | paste -sd, -)"
+    echo "ok   $case: gate RED as expected (exit $rc): $(grep -o 'TRUTH GATE FAIL [A-Z_]*' <<<"$out" | sed 's/TRUTH GATE FAIL //' | sed '/^$/d' | sort -u | paste -sd, -)"
   else
     echo "BAD  $case: expected failure codes [$expect], exit $rc, missing [$missing]"; echo "$out"; status=1
   fi

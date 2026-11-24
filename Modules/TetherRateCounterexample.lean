@@ -5,25 +5,22 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import Mathlib
-import NS_Millennium_Proof.Modules.GlobalRegularity
+import NS_Millennium_Proof.Modules.ConditionalRegularity
 import NS_Millennium_Proof.Semantics
 
 /-!
-# `frohmanian_tether_theorem` is vacuous: its `hDI` hypothesis is unsatisfiable
+# The Takagi field lies in the weak class and outside the classical class
 
-`hDI : ∀ u₀ ν, FrohmanianTetherRate u₀ ν`. `NS_PDE` and `IsPhysicalNSSolution` impose no spatial
-differentiability, and Mathlib's `fderiv` is `0` at non-differentiable points (junk-derivative
-loophole). The steady field `U` built here has two smooth stream-function components and a third
-component carrying a factor of the continuous, nowhere-differentiable Takagi function. Because
-`fderiv U = 0` everywhere, `(fun _ => U, fun _ => 0)` satisfies `NS_PDE` for every `ν`, and
-`IsPhysicalNSSolution` holds (continuous, `‖U‖² ∈ L¹(ℝ³)`). But `‖ω(U)‖` is unbounded, so the
-`BddAbove` conjunct of `FrohmanianTetherRate U ν` fails for every `ν > 0`. The same argument
-refutes `FrohmanianTetherBound U ν` for every `ν`.
+`NS_PDE` and `IsPhysicalNSSolution` impose no spatial differentiability, and Mathlib's
+`fderiv` is `0` at non-differentiable points. The steady field `U` built here has a
+nowhere-differentiable Takagi component, satisfies `NS_PDE` for every `ν`, and satisfies
+`IsPhysicalNSSolution`, while `‖ω(U)‖` is unbounded. So `U` refutes `FrohmanianTetherBound`
+on that weak class.
 
-Scope: `U` is **not** a classical Navier–Stokes solution. This exposes a defect in the solution
-class used by the hypothesis. It says nothing about real flows. It shows only that
-`frohmanian_tether_theorem` (whose conclusion is conditional on `hDI`) holds vacuously.
-Ported from `BenFrohman/frohmanian-tether-sdiff`, module `FrohmanianTether.TetherRateCounterexample`.
+`FrohmanianTetherRate` no longer quantifies over that class. It quantifies over
+`IsPeriodicSmoothSolution` with force `0`. `U` is not a classical solution, and this module
+does not claim that the classical rate fails. `Clay_D_periodic` stays open: `U` is not a
+smooth periodic initial field.
 -/
 
 open Real Filter Topology
@@ -620,18 +617,7 @@ lemma vorticity_U_unbounded : ¬ BddAbove (Set.range fun x => ‖vorticity U x�
   rw [curl_U_two, Real.norm_eq_abs, abs_neg] at h2
   linarith
 
-/-- **Refutation.** For every `ν > 0`, `FrohmanianTetherRate U ν` is false: the steady path
-`u ≡ U`, `p ≡ 0` satisfies `NS_PDE` and `IsPhysicalNSSolution`, but its vorticity is unbounded. -/
-theorem not_frohmanianTetherRate_U (ν : ℝ) (hν : 0 < ν) : ¬ FrohmanianTetherRate U ν := by
-  intro h
-  obtain ⟨_, _, _, _, _, _, _, hb⟩ := h (fun _ => U) (fun _ => fun _ => 0) hν (ns_U ν) rfl phys_U
-  exact vorticity_U_unbounded (hb 0 le_rfl)
-
-theorem not_forall_frohmanianTetherRate :
-    ¬ ∀ (u₀ : VelocityField) (ν : ℝ), FrohmanianTetherRate u₀ ν :=
-  fun h => not_frohmanianTetherRate_U 1 one_pos (h U 1)
-
-/-- Same datum refutes `FrohmanianTetherBound` for every `ν` (no sign condition there). -/
+/-- The weak-class bound fails at `U`. This does not speak about `IsPeriodicSmoothSolution`. -/
 theorem not_frohmanianTetherBound_U (ν : ℝ) : ¬ FrohmanianTetherBound U ν := by
   intro h
   obtain ⟨_, _, _, hb⟩ := h (fun _ => U) (fun _ => fun _ => 0) (ns_U ν) rfl phys_U
@@ -639,21 +625,14 @@ theorem not_frohmanianTetherBound_U (ν : ℝ) : ¬ FrohmanianTetherBound U ν :
 
 end TetherRateCounterexample
 
-/-- **`frohmanian_tether_theorem` (NS_Millennium_Proof main) is vacuous**: its `hDI` binder is
-unsatisfiable. -/
-theorem TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable :
-    ¬ ∀ (u₀ : NavierStokes3D.VelocityField) (ν : ℝ), FrohmanianTether.FrohmanianTetherRate u₀ ν :=
-  TetherRateCounterexample.not_forall_frohmanianTetherRate
-
-/-- **Proposition `prop:hDI` of `main.tex`.** Type:
-`NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim`; obtained only by transport across the
+/-- **Proposition of `main.tex`:** the zero field is a classical periodic smooth solution.
+Type: `NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim`, by transport across the
 Truth Gate lock `TetherTheorem`. -/
-theorem TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable :
+theorem TetherRateCounterexample.zero_classical_periodic_solution :
     NS_Millennium_Proof.Semantics.TetherTheorem.paper_claim :=
   NS_Millennium_Proof.Semantics.TetherTheorem.intended_correspondence.mp
-    TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
+    NavierStokes3D.zero_isPeriodicSmoothSolution
 
-#print axioms TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable
-#print axioms TetherRateCounterexample.all_data_rate_hypothesis_unsatisfiable
+#print axioms TetherRateCounterexample.zero_classical_periodic_solution
 #print axioms TetherRateCounterexample.not_frohmanianTetherBound_U
-#print axioms TetherRateCounterexample.not_forall_frohmanianTetherRate
+#print axioms NavierStokes3D.zero_isPeriodicSmoothSolution
