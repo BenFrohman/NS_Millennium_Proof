@@ -1,10 +1,11 @@
 # Frohmanian Symplectic Tether — Conditional Navier–Stokes Reductions (Lean 4)
 
 [![lean.yml](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24302372.svg)](https://doi.org/10.5281/zenodo.24302372)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
 [![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0006--7068--3718-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0006-7068-3718)
 
 A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem**,
 together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
@@ -12,6 +13,8 @@ a proposed construction on coadjoint orbits intended to control vortex stretchin
 analytic link to general unmodified Navier–Stokes solutions is not established. Benjamin Stanley Frohman is the originator of that tether.
 
 ## Main theorem: conditional reduction, not a PDE estimate
+
+The checked Lean names, the exact hypotheses, and the two separate conditional paths (envelope+BKM versus rate/comparison ceiling) are recorded in the [conditional dependency spine](docs/TETHER_CONDITIONAL_SPINE.md) ([short pointer](DEPENDENCY_SPINE.md)). `UniformVorticityEnvelopeBound` and `FrohmanianTetherRate` remain open and are not interchangeable. The terminal reduction requires both `UniformVorticityEnvelopeBound` and `PeriodicBKMContinuation`.
 
 `clay_reduces_to_uniform_vorticity_envelope` states:
 
@@ -243,10 +246,10 @@ This repository owns the Zenodo record family below. Do **not** confuse it with
 
 | Role | DOI | Notes |
 |------|-----|-------|
-| **Version DOI (badge / `CITATION.cff`)** | [`10.5281/zenodo.23717084`](https://doi.org/10.5281/zenodo.23717084) | Zenodo **v2.2.0**; pinned to GitHub tag [`v2.2.0`](https://github.com/BenFrohman/NS_Millennium_Proof/tree/v2.2.0) / commit [`8a5ec50`](https://github.com/BenFrohman/NS_Millennium_Proof/commit/8a5ec50aa602318c0c611269731e7d41cd30b75b) |
+| **Version DOI (badge)** | [`10.5281/zenodo.24302372`](https://doi.org/10.5281/zenodo.24302372) | Zenodo **v2.6.0** (published 17 November 2026) |
 | Concept DOI (all versions) | [`10.5281/zenodo.23627609`](https://doi.org/10.5281/zenodo.23627609) | Resolves to the latest deposited version in this family |
-| Latest Zenodo version DOI | [`10.5281/zenodo.23749850`](https://doi.org/10.5281/zenodo.23749850) | Labeled Zenodo **v2.3.0**; still points at the same GitHub `v2.2.0` / `8a5ec50` snapshot and adds one extra PDF. There is **no** GitHub tag `v2.3.0`. |
+| Earlier version | [`10.5281/zenodo.23749850`](https://doi.org/10.5281/zenodo.23749850) | Labeled Zenodo **v2.3.0** |
 | Earlier version | [`10.5281/zenodo.23627610`](https://doi.org/10.5281/zenodo.23627610) | Zenodo **v2.1.0** |
 
-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084) Version DOI for the archived `v2.2.0` release.
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24302372.svg)](https://doi.org/10.5281/zenodo.24302372) Version DOI for Zenodo **v2.6.0**.
 - [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23627609.svg)](https://doi.org/10.5281/zenodo.23627609) Concept DOI for all versions of this record family.

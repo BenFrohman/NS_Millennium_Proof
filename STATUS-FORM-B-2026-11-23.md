@@ -57,7 +57,7 @@ Form B is an explicit hypothesis and is not discharged.
 
 ## Zenodo / publication notes
 
-Existing records (e.g. DOI 10.5281/zenodo.23717084 and companions) describe conditional reductions. Any new deposit must preserve the distinction:
+Existing records (version DOI [10.5281/zenodo.24302372](https://doi.org/10.5281/zenodo.24302372), v2.6.0; concept DOI [10.5281/zenodo.23627609](https://doi.org/10.5281/zenodo.23627609)) describe conditional reductions. Any new deposit must preserve the distinction:
 
 - Conditional theorem: classical, correctly typed.
 - Form B / H1 integral bound: open.
