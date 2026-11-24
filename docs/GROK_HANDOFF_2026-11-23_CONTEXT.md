@@ -5,25 +5,8 @@
 ## Session Overview
 
 User (@Frohmanian / BenFrohman) requested:
-1. Search all Grok chats for the number `292890231905`.
-2. Explore Frohmanian Tether polynomials.
-3. Provide all chat context and files for handoff to GitHub Actions and Zenodo bots for PR/Merge and Zenodo publication.
-
-## 1. Search for 292890231905
-
-**Result**: No matches in any private Grok conversation history (semantic and exact searches across summaries). Closest historical chats were unrelated (1984 encodings, NS/Frohmanian Tether manuscripts, Lean examples, wallets, etc.).
-
-**Public origin of the number**:
-- Announced ~November 5, 2026 by Elliot Glazer (with heavy AI assistance from Astra, Claude/Opus, Codex/Sol, Fable, and collaborators including Conant, Freitag, Farhangi, Brox, etc.).
-- Exact variable count in the original construction witnessing that ℤ is Diophantine in ℚ: there exists an explicit integer-coefficient polynomial P in m = 292,890,231,905 variables such that
-  q ∈ ℤ ⟺ ∃ w ∈ ℚ^{m-1} with P(q, w) = 0.
-- Degree < 2↑↑7, |coefficients| < 2↑↑8.
-- Fully explicit construction. Repo: https://github.com/elliotglazer/diophantine-z-q
-- Builds on an October 2026 OpenAI preprint on Hilbert’s tenth problem over ℚ. Refutes Mazur’s related conjecture.
-- Later public optimizations reduced it to degree-4 polynomials with far fewer variables (examples: ~12,504; 4,973; 962; 540/523 vars).
-- Prime factorization: 292890231905 = 5 × 36857 × 1589333.
-
-This number and construction do **not** appear in private Grok sessions or code builds related to the Frohmanian program. No mathematical overlap with the Tether work.
+1. Explore Frohmanian Tether polynomials.
+2. Provide all chat context and files for handoff to GitHub Actions and Zenodo bots for PR/Merge and Zenodo publication.
 
 ## 2. Exploration of Frohmanian Tether Polynomials
 
@@ -64,7 +47,6 @@ Comparison to the associated cubic/Riccati ODE + Beale–Kato–Majda continuati
 
 - Preserve authorship headers: `Authors: Benjamin Stanley Frohman`.
 - Do not claim unconditional Clay solution.
-- Distinguish this work from the public Glazer Diophantine construction (no overlap).
 - Use existing Zenodo family DOIs; do not create conflicting deposits.
 - For PRs/merges: maintain zero-sorry, standard-axioms only; audit scripts (`AxiomAudit.lean`, etc.) must pass.
 - Key files: Modules/SymplecticTether.lean, Uniqueness.lean, TetheredLyapunov.lean, GlobalRegularity.lean, README.md, HISTORY.md, COPYRIGHT.md, main.tex/main.pdf.
