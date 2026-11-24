@@ -165,7 +165,7 @@ public theorem frohmanian_tether_theorem
   · intro u₀ ν hνpos hdiv hsm hE
     let w := hKato u₀ ν hsm hdiv hE hνpos
     have hreg :=
-      global_regularity_of_constructions u₀ ν hdiv hsm hE hνpos
+      global_regularity_of_constructions_conditional u₀ ν hdiv hsm hE hνpos
         (fun u₁ hsm₁ hdiv₁ hE₁ => hKato u₁ ν hsm₁ hdiv₁ hE₁ hνpos)
         (fun u p hNS hu0 hphys =>
           let ⟨C, κ'', hC, hκ, hd, hdd, hc, _⟩ := hDI u₀ ν u p hνpos hNS hu0 hphys
