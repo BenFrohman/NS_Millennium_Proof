@@ -34,7 +34,7 @@ nothing, and the gate would pass anything. That is forbidden.
 
 ## The locked claims (PENDING AUTHOR APPROVAL)
 
-Primary paper: PAPER_PATH `main.tex`, PAPER_SHA256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`.
+Primary paper: PAPER_PATH `main.tex`, PAPER_SHA256 `53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408`.
 
 ### `EnvelopeReduction` (LOCKED)
 
@@ -52,7 +52,7 @@ conditional reduction: the uniform envelope for every positive viscosity,
 
 ### `DirectionCurvatureReduction` (LOCKED)
 
-* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
+* paper: `main.tex`, sha256 `53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408`
 * section: Abstract
 * public theorem(s): `FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound`
 
@@ -64,7 +64,7 @@ assuming \lean{PeriodicBKMContinuation}~$\nu$ for every $\nu>0$, the hypothesis 
 
 ### `PeriodicTetherReduction` (LOCKED)
 
-* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
+* paper: `main.tex`, sha256 `53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408`
 * section: §The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)
 * public theorem(s): `FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound`
 
@@ -76,7 +76,7 @@ The reduction from \lean{Clay_B_exact} to the periodic closing bound \lean{Perio
 
 ### `ConditionalGlobalRegularity` (LOCKED)
 
-* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
+* paper: `main.tex`, sha256 `53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408`
 * section: §1 Introduction, Theorem 1.1 (thm:main)
 * formal proof: `CeilingFromRate.classical_vorticity_ceiling`
 * public theorem(s): `CeilingFromRate.theorem_1_1`
@@ -91,7 +91,7 @@ Along every classical periodic smooth solution of the unforced equations, if $M(
 
 ### `TetherTheorem` (LOCKED)
 
-* paper: `main.tex`, sha256 `0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308`
+* paper: `main.tex`, sha256 `53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408`
 * section: §1 Introduction, Proposition prop:classical-zero
 * formal proof: `NavierStokes3D.zero_isPeriodicSmoothSolution`
 * public theorem(s): `TetherRateCounterexample.zero_classical_periodic_solution`

@@ -12,7 +12,7 @@ public import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 # Semantics lock (Truth Gate)
 
 PAPER_PATH: main.tex
-PAPER_SHA256: 0a5a98a673dd6c3ec033d4f8a5d464c6cf6450ccb506ff6baaef0f26a9ec4308
+PAPER_SHA256: 53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408
 PAPER_SECTION: Abstract (main theorem `clay_reduces_to_direction_curvature_bound`); also §"The Periodic Clay (B) Statement and Scaling Analysis" (sec:clay) §1 Theorem 1.1 (thm:main) and §1 Proposition prop:classical-zero
 
 Locked paper claims in `main.tex`, quoted verbatim (locks `DirectionCurvatureReduction`,

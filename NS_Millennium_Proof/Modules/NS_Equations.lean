@@ -2475,13 +2475,29 @@ public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
   phys : IsPhysicalNSSolution u
 
 /-- Local existence of a smooth solution on a short interval (Kato 1972 / Leray 1934).
-The witness is the Kato/Leray construction; the implication is kernel-closed. -/
+
+Stated from a smooth, divergence-free, finite-energy initial field and `0 < ν`.
+Those four hypotheses are the theorem. This is not proved.
+Unpacking a `KatoLocalWitness` is `local_existence_of_witness`.
+
+Author: Benjamin Stanley Frohman.
+Mathematical source: Kato (1972), Leray (1934). -/
 public theorem local_existence
     (u₀ : VelocityField) (ν : ℝ)
-    (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
-    (_h_divfree : ∀ x, div u₀ x = 0)
-    (_h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (_hν : 0 < ν)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (hν : 0 < ν) :
+    ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
+      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
+      u 0 = u₀ ∧
+      IsPhysicalNSSolution u ∧
+      ∃ p : ℝ → PressureField, NS_PDE u p ν := by
+  sorry
+
+/-- The fields stored in a `KatoLocalWitness`. Not Kato/Leray local existence. -/
+public theorem local_existence_of_witness
+    (u₀ : VelocityField) (ν : ℝ)
     (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧

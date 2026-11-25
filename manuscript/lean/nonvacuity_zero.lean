@@ -18,13 +18,13 @@ public theorem frohmanianTetherBound_zero (ν : ℝ) : FrohmanianTetherBound 0 �
 
 -- One classical periodic smooth solution. Not `FrohmanianTetherRate 0 ν`,
 -- which quantifies over every such solution and is open.
-@[expose] public theorem zero_isPeriodicSmoothSolution (ν : ℝ) :
+public theorem zero_isPeriodicSmoothSolution (ν : ℝ) :
     IsPeriodicSmoothSolution ν (0 : VelocityField)
       (fun _ _ => (0 : EuclideanSpace ℝ (Fin 3)))
       (fun _ => (0 : VelocityField))
       (fun _ => (0 : PressureField)) := ...
 
-public theorem conditional_regularity_of_open_hyps_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
+public theorem conditional_regularity_nonvacuous_at_zero (ν : ℝ) (hν : 0 < ν) :
     ∃ (u : TimeDependentVelocity),
       (∀ t ≥ (0 : ℝ), ConditionalRegularity.IsSmooth (u t)) ∧
       (u 0 = 0) ∧

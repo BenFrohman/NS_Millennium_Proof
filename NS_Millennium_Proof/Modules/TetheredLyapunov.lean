@@ -1963,7 +1963,7 @@ public theorem conditional_regularity_of_bkmIntegrability
     (∀ t ≥ (0 : ℝ), vorticity_sup_norm (vorticity (u t)) ≥ 0) ∧
     (∀ t ≥ (0 : ℝ), ∀ x, div (u t) x = 0) := by
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
-    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν w
+    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν
   refine ⟨u, p, hNS, hu0, ?smooth, ?nn, ?div0⟩
   · exact beale_kato_majda u p ν h_pos_ν hNS (localExistenceTime_of_kato w u hu0)
       (hcrit u p hNS hu0) (fun T => hBKM u p hNS hu0 T) (hbelow u p hNS hu0)
@@ -2037,7 +2037,7 @@ public theorem conditional_regularity_scaffold
   -- Step 2.1: Kato/Leray local existence on a short interval (classical).
   -- Output type: `u`, `p`, `NS_PDE u p ν`, `u 0 = u₀`.
   obtain ⟨_Tloc, _hTloc, u, _hloc, hu0, _hphys, p, hNS⟩ :=
-    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν w
+    local_existence u₀ ν h_smooth h_divfree h_finite_energy h_pos_ν
 
   refine ⟨u, p, hNS, hu0, ?smooth, ?nn, ?div0⟩
   · exact beale_kato_majda_scaffold u p ν h_pos_ν hNS
@@ -2218,8 +2218,10 @@ public theorem conditional_regularity_of_kato_estimates
     h_pos_ν w hRiccati (katoRestartTime C C₀ (max R 1))
     (katoRestartTime_pos C C₀ (max R 1)) (hrestart C₀) huniq
 
-/-- Riccati construction: the vorticity-sup-norm differential inequality
-produces the uniform ceiling used by BKM. This discharges `hRiccati`. -/
+/-- Riccati comparison (conditional). If `M(τ) = ‖ω(τ)‖_∞` is continuous, differentiable and
+satisfies the cubic-rate inequality `M' ≤ C M² − κ'' M³` (the argument `hDI`, the hypothesis
+`CorrectedMaxRate`), then `M` has a uniform ceiling. `hDI` is an argument of this theorem and is
+not proved here; this theorem does not discharge `hRiccati`. -/
 public theorem riccati_ceiling_of_vorticity_di
     (u : TimeDependentVelocity) (C κ'' : ℝ)
     (hC : 0 < C) (hκ : 0 < κ'')
