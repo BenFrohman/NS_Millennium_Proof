@@ -44,7 +44,8 @@ public import Mathlib.Analysis.Calculus.ContDiff.Basic
 -- Cross-ref: all prior reference blocks (especially §5 module hygiene and the GlobalRegularity
 -- cleanup that removed the last hard errors) are still in force.
 
-/-! # Global Regularity: Final Integration and the Frohmanian Symplectic Tether Theorem
+/-!
+ # Global Regularity: Final Integration and the Frohmanian Symplectic Tether Theorem
 
 This module assembles everything and states the main theorem exactly as
 formulated in the audited LaTeX (including the three parts of Theorem 2.1
@@ -71,6 +72,13 @@ The regularity conjunct holds *given* `hDI : ∀ u₀ ν, FrohmanianTetherRate u
 binders `hKato`, `hTlb`, `hInt`, `huniq_shift`, `huniq`. `FrohmanianTetherRate` is open
 and is not derived from the unmodified equation in this repository
 (see `HWEIGHT_OBSTRUCTION.md`). This is not an unconditional Clay solution.
+**VACUOUS:** `hDI` is unsatisfiable, so this theorem holds vacuously and carries no information
+about Navier–Stokes flows. `TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable`
+(module `NS_Millennium_Proof.Modules.TetherRateCounterexample`) proves
+`¬ ∀ u₀ ν, FrohmanianTetherRate u₀ ν`. `NS_PDE`/`IsPhysicalNSSolution` impose no spatial
+differentiability, and Mathlib's `fderiv` is `0` at non-differentiable points. So a steady
+finite-energy field with a nowhere-differentiable (Takagi) component satisfies `NS_PDE` while its
+vorticity is unbounded, which violates the `BddAbove` conjunct of the rate.
 The work is split across SymplecticTether.lean (existence + uniqueness of the Tether)
 and TetheredLyapunov.lean (global regularity conditional on the rate, via the majorant).
 Editor green ticks only mean this declaration elaborated. The certificate is
@@ -157,7 +165,7 @@ public theorem frohmanian_tether_theorem
   · intro u₀ ν hνpos hdiv hsm hE
     let w := hKato u₀ ν hsm hdiv hE hνpos
     have hreg :=
-      global_regularity_of_constructions u₀ ν hdiv hsm hE hνpos
+      global_regularity_of_constructions_conditional u₀ ν hdiv hsm hE hνpos
         (fun u₁ hsm₁ hdiv₁ hE₁ => hKato u₁ ν hsm₁ hdiv₁ hE₁ hνpos)
         (fun u p hNS hu0 hphys =>
           let ⟨C, κ'', hC, hκ, hd, hdd, hc, _⟩ := hDI u₀ ν u p hνpos hNS hu0 hphys
@@ -192,6 +200,19 @@ noncomputable abbrev vorticity_sup_norm_proxy (ω : VorticityField) : ℝ := vor
 and is physically admissible (`IsPhysicalNSSolution u`). -/
 public def satisfies_NavierStokes (u : TimeDependentVelocity) (ν : ℝ) : Prop :=
   IsPhysicalNSSolution u ∧ ∃ p : TimeDependentPressure, navier_stokes_eq u p ν
+
+/-- Unfolding lemma for `satisfies_NavierStokes` (its body is not exported by the module). -/
+public theorem satisfies_NavierStokes_iff (u : TimeDependentVelocity) (ν : ℝ) :
+    satisfies_NavierStokes u ν ↔
+      IsPhysicalNSSolution u ∧ ∃ p : TimeDependentPressure, navier_stokes_eq u p ν :=
+  Iff.rfl
+
+/-- `GlobalRegularity.vorticity_sup_norm` is `NavierStokes3D.vorticity_sup_norm`
+(its body is not exported by the module). -/
+public theorem vorticity_sup_norm_eq (ω : VorticityField) :
+    GlobalRegularity.vorticity_sup_norm ω = NavierStokes3D.vorticity_sup_norm ω := by
+  unfold GlobalRegularity.vorticity_sup_norm
+  rfl
 
 /-- Main theorem (Abstract, formalized) — **conditional on `hRiccati`**.
 

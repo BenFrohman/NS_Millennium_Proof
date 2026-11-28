@@ -12,8 +12,8 @@
 \newcommand{\lean}[1]{{\upshape\path{#1}}}
 \emergencystretch=2em
 \title{\textbf{Correction: Uniform Vorticity Envelope versus Cubic Differential Hypothesis}}
-\author{Frohman, Benjamin Stanley\\\small\texttt{frohmanbenjamin@gmail.com}}
-\date{November 6, 2026}
+\author{Frohman, Benjamin Stanley\\\small Independent Researcher, Texas, United States\\\small ORCID 0009-0006-7068-3718\quad\texttt{frohmanbenjamin@gmail.com}}
+\date{Version 1.1, November 10, 2026 (v1.0: November 6, 2026)}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -21,7 +21,11 @@ This addendum separates the uniform-envelope assumption in the checked Lean
 reduction from a genuinely differential assumption on the actual vorticity
 supremum. It records the conditional comparison proved in the accompanying source
 patch, tests a proposed coercivity mechanism on explicit periodic solutions, and
-identifies the remaining analytic obligation. It is not a proof of general
+identifies the remaining analytic obligation. Version~1.1 adds a Lean proof
+that the decaying periodic shear is an actual solution in the repository's
+solution structure, with its exact vorticity supremum, so the data-dependent
+cubic bound and the fixed-constant obstruction now hold for an actual solution,
+not only for a scalar profile. It is not a proof of general
 Navier--Stokes regularity. Earlier published PDFs and archives are unchanged.
 \end{abstract}
 
@@ -67,10 +71,40 @@ conditional reduction: the uniform envelope for every positive viscosity,
 
 The Stage6 additions check the derivative of $M_0e^{-at}$, its cubic estimate
 with $C=\kappa M_0$, and the fixed-coefficient obstruction below. These are
-\emph{scalar} calculus and algebra theorems. Assembly of the following vector
-fields into the Lean solution structure and identification of their suprema are
-not newly formalized here; the explicit PDE calculations are separate
-mathematical checks.
+\emph{scalar} calculus and algebra theorems.
+
+\paragraph{New in v1.1: an actual solution.} The file is \lean{NS_Millennium_Proof/Modules/ShearSolution.lean}.
+For the single shear $v_A(t,x)=Ae^{-\nu k^2t}\sin(kx_3)\,e_1$, $k=2\pi$, $p=0$
+(Section~\ref{sec:shear}), Lean proves against the repository's own definitions
+of \lean{curl}, \lean{laplacian}, \lean{convective}, \lean{div},
+\lean{vorticity_sup_norm} and \lean{IsPeriodicSmoothSolutionOn}:
+\begin{itemize}
+\item \lean{shear_isPeriodicSmoothSolutionOn}: for all $A,\nu,T$, $v_A$ with $p=0$ is a jointly
+$C^\infty$, $\mathbb Z^3$-periodic, divergence-free solution on $[0,T)$ with
+initial value $v_A(0)$. The proof computes $\partial_tv_A=-\nu k^2v_A$ (two-sided, which gives the
+one-sided derivative within $[0,\infty)$ used by the predicate), $(v_A\cdot\nabla)v_A=0$ because $v_A$ has no $x_3$-component,
+$\operatorname{div}v_A=0$ because $v_A$ depends only on $x_3$, and
+$\Delta v_A=-k^2v_A$, so $\partial_tv_A+(v_A\cdot\nabla)v_A+\nabla p=\nu\Delta v_A$.
+\item \lean{shear_vorticity_sup_norm}: for $A>0$,
+$\sup_x|\operatorname{curl}v_A(t,x)|=kAe^{-\nu k^2t}$. Indeed
+$\operatorname{curl}v_A=(0,\,kAe^{-\nu k^2t}\cos(kx_3),\,0)$; its norm is at most
+$kAe^{-\nu k^2t}$ and equals it at $x=0$.
+\item \lean{shear_cubic_bound_data_dependent}: for $A>0$, $\nu\geq0$, $\kappa>0$,
+$\tau\geq0$, the actual $v_A$ satisfies \lean{CubicVorticityDifferentialBound}
+with the data-dependent $C=\kappa\cdot kA$.
+\item \lean{shear_fixed_cubic_constants_fail}: for fixed $C\geq0$, $\kappa>0$ and
+$\nu\geq0$ there is $A>0$ such that $v_A$ is an actual solution and violates
+the cubic bound at $t=0$ (amplitude $A=M/k$ with $M$ from
+\lean{fixed_cubic_constants_fail_for_some_amplitude}).
+\item \lean{shear_envelope_nonvacuous}: for $A>0$, $\nu\geq0$, $\kappa>0$, $v_A(0)\neq0$ and the
+envelope conclusion $\sup|\omega(t)|\leq\max(\sup|\omega(0)|,\,C/\kappa)$ with
+$C=\kappa kA$ holds for all $t\in[0,T)$, obtained from the conditional envelope theorem.
+\end{itemize}
+The predicate asks for ordinary two-sided differentiability of $M$; for $v_A$,
+defined by the same formula for all real $t$, $M(t)=kAe^{-\nu k^2t}$ is smooth.
+Still not in Lean: the Beltrami family below (a hand calculation), the
+direction field $\xi$ and the statement $|\nabla\xi|^2=0$ for the shear, and any
+estimate for general solutions.
 
 \section{What the PDE identity supplies}
 For a classical unforced incompressible solution, let $\omega=\operatorname{curl}u$,
@@ -110,7 +144,7 @@ $C=\kappa M_A(0)$ makes the cubic right-hand side
 $\kappa M_A(t)^2(M_A(0)-M_A(t))\geq0$, while $M_A'\leq0$. The latter special-case
 sufficient estimate is also checked in Lean for the scalar profile.
 
-\subsection{Single shear: direction-only coercivity fails}
+\subsection{Single shear: direction-only coercivity fails}\label{sec:shear}
 Instead take the actual periodic heat shear
 \[
  v_A(t,x)=Ae^{-at}(\sin(kx_3),0,0),\qquad p=0.
@@ -173,21 +207,47 @@ supply it. A suitable source estimate and a one-sided/Dini comparison bridge
 remain analytic/formal obligations. No general regularity breakthrough is claimed.
 
 \section{Reproduction and evidence boundary}
-Use Lean \lean{leanprover/lean4:v4.30.0-rc1} and Mathlib commit
-\lean{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7}; all package pins are in
-\lean{lake-manifest.json}. Run \lean{lake build}, then the Lean scripts
-\lean{scripts/AxiomAudit.lean}, \lean{scripts/EnvelopeCorrectionAudit.lean}, and
-\lean{scripts/CertificateAxiomInventory.lean} using \lean{lake env lean}.
-The correction audit checks old API compatibility and every new theorem's axioms;
-the inventory reports transitive axioms per noninternal project theorem.
-No new axiom, \lean{sorry} or \lean{native_decide} is introduced. Standard-axiom
-checks establish neither a missing analytic hypothesis nor novelty.
-
-The Markdown companion \lean{docs/VORTICITY_ENVELOPE_CORRECTION.md} supplies exact
-pinned source permalinks and the full named-theorem list. The review bundle
-contains sources, dependency/toolchain pins, logs, project artifacts and hashes;
-it is not a standalone independently trusted proof certificate. Earlier
-published PDFs/Zenodo records are not modified or republished.
+Lean source: \url{https://github.com/BenFrohman/NS_Millennium_Proof}, code commit
+\lean{1bcbb3845f99543b1b77d07292188ce13eb74315} (pull request~\#26). Lean \lean{leanprover/lean4:v4.30.0-rc1};
+Mathlib tag \lean{v4.30.0-rc1}, locked commit
+\lean{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7}; all pins in
+\lean{lake-manifest.json}. One command from the repository root:
+\begin{verbatim}
+lake exe cache get && lake build && python3 scripts/check_envelope_axioms.py
+\end{verbatim}
+GitHub Actions ran this in \url{https://github.com/BenFrohman/NS_Millennium_Proof/actions/runs/42925945732} (passed). The checker fails if any of the
+37 audited declarations in \lean{scripts/EnvelopeCorrectionAudit.lean} depends on
+anything beyond \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound};
+its output, grouped by namespace (each printed line was identical apart from the name), was
+{\small\begin{verbatim}
+Each of the following 37 declarations printed
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+FrohmanianTether.HighSetDepletionAndBKM.
+    vorticity_envelope_of_cubic_differential_bound
+    pointwise_vorticity_envelope_of_cubic_differential_bound
+    periodic_solution_envelope_of_compact_cubic_bounds
+    cubicVorticityDifferentialBound_zero
+    clay_reduces_to_uniform_vorticity_envelope
+NS_Millennium_Proof.Stage6.
+    exponential_profile_hasDerivAt exponential_profile_satisfies_cubic_bound
+    fixed_cubic_constants_fail_for_some_amplitude
+NS_Millennium_Proof.ShearSolution.
+    K_pos e0_apply single_apply_two hasFDerivAt_F fderiv_F_apply
+    hasFDerivAt_F_coord fderiv_F_coord_apply convective_F div_F laplacian_F
+    curl_F sin_profile_deriv cos_profile_deriv shearU_eq shearU_zero
+    shear_time_deriv gradient_zero latticeVec_two shear_periodic
+    shear_contDiff shear_isPeriodicSmoothSolutionOn shear_vorticity
+    shear_vorticity_norm shear_vorticity_bdd shear_vorticity_sup_norm
+    shear_M_eq shear_cubic_bound_data_dependent
+    shear_fixed_cubic_constants_fail shear_envelope_nonvacuous
+PASS: 37 declarations, standard axioms only
+\end{verbatim}}
+The same run's whole-library inventory (\lean{scripts/CertificateAxiomInventory.lean},
+which aborts on any non-standard axiom) printed
+\lean{TOTAL_THEOREM_DECLARATIONS 530}. No new axiom, \lean{sorry} or
+\lean{native_decide} is introduced. Standard-axiom checks establish neither a
+missing analytic hypothesis nor novelty, and a kernel check is not a statement
+about general Navier--Stokes solutions.
 
 \smallskip\noindent Copyright (c) 2026 Benjamin Stanley Frohman.
 Existing Apache-2.0 licensing and third-party notices are unchanged.

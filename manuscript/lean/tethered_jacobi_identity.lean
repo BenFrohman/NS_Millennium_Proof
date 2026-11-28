@@ -3,6 +3,13 @@ Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
+
+/-!
+# manuscript.lean.tethered_jacobi_identity
+
+Machine-checked Lean 4 module.
+-/
+
 public theorem tethered_jacobi_identity (F G H : Functional) (ω : CoadjointOrbit)
     (X Y Z : VelocityField)
     (_hF : FunctionalDerivative F ω = X)

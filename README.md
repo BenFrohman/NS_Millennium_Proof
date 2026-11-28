@@ -1,10 +1,11 @@
 # Frohmanian Symplectic Tether — Conditional Navier–Stokes Reductions (Lean 4)
 
 [![lean.yml](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/BenFrohman/NS_Millennium_Proof/actions/workflows/lean.yml)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24302372.svg)](https://doi.org/10.5281/zenodo.24302372)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Lean](https://img.shields.io/badge/Lean-4.30.0--rc1-brightgreen.svg)](lean-toolchain)
 [![Sponsor](https://img.shields.io/github/sponsors/BenFrohman?label=Sponsor&logo=github)](https://github.com/sponsors/BenFrohman)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0006--7068--3718-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0006-7068-3718)
 
 A geometric approach to the **3D incompressible Navier–Stokes global-regularity problem**,
 together with its **Lean 4** formalization. The central object is the *Frohmanian Symplectic Tether* —
@@ -12,6 +13,8 @@ a proposed construction on coadjoint orbits intended to control vortex stretchin
 analytic link to general unmodified Navier–Stokes solutions is not established. Benjamin Stanley Frohman is the originator of that tether.
 
 ## Main theorem: conditional reduction, not a PDE estimate
+
+The checked Lean names, the exact hypotheses, and the two separate conditional paths (envelope+BKM versus rate/comparison ceiling) are recorded in the [conditional dependency spine](docs/TETHER_CONDITIONAL_SPINE.md) ([short pointer](DEPENDENCY_SPINE.md)). `UniformVorticityEnvelopeBound` and `FrohmanianTetherRate` remain open and are not interchangeable. The terminal reduction requires both `UniformVorticityEnvelopeBound` and `PeriodicBKMContinuation`.
 
 `clay_reduces_to_uniform_vorticity_envelope` states:
 
@@ -41,6 +44,15 @@ with [TeX source](docs/VorticityEnvelopeCorrection.tex) accompanies the source f
 The existing manuscript PDFs and published archives are **not** updated by this
 source correction; their differential formulation must be read with that addendum.
 
+Current status documents (November 2026):
+
+- [Official conditional theorem (Form B of H1, open)](docs/OFFICIAL_CONDITIONAL_THEOREM.md)
+- [Lyapunov identities and the cubic sink (hypothesized majorant, not derived)](docs/LYAPUNOV_CUBIC_SINK_STATUS.md)
+- [Form B status note](STATUS-FORM-B-2026-11-23.md)
+- [Conditional dependency spine](docs/TETHER_CONDITIONAL_SPINE.md)
+- Cover sheet: [docs/official-conditional-theorem/00_COVER_Official_Proposed_Theorem.pdf](docs/official-conditional-theorem/00_COVER_Official_Proposed_Theorem.pdf)
+
+
 Reproduce against the exact `lean-toolchain` and `lake-manifest.json`:
 
 ```sh
@@ -65,7 +77,7 @@ In addition to this research repository (see fresh build/audit logs for declarat
    - `350` kernel-verified theorems across `13` modules (`0 sorry`, `0` custom axioms).
    - Master 5-conjunct product theorem: `FrohmanianSymplecticTether.FinalProductTheorem.frohmanian_metriplectic_system_canonical_uniqueness_and_global_regularity_product_theorem` ($P_1 \wedge P_2 \wedge P_3 \wedge P_4 \wedge P_5$).
 2. **[BenFrohman/fefferman-clay-navier-stokes](https://github.com/BenFrohman/fefferman-clay-navier-stokes)** — **Zenodo v1.1.0 DOI:** [`10.5281/zenodo.23717083`](https://doi.org/10.5281/zenodo.23717083) (Concept DOI: [`10.5281/zenodo.23652840`](https://doi.org/10.5281/zenodo.23652840), v1.0.0 DOI: [`10.5281/zenodo.23652841`](https://doi.org/10.5281/zenodo.23652841))
-   - `186` kernel-verified theorems across `6` modules (`0 sorry`, `0` custom axioms).
+   - `224` `theorem`/`lemma` declarations across `7` modules (`0 sorry`, `0` custom axioms), counted in the source at commit `34e5a7f`. The titan audit reports more because it counts compiled/generated constants.
    - Master 5-conjunct product theorem: `FeffermanClayNS.FinalProductTheorem.fefferman_periodic_ns_exact_reduction_product_theorem` ($Q_1(\nu) \wedge Q_2 \wedge Q_3 \wedge Q_4 \wedge Q_5(\nu)$).
 
 ## Companion Manuscript (19 Pages, Oct 2026)
@@ -129,15 +141,16 @@ In addition to this research repository (see fresh build/audit logs for declarat
 >   `convective_norm_le_of_CZ`, `stretching_inner_le`, `stretching_inner_le_at_max`,
 >   `stretching_quartic_le`, `calderon_zygmund_stretching_bound`, the `AssemblyGap` stretching lemmas and
 >   `ConjecturedUnmodifiedTetherPairing` are conditional on a bound that is false in general.
-> - **Time-smoothness & physical-solution non-vacuity repair (`IsPhysicalNSSolution`):**
->   All PDE uniqueness and continuation binders (`KatoLocalWitness`, `existenceTimes`,
->   `restart_of_kato_quantitative`, `FrohmanianTetherBound`, `FrohmanianTetherRate`,
->   `global_regularity_for_NS`, `frohmanian_tether_theorem`) require `IsPhysicalNSSolution`
->   (pointwise time-differentiability + Leray $L^2$ energy inequality), ruling out unphysical
->   time-step fields (`stepField_not_physical`) and establishing joint satisfiability and
->   non-vacuity (`repaired_hInt`, `repaired_huniq_at_zero`, `frohmanianTetherBound_zero`,
->   `frohmanianTetherRate_zero`, `global_regularity_for_NS_nonvacuous_at_zero` in
->   `NS_Millennium_Proof/Modules/ClayStatements.lean`).
+> - **Classical periodic solution (`IsPeriodicSmoothSolution`):** Clay (B) and (D) use joint
+>   `ContDiffOn` smoothness, `navier_stokes_eq_Ici`, and `IsZ3Periodic` in
+>   `NS_Millennium_Proof/Modules/NS_Equations.lean`. `FrohmanianTetherRate` quantifies over that
+>   class with force 0. The rate is open. The zero field is one such solution
+>   (`zero_isPeriodicSmoothSolution`). It is not `FrohmanianTetherRate 0 ν`, and it is not Clay (B) or (D).
+> - **Weak class (`IsPhysicalNSSolution`):** `KatoLocalWitness`, `existenceTimes`,
+>   `restart_of_kato_quantitative`, `FrohmanianTetherBound`, and `conditional_regularity_of_open_hyps`
+>   still use this predicate. It rules out the time-step field (`stepField_not_physical`).
+>   `frohmanianTetherBound_zero` holds on this class. The Takagi field `U` lies in this class and
+>   refutes `FrohmanianTetherBound`. `U` is not a classical solution and is not a Clay (D) witness.
 
 ## Approach at a glance
 
@@ -197,7 +210,7 @@ remains Benjamin Stanley Frohman.
 Original Lean modules use Mathlib's five-line copyright header with
 `Authors: Benjamin Stanley Frohman` (no trailing period). That is the name to ping on
 the Lean Zulip. GitHub: [@BenFrohman](https://github.com/BenFrohman).
-X.com : [Investor0x](https://x.com/Investor0x). Historical commit names `Frohmanian` and
+X.com : [Frohmanian](https://x.com/Frohmanian). Historical commit names `Frohmanian` and
 `BenFrohman` are mapped in [`.mailmap`](.mailmap); git history is not rewritten.
 On PRs, comment `Author: Benjamin Stanley Frohman` when the git author is a handle.
 See [`CONTRIBUTING.md`](CONTRIBUTING.md).
@@ -242,10 +255,10 @@ This repository owns the Zenodo record family below. Do **not** confuse it with
 
 | Role | DOI | Notes |
 |------|-----|-------|
-| **Version DOI (badge / `CITATION.cff`)** | [`10.5281/zenodo.23717084`](https://doi.org/10.5281/zenodo.23717084) | Zenodo **v2.2.0**; pinned to GitHub tag [`v2.2.0`](https://github.com/BenFrohman/NS_Millennium_Proof/tree/v2.2.0) / commit [`8a5ec50`](https://github.com/BenFrohman/NS_Millennium_Proof/commit/8a5ec50aa602318c0c611269731e7d41cd30b75b) |
+| **Version DOI (badge)** | [`10.5281/zenodo.24302372`](https://doi.org/10.5281/zenodo.24302372) | Zenodo **v2.6.0** (published 17 November 2026) |
 | Concept DOI (all versions) | [`10.5281/zenodo.23627609`](https://doi.org/10.5281/zenodo.23627609) | Resolves to the latest deposited version in this family |
-| Latest Zenodo version DOI | [`10.5281/zenodo.23749850`](https://doi.org/10.5281/zenodo.23749850) | Labeled Zenodo **v2.3.0**; still points at the same GitHub `v2.2.0` / `8a5ec50` snapshot and adds one extra PDF. There is **no** GitHub tag `v2.3.0`. |
+| Earlier version | [`10.5281/zenodo.23749850`](https://doi.org/10.5281/zenodo.23749850) | Labeled Zenodo **v2.3.0** |
 | Earlier version | [`10.5281/zenodo.23627610`](https://doi.org/10.5281/zenodo.23627610) | Zenodo **v2.1.0** |
 
-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23717084.svg)](https://doi.org/10.5281/zenodo.23717084) Version DOI for the archived `v2.2.0` release.
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24302372.svg)](https://doi.org/10.5281/zenodo.24302372) Version DOI for Zenodo **v2.6.0**.
 - [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23627609.svg)](https://doi.org/10.5281/zenodo.23627609) Concept DOI for all versions of this record family.

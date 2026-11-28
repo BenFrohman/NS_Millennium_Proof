@@ -1,12 +1,18 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Frohman, Benjamin Stanley
+Authors: Benjamin Stanley Frohman
 -/
 
 module
 
 public import NS_Millennium_Proof.Modules.TorusStrainExclusion
+
+/-!
+# NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
+
+Machine-checked Lean 4 module.
+-/
 
 open scoped BigOperators Gradient Topology
 open ENNReal InnerProductSpace MeasureTheory Finset Filter
@@ -207,6 +213,10 @@ compact-interval predicate and conditional comparison are defined below. -/
 @[expose] public abbrev UniformVorticityEnvelopeBound (ν : ℝ) : Prop :=
   PeriodicDirectionDepletionBound ν
 
+/-- Historical alias for the assumed uniform envelope, NOT a differential inequality.
+(Moved here from `MainTheorem.lean` so that `NS_Millennium_Proof.Semantics` can name it.) -/
+@[expose] public abbrev DirectionCurvatureBound (ν : ℝ) : Prop := UniformVorticityEnvelopeBound ν
+
 /-- A genuinely differential, solution-linked compact-interval hypothesis.
 This is an additional hypothesis, NOT a theorem about Navier--Stokes solutions.
 The boundedness guard makes the real-valued spatial supremum meaningful. Ordinary
@@ -292,7 +302,7 @@ public theorem clay_B_exact_of_torus_direction_depletion
     (hdepl : ∀ ν > (0 : ℝ), PeriodicDirectionDepletionBound ν)
     (hBKM : ∀ ν > (0 : ℝ), PeriodicBKMContinuation ν) :
     Clay_B_exact :=
-  clay_B_exact_of_periodic_tether_bound
+  clay_B_exact_of_periodic_tether_bound_formal
     (fun ν hν => periodicTetherClosingBound_of_directionDepletion (hdepl ν hν))
     hBKM
 

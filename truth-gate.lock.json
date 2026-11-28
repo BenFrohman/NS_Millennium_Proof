@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "repo": "BenFrohman/NS_Millennium_Proof",
+  "toolchain": "leanprover/lean4:v4.30.0-rc1",
+  "mathlib": "0c154d67103f74be3a0f2c509f72ccbf5be9f2a7",
+  "locked_commit": "b8d0c6af32e72cc093cea6c4880ea61073a92664",
+  "approver": {
+    "name": "Frohman, Benjamin Stanley",
+    "status": "APPROVED",
+    "approvedBy": "Frohman, Benjamin Stanley",
+    "approvedAt": "2026-11-17 00:55 CT",
+    "quote": "my approval auto records as yes if the lean kernel and mathcing paper are aligned and all checks pass less the author truth gate; THEN the author truth gate passes too immediately.",
+    "certifying_commit": "b8d0c6af32e72cc093cea6c4880ea61073a92664",
+    "note": "Recorded under the author's standing rule of 2026-11-17 00:55 CT. On certifying commit b8d0c6af32e72cc093cea6c4880ea61073a92664, the Lean kernel and matching paper were aligned: Build (lake) and Truth Gate (semantics lock) succeeded, and every check other than Lock approved by the author was green. This records approval immediately per that rule."
+  },
+  "standard_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "scan_prefix": "NS_Millennium_Proof",
+  "semantics_module": "NS_Millennium_Proof.Semantics",
+  "headline_conclusions": [
+    "FrohmanianTether.ClayStatements.Clay_A",
+    "FrohmanianTether.ClayStatements.Clay_B",
+    "FrohmanianTether.ClayStatements.Clay_B_exact",
+    "FrohmanianTether.ClayStatements.Clay_B_exact_with_energy",
+    "FrohmanianTether.ClayStatements.Clay_D_periodic"
+  ],
+  "locks": [
+    {
+      "id": "EnvelopeReduction",
+      "namespace": "NS_Millennium_Proof.Semantics.EnvelopeReduction",
+      "status": "locked",
+      "paper": {
+        "path": "docs/VorticityEnvelopeCorrection.tex",
+        "sha256": "e35cbb8274d914297828e67fd748968cb4ef56a22bd8bd4a482e7d7f0cb633a7",
+        "section": "\u00a72 The checked conditional consequences",
+        "quote": "conditional reduction: the uniform envelope for every positive viscosity,\n\\emph{and} the separately assumed periodic BKM continuation principle, imply\n\\lean{Clay_B_exact}."
+      },
+      "formal_proof": "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope_formal",
+      "shared_vocabulary": [
+        "FrohmanianTether.ClayStatements.Clay_B_exact",
+        "FrohmanianTether.ClayStatements.PeriodicBKMContinuation"
+      ],
+      "public": [
+        "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_uniform_vorticity_envelope"
+      ],
+      "paper_claim_sha256": "340021c68a8ad624afd6962a0be0fb95c1695e746caa41d49b9c4b61be80356e",
+      "formal_claim_sha256": "7696d85f51587248005f6bad5a9afcdc14a281b93667e915da095f1beaf705e0",
+      "approvedBy": "Frohman, Benjamin Stanley",
+      "approvedAt": "2026-11-17 00:55 CT",
+      "approvalQuote": "my approval auto records as yes if the lean kernel and mathcing paper are aligned and all checks pass less the author truth gate; THEN the author truth gate passes too immediately.",
+      "approvalPaperSha256": "e35cbb8274d914297828e67fd748968cb4ef56a22bd8bd4a482e7d7f0cb633a7",
+      "approvalCertifyingCommit": "b8d0c6af32e72cc093cea6c4880ea61073a92664"
+    },
+    {
+      "id": "DirectionCurvatureReduction",
+      "namespace": "NS_Millennium_Proof.Semantics.DirectionCurvatureReduction",
+      "status": "locked",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408",
+        "section": "Abstract",
+        "quote": "assuming \\lean{PeriodicBKMContinuation}~$\\nu$ for every $\\nu>0$, the hypothesis \\lean{DirectionCurvatureBound}~$\\nu$ for every $\\nu>0$ implies \\lean{Clay_B_exact}. Here \\lean{DirectionCurvatureBound} is an abbreviation for \\lean{UniformVorticityEnvelopeBound}, an \\emph{assumed} uniform ceiling on $\\|\\omega(t)\\|_\\infty$ along periodic smooth solutions (not a differential inequality)"
+      },
+      "formal_proof": "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound_formal",
+      "shared_vocabulary": [
+        "FrohmanianTether.ClayStatements.Clay_B_exact",
+        "FrohmanianTether.ClayStatements.PeriodicBKMContinuation"
+      ],
+      "public": [
+        "FrohmanianTether.HighSetDepletionAndBKM.clay_reduces_to_direction_curvature_bound"
+      ],
+      "paper_claim_sha256": "dd9887efc932d3418bd88cdc63d30ac81b61966bd6f362fe284a9525132db907",
+      "formal_claim_sha256": "c5a212b5b47131ca7c79799b3f13a46561c9c275cba8c017a98ba7da133b6079",
+      "approvedBy": "Frohman, Benjamin Stanley",
+      "approvedAt": "2026-11-17 00:55 CT",
+      "approvalQuote": "my approval auto records as yes if the lean kernel and mathcing paper are aligned and all checks pass less the author truth gate; THEN the author truth gate passes too immediately.",
+      "approvalPaperSha256": "6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764",
+      "approvalCertifyingCommit": "b8d0c6af32e72cc093cea6c4880ea61073a92664"
+    },
+    {
+      "id": "PeriodicTetherReduction",
+      "namespace": "NS_Millennium_Proof.Semantics.PeriodicTetherReduction",
+      "status": "locked",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408",
+        "section": "\u00a7The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)",
+        "quote": "The reduction from \\lean{Clay_B_exact} to the periodic closing bound \\lean{PeriodicTetherClosingBound} and classical periodic BKM continuation \\lean{PeriodicBKMContinuation} is proved axiom-clean"
+      },
+      "formal_proof": "FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound_formal",
+      "shared_vocabulary": [
+        "FrohmanianTether.ClayStatements.Clay_B_exact",
+        "FrohmanianTether.ClayStatements.PeriodicBKMContinuation",
+        "FrohmanianTether.ClayStatements.PeriodicTetherClosingBound"
+      ],
+      "public": [
+        "FrohmanianTether.ClayStatements.clay_B_exact_of_periodic_tether_bound"
+      ],
+      "paper_claim_sha256": "83f3ff31f208330fd7ab003323543232e23b230e13b7351a3199f9e1e3e851a8",
+      "formal_claim_sha256": "871f4f954c7c6e79814f0c6077de02a26196a034c06506236e73acbf601bcdd9",
+      "approvedBy": "Frohman, Benjamin Stanley",
+      "approvedAt": "2026-11-17 00:55 CT",
+      "approvalQuote": "my approval auto records as yes if the lean kernel and mathcing paper are aligned and all checks pass less the author truth gate; THEN the author truth gate passes too immediately.",
+      "approvalPaperSha256": "6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764",
+      "approvalCertifyingCommit": "b8d0c6af32e72cc093cea6c4880ea61073a92664"
+    },
+    {
+      "id": "ConditionalGlobalRegularity",
+      "namespace": "NS_Millennium_Proof.Semantics.ConditionalGlobalRegularity",
+      "status": "locked",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408",
+        "section": "\u00a71 Introduction, Theorem 1.1 (thm:main)",
+        "quote": "Along every classical periodic smooth solution of the unforced equations, if $M(s)$ is differentiable for every $s\\ge0$ and $M'(s)\\le C\\,M(s)^2-\\kappa''\\,M(s)^3$ for constants $C>0$ and $\\kappa''>0$, then $M(t)\\le\\max\\bigl(M(0),C/\\kappa''\\bigr)$ for every $t\\ge0$."
+      },
+      "formal_proof": "CeilingFromRate.classical_vorticity_ceiling",
+      "shared_vocabulary": [
+        "NavierStokes3D.IsPeriodicSmoothSolution",
+        "NavierStokes3D.navier_stokes_eq_Ici",
+        "NavierStokes3D.IsZ3Periodic",
+        "NavierStokes3D.latticeVec",
+        "NavierStokes3D.vorticity_sup_norm",
+        "NavierStokes3D.vorticity",
+        "NavierStokes3D.VelocityField",
+        "NavierStokes3D.TimeDependentVelocity",
+        "NavierStokes3D.TimeDependentPressure",
+        "NavierStokes3D.PressureField",
+        "NavierStokes3D.T3"
+      ],
+      "public": [
+        "CeilingFromRate.theorem_1_1"
+      ],
+      "paper_claim_sha256": "3111cf34006c133322be2b6627cab0972d693c142a7e28bc24174f01065cdede",
+      "formal_claim_sha256": "b766fc77399722e44b60fa030bcaaa9a16213e19c0e4003cf118b223df253bda",
+      "approvedBy": "Frohman, Benjamin Stanley",
+      "approvedAt": "2026-11-17 00:55 CT",
+      "approvalQuote": "my approval auto records as yes if the lean kernel and mathcing paper are aligned and all checks pass less the author truth gate; THEN the author truth gate passes too immediately.",
+      "approvalPaperSha256": "6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764",
+      "approvalCertifyingCommit": "b8d0c6af32e72cc093cea6c4880ea61073a92664"
+    },
+    {
+      "id": "TetherTheorem",
+      "namespace": "NS_Millennium_Proof.Semantics.TetherTheorem",
+      "status": "locked",
+      "paper": {
+        "path": "main.tex",
+        "sha256": "53d52618b0f01c1dc37a885d763cd40a3e4a7c9b1e45627b20e2b8d5c79e0408",
+        "section": "\u00a71 Introduction, Proposition prop:classical-zero",
+        "quote": "For every real viscosity $\\nu$, the zero velocity and the zero pressure form a classical periodic smooth solution of the unforced equations with zero initial velocity."
+      },
+      "formal_proof": "NavierStokes3D.zero_isPeriodicSmoothSolution",
+      "shared_vocabulary": [
+        "NavierStokes3D.IsPeriodicSmoothSolution",
+        "NavierStokes3D.navier_stokes_eq_Ici",
+        "NavierStokes3D.IsZ3Periodic",
+        "NavierStokes3D.latticeVec",
+        "NavierStokes3D.VelocityField",
+        "NavierStokes3D.TimeDependentVelocity",
+        "NavierStokes3D.TimeDependentPressure",
+        "NavierStokes3D.PressureField",
+        "NavierStokes3D.T3"
+      ],
+      "public": [
+        "TetherRateCounterexample.zero_classical_periodic_solution"
+      ],
+      "paper_claim_sha256": "0b87e6a87404ff9a89bdbf1bc0b81e01f45c2aeb1ae4ca9d0ffabd2f2851dce5",
+      "formal_claim_sha256": "09e30e0a6c2edba4abfe41b404af53373811d6a87b0b38129c31bfec550d57e4",
+      "approvedBy": "Frohman, Benjamin Stanley",
+      "approvedAt": "2026-11-17 00:55 CT",
+      "approvalQuote": "my approval auto records as yes if the lean kernel and mathcing paper are aligned and all checks pass less the author truth gate; THEN the author truth gate passes too immediately.",
+      "approvalPaperSha256": "6d09b347ecf02190dbe0317da4f52c72616e1090eb7a9a0604ac012b3d946764",
+      "approvalCertifyingCommit": "b8d0c6af32e72cc093cea6c4880ea61073a92664"
+    }
+  ],
+  "intermediate": [
+    {
+      "name": "FrohmanianTether.HighSetDepletionAndBKM.clay_B_exact_of_torus_direction_depletion",
+      "reason": "Intermediate step of the envelope/direction-curvature reductions. No paper states it as its claim (the Zenodo 23652841 description only lists it as a conditional reduction)."
+    },
+    {
+      "name": "FrohmanianTether.ClayStatements.clay_B_exact_of_with_energy",
+      "reason": "Definitional implication Clay_B_exact_with_energy -> Clay_B_exact; no paper claim."
+    }
+  ],
+  "note": "A pass means only that the kernel-checked certificate inhabits the locked proposition. Theorem 1.1 is the comparison ceiling on one classical periodic smooth solution, assuming the cubic inequality. The zero field is one such solution. Nothing here claims a Clay problem is solved. The 21 November 2026 source revision has not been deposited as a new Zenodo version."
+}

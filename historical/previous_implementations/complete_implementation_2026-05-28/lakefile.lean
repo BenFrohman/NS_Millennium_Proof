@@ -5,6 +5,13 @@ Authors: Benjamin Stanley Frohman
 -/
 
 import Lake
+
+/-!
+# historical.previous_implementations.complete_implementation_2026-05-28.lakefile
+
+Machine-checked Lean 4 module.
+-/
+
 open Lake DSL
 
 package NS_Millennium_Proof where

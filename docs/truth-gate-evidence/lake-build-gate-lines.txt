@@ -1,0 +1,18 @@
+info: NS_Millennium_Proof.lean:53:0: TOTAL theorems=630 nonstandard=0
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE OBSERVE EnvelopeReduction: paper_claim [docs/VorticityEnvelopeCorrection.tex § §2 The checked conditional consequences] := ((∀
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE OBSERVE DirectionCurvatureReduction: paper_claim [main.tex § Abstract] := (∀ (ν : ℝ),
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE OBSERVE PeriodicTetherReduction: paper_claim [main.tex § §The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)] := ((∀
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE OBSERVE ConditionalGlobalRegularity: paper_claim [main.tex § §1 Introduction, Theorem 1.1 (thm:main)] := NS_Millennium_Proof.Semantics.PaperTheorem11
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE OBSERVE TetherTheorem: paper_claim [main.tex § §1 Introduction, Theorem 1.1 (thm:main)] := NS_Millennium_Proof.Semantics.PaperTheorem11
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE PASS EnvelopeReduction
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE PASS DirectionCurvatureReduction
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE PASS PeriodicTetherReduction
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE RED ConditionalGlobalRegularity: 1 failure(s)
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE RED TetherTheorem: 1 failure(s)
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE FAIL DRIFT ConditionalGlobalRegularity: main.tex Theorem 1.1 is attributed to global_regularity_for_NS, but Lean proves a different statement: it assumes the time-uniform bound FrohmanianTetherBound instead of the paper's cubic rate (R) FrohmanianTetherRate, one given Kato witness instead of (K) local existence from every datum, and its conclusion has no ceiling M(t) <= max(M(0), C/kappa''). Theorem 1.1 as transcribed (Semantics.PaperTheorem11) is unsettled in Lean: not proved, not disproved. Needs the author's decision.
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE FAIL DRIFT TetherTheorem: main.tex Theorem 1.1 is attributed to frohmanian_tether_theorem, whose hypothesis hDI : forall u0 nu, FrohmanianTetherRate u0 nu is unsatisfiable (TetherRateCounterexample.frohmanian_tether_theorem_hDI_unsatisfiable, proved). The theorem is vacuous and is not Theorem 1.1. Needs the author's decision.
+info: NS_Millennium_Proof.lean:83:0: TRUTH GATE SUMMARY locks=5 failures=2
+error: NS_Millennium_Proof.lean:83:0: TRUTH GATE FAILED: 2 failure(s); see TRUTH GATE FAIL lines
+error: Lean exited with code 1
+error: build failed
+EXIT 1

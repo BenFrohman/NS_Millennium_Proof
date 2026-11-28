@@ -13,6 +13,12 @@ import Modules.SymplecticTether
 import Modules.IndependentMajorant
 import Modules.AnalyticEstimates
 
+/-!
+# historical.previous_implementations.complete_implementation_2026-05-28.NS_Millennium_Proof
+
+Machine-checked Lean 4 module.
+-/
+
 export SymplecticTether (TetheredBracket TetherKernel theorem_2_3_uniqueness_of_the_minimal_correction)
 
 /-! Minimal clean root for verification (Lean 4.28.0).

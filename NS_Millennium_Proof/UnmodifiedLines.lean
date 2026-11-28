@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Benjamin Stanley Frohman
 -/
 
+import Mathlib.Data.Real.Basic
+
 /-
 Replacements for the two pasted lines.
 
@@ -12,6 +14,12 @@ The pasted body `fun x => ν • (fun _ => 0) x` is the zero field.
 Neither is committed as a definition of the equation.
 
 Author: Benjamin Stanley Frohman.
+-/
+
+/-!
+# NS_Millennium_Proof.UnmodifiedLines
+
+Machine-checked Lean 4 module.
 -/
 
 namespace Frohmanian

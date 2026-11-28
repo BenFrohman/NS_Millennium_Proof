@@ -1,0 +1,65 @@
+name: truth-gate
+
+# The Truth Gate (see TRUTH_GATE.md). Red on: a failed lake build (the root module runs the
+# gate in-build), a missing Semantics module, an aliased or rfl correspondence, sorry/admit,
+# native_decide, non-standard axioms, a statement or paper hash mismatch, a missing quote, an
+# untransported public theorem, an unregistered headline theorem, or a recorded drift.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  truth-gate:
+    name: Truth Gate (semantics lock)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch Mathlib build cache (Mathlib is never rebuilt here)
+        run: lake exe cache get
+
+      - name: Build every module except the root (the gate's inputs)
+        run: |
+          mods=$(grep '^import NS_Millennium_Proof\.' scripts/SemanticsLock.lean | sed 's/^import //')
+          lake build $mods
+
+      - name: Static lock-region check (shared Truth Gate format)
+        run: python3 scripts/truth_gate_check.py
+
+      - name: Negative fixtures (each broken lock must turn the gate red)
+        run: bash scripts/truth-gate-tests/run.sh
+
+      - name: Standalone gate - observation pass, every lock, axioms
+        run: |
+          set -o pipefail
+          lake env lean scripts/SemanticsLock.lean 2>&1 | tee semantics-lock.txt
+
+      - name: Full verification (lake build with the in-build gate, static checks, provenance)
+        run: bash scripts/verify-lock.sh
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: truth-gate-report
+          path: |
+            semantics-lock.txt
+            truth-gate-report/

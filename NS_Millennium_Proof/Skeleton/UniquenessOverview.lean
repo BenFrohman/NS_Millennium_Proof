@@ -7,6 +7,8 @@ Authors: Benjamin Stanley Frohman
 module
 
 /-!
+# NS_Millennium_Proof.Skeleton.UniquenessOverview
+
 This file is part of the Lean 4 formalization of the Frohmanian Symplectic Tether Theorem.
 
 See the root document `LaTeX_Lean_Relationship.md` §3 (mapping table) and §5 (Future Extension)
@@ -69,7 +71,7 @@ Classical NS PDE + Coadjoint Orbit Geometry
           ↓
    Independent Majorant + Differential Inequality (TetheredLyapunov, Layer 2)
           ↓
-   Global Regularity Corollary (GlobalRegularity)
+   Global Regularity Corollary (ConditionalRegularity)
           ↓
    [Future] Metriplectic Structure + Conjecture
           ↓

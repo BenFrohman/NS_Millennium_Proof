@@ -1,0 +1,17 @@
+TRUTH GATE OBSERVE EnvelopeReduction: paper_claim [docs/VorticityEnvelopeCorrection.tex § §2 The checked conditional consequences] := ((∀
+      (ν : ℝ), 0 < ν → NS_Millennium_Proof.Semantics.PaperUniformEnvelope ν) ∧
+    ∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  FrohmanianTether.ClayStatements.Clay_B_exact
+TRUTH GATE OBSERVE DirectionCurvatureReduction: paper_claim [main.tex § Abstract] := (∀ (ν : ℝ),
+    0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  (∀ (ν : ℝ), 0 < ν → NS_Millennium_Proof.Semantics.PaperUniformCeiling ν) →
+    FrohmanianTether.ClayStatements.Clay_B_exact
+TRUTH GATE OBSERVE PeriodicTetherReduction: paper_claim [main.tex § §The Periodic Clay (B) Statement and Scaling Analysis (sec:clay)] := ((∀
+      (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicTetherClosingBound ν) ∧
+    ∀ (ν : ℝ), 0 < ν → FrohmanianTether.ClayStatements.PeriodicBKMContinuation ν) →
+  FrohmanianTether.ClayStatements.Clay_B_exact
+TRUTH GATE PASS EnvelopeReduction
+TRUTH GATE PASS DirectionCurvatureReduction
+TRUTH GATE PASS PeriodicTetherReduction
+TRUTH GATE SUMMARY locks=3 failures=0
+EXIT 0

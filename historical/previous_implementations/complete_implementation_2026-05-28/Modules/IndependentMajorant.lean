@@ -7,7 +7,7 @@ Authors: Benjamin Stanley Frohman
 /-!
 # Phase 2: Independent Comparison Majorant and Corrected Lemma 3.1
 
-This module contains the pure ODE majorant and the finite-subinterval 
+This module contains the pure ODE majorant and the finite-subinterval
 control argument (the key non-circularity fix from PASS 5 in the living document).
 
 The comparison y(t) is completely independent of the NS solution.

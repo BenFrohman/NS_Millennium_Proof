@@ -7,6 +7,7 @@ Authors: Benjamin Stanley Frohman
 -- Axiom audit for the default build target. Run: lake env lean scripts/AxiomAudit.lean
 -- Fails (non-zero exit) if any theorem depends on axioms beyond propext/Classical.choice/Quot.sound.
 
+import NS_Millennium_Proof.Semantics
 import NS_Millennium_Proof.Definitions.FrohmanianTether
 import NS_Millennium_Proof.Modules.AnalyticPipeline
 import NS_Millennium_Proof.Modules.Stage6Calculus
@@ -18,7 +19,7 @@ import NS_Millennium_Proof.Modules.ClayStatements
 import NS_Millennium_Proof.Modules.ClosureBlueprint
 import NS_Millennium_Proof.Modules.CubicSourceCertificate
 import NS_Millennium_Proof.Modules.ForMathlib.Projection
-import NS_Millennium_Proof.Modules.GlobalRegularity
+import NS_Millennium_Proof.Modules.ConditionalRegularity
 import NS_Millennium_Proof.Modules.IndependentMajorant
 import NS_Millennium_Proof.Modules.NS_Equations
 import NS_Millennium_Proof.Modules.SymplecticTether
@@ -27,6 +28,13 @@ import NS_Millennium_Proof.Modules.Uniqueness
 import NS_Millennium_Proof.Modules.TorusStrainExclusion
 import NS_Millennium_Proof.Modules.HighSetDepletionAndBKM
 import NS_Millennium_Proof.Modules.SymplecticConstraint
+
+/-!
+# scripts.AxiomAudit
+
+Machine-checked Lean 4 module.
+-/
+
 open Lean Elab Command
 #eval show CommandElabM Unit from do
   let env ← getEnv

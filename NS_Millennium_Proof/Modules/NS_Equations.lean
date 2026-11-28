@@ -27,6 +27,7 @@ public import Mathlib.Data.ENNReal.Basic
 public import Mathlib.Data.Real.Basic
 public import Mathlib.Data.Real.Archimedean
 public import Mathlib.Data.Set.Basic
+public import Mathlib.Data.Set.Prod
 public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 public import Mathlib.Tactic.Ring
 public import Mathlib.Tactic.Abel
@@ -43,6 +44,12 @@ public import Mathlib.Topology.Separation.Hausdorff
 public import Mathlib.Analysis.Calculus.MeanValue
 public import Mathlib.Analysis.ODE.Gronwall
 public import Mathlib.Analysis.SpecialFunctions.Log.Basic
+
+/-!
+# NS_Millennium_Proof.Modules.NS_Equations
+
+Machine-checked Lean 4 module.
+-/
 
 open scoped BigOperators Gradient Topology
 open ENNReal InnerProductSpace MeasureTheory Finset Filter
@@ -2153,6 +2160,44 @@ postfix:90 "_div" => fun u x => div u x
         ν • laplacian (u t) x ∧
       div (u t) x = 0
 
+/-! ## Classical periodic solution (Fefferman (B) and (D))
+
+`NS_PDE` is the two-sided `deriv` identity. Off differentiability Mathlib's `deriv` and
+`fderiv` are `0`, so that predicate does not say a field is a classical solution.
+Fefferman's periodic problem uses a jointly smooth field on `[0, ∞) × ℝ³`, the one-sided
+derivative `derivWithin … (Set.Ici 0)`, zero force, and `ℤ³` periodicity. -/
+
+/-- The lattice vector `∑ⱼ kⱼ eⱼ` for `k ∈ ℤ³`. -/
+@[expose] public noncomputable def latticeVec (k : Fin 3 → ℤ) : T3 :=
+  ∑ j : Fin 3, ((k j : ℤ) : ℝ) • EuclideanSpace.single j (1 : ℝ)
+
+/-- `f` is `ℤ³`-periodic, i.e. descends to `ℝ³/ℤ³`. -/
+@[expose] public def IsZ3Periodic {α : Type*} (f : T3 → α) : Prop :=
+  ∀ (k : Fin 3 → ℤ) (x : T3), f (x + latticeVec k) = f x
+
+/-- Unit cell `[0,1]³` (integration domain for the cell energy). -/
+@[expose] public def unitCube : Set T3 := {x | ∀ i : Fin 3, x i ∈ Set.Icc (0 : ℝ) 1}
+
+/-- Fefferman (1)+(2) on `ℝ³ × [0, ∞)` with force `f`, one-sided time derivative. -/
+@[expose] public def navier_stokes_eq_Ici (u : TimeDependentVelocity) (p : TimeDependentPressure)
+    (ν : ℝ) (f : ℝ → T3 → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  ∀ t ≥ (0 : ℝ), ∀ x : T3,
+    derivWithin (fun s => u s x) (Set.Ici 0) t + convective (u t) (u t) x +
+        pressureGradient (p t) x = ν • laplacian (u t) x + f t x ∧
+      div (u t) x = 0
+
+/-- Admissible solution for Clay (B) and (D): (1), (2), (3), (10) with the pressure
+erratum, and (11). Smoothness is `ContDiffOn ℝ (⊤ : ℕ∞)` jointly in `(t, x)` on
+`[0, ∞) × ℝ³`. -/
+@[expose] public def IsPeriodicSmoothSolution (ν : ℝ) (u₀ : VelocityField)
+    (f : ℝ → T3 → EuclideanSpace ℝ (Fin 3))
+    (u : TimeDependentVelocity) (p : TimeDependentPressure) : Prop :=
+  ContDiffOn ℝ (⊤ : ℕ∞) (fun q : ℝ × T3 => u q.1 q.2) (Set.Ici (0 : ℝ) ×ˢ Set.univ) ∧
+  ContDiffOn ℝ (⊤ : ℕ∞) (fun q : ℝ × T3 => p q.1 q.2) (Set.Ici (0 : ℝ) ×ˢ Set.univ) ∧
+  navier_stokes_eq_Ici u p ν f ∧
+  u 0 = u₀ ∧
+  ∀ t ≥ (0 : ℝ), IsZ3Periodic (u t) ∧ IsZ3Periodic (p t)
+
 @[expose] public def vorticity (u : Velocity) : Vorticity := fun x => curl u x
 
 /-- Vorticity transport at one spacetime point: take the curl of NS (paper §2.1).
@@ -2430,13 +2475,29 @@ public structure KatoLocalWitness (u₀ : VelocityField) (ν : ℝ) where
   phys : IsPhysicalNSSolution u
 
 /-- Local existence of a smooth solution on a short interval (Kato 1972 / Leray 1934).
-The witness is the Kato/Leray construction; the implication is kernel-closed. -/
+
+Stated from a smooth, divergence-free, finite-energy initial field and `0 < ν`.
+Those four hypotheses are the theorem. This is not proved.
+Unpacking a `KatoLocalWitness` is `local_existence_of_witness`.
+
+Author: Benjamin Stanley Frohman.
+Mathematical source: Kato (1972), Leray (1934). -/
 public theorem local_existence
     (u₀ : VelocityField) (ν : ℝ)
-    (_h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
-    (_h_divfree : ∀ x, div u₀ x = 0)
-    (_h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
-    (_hν : 0 < ν)
+    (h_smooth : ContDiff ℝ (⊤ : ℕ∞) u₀)
+    (h_divfree : ∀ x, div u₀ x = 0)
+    (h_finite : Integrable (fun x : T3 => ‖u₀ x‖ ^ 2))
+    (hν : 0 < ν) :
+    ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
+      (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
+      u 0 = u₀ ∧
+      IsPhysicalNSSolution u ∧
+      ∃ p : ℝ → PressureField, NS_PDE u p ν := by
+  sorry
+
+/-- The fields stored in a `KatoLocalWitness`. Not Kato/Leray local existence. -/
+public theorem local_existence_of_witness
+    (u₀ : VelocityField) (ν : ℝ)
     (w : KatoLocalWitness u₀ ν) :
     ∃ T > (0 : ℝ), ∃ u : ℝ → VelocityField,
       (∀ t ∈ Set.Icc 0 T, ContDiff ℝ (⊤ : ℕ∞) (u t)) ∧
@@ -2545,6 +2606,40 @@ public theorem pressureGradient_const (c : ℝ) (x : T3) :
     pressureGradient (fun _ => c) x = 0 := by
   unfold pressureGradient
   simp [gradient_fun_const]
+
+/-- The rest state is one classical periodic smooth solution of the unforced equations.
+This is the zero datum only. It is not `Clay_B_exact`, which requires a solution from
+every smooth divergence-free periodic field, and it is not a witness for `Clay_D_periodic`. -/
+public theorem zero_isPeriodicSmoothSolution (ν : ℝ) :
+    IsPeriodicSmoothSolution ν (0 : VelocityField)
+      (fun _ _ => (0 : EuclideanSpace ℝ (Fin 3)))
+      (fun _ => (0 : VelocityField))
+      (fun _ => (0 : PressureField)) := by
+  refine ⟨contDiffOn_const, contDiffOn_const, ?_, rfl, ?_⟩
+  · intro t _ht x
+    constructor
+    · have hfun :
+          (fun s : ℝ => ((fun _ : ℝ => (0 : VelocityField)) s) x) =
+            fun _ : ℝ => (0 : EuclideanSpace ℝ (Fin 3)) := by
+        funext s
+        rfl
+      have hdt :
+          derivWithin (fun s : ℝ => ((fun _ : ℝ => (0 : VelocityField)) s) x)
+            (Set.Ici (0 : ℝ)) t = 0 := by
+        rw [hfun]
+        exact congrFun
+          (derivWithin_fun_const (Set.Ici (0 : ℝ)) (0 : EuclideanSpace ℝ (Fin 3))) t
+      have hcv : convective ((fun _ => (0 : VelocityField)) t) 0 x = 0 :=
+        convective_zero x
+      have hp : pressureGradient ((fun _ => (0 : PressureField)) t) x = 0 :=
+        pressureGradient_const 0 x
+      have hl : laplacian ((fun _ => (0 : VelocityField)) t) x = 0 :=
+        laplacian_zero x
+      rw [hdt, hcv, hp, hl, smul_zero]
+      simp
+    · exact div_zero_field x
+  · intro _t _ht
+    exact ⟨fun _k _x => rfl, fun _k _x => rfl⟩
 
 /-- The zero velocity with zero pressure solves incompressible NS for any viscosity. -/
 public theorem navier_stokes_eq_zero (ν : ℝ) :
